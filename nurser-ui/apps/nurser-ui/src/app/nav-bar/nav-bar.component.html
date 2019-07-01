@@ -25,7 +25,7 @@
         </div>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto" *ngIf="!(identity$ | async)">
+    <ul class="navbar-nav ml-auto" *ngIf="(identity$ | async) === null">
       <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
       <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
       <li class="nav-item"><a class="nav-link" (click)="signinRedirect()">Login</a></li>
