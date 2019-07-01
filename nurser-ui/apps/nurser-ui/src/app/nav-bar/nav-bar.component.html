@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+  <a class="navbar-brand" title="MasterCorp Management Console" [routerLink]="['/home']"> Nurser </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+    (click)="toggleCollapsed()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent"
+    [ngClass]="{ collapse: collapsed, 'navbar-collapse': true }">
+    <ul class="navbar-nav ml-auto" *ngIf="(identity$ | async)">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/employees']"> Nurses <span class="sr-only">(current)</span> </a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="#">Learning Modules</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="['/certifications']">Certificates</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+      <li dropdown class="nav-item dropdown ml-4">
+        <a dropdownToggle class="nav-link dropdown-toggle text-right px-2" id="navbarDropdown"
+          role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ email$ | async }}
+        </a>
+        <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item border-top" (click)="signoutRedirect()">Logout</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="!(identity$ | async)">
+      <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" (click)="signinRedirect()">Login</a></li>
+    </ul>
+  </div>
+</nav>
