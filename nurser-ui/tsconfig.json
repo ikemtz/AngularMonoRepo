@@ -15,7 +15,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@env/*": ["apps/nurser-ui/src/app/environments/*"],
+      "@imao/auth0-oidc": ["libs/imao-auth0-oidc/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

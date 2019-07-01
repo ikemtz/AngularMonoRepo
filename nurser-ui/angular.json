@@ -40,7 +40,6 @@
                 "input": "node_modules/oidc-client/dist",
                 "output": "/"
               }
-            
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -103,10 +102,7 @@
               "apps/nurser-ui/tsconfig.app.json",
               "apps/nurser-ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/nurser-ui/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/nurser-ui/**"]
           }
         },
         "test": {
@@ -148,11 +144,46 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/nurser-ui-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/nurser-ui-e2e/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/nurser-ui-e2e/**"]
           }
+        }
+      }
+    },
+    "imao-auth0-oidc": {
+      "projectType": "library",
+      "root": "libs/imao-auth0-oidc",
+      "sourceRoot": "libs/imao-auth0-oidc/src",
+      "prefix": "imao",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/imao-auth0-oidc/tsconfig.lib.json",
+            "project": "libs/imao-auth0-oidc/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/imao-auth0-oidc/tsconfig.lib.json",
+              "libs/imao-auth0-oidc/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/imao-auth0-oidc/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imao-auth0-oidc/jest.config.js",
+            "tsConfig": "libs/imao-auth0-oidc/tsconfig.spec.json",
+            "setupFile": "libs/imao-auth0-oidc/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }

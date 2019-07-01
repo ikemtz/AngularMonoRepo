@@ -13,6 +13,9 @@
     },
     "nurser-ui": {
       "tags": ["ngnu"]
+    },
+    "imao-auth0-oidc": {
+      "tags": ["imao"]
     }
   }
 }

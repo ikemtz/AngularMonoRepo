@@ -1,0 +1,26 @@
+{
+  "name": "ng-auth0-oidc",
+  "version": "0.0.1",
+  "description": "Small library to facilitate the integration of the ng-oidc-client library with the Auth0 identity provider.",
+  "author": "Isaac Martinez <@ikemtz>",
+  "license": "MIT",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json",
+    "copyPackageJson": "copyfiles package.json dist",
+    "release:semantic": "semantic-release pre && npm run copyPackageJson && npm publish dist && semantic-release post"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "ng-oidc-client": "^1.0.5"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.1.0",
+    "ng-packagr": "^5.3.0",
+    "semantic-release": "^15.13.18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikemtz/Nurser.git"
+  }
+}
