@@ -15,13 +15,13 @@ import { AppFacade } from './+state/app.facade';
 import { NxModule } from '@nrwl/angular';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { storeFreeze } from 'ngrx-store-freeze';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app.routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgOidcClientModule } from 'ng-oidc-client';
 import { auth0Configurator, AuthGuard } from '@imao/auth0-oidc';
+
 @NgModule({
   declarations: [AppComponent, NavBarComponent, HomeComponent],
   imports: [
@@ -34,7 +34,7 @@ import { auth0Configurator, AuthGuard } from '@imao/auth0-oidc';
       { app: appReducer },
       {
         initialState: { app: appInitialState },
-        metaReducers: !environment.production ? [storeFreeze] : []
+        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
       }
     ),
     EffectsModule.forRoot([AppEffects]),
