@@ -60,7 +60,7 @@
     "ng-oidc-client": "^1.0.5",
     "ngx-bootstrap": "^5.0.0",
     "oidc-client": "^1.8.2",
-    "rxjs": "~6.4.0",
+    "rxjs": "~6.5.2",
     "zone.js": "^0.9.1"
   },
   "devDependencies": {

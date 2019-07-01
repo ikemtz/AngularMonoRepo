@@ -44,21 +44,21 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     NgOidcClientModule.forRoot({
       oidc_config: {
-        authority: 'https://nurser.auth0.com',
-        client_id: 'NlqroNO9CSspZo7UUsW5Cq8jRrWy1vbn',
-        extraQueryParams: { audience: 'nurser' },
-        redirect_uri: 'http://localhost:4200/callback.html',
+        authority: environment.oidc_config.authority,
+        client_id: environment.oidc_config.client_id,
+        extraQueryParams: { audience: environment.oidc_config.audience },
+        redirect_uri: `${window.location.origin}/callback.html`,
         response_type: 'id_token token',
         scope: 'openid profile offline_access email',
-        post_logout_redirect_uri: 'http://localhost:4200/signout-callback.html',
-        silent_redirect_uri: 'http://localhost:4200/renew-callback.html',
+        post_logout_redirect_uri: `${window.location.origin}/signout-callback.html`,
+        silent_redirect_uri: `${window.location.origin}/renew-callback.html`,
         automaticSilentRenew: true,
         metadata: {
-          issuer: 'https://nurser.auth0.com/',
-          authorization_endpoint: 'https://nurser.auth0.com/authorize',
-          userinfo_endpoint: 'https://nurser.auth0.com/userinfo',
+          issuer: `${environment.oidc_config.authority}/`,
+          authorization_endpoint: `${environment.oidc_config.authority}/authorize`,
+          userinfo_endpoint: `${environment.oidc_config.authority}/userinfo`,
           end_session_endpoint:
-            'https://nurser.auth0.com/v2/logout?client_id=NlqroNO9CSspZo7UUsW5Cq8jRrWy1vbn&returnTo=http%3A%2F%2Flocalhost%3A4200%2Fsignout-callback.html'
+          `${environment.oidc_config.authority}/v2/logout?client_id=NlqroNO9CSspZo7UUsW5Cq8jRrWy1vbn&returnTo=${window.location.origin}/signout-callback.html`
         },
         stateStore: new WebStorageStateStore({ store: localStorage }),
       }, log: {
