@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 /nurser-ui/libs/imao-auth0-oidc/dist
 /nurser-ui/libs/imko-kendo-odata/dist
+/nurser-ui/libs/imai-application-insights-ngrx/dist

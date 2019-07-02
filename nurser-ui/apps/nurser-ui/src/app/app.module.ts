@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, META_REDUCERS } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import {
   APP_FEATURE_KEY,
@@ -21,12 +21,12 @@ import { AppRoutingModule } from './app.routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgOidcClientModule } from 'ng-oidc-client';
 import { auth0Configurator, AuthGuard } from '@imao/auth0-oidc';
+import { AppInsightsNgrxModule, AppInsightsVerboseRootEffects, AppInsightsInfoRootEffects } from '@imai/application-insights-ngrx';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, HomeComponent],
   imports: [
     BrowserModule,
-    GridModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     NxModule.forRoot(),
@@ -34,14 +34,16 @@ import { auth0Configurator, AuthGuard } from '@imao/auth0-oidc';
       { app: appReducer },
       {
         initialState: { app: appInitialState },
-        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
+        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
       }
     ),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([AppEffects, environment.production ? AppInsightsInfoRootEffects : AppInsightsVerboseRootEffects]),
     BsDropdownModule.forRoot(),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
     NgOidcClientModule.forRoot(auth0Configurator(environment.auth0_options)),
-
+    StoreDevtoolsModule.instrument({
+      logOnly: environment.production
+    }),
+    AppInsightsNgrxModule.forRoot(environment.appInsights),
   ],
   providers: [AppFacade, AuthGuard],
   bootstrap: [AppComponent]

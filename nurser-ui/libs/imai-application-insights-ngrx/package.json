@@ -1,0 +1,26 @@
+{
+  "name": "imng-application-insights-ngrx",
+  "version": "0.0.1",
+  "description": "Small library to facilitate the integration of Application Insights with an NGRX metaReducer.",
+  "author": "Isaac Martinez <@ikemtz>",
+  "license": "MIT",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json",
+    "copyPackageJson": "copyfiles package.json dist",
+    "release:semantic": "semantic-release --prepare && npm run copyPackageJson && npm publish dist && semantic-release post"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@ngrx/store": "^8.0.1",
+    "@ngrx/effects": "^8.0.1",
+    "rxjs": "^6.5.2"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.1.0",
+    "ng-packagr": "^5.3.0"
+  },
+  "dependencies": {
+    "@microsoft/applicationinsights-web": "^2.0.1"
+  }
+}

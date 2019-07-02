@@ -215,6 +215,44 @@
           "styleext": "scss"
         }
       }
+    },
+    "imai-application-insights-ngrx": {
+      "projectType": "library",
+      "root": "libs/imai-application-insights-ngrx",
+      "sourceRoot": "libs/imai-application-insights-ngrx/src",
+      "prefix": "imai",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/imai-application-insights-ngrx/tsconfig.lib.json",
+            "project": "libs/imai-application-insights-ngrx/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/imai-application-insights-ngrx/tsconfig.lib.json",
+              "libs/imai-application-insights-ngrx/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/imai-application-insights-ngrx/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imai-application-insights-ngrx/jest.config.js",
+            "tsConfig": "libs/imai-application-insights-ngrx/tsconfig.spec.json",
+            "setupFile": "libs/imai-application-insights-ngrx/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

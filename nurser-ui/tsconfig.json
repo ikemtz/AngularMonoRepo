@@ -18,7 +18,8 @@
     "paths": {
       "@env/*": ["apps/nurser-ui/src/app/environments/*"],
       "@imao/auth0-oidc": ["libs/imao-auth0-oidc/src/index.ts"],
-      "@imko/kendo-odata": ["libs/imko-kendo-odata/src/index.ts"]
+      "@imko/kendo-odata": ["libs/imko-kendo-odata/src/index.ts"],
+      "@imai/application-insights-ngrx": ["libs/imai-application-insights-ngrx/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
