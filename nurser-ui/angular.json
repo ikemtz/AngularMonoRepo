@@ -98,10 +98,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/nurser-ui/tsconfig.app.json",
-              "apps/nurser-ui/tsconfig.spec.json"
-            ],
+            "tsConfig": ["apps/nurser-ui/tsconfig.app.json", "apps/nurser-ui/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!apps/nurser-ui/**"]
           }
         },
@@ -165,10 +162,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/imao-auth0-oidc/tsconfig.lib.json",
-              "libs/imao-auth0-oidc/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/imao-auth0-oidc/tsconfig.lib.json", "libs/imao-auth0-oidc/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/imao-auth0-oidc/**"]
           }
         },
@@ -178,6 +172,41 @@
             "jestConfig": "libs/imao-auth0-oidc/jest.config.js",
             "tsConfig": "libs/imao-auth0-oidc/tsconfig.spec.json",
             "setupFile": "libs/imao-auth0-oidc/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "imko-kendo-odata": {
+      "projectType": "library",
+      "root": "libs/imko-kendo-odata",
+      "sourceRoot": "libs/imko-kendo-odata/src",
+      "prefix": "imko",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/imko-kendo-odata/tsconfig.lib.json",
+            "project": "libs/imko-kendo-odata/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/imko-kendo-odata/tsconfig.lib.json", "libs/imko-kendo-odata/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imko-kendo-odata/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imko-kendo-odata/jest.config.js",
+            "tsConfig": "libs/imko-kendo-odata/tsconfig.spec.json",
+            "setupFile": "libs/imko-kendo-odata/src/test-setup.ts"
           }
         }
       },

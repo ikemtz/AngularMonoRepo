@@ -1,0 +1,35 @@
+{
+  "/employeesWebApi": {
+    "target": "https://im-wa-empa-nrsr.azurewebsites.net",
+    "secure": true,
+    "pathRewrite": {
+      "^/employeesWebApi": ""
+    },
+    "changeOrigin": true
+  },
+  "/employeesOData": {
+    "target": "https://im-wa-empo-nrsr.azurewebsites.net",
+    "secure": true,
+    "pathRewrite": {
+      "^/employeesOData": ""
+    },
+    "changeOrigin": true
+  },
+  "/certificationsWebApi": {
+    "target": "https://im-wa-crta-nrsr.azurewebsites.net",
+    "secure": true,
+    "pathRewrite": {
+      "^/certificationsWebApi": ""
+    },
+    "changeOrigin": true
+  },
+  "/certificationsOData": {
+    "target": "https://im-wa-crto-nrsr.azurewebsites.net",
+    "secure": true,
+    "pathRewrite": {
+      "^/certificationsOData": ""
+    },
+    "changeOrigin": true,
+    "_logLevel": "debug"
+  }
+}

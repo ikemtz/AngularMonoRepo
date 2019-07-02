@@ -16,6 +16,9 @@
     },
     "imao-auth0-oidc": {
       "tags": ["imao"]
+    },
+    "imko-kendo-odata": {
+      "tags": []
     }
   }
 }
