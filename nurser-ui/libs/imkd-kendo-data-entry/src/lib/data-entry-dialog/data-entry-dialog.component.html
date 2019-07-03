@@ -1,0 +1,8 @@
+<kendo-dialog [width]="width" [height]="height" *ngIf="(active$ | async)" (close)="close()">
+  <kendo-dialog-titlebar class="bg-primary">{{dialogTitle}}</kendo-dialog-titlebar>
+  <ng-content></ng-content>
+  <kendo-dialog-actions>
+    <button class="k-button" (click)="cancel()">Cancel</button>
+    <button class="k-button k-primary" (click)="submit()">Save</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

@@ -98,8 +98,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/nurser-ui/tsconfig.app.json", "apps/nurser-ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/nurser-ui/**"]
+            "tsConfig": [
+              "apps/nurser-ui/tsconfig.app.json",
+              "apps/nurser-ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/nurser-ui/**"
+            ]
           }
         },
         "test": {
@@ -141,7 +147,10 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/nurser-ui-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**", "!apps/nurser-ui-e2e/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/nurser-ui-e2e/**"
+            ]
           }
         }
       }
@@ -162,8 +171,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imao-auth0-oidc/tsconfig.lib.json", "libs/imao-auth0-oidc/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imao-auth0-oidc/**"]
+            "tsConfig": [
+              "libs/imao-auth0-oidc/tsconfig.lib.json",
+              "libs/imao-auth0-oidc/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imao-auth0-oidc/**"
+            ]
           }
         },
         "test": {
@@ -197,8 +212,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imko-kendo-odata/tsconfig.lib.json", "libs/imko-kendo-odata/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imko-kendo-odata/**"]
+            "tsConfig": [
+              "libs/imko-kendo-odata/tsconfig.lib.json",
+              "libs/imko-kendo-odata/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imko-kendo-odata/**"
+            ]
           }
         },
         "test": {
@@ -236,7 +257,10 @@
               "libs/imai-application-insights-ngrx/tsconfig.lib.json",
               "libs/imai-application-insights-ngrx/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imai-application-insights-ngrx/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imai-application-insights-ngrx/**"
+            ]
           }
         },
         "test": {
@@ -245,6 +269,47 @@
             "jestConfig": "libs/imai-application-insights-ngrx/jest.config.js",
             "tsConfig": "libs/imai-application-insights-ngrx/tsconfig.spec.json",
             "setupFile": "libs/imai-application-insights-ngrx/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "imkd-kendo-data-entry": {
+      "projectType": "library",
+      "root": "libs/imkd-kendo-data-entry",
+      "sourceRoot": "libs/imkd-kendo-data-entry/src",
+      "prefix": "imkd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/imkd-kendo-data-entry/tsconfig.lib.json",
+            "project": "libs/imkd-kendo-data-entry/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/imkd-kendo-data-entry/tsconfig.lib.json",
+              "libs/imkd-kendo-data-entry/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imkd-kendo-data-entry/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imkd-kendo-data-entry/jest.config.js",
+            "tsConfig": "libs/imkd-kendo-data-entry/tsconfig.spec.json",
+            "setupFile": "libs/imkd-kendo-data-entry/src/test-setup.ts"
           }
         }
       },

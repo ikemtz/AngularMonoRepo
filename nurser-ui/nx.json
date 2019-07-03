@@ -12,24 +12,19 @@
       "tags": []
     },
     "nurser-ui": {
-      "tags": [
-        "ngnu"
-      ]
+      "tags": ["ngnu"]
     },
     "imao-auth0-oidc": {
-      "tags": [
-        "imao"
-      ]
+      "tags": ["imao"]
     },
     "imko-kendo-odata": {
-      "tags": [
-        "imko"
-      ]
+      "tags": ["imko"]
     },
     "imai-application-insights-ngrx": {
-      "tags": [
-        "imai"
-      ]
+      "tags": ["imai"]
+    },
+    "imkd-kendo-data-entry": {
+      "tags": []
     }
   }
 }

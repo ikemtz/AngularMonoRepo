@@ -22,6 +22,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgOidcClientModule } from 'ng-oidc-client';
 import { auth0Configurator, AuthGuard } from '@imao/auth0-oidc';
 import { AppInsightsNgrxModule, AppInsightsVerboseRootEffects, AppInsightsInfoRootEffects } from '@imai/application-insights-ngrx';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, HomeComponent],
@@ -44,6 +46,7 @@ import { AppInsightsNgrxModule, AppInsightsVerboseRootEffects, AppInsightsInfoRo
       logOnly: environment.production
     }),
     AppInsightsNgrxModule.forRoot(environment.appInsights),
+    DialogsModule,
   ],
   providers: [AppFacade, AuthGuard],
   bootstrap: [AppComponent]
