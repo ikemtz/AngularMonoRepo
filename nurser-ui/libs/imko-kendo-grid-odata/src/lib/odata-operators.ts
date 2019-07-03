@@ -70,8 +70,6 @@ export function parseDatesInCollection<T>(
   return collection;
 }
 
-
-
 export function toLocalDate(date: string): Date {
   const dt = new Date(date);
   return new Date(dt.getTime() + Math.abs(dt.getTimezoneOffset() * 60000));

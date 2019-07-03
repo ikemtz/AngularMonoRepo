@@ -329,6 +329,6 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /nurser-ui/libs/imao-auth0-oidc/dist
-/nurser-ui/libs/imko-kendo-odata/dist
 /nurser-ui/libs/imai-application-insights-ngrx/dist
 /nurser-ui/libs/imkd-kendo-data-entry/dist
+/nurser-ui/libs/imko-kendo-grid-odata/dist

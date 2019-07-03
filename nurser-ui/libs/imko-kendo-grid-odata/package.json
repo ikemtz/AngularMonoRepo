@@ -1,0 +1,20 @@
+{
+  "name": "imng-kendo-grid-odata",
+  "version": "0.0.2",
+  "author": "Isaac Martinez <@ikemtz>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@progress/kendo-data-query": "^1.5.1",
+    "@ngrx/store": "^8.0.1"
+  },
+  "devDependencies": {},
+  "ngPackage": {
+    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+    "lib": {
+      "entryFile": "src/index.ts"
+    },
+    "dest": "./dist"
+  }
+}

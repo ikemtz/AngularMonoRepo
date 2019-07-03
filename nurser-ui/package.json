@@ -26,7 +26,9 @@
     "update:check": "ng update",
     "workspace-schematic": "nx workspace-schematic",
     "build:data-entry": "rimraf ./libs/imkd-kendo-data-entry/dist && ng-packagr -p ./libs/imkd-kendo-data-entry/package.json",
+    "build:grid-odata": "rimraf ./libs/imko-kendo-grid-odata/dist && ng-packagr -p ./libs/imko-kendo-grid-odata/package.json",
     "publish:data-entry": "npm run build:data-entry && npm publish ./libs/imkd-kendo-data-entry/dist",
+    "publish:grid-odata": "npm run build:data-entry && npm publish ./libs/imko-kendo-grid-odata/dist",
     "dep-graph": "nx dep-graph",
     "help": "nx help"
   },

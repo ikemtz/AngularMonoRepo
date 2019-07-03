@@ -8,12 +8,11 @@ import { ODataGridDataResult } from './odata-grid-data-result';
 export abstract class KendoODataFacadeBase<Entity, PartialState> {
 
   loading$: Observable<boolean> = (<any>this.store).pipe(select(this.selector.getLoading));
-  gridQueryState$: Observable<ODataGridState> = (<any>this.store).pipe(select(this.selector.getGridODataState));
-  gridDataResult$: Observable<ODataGridDataResult<Entity>> = (<any>this.store).pipe(
+  gridODataState$: Observable<ODataGridState> = (<any>this.store).pipe(select(this.selector.getGridODataState));
+  gridGridDataResult: Observable<ODataGridDataResult<Entity>> = (<any>this.store).pipe(
     select(this.selector.getGridDataResult)
   );
   currentEntity$: Observable<Entity> = (<any>this.store).pipe(select(this.selector.getCurrentEntity));
-  currentEntityHasValue$: Observable<boolean> = (<any>this.store).pipe(select(this.selector.getCurrentEntityHasValue));
   gridPagerSettings$: Observable<false | PagerSettings> = (<any>this.store).pipe(
     select(this.selector.getPagerSettings)
   );

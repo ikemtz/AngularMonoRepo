@@ -7,8 +7,6 @@ export interface KendoODataSelector<Entity> {
   getError: MemoizedSelector<object, any>;
   getGridDataResult: MemoizedSelector<object, GridDataResult>;
   getCurrentEntity: MemoizedSelector<object, Entity>;
-  getGridRowCount: MemoizedSelector<object, number>;
   getGridODataState: MemoizedSelector<object, ODataGridState>;
   getPagerSettings: MemoizedSelector<object, false | PagerSettings>;
-  getCurrentEntityHasValue: MemoizedSelector<object, boolean>;
 }
