@@ -30,7 +30,7 @@ export abstract class KendoODataComponentBase<
   }
 
   ngOnInit(): void {
-    this.fascade.loadData(this.gridDataState);
+    this.fascade.loadEntities(this.gridDataState);
   }
 
   public dataStateChange(state: ODataGridStateChangeEvent): void {
@@ -38,7 +38,7 @@ export abstract class KendoODataComponentBase<
       ...state,
       expanders: this.expanders
     };
-    this.fascade.loadData(this.gridDataState);
+    this.fascade.loadEntities(this.gridDataState);
   }
 
   public excelData = (): Observable<GridDataResult> => {

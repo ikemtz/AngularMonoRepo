@@ -12,7 +12,7 @@ import { BaseDataEntryComponent } from '../base-data-entry.component';
 export class DataEntryDialogComponent implements OnInit {
   @Input() public width: string;
   @Input() public height: string;
-  @Input() public parentComponent: BaseDataEntryComponent<any>;
+  @Input() public parentComponent: BaseDataEntryComponent<any, any>;
   public active$: Observable<boolean>;
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;

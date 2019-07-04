@@ -12,15 +12,11 @@ export abstract class KendoODataFacadeBase<Entity, PartialState> {
   gridDataResult$: Observable<ODataGridDataResult<Entity>> = (<Observable<any>>this.store).pipe(
     select(this.selector.getGridDataResult)
   );
-  currentEntity$: Observable<Entity> = (<Observable<any>>this.store).pipe(select(this.selector.getCurrentEntity));
   gridPagerSettings$: Observable<false | PagerSettings> = (<Observable<any>>this.store).pipe(
     select(this.selector.getPagerSettings)
   );
 
   constructor(protected store: Store<PartialState>, protected selector: KendoODataSelector<Entity>) { }
 
-  abstract loadData(state: ODataGridState): void;
-  abstract addNewEntity(entity: Entity): void;
-  abstract clearCurrentEntity(): void;
-  abstract saveEntity(entity: Entity): void;
+  abstract loadEntities(state: ODataGridState): void;
 }

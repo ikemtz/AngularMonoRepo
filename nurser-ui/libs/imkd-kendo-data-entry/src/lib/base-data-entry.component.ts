@@ -3,7 +3,7 @@ import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { DataEntryFacade } from './data-entry-facade';
 
-export abstract class BaseDataEntryComponent<FACADE extends DataEntryFacade> implements OnDestroy {
+export abstract class BaseDataEntryComponent<ENTITY, FACADE extends DataEntryFacade<ENTITY>> implements OnDestroy {
   protected allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
   public abstract props: any;
@@ -26,7 +26,7 @@ export abstract class BaseDataEntryComponent<FACADE extends DataEntryFacade> imp
 
   public closeForm(): void {
     this.initForm();
-    this.facade.clearCurrentData();
+    this.facade.clearCurrentEntity();
     this.submitted.next(false);
   }
 
