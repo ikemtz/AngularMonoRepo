@@ -17,6 +17,22 @@ export class ODataService {
     const queryStr = `${this.getODataString(state)}${countClause}`;
     return this.http.get(`${odataEndpoint}?${queryStr}`).pipe(mapToExtGridDataResult<T>());
   }
+
+  public fetchByPrimaryKey<T>(odataEndpoint: string, id: string, state?: ODataGridState): Observable<T> {
+    const request = <ODataGridState>{
+      expanders: state.expanders,
+      filter: {
+        logic: 'and',
+        filters: [{ operator: 'eq', field: 'id', value: id }]
+      }
+    };
+
+    const queryStr = this.getODataString(request);
+    return this.http.get(`${odataEndpoint}?${queryStr}`).pipe(
+      mapToExtGridDataResult<T>(),
+      firstRecord<T>()
+    );
+  }
   
   private getODataString(state: ODataGridState): string {
     const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'?/gi;
