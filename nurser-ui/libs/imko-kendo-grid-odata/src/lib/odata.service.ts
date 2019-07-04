@@ -33,7 +33,7 @@ export class ODataService {
       firstRecord<T>()
     );
   }
-  
+
   private getODataString(state: ODataGridState): string {
     const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'?/gi;
 

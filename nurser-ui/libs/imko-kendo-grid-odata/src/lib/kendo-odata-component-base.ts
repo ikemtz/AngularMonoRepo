@@ -8,7 +8,7 @@ import { ODataGridDataResult } from './odata-grid-data-result';
 export abstract class KendoODataComponentBase<
   ENTITY,
   PARTIALSTATE,
-  FASCADE extends KendoODataFacadeBase<ENTITY, PARTIALSTATE>
+  FACADE extends KendoODataFacadeBase<ENTITY, PARTIALSTATE>
 > implements OnInit {
   public gridDataState: ODataGridState;
   public readonly gridDataResult$: Observable<ODataGridDataResult<ENTITY>>;
@@ -21,16 +21,16 @@ export abstract class KendoODataComponentBase<
 
   private readonly expanders: string[];
 
-  constructor(protected fascade: FASCADE, state: ODataGridState) {
-    this.loading$ = this.fascade.loading$;
-    this.gridDataResult$ = this.fascade.gridDataResult$;
-    this.gridPagerSettings$ = this.fascade.gridPagerSettings$;
+  constructor(protected facade: FACADE, state: ODataGridState) {
+    this.loading$ = this.facade.loading$;
+    this.gridDataResult$ = this.facade.gridDataResult$;
+    this.gridPagerSettings$ = this.facade.gridPagerSettings$;
     this.gridDataState = state;
     this.expanders = state.expanders;
   }
 
   ngOnInit(): void {
-    this.fascade.loadEntities(this.gridDataState);
+    this.facade.loadEntities(this.gridDataState);
   }
 
   public dataStateChange(state: ODataGridStateChangeEvent): void {
@@ -38,10 +38,10 @@ export abstract class KendoODataComponentBase<
       ...state,
       expanders: this.expanders
     };
-    this.fascade.loadEntities(this.gridDataState);
+    this.facade.loadEntities(this.gridDataState);
   }
 
   public excelData = (): Observable<GridDataResult> => {
-    return this.fascade.gridDataResult$;
+    return this.facade.gridDataResult$;
   };
 }
