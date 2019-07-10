@@ -26,11 +26,6 @@
               "apps/nurser-ui/src/favicon.ico",
               "apps/nurser-ui/src/assets",
               {
-                "glob": "**/*",
-                "input": "apps/nurser-ui/src/static",
-                "output": "/"
-              },
-              {
                 "glob": "oidc-client.min.js",
                 "input": "node_modules/oidc-client/dist",
                 "output": "/"
