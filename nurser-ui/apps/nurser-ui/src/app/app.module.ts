@@ -19,8 +19,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app.routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { NgOidcClientModule } from 'ng-oidc-client';
-import { auth0Configurator, AuthGuard } from '@imao/auth0-oidc';
+import { Auth0OidcModule } from '@imao/auth0-oidc';
 import { AppInsightsNgrxModule, AppInsightsVerboseRootEffects, AppInsightsInfoRootEffects } from '@imai/application-insights-ngrx';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 
@@ -41,14 +40,14 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
     ),
     EffectsModule.forRoot([AppEffects, environment.production ? AppInsightsInfoRootEffects : AppInsightsVerboseRootEffects]),
     BsDropdownModule.forRoot(),
-    NgOidcClientModule.forRoot(auth0Configurator(environment.auth0_options)),
+    Auth0OidcModule.forRoot(environment.auth0_options),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production
     }),
     AppInsightsNgrxModule.forRoot(environment.appInsights),
     DialogsModule,
   ],
-  providers: [AppFacade, AuthGuard],
+  providers: [AppFacade],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

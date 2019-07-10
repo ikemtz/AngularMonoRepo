@@ -9,10 +9,10 @@ export function auth0Configurator(auth0Options: Auth0Options): Config {
       extraQueryParams: { audience: auth0Options.audience },
       redirect_uri: `${window.location.origin}/callback.html`,
       response_type: 'id_token token',
-      scope: 'openid profile offline_access email',
+      scope: auth0Options.scope || 'openid profile offline_access email',
       post_logout_redirect_uri: `${
         window.location.origin
-      }/signout-callback.html`,
+        }/signout-callback.html`,
       silent_redirect_uri: `${window.location.origin}/renew-callback.html`,
       automaticSilentRenew: true,
       metadata: {
@@ -21,7 +21,7 @@ export function auth0Configurator(auth0Options: Auth0Options): Config {
         userinfo_endpoint: `${auth0Options.authority}/userinfo`,
         end_session_endpoint: `${auth0Options.authority}/v2/logout?client_id=${
           auth0Options.client_id
-        }&returnTo=${window.location.origin}/signout-callback.html`
+          }&returnTo=${window.location.origin}/signout-callback.html`
       }
     }
   };
