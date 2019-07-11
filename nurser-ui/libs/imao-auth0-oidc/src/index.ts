@@ -1,4 +1,11 @@
 export * from './lib/auth0-configurator';
-export * from './lib/auth0-options';
+export { Auth0Config } from './lib/auth0-config';
 export * from './lib/auth-guard';
 export * from './lib/auth0-oidc.module';
+export * from './lib/auth0-selectors';
+export * from './lib/auth0-facade';
+export * from './lib/facades/oidc.facade';
+export * from './lib/models';
+export * from './lib/reducers';
+export * from './lib/services/oidc.service';
+export { User } from 'oidc-client';

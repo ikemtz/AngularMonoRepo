@@ -4,12 +4,16 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
-import { OidcFacade } from 'ng-oidc-client';
 import { Observable, of } from 'rxjs';
 import { switchMap, first } from 'rxjs/operators';
+import { OidcFacade } from './facades/oidc.facade';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private oidcFacade: OidcFacade) {}
+  constructor(private router: Router, private oidcFacade: OidcFacade) { }
 
   public canActivate(
     route: ActivatedRouteSnapshot,

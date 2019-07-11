@@ -1,24 +1,36 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthGuard } from './auth-guard';
-import { NgOidcClientModule, OIDC_CONFIG } from 'ng-oidc-client';
 import { auth0Configurator } from './auth0-configurator';
-import { Auth0Options } from './auth0-options';
+import { Auth0Config, AUTH0_CONFIG } from './auth0-config';
+import { OidcEffects } from './effects/oidc.effect';
+import { OIDC_CONFIG } from './models';
+import { OidcService } from './services/oidc.service';
+import { OidcFacade } from './facades/oidc.facade';
+import { StoreModule } from '@ngrx/store';
+import { oidcReducer } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { Auth0Facade } from './auth0-facade';
 
 @NgModule({
   declarations: [],
   imports: [
-    NgOidcClientModule,
-    CommonModule
+    CommonModule,
+    StoreModule.forFeature('oidc', oidcReducer),
+    EffectsModule.forFeature([OidcEffects])
   ],
-  providers: [AuthGuard]
+  providers: [OidcEffects]
 })
 export class Auth0OidcModule {
-  static forRoot(auth0_options: Auth0Options): ModuleWithProviders {
+  static forRoot(auth0_options: Auth0Config): ModuleWithProviders {
     return {
       ngModule: Auth0OidcModule,
       providers: [
-        { provide: OIDC_CONFIG, useValue: auth0Configurator(auth0_options) },
+        { provide: AUTH0_CONFIG, multi: false, useValue: auth0_options },
+        { provide: OIDC_CONFIG, multi: false, useFactory: auth0Configurator, deps: [AUTH0_CONFIG] },
+        OidcService,
+        OidcFacade,
+        Auth0Facade,
         AuthGuard
       ]
     };

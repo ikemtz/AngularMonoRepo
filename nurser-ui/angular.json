@@ -25,6 +25,11 @@
             "assets": [
               "apps/nurser-ui/src/favicon.ico",
               "apps/nurser-ui/src/assets",
+              {	
+                "glob": "**/*.html",	
+                "input": "libs/imao-auth0-oidc/src/assets",	
+                "output": "/"	
+              },
               {
                 "glob": "oidc-client.min.js",
                 "input": "node_modules/oidc-client/dist",

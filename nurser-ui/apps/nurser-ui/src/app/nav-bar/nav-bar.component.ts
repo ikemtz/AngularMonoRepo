@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { OidcFacade } from 'ng-oidc-client';
 import { Observable } from 'rxjs';
 import { User } from 'oidc-client';
-import { map, filter } from 'rxjs/operators';
+import { Auth0Facade, OidcFacade } from '@imao/auth0-oidc'; 
 
 @Component({
   selector: 'ngnu-nav-bar',
@@ -16,11 +15,9 @@ export class NavBarComponent implements OnInit {
   email$: Observable<string>;
   public collapsed = true;
 
-  constructor(private oidcFacade: OidcFacade) {
+  constructor(private oidcFacade: OidcFacade, private auth0Facade: Auth0Facade) {
     this.identity$ = this.oidcFacade.identity$;
-    this.email$ = this.oidcFacade.identity$.pipe(
-      filter(t => t&&t.profile),
-      map(m => m.profile.email))
+    this.email$ = this.auth0Facade.email$;
   }
 
   toggleCollapsed(): void {

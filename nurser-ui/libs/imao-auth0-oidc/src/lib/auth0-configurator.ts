@@ -1,26 +1,26 @@
-import { Auth0Options } from './auth0-options';
-import { Config } from 'ng-oidc-client';
+import { Auth0Config } from './auth0-config';
+import { Config } from './models';
 
-export function auth0Configurator(auth0Options: Auth0Options): Config {
+export function auth0Configurator(auth0Config: Auth0Config): Config {
   return {
     oidc_config: {
-      authority: auth0Options.authority,
-      client_id: auth0Options.client_id,
-      extraQueryParams: { audience: auth0Options.audience },
+      authority: auth0Config.authority,
+      client_id: auth0Config.client_id,
+      extraQueryParams: { audience: auth0Config.audience },
       redirect_uri: `${window.location.origin}/callback.html`,
       response_type: 'id_token token',
-      scope: auth0Options.scope || 'openid profile offline_access email',
+      scope: auth0Config.scope || 'openid profile offline_access email',
       post_logout_redirect_uri: `${
         window.location.origin
         }/signout-callback.html`,
       silent_redirect_uri: `${window.location.origin}/renew-callback.html`,
       automaticSilentRenew: true,
       metadata: {
-        issuer: `${auth0Options.authority}/`,
-        authorization_endpoint: `${auth0Options.authority}/authorize`,
-        userinfo_endpoint: `${auth0Options.authority}/userinfo`,
-        end_session_endpoint: `${auth0Options.authority}/v2/logout?client_id=${
-          auth0Options.client_id
+        issuer: `${auth0Config.authority}/`,
+        authorization_endpoint: `${auth0Config.authority}/authorize`,
+        userinfo_endpoint: `${auth0Config.authority}/userinfo`,
+        end_session_endpoint: `${auth0Config.authority}/v2/logout?client_id=${
+          auth0Config.client_id
           }&returnTo=${window.location.origin}/signout-callback.html`
       }
     }
