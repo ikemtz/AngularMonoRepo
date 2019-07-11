@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { User as OidcUser, User } from 'oidc-client';
+import { User as OidcUser } from 'oidc-client';
 
 export enum OidcActionTypes {
   GetOidcUser = '[Oidc] get oidc user',

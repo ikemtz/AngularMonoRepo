@@ -34,7 +34,8 @@ export class Auth0OidcModule {
         OidcService,
         OidcFacade,
         Auth0Facade,
-        AuthGuard, {
+        AuthGuard,
+        {
           provide: HTTP_INTERCEPTORS,
           useClass: TokenInterceptorService,
           multi: true,
