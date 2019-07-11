@@ -1,5 +1,5 @@
 export * from './lib/auth0-configurator';
-export { Auth0Config } from './lib/auth0-config';
+export { Auth0Config, AUTH0_CONFIG } from './lib/auth0-config';
 export * from './lib/auth-guard';
 export * from './lib/auth0-oidc.module';
 export { getProfile, getEmail } from './lib/auth0-selectors';
@@ -12,3 +12,4 @@ export * from './lib/reducers/oidc.reducer';
 export * from './lib/services/oidc.service';
 export * from './lib/services/token-interceptor.service';
 export * from './lib/actions/oidc.action';
+export * from './lib/effects/oidc.effect';

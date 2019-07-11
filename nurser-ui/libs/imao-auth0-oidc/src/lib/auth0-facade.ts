@@ -4,9 +4,7 @@ import { Observable } from 'rxjs';
 import { getEmail, getProfile } from './auth0-selectors';  
 import { OidcState } from './reducers';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class Auth0Facade {
     constructor(private store: Store<OidcState>) { }
     profile$: Observable<{email: string}> = this.store.select(getProfile);
