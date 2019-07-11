@@ -1,6 +1,6 @@
 {
   "name": "imng-auth0-oidc",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Small library to facilitate the integration of the ng-oidc-client library with the Auth0 identity provider.",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
@@ -12,7 +12,9 @@
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0",
-    "oidc-client": "^1.8.2"
+    "oidc-client": "^1.8.2",
+    "@ngrx/store": "^8.0.0",
+    "@ngrx/effects": "^8.0.0"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",

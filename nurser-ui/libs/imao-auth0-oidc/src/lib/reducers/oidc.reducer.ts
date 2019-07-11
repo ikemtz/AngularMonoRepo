@@ -125,6 +125,7 @@ export const selectOidcState = createFeatureSelector<OidcState>('oidc');
 
 export const getOidcLoading = createSelector(selectOidcState, (state: OidcState) => state.loading);
 export const getOidcIdentity = createSelector(selectOidcState, (state: OidcState) => state.identity);
+export const getAccessToken = createSelector(getOidcIdentity, (user: OidcUser) => user.access_token);
 export const isIdentityExpiring = createSelector(selectOidcState, (state: OidcState) => state.expiring);
 export const isIdentityExpired = createSelector(
   getOidcIdentity,

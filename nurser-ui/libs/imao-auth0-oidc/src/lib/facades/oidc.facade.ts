@@ -6,7 +6,7 @@ import { filter, take } from 'rxjs/operators';
 import { OidcActions } from '../actions';
 import { OidcEvent, RequestArugments } from '../models';
 import * as fromOidc from '../reducers/oidc.reducer';
-import { OidcService } from '../services/oidc.service';
+import { OidcService } from '../services/oidc.service'; 
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,7 @@ export class OidcFacade {
   expired$: Observable<boolean> = this.store.select(fromOidc.isIdentityExpired);
   loggedIn$: Observable<boolean> = this.store.select(fromOidc.isLoggedIn);
   identity$: Observable<OidcUser> = this.store.select(fromOidc.getOidcIdentity);
+  accessToken$: Observable<string> = this.store.select(fromOidc.getAccessToken);
   errors$: Observable<fromOidc.ErrorState> = this.store.select(fromOidc.selectOidcErrorState);
 
   // default bindings to events

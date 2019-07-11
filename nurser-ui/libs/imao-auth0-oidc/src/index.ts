@@ -8,4 +8,5 @@ export * from './lib/facades/oidc.facade';
 export * from './lib/models';
 export * from './lib/reducers';
 export * from './lib/services/oidc.service';
+export * from './lib/services/token-interceptor.service';
 export { User } from 'oidc-client';

@@ -15,7 +15,7 @@ export class OidcEffects {
     private actions$: Actions,
     @Inject(OidcService) private oidcService: OidcService,
     @Inject(OIDC_CONFIG) private config: Config
-  ) {}
+  ) { }
 
   @Effect()
   getOicdUser$ = this.actions$.pipe(
@@ -24,7 +24,7 @@ export class OidcEffects {
     concatMap(args =>
       this.oidcService.getOidcUser().pipe(
         concatMap((userData: OidcUser) => {
-          const r: Action[] = [new OidcActions.UserFound(userData)];
+          const r: Action[] = [new OidcActions.UserFound(this.makeOidcUserSerializable(userData))];
           const automaticSilentRenew =
             this.config.oidc_config.automaticSilentRenew != null && this.config.oidc_config.automaticSilentRenew;
           // user expired, initiate silent sign-in if configured to automatic
@@ -63,7 +63,7 @@ export class OidcEffects {
     ofType(OidcActions.OidcActionTypes.OnUserLoaded),
     map((action: OidcActions.OnUserLoaded) => action.payload),
     switchMap((userData: OidcUser) => {
-      return [new OidcActions.UserFound(userData)];
+      return [new OidcActions.UserFound(this.makeOidcUserSerializable(userData))];
     })
   );
 
@@ -98,7 +98,7 @@ export class OidcEffects {
     concatMap(args => {
       return this.oidcService.signInSilent(args).pipe(
         concatMap((userData: OidcUser) => {
-          return [new OidcActions.UserFound(userData)];
+          return [new OidcActions.UserFound(this.makeOidcUserSerializable(userData))];
         }),
         catchError(error => {
           // Something went wrong renewing the access token.
@@ -132,4 +132,14 @@ export class OidcEffects {
       );
     })
   );
+
+  makeOidcUserSerializable(user: OidcUser) {
+    if (user.toStorageString) {
+      user = {
+        ...user,
+        toStorageString: undefined
+      };
+    }
+    return user;
+  }
 }

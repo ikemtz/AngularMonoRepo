@@ -11,13 +11,16 @@ import { StoreModule } from '@ngrx/store';
 import { oidcReducer } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { Auth0Facade } from './auth0-facade';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     StoreModule.forFeature('oidc', oidcReducer),
-    EffectsModule.forFeature([OidcEffects])
+    EffectsModule.forFeature([OidcEffects]),
+    HttpClientModule
   ],
   providers: [OidcEffects]
 })
@@ -31,7 +34,12 @@ export class Auth0OidcModule {
         OidcService,
         OidcFacade,
         Auth0Facade,
-        AuthGuard
+        AuthGuard, {
+          provide: HTTP_INTERCEPTORS,
+          useClass: TokenInterceptorService,
+          multi: true,
+          deps: [OidcFacade]
+        }
       ]
     };
   }

@@ -35,7 +35,12 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
       { app: appReducer },
       {
         initialState: { app: appInitialState },
-        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
+        runtimeChecks: {
+          strictStateImmutability: !environment.production,
+          strictActionImmutability: !environment.production,
+          strictStateSerializability: !environment.production,
+          strictActionSerializability: !environment.production
+        },
       }
     ),
     EffectsModule.forRoot([AppEffects, environment.production ? AppInsightsInfoRootEffects : AppInsightsVerboseRootEffects]),
