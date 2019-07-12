@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     switchMap(() => this.oidcFacade.loggedIn$),
     tap(t => {
       if (!t) this.oidcFacade.signinRedirect({
-        data: { redirect_url: this.router.url }
+        data: { redirect_url: window.location.href }
       });
     })
   );

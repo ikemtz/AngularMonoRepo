@@ -14,14 +14,15 @@ export function auth0Configurator(auth0Config: Auth0Config): Config {
         window.location.origin
         }/signout-callback.html`,
       silent_redirect_uri: `${window.location.origin}/renew-callback.html`,
-      automaticSilentRenew: false,      
+      automaticSilentRenew: true,
       metadata: {
         issuer: `${auth0Config.authority}/`,
         authorization_endpoint: `${auth0Config.authority}/authorize`,
         userinfo_endpoint: `${auth0Config.authority}/userinfo`,
         end_session_endpoint: `${auth0Config.authority}/v2/logout?client_id=${
           auth0Config.client_id
-          }&returnTo=${window.location.origin}/signout-callback.html`
+          }&returnTo=${window.location.origin}/signout-callback.html`,
+        jwks_uri: `${auth0Config.authority}/.well-known/jwks.json`
       }
     }
   };

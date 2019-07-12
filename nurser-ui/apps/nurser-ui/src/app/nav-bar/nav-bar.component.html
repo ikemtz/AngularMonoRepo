@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
-  <a class="navbar-brand" title="MasterCorp Management Console" [routerLink]="['/home']"> Nurser </a>
+  <a class="navbar-brand" title="MasterCorp Management Console" [routerLink]="['../../']"> Nurser </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
     (click)="toggleCollapsed()">
@@ -16,8 +16,9 @@
       <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
       <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
       <li dropdown class="nav-item dropdown ml-4">
-        <a dropdownToggle class="nav-link dropdown-toggle text-right px-2" id="navbarDropdown"
-          role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a dropdownToggle class="nav-link dropdown-toggle text-right px-2" id="navbarDropdown" role="button"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img [src]="profilePicture$ | async" alt="Profile Pic" class="pic rounded-circle mr-1">
           {{ email$ | async }}
         </a>
         <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">

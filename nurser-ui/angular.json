@@ -196,38 +196,38 @@
         }
       }
     },
-    "imko-kendo-odata": {
+    "imko-kendo-grid-odata": {
       "projectType": "library",
-      "root": "libs/imko-kendo-odata",
-      "sourceRoot": "libs/imko-kendo-odata/src",
+      "root": "libs/imko-kendo-grid-odata",
+      "sourceRoot": "libs/imko-kendo-grid-odata/src",
       "prefix": "imko",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "libs/imko-kendo-odata/tsconfig.lib.json",
-            "project": "libs/imko-kendo-odata/ng-package.json"
+            "tsConfig": "libs/imko-kendo-grid-odata/tsconfig.lib.json",
+            "project": "libs/imko-kendo-grid-odata/ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/imko-kendo-odata/tsconfig.lib.json",
-              "libs/imko-kendo-odata/tsconfig.spec.json"
+              "libs/imko-kendo-grid-odata/tsconfig.lib.json",
+              "libs/imko-kendo-grid-odata/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/imko-kendo-odata/**"
+              "!libs/imko-kendo-grid-odata/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/imko-kendo-odata/jest.config.js",
-            "tsConfig": "libs/imko-kendo-odata/tsconfig.spec.json",
-            "setupFile": "libs/imko-kendo-odata/src/test-setup.ts"
+            "jestConfig": "libs/imko-kendo-grid-odata/jest.config.js",
+            "tsConfig": "libs/imko-kendo-grid-odata/tsconfig.spec.json",
+            "setupFile": "libs/imko-kendo-grid-odata/src/test-setup.ts"
           }
         }
       },

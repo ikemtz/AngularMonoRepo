@@ -14,12 +14,14 @@ export class NavBarComponent {
   public readonly identity$: Observable<User>;
   public readonly email$: Observable<string>;
   public readonly loggedIn$: Observable<boolean>;
+  public readonly profilePicture$: Observable<string>;
   public collapsed = true;
 
   constructor(private oidcFacade: OidcFacade, private auth0Facade: Auth0Facade) {
     this.identity$ = this.oidcFacade.identity$;
     this.email$ = this.auth0Facade.email$;
     this.loggedIn$ = this.oidcFacade.loggedIn$;
+    this.profilePicture$ = this.auth0Facade.profilePicture$;
   }
 
   toggleCollapsed(): void {
