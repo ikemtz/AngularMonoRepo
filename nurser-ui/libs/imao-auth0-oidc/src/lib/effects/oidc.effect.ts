@@ -13,7 +13,9 @@ import { Config, OIDC_CONFIG } from '../models/config.model';
 import { ACTION_NO_ACTION } from '../models/constants';
 import { OidcService } from '../services/oidc.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class OidcEffects {
   constructor(
     private actions$: Actions,

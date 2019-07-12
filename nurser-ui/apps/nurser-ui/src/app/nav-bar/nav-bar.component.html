@@ -7,7 +7,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent"
     [ngClass]="{ collapse: collapsed, 'navbar-collapse': true }">
-    <ul class="navbar-nav ml-auto" *ngIf="(identity$ | async)">
+    <ul class="navbar-nav ml-auto" *ngIf="(loggedIn$ | async)">
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/employees']"> Nurses <span class="sr-only">(current)</span> </a>
       </li>

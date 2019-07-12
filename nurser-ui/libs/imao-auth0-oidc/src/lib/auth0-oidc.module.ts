@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthGuard } from './auth-guard';
 import { auth0Configurator } from './auth0-configurator';
-import { Auth0Config} from './auth0-config';
+import { Auth0Config } from './auth0-config';
 import { OidcEffects } from './effects/oidc.effect';
 import { OIDC_CONFIG } from './models';
 import { OidcService } from './services/oidc.service';
@@ -41,6 +41,17 @@ export class Auth0OidcModule {
       ngModule: Auth0OidcModule,
       providers: [
         { provide: OIDC_CONFIG, useValue: auth0Configurator(auth0_options) },
+        OidcService,
+        OidcFacade,
+        OidcEffects,
+        Auth0Facade,
+        AuthGuard,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: TokenInterceptorService,
+          multi: true,
+          deps: [OidcFacade]
+        }
       ]
     };
   }

@@ -1,21 +1,24 @@
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { switchMap, first } from 'rxjs/operators';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, UrlSegment, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { OidcFacade } from './facades/oidc.facade';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private oidcFacade: OidcFacade) {}
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate, CanLoad {
+  constructor(private oidcFacade: OidcFacade, private router: Router) { }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-    return this.oidcFacade.waitForAuthenticationLoaded().pipe(
-      switchMap(loading => {
-        return this.oidcFacade.identity$.pipe(
-          first(),
-          switchMap(user => of(user && !user.expired))
-        );
-      })
-    );
+    return this.oidcFacade.loggedIn$.pipe(tap(t => {
+      if (!t) this.router.navigate(['/']);
+    }));
+  }
+
+  public canLoad(route: Route, segments: UrlSegment[]): boolean | Observable<boolean> | Promise<boolean> {
+    return this.oidcFacade.loggedIn$.pipe(tap(t => {
+      if (!t) this.router.navigate(['/']);
+    }));
   }
 }
