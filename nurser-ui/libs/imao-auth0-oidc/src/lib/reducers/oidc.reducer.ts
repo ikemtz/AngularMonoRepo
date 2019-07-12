@@ -1,8 +1,8 @@
 import { User as OidcUser } from 'oidc-client';
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { OidcActionsUnion, OidcActionTypes } from '../actions/oidc.action';
-
-import * as jwt_decode from 'jwt-decode';
+import { jwtDecoder } from '../jwt-decoder';
+ 
 
 export interface OidcState {
   identity: OidcUser | null;
@@ -58,7 +58,7 @@ export function oidcReducer(state = initialState, action: OidcActionsUnion): Oid
       return {
         ...state,
         identity: action.payload,
-        permissions: jwt_decode<{ permissions?: [] }>(action.payload.access_token).permissions
+        permissions: jwtDecoder<{ permissions?: [] }>(action.payload.access_token).permissions
       };
     }
 

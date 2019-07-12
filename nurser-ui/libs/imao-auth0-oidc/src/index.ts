@@ -13,3 +13,4 @@ export * from './lib/services/oidc.service';
 export * from './lib/services/token-interceptor.service';
 export * from './lib/actions/oidc.action';
 export * from './lib/effects/oidc.effect';
+export * from './lib/jwt-decoder';
