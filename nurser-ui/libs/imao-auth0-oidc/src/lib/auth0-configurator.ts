@@ -21,7 +21,8 @@ export function auth0Configurator(auth0Config: Auth0Config): Config {
         userinfo_endpoint: `${auth0Config.authority}/userinfo`,
         end_session_endpoint: `${auth0Config.authority}/v2/logout?client_id=${
           auth0Config.client_id
-          }&returnTo=${window.location.origin}/signout-callback.html`
+          }&returnTo=${window.location.origin}/signout-callback.html`,
+        jwks_uri: `${auth0Config.authority}/.well-known/jwks.json`
       }
     }
   };

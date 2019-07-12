@@ -17,7 +17,7 @@
     "imao-auth0-oidc": {
       "tags": ["imao"]
     },
-    "imko-kendo-odata": {
+    "imko-kendo-grid-odata": {
       "tags": ["imko"]
     },
     "imai-application-insights-ngrx": {
