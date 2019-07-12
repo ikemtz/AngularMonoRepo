@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { User as OidcUser } from 'oidc-client';
 import { Observable, of } from 'rxjs';
@@ -16,7 +16,7 @@ import { OidcService } from '../services/oidc.service';
 @Injectable({
   providedIn: 'root'
 })
-export class OidcEffects {
+export class OidcEffects implements OnInitEffects {
   constructor(
     private actions$: Actions,
     @Inject(OidcService) private oidcService: OidcService,
@@ -138,6 +138,10 @@ export class OidcEffects {
       );
     })
   );
+
+  ngrxOnInitEffects(): Action {
+    return new GetOidcUser({});
+  }
 
   makeOidcUserSerializable(user: OidcUser) {
     if (user.toStorageString) {

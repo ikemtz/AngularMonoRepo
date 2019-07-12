@@ -14,7 +14,7 @@ export function auth0Configurator(auth0Config: Auth0Config): Config {
         window.location.origin
         }/signout-callback.html`,
       silent_redirect_uri: `${window.location.origin}/renew-callback.html`,
-      automaticSilentRenew: true,
+      automaticSilentRenew: false,      
       metadata: {
         issuer: `${auth0Config.authority}/`,
         authorization_endpoint: `${auth0Config.authority}/authorize`,

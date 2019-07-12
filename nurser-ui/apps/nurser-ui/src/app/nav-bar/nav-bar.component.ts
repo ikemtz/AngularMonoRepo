@@ -9,7 +9,7 @@ import { Auth0Facade, OidcFacade } from '@imao/auth0-oidc';
   styleUrls: ['./nav-bar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
 
   public readonly identity$: Observable<User>;
   public readonly email$: Observable<string>;
@@ -24,10 +24,6 @@ export class NavBarComponent implements OnInit {
 
   toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
-  }
-
-  ngOnInit() {
-    this.oidcFacade.getOidcUser();
   }
 
   signinRedirect() {
