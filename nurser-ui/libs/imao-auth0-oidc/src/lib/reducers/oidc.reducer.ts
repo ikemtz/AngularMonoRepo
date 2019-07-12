@@ -2,8 +2,11 @@ import { User as OidcUser } from 'oidc-client';
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { OidcActionsUnion, OidcActionTypes } from '../actions/oidc.action';
 
+import * as jwt_decode from 'jwt-decode';
+
 export interface OidcState {
   identity: OidcUser | null;
+  permissions: string[];
   loading: boolean;
   expiring: boolean;
   errors: ErrorState;
@@ -16,6 +19,7 @@ export interface ErrorState {
 
 export const initialState: OidcState = {
   identity: null,
+  permissions: [],
   loading: true,
   expiring: false,
   errors: {
@@ -53,7 +57,8 @@ export function oidcReducer(state = initialState, action: OidcActionsUnion): Oid
     case OidcActionTypes.UserFound: {
       return {
         ...state,
-        identity: action.payload
+        identity: action.payload,
+        permissions: jwt_decode<{ permissions?: [] }>(action.payload.access_token).permissions
       };
     }
 

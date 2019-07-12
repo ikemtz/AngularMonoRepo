@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AuthGuard } from '@imao/auth0-oidc';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +14,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
-      enableTracing: true
+      enableTracing: false
     })
   ],
   exports: [RouterModule]
