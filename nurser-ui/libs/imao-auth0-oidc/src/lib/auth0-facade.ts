@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getEmail, getProfile, getProfilePicture } from './auth0-selectors';
-import { OidcState } from './reducers';
+import { OidcState } from './reducers/oidc.reducer';
 import { Auth0Profile } from './auth0-profile';
 
 @Injectable({

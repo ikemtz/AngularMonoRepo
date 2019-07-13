@@ -7,10 +7,11 @@ import {
   OnUserUnloaded, OnAccessTokenExpired, OnAccessTokenExpiring, OnSilentRenewError,
   OnUserLoaded, OnUserSignedOut, OnSessionChanged, GetOidcUser, RemoveOidcUser, SigninPopup,
   SigninRedirect, SigninSilent, SignoutPopup, SignoutRedirect
-} from '../actions/oidc.action';
-import { OidcEvent, RequestArugments } from '../models';
+} from '../actions/oidc.action'; 
 import * as fromOidc from '../reducers/oidc.reducer';
 import { OidcService } from '../services/oidc.service';
+import { RequestArugments } from '../models/arguments.model';
+import { OidcEvent } from '../models/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class OidcFacade {
   identity$: Observable<OidcUser> = this.store.select(fromOidc.getOidcIdentity);
   accessToken$: Observable<string> = this.store.select(fromOidc.getAccessToken);
   errors$: Observable<fromOidc.ErrorState> = this.store.select(fromOidc.selectOidcErrorState);
+  silentRenewErrors$: Observable<fromOidc.ErrorState> = this.store.select(fromOidc.getSilentRenewError);
 
   // default bindings to events
   private addUserUnLoaded = function () {

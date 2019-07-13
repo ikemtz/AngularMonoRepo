@@ -67,10 +67,7 @@
     "@progress/kendo-theme-default": "latest",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
-    "imng-kendo-data-entry": "0.0.9",
-    "imng-kendo-grid-odata": "0.0.9",
     "ngx-bootstrap": "^5.0.0",
-    "oidc-client": "^1.8.2",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "^0.9.1"
