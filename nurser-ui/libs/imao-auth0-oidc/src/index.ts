@@ -1,16 +1,19 @@
-export * from './lib/auth0-configurator';
-export { Auth0Config, AUTH0_CONFIG } from './lib/auth0-config';
-export * from './lib/auth-guard';
+
+
 export * from './lib/auth0-oidc.module';
-export { getProfile, getEmail } from './lib/auth0-selectors';
-export * from './lib/auth0-facade';
-export * from './lib/facades/oidc.facade';
+export * from './lib/+state/auth0.facade';
+export { auth0Query } from './lib/+state/auth0.selectors';
+export * from './lib/+state/oidc.action';
+export * from './lib/+state/oidc.effect';
+export * from './lib/+state/oidc.facade';
+export * from './lib/+state/oidc.reducer';
+export { oidcQuery } from './lib/+state/oidc.selectors';
 export * from './lib/models/arguments.model';
+export { Auth0Config, AUTH0_CONFIG } from './lib/models/auth0-config';
 export * from './lib/models/config.model';
 export * from './lib/models/constants';
-export * from './lib/reducers/oidc.reducer';
+export * from './lib/util/auth0-configurator';
+export * from './lib/services/auth-guard';
 export * from './lib/services/oidc.service';
 export * from './lib/services/token-interceptor.service';
-export * from './lib/actions/oidc.action';
-export * from './lib/effects/oidc.effect';
-export * from './lib/jwt-decoder';
+export * from './lib/util/jwt-decoder';

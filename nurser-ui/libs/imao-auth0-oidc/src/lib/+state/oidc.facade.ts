@@ -7,8 +7,9 @@ import {
   OnUserUnloaded, OnAccessTokenExpired, OnAccessTokenExpiring, OnSilentRenewError,
   OnUserLoaded, OnUserSignedOut, OnSessionChanged, GetOidcUser, RemoveOidcUser, SigninPopup,
   SigninRedirect, SigninSilent, SignoutPopup, SignoutRedirect
-} from '../actions/oidc.action'; 
-import * as fromOidc from '../reducers/oidc.reducer';
+} from './oidc.action';
+import { OidcState, ErrorState } from './oidc.reducer';
+import { oidcQuery } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
 import { RequestArugments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
@@ -17,18 +18,18 @@ import { OidcEvent } from '../models/constants';
   providedIn: 'root'
 })
 export class OidcFacade {
-  constructor(private store: Store<fromOidc.OidcState>, private oidcService: OidcService) {
+  constructor(private store: Store<OidcState>, private oidcService: OidcService) {
     this.registerDefaultEvents();
   }
 
-  loading$: Observable<boolean> = this.store.select(fromOidc.getOidcLoading);
-  expiring$: Observable<boolean> = this.store.select(fromOidc.isIdentityExpiring);
-  expired$: Observable<boolean> = this.store.select(fromOidc.isIdentityExpired);
-  loggedIn$: Observable<boolean> = this.store.select(fromOidc.isLoggedIn);
-  identity$: Observable<OidcUser> = this.store.select(fromOidc.getOidcIdentity);
-  accessToken$: Observable<string> = this.store.select(fromOidc.getAccessToken);
-  errors$: Observable<fromOidc.ErrorState> = this.store.select(fromOidc.selectOidcErrorState);
-  silentRenewErrors$: Observable<fromOidc.ErrorState> = this.store.select(fromOidc.getSilentRenewError);
+  loading$: Observable<boolean> = this.store.select(oidcQuery.getOidcLoading);
+  expiring$: Observable<boolean> = this.store.select(oidcQuery.isIdentityExpiring);
+  expired$: Observable<boolean> = this.store.select(oidcQuery.isIdentityExpired);
+  loggedIn$: Observable<boolean> = this.store.select(oidcQuery.isLoggedIn);
+  identity$: Observable<OidcUser> = this.store.select(oidcQuery.getOidcIdentity);
+  accessToken$: Observable<string> = this.store.select(oidcQuery.getAccessToken);
+  errors$: Observable<ErrorState> = this.store.select(oidcQuery.selectOidcErrorState);
+  silentRenewErrors$: Observable<ErrorState> = this.store.select(oidcQuery.getSilentRenewError);
 
   // default bindings to events
   private addUserUnLoaded = function () {

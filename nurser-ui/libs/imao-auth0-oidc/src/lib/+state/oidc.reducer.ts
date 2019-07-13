@@ -1,7 +1,6 @@
 import { User as OidcUser } from 'oidc-client';
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
-import { OidcActionsUnion, OidcActionTypes } from '../actions/oidc.action';
-import { jwtDecoder } from '../jwt-decoder';
+import { OidcActionsUnion, OidcActionTypes } from './oidc.action';
+import { jwtDecoder } from '../util/jwt-decoder';
  
 
 export interface OidcState {
@@ -123,31 +122,3 @@ export function oidcReducer(state = initialState, action: OidcActionsUnion): Oid
     }
   }
 }
-
-// State Selectors
-
-export const selectOidcState = createFeatureSelector<OidcState>('oidc');
-
-export const getOidcLoading = createSelector(selectOidcState, (state: OidcState) => state.loading);
-export const getOidcIdentity = createSelector(selectOidcState, (state: OidcState) => state.identity);
-export const getAccessToken = createSelector(getOidcIdentity, (user: OidcUser) => (user || { access_token: null }).access_token);
-export const isIdentityExpiring = createSelector(selectOidcState, (state: OidcState) => state.expiring);
-export const isIdentityExpired = createSelector(
-  getOidcIdentity,
-  (identity: OidcUser) => identity && identity.expired
-);
-export const isLoggedIn = createSelector(
-  getOidcIdentity,
-  (identity: OidcUser) => identity && !identity.expired
-);
-
-// errors
-export const selectOidcErrorState: MemoizedSelector<{}, ErrorState> = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.errors
-);
-
-export const getSilentRenewError = createSelector(
-  selectOidcErrorState,
-  (errors: ErrorState) => errors.silentRenewError
-);

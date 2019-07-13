@@ -8,7 +8,7 @@ import {
   OidcActionTypes, GetOidcUser, UserFound, SigninSilent, UserDoneLoading, OidcError,
   OnUserLoaded, SigninPopup, SignInError, SigninRedirect, OnSilentRenewError, SignOutError,
   SignoutPopup, SignoutRedirect
-} from '../actions/oidc.action';
+} from './oidc.action';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { ACTION_NO_ACTION } from '../models/constants';
 import { OidcService } from '../services/oidc.service';
