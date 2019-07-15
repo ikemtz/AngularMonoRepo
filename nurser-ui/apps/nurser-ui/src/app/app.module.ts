@@ -37,8 +37,8 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
         runtimeChecks: {
           strictStateImmutability: !environment.production,
           strictActionImmutability: !environment.production,
-          strictStateSerializability: !environment.production,
-          strictActionSerializability: !environment.production
+          //   strictStateSerializability: !environment.production,
+          //  strictActionSerializability: !environment.production
         },
       }
     ),
