@@ -16,7 +16,7 @@ export class Auth0Facade {
   profilePicture$: Observable<string> = this.store.select(auth0Query.getProfilePicture);
   permissions$: Observable<string[]> = this.store.select(auth0Query.getPermissions);
 
-  public hasPermissionsPipe(requiredPermissions: Array<string>): Observable<boolean> {
+  public hasPermissions(requiredPermissions: Array<string>): Observable<boolean> {
     return this.permissions$.pipe(
       map(t => -1 < requiredPermissions.findIndex(f => -1 < t.findIndex(i => i === f)))
     );

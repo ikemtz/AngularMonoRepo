@@ -11,7 +11,7 @@ export abstract class PermissionsGuard implements CanActivate {
 
   protected abstract permissions: string[];
   private hasPermissions$ = this.oidcFacade.waitForAuthenticationLoaded().pipe(
-    switchMap(() => this.auth0Facade.hasPermissionsPipe(this.permissions)),
+    switchMap(() => this.auth0Facade.hasPermissions(this.permissions)),
     tap((t) => {
       if (!t) {
         this.router.navigate([AccessDeniedRouteUrl], { relativeTo: this.router.routerState.root });
