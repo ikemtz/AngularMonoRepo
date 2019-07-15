@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './list/list.component';
-import { AuthGuard } from '@imao/auth0-oidc';
+import { EmployeeRouteGuard } from '../services/emp-route-guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list' },
   {
-    path: 'list', component: ListComponent, canActivate: [AuthGuard]
+    path: 'list', component: ListComponent, canActivate: [EmployeeRouteGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [EmployeeRouteGuard]
 })
 export class EmployeesRoutingModule { }

@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { AccessDeniedRoute } from '@imao/auth0-oidc';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  AccessDeniedRoute,
   {
     path: 'employees',
     loadChildren: () => import('./modules/employees/employees.module').then(m => m.EmployeesModule),
- 
+
   },
 ];
 @NgModule({
@@ -19,4 +21,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

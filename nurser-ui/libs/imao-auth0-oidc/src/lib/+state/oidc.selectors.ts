@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store'; 
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { User as OidcUser } from 'oidc-client';
 import { ErrorState, OidcState } from './oidc.reducer';
 // State Selectors
@@ -30,6 +30,7 @@ const getSilentRenewError = createSelector(
 
 export const oidcQuery =
 {
+    selectOidcState,
     getOidcLoading,
     getOidcIdentity,
     getAccessToken,
