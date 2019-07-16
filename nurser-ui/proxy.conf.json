@@ -5,7 +5,8 @@
     "pathRewrite": {
       "^/employeesWebApi": ""
     },
-    "changeOrigin": true
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/employeesOData": {
     "target": "https://im-wa-empo-nrsr.azurewebsites.net",

@@ -1,6 +1,6 @@
 {
   "name": "imng-kendo-data-entry",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
@@ -11,7 +11,7 @@
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
     "lib": {
-      "entryFile": "src/public_api.ts"
+      "entryFile": "src/index.ts"
     },
     "dest": "./dist"
   },

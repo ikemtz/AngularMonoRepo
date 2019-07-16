@@ -18,8 +18,7 @@ import { OidcService } from '../services/oidc.service';
 })
 export class OidcEffects implements OnInitEffects {
   constructor(
-    private actions$: Actions,
-    @Inject(OidcService) private oidcService: OidcService,
+    private actions$: Actions, private oidcService: OidcService,
     @Inject(OIDC_CONFIG) private config: Config
   ) { }
 

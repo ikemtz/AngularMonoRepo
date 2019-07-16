@@ -2,7 +2,9 @@ import { OidcFacade } from '../+state/oidc.facade';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
   constructor(private oidcFacade: OidcFacade) {}
 

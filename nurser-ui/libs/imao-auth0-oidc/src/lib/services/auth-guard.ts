@@ -8,7 +8,7 @@ import { DOCUMENT } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad {
+export class AuthGuard implements CanActivate {
   constructor(@Inject(DOCUMENT) private document: any, private oidcFacade: OidcFacade, private router: Router) { }
 
   private isLoggedInPipe$ = this.oidcFacade.waitForAuthenticationLoaded().pipe(
@@ -21,10 +21,6 @@ export class AuthGuard implements CanActivate, CanLoad {
   );
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-    return this.isLoggedInPipe$;
-  }
-
-  public canLoad(route: Route, segments: UrlSegment[]): boolean | Observable<boolean> | Promise<boolean> {
     return this.isLoggedInPipe$;
   }
 }
