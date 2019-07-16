@@ -42,7 +42,8 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
         },
       }
     ),
-    EffectsModule.forRoot([AppEffects, environment.production ? AppInsightsInfoRootEffects : AppInsightsVerboseRootEffects]),
+    //environment.production ? AppInsightsInfoRootEffects : AppInsightsVerboseRootEffects
+    EffectsModule.forRoot([AppEffects ]),
     BsDropdownModule.forRoot(),
     Auth0OidcModule.forRoot(environment.auth0_options),
     StoreDevtoolsModule.instrument({

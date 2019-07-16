@@ -17,15 +17,15 @@ export class EmployeesEffects {
   loadEntities$ = createEffect(() => this.actions$.pipe(
     ofType(employeesActions.loadEntities),
     concatMap(action =>
-      this.odataService.fetch(this.baseODataUrl, action).pipe(
-        map(m => employeesActions.entitiesLoaded(m)),
+      this.odataService.fetch(this.baseODataUrl, action.payload).pipe(
+        map(m => employeesActions.entitiesLoaded({ payload: m })),
         this.handleError()
       ))));
 
   saveEntities$ = createEffect(() => this.actions$.pipe(
     ofType(employeesActions.saveEntityRequest),
-    concatMap(action => this.apiService.put(action).pipe(
-      map(m => employeesActions.saveEntitySuccess(m)),
+    concatMap(action => this.apiService.put(action.payload).pipe(
+      map(m => employeesActions.saveEntitySuccess({ payload: m })),
       this.handleError()))));
 
   constructor(

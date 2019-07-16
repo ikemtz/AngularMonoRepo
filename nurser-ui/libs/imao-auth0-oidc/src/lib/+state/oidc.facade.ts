@@ -3,16 +3,12 @@ import { Store } from '@ngrx/store';
 import { OidcClient, SigninRequest, SignoutRequest, User as OidcUser, UserManager } from 'oidc-client';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import {
-  OnUserUnloaded, OnAccessTokenExpired, OnAccessTokenExpiring, OnSilentRenewError,
-  OnUserLoaded, OnUserSignedOut, OnSessionChanged, GetOidcUser, RemoveOidcUser, SigninPopup,
-  SigninRedirect, SigninSilent, SignoutPopup, SignoutRedirect
-} from './oidc.action';
 import { OidcState, ErrorState } from './oidc.reducer';
 import { oidcQuery } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
 import { RequestArugments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
+import { oidcActions } from './oidc.action';
 
 @Injectable({
   providedIn: 'root'
@@ -33,42 +29,42 @@ export class OidcFacade {
 
   // default bindings to events
   private addUserUnLoaded = function () {
-    this.store.dispatch(new OnUserUnloaded());
+    this.store.dispatch(oidcActions.onUserUnloaded());
   }.bind(this);
 
   private accessTokenExpired = function (e) {
-    this.store.dispatch(new OnAccessTokenExpired());
+    this.store.dispatch(oidcActions.onAccessTokenExpired());
   }.bind(this);
 
   private accessTokenExpiring = function () {
-    this.store.dispatch(new OnAccessTokenExpiring());
+    this.store.dispatch(oidcActions.onAccessTokenExpiring());
   }.bind(this);
 
   private addSilentRenewError = function (e) {
-    this.store.dispatch(new OnSilentRenewError(e));
+    this.store.dispatch(oidcActions.onSilentRenewError({ payload: e }));
   }.bind(this);
 
   private addUserLoaded = function (loadedUser: OidcUser) {
-    this.store.dispatch(new OnUserLoaded(loadedUser));
+    this.store.dispatch(oidcActions.onUserLoaded({ payload: loadedUser }));
   }.bind(this);
 
   private addUserSignedOut = function () {
     this.oidcService.removeOidcUser();
-    this.store.dispatch(new OnUserSignedOut());
+    this.store.dispatch(oidcActions.onUserSignedOut());
   }.bind(this);
 
   private addUserSessionChanged = function (e) {
-    this.store.dispatch(new OnSessionChanged());
+    this.store.dispatch(oidcActions.onSessionChanged());
   };
 
   // OIDC Methods
 
   getOidcUser(args?: any) {
-    this.store.dispatch(new GetOidcUser(args));
+    this.store.dispatch(oidcActions.getOidcUser({ payload: args }));
   }
 
   removeOidcUser() {
-    this.store.dispatch(new RemoveOidcUser());
+    this.store.dispatch(oidcActions.removeOidcUser());
   }
 
   getUserManager(): UserManager {
@@ -90,23 +86,23 @@ export class OidcFacade {
   }
 
   signinPopup(args?: RequestArugments) {
-    this.store.dispatch(new SigninPopup(args));
+    this.store.dispatch(oidcActions.signinPopup({ payload: args }));
   }
 
   signinRedirect(args?: RequestArugments) {
-    this.store.dispatch(new SigninRedirect(args));
+    this.store.dispatch(oidcActions.signinRedirect({ payload: args }));
   }
 
   signinSilent(args?: RequestArugments) {
-    this.store.dispatch(new SigninSilent(args));
+    this.store.dispatch(oidcActions.signinSilent({ payload: args }));
   }
 
   signoutPopup(args?: RequestArugments) {
-    this.store.dispatch(new SignoutPopup(args));
+    this.store.dispatch(oidcActions.signoutPopup({ payload: args }));
   }
 
   signoutRedirect(args?: RequestArugments) {
-    this.store.dispatch(new SignoutRedirect(args));
+    this.store.dispatch(oidcActions.signoutRedirect({ payload: args }));
   }
 
   getSigninUtrl(args?: RequestArugments): Observable<SigninRequest> {

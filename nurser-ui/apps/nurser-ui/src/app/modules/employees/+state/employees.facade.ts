@@ -16,11 +16,11 @@ export class EmployeesFacade extends KendoODataFacadeBase<IEmployee, EmployeesPa
   }
 
   loadEntities(state: ODataGridState = { skip: 0, take: 20 }) {
-    this.store.dispatch(employeesActions.loadEntities(state));
+    this.store.dispatch(employeesActions.loadEntities({ payload: state }));
   }
 
   addNewEntity() {
-    this.store.dispatch(employeesActions.addEditEntity({}));
+    this.store.dispatch(employeesActions.addEditEntity({ payload: {} }));
   }
 
   clearCurrentEntity(): void {
@@ -28,12 +28,12 @@ export class EmployeesFacade extends KendoODataFacadeBase<IEmployee, EmployeesPa
   }
 
   saveEntity(entity: IEmployee): void {
-    this.store.dispatch(employeesActions.saveEntityRequest(entity));
+    this.store.dispatch(employeesActions.saveEntityRequest({ payload: entity }));
   }
 
   addNewCertification(entity: IEmployee, cert: IEmployeeCertification) {
     cert.employeeId = entity.id;
-    this.store.dispatch(employeesActions.addEditCertification({ employee: entity, certification: cert }));
+    this.store.dispatch(employeesActions.addEditCertification({ payload: { employee: entity, certification: cert } }));
   }
 
   clearCurrentCertification() {

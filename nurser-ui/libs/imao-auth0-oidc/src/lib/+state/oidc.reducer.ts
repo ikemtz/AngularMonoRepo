@@ -1,7 +1,8 @@
 import { User as OidcUser } from 'oidc-client';
-import { OidcActionsUnion, OidcActionTypes } from './oidc.action';
+import { oidcActions } from './oidc.action';
 import { jwtDecoder } from '../util/jwt-decoder';
- 
+import { on, createReducer, Action } from '@ngrx/store';
+
 
 export interface OidcState {
   identity: OidcUser | null;
@@ -27,98 +28,43 @@ export const initialState: OidcState = {
   }
 };
 
-export function oidcReducer(state = initialState, action: OidcActionsUnion): OidcState {
-  switch (action.type) {
-    case OidcActionTypes.GetOidcUser:
-    case OidcActionTypes.RemoveOidcUser: {
-      return {
-        ...state,
-        loading: true
-      };
-    }
-
-    case OidcActionTypes.OnUserLoaded: {
-      return {
-        ...state,
-        loading: false,
-        expiring: false
-      };
-    }
-
-    case OidcActionTypes.OnUserUnloaded: {
-      return {
-        ...state,
-        identity: null,
-        expiring: false
-      };
-    }
-
-    case OidcActionTypes.UserFound: {
-      return {
-        ...state,
-        identity: action.payload,
-        permissions: jwtDecoder<{ permissions?: [] }>(action.payload.access_token).permissions
-      };
-    }
-
-    case OidcActionTypes.UserLoading: {
-      return {
-        ...state,
-        loading: true
-      };
-    }
-
-    case OidcActionTypes.UserDoneLoading: {
-      return {
-        ...state,
+const featureReducer = createReducer(
+  initialState,
+  on(oidcActions.getOidcUser, state => ({ ...state, loading: true })),
+  on(oidcActions.removeOidcUser, state => ({ ...state, loading: true })),
+  on(oidcActions.onUserLoading, state => ({ ...state, loading: true })),
+  on(oidcActions.userDoneLoading, state => ({ ...state, loading: false })),
+  on(oidcActions.onAccessTokenExpiring, state => ({ ...state, expiring: true })),
+  on(oidcActions.onUserLoaded, state => ({ ...state, loading: false, expiring: false })),
+  on(oidcActions.onUserUnloaded, state => ({ ...state, identity: null, expiring: false })),
+  on(oidcActions.userFound, (state, identity) => ({ ...state, identity: identity.payload, permissions: jwtDecoder<{ permissions?: [] }>(identity.payload.access_token).permissions })),
+  on(oidcActions.userExpired, state => ({ ...state, expiring: false })),
+  on(oidcActions.onSilentRenewError, (state, err) => ({
+    ...state, errors: {
+      ...state.errors, silentRenewError: {
+        message: err.payload.message, name: err.payload.name, stack: err.payload.stack,
         loading: false
-      };
+      }
     }
+  })),
 
-    case OidcActionTypes.OnAccessTokenExpiring: {
-      return {
-        ...state,
-        expiring: true
-      };
+  on(oidcActions.userDoneLoadingError, (state, err) => ({
+    ...state, loading: false, errors: {
+      ...state.errors, signInError: {
+        message: err.payload.message, name: err.payload.name, stack: err.payload.stack
+      }
     }
+  })),
 
-    case OidcActionTypes.UserExpired: {
-      return {
-        ...state,
-        expiring: false
-      };
+  on(oidcActions.signInError, (state, err) => ({
+    ...state, errors: {
+      ...state.errors, signInError: {
+        message: err.payload.message, name: err.payload.name, stack: err.payload.stack
+      }
     }
+  })),
+);
 
-    case OidcActionTypes.OnSilentRenewError: {
-      return {
-        ...state,
-        errors: {
-          ...state.errors,
-          silentRenewError: {
-            message: action.payload.message,
-            name: action.payload.name,
-            stack: action.payload.stack
-          }
-        }
-      };
-    }
-
-    case OidcActionTypes.SignInError: {
-      return {
-        ...state,
-        errors: {
-          ...state.errors,
-          signInError: {
-            message: action.payload.message,
-            name: action.payload.name,
-            stack: action.payload.stack
-          }
-        }
-      };
-    }
-
-    default: {
-      return state;
-    }
-  }
+export function oidcReducer(state: OidcState | undefined, action: Action) {
+  return featureReducer(state, action);
 }
