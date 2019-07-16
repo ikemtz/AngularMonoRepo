@@ -1,43 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects'; 
-import { EmployeesPartialState, EMPLOYEES_FEATURE_KEY } from './employees.reducer';
-import { LoadEntities, EntityError, EmployeesActionTypes, EntitiesLoaded, SaveEntityRequest } from './employees.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { EMPLOYEES_FEATURE_KEY } from './employees.reducer';
 import { environment } from '../../../../environments/environment';
-import { map } from 'rxjs/operators';
-import { DataPersistence } from '@nrwl/angular';
+import { map, concatMap, catchError } from 'rxjs/operators';
 import { ODataService } from '@imko/kendo-grid-odata';
 import { EmployeeApiService } from '../services/employee.api.service';
+import { employeesActions } from './employees.actions';
+import { of, Observable } from 'rxjs';
 
 @Injectable()
 export class EmployeesEffects {
   readonly baseODataUrl = environment.emplMs.ODataEndpoint;
-  @Effect() loadEntities$ = this.dataPersistence.fetch(EmployeesActionTypes.LoadEntities, {
-    run: (action: LoadEntities, state: EmployeesPartialState) => {
-      return this.odataService.fetch(this.baseODataUrl, action.payload).pipe(map(m => new EntitiesLoaded(m)));
-    },
 
-    onError: (action: LoadEntities, error) => {
-      console.error('Error', error);
-      return new EntityError(error);
-    }
-  });
-  @Effect() saveEntities$ = this.dataPersistence.fetch(EmployeesActionTypes.SaveEntityRequest, {
-    run: (action: SaveEntityRequest, state: EmployeesPartialState) => {
-      return this.apiService.put(action.payload).pipe(
-        map(m =>
-          new LoadEntities(state[EMPLOYEES_FEATURE_KEY].gridODataState)));
-    },
 
-    onError: (action: SaveEntityRequest, error) => {
-      console.error('Error', error);
-      return new EntityError(error);
-    }
-  });
+
+  loadEntities$ = createEffect(() => this.actions$.pipe(
+    ofType(employeesActions.loadEntities),
+    concatMap(action =>
+      this.odataService.fetch(this.baseODataUrl, action).pipe(
+        map(m => employeesActions.entitiesLoaded(m)),
+        this.handleError()
+      ))));
+
+  saveEntities$ = createEffect(() => this.actions$.pipe(
+    ofType(employeesActions.saveEntityRequest),
+    concatMap(action => this.apiService.put(action).pipe(
+      map(m => employeesActions.saveEntitySuccess(m)),
+      this.handleError()))));
 
   constructor(
     private actions$: Actions,
     private odataService: ODataService,
-    private dataPersistence: DataPersistence<EmployeesPartialState>,
     private apiService: EmployeeApiService
   ) { }
+
+  handleError = () => <T>(source: Observable<T>) =>
+    source.pipe(catchError(error => of(employeesActions.entityError({ payload: error.message }))
+    ));
 }

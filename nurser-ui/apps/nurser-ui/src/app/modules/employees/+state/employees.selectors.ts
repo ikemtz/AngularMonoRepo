@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { EMPLOYEES_FEATURE_KEY, EmployeesState } from './employees.reducer';
-import { GridDataResult } from '@progress/kendo-angular-grid'; 
+import { GridDataResult } from '@progress/kendo-angular-grid';
 import { isTruthy } from '@progress/kendo-angular-grid/dist/es2015/utils';
 import { getODataPagerSettings } from '@imko/kendo-grid-odata';
 
