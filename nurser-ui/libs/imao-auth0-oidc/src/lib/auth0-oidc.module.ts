@@ -7,7 +7,7 @@ import { OidcEffects } from './+state/oidc.effect';
 import { OIDC_CONFIG } from './models/config.model';
 import { OidcService } from './services/oidc.service';
 import { OidcFacade } from './+state/oidc.facade';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, Store } from '@ngrx/store';
 import { oidcReducer } from './+state/oidc.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { Auth0Facade } from './+state/auth0.facade';
@@ -34,7 +34,8 @@ import { AccessDeniedComponent } from './components/access-denied.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true
+      multi: true,
+      deps: [Store]
     }
   ]
 })

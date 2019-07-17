@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { User as OidcUser } from 'oidc-client';
 import { RequestArugments } from '../models/arguments.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export enum OidcActionTypes {
   GetOidcUser = '[Oidc] get oidc user',
@@ -33,7 +34,10 @@ export enum OidcActionTypes {
   SignOutRedirect = '[Oidc] sign out redirect',
   SignOutError = '[Oidc] sign out popup error',
 
-  OidcError = '[Oidc] error'
+  OidcError = '[Oidc] error',
+
+  // Http Error
+  HttpError = '[HTTP] Http Error'
 }
 
 // OIDC COMMANDS
@@ -65,6 +69,9 @@ export const signOutError = createAction(OidcActionTypes.SignOutError, props<{ p
 export const signinSilent = createAction(OidcActionTypes.SignInSilent, props<{ payload: RequestArugments }>());
 export const oidcError = createAction(OidcActionTypes.OidcError, props<{ payload: Error }>());
 
+// HTTP
+export const httpError = createAction(OidcActionTypes.HttpError, props<{ payload: HttpErrorResponse }>());
+
 export const oidcActions = {
   getOidcUser,
   removeOidcUser,
@@ -87,5 +94,6 @@ export const oidcActions = {
   signoutRedirect,
   signOutError,
   signinSilent,
-  oidcError
+  oidcError,
+  httpError
 };

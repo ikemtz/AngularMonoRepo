@@ -1,10 +1,11 @@
-import { Observable } from 'rxjs';
-import { first, flatMap } from 'rxjs/operators';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { first, flatMap, catchError } from 'rxjs/operators';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { oidcQuery } from '../+state/oidc.selectors';
 import { OidcState } from '../+state/oidc.reducer';
+import { oidcActions } from '../+state/oidc.action';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
@@ -19,8 +20,15 @@ export class TokenInterceptorService implements HttpInterceptor {
             setHeaders: { Authorization: `Bearer ${access_token}` }
           });
         }
-        return next.handle(req);
-      })
-    );
+        return next.handle(req)
+          .pipe(
+            catchError((err: any) => {
+              if (err instanceof HttpErrorResponse) {
+                this.store.dispatch(oidcActions.httpError({ payload: err }));
+              }
+              return of(err);
+            }));
+      }
+      ));
   }
 }
