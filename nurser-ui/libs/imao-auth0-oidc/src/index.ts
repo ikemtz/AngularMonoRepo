@@ -6,7 +6,7 @@ export { auth0Query } from './lib/+state/auth0.selectors';
 export * from './lib/+state/oidc.action';
 export * from './lib/+state/oidc.effect';
 export * from './lib/+state/oidc.facade';
-export * from './lib/+state/oidc.reducer';
+export { OidcState, ErrorState, oidcReducer } from './lib/+state/oidc.reducer';
 export { oidcQuery } from './lib/+state/oidc.selectors';
 export * from './lib/models/arguments.model';
 export { Auth0Config, AUTH0_CONFIG } from './lib/models/auth0-config';

@@ -47,14 +47,12 @@ const featureReducer = createReducer(
       }
     }
   })),
-
   on(oidcActions.userDoneLoadingError, (state, err) => ({
     ...state, loading: false, errors: {
       ...state.errors,
       signInError: err.payload
     }
   })),
-
   on(oidcActions.signInError, (state, err) => ({
     ...state, errors: {
       ...state.errors, signInError: {
