@@ -38,7 +38,7 @@ export enum OidcActionTypes {
 
   // Http Error
   SetHttpError = '[HTTP] Set Http Error',
-  ClearHttpError = '[HTTP] Clear Http Error',
+  ClearErrors = '[HTTP] Clear Errors',
 }
 
 // OIDC COMMANDS
@@ -72,7 +72,7 @@ export const oidcError = createAction(OidcActionTypes.OidcError, props<{ payload
 
 // HTTP
 export const setHttpError = createAction(OidcActionTypes.SetHttpError, props<{ payload: HttpErrorResponse }>());
-export const clearHttpError = createAction(OidcActionTypes.ClearHttpError);
+export const clearErrors = createAction(OidcActionTypes.ClearErrors);
 
 export const oidcActions = {
   getOidcUser,
@@ -98,5 +98,5 @@ export const oidcActions = {
   signinSilent,
   oidcError,
   setHttpError,
-  clearHttpError
+  clearErrors
 };

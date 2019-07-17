@@ -36,8 +36,12 @@ const featureReducer = createReducer(
   on(oidcActions.getOidcUser, state => ({ ...state, loading: true })),
   on(oidcActions.removeOidcUser, state => ({ ...state, loading: true })),
   on(oidcActions.onUserLoading, state => ({ ...state, loading: true })),
-  on(oidcActions.setHttpError, (state, event) => ({ ...state, httpError: event.payload })),
-  on(oidcActions.clearHttpError, (state, event) => ({ ...state, httpError: null })),
+  on(oidcActions.setHttpError, (state, err) => ({
+    ...state, loading: false, errors: {
+      ...state.errors, httpError: err.payload
+    }
+  })),
+  on(oidcActions.clearErrors, state => ({ ...state, errors: {} })),
   on(oidcActions.userDoneLoading, state => ({ ...state, loading: false })),
   on(oidcActions.onAccessTokenExpiring, state => ({ ...state, expiring: true })),
   on(oidcActions.onUserLoaded, state => ({ ...state, loading: false, expiring: false })),
@@ -45,11 +49,8 @@ const featureReducer = createReducer(
   on(oidcActions.userFound, (state, identity) => ({ ...state, identity: identity.payload, permissions: jwtDecoder<{ permissions?: [] }>(identity.payload.access_token).permissions })),
   on(oidcActions.userExpired, state => ({ ...state, expiring: false })),
   on(oidcActions.onSilentRenewError, (state, err) => ({
-    ...state, errors: {
-      ...state.errors, silentRenewError: {
-        message: err.payload.message, name: err.payload.name, stack: err.payload.stack,
-        loading: false
-      }
+    ...state, loading: false, errors: {
+      ...state.errors, silentRenewError: err.payload
     }
   })),
   on(oidcActions.userDoneLoadingError, (state, err) => ({
@@ -59,10 +60,8 @@ const featureReducer = createReducer(
     }
   })),
   on(oidcActions.signInError, (state, err) => ({
-    ...state, errors: {
-      ...state.errors, signInError: {
-        message: err.payload.message, name: err.payload.name, stack: err.payload.stack
-      }
+    ...state, loading: false, errors: {
+      ...state.errors, signInError: err.payload
     }
   })),
 );

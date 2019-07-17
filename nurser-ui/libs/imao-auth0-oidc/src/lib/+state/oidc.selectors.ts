@@ -8,6 +8,7 @@ const getOidcLoading = createSelector(selectOidcState, (state: OidcState) => sta
 const getOidcIdentity = createSelector(selectOidcState, (state: OidcState) => state.identity);
 const getAccessToken = createSelector(getOidcIdentity, (user: OidcUser) => (user || <OidcUser>{ access_token: null }).access_token);
 const isIdentityExpiring = createSelector(selectOidcState, (state: OidcState) => state.expiring);
+
 const isIdentityExpired = createSelector(
     getOidcIdentity,
     (identity: OidcUser) => identity && identity.expired
@@ -21,6 +22,11 @@ const isLoggedIn = createSelector(
 const selectOidcErrorState: MemoizedSelector<{}, ErrorState> = createSelector(
     selectOidcState,
     (state: OidcState) => state.errors
+);
+
+const hasErrors: MemoizedSelector<{}, boolean> = createSelector(
+    selectOidcState,
+    (state: OidcState) => !!state.errors.httpError || !!state.errors.signInError || !!state.errors.silentRenewError
 );
 
 const getSignInError = createSelector(
@@ -50,4 +56,5 @@ export const oidcQuery =
     isLoggedIn,
     getSignInError,
     getHttpError,
+    hasErrors,
 }

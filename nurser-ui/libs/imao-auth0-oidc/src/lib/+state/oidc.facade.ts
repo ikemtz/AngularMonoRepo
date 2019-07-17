@@ -25,9 +25,10 @@ export class OidcFacade {
   loggedIn$: Observable<boolean> = this.store.select(oidcQuery.isLoggedIn);
   identity$: Observable<OidcUser> = this.store.select(oidcQuery.getOidcIdentity);
   accessToken$: Observable<string> = this.store.select(oidcQuery.getAccessToken);
-  signInError$: Observable<ErrorState> = this.store.select(oidcQuery.getSignInError);
   httpError$: Observable<HttpErrorResponse> = this.store.select(oidcQuery.getHttpError);
-  silentRenewError$: Observable<ErrorState> = this.store.select(oidcQuery.getSilentRenewError);
+  signInError$: Observable<any> = this.store.select(oidcQuery.getSignInError);
+  silentRenewError$: Observable<any> = this.store.select(oidcQuery.getSilentRenewError);
+  hasErrors$: Observable<boolean> = this.store.select(oidcQuery.hasErrors);
 
   // default bindings to events
   private addUserUnLoaded = function () {
@@ -59,8 +60,8 @@ export class OidcFacade {
     this.store.dispatch(oidcActions.onSessionChanged());
   };
 
-  clearHttpError(){
-    this.store.dispatch(oidcActions.clearHttpError());
+  clearErrors() {
+    this.store.dispatch(oidcActions.clearErrors());
   }
 
   // OIDC Methods
