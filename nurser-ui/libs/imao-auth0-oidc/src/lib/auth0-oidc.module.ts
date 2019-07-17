@@ -34,8 +34,7 @@ import { AccessDeniedComponent } from './components/access-denied.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true,
-      deps: [OidcFacade]
+      multi: true
     }
   ]
 })

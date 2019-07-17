@@ -41,7 +41,7 @@ export enum OidcActionTypes {
 export const getOidcUser = createAction(OidcActionTypes.GetOidcUser, props<{ payload: any }>());
 export const removeOidcUser = createAction(OidcActionTypes.RemoveOidcUser);
 export const userExpired = createAction(OidcActionTypes.UserExpired);
-export const userFound = createAction(OidcActionTypes.UserFound, props<{ payload: OidcUser }>());
+export const userFound = createAction(OidcActionTypes.UserFound, props<{ payload?: OidcUser }>());
 export const onSessionChanged = createAction(OidcActionTypes.OnSessionChanged);
 export const onAccessTokenExpired = createAction(OidcActionTypes.OnAccessTokenExpired);
 export const onAccessTokenExpiring = createAction(OidcActionTypes.OnAccessTokenExpiring);

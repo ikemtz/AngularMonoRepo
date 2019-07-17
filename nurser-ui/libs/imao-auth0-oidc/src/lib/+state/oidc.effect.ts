@@ -1,11 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { Actions, Effect, ofType, OnInitEffects, createEffect } from '@ngrx/effects';
+import { Actions, ofType, OnInitEffects, createEffect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { User as OidcUser } from 'oidc-client';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, switchMap, filter } from 'rxjs/operators';
+import { catchError, concatMap, map, filter } from 'rxjs/operators';
 import { Config, OIDC_CONFIG } from '../models/config.model';
-import { ACTION_NO_ACTION } from '../models/constants';
 import { OidcService } from '../services/oidc.service';
 import { oidcActions } from './oidc.action';
 

@@ -37,13 +37,12 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
         runtimeChecks: {
           strictStateImmutability: !environment.production,
           strictActionImmutability: !environment.production,
-          //   strictStateSerializability: !environment.production,
-          //  strictActionSerializability: !environment.production
+          strictStateSerializability: !environment.production,
+          strictActionSerializability: !environment.production
         },
       }
     ),
-    //environment.production ? AppInsightsInfoRootEffects : AppInsightsVerboseRootEffects
-    EffectsModule.forRoot([AppEffects ]),
+    EffectsModule.forRoot([AppEffects, environment.production ? AppInsightsInfoRootEffects : AppInsightsVerboseRootEffects]),
     BsDropdownModule.forRoot(),
     Auth0OidcModule.forRoot(environment.auth0_options),
     StoreDevtoolsModule.instrument({

@@ -50,9 +50,8 @@ const featureReducer = createReducer(
 
   on(oidcActions.userDoneLoadingError, (state, err) => ({
     ...state, loading: false, errors: {
-      ...state.errors, signInError: {
-        message: err.payload.message, name: err.payload.name, stack: err.payload.stack
-      }
+      ...state.errors,
+      signInError: err.payload
     }
   })),
 
