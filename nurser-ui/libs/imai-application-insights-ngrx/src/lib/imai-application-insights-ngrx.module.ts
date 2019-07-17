@@ -5,13 +5,13 @@ import { IConfiguration } from '@microsoft/applicationinsights-web';
 
 @NgModule({
   imports: [CommonModule],
-  providers: []
+  providers: [AppInsightsMonitoringService]
 })
 export class AppInsightsNgrxModule {
   static forRoot(appInsightsConfiguration: IConfiguration) {
     return {
       ngModule: AppInsightsNgrxModule,
-      providers: [AppInsightsMonitoringService,
+      providers: [
         { provide: APP_INSIGHTS_CONFIG, multi: false, useValue: appInsightsConfiguration }]
     };
   }

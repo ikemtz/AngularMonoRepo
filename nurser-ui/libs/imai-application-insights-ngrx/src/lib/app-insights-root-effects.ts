@@ -1,87 +1,74 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Actions, createEffect } from '@ngrx/effects';
 import { tap, filter } from 'rxjs/operators';
 import { AppInsightsMonitoringService } from './app-insights-monitoring.service';
 
-class AppInsightsBaseffects {
-    constructor(
-        protected actions$: Actions,
-        protected monitor: AppInsightsMonitoringService
-    ) { }
+abstract class AppInsightsBaseffects {
+  constructor(
+    protected actions$: Actions,
+    protected monitor: AppInsightsMonitoringService
+  ) { }
+  protected readonly noDispatch = { dispatch: false };
 
-    public getTrackLoginPipe() {
-        return this.actions$.pipe(
-            filter(x => x.type.toUpperCase().endsWith('USER FOUND') && (<any>x).payload),
-            tap(x => {
-                this.monitor.setAuthenticatedUserContext((<any>x).payload.profile.email);
-            })
-        );
-    }
-    
-    public getTrackLogoutPipe() {
-        return this.actions$.pipe(
-            filter(x => 0 < x.type.toUpperCase().indexOf('SIGN OUT')),
-            tap(x => {
-                this.monitor.clearAuthenticatedUserContext();
-            })
-        );
-    }
-    public getTrackExceptionsPipe() {
-        return this.actions$.pipe(
-            filter(x => x.type.toUpperCase().endsWith('ERROR')),
-            tap(x => {
-                this.monitor.logException((<any>x).payload);
-            })
-        );
-    }
+  protected getTrackLoginPipe() {
+    return this.actions$.pipe(
+      filter(x => x.type.toUpperCase().endsWith('USER FOUND') && (<any>x).payload),
+      tap(x => {
+        this.monitor.setAuthenticatedUserContext((<any>x).payload.profile.email);
+      })
+    );
+  }
+
+  protected getTrackLogoutPipe() {
+    return this.actions$.pipe(
+      filter(x => 0 < x.type.toUpperCase().indexOf('SIGN OUT')),
+      tap(x => {
+        this.monitor.clearAuthenticatedUserContext();
+      })
+    );
+  }
+
+  protected getTrackExceptionsPipe() {
+    return this.actions$.pipe(
+      filter(x => x.type.toUpperCase().endsWith('ERROR')),
+      tap(x => {
+        this.monitor.logException((<any>x).payload);
+      })
+    );
+  }
 }
 
 @Injectable()
 export class AppInsightsVerboseRootEffects extends AppInsightsBaseffects {
+  trackEvents = createEffect(() => this.actions$.pipe(
+    tap(x => this.monitor.logEvent(x.type, (<any>x).payload))), this.noDispatch);
 
-    @Effect({ dispatch: false })
-    trackEvents = this.actions$.pipe(
-        tap(x => {
-            this.monitor.logEvent(x.type, (<any>x).payload);
-        })
-    );
+  trackLogin = createEffect(() => this.getTrackLoginPipe(), this.noDispatch);
 
-    @Effect({ dispatch: false })
-    trackLogin = this.getTrackLoginPipe();
+  trackLogout = createEffect(() => this.getTrackLogoutPipe(), this.noDispatch);
 
-    @Effect({dispatch: false})
-    trackLogout = this. getTrackLogoutPipe();
+  trackExceptions = createEffect(() => this.getTrackExceptionsPipe(), this.noDispatch);
 
-    @Effect({ dispatch: false })
-    trackExceptions = this.getTrackExceptionsPipe();
-
-    constructor(
-        actions$: Actions,
-        monitor: AppInsightsMonitoringService
-    ) { super(actions$, monitor) }
+  constructor(
+    actions$: Actions,
+    monitor: AppInsightsMonitoringService
+  ) { super(actions$, monitor) }
 }
 
 @Injectable()
 export class AppInsightsInfoRootEffects extends AppInsightsBaseffects {
 
-    @Effect({ dispatch: false })
-    trackEvents = this.actions$.pipe(
-        tap(x => {
-            this.monitor.logEvent(x.type, null);
-        })
-    );
+  trackEvents = createEffect(() => this.actions$.pipe(
+    tap(x => this.monitor.logEvent(x.type, null))), this.noDispatch);
 
-    @Effect({ dispatch: false })
-    trackLogin = this.getTrackLoginPipe();
+  trackLogin = createEffect(() => this.getTrackLoginPipe(), this.noDispatch);
 
-    @Effect({dispatch: false})
-    trackLogout = this. getTrackLogoutPipe();
+  trackLogout = createEffect(() => this.getTrackLogoutPipe(), this.noDispatch);
 
-    @Effect({ dispatch: false })
-    trackExceptions = this.getTrackExceptionsPipe();
+  trackExceptions = createEffect(() => this.getTrackExceptionsPipe(), this.noDispatch);
 
-    constructor(
-        actions$: Actions,
-        monitor: AppInsightsMonitoringService
-    ) { super(actions$, monitor) }
+  constructor(
+    actions$: Actions,
+    monitor: AppInsightsMonitoringService
+  ) { super(actions$, monitor) }
 }
