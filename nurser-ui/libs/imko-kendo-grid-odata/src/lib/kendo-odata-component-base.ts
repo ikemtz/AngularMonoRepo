@@ -1,5 +1,5 @@
 import { KendoODataFacadeBase } from './kendo-odata-facade';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, isObservable } from 'rxjs';
 import { PagerSettings, GridDataResult, SortSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy } from '@angular/core';
 import { ODataGridState, ODataGridStateChangeEvent } from './odata-grid-state';
@@ -19,15 +19,22 @@ export abstract class KendoODataComponentBase<
     allowUnsort: true,
     mode: 'multiple'
   };
+  private expanders: string[];
 
-  private readonly expanders: string[];
-
-  constructor(protected facade: FACADE, state: ODataGridState, gridRefresh$: Observable<any> = null) {
+  constructor(protected facade: FACADE, state: ODataGridState | Observable<ODataGridState>, gridRefresh$: Observable<any> = null) {
     this.loading$ = this.facade.loading$;
     this.gridDataResult$ = this.facade.gridDataResult$;
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
-    this.gridDataState = state;
-    this.expanders = state.expanders;
+    if (isObservable(state)) {
+      this.allSubscription.push(state.subscribe(t => {
+        this.gridDataState = t;
+        this.expanders = t.expanders;
+      }));
+    }
+    else {
+      this.gridDataState = state;
+      this.expanders = state.expanders;
+    }
     if (gridRefresh$) {
       this.allSubscription.push(
         gridRefresh$.subscribe(() => this.facade.loadEntities(this.gridDataState))
