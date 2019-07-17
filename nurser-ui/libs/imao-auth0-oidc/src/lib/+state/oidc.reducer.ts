@@ -2,6 +2,7 @@ import { User as OidcUser } from 'oidc-client';
 import { oidcActions } from './oidc.action';
 import { jwtDecoder } from '../util/jwt-decoder';
 import { on, createReducer, Action } from '@ngrx/store';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 export interface OidcState {
@@ -15,6 +16,7 @@ export interface OidcState {
 export interface ErrorState {
   silentRenewError: any;
   signInError: any;
+  httpError: HttpErrorResponse
 }
 
 export const initialState: OidcState = {
@@ -24,7 +26,8 @@ export const initialState: OidcState = {
   expiring: false,
   errors: {
     silentRenewError: null,
-    signInError: null
+    signInError: null,
+    httpError: null
   }
 };
 
@@ -33,6 +36,8 @@ const featureReducer = createReducer(
   on(oidcActions.getOidcUser, state => ({ ...state, loading: true })),
   on(oidcActions.removeOidcUser, state => ({ ...state, loading: true })),
   on(oidcActions.onUserLoading, state => ({ ...state, loading: true })),
+  on(oidcActions.setHttpError, (state, event) => ({ ...state, httpError: event.payload })),
+  on(oidcActions.clearHttpError, (state, event) => ({ ...state, httpError: null })),
   on(oidcActions.userDoneLoading, state => ({ ...state, loading: false })),
   on(oidcActions.onAccessTokenExpiring, state => ({ ...state, expiring: true })),
   on(oidcActions.onUserLoaded, state => ({ ...state, loading: false, expiring: false })),

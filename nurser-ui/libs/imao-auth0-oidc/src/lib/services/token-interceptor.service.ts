@@ -24,7 +24,7 @@ export class TokenInterceptorService implements HttpInterceptor {
           .pipe(
             catchError((err: any) => {
               if (err instanceof HttpErrorResponse) {
-                this.store.dispatch(oidcActions.httpError({ payload: err }));
+                this.store.dispatch(oidcActions.setHttpError({ payload: err }));
               }
               return of(err);
             }));

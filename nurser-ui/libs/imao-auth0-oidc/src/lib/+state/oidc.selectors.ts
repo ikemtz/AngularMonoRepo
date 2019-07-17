@@ -23,9 +23,19 @@ const selectOidcErrorState: MemoizedSelector<{}, ErrorState> = createSelector(
     (state: OidcState) => state.errors
 );
 
+const getSignInError = createSelector(
+    selectOidcErrorState,
+    (errors: ErrorState) => errors.signInError
+);
+
 const getSilentRenewError = createSelector(
     selectOidcErrorState,
     (errors: ErrorState) => errors.silentRenewError
+);
+
+const getHttpError = createSelector(
+    selectOidcErrorState,
+    (errors: ErrorState) => errors.httpError
 );
 
 export const oidcQuery =
@@ -38,5 +48,6 @@ export const oidcQuery =
     getSilentRenewError,
     isIdentityExpired,
     isLoggedIn,
-    selectOidcErrorState,
+    getSignInError,
+    getHttpError,
 }

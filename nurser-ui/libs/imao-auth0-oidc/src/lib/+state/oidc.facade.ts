@@ -9,6 +9,7 @@ import { OidcService } from '../services/oidc.service';
 import { RequestArugments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
 import { oidcActions } from './oidc.action';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,9 @@ export class OidcFacade {
   loggedIn$: Observable<boolean> = this.store.select(oidcQuery.isLoggedIn);
   identity$: Observable<OidcUser> = this.store.select(oidcQuery.getOidcIdentity);
   accessToken$: Observable<string> = this.store.select(oidcQuery.getAccessToken);
-  errors$: Observable<ErrorState> = this.store.select(oidcQuery.selectOidcErrorState);
-  silentRenewErrors$: Observable<ErrorState> = this.store.select(oidcQuery.getSilentRenewError);
+  signInError$: Observable<ErrorState> = this.store.select(oidcQuery.getSignInError);
+  httpError$: Observable<HttpErrorResponse> = this.store.select(oidcQuery.getHttpError);
+  silentRenewError$: Observable<ErrorState> = this.store.select(oidcQuery.getSilentRenewError);
 
   // default bindings to events
   private addUserUnLoaded = function () {
@@ -56,6 +58,10 @@ export class OidcFacade {
   private addUserSessionChanged = function (e) {
     this.store.dispatch(oidcActions.onSessionChanged());
   };
+
+  clearHttpError(){
+    this.store.dispatch(oidcActions.clearHttpError());
+  }
 
   // OIDC Methods
 
