@@ -21,7 +21,7 @@ export abstract class KendoODataComponentBase<
   };
   private expanders: string[];
 
-  constructor(protected facade: FACADE, state: ODataGridState | Observable<ODataGridState>, gridRefresh$: Observable<any> = null) {
+  constructor(protected facade: FACADE, state: ODataGridState | Observable<ODataGridState>, private gridRefresh$: Observable<any> = null) {
     this.loading$ = this.facade.loading$;
     this.gridDataResult$ = this.facade.gridDataResult$;
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
@@ -43,7 +43,9 @@ export abstract class KendoODataComponentBase<
   }
 
   ngOnInit(): void {
-    this.facade.loadEntities(this.gridDataState);
+    if (!this.gridRefresh$) {
+      this.facade.loadEntities(this.gridDataState);
+    }
   }
 
   ngOnDestroy(): void {
