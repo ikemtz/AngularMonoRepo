@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './list/list.component';
-import { EmployeeRouteGuard } from '../services/emp-route-guard';
+import { EmployeeRouteGuard } from './services/emp-route-guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list' },
