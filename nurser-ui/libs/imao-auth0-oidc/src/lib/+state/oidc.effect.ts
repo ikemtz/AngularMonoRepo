@@ -49,6 +49,11 @@ export class OidcEffects implements OnInitEffects {
     map(() => oidcActions.userDoneLoading())
   ));
 
+  onAccessTokenExpired$ = createEffect(() => this.actions$.pipe(
+    ofType(oidcActions.onAccessTokenExpired),
+    map(() => oidcActions.removeOidcUser())
+  ));
+
   onUserLoaded$ = createEffect(() => this.actions$.pipe(
     ofType(oidcActions.onUserLoaded),
     map((userData) => oidcActions.userFound({ payload: this.makeOidcUserSerializable(userData.payload) }))
