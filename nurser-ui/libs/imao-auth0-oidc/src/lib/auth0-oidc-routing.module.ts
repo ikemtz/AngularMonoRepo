@@ -13,7 +13,17 @@ const routes: Routes = [
 })
 export class Auth0OidcRoutingModule { }
 
-export const oidcLazyRoutes = {
-  path: 'oidc',
-  loadChildren: () => import('./auth0-oidc.module').then(m => m.Auth0OidcModule)
+//TODO: Fix lazy loading issue related to: https://github.com/Microsoft/TypeScript/issues/16675
+//export const oidcLazyRoutes = {
+//  path: 'oidc',
+//  loadChildren: () => import('./auth0-oidc.module').then(m => m.Auth0OidcModule)
+//};
+export const oidcSupportRoute = {
+  path: 'oidc/support',
+  component: SupportComponent,
+};
+
+export const oidcAccessDeniedRoute = {
+  path: 'oidc/access-denied',
+  component: AccessDeniedComponent,
 };

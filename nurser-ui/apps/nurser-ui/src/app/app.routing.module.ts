@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { oidcLazyRoutes } from '@imao/auth0-oidc';
+import { oidcSupportRoute, oidcAccessDeniedRoute } from '@imao/auth0-oidc';
 import { AppPreloadStrategy } from './app.preload.strategy';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  oidcLazyRoutes,
+  oidcSupportRoute,
+  oidcAccessDeniedRoute
 ];
 @NgModule({
   imports: [
