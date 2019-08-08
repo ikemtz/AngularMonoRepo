@@ -6,13 +6,17 @@
   </div>
   <div class="row">
     <div class="col-md-3">Permissions</div>
-    <div class="col-md-8">{{facade.permissions$ | async}}</div>
+    <div class="col-md-8">
+      <span *ngFor="let item of facade.permissions$ | async; last as isLast">
+        {{item}} <br *ngIf="!last">
+      </span>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-3">Expires</div>
-    <div class="col-md-8">{{this.facade.expiresAt$ | async}}</div>
+    <div class="col-md-8">{{facade.expiresAt$ | async}}</div>
   </div>
-  <div class="row" *ngFor="let item of this.facade.profile$ | async">
+  <div class="row" *ngFor="let item of facade.profile$ | async">
     <div class="col-md-3">{{item.key}}</div>
     <div class="col-md-8">{{item.value}}</div>
   </div>

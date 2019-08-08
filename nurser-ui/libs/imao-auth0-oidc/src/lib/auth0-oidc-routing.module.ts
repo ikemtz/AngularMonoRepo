@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SupportComponent } from './support/support.component';
-import { AccessDeniedComponent } from './components/access-denied.component';
+import { AccessDeniedComponent } from './components/access-denied.component'; 
+import { AuthGuard } from './services/auth-guard';
 
 const routes: Routes = [
   { path: 'support', component: SupportComponent },
@@ -21,6 +22,7 @@ export class Auth0OidcRoutingModule { }
 export const oidcSupportRoute = {
   path: 'oidc/support',
   component: SupportComponent,
+  canActivate: [AuthGuard]
 };
 
 export const oidcAccessDeniedRoute = {
