@@ -4,8 +4,6 @@ import { OidcFacade } from '../+state/oidc.facade';
 import { switchMap, tap, } from 'rxjs/operators';
 import { Auth0Facade } from '../+state/auth0.facade';
 
-export const AccessDeniedRouteUrl = 'access-denied';
-
 export abstract class PermissionsGuard implements CanActivate {
   constructor(private oidcFacade: OidcFacade, private auth0Facade: Auth0Facade, private router: Router) { }
 
@@ -14,7 +12,7 @@ export abstract class PermissionsGuard implements CanActivate {
     switchMap(() => this.auth0Facade.hasPermissions(this.permissions)),
     tap((t) => {
       if (!t) {
-        this.router.navigate([AccessDeniedRouteUrl], { relativeTo: this.router.routerState.root });
+        this.router.navigate(['oidc/access-denied'], { relativeTo: this.router.routerState.root });
       }
     })
   );

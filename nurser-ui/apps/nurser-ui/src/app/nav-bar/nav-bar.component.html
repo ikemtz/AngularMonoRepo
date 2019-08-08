@@ -22,6 +22,7 @@
           {{ email$ | async }}
         </a>
         <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item border-top" [routerLink]="['/oidc/support']">Support</a>
           <a class="dropdown-item border-top" (click)="signoutRedirect()">Logout</a>
         </div>
       </li>

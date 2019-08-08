@@ -25,8 +25,8 @@ const selectOidcErrorState: MemoizedSelector<{}, ErrorState> = createSelector(
 );
 
 const hasErrors: MemoizedSelector<{}, boolean> = createSelector(
-    selectOidcState,
-    (state: OidcState) => !!state.errors.httpError || !!state.errors.signInError || !!state.errors.silentRenewError
+    selectOidcErrorState,
+    (state: ErrorState) => !!state.httpError || !!state.signInError || !!state.silentRenewError
 );
 
 const getSignInError = createSelector(
@@ -43,9 +43,26 @@ const getHttpError = createSelector(
     selectOidcErrorState,
     (errors: ErrorState) => errors.httpError
 );
+const getPermissions = createSelector(
+    selectOidcState,
+    (state: OidcState) => state.permissions
+)
+const getExpiresAt = createSelector(
+    getOidcIdentity,
+    (state: OidcUser) => new Date(state.expires_at * 1000)
+)
+const getProfile = createSelector(
+    getOidcIdentity,
+    (state: OidcUser) => Object.entries(state.profile).map((k, v) => {
+        return { key: k[0], value: <string>k[1] };
+    })
+)
 
 export const oidcQuery =
 {
+    getProfile,
+    getExpiresAt,
+    getPermissions,
     selectOidcState,
     getOidcLoading,
     getOidcIdentity,

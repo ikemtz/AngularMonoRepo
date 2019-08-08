@@ -14,14 +14,17 @@ import { Auth0Facade } from './+state/auth0.facade';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AccessDeniedComponent } from './components/access-denied.component';
+import { SupportComponent } from './support/support.component';
+import { Auth0OidcRoutingModule } from './auth0-oidc-routing.module';
 
 @NgModule({
-  declarations: [AccessDeniedComponent],
+  declarations: [AccessDeniedComponent, SupportComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     StoreModule.forFeature('oidc', oidcReducer),
-    EffectsModule.forFeature([OidcEffects])
+    EffectsModule.forFeature([OidcEffects]),
+    Auth0OidcRoutingModule,
   ],
   exports: [AccessDeniedComponent],
   providers: [

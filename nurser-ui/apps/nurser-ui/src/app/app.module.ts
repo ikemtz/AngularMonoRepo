@@ -18,7 +18,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app.routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { Auth0OidcModule } from '@imao/auth0-oidc';
+import { Auth0OidcModule, SupportComponent } from '@imao/auth0-oidc';
 import { AppInsightsNgrxModule, AppInsightsVerboseRootEffects, AppInsightsInfoRootEffects } from '@imai/application-insights-ngrx';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 

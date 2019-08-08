@@ -19,3 +19,5 @@ export * from './lib/services/token-interceptor.service';
 export * from './lib/util/jwt-decoder';
 export * from './lib/services/permission-guard';
 export * from './lib/components/access-denied.component';
+export * from './lib/support/support.component';
+export * from './lib/auth0-oidc-routing.module';

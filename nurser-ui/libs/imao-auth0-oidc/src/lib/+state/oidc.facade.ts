@@ -29,6 +29,9 @@ export class OidcFacade {
   signInError$: Observable<any> = this.store.select(oidcQuery.getSignInError);
   silentRenewError$: Observable<any> = this.store.select(oidcQuery.getSilentRenewError);
   hasErrors$: Observable<boolean> = this.store.select(oidcQuery.hasErrors);
+  permissions$: Observable<string[]> = this.store.select(oidcQuery.getPermissions);
+  expiresAt$: Observable<Date> = this.store.select(oidcQuery.getExpiresAt);
+  profile$: Observable<{ key: string, value: string }[]> = this.store.select(oidcQuery.getProfile);
 
   // default bindings to events
   private addUserUnLoaded = function () {
