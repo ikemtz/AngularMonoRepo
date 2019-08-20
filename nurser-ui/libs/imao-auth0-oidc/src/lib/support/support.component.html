@@ -8,7 +8,7 @@
     <div class="col-md-3">Permissions</div>
     <div class="col-md-8">
       <span *ngFor="let item of facade.permissions$ | async; last as isLast">
-        {{item}} <br *ngIf="!last">
+        {{item}} <br *ngIf="!isLast">
       </span>
     </div>
   </div>
