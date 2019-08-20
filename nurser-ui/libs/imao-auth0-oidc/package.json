@@ -1,6 +1,6 @@
 {
   "name": "imng-auth0-oidc",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Small library to facilitate the integration of the ng-oidc-client library with the Auth0 identity provider.",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",

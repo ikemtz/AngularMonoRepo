@@ -28,10 +28,12 @@
     "build:data-entry": "rimraf ./libs/imkd-kendo-data-entry/dist && ng-packagr -p ./libs/imkd-kendo-data-entry/package.json",
     "build:grid-odata": "rimraf ./libs/imko-kendo-grid-odata/dist && ng-packagr -p ./libs/imko-kendo-grid-odata/package.json",
     "build:auth0-oidc": "rimraf ./libs/imao-auth0-oidc/dist && ng-packagr -p ./libs/imao-auth0-oidc/package.json",
+    "build:app-insight": "rimraf ./libs/imai-application-insights-ngrx/dist && ng-packagr -p ./libs/imai-application-insights-ngrx/package.json",
     "copyfiles:auth0-oidc": "copyfiles -Vf ./node_modules/oidc-client/dist/oidc-client.min.js ./libs/imao-auth0-oidc/src/assets/*.html ./libs/imao-auth0-oidc/dist/assets",
     "publish:data-entry": "npm run build:data-entry && npm publish ./libs/imkd-kendo-data-entry/dist",
     "publish:grid-odata": "npm run build:grid-odata && npm publish ./libs/imko-kendo-grid-odata/dist",
     "publish:auth0-oidc": "npm run build:auth0-oidc && npm run copyfiles:auth0-oidc && npm publish ./libs/imao-auth0-oidc/dist",
+    "publish:app-insight": "npm run build:app-insight && npm publish ./libs/imai-application-insights-ngrx/dist",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "nx": "nx"
