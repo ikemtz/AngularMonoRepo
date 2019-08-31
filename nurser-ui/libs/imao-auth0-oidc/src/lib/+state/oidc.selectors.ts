@@ -53,9 +53,14 @@ const getExpiresAt = createSelector(
 )
 const getProfile = createSelector(
     getOidcIdentity,
-    (state: OidcUser) => Object.entries(state.profile).map((k, v) => {
-        return { key: k[0], value: <string>k[1] };
-    })
+    (state: OidcUser) => {
+        if (!state || !state.profile) {
+            return [];
+        }
+        return Object.entries(state.profile).map((k, v) => {
+            return { key: k[0], value: <string>k[1] };
+        });
+    }
 )
 
 export const oidcQuery =
