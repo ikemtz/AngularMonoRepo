@@ -1,0 +1,26 @@
+{
+  "name": "imng-ngrx-utils",
+  "version": "0.0.2",
+  "author": "Isaac Martinez <@ikemtz>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@progress/kendo-data-query": "^1.5.1",
+    "@ngrx/store": "^8.0.1"
+  },
+  "devDependencies": {},
+  "main": "bundles/imng-ngrx-utils.umd.js",
+  "module": "fesm5/imng-ngrx-utils.js",
+  "es2015": "fesm2015/imng-ngrx-utils.js",
+  "esm5": "esm5/imng-ngrx-utils.js",
+  "esm2015": "esm2015/imng-ngrx-utils.js",
+  "fesm5": "fesm5/imng-ngrx-utils.js",
+  "fesm2015": "fesm2015/imng-ngrx-utils.js",
+  "typings": "imng-ngrx-utils.d.ts",
+  "metadata": "imng-ngrx-utils.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

@@ -25,10 +25,10 @@
             "assets": [
               "apps/nurser-ui/src/favicon.ico",
               "apps/nurser-ui/src/assets",
-              {	
-                "glob": "**/*.html",	
-                "input": "libs/imao-auth0-oidc/src/assets",	
-                "output": "/"	
+              {
+                "glob": "**/*.html",
+                "input": "libs/imao-auth0-oidc/src/assets",
+                "output": "/"
               },
               {
                 "glob": "oidc-client.min.js",
@@ -99,14 +99,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/nurser-ui/tsconfig.app.json",
-              "apps/nurser-ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/nurser-ui/**"
-            ]
+            "tsConfig": ["apps/nurser-ui/tsconfig.app.json", "apps/nurser-ui/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/nurser-ui/**"]
           }
         },
         "test": {
@@ -148,10 +142,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/nurser-ui-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/nurser-ui-e2e/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/nurser-ui-e2e/**"]
           }
         }
       }
@@ -172,14 +163,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/imao-auth0-oidc/tsconfig.lib.json",
-              "libs/imao-auth0-oidc/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/imao-auth0-oidc/**"
-            ]
+            "tsConfig": ["libs/imao-auth0-oidc/tsconfig.lib.json", "libs/imao-auth0-oidc/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imao-auth0-oidc/**"]
           }
         },
         "test": {
@@ -217,10 +202,7 @@
               "libs/imko-kendo-grid-odata/tsconfig.lib.json",
               "libs/imko-kendo-grid-odata/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/imko-kendo-grid-odata/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/imko-kendo-grid-odata/**"]
           }
         },
         "test": {
@@ -258,10 +240,7 @@
               "libs/imai-application-insights-ngrx/tsconfig.lib.json",
               "libs/imai-application-insights-ngrx/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/imai-application-insights-ngrx/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/imai-application-insights-ngrx/**"]
           }
         },
         "test": {
@@ -299,10 +278,7 @@
               "libs/imkd-kendo-data-entry/tsconfig.lib.json",
               "libs/imkd-kendo-data-entry/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/imkd-kendo-data-entry/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/imkd-kendo-data-entry/**"]
           }
         },
         "test": {
@@ -311,6 +287,34 @@
             "jestConfig": "libs/imkd-kendo-data-entry/jest.config.js",
             "tsConfig": "libs/imkd-kendo-data-entry/tsconfig.spec.json",
             "setupFile": "libs/imkd-kendo-data-entry/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "imng-ngrx-utils": {
+      "projectType": "library",
+      "root": "libs/imng-ngrx-utils",
+      "sourceRoot": "libs/imng-ngrx-utils/src",
+      "prefix": "nurser-ui",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/imng-ngrx-utils/tsconfig.lib.json", "libs/imng-ngrx-utils/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imng-ngrx-utils/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-ngrx-utils/jest.config.js",
+            "tsConfig": "libs/imng-ngrx-utils/tsconfig.spec.json",
+            "setupFile": "libs/imng-ngrx-utils/src/test-setup.ts"
           }
         }
       },

@@ -20,7 +20,8 @@
       "@imao/auth0-oidc": ["libs/imao-auth0-oidc/src/index.ts"],
       "@imko/kendo-grid-odata": ["libs/imko-kendo-grid-odata/src/index.ts"],
       "@imai/application-insights-ngrx": ["libs/imai-application-insights-ngrx/src/index.ts"],
-      "@imkd/kendo-data-entry": ["libs/imkd-kendo-data-entry/src/index.ts"]
+      "@imkd/kendo-data-entry": ["libs/imkd-kendo-data-entry/src/index.ts"],
+      "@nurser-ui/imng-ngrx-utils": ["libs/imng-ngrx-utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

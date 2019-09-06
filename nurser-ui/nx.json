@@ -25,6 +25,9 @@
     },
     "imkd-kendo-data-entry": {
       "tags": []
+    },
+    "imng-ngrx-utils": {
+      "tags": []
     }
   }
 }
