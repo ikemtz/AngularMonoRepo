@@ -20,7 +20,6 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends DataEntryFac
   protected allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
   public abstract props: any;
-  public active$: Observable<boolean>;
   public addEditForm: FormGroup;
   public loading$: Observable<boolean>;
   public readonly submitted: BehaviorSubject<boolean> = new BehaviorSubject(false);

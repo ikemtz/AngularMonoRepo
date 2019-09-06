@@ -13,7 +13,6 @@ export class DataEntryDialogComponent implements OnInit {
   @Input() public width: string;
   @Input() public height: string;
   @Input() public parentComponent: BaseDataEntryComponent<any, any>;
-  public active$: Observable<boolean>;
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;
   public submitted: boolean;
@@ -26,7 +25,6 @@ export class DataEntryDialogComponent implements OnInit {
       throw new TypeError("The input 'parentComponent' is required");
     }
     this.dialogTitle = this.parentComponent.dialogTitle;
-    this.active$ = this.parentComponent.active$;
     this.loading$ = this.parentComponent.loading$;
     this.addEditForm = this.parentComponent.addEditForm;
     this.submitted = this.submitted;
