@@ -28,6 +28,9 @@
     },
     "imng-ngrx-utils": {
       "tags": []
+    },
+    "imng-nrsrx-utils": {
+      "tags": []
     }
   }
 }
