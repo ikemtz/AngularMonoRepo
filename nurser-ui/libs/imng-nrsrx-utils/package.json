@@ -1,6 +1,6 @@
 {
   "name": "imng-nrsrx-client-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {

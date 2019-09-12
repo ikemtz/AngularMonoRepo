@@ -15,6 +15,11 @@ export abstract class KendoODataComponentBase<
   public readonly gridDataResult$: Observable<ODataGridDataResult<ENTITY>>;
   public readonly loading$: Observable<boolean>;
   public readonly gridPagerSettings$: Observable<false | PagerSettings>;
+  /**
+     * A properties enum to make kendo grid columns definitions type safe 
+     * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
+     */
+  public abstract props: any;
   public readonly sortSettings: SortSettings = {
     allowUnsort: true,
     mode: 'multiple'

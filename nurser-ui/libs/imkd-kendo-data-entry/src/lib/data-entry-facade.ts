@@ -7,6 +7,5 @@ export interface DataEntryFacade<Entity> {
     isNewActive$: Observable<boolean>;
     clearCurrentEntity(): void;
     saveNewEntity(entity: Entity): void;
-    setCurrentEntity(entity: Entity): void;
     updateExistingEntity(entity: Entity): void;
 }
