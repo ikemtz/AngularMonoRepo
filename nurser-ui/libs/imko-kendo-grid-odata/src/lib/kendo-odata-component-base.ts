@@ -19,7 +19,7 @@ export abstract class KendoODataComponentBase<
      * A properties enum to make kendo grid columns definitions type safe 
      * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
      */
-  public abstract props: any;
+  public readonly abstract props: any;
   public readonly sortSettings: SortSettings = {
     allowUnsort: true,
     mode: 'multiple'
