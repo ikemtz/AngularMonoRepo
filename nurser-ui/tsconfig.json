@@ -22,7 +22,8 @@
       "@imai/application-insights-ngrx": ["libs/imai-application-insights-ngrx/src/index.ts"],
       "@imkd/kendo-data-entry": ["libs/imkd-kendo-data-entry/src/index.ts"],
       "@nurser-ui/imng-ngrx-utils": ["libs/imng-ngrx-utils/src/index.ts"],
-      "@nurser-ui/imng-nrsrx-utils": ["libs/imng-nrsrx-utils/src/index.ts"]
+      "@nurser-ui/imng-nrsrx-utils": ["libs/imng-nrsrx-utils/src/index.ts"],
+      "@nurser-ui/imng-kendo-typeahead": ["libs/imng-kendo-typeahead/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

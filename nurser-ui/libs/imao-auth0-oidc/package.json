@@ -21,7 +21,7 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "./dist"
+    "dest": "../../dist/libs/imao-auth0-oidc"
   },
   "devDependencies": {
     "copyfiles": "^2.1.0",

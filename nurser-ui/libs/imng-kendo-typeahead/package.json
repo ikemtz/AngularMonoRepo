@@ -1,11 +1,13 @@
 {
-  "name": "imng-nrsrx-client-utils",
-  "version": "0.0.5",
+  "name": "imng-kendo-typeahead",
+  "version": "0.0.1",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0"
+    "@angular/core": "^8.0.0",
+    "@progress/kendo-data-query": "^1.5.1",
+    "@ngrx/store": "^8.0.1"
   },
   "devDependencies": {},
   "ngPackage": {
@@ -13,6 +15,6 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "../../dist/libs/imng-nrsrx-utils"
+    "dest": "../../dist/libs/imng-kendo-typeahead"
   }
 }

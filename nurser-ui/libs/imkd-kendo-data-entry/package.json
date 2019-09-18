@@ -13,7 +13,7 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "./dist"
+    "dest": "../../dist/libs/imkd-kendo-data-entry"
   },
   "dependencies": {}
 }

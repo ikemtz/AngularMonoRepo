@@ -1,1 +1,0 @@
-{"__symbolic":"module","version":4,"metadata":{"Payload":{"__symbolic":"class","arity":1,"members":{}},"createPayload":{"__symbolic":"function","parameters":["payload"],"value":{"payload":{"__symbolic":"reference","name":"payload"}}}},"origins":{"Payload":"./lib/payload","createPayload":"./lib/payload"},"importAs":"imng-ngrx-utils"}
