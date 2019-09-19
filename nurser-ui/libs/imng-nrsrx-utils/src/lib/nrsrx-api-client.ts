@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 export abstract class NrsrxBaseApiClientService<T extends { id?: string }> {
   public abstract url: string;
-  constructor(protected http: HttpClient) { }
+  constructor(protected readonly http: HttpClient) { }
 
   public put(payload: T): Observable<T> {
     return this.http.put<T>(this.url, payload);
