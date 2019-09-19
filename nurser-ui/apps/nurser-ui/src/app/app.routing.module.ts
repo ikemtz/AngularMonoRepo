@@ -5,7 +5,10 @@ import { oidcSupportRoute, oidcAccessDeniedRoute } from '@imao/auth0-oidc';
 import { AppPreloadStrategy } from './app.preload.strategy';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent },  {
+    path: 'employees',
+    loadChildren: () => import('./modules/employees/employees.module').then(m => m.EmployeesModule),
+  },
   oidcSupportRoute,
   oidcAccessDeniedRoute
 ];

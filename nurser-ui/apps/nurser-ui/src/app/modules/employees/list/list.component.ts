@@ -9,6 +9,7 @@ import {KendoODataComponentBase} from '@imko/kendo-grid-odata';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends KendoODataComponentBase<IEmployee, EmployeesPartialState, EmployeesFacade> {
+  public readonly props = EmployeeProperties;
   constructor(fascade: EmployeesFacade) {
     super(fascade, {
       take: 20,

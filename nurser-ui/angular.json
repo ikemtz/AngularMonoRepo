@@ -359,25 +359,25 @@
         }
       }
     },
-    "imng-kendo-typeahead": {
+    "imng-ngxb-typeahead": {
       "projectType": "library",
-      "root": "libs/imng-kendo-typeahead",
-      "sourceRoot": "libs/imng-kendo-typeahead/src",
+      "root": "libs/imng-ngxb-typeahead",
+      "sourceRoot": "libs/imng-ngxb-typeahead/src",
       "prefix": "nurser-ui",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imng-kendo-typeahead/tsconfig.lib.json", "libs/imng-kendo-typeahead/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-typeahead/**"]
+            "tsConfig": ["libs/imng-ngxb-typeahead/tsconfig.lib.json", "libs/imng-ngxb-typeahead/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imng-ngxb-typeahead/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/imng-kendo-typeahead/jest.config.js",
-            "tsConfig": "libs/imng-kendo-typeahead/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-typeahead/src/test-setup.ts"
+            "jestConfig": "libs/imng-ngxb-typeahead/jest.config.js",
+            "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.spec.json",
+            "setupFile": "libs/imng-ngxb-typeahead/src/test-setup.ts"
           }
         }
       },

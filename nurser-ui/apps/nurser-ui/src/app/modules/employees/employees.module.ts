@@ -19,6 +19,7 @@ import { faPlusCircle, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { EmployeeApiService } from './services/employee.api.service';
+import {ImngNgxbTypeaheadModule} from '@nurser-ui/imng-ngxb-typeahead';
 
 @NgModule({
   declarations: [ListComponent],
@@ -34,6 +35,7 @@ import { EmployeeApiService } from './services/employee.api.service';
     FontAwesomeModule,
     DatePickerModule,
     ReactiveFormsModule,
+    ImngNgxbTypeaheadModule,
   ],
   providers: [EmployeesFacade, EmployeeApiService]
 })

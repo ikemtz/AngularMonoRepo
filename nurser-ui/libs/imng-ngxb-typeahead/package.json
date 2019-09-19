@@ -1,13 +1,11 @@
 {
-  "name": "imng-kendo-typeahead",
+  "name": "imng-ngxb-typeahead",
   "version": "0.0.1",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@progress/kendo-data-query": "^1.5.1",
-    "@ngrx/store": "^8.0.1"
+    "@angular/core": "^8.0.0"
   },
   "devDependencies": {},
   "ngPackage": {
@@ -15,6 +13,6 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "../../dist/libs/imng-kendo-typeahead"
+    "dest": "../../dist/libs/imng-ngxb-typeahead"
   }
 }

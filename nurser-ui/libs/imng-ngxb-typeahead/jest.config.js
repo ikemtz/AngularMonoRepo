@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'imng-kendo-typeahead',
+  name: 'imng-ngxb-typeahead',
   preset: '../../jest.config.js',
-  coverageDirectory: '../../coverage/libs/imng-kendo-typeahead',
+  coverageDirectory: '../../coverage/libs/imng-ngxb-typeahead',
   snapshotSerializers: [
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js',
