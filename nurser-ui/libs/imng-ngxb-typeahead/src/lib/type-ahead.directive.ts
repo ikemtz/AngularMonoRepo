@@ -5,7 +5,7 @@ import { ImngTypeAheadFacade } from './imng-type-ahead-facade';
 import { Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { NgControl } from '@angular/forms';
-import { ImngTypeaheadMatch } from './imng-typeahead-match';
+import { ImngTypeaheadMatch } from './imng-type-ahead-match';
 
 /*
  * ### Example markup

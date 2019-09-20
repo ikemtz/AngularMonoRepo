@@ -1,6 +1,6 @@
 {
   "name": "imng-ngxb-typeahead",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {

@@ -1,4 +1,5 @@
 export * from './lib/imng-ngxb-typeahead.module';
 export * from './lib/imng-type-ahead-facade';
+export * from './lib/imng-type-ahead-test-facade';
 export * from './lib/type-ahead.directive';
-export * from './lib/imng-typeahead-match';
+export * from './lib/imng-type-ahead-match';

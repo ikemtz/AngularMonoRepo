@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ImngTypeaheadMatch } from './imng-typeahead-match';
+import { ImngTypeaheadMatch } from './imng-type-ahead-match';
 import { FilterDescriptor, CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 export interface ImngTypeAheadFacade<T> {
