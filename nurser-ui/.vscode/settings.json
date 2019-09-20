@@ -5,5 +5,8 @@
   "prettier.endOfLine": "lf",
   "typescript.format.semicolons": "insert",
   "typescript.preferences.quoteStyle": "single",
-  "typescript.suggest.completeFunctionCalls": true
+  "typescript.suggest.completeFunctionCalls": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true
 }
