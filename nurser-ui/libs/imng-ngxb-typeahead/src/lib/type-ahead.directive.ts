@@ -1,24 +1,34 @@
 import { Directive, ChangeDetectorRef, ElementRef, Renderer2, ViewContainerRef, OnInit, OnDestroy, Input } from '@angular/core';
 import { TypeaheadDirective, TypeaheadConfig, TypeaheadMatch } from 'ngx-bootstrap/typeahead'
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
-import { ITypeAheadFacade } from './itype-ahead-facade';
+import { ImngTypeAheadFacade } from './imng-type-ahead-facade';
 import { Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
-import { MockNgControl } from './mock-control';
+import { NgControl } from '@angular/forms';
+import { ImngTypeaheadMatch } from './imng-typeahead-match';
 
+/*
+ * ### Example markup
+ * <input [imngTypeahead]="myTypeAheadFacade" formControlName="myFormControl" (typeaheadOnSelect)="typeaheadOnSelect($event)" />
+ * 
+ * ### Note:
+ * imngTypeahead must be set to a class that implements the ITypeAheadFacade interface
+ * 
+ * typeaheadOnSelect return type is TypeaheadMatch
+ */
 @Directive({
   selector: '[imngTypeahead]'
 })
 export class ImngTypeaheadDirective extends TypeaheadDirective implements OnInit, OnDestroy {
-  private _typeAheadFacade: ITypeAheadFacade;
+  private _typeAheadFacade: ImngTypeAheadFacade<object>;
   private subscriptions: Subscription[];
 
-  constructor(cis: ComponentLoaderFactory, changeDetection: ChangeDetectorRef, private readonly myElement: ElementRef, renderer: Renderer2, viewContainerRef: ViewContainerRef) {
+  constructor(cis: ComponentLoaderFactory, changeDetection: ChangeDetectorRef, element: ElementRef, ngControl: NgControl, renderer: Renderer2, viewContainerRef: ViewContainerRef) {
     super(cis, {
       isAnimated: true,
       hideResultsOnBlur: true,
       minLength: 1,
-    } as TypeaheadConfig, changeDetection, myElement, new MockNgControl(), renderer, viewContainerRef);
+    } as TypeaheadConfig, changeDetection, element, ngControl, renderer, viewContainerRef);
     this.typeaheadAsync = true;
     this.subscriptions = [];
 
@@ -26,9 +36,9 @@ export class ImngTypeaheadDirective extends TypeaheadDirective implements OnInit
     this.typeaheadMinLength = 1;
     this.typeaheadWaitMs = 100;
   }
-  
+
   @Input('imngTypeahead')
-  set facade(typeAheadFacade: ITypeAheadFacade) {
+  set facade(typeAheadFacade: ImngTypeAheadFacade<object>) {
     this.typeahead = typeAheadFacade.matches$;
     this._typeAheadFacade = typeAheadFacade;
   }
@@ -48,13 +58,9 @@ export class ImngTypeaheadDirective extends TypeaheadDirective implements OnInit
           tap(t => this._typeAheadFacade.loadMatches(t)),
           switchMap(t => this._typeAheadFacade.matches$)
         )
-        .subscribe((matches: TypeaheadMatch[]) => {
-          this.finalizeAsyncCall(matches);
+        .subscribe((matches: ImngTypeaheadMatch<object>[]) => {
+          this.finalizeAsyncCall(matches as any);
         })
     );
-  }
-  changeModel(match: TypeaheadMatch): void {
-    this.myElement.nativeElement.value = match.value;
-    this.hide();
   }
 }

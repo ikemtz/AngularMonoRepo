@@ -17,9 +17,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlusCircle, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeeApiService } from './services/employee.api.service';
-import {ImngNgxbTypeaheadModule} from '@nurser-ui/imng-ngxb-typeahead';
 
 @NgModule({
   declarations: [ListComponent],
@@ -34,8 +33,7 @@ import {ImngNgxbTypeaheadModule} from '@nurser-ui/imng-ngxb-typeahead';
     EffectsModule.forFeature([EmployeesEffects]),
     FontAwesomeModule,
     DatePickerModule,
-    ReactiveFormsModule,
-    ImngNgxbTypeaheadModule,
+    ReactiveFormsModule
   ],
   providers: [EmployeesFacade, EmployeeApiService]
 })

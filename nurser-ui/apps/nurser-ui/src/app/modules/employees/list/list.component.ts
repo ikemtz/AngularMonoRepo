@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { EmployeesFacade } from '../+state/employees.facade';  
+import { EmployeesFacade } from '../+state/employees.facade';
 import { EmployeesPartialState } from '../+state/employees.reducer';
 import { IEmployee, EmployeeProperties } from '../../models/emp-odata';
-import {KendoODataComponentBase} from '@imko/kendo-grid-odata';
+import { KendoODataComponentBase } from '@imko/kendo-grid-odata';
+
 @Component({
   selector: 'ngnu-list',
   templateUrl: './list.component.html',
