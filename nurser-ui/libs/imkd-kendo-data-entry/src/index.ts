@@ -4,4 +4,3 @@ export * from './lib/base-data-entry.component';
 export * from './lib/data-entry-facade';
 export * from './lib/data-entry-test-facade';
 export * from './lib/reducer-collection-logic';
-export * from './lib/base-webapi.service';
