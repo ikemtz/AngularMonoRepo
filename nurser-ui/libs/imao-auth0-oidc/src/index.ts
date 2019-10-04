@@ -1,5 +1,3 @@
-
-
 export * from './lib/auth0-oidc.module';
 export * from './lib/+state/auth0.facade';
 export { auth0Query } from './lib/+state/auth0.selectors';
@@ -10,6 +8,7 @@ export { OidcState, ErrorState, oidcReducer } from './lib/+state/oidc.reducer';
 export { oidcQuery } from './lib/+state/oidc.selectors';
 export * from './lib/models/arguments.model';
 export { Auth0Config, AUTH0_CONFIG } from './lib/models/auth0-config';
+export * from './lib/models/auth0-profile';
 export * from './lib/models/config.model';
 export * from './lib/models/constants';
 export * from './lib/util/auth0-configurator';

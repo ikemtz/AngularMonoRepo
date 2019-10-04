@@ -1,6 +1,6 @@
 {
   "name": "imng-application-insights-ngrx",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Small library to facilitate the integration of Application Insights with an NGRX metaReducer.",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
