@@ -23,7 +23,8 @@
       "@imkd/kendo-data-entry": ["libs/imkd-kendo-data-entry/src/index.ts"],
       "@nurser-ui/imng-ngrx-utils": ["libs/imng-ngrx-utils/src/index.ts"],
       "@nurser-ui/imng-nrsrx-utils": ["libs/imng-nrsrx-utils/src/index.ts"],
-      "@nurser-ui/imng-ngxb-typeahead": ["libs/imng-ngxb-typeahead/src/index.ts"]
+      "@nurser-ui/imng-ngxb-typeahead": ["libs/imng-ngxb-typeahead/src/index.ts"],
+      "@nurser-ui/imng-kendo-chart-odata": ["libs/imng-kendo-chart-odata/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

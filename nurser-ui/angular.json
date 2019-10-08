@@ -386,6 +386,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "imng-kendo-chart-odata": {
+      "projectType": "library",
+      "root": "libs/imng-kendo-chart-odata",
+      "sourceRoot": "libs/imng-kendo-chart-odata/src",
+      "prefix": "nurser-ui",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/imng-kendo-chart-odata/tsconfig.lib.json",
+              "libs/imng-kendo-chart-odata/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-chart-odata/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-kendo-chart-odata/jest.config.js",
+            "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.spec.json",
+            "setupFile": "libs/imng-kendo-chart-odata/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
