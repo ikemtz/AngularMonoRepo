@@ -417,6 +417,28 @@
           "styleext": "scss"
         }
       }
+    },
+    "imng-kendo-odata": {
+      "root": "libs/imng-kendo-odata",
+      "sourceRoot": "libs/imng-kendo-odata/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/imng-kendo-odata/tsconfig.lib.json", "libs/imng-kendo-odata/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-odata/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-kendo-odata/jest.config.js",
+            "tsConfig": "libs/imng-kendo-odata/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

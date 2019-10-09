@@ -1,27 +1,27 @@
 import { DataStateChangeEvent, SortSettings } from '@progress/kendo-angular-grid';
 import { Input, OnInit } from '@angular/core';
 import { process, State } from '@progress/kendo-data-query';
-import { ODataGridDataResult } from './odata-grid-data-result';
+import { ODataResult } from 'imng-kendo-odata';
 
 export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements OnInit {
   @Input() public item?: PARENT_ENTITY;
   @Input() public detail: LISTED_ENTITY[];
   /**
-     * A properties enum to make kendo grid columns definitions type safe 
-     * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
-     */
-  public readonly abstract props: any;
+   * A properties enum to make kendo grid columns definitions type safe
+   * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
+   */
+  public abstract readonly props: any;
   public state: State = {
     skip: 0,
-    take: 10
+    take: 10,
   };
 
   public readonly sortSettings: SortSettings = {
     allowUnsort: true,
-    mode: 'multiple'
+    mode: 'multiple',
   };
 
-  public gridData: ODataGridDataResult<LISTED_ENTITY>;
+  public gridData: ODataResult<LISTED_ENTITY>;
 
   ngOnInit(): void {
     this.gridData = process(this.detail, this.state);

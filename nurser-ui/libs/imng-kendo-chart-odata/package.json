@@ -1,9 +1,9 @@
 {
-  "name": "imng-kendo-grid-odata",
-  "version": "0.2.8",
+  "name": "imng-kendo-chart-odata",
+  "version": "0.0.2",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
-  "description": "A library to make integrating Angular Kendo Grid, OData endpoints, and NGRX a bit simpler.",
+  "description": "A library to make integrating Angular Kendo Charts and NGRX a bit simpler.",
   "keywords": [
     "Angular",
     "NGRX",
@@ -14,8 +14,7 @@
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0",
-    "imng-kendo-odata": "*",
-    "@ngrx/store": "^8.0.1"
+    "imng-kendo-odata": "*"
   },
   "devDependencies": {},
   "ngPackage": {
@@ -23,6 +22,6 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "../../dist/libs/imko-kendo-grid-odata"
+    "dest": "../../dist/libs/imng-kendo-chart-odata"
   }
 }

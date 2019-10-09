@@ -1,11 +1,9 @@
-import { ODataGridDataResult } from './odata-grid-data-result';
-import { ODataGridState } from './odata-grid-state';
-
+import { ODataResult, ODataState } from 'imng-kendo-odata';
 
 export interface KendoODataState<Entity> {
-  dataResult: ODataGridDataResult<Entity>;
+  dataResult: ODataResult<Entity>;
   currentEntity?: Entity;
   loading: boolean;
-  gridODataState?: ODataGridState;
+  gridODataState?: ODataState;
   error?: any; // last known error (if any)
 }

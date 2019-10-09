@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { EmployeesPartialState } from './employees.reducer';
 import { employeesQuery } from './employees.selectors';
-import { KendoODataFacadeBase, ODataGridState } from '@imko/kendo-grid-odata';
+import { KendoODataFacadeBase } from '@imko/kendo-grid-odata';
 import { IEmployee, IEmployeeCertification } from '../../models/emp-odata';
 import { employeesActions } from './employees.actions';
+import { ODataState } from '@nurser-ui/imng-kendo-odata';
 
 @Injectable()
 export class EmployeesFacade extends KendoODataFacadeBase<IEmployee, EmployeesPartialState> {
@@ -15,7 +16,7 @@ export class EmployeesFacade extends KendoODataFacadeBase<IEmployee, EmployeesPa
     super(store, employeesQuery);
   }
 
-  loadEntities(state: ODataGridState = { skip: 0, take: 20 }) {
+  loadEntities(state: ODataState = { skip: 0, take: 20 }) {
     this.store.dispatch(employeesActions.loadEntities({ payload: state }));
   }
 

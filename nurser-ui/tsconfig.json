@@ -10,22 +10,54 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@env/*": ["apps/nurser-ui/src/app/environments/*"],
-      "@imao/auth0-oidc": ["libs/imao-auth0-oidc/src/index.ts"],
-      "@imko/kendo-grid-odata": ["libs/imko-kendo-grid-odata/src/index.ts"],
-      "@imai/application-insights-ngrx": ["libs/imai-application-insights-ngrx/src/index.ts"],
-      "@imkd/kendo-data-entry": ["libs/imkd-kendo-data-entry/src/index.ts"],
-      "@nurser-ui/imng-ngrx-utils": ["libs/imng-ngrx-utils/src/index.ts"],
-      "@nurser-ui/imng-nrsrx-utils": ["libs/imng-nrsrx-utils/src/index.ts"],
-      "@nurser-ui/imng-ngxb-typeahead": ["libs/imng-ngxb-typeahead/src/index.ts"],
-      "@nurser-ui/imng-kendo-chart-odata": ["libs/imng-kendo-chart-odata/src/index.ts"]
+      "@env/*": [
+        "apps/nurser-ui/src/app/environments/*"
+      ],
+      "@imao/auth0-oidc": [
+        "libs/imao-auth0-oidc/src/index.ts"
+      ],
+      "@imko/kendo-grid-odata": [
+        "libs/imko-kendo-grid-odata/src/index.ts"
+      ],
+      "@imai/application-insights-ngrx": [
+        "libs/imai-application-insights-ngrx/src/index.ts"
+      ],
+      "@imkd/kendo-data-entry": [
+        "libs/imkd-kendo-data-entry/src/index.ts"
+      ],
+      "@nurser-ui/imng-ngrx-utils": [
+        "libs/imng-ngrx-utils/src/index.ts"
+      ],
+      "@nurser-ui/imng-nrsrx-utils": [
+        "libs/imng-nrsrx-utils/src/index.ts"
+      ],
+      "@nurser-ui/imng-ngxb-typeahead": [
+        "libs/imng-ngxb-typeahead/src/index.ts"
+      ],
+      "@nurser-ui/imng-kendo-chart-odata": [
+        "libs/imng-kendo-chart-odata/src/index.ts"
+      ],
+      "@nurser-ui/imng-kendo-odata": [
+        "libs/imng-kendo-odata/src/index.ts"
+      ],
+      "imng-kendo-odata": [
+        "libs/imng-kendo-odata/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

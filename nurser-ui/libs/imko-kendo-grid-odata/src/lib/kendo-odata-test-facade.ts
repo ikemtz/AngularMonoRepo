@@ -1,11 +1,11 @@
-import { ODataGridState, ODataGridDataResult } from '..';
 import { Observable, of } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
+import { ODataState, ODataResult } from 'imng-kendo-odata';
 
 export class KendoODataTestFacade {
   public loading$: Observable<boolean> = of(false);
-  public gridODataState$: Observable<ODataGridState> = of({});
-  public gridDataResult$: Observable<ODataGridDataResult<object>> = of({ data: [], total: 0 });
+  public gridODataState$: Observable<ODataState> = of({});
+  public gridDataResult$: Observable<ODataResult<object>> = of({ data: [], total: 0 });
   public gridPagerSettings$: Observable<false | PagerSettings> = of({});
 
   public static create(mockFacade?: KendoODataTestFacade | any): KendoODataTestFacade {
@@ -23,5 +23,5 @@ export class KendoODataTestFacade {
     };
   }
 
-  public loadEntities(state: ODataGridState): void {}
+  public loadEntities(state: ODataState): void {}
 }

@@ -1,1 +1,2 @@
-export * from './lib/imng-kendo-chart-odata.module';
+export * from './lib/kendo-chart-facade';
+export * from './lib/kendo-chart-odata-component-base.component';
