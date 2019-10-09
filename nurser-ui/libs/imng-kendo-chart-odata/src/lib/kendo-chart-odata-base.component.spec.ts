@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KendoChartODataComponentBaseComponent } from './kendo-chart-odata-component-base.component';
+import { KendoChartODataComponentBaseComponent } from './kendo-chart-odata-base.component';
 
 describe('KendoChartODataComponentBaseComponent', () => {
   let component: KendoChartODataComponentBaseComponent;
@@ -8,9 +8,8 @@ describe('KendoChartODataComponentBaseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KendoChartODataComponentBaseComponent ]
-    })
-    .compileComponents();
+      declarations: [KendoChartODataComponentBaseComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
