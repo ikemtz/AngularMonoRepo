@@ -14,7 +14,7 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "../../dist/libs/imai-application-insights-ngrx"
+    "dest": "../../dist/libs/imng-application-insights-ngrx"
   },
   "peerDependencies": {
     "@angular/common": "^8.0.0",

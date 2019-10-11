@@ -23,6 +23,6 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "../../dist/libs/imko-kendo-grid-odata"
+    "dest": "../../dist/libs/imng-kendo-grid-odata"
   }
 }
