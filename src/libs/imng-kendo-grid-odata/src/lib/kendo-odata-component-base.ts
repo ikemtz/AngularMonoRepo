@@ -1,15 +1,12 @@
-import { KendoODataFacadeBase } from './kendo-odata-facade';
 import { Observable, Subscription, isObservable } from 'rxjs';
 import { PagerSettings, GridDataResult, SortSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy } from '@angular/core';
 import { ODataState, ODataResult } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
-export abstract class KendoODataComponentBase<
-  ENTITY,
-  PARTIALSTATE,
-  FACADE extends KendoODataFacadeBase<ENTITY, PARTIALSTATE>
-> implements OnInit, OnDestroy {
-  private allSubscription: Subscription[] = [];
+import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
+export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
+  implements OnInit, OnDestroy {
+  protected allSubscription: Subscription[] = [];
   public gridDataState: ODataState;
   public readonly gridDataResult$: Observable<ODataResult<ENTITY>>;
   public readonly loading$: Observable<boolean>;
@@ -23,12 +20,12 @@ export abstract class KendoODataComponentBase<
     allowUnsort: true,
     mode: 'multiple',
   };
-  private expanders: string[];
+  protected expanders: string[];
 
   constructor(
-    protected facade: FACADE,
-    state: ODataState | Observable<ODataState>,
-    private gridRefresh$: Observable<any> = null,
+    protected readonly facade: FACADE,
+    protected readonly state: ODataState | Observable<ODataState>,
+    protected readonly gridRefresh$: Observable<any> = null,
   ) {
     this.loading$ = this.facade.loading$;
     this.gridDataResult$ = this.facade.gridDataResult$;

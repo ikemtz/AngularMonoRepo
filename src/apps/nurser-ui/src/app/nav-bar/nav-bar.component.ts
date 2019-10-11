@@ -16,7 +16,7 @@ export class NavBarComponent {
   public readonly profilePicture$: Observable<string>;
   public collapsed = true;
 
-  constructor(private oidcFacade: OidcFacade, private auth0Facade: Auth0Facade) {
+  constructor(private readonly oidcFacade: OidcFacade, private readonly auth0Facade: Auth0Facade) {
     this.identity$ = this.oidcFacade.identity$;
     this.email$ = this.auth0Facade.email$;
     this.loggedIn$ = this.oidcFacade.loggedIn$;
