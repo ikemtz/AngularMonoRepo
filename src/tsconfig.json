@@ -21,35 +21,32 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@env/*": [
+      "@nurser-env/*": [
         "apps/nurser-ui/src/app/environments/*"
       ],
-      "@imao/auth0-oidc": [
-        "libs/imao-auth0-oidc/src/index.ts"
+      "imng-auth0-oidc": [
+        "libs/imng-auth0-oidc/src/index.ts"
       ],
-      "@imko/kendo-grid-odata": [
-        "libs/imko-kendo-grid-odata/src/index.ts"
+      "imng-kendo-grid-odata": [
+        "libs/imng-kendo-grid-odata/src/index.ts"
       ],
-      "@imai/application-insights-ngrx": [
-        "libs/imai-application-insights-ngrx/src/index.ts"
+      "imng-application-insights-ngrx": [
+        "libs/imng-application-insights-ngrx/src/index.ts"
       ],
-      "@imkd/kendo-data-entry": [
-        "libs/imkd-kendo-data-entry/src/index.ts"
+      "imng-kendo-data-entry": [
+        "libs/imng-kendo-data-entry/src/index.ts"
       ],
-      "@nurser-ui/imng-ngrx-utils": [
+      "imng-ngrx-utils": [
         "libs/imng-ngrx-utils/src/index.ts"
       ],
-      "@nurser-ui/imng-nrsrx-utils": [
+      "imng-nrsrx-utils": [
         "libs/imng-nrsrx-utils/src/index.ts"
       ],
-      "@nurser-ui/imng-ngxb-typeahead": [
+      "imng-ngxb-typeahead": [
         "libs/imng-ngxb-typeahead/src/index.ts"
       ],
-      "@nurser-ui/imng-kendo-chart-odata": [
+      "imng-kendo-chart-odata": [
         "libs/imng-kendo-chart-odata/src/index.ts"
-      ],
-      "@nurser-ui/imng-kendo-odata": [
-        "libs/imng-kendo-odata/src/index.ts"
       ],
       "imng-kendo-odata": [
         "libs/imng-kendo-odata/src/index.ts"

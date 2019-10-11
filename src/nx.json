@@ -1,5 +1,5 @@
 {
-  "npmScope": "nurser-ui",
+  "npmScope": "imng",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -12,18 +12,20 @@
       "tags": []
     },
     "nurser-ui": {
-      "tags": ["ngnu"]
+      "tags": [
+        "ngnu"
+      ]
     },
-    "imao-auth0-oidc": {
-      "tags": ["imao"]
+    "imng-auth0-oidc": {
+      "tags": []
     },
-    "imko-kendo-grid-odata": {
-      "tags": ["imko"]
+    "imng-kendo-grid-odata": {
+      "tags": []
     },
-    "imai-application-insights-ngrx": {
-      "tags": ["imai"]
+    "imng-application-insights-ngrx": {
+      "tags": []
     },
-    "imkd-kendo-data-entry": {
+    "imng-kendo-data-entry": {
       "tags": []
     },
     "imng-ngrx-utils": {

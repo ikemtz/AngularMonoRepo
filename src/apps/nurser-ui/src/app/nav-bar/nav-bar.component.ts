@@ -1,16 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'oidc-client';
-import { Auth0Facade, OidcFacade } from '@imao/auth0-oidc';
+import { Auth0Facade, OidcFacade } from 'imng-auth0-oidc';
 
 @Component({
   selector: 'ngnu-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavBarComponent {
-
   public readonly identity$: Observable<User>;
   public readonly email$: Observable<string>;
   public readonly loggedIn$: Observable<boolean>;
