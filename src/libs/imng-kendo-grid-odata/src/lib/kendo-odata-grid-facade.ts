@@ -5,7 +5,7 @@ import { PagerSettings } from '@progress/kendo-angular-grid';
 export interface IKendoODataGridFacade<Entity> {
   loading$: Observable<boolean>;
   gridODataState$: Observable<ODataState>;
-  gridDataResult$: Observable<ODataResult<Entity>>;
+  gridData$: Observable<ODataResult<Entity>>;
   gridPagerSettings$: Observable<false | PagerSettings>;
   loadEntities(state: ODataState): void;
 }

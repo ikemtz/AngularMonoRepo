@@ -117,6 +117,7 @@
     "ts-node": "~7.0.0",
     "tsickle": "^0.35.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "@ngrx/schematics": "8.3.0"
   }
 }

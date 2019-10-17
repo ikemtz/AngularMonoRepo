@@ -28,7 +28,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     protected readonly gridRefresh$: Observable<any> = null,
   ) {
     this.loading$ = this.facade.loading$;
-    this.gridDataResult$ = this.facade.gridDataResult$;
+    this.gridDataResult$ = this.facade.gridData$;
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
     if (isObservable(state)) {
       this.allSubscription.push(
@@ -69,6 +69,6 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   }
 
   public excelData = (): Observable<GridDataResult> => {
-    return this.facade.gridDataResult$;
+    return this.facade.gridData$;
   };
 }

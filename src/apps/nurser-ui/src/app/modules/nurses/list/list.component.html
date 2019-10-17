@@ -1,0 +1,63 @@
+<kendo-grid [data]="gridDataResult$ | async" [loading]="loading$ | async" [pageable]="gridPagerSettings$ | async"
+  [pageSize]="gridDataState.take" [filter]="gridDataState.filter" [skip]="gridDataState.skip"
+  [sort]="gridDataState.sort" [reorderable]="true" [resizable]="true" [sortable]="sortSettings" filterable="menu"
+  [height]="800" [navigable]="true" (dataStateChange)="dataStateChange($event)" kendoGridFocusable>
+  <ng-template kendoGridToolbarTemplate>
+    <div class="d-flex justify-content-between">
+      <h3>Nurses</h3>
+      <div>
+        <button type="button" title="Add Nurse" primary="true" (click)="addHandler()" class="btn btn-primary mx-2">
+          <fa-icon icon="plus-circle"></fa-icon> Add Nurse
+        </button>
+        <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="btn border mx-2">
+          Export to PDF
+        </button>
+        <button type="button" title="Export To Excel" kendoGridExcelCommand icon="file-excel" class="btn border mx-2">
+          Export To Excel
+        </button> </div>
+    </div>
+  </ng-template>
+  <kendo-grid-column field="id" [width]="10" [filterable]="false">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">{{ column.field.toUpperCase() }}</span>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <a class="text-primary" [routerLink]="['/system/certs/edit']" [queryParams]="{ id: dataItem.id }">{{
+        dataItem.id.substring(0, 8)
+      }}</a>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="firstName" [width]="100">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">{{ column.field.toUpperCase() }}</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="lastName" [width]="100">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">{{ column.field.toUpperCase() }}</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="email" [width]="100">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">{{ column.field.toUpperCase() }}</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="mobilePhone" [width]="100">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">{{ column.field.toUpperCase() }}</span>
+    </ng-template>
+  </kendo-grid-column>
+  <div *kendoGridDetailTemplate="let dataItem">
+    <!--  <nrsrx-list-detail [item]="dataItem" [detail]="dataItem.certifications"></nrsrx-list-detail>
+    -->
+  </div>
+  <kendo-grid-pdf fileName="Employees.pdf" [allPages]="true">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+
+  <kendo-grid-excel fileName="Employees.xlsx" [fetchData]="excelData"></kendo-grid-excel>
+</kendo-grid>
+<!--
+<nrsrx-add></nrsrx-add>
+<nrsrx-add-cert></nrsrx-add-cert>
+-->

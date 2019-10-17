@@ -5,11 +5,8 @@ import { oidcSupportRoute, oidcAccessDeniedRoute } from 'imng-auth0-oidc';
 import { AppPreloadStrategy } from './app.preload.strategy';
 
 const routes: Routes = [
+  { path: 'nurses', loadChildren: () => import('./modules/nurses/nurses.module').then(m => m.NursesModule) },
   { path: '', component: HomeComponent },
-  // {
-  //   path: 'employees',
-  //   loadChildren: () => import('./modules/employees/employees.module').then(m => m.EmployeesModule),
-  // },
   oidcSupportRoute,
   oidcAccessDeniedRoute,
 ];
