@@ -3,15 +3,20 @@ import { EmployeeProperties, IEmployee } from '../../models/emp-api';
 import { ListFacade } from './list.facade';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { NursesDataEntryFacade } from '../add-edit-nurses/nurses-data-entry-facade';
+import { NurseCertificationDataEntryFacade } from '../add-edit-nurse-certification/nurse-certification-data-entry-facade';
 
 @Component({
   selector: 'ngnu-nurses-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent extends KendoODataComponentBase<IEmployee, ListFacade> {
+export class ListComponent extends KendoODataComponentBase<IEmployee, ListFacade> implements OnInit {
   props = EmployeeProperties;
-  constructor(readonly fascade: ListFacade, public readonly nursesDataEntryFacade: NursesDataEntryFacade) {
+  constructor(
+    readonly fascade: ListFacade,
+    public readonly nursesDataEntryFacade: NursesDataEntryFacade,
+    public readonly nurseCertificationsDataEntryFacade: NurseCertificationDataEntryFacade,
+  ) {
     super(fascade, {
       take: 20,
       skip: 0,

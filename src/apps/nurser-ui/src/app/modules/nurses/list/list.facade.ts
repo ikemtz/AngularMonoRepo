@@ -9,8 +9,8 @@ import { ODataState } from 'imng-kendo-odata';
 
 @Injectable()
 export class ListFacade extends KendoODataFacadeBase<IEmployee, fromNurses.NursesPartialState> {
-  addNewCertification(employee: IEmployee) {
-    this.store.dispatch(NursesActions.setCurrentNurseCertificationItem(createPayload({ employee })));
+  addNewCertification(nurse: IEmployee) {
+    this.store.dispatch(NursesActions.setCurrentNurseCertificationItem(createPayload({ nurse, certification: {} })));
   }
   addNewNurse() {
     this.store.dispatch(NursesActions.setCurrentNurseItem(createPayload({})));

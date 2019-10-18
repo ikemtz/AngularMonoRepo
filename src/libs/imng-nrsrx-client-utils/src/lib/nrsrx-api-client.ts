@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export abstract class NrsrxBaseApiClientService<T extends { id?: string }> {
+export abstract class NrsrxBaseApiClientService<T extends { id?: string | number }> {
   public abstract url: string;
   constructor(protected readonly http: HttpClient) {}
   // Used to insert entities on NRSRx based API endpoints

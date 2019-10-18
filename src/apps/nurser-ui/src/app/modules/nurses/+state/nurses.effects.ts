@@ -11,6 +11,7 @@ import { environment } from 'apps/nurser-ui/src/environments/environment';
 import { map } from 'rxjs/operators';
 import { createPayload } from 'imng-ngrx-utils';
 import { NursesApiService } from '../services/nurses-api.service';
+import { NurseCertificationsApiService } from '../services/nurse-certifications-api.service';
 
 @Injectable()
 export class NursesEffects {
@@ -19,6 +20,7 @@ export class NursesEffects {
     private readonly dataPersistence: DataPersistence<NursesPartialState>,
     private readonly odataservice: ODataService,
     private readonly nursesApiService: NursesApiService,
+    private readonly nurseCertificationsApiService: NurseCertificationsApiService,
   ) {}
   loadNursesEffect$ = createEffect(() =>
     this.dataPersistence.fetch(NursesActions.loadNursesRequest, {
@@ -54,6 +56,35 @@ export class NursesEffects {
     this.dataPersistence.pessimisticUpdate(NursesActions.deleteNurseRequest, {
       run: (action: ReturnType<typeof NursesActions.deleteNurseRequest>, state: NursesPartialState) =>
         this.nursesApiService
+          .delete(action.payload)
+          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+      onError: this.exceptionHandler,
+    }),
+  );
+  saveNurseCertificationEffect$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(NursesActions.saveNurseCertificationRequest, {
+      run: (action: ReturnType<typeof NursesActions.saveNurseCertificationRequest>, state: NursesPartialState) =>
+        this.nurseCertificationsApiService
+          .put(action.payload)
+          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+      onError: this.exceptionHandler,
+    }),
+  );
+
+  updateNurseCertificationEffect$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(NursesActions.updateNurseCertificationRequest, {
+      run: (action: ReturnType<typeof NursesActions.updateNurseCertificationRequest>, state: NursesPartialState) =>
+        this.nurseCertificationsApiService
+          .post(action.payload)
+          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+      onError: this.exceptionHandler,
+    }),
+  );
+
+  deleteNurseCertificationEffect$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(NursesActions.deleteNurseCertificationRequest, {
+      run: (action: ReturnType<typeof NursesActions.deleteNurseCertificationRequest>, state: NursesPartialState) =>
+        this.nurseCertificationsApiService
           .delete(action.payload)
           .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
       onError: this.exceptionHandler,

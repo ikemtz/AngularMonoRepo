@@ -16,17 +16,17 @@ export const deleteNurseRequest = createAction('[Nurses] Delete Nurse Request', 
 export const clearCurrentNurseCertificationItem = createAction('[Nurses] Clear Current NurseCertification');
 export const setCurrentNurseCertificationItem = createAction(
   '[Nurses] Set Current NurseCertification',
-  props<Payload<{ employee: IEmployee; certification?: IEmployeeCertification }>>(),
+  props<Payload<{ nurse: IEmployee; certification: IEmployeeCertification }>>(),
 );
 export const saveNurseCertificationRequest = createAction(
   '[Nurses] Save NurseCertification Request',
-  props<Payload<{ employee: IEmployee; certification: IEmployeeCertification }>>(),
+  props<Payload<IEmployeeCertification>>(),
 );
 export const updateNurseCertificationRequest = createAction(
   '[Nurses] Update NurseCertification Request',
-  props<Payload<{ employee: IEmployee; certification: IEmployeeCertification }>>(),
+  props<Payload<IEmployeeCertification>>(),
 );
 export const deleteNurseCertificationRequest = createAction(
   '[Nurses] Delete NurseCertification Request',
-  props<Payload<{ employee: IEmployee; certification: IEmployeeCertification }>>(),
+  props<Payload<IEmployeeCertification>>(),
 );

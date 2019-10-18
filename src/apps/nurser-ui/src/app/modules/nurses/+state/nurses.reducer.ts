@@ -1,12 +1,13 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as NursesActions from './nurses.actions';
 import { KendoODataGridState, createKendoODataGridInitialState } from 'imng-kendo-grid-odata';
-import { IEmployee } from '../../models/emp-api';
+import { IEmployee, IEmployeeCertification } from '../../models/emp-api';
 
 export const NURSES_FEATURE_KEY = 'nurses';
 
 export interface NursesState extends KendoODataGridState<IEmployee> {
   currentNurse?: IEmployee;
+  currentNurseCertification?: IEmployeeCertification;
 }
 
 export interface NursesPartialState {
@@ -36,6 +37,25 @@ const nursesReducer = createReducer(
     ...state,
     loading: true,
   })),
+  on(NursesActions.setCurrentNurseCertificationItem, (state, { payload }) => ({
+    ...state,
+    currentNurseCertification: payload.certification,
+    currentNurse: payload.nurse,
+  })),
+  on(NursesActions.clearCurrentNurseCertificationItem, state => ({
+    ...state,
+    currentNurseCertification: null,
+    currentNurse: null,
+  })),
+  on(
+    NursesActions.saveNurseCertificationRequest,
+    NursesActions.updateNurseCertificationRequest,
+    NursesActions.deleteNurseCertificationRequest,
+    state => ({
+      ...state,
+      loading: true,
+    }),
+  ),
 );
 
 export function reducer(state: NursesState | undefined, action: Action) {

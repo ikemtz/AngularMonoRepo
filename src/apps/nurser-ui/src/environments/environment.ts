@@ -9,6 +9,7 @@ export const environment = {
     emplMs: {
       ODataEndpoint: 'employeesOData/odata/v1/employees',
       ApiEndpoint: 'employeesWebApi/api/v1/employees.json',
+      CertsApiEndpoint: 'employeesWebApi/api/v1/employeeCertifications.json',
     },
     certMs: {
       ODataEndpoint: 'certificationsOData/odata/v1/certifications',

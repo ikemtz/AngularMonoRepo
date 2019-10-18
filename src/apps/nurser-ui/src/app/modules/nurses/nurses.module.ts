@@ -19,11 +19,22 @@ import { NursesDataEntryFacade } from './add-edit-nurses/nurses-data-entry-facad
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { EditNursesComponent } from './add-edit-nurses/edit-nurses.component';
 import { NursesApiService } from './services/nurses-api.service';
+import { NurseCertificationsApiService } from './services/nurse-certifications-api.service';
+import { AddNurseCertificationComponent } from './add-edit-nurse-certification/add-nurse-certification.component';
+import { EditNurseCertificationComponent } from './add-edit-nurse-certification/edit-nurse-certification.component';
+import { NurseCertificationDataEntryFacade } from './add-edit-nurse-certification/nurse-certification-data-entry-facade';
 
 const routes: Routes = [{ path: '', component: ListComponent }];
 
 @NgModule({
-  declarations: [ListComponent, AddNursesComponent, EditNursesComponent, ListDetailComponent],
+  declarations: [
+    ListComponent,
+    AddNursesComponent,
+    EditNursesComponent,
+    ListDetailComponent,
+    AddNurseCertificationComponent,
+    EditNurseCertificationComponent,
+  ],
   imports: [
     CommonModule,
     NursesRoutingModule,
@@ -37,7 +48,13 @@ const routes: Routes = [{ path: '', component: ListComponent }];
     DataEntryDialogModule,
     ReactiveFormsModule,
   ],
-  providers: [ListFacade, NursesDataEntryFacade, NursesApiService],
+  providers: [
+    ListFacade,
+    NursesDataEntryFacade,
+    NursesApiService,
+    NurseCertificationsApiService,
+    NurseCertificationDataEntryFacade,
+  ],
 })
 export class NursesModule {
   constructor() {
