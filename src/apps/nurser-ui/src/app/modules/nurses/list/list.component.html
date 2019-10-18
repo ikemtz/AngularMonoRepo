@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between">
       <h3>Nurses</h3>
       <div>
-        <button type="button" title="Add Nurse" primary="true" (click)="addHandler()" class="btn btn-primary mx-2">
+        <button type="button" title="Add Nurse" primary="true" (click)="addNurse()" class="btn btn-primary mx-2">
           <fa-icon icon="plus-circle"></fa-icon> Add Nurse
         </button>
         <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="btn border mx-2">
@@ -47,9 +47,20 @@
       <span class="h6">{{ column.field.toUpperCase() }}</span>
     </ng-template>
   </kendo-grid-column>
+  <kendo-grid-column width="60">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <button type="button" class="btn btn-info btn-sm mr-1" (click)="editNurse(dataItem)" placement="left"
+        tooltip="Edit">
+        <fa-icon icon="edit"></fa-icon>
+      </button>
+      <button type="button" class="btn btn-danger btn-sm mr-1" (click)="deleteNurse(dataItem)" placement="left"
+        tooltip="Delete">
+        <fa-icon icon="trash-alt"></fa-icon>
+      </button>
+    </ng-template>
+  </kendo-grid-column>
   <div *kendoGridDetailTemplate="let dataItem">
-    <!--  <nrsrx-list-detail [item]="dataItem" [detail]="dataItem.certifications"></nrsrx-list-detail>
-    -->
+    <ngnu-list-detail [item]="dataItem" [detail]="dataItem.certifications"></ngnu-list-detail>
   </div>
   <kendo-grid-pdf fileName="Employees.pdf" [allPages]="true">
     <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
@@ -58,7 +69,7 @@
   <kendo-grid-excel fileName="Employees.xlsx" [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
 <ngnu-add-nurses *ngIf="nursesDataEntryFacade.isNewActive$ | async"></ngnu-add-nurses>
+<ngnu-edit-nurses *ngIf="nursesDataEntryFacade.isEditActive$ | async"></ngnu-edit-nurses>
 <!--
 <nrsrx-add-cert></nrsrx-add-cert>
 -->
-{{nursesDataEntryFacade.isNewActive$ | async}}

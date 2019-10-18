@@ -39,8 +39,8 @@
       "imng-ngrx-utils": [
         "libs/imng-ngrx-utils/src/index.ts"
       ],
-      "imng-nrsrx-utils": [
-        "libs/imng-nrsrx-utils/src/index.ts"
+      "imng-nrsrx-client-utils": [
+        "libs/imng-nrsrx-client-utils/src/index.ts"
       ],
       "imng-ngxb-typeahead": [
         "libs/imng-ngxb-typeahead/src/index.ts"

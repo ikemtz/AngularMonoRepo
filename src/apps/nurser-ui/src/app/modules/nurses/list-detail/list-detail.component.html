@@ -1,0 +1,7 @@
+<button type="button" class="btn btn-sm btn-primary" title="Add Nurse Certification" (click)="addCert()">Add Nurse
+  Certification</button>
+<kendo-grid [data]="detail" [scrollable]="'none'" [navigable]="true" kendoGridFocusable>
+  <kendo-grid-column field="id" title="ID" width="120"> </kendo-grid-column>
+  <kendo-grid-column field="certificationName" title="Certification Name"> </kendo-grid-column>
+  <kendo-grid-column field="expiresOnUtc" title="Expires On" format="{0:d}"> </kendo-grid-column>
+</kendo-grid>

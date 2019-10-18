@@ -32,6 +32,10 @@ const nursesReducer = createReducer(
   on(NursesActions.loadNursesFailure, (state, { payload }) => ({ ...state, error: payload.error })),
   on(NursesActions.setCurrentNurseItem, (state, { payload }) => ({ ...state, currentNurse: payload })),
   on(NursesActions.clearCurrentNurseItem, state => ({ ...state, currentNurse: null })),
+  on(NursesActions.saveNurseRequest, NursesActions.updateNurseRequest, NursesActions.deleteNurseRequest, state => ({
+    ...state,
+    loading: true,
+  })),
 );
 
 export function reducer(state: NursesState | undefined, action: Action) {

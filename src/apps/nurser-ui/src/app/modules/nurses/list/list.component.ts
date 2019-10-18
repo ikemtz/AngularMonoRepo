@@ -9,7 +9,7 @@ import { NursesDataEntryFacade } from '../add-edit-nurses/nurses-data-entry-faca
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class NursesComponent extends KendoODataComponentBase<IEmployee, ListFacade> {
+export class ListComponent extends KendoODataComponentBase<IEmployee, ListFacade> {
   props = EmployeeProperties;
   constructor(readonly fascade: ListFacade, public readonly nursesDataEntryFacade: NursesDataEntryFacade) {
     super(fascade, {
@@ -27,7 +27,13 @@ export class NursesComponent extends KendoODataComponentBase<IEmployee, ListFaca
     });
   }
 
-  public addHandler() {
-    this.facade.addNewEntity();
+  public addNurse() {
+    this.facade.addNewNurse();
+  }
+  public editNurse(item: IEmployee) {
+    this.facade.editNurse(item);
+  }
+  public deleteNurse(item: IEmployee) {
+    this.facade.deleteNurse(item);
   }
 }

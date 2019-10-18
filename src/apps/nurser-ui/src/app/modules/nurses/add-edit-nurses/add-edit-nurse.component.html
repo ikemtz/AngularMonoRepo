@@ -1,4 +1,4 @@
-<imng-data-entry-dialog [width]="750" [height]="650" [parentComponent]="this">
+<imng-data-entry-dialog [width]="400" [height]="500" [parentComponent]="this">
   <form novalidate [formGroup]="addEditForm">
     <div class="form-group">
       <label [for]="props.FIRST_NAME">First Name:</label>
@@ -14,6 +14,22 @@
         [ngClass]="{ 'is-invalid': (submitted | async) && formControlErrors(props.LAST_NAME) }" multiple="" />
       <div *ngIf="(submitted | async) && formControlErrors(props.LAST_NAME)" class="invalid-feedback">
         <div *ngIf="formControlErrors(props.LAST_NAME).required">Last Name is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label [for]="props.EMAIL">Email:</label>
+      <input type="email" class="form-control" [formControlName]="props.EMAIL"
+        [ngClass]="{ 'is-invalid': (submitted | async) && formControlErrors(props.EMAIL) }" multiple="" />
+      <div *ngIf="(submitted | async) && formControlErrors(props.EMAIL)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.EMAIL).required">Email is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label [for]="props.MOBILE_PHONE">Mobile Phone:</label>
+      <input type="number" class="form-control" [formControlName]="props.MOBILE_PHONE"
+        [ngClass]="{ 'is-invalid': (submitted | async) && formControlErrors(props.MOBILE_PHONE) }" multiple="" />
+      <div *ngIf="(submitted | async) && formControlErrors(props.MOBILE_PHONE)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.MOBILE_PHONE).required">Mobile Phone is required</div>
       </div>
     </div>
   </form>

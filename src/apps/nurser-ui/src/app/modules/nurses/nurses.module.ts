@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { NursesRoutingModule } from './nurses-routing.module';
-import { NursesComponent } from './list/list.component';
+import { ListComponent } from './list/list.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromNurses from './+state/nurses.reducer';
@@ -11,16 +11,19 @@ import { ListFacade } from './list/list.facade';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { AddNursesComponent } from './add-edit-nurses/add-nurses.component';
 import { DataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NursesDataEntryFacade } from './add-edit-nurses/nurses-data-entry-facade';
+import { ListDetailComponent } from './list-detail/list-detail.component';
+import { EditNursesComponent } from './add-edit-nurses/edit-nurses.component';
+import { NursesApiService } from './services/nurses-api.service';
 
-const routes: Routes = [{ path: '', component: NursesComponent }];
+const routes: Routes = [{ path: '', component: ListComponent }];
 
 @NgModule({
-  declarations: [NursesComponent, AddNursesComponent],
+  declarations: [ListComponent, AddNursesComponent, EditNursesComponent, ListDetailComponent],
   imports: [
     CommonModule,
     NursesRoutingModule,
@@ -34,10 +37,10 @@ const routes: Routes = [{ path: '', component: NursesComponent }];
     DataEntryDialogModule,
     ReactiveFormsModule,
   ],
-  providers: [ListFacade, NursesDataEntryFacade],
+  providers: [ListFacade, NursesDataEntryFacade, NursesApiService],
 })
 export class NursesModule {
   constructor() {
-    library.add(faPlusCircle);
+    library.add(faPlusCircle, faEdit, faTrashAlt);
   }
 }

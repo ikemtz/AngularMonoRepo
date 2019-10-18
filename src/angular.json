@@ -350,38 +350,38 @@
         }
       }
     },
-    "imng-nrsrx-utils": {
+    "imng-nrsrx-client-utils": {
       "projectType": "library",
-      "root": "libs/imng-nrsrx-utils",
-      "sourceRoot": "libs/imng-nrsrx-utils/src",
+      "root": "libs/imng-nrsrx-client-utils",
+      "sourceRoot": "libs/imng-nrsrx-client-utils/src",
       "prefix": "nurser-ui",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "libs/imng-nrsrx-utils/tsconfig.lib.json",
-            "project": "libs/imng-nrsrx-utils/ng-package.json"
+            "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.json",
+            "project": "libs/imng-nrsrx-client-utils/ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/imng-nrsrx-utils/tsconfig.lib.json",
-              "libs/imng-nrsrx-utils/tsconfig.spec.json"
+              "libs/imng-nrsrx-client-utils/tsconfig.lib.json",
+              "libs/imng-nrsrx-client-utils/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/imng-nrsrx-utils/**"
+              "!libs/imng-nrsrx-client-utils/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/imng-nrsrx-utils/jest.config.js",
-            "tsConfig": "libs/imng-nrsrx-utils/tsconfig.spec.json",
-            "setupFile": "libs/imng-nrsrx-utils/src/test-setup.ts"
+            "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.js",
+            "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.spec.json",
+            "setupFile": "libs/imng-nrsrx-client-utils/src/test-setup.ts"
           }
         }
       },

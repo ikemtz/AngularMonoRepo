@@ -13,6 +13,6 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "../../dist/libs/imng-nrsrx-utils"
+    "dest": "../../dist/libs/imng-nrsrx-client-utils"
   }
 }

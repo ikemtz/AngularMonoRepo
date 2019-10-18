@@ -33,7 +33,7 @@
     "build:auth0-oidc": "rimraf ./dist/libs/imng-auth0-oidc && ng-packagr -p ./libs/imng-auth0-oidc/package.json",
     "build:app-insight": "rimraf ./dist/libs/imng-application-insights-ngrx && ng-packagr -p ./libs/imng-application-insights-ngrx/package.json",
     "build:ngrx-utils": "rimraf ./dist/libs/imng-ngrx-utils && ng-packagr -p ./libs/imng-ngrx-utils/package.json",
-    "build:nrsrx-utils": "rimraf ./dist/libs/imng-nrsrx-utils && ng-packagr -p ./libs/imng-nrsrx-utils/package.json",
+    "build:nrsrx-utils": "rimraf ./dist/libs/imng-nrsrx-client-utils && ng-packagr -p ./libs/imng-nrsrx-client-utils/package.json",
     "copyfiles:auth0-oidc": "copyfiles -Vf ./node_modules/oidc-client/dist/oidc-client.min.js ./libs/imng-auth0-oidc/src/assets/*.html ./dist/libs/imng-auth0-oidc/assets",
     "publish:data-entry": "npm run build:data-entry && npm publish ./dist/libs/imng-kendo-data-entry",
     "publish:odata": "npm run build:odata && npm publish ./dist/libs/imng-kendo-odata",
@@ -43,7 +43,7 @@
     "publish:auth0-oidc": "npm run build:auth0-oidc && npm run copyfiles:auth0-oidc && npm publish ./dist/libs/imng-auth0-oidc",
     "publish:app-insight": "npm run build:app-insight && npm publish ./dist/libs/imng-application-insights-ngrx",
     "publish:ngrx-utils": "npm run build:ngrx-utils && npm publish ./dist/libs/imng-ngrx-utils",
-    "publish:nrsrx-utils": "npm run build:nrsrx-utils && npm publish ./dist/libs/imng-nrsrx-utils",
+    "publish:nrsrx-utils": "npm run build:nrsrx-utils && npm publish ./dist/libs/imng-nrsrx-client-utils",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "nx": "nx"

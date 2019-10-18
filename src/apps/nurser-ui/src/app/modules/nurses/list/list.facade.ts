@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-
 import { Store } from '@ngrx/store';
-
 import * as fromNurses from '../+state/nurses.reducer';
 import * as NursesActions from '../+state/nurses.actions';
 import { KendoODataFacadeBase, createKendoODataGridSelector } from 'imng-kendo-grid-odata';
@@ -11,8 +9,17 @@ import { ODataState } from 'imng-kendo-odata';
 
 @Injectable()
 export class ListFacade extends KendoODataFacadeBase<IEmployee, fromNurses.NursesPartialState> {
-  addNewEntity() {
-    this.store.dispatch(NursesActions.setCurrentNurseItem(createPayload({ id: null })));
+  addNewCertification(employee: IEmployee) {
+    this.store.dispatch(NursesActions.setCurrentNurseCertificationItem(createPayload({ employee })));
+  }
+  addNewNurse() {
+    this.store.dispatch(NursesActions.setCurrentNurseItem(createPayload({})));
+  }
+  editNurse(item: IEmployee) {
+    this.store.dispatch(NursesActions.setCurrentNurseItem(createPayload(item)));
+  }
+  deleteNurse(item: IEmployee) {
+    this.store.dispatch(NursesActions.deleteNurseRequest(createPayload(item)));
   }
   constructor(store: Store<fromNurses.NursesPartialState>) {
     super(
