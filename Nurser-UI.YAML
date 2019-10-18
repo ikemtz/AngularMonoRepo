@@ -1,0 +1,78 @@
+name: 1.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+resources:
+  - repo: self
+jobs:
+  - job: Build
+    displayName: Produce Dev and Prod builds
+
+    steps:
+      - task: Npm@1
+        displayName: 'npm install'
+        inputs:
+          workingDir: 'src'
+          verbose: false
+
+      - task: Npm@1
+        displayName: 'npm run lint'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run lint'
+
+      - task: Npm@1
+        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build'
+
+      - task: Npm@1
+        displayName: 'npm run distribute cicd-scripts [DEVELOPMENT BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run distribute:cicd-scripts'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: dev-drop [DEVELOPMENT BUILD]'
+        inputs:
+          PathtoPublish: 'src/dist'
+          ArtifactName: 'dev-drop'
+
+      - task: Npm@1
+        displayName: 'npm run build [PRODUCTION BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:prod'
+
+      - task: Npm@1
+        displayName: 'npm run distribute cicd-scripts [PRODUCTION BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run distribute:cicd-scripts'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: prod-drop [PRODUCTION BUILD]'
+        inputs:
+          PathtoPublish: 'src/dist'
+          ArtifactName: 'prod-drop'
+
+trigger:
+  paths:
+    include:
+      - src/*
+pr:
+  branches:
+    include:
+      - master
+      - releases/*
+  paths:
+    include:
+      - src/*
