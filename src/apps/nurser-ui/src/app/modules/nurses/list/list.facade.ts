@@ -12,7 +12,7 @@ import { ODataState } from 'imng-kendo-odata';
 @Injectable()
 export class ListFacade extends KendoODataFacadeBase<IEmployee, fromNurses.NursesPartialState> {
   addNewEntity() {
-    throw new Error('Method not implemented.');
+    this.store.dispatch(NursesActions.setCurrentNurseItem(createPayload({ id: null })));
   }
   constructor(store: Store<fromNurses.NursesPartialState>) {
     super(

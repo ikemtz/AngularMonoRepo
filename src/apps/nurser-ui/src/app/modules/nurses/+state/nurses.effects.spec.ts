@@ -23,14 +23,4 @@ describe('NursesEffects', () => {
 
     effects = TestBed.get(NursesEffects);
   });
-
-  describe('loadNurses$', () => {
-    it('should work', () => {
-      actions = hot('-a-|', { a: NursesActions.loadNurses() });
-
-      const expected = hot('-a-|', { a: NursesActions.loadNursesSuccess({ nurses: [] }) });
-
-      expect(effects.loadNurses$).toBeObservable(expected);
-    });
-  });
 });

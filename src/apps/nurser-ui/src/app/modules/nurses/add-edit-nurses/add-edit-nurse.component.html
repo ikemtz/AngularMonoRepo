@@ -1,0 +1,20 @@
+<imng-data-entry-dialog [width]="750" [height]="650" [parentComponent]="this">
+  <form novalidate [formGroup]="addEditForm">
+    <div class="form-group">
+      <label [for]="props.FIRST_NAME">First Name:</label>
+      <input type="text" class="form-control" [formControlName]="props.FIRST_NAME"
+        [ngClass]="{ 'is-invalid': (submitted | async) && formControlErrors(props.FIRST_NAME) }" multiple="" />
+      <div *ngIf="(submitted | async) && formControlErrors(props.FIRST_NAME)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.FIRST_NAME).required">First Name is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label [for]="props.LAST_NAME">Last Name:</label>
+      <input type="text" class="form-control" [formControlName]="props.LAST_NAME"
+        [ngClass]="{ 'is-invalid': (submitted | async) && formControlErrors(props.LAST_NAME) }" multiple="" />
+      <div *ngIf="(submitted | async) && formControlErrors(props.LAST_NAME)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.LAST_NAME).required">Last Name is required</div>
+      </div>
+    </div>
+  </form>
+</imng-data-entry-dialog>

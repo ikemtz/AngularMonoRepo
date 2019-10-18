@@ -57,7 +57,8 @@
 
   <kendo-grid-excel fileName="Employees.xlsx" [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
+<ngnu-add-nurses *ngIf="nursesDataEntryFacade.isNewActive$ | async"></ngnu-add-nurses>
 <!--
-<nrsrx-add></nrsrx-add>
 <nrsrx-add-cert></nrsrx-add-cert>
 -->
+{{nursesDataEntryFacade.isNewActive$ | async}}

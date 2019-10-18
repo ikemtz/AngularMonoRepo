@@ -10,6 +10,7 @@ import { NxModule } from '@nrwl/angular';
 import { NursesEffects } from '../+state/nurses.effects';
 import { ListFacade } from './list.facade';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as NursesActions from '../+state/nurses.actions';
 import { NURSES_FEATURE_KEY, NursesState, initialState, reducer } from '../+state/nurses.reducer';
 import { IEmployee } from '../../models/emp-api';
@@ -33,7 +34,11 @@ describe('ListFacade', () => {
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
-        imports: [StoreModule.forFeature(NURSES_FEATURE_KEY, reducer), EffectsModule.forFeature([NursesEffects])],
+        imports: [
+          StoreModule.forFeature(NURSES_FEATURE_KEY, reducer),
+          EffectsModule.forFeature([NursesEffects]),
+          HttpClientTestingModule,
+        ],
         providers: [ListFacade, ODataService],
       })
       class CustomFeatureModule {}
@@ -50,7 +55,7 @@ describe('ListFacade', () => {
 
     it('loadEntities() should return empty list with loaded == true', async done => {
       try {
-        let list = await readFirst(facade.gridDataResult$);
+        let gridData = await readFirst(facade.gridData$);
         let isloading = await readFirst(facade.loading$);
 
         const client: ODataService = TestBed.get(ODataService);
@@ -59,14 +64,14 @@ describe('ListFacade', () => {
         });
         client.fetch = jest.fn(() => response);
 
-        expect(list.data.length).toBe(0);
+        expect(gridData.data.length).toBe(0);
         expect(isloading).toBe(false);
         facade.loadEntities({});
 
-        list = await readFirst(facade.gridDataResult$);
+        gridData = await readFirst(facade.gridData$);
         isloading = await readFirst(facade.loading$);
 
-        expect(list.data.length).toBe(0);
+        expect(gridData.data.length).toBe(0);
         expect(isloading).toBe(true);
 
         done();

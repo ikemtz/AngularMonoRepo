@@ -5,7 +5,9 @@ import { IEmployee } from '../../models/emp-api';
 
 export const NURSES_FEATURE_KEY = 'nurses';
 
-export interface NursesState extends KendoODataGridState<IEmployee> {}
+export interface NursesState extends KendoODataGridState<IEmployee> {
+  currentNurse?: IEmployee;
+}
 
 export interface NursesPartialState {
   readonly [NURSES_FEATURE_KEY]: NursesState;
@@ -28,6 +30,8 @@ const nursesReducer = createReducer(
     error: null,
   })),
   on(NursesActions.loadNursesFailure, (state, { payload }) => ({ ...state, error: payload.error })),
+  on(NursesActions.setCurrentNurseItem, (state, { payload }) => ({ ...state, currentNurse: payload })),
+  on(NursesActions.clearCurrentNurseItem, state => ({ ...state, currentNurse: null })),
 );
 
 export function reducer(state: NursesState | undefined, action: Action) {

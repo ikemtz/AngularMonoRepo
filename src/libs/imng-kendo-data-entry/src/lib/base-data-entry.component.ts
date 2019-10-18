@@ -24,12 +24,17 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends DataEntryFac
   public loading$: Observable<boolean>;
   public readonly submitted: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  // convenience getter for easy access to form fields 
-  public formControl(controlName: string): AbstractControl { return this.addEditForm.controls[controlName]; }
-  public formControlErrors(controlName: string): any { return this.addEditForm.controls[controlName].errors; }
+  // convenience getter for easy access to form fields
+  public formControl(controlName: string): AbstractControl {
+    return this.addEditForm.controls[controlName];
+  }
+  public formControlErrors(controlName: string): any {
+    return this.addEditForm.controls[controlName].errors;
+  }
 
   constructor(protected facade: FACADE) {
     this.loading$ = this.facade.loading$;
+    this.initForm();
   }
 
   public ngOnDestroy(): void {
@@ -53,7 +58,7 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends DataEntryFac
 
     // stop here if form is invalid
     if (this.addEditForm.invalid) {
-      console.log('form validation errors.')
+      console.log('form validation errors.');
       return;
     }
     this.save();

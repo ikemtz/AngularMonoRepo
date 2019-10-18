@@ -4,10 +4,10 @@ import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from '../base-data-entry.component';
 
 @Component({
-  selector: 'imkd-data-entry-dialog[parentComponent]',
+  selector: 'imng-data-entry-dialog[parentComponent]',
   templateUrl: './data-entry-dialog.component.html',
   styleUrls: ['./data-entry-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataEntryDialogComponent implements OnInit {
   @Input() public width: string;
@@ -18,7 +18,7 @@ export class DataEntryDialogComponent implements OnInit {
   public submitted: boolean;
   public dialogTitle: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     if (!this.parentComponent) {
@@ -40,4 +40,3 @@ export class DataEntryDialogComponent implements OnInit {
     this.parentComponent.onSubmit();
   }
 }
-

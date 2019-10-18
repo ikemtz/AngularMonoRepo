@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeProperties, IEmployee } from '../../models/emp-api';
 import { ListFacade } from './list.facade';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
+import { NursesDataEntryFacade } from '../add-edit-nurses/nurses-data-entry-facade';
 
 @Component({
   selector: 'ngnu-nurses-list',
@@ -9,8 +10,8 @@ import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
   styleUrls: ['./list.component.scss'],
 })
 export class NursesComponent extends KendoODataComponentBase<IEmployee, ListFacade> {
-  props: EmployeeProperties;
-  constructor(fascade: ListFacade) {
+  props = EmployeeProperties;
+  constructor(readonly fascade: ListFacade, public readonly nursesDataEntryFacade: NursesDataEntryFacade) {
     super(fascade, {
       take: 20,
       skip: 0,
