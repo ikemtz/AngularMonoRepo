@@ -71,7 +71,7 @@
 
 <ngnu-add-nurse-certification *ngIf="nurseCertificationsDataEntryFacade.isNewActive$ | async">
 </ngnu-add-nurse-certification>
-<div *ngIf="!(nurseCertificationsDataEntryFacade.currentEntity$|async)">
+<div *ngIf="(nurseCertificationsDataEntryFacade.currentEntity$|async) === (false | null | undefined)">
   <ngnu-add-nurses *ngIf="nursesDataEntryFacade.isNewActive$ | async"></ngnu-add-nurses>
   <ngnu-edit-nurses *ngIf="nursesDataEntryFacade.isEditActive$ | async"></ngnu-edit-nurses>
 </div>
