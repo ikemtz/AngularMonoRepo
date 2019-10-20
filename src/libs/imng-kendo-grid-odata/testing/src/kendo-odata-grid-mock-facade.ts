@@ -3,7 +3,7 @@ import { PagerSettings } from '@progress/kendo-angular-grid';
 import { ODataState, ODataResult } from 'imng-kendo-odata';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 
-export class KendoODataGridMockFacade implements IKendoODataGridFacade<object> {
+export class ODataGridMockFacade implements IKendoODataGridFacade<object> {
   public loading$: Observable<boolean> = of(false);
   public gridODataState$: Observable<ODataState> = of({});
   public gridData$: Observable<ODataResult<object>> = of({ data: [], total: 0 });
@@ -11,8 +11,8 @@ export class KendoODataGridMockFacade implements IKendoODataGridFacade<object> {
   public loadEntities(state: ODataState): void {}
 }
 
-export function createKendoODataGridMockFacade(mockFacade?: KendoODataGridMockFacade | any): KendoODataGridMockFacade {
-  const localFacade = new KendoODataGridMockFacade();
+export function createODataGridMockFacade(mockFacade?: ODataGridMockFacade | any): ODataGridMockFacade {
+  const localFacade = new ODataGridMockFacade();
   if (!mockFacade) {
     return localFacade;
   }

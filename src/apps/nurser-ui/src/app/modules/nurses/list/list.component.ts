@@ -30,6 +30,9 @@ export class ListComponent extends KendoODataComponentBase<IEmployee, ListFacade
       ],
       sort: [{ field: EmployeeProperties.LAST_NAME, dir: 'asc' }, { field: EmployeeProperties.FIRST_NAME, dir: 'asc' }],
     });
+    if (!nurseCertificationDataEntryFacade) {
+      throw new Error('something went wrong');
+    }
   }
 
   public addNurse() {
