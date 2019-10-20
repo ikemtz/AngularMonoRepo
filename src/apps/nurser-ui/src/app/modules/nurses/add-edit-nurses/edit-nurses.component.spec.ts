@@ -4,6 +4,8 @@ import { EditNursesComponent } from './edit-nurses.component';
 import { DataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NursesDataEntryFacade } from './nurses-data-entry-facade';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 
 describe('EditNursesComponent', () => {
   let component: EditNursesComponent;
@@ -12,8 +14,8 @@ describe('EditNursesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EditNursesComponent],
-      imports: [DataEntryDialogModule, ReactiveFormsModule],
-      providers: [{ provide: NursesDataEntryFacade, useValue: {} }],
+      imports: [DataEntryDialogModule, NoopAnimationsModule, ReactiveFormsModule],
+      providers: [{ provide: NursesDataEntryFacade, useValue: createDataEntryMockFacade() }],
     }).compileComponents();
   }));
 
