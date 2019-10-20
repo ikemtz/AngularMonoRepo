@@ -21,6 +21,7 @@ jobs:
           cliProjectKey: Nurser
           cliProjectName: Nurser
           extraProperties: |
+            sonar.projectKey=Nurser
             sonar.sourceEncoding=UTF-8
             sonar.sources=src/apps/nurser-ui/src,src/libs
             sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/nurser-ui/src/app/models/**,**/main.ts,**/environment.prod.ts
