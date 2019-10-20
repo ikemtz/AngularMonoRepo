@@ -58,10 +58,10 @@ jobs:
       - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
         displayName: 'Publish Quality Gate Result'
 
-      - task: SimondeLang.sonarcloud-buildbreaker.sonar-buildbreaker.sonarcloud-buildbreaker@1
-        displayName: 'Break build on SonarCloud quality gate failure'
+      - task: sonarcloud-buildbreaker@2
         inputs:
           SonarCloud: 'SonarCloud IkeMtz'
+          organization: 'ikemtz'
 
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/src/coverage/**/cobertura-coverage.xml'
