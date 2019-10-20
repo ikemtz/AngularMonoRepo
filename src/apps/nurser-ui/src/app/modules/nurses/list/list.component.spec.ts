@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NurseCertificationDataEntryFacade } from '../add-edit-nurse-certification/nurse-certification-data-entry-facade';
 import { of } from 'rxjs';
 import { ListFacade } from './list.facade';
-import {} from 'imng-kendo-grid-odata/testing';
+import { KendoODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 describe('NursesComponent', () => {
   let component: ListComponent;
@@ -17,8 +17,10 @@ describe('NursesComponent', () => {
       declarations: [ListComponent],
       imports: [RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [{ provide: NurseCertificationDataEntryFacade, useValue: { currentEntity: of({}) } }],
-      providers: [{ provide: ListFacade, useValue: KendoODataGridMockFacade.create() }],
+      providers: [
+        { provide: NurseCertificationDataEntryFacade, useValue: { currentEntity: of({}) } },
+        { provide: ListFacade, useType: KendoODataGridMockFacade },
+      ],
     }).compileComponents();
   }));
 

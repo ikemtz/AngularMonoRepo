@@ -1,7 +1,7 @@
 import { OnDestroy } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { DataEntryFacade } from './data-entry-facade';
+import { IDataEntryFacade } from './data-entry-facade';
 
 /**
  * The extending class has to implement the following properties on ngInit
@@ -16,7 +16,7 @@ import { DataEntryFacade } from './data-entry-facade';
  * @class BaseDataEntryComponent<ENTITY, FACADE extends DataEntryFacade<ENTITY>>
  */
 
-export abstract class BaseDataEntryComponent<ENTITY, FACADE extends DataEntryFacade<ENTITY>> implements OnDestroy {
+export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFacade<ENTITY>> implements OnDestroy {
   protected allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
   public abstract props: any;

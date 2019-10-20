@@ -57,7 +57,6 @@ describe('ListFacade', () => {
       try {
         let gridData = await readFirst(facade.gridData$);
         let isloading = await readFirst(facade.loading$);
-
         const client: ODataService = TestBed.get(ODataService);
         const response = cold('-a-|', {
           a: { data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 },

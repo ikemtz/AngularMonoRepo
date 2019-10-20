@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-export interface DataEntryFacade<Entity> {
+export interface IDataEntryFacade<Entity> {
     loading$: Observable<boolean>;
     currentEntity$: Observable<Entity>;
     isEditActive$: Observable<boolean>;

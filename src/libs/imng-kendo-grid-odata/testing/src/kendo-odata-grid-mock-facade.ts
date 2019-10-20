@@ -8,21 +8,20 @@ export class KendoODataGridMockFacade implements IKendoODataGridFacade<object> {
   public gridODataState$: Observable<ODataState> = of({});
   public gridData$: Observable<ODataResult<object>> = of({ data: [], total: 0 });
   public gridPagerSettings$: Observable<false | PagerSettings> = of({});
-
-  public static create(mockFacade?: KendoODataGridMockFacade | any): KendoODataGridMockFacade {
-    const localFacade = new KendoODataGridMockFacade();
-    if (!mockFacade) {
-      return localFacade;
-    }
-    return {
-      ...mockFacade,
-      loading$: mockFacade.loading$ || localFacade.loading$,
-      loadEntities: mockFacade.loadEntities || localFacade.loadEntities,
-      gridODataState$: mockFacade.gridODataState$ || localFacade.gridODataState$,
-      gridDataResult$: mockFacade.gridData$ || localFacade.gridData$,
-      gridPagerSettings$: mockFacade.gridPagerSettings$ || localFacade.gridPagerSettings$,
-    };
-  }
-
   public loadEntities(state: ODataState): void {}
+}
+
+export function createKendoODataGridMockFacade(mockFacade?: KendoODataGridMockFacade | any): KendoODataGridMockFacade {
+  const localFacade = new KendoODataGridMockFacade();
+  if (!mockFacade) {
+    return localFacade;
+  }
+  return {
+    ...mockFacade,
+    loading$: mockFacade.loading$ || localFacade.loading$,
+    loadEntities: mockFacade.loadEntities || localFacade.loadEntities,
+    gridODataState$: mockFacade.gridODataState$ || localFacade.gridODataState$,
+    gridDataResult$: mockFacade.gridData$ || localFacade.gridData$,
+    gridPagerSettings$: mockFacade.gridPagerSettings$ || localFacade.gridPagerSettings$,
+  };
 }

@@ -39,6 +39,9 @@
       "imng-kendo-data-entry": [
         "libs/imng-kendo-data-entry/src/index.ts"
       ],
+      "imng-kendo-data-entry/testing": [
+        "libs/imng-kendo-data-entry/testing/src/index.ts"
+      ],
       "imng-ngrx-utils": [
         "libs/imng-ngrx-utils/src/index.ts"
       ],

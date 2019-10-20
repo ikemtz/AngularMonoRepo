@@ -1,6 +1,6 @@
 import { IEmployeeCertification } from '../../models/emp-api';
 import { Injectable } from '@angular/core';
-import { DataEntryFacade } from 'imng-kendo-data-entry';
+import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { Store, select } from '@ngrx/store';
 import { NursesPartialState } from '../+state/nurses.reducer';
 import { createPayload } from 'imng-ngrx-utils';
@@ -13,7 +13,7 @@ import {
 import { queries } from './nurse-certification-data-entry.selectors';
 
 @Injectable()
-export class NurseCertificationDataEntryFacade implements DataEntryFacade<IEmployeeCertification> {
+export class NurseCertificationDataEntryFacade implements IDataEntryFacade<IEmployeeCertification> {
   constructor(private readonly store: Store<NursesPartialState>) {}
   loading$ = this.store.pipe(select(queries.getLoading));
   currentNurse$ = this.store.pipe(select(queries.getCurrentNurse));

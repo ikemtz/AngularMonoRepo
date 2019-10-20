@@ -1,6 +1,6 @@
 import { IEmployee } from '../../models/emp-api';
 import { Injectable } from '@angular/core';
-import { DataEntryFacade } from 'imng-kendo-data-entry';
+import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { Store, select } from '@ngrx/store';
 import { NursesPartialState } from '../+state/nurses.reducer';
 import { createPayload } from 'imng-ngrx-utils';
@@ -8,7 +8,7 @@ import { clearCurrentNurseItem, saveNurseRequest, updateNurseRequest } from '../
 import { queries } from './nurses-data-entry.selectors';
 
 @Injectable()
-export class NursesDataEntryFacade implements DataEntryFacade<IEmployee> {
+export class NursesDataEntryFacade implements IDataEntryFacade<IEmployee> {
   constructor(private readonly store: Store<NursesPartialState>) {}
   loading$ = this.store.pipe(select(queries.getLoading));
   currentEntity$ = this.store.pipe(select(queries.getCurrentEntity));
