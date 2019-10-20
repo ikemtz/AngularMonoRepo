@@ -15,7 +15,7 @@ export class ListComponent extends KendoODataComponentBase<IEmployee, ListFacade
   constructor(
     readonly fascade: ListFacade,
     public readonly nursesDataEntryFacade: NursesDataEntryFacade,
-    public readonly nurseCertificationsDataEntryFacade: NurseCertificationDataEntryFacade,
+    public readonly nurseCertificationDataEntryFacade: NurseCertificationDataEntryFacade,
   ) {
     super(fascade, {
       take: 20,

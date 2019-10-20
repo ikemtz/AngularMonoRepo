@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { NursesPartialState, NursesState, NURSES_FEATURE_KEY } from '../+state/nurses.reducer';
-import { isTruthy } from '@progress/kendo-angular-grid/dist/es2015/utils';
+import { isTruthy } from 'imng-ngrx-utils';
 
 export const getNursesState = createFeatureSelector<NursesPartialState, NursesState>(NURSES_FEATURE_KEY);
 export const getLoading = createSelector(

@@ -30,6 +30,9 @@
       "imng-kendo-grid-odata": [
         "libs/imng-kendo-grid-odata/src/index.ts"
       ],
+      "imng-kendo-grid-odata/testing": [
+        "libs/imng-kendo-grid-odata/testing/src/index.ts"
+      ],
       "imng-application-insights-ngrx": [
         "libs/imng-application-insights-ngrx/src/index.ts"
       ],

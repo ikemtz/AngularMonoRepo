@@ -12,6 +12,7 @@ import { NursesEffects } from './nurses.effects';
 import * as NursesActions from './nurses.actions';
 import { ODataService } from 'imng-kendo-odata';
 import { createPayload } from 'imng-ngrx-utils';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('NursesEffects', () => {
   let actions: Observable<any>;
@@ -19,7 +20,7 @@ describe('NursesEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NxModule.forRoot()],
+      imports: [NxModule.forRoot(), HttpClientTestingModule],
       providers: [NursesEffects, DataPersistence, ODataService, provideMockActions(() => actions), provideMockStore()],
     });
 

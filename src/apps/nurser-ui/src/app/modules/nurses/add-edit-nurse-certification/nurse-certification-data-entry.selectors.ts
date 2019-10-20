@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { isTruthy } from '@progress/kendo-angular-grid/dist/es2015/utils';
+import { isTruthy } from 'imng-ngrx-utils';
 import { getNursesState, getLoading } from '../add-edit-nurses/nurses-data-entry.selectors';
 
 export const getCurrentNurse = createSelector(
