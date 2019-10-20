@@ -5,7 +5,7 @@
       <select class="form-control" [formControlName]="props.CERTIFICATION_NAME"
         [ngClass]="{ 'is-invalid': (submitted | async) && formControlErrors(props.CERTIFICATION_NAME) }">
         <option [ngValue]="null">-- Select One --</option>
-        <option *ngFor="let item of certification$ | async" [ngValue]="item.id">{{item.name}}
+        <option *ngFor="let item of certifications$ | async" [ngValue]="item.id">{{item.name}}
         </option>
       </select>
       <div *ngIf="(submitted | async) && formControlErrors(props.CERTIFICATION_NAME)" class="invalid-feedback">
