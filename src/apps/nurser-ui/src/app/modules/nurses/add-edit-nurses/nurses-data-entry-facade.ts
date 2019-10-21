@@ -4,7 +4,12 @@ import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { Store, select } from '@ngrx/store';
 import { NursesPartialState } from '../+state/nurses.reducer';
 import { createPayload } from 'imng-ngrx-utils';
-import { clearCurrentNurseItem, saveNurseRequest, updateNurseRequest } from '../+state/nurses.actions';
+import {
+  clearCurrentNurseItem,
+  saveNurseRequest,
+  updateNurseRequest,
+  setCurrentNurseItem,
+} from '../+state/nurses.actions';
 import { queries } from './nurses-data-entry.selectors';
 
 @Injectable()
@@ -14,6 +19,9 @@ export class NursesDataEntryFacade implements IDataEntryFacade<IEmployee> {
   currentEntity$ = this.store.pipe(select(queries.getCurrentEntity));
   isEditActive$ = this.store.pipe(select(queries.getIsEditActive));
   isNewActive$ = this.store.pipe(select(queries.getIsNewActive));
+  setCurrentEntity(entity: IEmployee): void {
+    this.store.dispatch(setCurrentNurseItem(createPayload(entity)));
+  }
   clearCurrentEntity(): void {
     this.store.dispatch(clearCurrentNurseItem());
   }

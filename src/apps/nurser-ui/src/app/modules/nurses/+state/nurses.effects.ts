@@ -36,7 +36,7 @@ export class NursesEffects {
     this.dataPersistence.pessimisticUpdate(NursesActions.saveNurseRequest, {
       run: (action: ReturnType<typeof NursesActions.saveNurseRequest>, state: NursesPartialState) =>
         this.nursesApiService
-          .put(action.payload)
+          .post(action.payload)
           .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
       onError: this.exceptionHandler,
     }),
@@ -46,7 +46,7 @@ export class NursesEffects {
     this.dataPersistence.pessimisticUpdate(NursesActions.updateNurseRequest, {
       run: (action: ReturnType<typeof NursesActions.updateNurseRequest>, state: NursesPartialState) =>
         this.nursesApiService
-          .post(action.payload)
+          .put(action.payload)
           .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
       onError: this.exceptionHandler,
     }),
@@ -65,7 +65,7 @@ export class NursesEffects {
     this.dataPersistence.pessimisticUpdate(NursesActions.saveNurseCertificationRequest, {
       run: (action: ReturnType<typeof NursesActions.saveNurseCertificationRequest>, state: NursesPartialState) =>
         this.nurseCertificationsApiService
-          .put(action.payload)
+          .post(action.payload)
           .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
       onError: this.exceptionHandler,
     }),
@@ -75,7 +75,7 @@ export class NursesEffects {
     this.dataPersistence.pessimisticUpdate(NursesActions.updateNurseCertificationRequest, {
       run: (action: ReturnType<typeof NursesActions.updateNurseCertificationRequest>, state: NursesPartialState) =>
         this.nurseCertificationsApiService
-          .post(action.payload)
+          .put(action.payload)
           .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
       onError: this.exceptionHandler,
     }),

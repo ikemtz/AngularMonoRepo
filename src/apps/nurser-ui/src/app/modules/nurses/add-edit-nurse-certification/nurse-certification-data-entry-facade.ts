@@ -1,4 +1,4 @@
-import { IEmployeeCertification } from '../../models/emp-api';
+import { IEmployeeCertification, IEmployee } from '../../models/emp-api';
 import { Injectable } from '@angular/core';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { Store, select } from '@ngrx/store';
@@ -9,6 +9,7 @@ import {
   saveNurseCertificationRequest,
   updateNurseCertificationRequest,
   clearCurrentNurseCertificationItem,
+  setCurrentNurseCertificationItem,
 } from '../+state/nurses.actions';
 import { queries } from './nurse-certification-data-entry.selectors';
 
@@ -20,6 +21,10 @@ export class NurseCertificationDataEntryFacade implements IDataEntryFacade<IEmpl
   currentEntity$ = this.store.pipe(select(queries.getCurrentEntity));
   isEditActive$ = this.store.pipe(select(queries.getIsEditActive));
   isNewActive$ = this.store.pipe(select(queries.getIsNewActive));
+
+  setCurrentEntity(certification: IEmployeeCertification, nurse: IEmployee): void {
+    this.store.dispatch(setCurrentNurseCertificationItem(createPayload({ nurse, certification })));
+  }
   clearCurrentEntity(): void {
     this.store.dispatch(clearCurrentNurseCertificationItem());
   }
