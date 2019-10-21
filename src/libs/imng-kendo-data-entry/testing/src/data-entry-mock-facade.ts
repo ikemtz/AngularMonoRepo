@@ -6,7 +6,7 @@ export class DataEntryMockFacade implements IDataEntryFacade<object> {
   public currentEntity$: Observable<object> = of(null);
   public isEditActive$: Observable<boolean> = of(false);
   public isNewActive$: Observable<boolean> = of(false);
-
+  public setCurrentEntity(entity: object): void {}
   public clearCurrentEntity(): void {}
   public saveNewEntity(entity: object): void {}
   public updateExistingEntity(entity: object): void {}
@@ -23,6 +23,7 @@ export function createDataEntryMockFacade(mockFacade?: IDataEntryFacade<object> 
     currentEntity$: mockFacade.currentEntity$ || localFacade.currentEntity$,
     isEditActive$: mockFacade.isEditActive$ || localFacade.isEditActive$,
     isNewActive$: mockFacade.isNewActive$ || localFacade.isNewActive$,
+    setCurrentEntity: mockFacade.setCurrentEntity || localFacade.setCurrentEntity,
     clearCurrentEntity: mockFacade.clearCurrentEntity || localFacade.clearCurrentEntity,
     saveNewEntity: mockFacade.saveNewEntity || localFacade.saveNewEntity,
     updateExistingEntity: mockFacade.updateExistingEntity || localFacade.updateExistingEntity,
