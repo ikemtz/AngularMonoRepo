@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { BaseDataEntryComponent } from '../base-data-entry.component';
+import { BaseDataEntryComponent } from './base-data-entry.component';
 
 @Component({
   selector: 'imng-data-entry-dialog[parentComponent]',
   templateUrl: './data-entry-dialog.component.html',
-  styleUrls: ['./data-entry-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataEntryDialogComponent implements OnInit {
