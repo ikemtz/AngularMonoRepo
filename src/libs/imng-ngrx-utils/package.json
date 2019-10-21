@@ -1,6 +1,6 @@
 {
   "name": "imng-ngrx-utils",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
