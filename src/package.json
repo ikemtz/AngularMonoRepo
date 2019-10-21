@@ -84,7 +84,7 @@
     "@progress/kendo-angular-popup": "^3.0.1",
     "@progress/kendo-data-query": "^1.5.2",
     "@progress/kendo-drawing": "^1.6.0",
-    "@progress/kendo-theme-default": "^4.4.0",
+    "@progress/kendo-theme-default": "^4.5.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.10",
     "ngx-bootstrap": "^5.2.0",
