@@ -17,15 +17,13 @@ export function createDataEntryMockFacade(mockFacade?: IDataEntryFacade<object> 
   if (!mockFacade) {
     return localFacade;
   }
-  return {
-    ...mockFacade,
-    loading$: mockFacade.loading$ || localFacade.loading$,
-    currentEntity$: mockFacade.currentEntity$ || localFacade.currentEntity$,
-    isEditActive$: mockFacade.isEditActive$ || localFacade.isEditActive$,
-    isNewActive$: mockFacade.isNewActive$ || localFacade.isNewActive$,
-    setCurrentEntity: mockFacade.setCurrentEntity || localFacade.setCurrentEntity,
-    clearCurrentEntity: mockFacade.clearCurrentEntity || localFacade.clearCurrentEntity,
-    saveNewEntity: mockFacade.saveNewEntity || localFacade.saveNewEntity,
-    updateExistingEntity: mockFacade.updateExistingEntity || localFacade.updateExistingEntity,
-  };
+  mockFacade.loading$ = mockFacade.loading$ || localFacade.loading$;
+  mockFacade.currentEntity$ = mockFacade.currentEntity$ || localFacade.currentEntity$;
+  mockFacade.isEditActive$ = mockFacade.isEditActive$ || localFacade.isEditActive$;
+  mockFacade.isNewActive$ = mockFacade.isNewActive$ || localFacade.isNewActive$;
+  mockFacade.setCurrentEntity = mockFacade.setCurrentEntity || localFacade.setCurrentEntity;
+  mockFacade.clearCurrentEntity = mockFacade.clearCurrentEntity || localFacade.clearCurrentEntity;
+  mockFacade.saveNewEntity = mockFacade.saveNewEntity || localFacade.saveNewEntity;
+  mockFacade.updateExistingEntity = mockFacade.updateExistingEntity || localFacade.updateExistingEntity;
+  return mockFacade;
 }

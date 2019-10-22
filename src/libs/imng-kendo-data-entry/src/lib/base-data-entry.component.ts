@@ -1,4 +1,4 @@
-import { OnDestroy } from '@angular/core';
+import { OnDestroy, Input } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { IDataEntryFacade } from './data-entry-facade';
@@ -17,6 +17,8 @@ import { IDataEntryFacade } from './data-entry-facade';
  */
 
 export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFacade<ENTITY>> implements OnDestroy {
+  @Input() public width: string;
+  @Input() public height: string;
   protected allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
   public abstract props: any;
