@@ -16,12 +16,10 @@ export function createODataGridMockFacade(mockFacade?: ODataGridMockFacade | any
   if (!mockFacade) {
     return localFacade;
   }
-  return {
-    ...mockFacade,
-    loading$: mockFacade.loading$ || localFacade.loading$,
-    loadEntities: mockFacade.loadEntities || localFacade.loadEntities,
-    gridODataState$: mockFacade.gridODataState$ || localFacade.gridODataState$,
-    gridDataResult$: mockFacade.gridData$ || localFacade.gridData$,
-    gridPagerSettings$: mockFacade.gridPagerSettings$ || localFacade.gridPagerSettings$,
-  };
+  mockFacade.loading$ = mockFacade.loading$ || localFacade.loading$;
+  mockFacade.loadEntities = mockFacade.loadEntities || localFacade.loadEntities;
+  mockFacade.gridODataState$ = mockFacade.gridODataState$ || localFacade.gridODataState$;
+  mockFacade.gridDataResult$ = mockFacade.gridData$ || localFacade.gridData$;
+  mockFacade.gridPagerSettings$ = mockFacade.gridPagerSettings$ || localFacade.gridPagerSettings$;
+  return mockFacade;
 }
