@@ -1,4 +1,4 @@
-import { NgControl, FormGroup, AbstractControl } from '@angular/forms';
+import { NgControl, AbstractControl } from '@angular/forms';
 
 export class MockNgControl extends NgControl {
   control = new MockAbstractControl();
@@ -8,8 +8,10 @@ export class MockNgControl extends NgControl {
 }
 
 class MockAbstractControl extends AbstractControl {
-  constructor() { super(null, null); }
-  public value = "";
+  constructor() {
+    super(null, null);
+  }
+  public value = '';
   setValue(value: any, options?: Object): void {
     value = value;
   }
@@ -17,6 +19,6 @@ class MockAbstractControl extends AbstractControl {
     value = value;
   }
   reset(value?: any, options?: Object): void {
-    value = "";
+    value = '';
   }
 }
