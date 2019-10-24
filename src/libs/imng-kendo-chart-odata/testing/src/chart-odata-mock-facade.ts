@@ -10,7 +10,7 @@ export class ChartODataMockFacade implements IChartODataFacade {
   public loadSeriesData(filter: any): void {}
 }
 
-export function createChartODataMockFacade(mockFacade?: IChartODataFacade): IChartODataFacade {
+export function createChartODataMockFacade(mockFacade?: IChartODataFacade | any): IChartODataFacade {
   const localFacade = new ChartODataMockFacade();
   if (!mockFacade) {
     return localFacade;

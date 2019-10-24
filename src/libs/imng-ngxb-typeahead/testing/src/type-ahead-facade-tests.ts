@@ -30,7 +30,7 @@ export async function testOdataMatches<TFacade extends ImngTypeAheadFacade<unkno
     facade.loadMatches('🎂 🍩 😡');
     expect(oDataService.fetch).toBeCalledTimes(1);
     const matches = await readFirst(facade.matches$);
-    expect(matches).toEqual([{ header: false, item: { id: '👼', name: '👿🕺' }, value: '👿🕺' }]);
+    expect(matches.length).toEqual(1);
     done();
   } catch (err) {
     done.fail(err);
