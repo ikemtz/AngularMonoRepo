@@ -21,9 +21,9 @@ export function createDataEntryMockFacade(mockFacade?: IDataEntryFacade<object> 
   mockFacade.currentEntity$ = mockFacade.currentEntity$ || localFacade.currentEntity$;
   mockFacade.isEditActive$ = mockFacade.isEditActive$ || localFacade.isEditActive$;
   mockFacade.isNewActive$ = mockFacade.isNewActive$ || localFacade.isNewActive$;
-  mockFacade.setCurrentEntity = mockFacade.setCurrentEntity || localFacade.setCurrentEntity;
-  mockFacade.clearCurrentEntity = mockFacade.clearCurrentEntity || localFacade.clearCurrentEntity;
-  mockFacade.saveNewEntity = mockFacade.saveNewEntity || localFacade.saveNewEntity;
-  mockFacade.updateExistingEntity = mockFacade.updateExistingEntity || localFacade.updateExistingEntity;
+  mockFacade.setCurrentEntity = mockFacade.setCurrentEntity || jest.fn(() => {});
+  mockFacade.clearCurrentEntity = mockFacade.clearCurrentEntity || jest.fn(() => {});
+  mockFacade.saveNewEntity = mockFacade.saveNewEntity || jest.fn(() => {});
+  mockFacade.updateExistingEntity = mockFacade.updateExistingEntity || jest.fn(() => {});
   return mockFacade;
 }

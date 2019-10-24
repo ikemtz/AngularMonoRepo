@@ -1,6 +1,6 @@
 {
   "name": "imng-kendo-chart-odata",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "description": "A library to make integrating Angular Kendo Charts and NGRX a bit simpler.",

@@ -17,9 +17,9 @@ export function createODataGridMockFacade(mockFacade?: ODataGridMockFacade | any
     return localFacade;
   }
   mockFacade.loading$ = mockFacade.loading$ || localFacade.loading$;
-  mockFacade.loadEntities = mockFacade.loadEntities || localFacade.loadEntities;
   mockFacade.gridODataState$ = mockFacade.gridODataState$ || localFacade.gridODataState$;
   mockFacade.gridDataResult$ = mockFacade.gridData$ || localFacade.gridData$;
   mockFacade.gridPagerSettings$ = mockFacade.gridPagerSettings$ || localFacade.gridPagerSettings$;
+  mockFacade.loadEntities = mockFacade.loadEntities || jest.fn(() => {});
   return mockFacade;
 }

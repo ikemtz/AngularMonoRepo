@@ -16,6 +16,6 @@ export function createChartODataMockFacade(mockFacade?: IChartODataFacade | any)
     return localFacade;
   }
   mockFacade.seriesData$ = mockFacade.seriesData$ || localFacade.seriesData$;
-  mockFacade.loadSeriesData = mockFacade.loadSeriesData || localFacade.loadSeriesData;
+  mockFacade.loadSeriesData = mockFacade.loadSeriesData || jest.fn(() => {});
   return mockFacade;
 }

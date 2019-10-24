@@ -12,6 +12,6 @@ export function createTypeAheadMockFacade(mockFacade?: TypeAheadMockFacade): Typ
     return localFacade;
   }
   mockFacade.matches$ = mockFacade.matches$ || localFacade.matches$;
-  mockFacade.loadMatches = mockFacade.loadMatches || localFacade.loadMatches;
+  mockFacade.loadMatches = mockFacade.loadMatches || jest.fn(() => {});
   return mockFacade;
 }
