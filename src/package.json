@@ -10,7 +10,7 @@
     "test:nur": "ng test nurser-ui --code-coverage",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
-    "gen:ts": "node gen-ts.js",
+    "gen:ts": "node ./gen-ts.js && npm run format:write",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",

@@ -13,12 +13,12 @@ class MockAbstractControl extends AbstractControl {
   }
   public value = '';
   setValue(value: any, options?: Object): void {
-    value = value;
+    this.value = value;
   }
   patchValue(value: any, options?: Object): void {
-    value = value;
+    this.value = value;
   }
   reset(value?: any, options?: Object): void {
-    value = '';
+    this.value = '';
   }
 }

@@ -8,5 +8,8 @@
   "typescript.suggest.completeFunctionCalls": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "html.format.preserveNewLines": false,
+  "html.format.extraLiners": null,
+  "prettier.singleQuote": true
 }
