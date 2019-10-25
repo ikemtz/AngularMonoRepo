@@ -1,8 +1,8 @@
 import { ODataState } from 'imng-kendo-odata';
 import { readFirst } from '@nrwl/angular/testing';
-import { KendoODataFacadeBase } from 'imng-kendo-grid-odata';
+import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 
-export async function testGridODataState<TFacade extends KendoODataFacadeBase<unknown, unknown>>(
+export async function testGridODataState<TFacade extends IKendoODataGridFacade<unknown>>(
   done: jest.DoneCallback,
   facade: TFacade,
 ) {
@@ -26,7 +26,7 @@ export async function testGridODataState<TFacade extends KendoODataFacadeBase<un
   }
 }
 
-export async function testGridPagerSettings<TFacade extends KendoODataFacadeBase<unknown, unknown>>(
+export async function testGridPagerSettings<TFacade extends IKendoODataGridFacade<unknown>>(
   done: jest.DoneCallback,
   facade: TFacade,
 ) {
