@@ -1,10 +1,16 @@
 import { readFirst } from '@nrwl/angular/testing';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { Observable } from 'rxjs';
 
-export async function testAddSetAndClearCurrentEntity<TFacade extends IDataEntryFacade<unknown>>(
-  done: jest.DoneCallback,
-  facade: TFacade,
-) {
+export async function testAddSetAndClearCurrentEntity<
+  TFacade extends {
+    currentEntity$: Observable<unknown>;
+    isEditActive$: Observable<boolean>;
+    isNewActive$: Observable<boolean>;
+    setCurrentEntity(entity: unknown, parentEntity?: unknown): void;
+    clearCurrentEntity(): void;
+  }
+>(done: jest.DoneCallback, facade: TFacade) {
   try {
     const entity = { name: '🆕' };
     let currentEntity = await readFirst(facade.currentEntity$);
