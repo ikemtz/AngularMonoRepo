@@ -1,0 +1,291 @@
+{
+	"NgRxActionsDataEntry": {
+		"prefix": "imng-ngrx-actions-data-entry",
+		"body": [
+			"export const clearCurrent$1Item = createAction('[$2s] Clear Current $1');",
+			"export const setCurrent$1Item = createPayloadAction<I$1>('[$2s] Set Current $1');",
+			"export const save$1Request = createPayloadAction<I$1>('[$2s] Save $1 Request');",
+			"export const update$1Request = createPayloadAction<I$1>('[$2s] Update $1 Request');",
+			"export const delete$1Request = createPayloadAction<I$1>('[$2s] Delete $1 Request');"
+		],
+		"description": "NgRx Actions for Data Entry"
+	},
+	"NgRxActionsFailure": {
+		"prefix": "imng-ngrx-actions-failure",
+		"body": [
+			"export const load$1sFailure = createPayloadAction<{ error: any }>(",
+			"  '[$1s] Load $1s Failure');"
+		],
+		"description": "Create Exception Hanlder for Effects"
+	},
+	"NgRxActionsOData": {
+		"prefix": "imng-ngrx-actions-odata",
+		"body": [
+			"export const load$1sRequest = createPayloadAction<ODataState>(",
+			"'[$2s] Load $1s Request');",
+			"export const load$1sSuccess = createPayloadAction<ODataResult<I$1>>(",
+			"'[$2s] Load $1s Success',",
+			");"
+		],
+		"description": "Create Load OData Request Success Action"
+	},
+	"NgRxEffectsDataEntry": {
+		"prefix": "imng-ngrx-effects-data-entry",
+		"body": [
+			"  save$1Effect$ = createEffect(() =>",
+			"    this.dataPersistence.pessimisticUpdate($2sActions.save$1Request, {",
+			"      run: (",
+			"        action: ReturnType<typeof $2sActions.save$1Request>,",
+			"        state: $3sPartialState,",
+			"      ) =>",
+			"        this.$4ApiService",
+			"          .post(action.payload)",
+			"          .pipe(",
+			"            map(t =>",
+			"              $2sActions.load$5sRequest(",
+			"                createPayload(state[$6S_FEATURE_KEY].gridODataState),",
+			"              ),",
+			"            ),",
+			"          ),",
+			"      onError: this.exceptionHandler,",
+			"    }),",
+			"  );",
+			"",
+			"  update$1Effect$ = createEffect(() =>",
+			"    this.dataPersistence.pessimisticUpdate($2sActions.update$1Request, {",
+			"      run: (",
+			"        action: ReturnType<typeof $2sActions.update$1Request>,",
+			"        state: $3sPartialState,",
+			"      ) =>",
+			"        this.$4ApiService",
+			"          .put(action.payload)",
+			"          .pipe(",
+			"            map(t =>",
+			"              $2sActions.load$5sRequest(",
+			"                createPayload(state[$6S_FEATURE_KEY].gridODataState),",
+			"              ),",
+			"            ),",
+			"          ),",
+			"      onError: this.exceptionHandler,",
+			"    }),",
+			"  );",
+			"",
+			"  delete$1Effect$ = createEffect(() =>",
+			"    this.dataPersistence.pessimisticUpdate($2sActions.delete$1Request, {",
+			"      run: (",
+			"        action: ReturnType<typeof $2sActions.delete$1Request>,",
+			"        state: $3sPartialState,",
+			"      ) =>",
+			"        this.$4ApiService",
+			"          .delete(action.payload)",
+			"          .pipe(",
+			"            map(t =>",
+			"              $2sActions.load$5sRequest(",
+			"                createPayload(state[$6S_FEATURE_KEY].gridODataState),",
+			"              ),",
+			"            ),",
+			"          ),",
+			"      onError: this.exceptionHandler,",
+			"    }),",
+			"  );"
+		],
+		"description": "NgRxEffectsDataEntry"
+	},
+	"NgRxEffectsExceptionHandler": {
+		"prefix": "imng-ngrx-effects-exception-handler",
+		"body": [
+			"private exceptionHandler(action, error) {",
+			"console.error('Error', error);  // NOSONAR",
+			"return $1sActions.load$1sFailure(createPayload({ error",
+			"}));",
+			"}"
+		],
+		"description": "Create Exception Hanlder for Effects"
+	},
+	"NgRxEffectsOData": {
+		"prefix": "imng-ngrx-effects-odata",
+		"body": [
+			"load$1sEffect$ = createEffect(() =>",
+			"  this.dataPersistence.fetch($2sActions.load$1sRequest,",
+			"  {",
+			"    run: (",
+			"      action: ReturnType<typeof $2sActions.load$1sRequest>,",
+			"      state: $2sPartialState,",
+			"    ) =>",
+			"      this.odataservice",
+			"        .fetch<I$3>(environment.endPoints.$4, action.payload)",
+			"        .pipe(map(t => $2sActions.load$1sSuccess(createPayload(t)))),",
+			"    onError: this.exceptionHandler,",
+			"}),",
+			");"
+		],
+		"description": "Create Load OData Request Effects"
+	},
+	"NgRxFacadeDataEntry": {
+		"prefix": "imng-ngrx-facade-data-entry",
+		"body": [
+			"@Injectable()",
+			"export class $1sDataEntryFacade implements DataEntryFacade<I$1> {",
+			"  constructor(private readonly store: Store<$2sPartialState>) { }",
+			"  loading$ = this.store.pipe(select(queries.getLoading));",
+			"  currentEntity$ = this.store.pipe(select(queries.getCurrentEntity));",
+			"  isEditActive$ = this.store.pipe(select(queries.getIsEditActive));",
+			"  isNewActive$ = this.store.pipe(select(queries.getIsNewActive));",
+			"  clearCurrentEntity(): void {",
+			"    this.store.dispatch(clearCurrent$1Item());",
+			"  }",
+			"  saveNewEntity(entity: I$1): void {",
+			"    this.store.dispatch(save$1Request(createPayload(entity)));",
+			"  }",
+			"  updateExistingEntity(entity: I$1): void {",
+			"    this.store.dispatch(update$1Request(createPayload(entity)));",
+			"  }",
+			"}"
+		],
+		"description": "NgRxFacadeDataEntry"
+	},
+	"NgRxFacadeLoadEntities": {
+		"prefix": "imng-ngrx-facade-load-entities",
+		"body": [
+			" loadEntities(state: ODataState): void {",
+			"this.store.dispatch($1sActions.load$2sRequest(createPayload(state)));",
+			"}"
+		],
+		"description": "Create Load Entities method for Facades"
+	},
+	"NgRxReducerDataEntry": {
+		"prefix": "imng-ngrx-reducer-data-entry",
+		"body": [
+			"  on($1sActions.setCurrent$2Item, (state, { payload }) => ({ ...state, current$2: payload })),",
+			"  on($1sActions.clearCurrent$2Item, state => ({ ...state, current$2: null })),",
+			"  on(",
+			"    $1sActions.save$2Request,",
+			"    $1sActions.update$2Request,",
+			"    $1sActions.delete$2Request,",
+			"    state => ({",
+			"      ...state,",
+			"      loading: true,",
+			"    }),",
+			"  ),"
+		],
+		"description": "NgRxReducersDataEntry"
+	},
+	"NgRxReducerFailure": {
+		"prefix": "imng-ngrx-reducer-failure",
+		"body": [
+			"  on($1sActions.load$2sFailure, (state, { payload }) => ({ ...state, error: payload.error })),",
+			""
+		],
+		"description": "Create Reducer for failure action"
+	},
+	"NgRxReducerOData": {
+		"prefix": "imng-ngrx-reducer-odata",
+		"body": [
+			" on($1sActions.load$2sRequest, (state, { payload }) => ({",
+			"    ...state,",
+			"    gridODataState: payload,",
+			"    loading: true,",
+			"    error: null,",
+			"  })),",
+			"  on($1sActions.load$2sSuccess, (state, { payload }) => ({",
+			"    ...state,",
+			"    loading: false,",
+			"    list: payload,",
+			"    error: null,",
+			"  })),"
+		],
+		"description": "Create Reducer for OData Requests"
+	},
+	"NgRxSelectorsDataEntry": {
+		"prefix": "imng-ngrx-selectors-data-entry",
+		"body": [
+			"export const get$1sState = createFeatureSelector<$1sPartialState, $1sState>($2S_FEATURE_KEY);",
+			"export const getLoading = createSelector(",
+			"  get$1sState,",
+			"  (state: $1sState) => state.loading,",
+			");",
+			"export const getCurrentEntity = createSelector(",
+			"  get$1sState,",
+			"  state => state.current$1,",
+			");",
+			"export const getIsEditActive = createSelector(",
+			"  getCurrentEntity,",
+			"  entity=> isTruthy(entity) && isTruthy(entity.id),",
+			");",
+			"export const getIsNewActive = createSelector(",
+			"  getCurrentEntity,",
+			"  entity=> isTruthy(entity) && !isTruthy(entity.id),",
+			");",
+			"export const queries = {",
+			"  getLoading,",
+			"  getCurrentEntity,",
+			"  getIsEditActive,",
+			"  getIsNewActive,",
+			"};",
+		],
+		"description": "NgRx Selectors for Data Entry components"
+	},
+	"ServicesDataEntry": {
+		"prefix": "imng-services-data-entry",
+		"body": [
+			"@Injectable({",
+			"  providedIn: 'root',",
+			"})",
+			"export class $1Service extends NrsrxBaseApiClientService<I$2> {",
+			"  url: string = environment.endPoints.$3Api;",
+			"  constructor(http: HttpClient) {",
+			"    super(http);",
+			"  }",
+			"}"
+		],
+		"description": "ServicesDataEntry"
+	},
+	"SpecNgRxFacadeLoadEntities": {
+		"prefix": "imng-spec-ngrx-facade-load-entities",
+		"body": [
+			"   it('loadEntities() should return empty list with loaded == true', async done => {",
+			"      try {",
+			"        let list = await readFirst(facade.gridData$);",
+			"        let isloading = await readFirst(facade.loading$);",
+			"",
+			"        const client: ODataService = TestBed.get(ODataService);",
+			"        const response = cold('-a-|', {",
+			"          a: { data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 },",
+			"        });",
+			"        client.fetch = jest.fn(() => response);",
+			"",
+			"        expect(list.data.length).toBe(0);",
+			"        expect(isloading).toBe(false);",
+			"        facade.loadEntities({});",
+			"",
+			"        list = await readFirst(facade.gridData$);",
+			"        isloading = await readFirst(facade.loading$);",
+			"",
+			"        expect(list.data.length).toBe(0);",
+			"        expect(isloading).toBe(true);",
+			"",
+			"        done();",
+			"      } catch (err) {",
+			"        done.fail(err);",
+			"      }",
+			"    });"
+		],
+		"description": "Create unit for facade load Entities"
+	},
+	"SpecNgRxFacadeSaveEntities": {
+		"prefix": "imng-spec-ngrx-facade-save-entities",
+		"body": [
+			"it('should save data', async done =>",
+			"  await testSaveCurrentEntity<$1Facade>(done, facade, TestBed.get(HttpClient)));"
+		],
+		"description": "SpecNgRxFacadeSaveEntities"
+	},
+	"SpecNgRxFacadeUpdateEntities": {
+		"prefix": "imng-spec-ngrx-facade-update-entities",
+		"body": [
+			"it('should update data', async done =>",
+			"  await testUpdateCurrentEntity<$1Facade>(done, facade, TestBed.get(HttpClient)));"
+		],
+		"description": "SpecNgRxFacadeUpdateEntities"
+	}
+}

@@ -32,13 +32,7 @@ export async function testGridPagerSettings<TFacade extends IKendoODataGridFacad
 ) {
   try {
     const pagerSettings = await readFirst(facade.gridPagerSettings$);
-    expect(pagerSettings).toStrictEqual({
-      buttonCount: NaN,
-      info: true,
-      pageSizes: true,
-      previousNext: true,
-      type: 'numeric',
-    });
+    expect(pagerSettings).toEqual(false);
     done();
   } catch (err) {
     done.fail(err);

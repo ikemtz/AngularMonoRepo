@@ -12,7 +12,7 @@ import { oidcActions } from './oidc.action';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OidcFacade {
   constructor(private store: Store<OidcState>, private oidcService: OidcService) {
@@ -30,36 +30,37 @@ export class OidcFacade {
   silentRenewError$: Observable<any> = this.store.select(oidcQuery.getSilentRenewError);
   hasErrors$: Observable<boolean> = this.store.select(oidcQuery.hasErrors);
   permissions$: Observable<string[]> = this.store.select(oidcQuery.getPermissions);
+  audiences$: Observable<string[]> = this.store.select(oidcQuery.getAudiences);
   expiresAt$: Observable<Date> = this.store.select(oidcQuery.getExpiresAt);
-  profile$: Observable<{ key: string, value: string }[]> = this.store.select(oidcQuery.getProfile);
+  profile$: Observable<{ key: string; value: string }[]> = this.store.select(oidcQuery.getProfile);
 
   // default bindings to events
-  private addUserUnLoaded = function () {
+  private addUserUnLoaded = function() {
     this.store.dispatch(oidcActions.onUserUnloaded());
   }.bind(this);
 
-  private accessTokenExpired = function (e) {
+  private accessTokenExpired = function(e) {
     this.store.dispatch(oidcActions.onAccessTokenExpired());
   }.bind(this);
 
-  private accessTokenExpiring = function () {
+  private accessTokenExpiring = function() {
     this.store.dispatch(oidcActions.onAccessTokenExpiring());
   }.bind(this);
 
-  private addSilentRenewError = function (e) {
+  private addSilentRenewError = function(e) {
     this.store.dispatch(oidcActions.onSilentRenewError({ payload: e }));
   }.bind(this);
 
-  private addUserLoaded = function (loadedUser: OidcUser) {
+  private addUserLoaded = function(loadedUser: OidcUser) {
     this.store.dispatch(oidcActions.onUserLoaded({ payload: loadedUser }));
   }.bind(this);
 
-  private addUserSignedOut = function () {
+  private addUserSignedOut = function() {
     this.oidcService.removeOidcUser();
     this.store.dispatch(oidcActions.onUserSignedOut());
   }.bind(this);
 
-  private addUserSessionChanged = function (e) {
+  private addUserSessionChanged = function(e) {
     this.store.dispatch(oidcActions.onSessionChanged());
   };
 
@@ -91,7 +92,7 @@ export class OidcFacade {
   waitForAuthenticationLoaded(): Observable<boolean> {
     return this.loading$.pipe(
       filter(loading => loading === false),
-      take(1)
+      take(1),
     );
   }
 

@@ -1,5 +1,6 @@
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 export async function testSaveCurrentEntity<TFacade extends { saveNewEntity(entity: unknown): void }>(
   done: jest.DoneCallback,
@@ -7,15 +8,15 @@ export async function testSaveCurrentEntity<TFacade extends { saveNewEntity(enti
   httpClient: HttpClient,
 ) {
   try {
-    const entity = { name: '🆕' };
-    const postSpy = jest.spyOn(httpClient, 'post');
-    const putSpy = jest.spyOn(httpClient, 'put');
-    const deleteSpy = jest.spyOn(httpClient, 'delete');
+    const entity: any = { name: '🆕' };
+    httpClient.post = jest.fn(() => of(entity));
+    httpClient.put = jest.fn(() => of(entity));
+    httpClient.delete = jest.fn(() => of(entity));
 
     facade.saveNewEntity(entity);
-    expect(postSpy).toBeCalledTimes(1);
-    expect(putSpy).toBeCalledTimes(0);
-    expect(deleteSpy).toBeCalledTimes(0);
+    expect(httpClient.post).toBeCalledTimes(1);
+    expect(httpClient.put).toBeCalledTimes(0);
+    expect(httpClient.delete).toBeCalledTimes(0);
     done();
   } catch (err) {
     done.fail(err);
@@ -28,15 +29,16 @@ export async function testUpdateCurrentEntity<TFacade extends { updateExistingEn
   httpClient: HttpClient,
 ) {
   try {
-    const entity = { id: '💃', name: '🧓👴👵' };
-    const postSpy = jest.spyOn(httpClient, 'post');
-    const putSpy = jest.spyOn(httpClient, 'put');
-    const deleteSpy = jest.spyOn(httpClient, 'delete');
+    const entity: any = { id: '💃', name: '🧓👴👵' };
+
+    httpClient.post = jest.fn(() => of(entity));
+    httpClient.put = jest.fn(() => of(entity));
+    httpClient.delete = jest.fn(() => of(entity));
 
     facade.updateExistingEntity(entity);
-    expect(putSpy).toBeCalledTimes(1);
-    expect(postSpy).toBeCalledTimes(0);
-    expect(deleteSpy).toBeCalledTimes(0);
+    expect(httpClient.put).toBeCalledTimes(1);
+    expect(httpClient.post).toBeCalledTimes(0);
+    expect(httpClient.delete).toBeCalledTimes(0);
     done();
   } catch (err) {
     done.fail(err);
@@ -49,15 +51,16 @@ export async function testDeleteCurrentEntity<TFacade extends IDataDeleteFacade<
   httpClient: HttpClient,
 ) {
   try {
-    const entity = { id: '💃', name: '🧓👴👵' };
-    const postSpy = jest.spyOn(httpClient, 'post');
-    const putSpy = jest.spyOn(httpClient, 'put');
-    const deleteSpy = jest.spyOn(httpClient, 'delete');
+    const entity: any = { id: '💃', name: '🧓👴👵' };
+
+    httpClient.post = jest.fn(() => of(entity));
+    httpClient.put = jest.fn(() => of(entity));
+    httpClient.delete = jest.fn(() => of(entity));
 
     facade.deleteExistingEntity(entity);
-    expect(putSpy).toBeCalledTimes(0);
-    expect(postSpy).toBeCalledTimes(0);
-    expect(deleteSpy).toBeCalledTimes(1);
+    expect(httpClient.put).toBeCalledTimes(0);
+    expect(httpClient.post).toBeCalledTimes(0);
+    expect(httpClient.delete).toBeCalledTimes(1);
     done();
   } catch (err) {
     done.fail(err);

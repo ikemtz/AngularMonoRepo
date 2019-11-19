@@ -1,14 +1,18 @@
 <div class="container pt-5 mt-5">
   <div class="row h3 text-center">
-    <div class="col-md-12 text-center">
-      OIDC Support
+    <div class="col-md-12 text-center"> OIDC Support </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">Audiences</div>
+    <div class="col-md-8">
+      <span *ngFor="let item of facade.audiences$ | async; last as isLast"> {{item}} <br *ngIf="!isLast">
+      </span>
     </div>
   </div>
   <div class="row">
     <div class="col-md-3">Permissions</div>
     <div class="col-md-8">
-      <span *ngFor="let item of facade.permissions$ | async; last as isLast">
-        {{item}} <br *ngIf="!isLast">
+      <span *ngFor="let item of facade.permissions$ | async; last as isLast"> {{item}} <br *ngIf="!isLast">
       </span>
     </div>
   </div>

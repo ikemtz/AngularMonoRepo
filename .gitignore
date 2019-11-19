@@ -331,3 +331,4 @@ ASALocalRun/
 
 src/libs/**/package-lock.json
 src/junit.*.xml
+src/libs/imng-snippets/imng-snippets-0.0.1.vsix

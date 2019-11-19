@@ -5,5 +5,6 @@ export function createKendoODataGridInitialState<TEntity>(): KendoODataGridState
     gridData: { data: [], total: 0 },
     loading: false,
     gridODataState: {},
+    gridPagerSettings: false,
   };
 }
