@@ -12,10 +12,17 @@ import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
 export class ODataService {
   constructor(private http: HttpClient) {}
 
-  public fetch<T>(odataEndpoint: string, state: ODataState): Observable<ODataResult<T>> {
+  public fetch<T>(
+    odataEndpoint: string,
+    state: ODataState,
+    utcNullableProps: string[] = [],
+    dateNullableProps: string[] = [],
+  ): Observable<ODataResult<T>> {
     const countClause = state.count === false ? '' : '&$count=true';
     const queryStr = `${this.getODataString(state)}${countClause}`;
-    return this.http.get(`${odataEndpoint}?${queryStr}`).pipe(mapToExtDataResult<T>());
+    return this.http
+      .get(`${odataEndpoint}?${queryStr}`)
+      .pipe(mapToExtDataResult<T>(utcNullableProps, dateNullableProps));
   }
 
   public fetchByPrimaryKey<T>(odataEndpoint: string, id: string, state?: ODataState): Observable<T> {

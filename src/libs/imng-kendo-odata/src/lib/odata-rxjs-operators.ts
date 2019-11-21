@@ -2,13 +2,13 @@ import { ODataPayload } from './odata-payload';
 import { map } from 'rxjs/operators';
 import { ODataResult } from './odata-result';
 
-export const mapToExtDataResult = <T>() =>
+export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNullableProps: string[] = []) =>
   map((response: ODataPayload<T>) => {
     const result = <ODataResult<T>>{
       data: response.value,
       total: response['@odata.count'],
     };
-    result.data = parseDatesInCollection(result.data);
+    result.data = parseDatesInCollection(result.data, utcNullableProps, dateNullableProps);
     return result;
   });
 
