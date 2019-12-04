@@ -3,12 +3,12 @@
     "displayName": "IMNG Snippets",
     "description": "Snippets collection for IMNG based libraries",
     "icon": "imng-snippets.png",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "repository": {
       "url": "https://github.com/ikemtz/AngularMonoRepo/tree/master/src/libs/imng-snippets"
     },
     "scripts": {
-      "publish": "vsce publish"
+      "publish": "vsce package && vsce publish"
     },
     "publisher": "ikemtz",
     "engines": {
