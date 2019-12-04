@@ -3,7 +3,7 @@
     "displayName": "IMNG Snippets",
     "description": "Snippets collection for IMNG based libraries",
     "icon": "imng-snippets.png",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "repository": {
       "url": "https://github.com/ikemtz/AngularMonoRepo/tree/master/src/libs/imng-snippets"
     },

@@ -1,4 +1,14 @@
 {
+	"ComponentMethodsTypeAhead": {
+		"prefix": "imng-component-methods-type-ahead",
+		"body": [
+			"  public onTypeAheadSelected(match: ImngMatchSelectedEvent<I${1:EntityName}>) {",
+			"  }",
+			"  public onTypeAheadCleared(noMatches: boolean) {",
+			"  }"
+		],
+		"description": "ComponentMethodsTypeAhead"
+	},
 	"NgRxActionsDataEntry": {
 		"prefix": "imng-ngrx-actions-data-entry",
 		"body": [
@@ -167,7 +177,7 @@
 			"@Injectable({ providedIn: 'root' })",
 			"export class $1TypeAheadFacade implements ImngTypeAheadFacade<I$1> {",
 			"  matches$: Observable<ImngTypeaheadMatch<I$1>[]> = this.store.pipe(",
-			"    select($2sQuery.getAll$1s),",
+			"    select($2sQuery.get$1s),",
 			"    filter(items => !!items),",
 			"    map(items=> items.map(item => new ImngTypeaheadMatch<I$1>(item, item.name, false))),",
 			"  );",
@@ -179,7 +189,7 @@
 			"      take: 10,",
 			"      count: false,",
 			"    };",
-			"    this.store.dispatch(AgreementsActionTypes.load$1Request(createPayload(payload)));",
+			"    this.store.dispatch(actionTypes.load$1sRequest(createPayload(payload)));",
 			"  }",
 			"",
 			"  constructor(private readonly store: Store<$3sPartialState>) { }",
@@ -379,7 +389,7 @@
 			"      try {",
 			"        const getSpy = jest.spyOn(httpClient, \"get\");",
 			"        facade.loadMatches('🎂 🍩 😡');",
-			"        expect(getSpy).toBeCalledWith(\"${4:ODataUrl}?$filter=(contains(name,'%F0%9F%8E%82') or contains(name,'%F0%9F%8D%A9') or contains(name,'%F0%9F%98%A1'))&$top=10&$select=id,name\");",
+			"        expect(getSpy).toBeCalledWith(\"${4:ODataUrl}?\\$filter=(contains(name,'%F0%9F%8E%82') or contains(name,'%F0%9F%8D%A9') or contains(name,'%F0%9F%98%A1'))&\\$top=10&\\$select=id,name\");",
 			"        expect(getSpy).toBeCalledTimes(1);",
 			"        done();",
 			"      } catch (err) {",
