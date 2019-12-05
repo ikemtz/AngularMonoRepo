@@ -8,18 +8,17 @@ export class ODataGridMockFacade implements IKendoODataGridFacade<object> {
   public gridODataState$: Observable<ODataState> = of({});
   public gridData$: Observable<ODataResult<object>> = of({ data: [], total: 0 });
   public gridPagerSettings$: Observable<false | PagerSettings> = of({});
-  public loadEntities(state: ODataState): void {}
+  public loadEntities = jest.fn((state: ODataState) => {});
 }
 
 export function createODataGridMockFacade(mockFacade?: ODataGridMockFacade | any): ODataGridMockFacade {
   const localFacade = new ODataGridMockFacade();
   if (!mockFacade) {
     return localFacade;
-  }
+  } 
   mockFacade.loading$ = mockFacade.loading$ || localFacade.loading$;
   mockFacade.gridODataState$ = mockFacade.gridODataState$ || localFacade.gridODataState$;
-  mockFacade.gridDataResult$ = mockFacade.gridData$ || localFacade.gridData$;
   mockFacade.gridPagerSettings$ = mockFacade.gridPagerSettings$ || localFacade.gridPagerSettings$;
-  mockFacade.loadEntities = mockFacade.loadEntities || jest.fn(() => {});
+  mockFacade.loadEntities = mockFacade.loadEntities || jest.fn((x) => {});
   return mockFacade;
 }
