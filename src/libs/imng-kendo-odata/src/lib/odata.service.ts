@@ -46,7 +46,16 @@ export class ODataService {
 
     let queryString = toODataString(state);
     if (state.expanders && state.expanders.length > 0) {
-      queryString += `&$expand=${state.expanders.join()}`;
+      queryString += `&$expand=`;
+      state.expanders.forEach(element => {
+        if (typeof element === 'string' || !element.selectors || element.selectors.length === 0) {
+          queryString += `${element},`;
+        } else {
+          queryString += `${element.tableName}($select=${element.selectors.join()}),`;
+        }
+      });
+      //Removes trailing comma
+      queryString = queryString.replace(/,$/, '');
     }
     if (state.selectors && state.selectors.length > 0) {
       queryString += `&$select=${state.selectors.join()}`;
