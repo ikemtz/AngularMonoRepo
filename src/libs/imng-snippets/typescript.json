@@ -39,6 +39,17 @@
 		],
 		"description": "Create Load OData Request Success Action"
 	},
+	"NgRxActionsRequestSuccess": {
+		"prefix": "imng-ngrx-actions-request-success",
+		"body": [
+			"export const ${1:CREATE_UPDATE_DELETE}Request = createPayloadAction<${2:REQUEST_TYPE}>(",
+			"'[${3:FEATURE_NAME}s] ${1:CREATE_UPDATE_DELETE} Request');",
+			"export const ${1:CREATE_UPDATE_DELETE}Success = createPayloadAction<${4:RESPONSE_TYPE}>(",
+			"'[${3:FEATURE_NAME}s] ${1:CREATE_UPDATE_DELETE} Success',",
+			");"
+		],
+		"description": "NgRxActionsRequestSuccess"
+	},
 	"NgRxEffectsDataEntry": {
 		"prefix": "imng-ngrx-effects-data-entry",
 		"body": [
