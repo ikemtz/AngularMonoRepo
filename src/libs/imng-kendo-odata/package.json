@@ -1,6 +1,6 @@
 {
   "name": "imng-kendo-odata",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "description": "A library to make integrating Angular, Kendo controls, OData endpoints and NGRX a bit simpler.",

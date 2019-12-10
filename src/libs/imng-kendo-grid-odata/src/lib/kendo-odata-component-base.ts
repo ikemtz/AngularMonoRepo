@@ -1,7 +1,7 @@
 import { Observable, Subscription, isObservable } from 'rxjs';
 import { PagerSettings, GridDataResult, SortSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy } from '@angular/core';
-import { ODataState, ODataResult } from 'imng-kendo-odata';
+import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
@@ -20,7 +20,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     allowUnsort: true,
     mode: 'multiple',
   };
-  protected expanders: string[];
+  protected expanders: (string | Expander)[];
 
   constructor(
     protected readonly facade: FACADE,

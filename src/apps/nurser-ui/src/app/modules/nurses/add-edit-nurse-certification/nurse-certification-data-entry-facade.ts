@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { Store, select } from '@ngrx/store';
 import { NursesPartialState } from '../+state/nurses.reducer';
-import { createPayload } from 'imng-ngrx-utils';
 import {
-  clearCurrentNurseItem,
   saveNurseCertificationRequest,
   updateNurseCertificationRequest,
   clearCurrentNurseCertificationItem,
@@ -23,15 +21,15 @@ export class NurseCertificationDataEntryFacade implements IDataEntryFacade<IEmpl
   isNewActive$ = this.store.pipe(select(queries.getIsNewActive));
 
   setCurrentEntity(certification: IEmployeeCertification, nurse: IEmployee): void {
-    this.store.dispatch(setCurrentNurseCertificationItem(createPayload({ nurse, certification })));
+    this.store.dispatch(setCurrentNurseCertificationItem({ nurse, certification }));
   }
   clearCurrentEntity(): void {
     this.store.dispatch(clearCurrentNurseCertificationItem());
   }
   saveNewEntity(entity: IEmployeeCertification): void {
-    this.store.dispatch(saveNurseCertificationRequest(createPayload(entity)));
+    this.store.dispatch(saveNurseCertificationRequest(entity));
   }
   updateExistingEntity(entity: IEmployeeCertification): void {
-    this.store.dispatch(updateNurseCertificationRequest(createPayload(entity)));
+    this.store.dispatch(updateNurseCertificationRequest(entity));
   }
 }

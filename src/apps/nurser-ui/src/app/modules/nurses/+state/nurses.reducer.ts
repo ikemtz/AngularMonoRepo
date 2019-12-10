@@ -18,29 +18,29 @@ export const initialState: NursesState = { ...createKendoODataGridInitialState<I
 
 const nursesReducer = createReducer(
   initialState,
-  on(NursesActions.loadNursesRequest, (state, { payload }) => ({
+  on(NursesActions.loadNursesRequest, (state, action) => ({
     ...state,
-    gridODataState: payload,
+    gridODataState: action.payload,
     loading: true,
     error: null,
   })),
-  on(NursesActions.loadNursesSuccess, (state, { payload }) => ({
+  on(NursesActions.loadNursesSuccess, (state, action) => ({
     ...state,
     loading: false,
-    gridData: payload,
+    gridData: action.payload,
     error: null,
   })),
-  on(NursesActions.loadNursesFailure, (state, { payload }) => ({ ...state, error: payload.error })),
-  on(NursesActions.setCurrentNurseItem, (state, { payload }) => ({ ...state, currentNurse: payload })),
+  on(NursesActions.loadNursesFailure, (state, action) => ({ ...state, error: action.payload.error })),
+  on(NursesActions.setCurrentNurseItem, (state, action) => ({ ...state, currentNurse: action.payload })),
   on(NursesActions.clearCurrentNurseItem, state => ({ ...state, currentNurse: null })),
   on(NursesActions.saveNurseRequest, NursesActions.updateNurseRequest, NursesActions.deleteNurseRequest, state => ({
     ...state,
     loading: true,
   })),
-  on(NursesActions.setCurrentNurseCertificationItem, (state, { payload }) => ({
+  on(NursesActions.setCurrentNurseCertificationItem, (state, action) => ({
     ...state,
-    currentNurseCertification: payload.certification,
-    currentNurse: payload.nurse,
+    currentNurseCertification: action.payload.certification,
+    currentNurse: action.payload.nurse,
   })),
   on(NursesActions.clearCurrentNurseCertificationItem, state => ({
     ...state,

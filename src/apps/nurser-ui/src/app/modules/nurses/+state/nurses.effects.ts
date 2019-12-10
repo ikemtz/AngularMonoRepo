@@ -9,7 +9,6 @@ import { ODataService } from 'imng-kendo-odata';
 // tslint:disable-next-line: nx-enforce-module-boundaries
 import { environment } from 'apps/nurser-ui/src/environments/environment';
 import { map } from 'rxjs/operators';
-import { createPayload } from 'imng-ngrx-utils';
 import { NursesApiService } from '../services/nurses-api.service';
 import { NurseCertificationsApiService } from '../services/nurse-certifications-api.service';
 
@@ -27,7 +26,7 @@ export class NursesEffects {
       run: (action: ReturnType<typeof NursesActions.loadNursesRequest>, state: NursesPartialState) =>
         this.odataservice
           .fetch<IEmployee>(environment.endPoints.emplMs.ODataEndpoint, action.payload)
-          .pipe(map(t => NursesActions.loadNursesSuccess(createPayload(t)))),
+          .pipe(map(t => NursesActions.loadNursesSuccess(t))),
       onError: this.exceptionHandler,
     }),
   );
@@ -37,7 +36,7 @@ export class NursesEffects {
       run: (action: ReturnType<typeof NursesActions.saveNurseRequest>, state: NursesPartialState) =>
         this.nursesApiService
           .post(action.payload)
-          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+          .pipe(map(t => NursesActions.loadNursesRequest(state[NURSES_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
     }),
   );
@@ -47,7 +46,7 @@ export class NursesEffects {
       run: (action: ReturnType<typeof NursesActions.updateNurseRequest>, state: NursesPartialState) =>
         this.nursesApiService
           .put(action.payload)
-          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+          .pipe(map(t => NursesActions.loadNursesRequest(state[NURSES_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
     }),
   );
@@ -57,7 +56,7 @@ export class NursesEffects {
       run: (action: ReturnType<typeof NursesActions.deleteNurseRequest>, state: NursesPartialState) =>
         this.nursesApiService
           .delete(action.payload)
-          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+          .pipe(map(t => NursesActions.loadNursesRequest(state[NURSES_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
     }),
   );
@@ -66,7 +65,7 @@ export class NursesEffects {
       run: (action: ReturnType<typeof NursesActions.saveNurseCertificationRequest>, state: NursesPartialState) =>
         this.nurseCertificationsApiService
           .post(action.payload)
-          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+          .pipe(map(t => NursesActions.loadNursesRequest(state[NURSES_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
     }),
   );
@@ -76,7 +75,7 @@ export class NursesEffects {
       run: (action: ReturnType<typeof NursesActions.updateNurseCertificationRequest>, state: NursesPartialState) =>
         this.nurseCertificationsApiService
           .put(action.payload)
-          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+          .pipe(map(t => NursesActions.loadNursesRequest(state[NURSES_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
     }),
   );
@@ -86,13 +85,13 @@ export class NursesEffects {
       run: (action: ReturnType<typeof NursesActions.deleteNurseCertificationRequest>, state: NursesPartialState) =>
         this.nurseCertificationsApiService
           .delete(action.payload)
-          .pipe(map(t => NursesActions.loadNursesRequest(createPayload(state[NURSES_FEATURE_KEY].gridODataState)))),
+          .pipe(map(t => NursesActions.loadNursesRequest(state[NURSES_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
     }),
   );
 
   private exceptionHandler(action, error) {
     console.error('Error', error); // NOSONAR
-    return NursesActions.loadNursesFailure(createPayload({ error }));
+    return NursesActions.loadNursesFailure({ error });
   }
 }
