@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { JsonEditorOptions } from 'ang-jsoneditor';
 import { IAzSetting } from './az-setting.model';
+import { of } from 'rxjs';
 @Component({
   selector: 'imng-root',
   templateUrl: './app.component.html',
@@ -16,7 +17,12 @@ export class AppComponent implements OnInit {
 
   constructor() {}
   ngOnInit(): void {
-    this.azConfig.valueChanges.pipe(tap(t => this.convertAzConfig(t))).subscribe();
+    this.azConfig.valueChanges
+      .pipe(
+        catchError(x => of([])),
+        tap(t => this.convertAzConfig(t)),
+      )
+      .subscribe();
     this.editorOptions = new JsonEditorOptions();
     this.editorOptions.modes = ['code'];
     this.editorOptions.mode = 'code';
@@ -27,11 +33,13 @@ export class AppComponent implements OnInit {
 
   public convertAzConfig(settings: IAzSetting[]) {
     const devSettings = { ...this.initialDevSettings };
-    settings
-      .map(t => ({ name: t.name, value: t.value }))
-      .forEach(t => {
-        devSettings.Values[t.name] = t.value;
-      });
-    this.devConfig.patchValue(devSettings);
+    if (Array.isArray(settings)) {
+      settings
+        .map(t => ({ name: t.name, value: t.value }))
+        .forEach(t => {
+          devSettings.Values[t.name] = t.value;
+        });
+      this.devConfig.patchValue(devSettings);
+    }
   }
 }
