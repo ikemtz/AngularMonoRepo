@@ -1,0 +1,14 @@
+<header class="text-center py-2">
+  <h2>Azure Function Configuration Converter</h2> This application allows you to convert your Azure Function
+  configuration file to the format required for your local.settings.json file. <span></span>
+</header>
+<main class="container">
+  <div class="row">
+    <div class="col col-md-6">
+      <json-editor class="minHeight" [options]="editorOptions" [formControl]="azConfig"></json-editor>
+    </div>
+    <div class="col col-md-6">
+      <json-editor class="minHeight" [options]="editorOptions" [formControl]="devConfig"></json-editor>
+    </div>
+  </div>
+</main>

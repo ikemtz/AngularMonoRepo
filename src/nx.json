@@ -12,9 +12,7 @@
       "tags": []
     },
     "nurser-ui": {
-      "tags": [
-        "ngnu"
-      ]
+      "tags": ["ngnu"]
     },
     "imng-auth0-oidc": {
       "tags": []
@@ -41,6 +39,12 @@
       "tags": []
     },
     "imng-kendo-odata": {
+      "tags": []
+    },
+    "imng-az-func-configr-e2e": {
+      "tags": []
+    },
+    "imng-az-func-configr": {
       "tags": []
     }
   }
