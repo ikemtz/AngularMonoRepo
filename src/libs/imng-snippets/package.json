@@ -2,8 +2,8 @@
     "name": "imng-snippets",
     "displayName": "IMNG Snippets",
     "description": "Snippets collection for IMNG based libraries",
-    "icon": "imng-snippets.png",
-    "version": "0.0.7",
+    "icon": "src/assets/imng-snippets.png",
+    "version": "0.0.8",
     "repository": {
       "url": "https://github.com/ikemtz/AngularMonoRepo/tree/master/src/libs/imng-snippets"
     },
@@ -21,11 +21,11 @@
       "snippets": [
         {
           "language": "typescript",
-          "path": "./typescript.json"
+          "path": "./src/assets/typescript.json"
         },
         {
           "language": "html",
-          "path": "./html.json"
+          "path": "./src/assets/html.json"
         }
       ]
     }
