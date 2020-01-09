@@ -3,9 +3,10 @@ import { oidcActions } from './oidc.action';
 import { jwtDecoder } from '../util/jwt-decoder';
 import { on, createReducer, Action } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IOidcUser } from '../models/i-oidc-user';
 
 export interface OidcState {
-  identity: OidcUser | null;
+  identity: IOidcUser | null;
   audiences: string[];
   permissions: string[];
   loading: boolean;

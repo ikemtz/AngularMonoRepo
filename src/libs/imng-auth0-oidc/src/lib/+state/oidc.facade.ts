@@ -3,13 +3,14 @@ import { Store } from '@ngrx/store';
 import { OidcClient, SigninRequest, SignoutRequest, User as OidcUser, UserManager } from 'oidc-client';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { OidcState, ErrorState } from './oidc.reducer';
+import { OidcState } from './oidc.reducer';
 import { oidcQuery } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
 import { RequestArugments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
 import { oidcActions } from './oidc.action';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IOidcUser } from '../models/i-oidc-user';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class OidcFacade {
   expiring$: Observable<boolean> = this.store.select(oidcQuery.isIdentityExpiring);
   expired$: Observable<boolean> = this.store.select(oidcQuery.isIdentityExpired);
   loggedIn$: Observable<boolean> = this.store.select(oidcQuery.isLoggedIn);
-  identity$: Observable<OidcUser> = this.store.select(oidcQuery.getOidcIdentity);
+  identity$: Observable<IOidcUser> = this.store.select(oidcQuery.getOidcIdentity);
   accessToken$: Observable<string> = this.store.select(oidcQuery.getAccessToken);
   httpError$: Observable<HttpErrorResponse> = this.store.select(oidcQuery.getHttpError);
   signInError$: Observable<any> = this.store.select(oidcQuery.getSignInError);
