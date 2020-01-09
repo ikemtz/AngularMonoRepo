@@ -15,6 +15,8 @@ import * as NursesActions from '../+state/nurses.actions';
 import { NURSES_FEATURE_KEY, NursesState, initialState, reducer } from '../+state/nurses.reducer';
 import { IEmployee } from '../../models/emp-api';
 import { ODataService } from 'imng-kendo-odata';
+import { NursesApiService } from '../services/nurses-api.service';
+import { of } from 'rxjs';
 
 interface TestSchema {
   nurses: NursesState;
@@ -39,7 +41,14 @@ describe('ListFacade', () => {
           EffectsModule.forFeature([NursesEffects]),
           HttpClientTestingModule,
         ],
-        providers: [ListFacade, ODataService],
+        providers: [
+          ListFacade,
+          ODataService,
+          {
+            provide: NursesApiService,
+            useValue: { delete: jest.fn(() => of()) },
+          },
+        ],
       })
       class CustomFeatureModule {}
 
@@ -73,6 +82,17 @@ describe('ListFacade', () => {
         expect(gridData.data.length).toBe(0);
         expect(isloading).toBe(true);
 
+        done();
+      } catch (err) {
+        done.fail(err);
+      }
+    });
+
+    it('should deleteNurse', async done => {
+      try {
+        const nurserApi: NursesApiService = TestBed.get(NursesApiService);
+        facade.deleteNurse(createNursesEntity('💩', '🤳'));
+        expect(nurserApi.delete).toBeCalledTimes(1);
         done();
       } catch (err) {
         done.fail(err);
