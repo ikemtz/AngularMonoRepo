@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { User as OidcUser } from 'oidc-client';
 import { RequestArugments } from '../models/arguments.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IOidcUser } from '../models/i-oidc-user';
 
 export enum OidcActionTypes {
   GetOidcUser = '[Oidc] get oidc user',
@@ -46,7 +46,7 @@ export enum OidcActionTypes {
 export const getOidcUser = createAction(OidcActionTypes.GetOidcUser, props<{ payload: any }>());
 export const removeOidcUser = createAction(OidcActionTypes.RemoveOidcUser);
 export const userExpired = createAction(OidcActionTypes.UserExpired);
-export const userFound = createAction(OidcActionTypes.UserFound, props<{ payload?: OidcUser }>());
+export const userFound = createAction(OidcActionTypes.UserFound, props<{ payload?: IOidcUser }>());
 export const onSessionChanged = createAction(OidcActionTypes.OnSessionChanged);
 export const onAccessTokenExpired = createAction(OidcActionTypes.OnAccessTokenExpired);
 export const onAccessTokenExpiring = createAction(OidcActionTypes.OnAccessTokenExpiring);
@@ -56,7 +56,7 @@ export const userDoneLoadingError = createAction(OidcActionTypes.UserDoneLoading
 
 // OIDC EVENTS
 
-export const onUserLoaded = createAction(OidcActionTypes.OnUserLoaded, props<{ payload: OidcUser }>());
+export const onUserLoaded = createAction(OidcActionTypes.OnUserLoaded, props<{ payload: IOidcUser }>());
 export const onUserloadError = createAction(OidcActionTypes.OnUserloadError, props<{ payload: Error }>());
 export const onUserUnloaded = createAction(OidcActionTypes.OnUserUnloaded);
 export const onUserSignedOut = createAction(OidcActionTypes.OnUserSignedOut);
@@ -98,5 +98,5 @@ export const oidcActions = {
   signinSilent,
   oidcError,
   setHttpError,
-  clearErrors
+  clearErrors,
 };

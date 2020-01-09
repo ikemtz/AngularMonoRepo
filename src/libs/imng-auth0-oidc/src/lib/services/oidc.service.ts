@@ -1,12 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Log, OidcClient, SigninRequest, SignoutRequest, User as OidcUser, UserManager } from 'oidc-client';
+import { Log, OidcClient, SigninRequest, SignoutRequest, UserManager } from 'oidc-client';
 import { from, Observable } from 'rxjs';
-import { Config, OIDC_CONFIG } from '../models/config.model'; 
+import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcEvent, StorageKeys } from '../models/constants';
+import { IOidcUser } from '../models/i-oidc-user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OidcService {
   private _oidcUserManager: UserManager;
@@ -32,7 +33,7 @@ export class OidcService {
     if (clientSettings.userStore != null) {
       clientSettings = {
         ...clientSettings,
-        userStore: clientSettings.userStore()
+        userStore: clientSettings.userStore,
       };
     }
 
@@ -48,7 +49,7 @@ export class OidcService {
     return this._oidcClient;
   }
 
-  getOidcUser(): Observable<OidcUser> {
+  getOidcUser(): Observable<IOidcUser> {
     return from(this._oidcUserManager.getUser());
   }
 
@@ -112,13 +113,13 @@ export class OidcService {
     }
   }
 
-  signInPopup(args?: any): Observable<OidcUser> {
+  signInPopup(args?: any): Observable<IOidcUser> {
     this.setCallbackInformation(true);
 
     return from(this._oidcUserManager.signinPopup({ ...args }));
   }
 
-  signInRedirect(args?: any): Observable<OidcUser> {
+  signInRedirect(args?: any): Observable<void> {
     this.setCallbackInformation(false);
 
     return from(this._oidcUserManager.signinRedirect({ ...args }));
@@ -136,7 +137,7 @@ export class OidcService {
     return from(this._oidcUserManager.signoutRedirect({ ...args }));
   }
 
-  signInSilent(args?: any): Observable<OidcUser> {
+  signInSilent(args?: any): Observable<IOidcUser> {
     return from(this._oidcUserManager.signinSilent({ ...args }));
   }
 
@@ -144,7 +145,7 @@ export class OidcService {
     return from(this._oidcUserManager.signinPopupCallback());
   }
 
-  signinRedirectCallback(): Observable<OidcUser> {
+  signinRedirectCallback(): Observable<IOidcUser> {
     return from(this._oidcUserManager.signinRedirectCallback());
   }
 
