@@ -8,7 +8,7 @@
   <script src="oidc-client.min.js" type="application/javascript"></script>
   <script>
     const x = (0 < window.location.href.indexOf('#') && 0 < window.location.href.toLowerCase().indexOf('error') ? window.location.href.split('#') : window.location.href.split('?'))[1];
-    x.split('&').map(t => decodeURI(t)).forEach(t => document.writeln(`<h6>${t}</h6>`));
+    if (x) { x.split('&').map(t => decodeURI(t)).forEach(t => document.writeln(`<h6>${t}</h6>`)) };
   </script>
 </head>
 
