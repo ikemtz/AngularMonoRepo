@@ -24,7 +24,9 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   public gridData: ODataResult<LISTED_ENTITY>;
 
   ngOnInit(): void {
-    this.gridData = process(this.detail, this.state);
+    if (this.detail) {
+      this.gridData = process(this.detail, this.state);
+    }
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
