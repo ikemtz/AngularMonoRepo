@@ -1,35 +1,41 @@
 import { FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 export class GridDataEntryHelper<T> {
-  private editedRowIndex: number;
-  private gridFormGroup: FormGroup;
-  public _gridData: Array<T>;
-  public readonly gridData$ = new Subject<Array<T>>();
+  private _editedRowIndex: number;
+  private _gridFormGroup: FormGroup;
+  private _gridData: Array<T>;
+  private readonly _gridData$ = new Subject<Array<T>>();
 
-  get gridData(): Array<T> {
+  public get gridFormGroup(): FormGroup {
+    return this._gridFormGroup;
+  }
+  public get gridData$(): Observable<Array<T>> {
+    return this._gridData$;
+  }
+  public get gridData(): Array<T> {
     return this._gridData;
   }
-  set gridData(value: Array<T>) {
+  public set gridData(value: Array<T>) {
     this._gridData = value;
-    this.gridData$.next(value);
+    this._gridData$.next(value);
   }
   constructor(private readonly formGroupFactory: () => FormGroup) {}
 
   public editHandler({ sender, rowIndex, dataItem }) {
     this.closeEditor(sender, rowIndex);
 
-    this.gridFormGroup = this.formGroupFactory();
-    this.gridFormGroup.patchValue(dataItem);
-    this.editedRowIndex = rowIndex;
+    this._gridFormGroup = this.formGroupFactory();
+    this._gridFormGroup.patchValue(dataItem);
+    this._editedRowIndex = rowIndex;
 
-    sender.editRow(rowIndex, this.gridFormGroup);
+    sender.editRow(rowIndex, this._gridFormGroup);
   }
 
-  private closeEditor(grid, rowIndex = this.editedRowIndex) {
+  private closeEditor(grid, rowIndex = this._editedRowIndex) {
     grid.closeRow(rowIndex);
-    this.editedRowIndex = undefined;
-    this.gridFormGroup = undefined;
+    this._editedRowIndex = undefined;
+    this._gridFormGroup = undefined;
   }
 
   public cancelHandler({ sender, rowIndex }) {
@@ -41,18 +47,18 @@ export class GridDataEntryHelper<T> {
     if (isNew) {
       this.gridData.push(result);
     }
-    this.gridData$.next(this.gridData);
+    this._gridData$.next(this.gridData);
     this.closeEditor(sender, rowIndex);
   }
 
   public removeHandler({ dataItem }) {
     this.gridData = this.gridData.filter(t => t !== dataItem);
-    this.gridData$.next(this.gridData);
+    this._gridData$.next(this.gridData);
   }
 
   public addHandler({ sender }) {
     this.closeEditor(sender);
-    this.gridFormGroup = this.formGroupFactory();
-    sender.addRow(this.gridFormGroup);
+    this._gridFormGroup = this.formGroupFactory();
+    sender.addRow(this._gridFormGroup);
   }
 }
