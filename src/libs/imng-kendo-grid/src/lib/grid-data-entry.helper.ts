@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
 export class GridDataEntryHelper<T> {
   private editedRowIndex: number;
   private gridFormGroup: FormGroup;
-  private gridData: Array<T>;
-  constructor(
-    private readonly formGroupFactory: () => FormGroup,
-    private readonly sourceObservable: Observable<Array<T>> = null,
-  ) {}
+  public _gridData: Array<T>;
+  public readonly gridData$ = new Subject<Array<T>>();
+
+  get gridData(): Array<T> {
+    return this._gridData;
+  }
+  set gridData(value: Array<T>) {
+    this._gridData = value;
+    this.gridData$.next(value);
+  }
+  constructor(private readonly formGroupFactory: () => FormGroup) {}
 
   public editHandler({ sender, rowIndex, dataItem }) {
     this.closeEditor(sender, rowIndex);
@@ -36,11 +41,13 @@ export class GridDataEntryHelper<T> {
     if (isNew) {
       this.gridData.push(result);
     }
+    this.gridData$.next(this.gridData);
     this.closeEditor(sender, rowIndex);
   }
 
   public removeHandler({ dataItem }) {
     this.gridData = this.gridData.filter(t => t !== dataItem);
+    this.gridData$.next(this.gridData);
   }
 
   public addHandler({ sender }) {
