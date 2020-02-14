@@ -1,11 +1,11 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as NursesActions from './nurses.actions';
-import { KendoODataGridState, createKendoODataGridInitialState } from 'imng-kendo-grid-odata';
+import { IKendoODataGridState, createKendoODataGridInitialState } from 'imng-kendo-grid-odata';
 import { IEmployee, IEmployeeCertification } from '../../models/emp-api';
 
 export const NURSES_FEATURE_KEY = 'nurses';
 
-export interface NursesState extends KendoODataGridState<IEmployee> {
+export interface NursesState extends IKendoODataGridState<IEmployee> {
   currentNurse?: IEmployee;
   currentNurseCertification?: IEmployeeCertification;
 }

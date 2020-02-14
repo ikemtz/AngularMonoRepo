@@ -35,16 +35,41 @@ export class ODataService {
     };
 
     const queryStr = this.getODataString(request);
-    return this.http.get(`${odataEndpoint}?${queryStr}`).pipe(
-      mapToExtDataResult<T>(),
-      firstRecord<T>(),
-    );
+    return this.http.get(`${odataEndpoint}?${queryStr}`).pipe(mapToExtDataResult<T>(), firstRecord<T>());
   }
 
   private getODataString(state: ODataState): string {
-    const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'?/gi;
-
     let queryString = toODataString(state);
+    queryString = this.processExpanders(state, queryString);
+    queryString = this.processSelectors(state, queryString);
+    queryString = this.processChildFilterDescriptor(state, queryString);
+    queryString = this.processInFilter(state, queryString);
+    queryString = this.processGuids(queryString);
+    return queryString;
+  }
+
+  private processGuids(queryString: string): string {
+    const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'?/gi;
+    let m: RegExpExecArray;
+    while ((m = guidRegex.exec(queryString)) !== null) {
+      // This is necessary to avoid infinite loops with zero-width matches
+      if (m.index === guidRegex.lastIndex) {
+        guidRegex.lastIndex++;
+      }
+
+      m.forEach(match => {
+        queryString = queryString.replace(match, match.replace(/'/g, ''));
+      });
+    }
+    return queryString;
+  }
+  private processSelectors(state: ODataState, queryString: string): string {
+    if (state.selectors && state.selectors.length > 0) {
+      queryString += `&$select=${state.selectors.join()}`;
+    }
+    return queryString;
+  }
+  private processExpanders(state: ODataState, queryString: string): string {
     if (state.expanders && state.expanders.length > 0) {
       queryString += `&$expand=`;
       state.expanders.forEach(element => {
@@ -57,22 +82,19 @@ export class ODataService {
       //Removes trailing comma
       queryString = queryString.replace(/,$/, '');
     }
-    if (state.selectors && state.selectors.length > 0) {
-      queryString += `&$select=${state.selectors.join()}`;
-    }
-    let m: RegExpExecArray;
-    while ((m = guidRegex.exec(queryString)) !== null) {
-      // This is necessary to avoid infinite loops with zero-width matches
-      if (m.index === guidRegex.lastIndex) {
-        guidRegex.lastIndex++;
-      }
-
-      m.forEach(match => {
-        queryString = queryString.replace(match, match.replace(/'/g, ''));
-      });
-    }
-    queryString = this.processInFilter(state, queryString);
     return queryString;
+  }
+  private processChildFilterDescriptor(state: ODataState, queryString: string): string {
+    if (!state.childFilter) {
+      return queryString;
+    }
+    const childFilterString = `(${state.childFilter.childTableNavigationProperty}/${state.childFilter.linqOperation}(o: o/${state.childFilter.field} ${state.childFilter.operator} ${state.childFilter.value}))`;
+    if (queryString.match(/\$Filter=/gi)) {
+      //Todo: handle additional filters
+      return queryString;
+    } else {
+      return `${queryString}&$filter=${childFilterString}`;
+    }
   }
 
   private processInFilter(state: ODataState, queryString: string): string {

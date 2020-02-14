@@ -1,19 +1,17 @@
 {
-  "name": "imng-kendo-odata",
-  "version": "0.1.1",
+  "name": "imng-kendo-grid",
+  "version": "0.0.1",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
-  "description": "A library to make integrating Angular, Kendo controls, OData endpoints and NGRX a bit simpler.",
+  "description": "A library to facilitate Angulra Kendo grid data entry.",
   "keywords": [
     "Angular",
     "NGRX",
-    "Kendo",
-    "OData"
+    "Kendo"
   ],
   "peerDependencies": {
     "@angular/common": "^8.2.14",
-    "@angular/core": "^8.2.14",
-    "@progress/kendo-data-query": "^1.5.2"
+    "@angular/core": "^8.2.14"
   },
   "devDependencies": {},
   "ngPackage": {

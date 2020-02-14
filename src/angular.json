@@ -589,6 +589,34 @@
         }
       },
       "schematics": {}
+    },
+    "imng-kendo-grid": {
+      "projectType": "library",
+      "root": "libs/imng-kendo-grid",
+      "sourceRoot": "libs/imng-kendo-grid/src",
+      "prefix": "imng",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/imng-kendo-grid/tsconfig.lib.json", "libs/imng-kendo-grid/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-grid/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-kendo-grid/jest.config.js",
+            "tsConfig": "libs/imng-kendo-grid/tsconfig.spec.json",
+            "setupFile": "libs/imng-kendo-grid/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
@@ -596,7 +624,8 @@
       "typescriptMismatch": false,
       "versionMismatch": false
     },
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "f4c251a3-a9e0-433e-b1f3-2c10661975ea"
   },
   "schematics": {
     "@nrwl/angular:application": {
