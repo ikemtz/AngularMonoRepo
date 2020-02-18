@@ -59,7 +59,7 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFa
     this.submitted.next(true);
 
     // stop here if form is invalid
-    if (this.addEditForm.invalid) {
+    if (this.onValidate()) {
       console.log('form validation errors.');
       return;
     }
@@ -67,6 +67,10 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFa
     this.closeForm();
   }
 
-  public abstract initForm();
-  public abstract save();
+  public onValidate(): boolean {
+    return this.addEditForm.invalid;
+  }
+
+  public abstract initForm(): void;
+  public abstract save(): void;
 }

@@ -20,7 +20,8 @@ describe('GridDataEntryHelper<>', () => {
       const gridDataResult = await readFirst(gridHelper.gridData$);
       expect(gridDataResult).toStrictEqual([]);
       expect(await readFirst(gridHelper.isValid$)).toBe(false);
-      expect(await readFirst(gridHelper.isInEditMode$)).toBe(false);
+      expect(gridHelper.isValid).toBe(false);
+      expect(gridHelper.isInEditMode).toBe(false);
       done();
     } catch (x) {
       done.fail(x);
@@ -37,7 +38,8 @@ describe('GridDataEntryHelper<>', () => {
       );
       gridHelper.addHandler({ sender: gridComponentMock });
       expect(await readFirst(gridHelper.isValid$)).toBe(false);
-      expect(await readFirst(gridHelper.isInEditMode$)).toBe(true);
+      expect(gridHelper.isValid).toBe(false);
+      expect(gridHelper.isInEditMode).toBe(true);
       done();
     } catch (x) {
       done.fail(x);
@@ -52,9 +54,10 @@ describe('GridDataEntryHelper<>', () => {
             id: new FormControl(''),
           }),
         [{ id: '😎😎' }],
-      ); 
+      );
       expect(await readFirst(gridHelper.isValid$)).toBe(true);
-      expect(await readFirst(gridHelper.isInEditMode$)).toBe(false);
+      expect(gridHelper.isValid).toBe(true);
+      expect(gridHelper.isInEditMode).toBe(false);
 
       done();
     } catch (x) {

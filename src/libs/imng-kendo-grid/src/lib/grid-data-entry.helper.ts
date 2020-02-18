@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export class GridDataEntryHelper<T extends { id?: string | number }> {
@@ -10,7 +10,7 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
   public get gridFormGroup(): FormGroup {
     return this._gridFormGroup;
   }
-  
+
   public get gridData$(): Observable<Array<T>> {
     return this._gridData$.asObservable();
   }
@@ -20,9 +20,14 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
     this._gridData$.next(value);
   }
 
-  public get isInEditMode$(): Observable<boolean> {
-    return this.gridData$.pipe(map(t => !!this._gridFormGroup));
+  public get isInEditMode(): boolean {
+    return !!this._gridFormGroup;
   }
+
+  public get isValid(): boolean {
+    return this._gridData.length > 0 && !this._gridFormGroup;
+  }
+
   public get isValid$(): Observable<boolean> {
     return this.gridData$.pipe(map(t => t.length > 0 && !this._gridFormGroup));
   }
