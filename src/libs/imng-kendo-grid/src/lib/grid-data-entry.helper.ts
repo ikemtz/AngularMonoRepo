@@ -1,7 +1,8 @@
 import { FormGroup } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-export class GridDataEntryHelper<T> {
+export class GridDataEntryHelper<T extends { id: string | number }> {
   private _editedRowIndex: number;
   private _gridFormGroup: FormGroup;
   private _gridData: Array<T>;
@@ -19,6 +20,12 @@ export class GridDataEntryHelper<T> {
   public set gridData(value: Array<T>) {
     this._gridData = value;
     this._gridData$.next(value);
+  }
+  public get IsInEditMode(): Observable<boolean> {
+    return this.gridData$.pipe(map(t => !!this._gridFormGroup));
+  }
+  public get IsValid(): Observable<boolean> {
+    return this.gridData$.pipe(map(t => t.length > 0 && !this._gridFormGroup));
   }
   constructor(private readonly formGroupFactory: () => FormGroup) {}
 
@@ -45,6 +52,7 @@ export class GridDataEntryHelper<T> {
   public saveHandler({ sender, rowIndex, formGroup, isNew }) {
     const result: T = formGroup.value;
     if (isNew) {
+      result.id = null;
       this.gridData.push(result);
     }
     this._gridData$.next(this.gridData);
