@@ -1,6 +1,6 @@
 {
   "name": "imng-kendo-grid",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "description": "A library to facilitate Angulra Kendo grid data entry.",

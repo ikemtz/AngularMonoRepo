@@ -1,33 +1,34 @@
 import { FormGroup } from '@angular/forms';
-import { Subject, Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export class GridDataEntryHelper<T extends { id: string | number }> {
+export class GridDataEntryHelper<T extends { id?: string | number }> {
   private _editedRowIndex: number;
   private _gridFormGroup: FormGroup;
-  private _gridData: Array<T>;
-  private readonly _gridData$ = new Subject<Array<T>>();
+  private readonly _gridData$: BehaviorSubject<Array<T>>;
 
   public get gridFormGroup(): FormGroup {
     return this._gridFormGroup;
   }
+  
   public get gridData$(): Observable<Array<T>> {
-    return this._gridData$;
+    return this._gridData$.asObservable();
   }
-  public get gridData(): Array<T> {
-    return this._gridData;
-  }
+
   public set gridData(value: Array<T>) {
     this._gridData = value;
     this._gridData$.next(value);
   }
-  public get IsInEditMode(): Observable<boolean> {
+
+  public get isInEditMode$(): Observable<boolean> {
     return this.gridData$.pipe(map(t => !!this._gridFormGroup));
   }
-  public get IsValid(): Observable<boolean> {
+  public get isValid$(): Observable<boolean> {
     return this.gridData$.pipe(map(t => t.length > 0 && !this._gridFormGroup));
   }
-  constructor(private readonly formGroupFactory: () => FormGroup) {}
+  constructor(private readonly formGroupFactory: () => FormGroup, private _gridData: Array<T> = []) {
+    this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
+  }
 
   public editHandler({ sender, rowIndex, dataItem }) {
     this.closeEditor(sender, rowIndex);
