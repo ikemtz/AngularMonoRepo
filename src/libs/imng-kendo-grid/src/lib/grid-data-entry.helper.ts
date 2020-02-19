@@ -15,6 +15,10 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
     return this._gridData$.asObservable();
   }
 
+  public get gridData() {
+    return this._gridData;
+  }
+
   public set gridData(value: Array<T>) {
     this._gridData = value;
     this._gridData$.next(value);
