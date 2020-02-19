@@ -24,8 +24,11 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFa
   public abstract props: any;
   public addEditForm: FormGroup;
   public loading$: Observable<boolean>;
-  public readonly submitted: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  public get submitted$(): Observable<boolean> {
+    return this._submitted$.asObservable();
+  }
   // convenience getter for easy access to form fields
   public formControl(controlName: string): AbstractControl {
     return this.addEditForm.controls[controlName];
@@ -48,7 +51,7 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFa
   public closeForm(): void {
     this.initForm();
     this.facade.clearCurrentEntity();
-    this.submitted.next(false);
+    this._submitted$.next(false);
   }
 
   public onCancel(): void {
@@ -56,10 +59,10 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFa
   }
 
   onSubmit() {
-    this.submitted.next(true);
+    this._submitted$.next(true);
 
     // stop here if form is invalid
-    if (this.onValidate()) {
+    if (this.isDataInvalid()) {
       console.log('form validation errors.');
       return;
     }
@@ -67,7 +70,7 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFa
     this.closeForm();
   }
 
-  public onValidate(): boolean {
+  protected isDataInvalid(): boolean {
     return this.addEditForm.invalid;
   }
 
