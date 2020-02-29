@@ -9,7 +9,8 @@
   },
   "projects": {
     "nurser-ui-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["nurser-ui"]
     },
     "nurser-ui": {
       "tags": ["ngnu"]
@@ -42,7 +43,8 @@
       "tags": []
     },
     "imng-az-func-configr-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["imng-az-func-configr"]
     },
     "imng-az-func-configr": {
       "tags": []

@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/apps/nurser-ui",
             "index": "apps/nurser-ui/src/index.html",
             "main": "apps/nurser-ui/src/main.ts",
@@ -73,6 +74,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -115,7 +120,8 @@
               {
                 "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
               }
-            ]
+            ],
+            "passWithNoTests": true
           }
         }
       }
@@ -153,10 +159,15 @@
       "sourceRoot": "libs/imng-auth0-oidc/src",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-auth0-oidc/tsconfig.lib.json",
             "project": "libs/imng-auth0-oidc/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-auth0-oidc/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -171,7 +182,8 @@
           "options": {
             "jestConfig": "libs/imng-auth0-oidc/jest.config.js",
             "tsConfig": "libs/imng-auth0-oidc/tsconfig.spec.json",
-            "setupFile": "libs/imng-auth0-oidc/src/test-setup.ts"
+            "setupFile": "libs/imng-auth0-oidc/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -187,10 +199,15 @@
       "sourceRoot": "libs/imng-kendo-grid-odata/src",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.lib.json",
             "project": "libs/imng-kendo-grid-odata/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -208,7 +225,8 @@
           "options": {
             "jestConfig": "libs/imng-kendo-grid-odata/jest.config.js",
             "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-grid-odata/src/test-setup.ts"
+            "setupFile": "libs/imng-kendo-grid-odata/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -224,10 +242,15 @@
       "sourceRoot": "libs/imng-application-insights-ngrx/src",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.lib.json",
             "project": "libs/imng-application-insights-ngrx/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -245,7 +268,8 @@
           "options": {
             "jestConfig": "libs/imng-application-insights-ngrx/jest.config.js",
             "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.spec.json",
-            "setupFile": "libs/imng-application-insights-ngrx/src/test-setup.ts"
+            "setupFile": "libs/imng-application-insights-ngrx/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -261,10 +285,15 @@
       "sourceRoot": "libs/imng-kendo-data-entry/src",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json",
             "project": "libs/imng-kendo-data-entry/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -282,7 +311,8 @@
           "options": {
             "jestConfig": "libs/imng-kendo-data-entry/jest.config.js",
             "tsConfig": "libs/imng-kendo-data-entry/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-data-entry/src/test-setup.ts"
+            "setupFile": "libs/imng-kendo-data-entry/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -310,7 +340,8 @@
           "options": {
             "jestConfig": "libs/imng-ngrx-utils/jest.config.js",
             "tsConfig": "libs/imng-ngrx-utils/tsconfig.spec.json",
-            "setupFile": "libs/imng-ngrx-utils/src/test-setup.ts"
+            "setupFile": "libs/imng-ngrx-utils/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -327,10 +358,15 @@
       "prefix": "nurser-ui",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.json",
             "project": "libs/imng-nrsrx-client-utils/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -348,7 +384,8 @@
           "options": {
             "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.js",
             "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.spec.json",
-            "setupFile": "libs/imng-nrsrx-client-utils/src/test-setup.ts"
+            "setupFile": "libs/imng-nrsrx-client-utils/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -376,7 +413,8 @@
           "options": {
             "jestConfig": "libs/imng-ngxb-typeahead/jest.config.js",
             "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.spec.json",
-            "setupFile": "libs/imng-ngxb-typeahead/src/test-setup.ts"
+            "setupFile": "libs/imng-ngxb-typeahead/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -407,7 +445,8 @@
           "options": {
             "jestConfig": "libs/imng-kendo-chart-odata/jest.config.js",
             "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-chart-odata/src/test-setup.ts"
+            "setupFile": "libs/imng-kendo-chart-odata/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -434,7 +473,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-kendo-odata/jest.config.js",
-            "tsConfig": "libs/imng-kendo-odata/tsconfig.spec.json"
+            "tsConfig": "libs/imng-kendo-odata/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -458,7 +498,7 @@
             "main": "apps/imng-az-func-configr/src/main.ts",
             "polyfills": "apps/imng-az-func-configr/src/polyfills.ts",
             "tsConfig": "apps/imng-az-func-configr/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/imng-az-func-configr/src/favicon.ico",
               "apps/imng-az-func-configr/src/assets",
@@ -484,7 +524,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -534,7 +573,8 @@
           "options": {
             "jestConfig": "apps/imng-az-func-configr/jest.config.js",
             "tsConfig": "apps/imng-az-func-configr/tsconfig.spec.json",
-            "setupFile": "apps/imng-az-func-configr/src/test-setup.ts"
+            "setupFile": "apps/imng-az-func-configr/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -584,7 +624,8 @@
           "options": {
             "jestConfig": "libs/imng-snippets/jest.config.js",
             "tsConfig": "libs/imng-snippets/tsconfig.spec.json",
-            "setupFile": "libs/imng-snippets/src/test-setup.ts"
+            "setupFile": "libs/imng-snippets/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -608,7 +649,8 @@
           "options": {
             "jestConfig": "libs/imng-kendo-grid/jest.config.js",
             "tsConfig": "libs/imng-kendo-grid/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-grid/src/test-setup.ts"
+            "setupFile": "libs/imng-kendo-grid/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },

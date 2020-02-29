@@ -7,7 +7,7 @@ import { ODataService } from './odata.service';
   providers: [ODataService],
 })
 export class KendoODataModule {
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(): ModuleWithProviders<KendoODataModule> {
     return {
       ngModule: KendoODataModule,
       providers: [ODataService],

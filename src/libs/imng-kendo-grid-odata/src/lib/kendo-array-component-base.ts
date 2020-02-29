@@ -1,8 +1,9 @@
 import { DataStateChangeEvent, SortSettings } from '@progress/kendo-angular-grid';
-import { Input, OnInit } from '@angular/core';
+import { Input, OnInit, Directive } from '@angular/core';
 import { process, State } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
 
+@Directive()
 export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements OnInit {
   @Input() public item?: PARENT_ENTITY;
   @Input() public detail: LISTED_ENTITY[];
