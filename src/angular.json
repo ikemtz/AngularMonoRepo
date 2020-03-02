@@ -365,6 +365,18 @@
       "sourceRoot": "libs/imng-ngrx-utils/src",
       "prefix": "nurser-ui",
       "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.json",
+            "project": "libs/imng-ngrx-utils/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.prod.json"
+            }
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -671,7 +683,18 @@
       "root": "libs/imng-kendo-grid",
       "sourceRoot": "libs/imng-kendo-grid/src",
       "prefix": "imng",
-      "architect": {
+      "architect": {"build": {
+        "builder": "@nrwl/angular:package",
+        "options": {
+          "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.json",
+          "project": "libs/imng-kendo-grid/ng-package.json"
+        },
+        "configurations": {
+          "production": {
+            "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.prod.json"
+          }
+        }
+      },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
