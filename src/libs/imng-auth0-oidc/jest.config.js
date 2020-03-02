@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'imao-auth0-oidc',
+  name: 'imng-auth0-oidc',
   preset: '../../jest.config.js',
-  coverageDirectory: '../../coverage/libs/imao-auth0-oidc',
+  coverageDirectory: '../../coverage/libs/imng-auth0-oidc',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

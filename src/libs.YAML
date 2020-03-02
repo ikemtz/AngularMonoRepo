@@ -1,0 +1,95 @@
+name: 1.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+resources:
+  - repo: self
+jobs:
+  - job: Build
+    displayName: Produce Dev and Prod builds
+
+    steps:
+      - task: Npm@1
+        displayName: 'npm install'
+        inputs:
+          workingDir: 'src'
+          verbose: false
+
+      - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+        displayName: 'Prepare analysis on SonarCloud'
+        inputs:
+          SonarCloud: 'SonarCloud IkeMtz'
+          organization: ikemtz
+          scannerMode: CLI
+          cliProjectKey: Nurser
+          cliProjectName: Nurser
+          extraProperties: |
+            sonar.projectKey=IMNG-Libs
+            sonar.sourceEncoding=UTF-8
+            sonar.sources=src/libs
+            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/nurser-ui/src/app/models/**,**/main.ts,**/environment.prod.ts
+            sonar.tests=src/libs
+            sonar.test.inclusions=**/*.spec.ts
+            sonar.typescript.lcov.reportPaths=src/coverage/libs/imng-application-insights-ngrx/lcov.info,src/coverage/libs/imng-auth0-oidc/lcov.info,src/coverage/libs/imng-kendo-chart-odata/lcov.info,src/coverage/libs/imng-kendo-data-entry/lcov.info,src/coverage/libs/imng-kendo-grid/lcov.info,src/coverage/libs/imng-kendo-grid-odata/lcov.info,src/coverage/libs/imng-kendo-odata/lcov.info,src/coverage/libs/imng-ngrx-utils/lcov.info,src/coverage/libs/imng-ngxb-typeahead/lcov.info,src/coverage/libs/imng-nrsrx-client-utils/lcov.info
+      #           sonar.coverage.exclusions=src/libs/**
+
+      - task: Npm@1
+        displayName: 'npm run lint'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run lint'
+
+      - task: Npm@1
+        displayName: 'npm run test:libs'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:libs'
+
+      - task: Npm@1
+        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:libs'
+
+      - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+        displayName: 'Run Code Analysis'
+
+      - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+        displayName: 'Publish Quality Gate Result'
+
+      - task: sonarcloud-buildbreaker@2
+        inputs:
+          SonarCloud: 'SonarCloud IkeMtz'
+          organization: 'ikemtz'
+
+      - task: PublishCodeCoverageResults@1
+        displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/src/coverage/**/cobertura-coverage.xml'
+        inputs:
+          codeCoverageTool: Cobertura
+          summaryFileLocation: '$(System.DefaultWorkingDirectory)/src/coverage/**/cobertura-coverage.xml'
+          reportDirectory: '$(System.DefaultWorkingDirectory)/src/coverage/'
+          failIfCoverageEmpty: true
+
+      - task: PublishTestResults@2
+        displayName: 'Publish Test Results junit.*.xml'
+        inputs:
+          testResultsFiles: 'src/junit.*.xml'
+          mergeTestResults: true
+          failTaskOnFailedTests: true
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: dev-drop [DEVELOPMENT BUILD]'
+        inputs:
+          PathtoPublish: 'src/dist'
+          ArtifactName: 'debug-drop'
+trigger: none
+pr:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - src/libs
