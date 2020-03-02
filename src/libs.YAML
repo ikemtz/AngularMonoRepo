@@ -14,9 +14,9 @@ jobs:
 
       - task: Bash@3
         inputs:
-          filePath: '$(System.DefaultWorkingDirectory)/src/libs/build.sh'
+          filePath: '$(System.DefaultWorkingDirectory)/src/build.sh'
           arguments: '$(Build.BuildNumber)'
-          workingDir: '$(System.DefaultWorkingDirectory)/src/libs/'
+          workingDir: '$(System.DefaultWorkingDirectory)/src/'
 
       - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
         displayName: 'Prepare analysis on SonarCloud'
