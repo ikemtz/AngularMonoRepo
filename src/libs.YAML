@@ -96,9 +96,6 @@ jobs:
           ArtifactName: 'package-drop'
 trigger: none
 pr:
-  branches:
-    include:
-      - master
   paths:
     include:
       - src/libs
