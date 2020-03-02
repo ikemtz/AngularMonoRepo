@@ -104,8 +104,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/nurser-ui/tsconfig.app.json", "apps/nurser-ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/nurser-ui/**"]
+            "tsConfig": [
+              "apps/nurser-ui/tsconfig.app.json",
+              "apps/nurser-ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/nurser-ui/**"
+            ]
           }
         },
         "test": {
@@ -148,7 +154,10 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/nurser-ui-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**", "!apps/nurser-ui-e2e/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/nurser-ui-e2e/**"
+            ]
           }
         }
       }
@@ -173,8 +182,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imng-auth0-oidc/tsconfig.lib.json", "libs/imng-auth0-oidc/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-auth0-oidc/**"]
+            "tsConfig": [
+              "libs/imng-auth0-oidc/tsconfig.lib.json",
+              "libs/imng-auth0-oidc/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-auth0-oidc/**"
+            ]
           }
         },
         "test": {
@@ -217,7 +232,10 @@
               "libs/imng-kendo-grid-odata/tsconfig.lib.json",
               "libs/imng-kendo-grid-odata/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-grid-odata/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-kendo-grid-odata/**"
+            ]
           }
         },
         "test": {
@@ -260,7 +278,10 @@
               "libs/imng-application-insights-ngrx/tsconfig.lib.json",
               "libs/imng-application-insights-ngrx/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-application-insights-ngrx/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-application-insights-ngrx/**"
+            ]
           }
         },
         "test": {
@@ -303,7 +324,10 @@
               "libs/imng-kendo-data-entry/tsconfig.lib.json",
               "libs/imng-kendo-data-entry/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-data-entry/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-kendo-data-entry/**"
+            ]
           }
         },
         "test": {
@@ -331,8 +355,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imng-ngrx-utils/tsconfig.lib.json", "libs/imng-ngrx-utils/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-ngrx-utils/**"]
+            "tsConfig": [
+              "libs/imng-ngrx-utils/tsconfig.lib.json",
+              "libs/imng-ngrx-utils/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-ngrx-utils/**"
+            ]
           }
         },
         "test": {
@@ -376,7 +406,10 @@
               "libs/imng-nrsrx-client-utils/tsconfig.lib.json",
               "libs/imng-nrsrx-client-utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-nrsrx-client-utils/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-nrsrx-client-utils/**"
+            ]
           }
         },
         "test": {
@@ -404,8 +437,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imng-ngxb-typeahead/tsconfig.lib.json", "libs/imng-ngxb-typeahead/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-ngxb-typeahead/**"]
+            "tsConfig": [
+              "libs/imng-ngxb-typeahead/tsconfig.lib.json",
+              "libs/imng-ngxb-typeahead/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-ngxb-typeahead/**"
+            ]
           }
         },
         "test": {
@@ -428,8 +467,19 @@
       "projectType": "library",
       "root": "libs/imng-kendo-chart-odata",
       "sourceRoot": "libs/imng-kendo-chart-odata/src",
-      "prefix": "nurser-ui",
       "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.json",
+            "project": "libs/imng-kendo-chart-odata/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.prod.json"
+            }
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -437,7 +487,10 @@
               "libs/imng-kendo-chart-odata/tsconfig.lib.json",
               "libs/imng-kendo-chart-odata/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-chart-odata/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-kendo-chart-odata/**"
+            ]
           }
         },
         "test": {
@@ -541,8 +594,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/imng-az-func-configr/tsconfig.app.json", "apps/imng-az-func-configr/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/imng-az-func-configr/**"]
+            "tsConfig": [
+              "apps/imng-az-func-configr/tsconfig.app.json",
+              "apps/imng-az-func-configr/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/imng-az-func-configr/**"
+            ]
           }
         },
         "test": {
@@ -577,8 +636,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/imng-az-func-configr-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/imng-az-func-configr-e2e/**"]
+            "tsConfig": [
+              "apps/imng-az-func-configr-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/imng-az-func-configr-e2e/**"
+            ]
           }
         }
       }
@@ -592,8 +656,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imng-snippets/tsconfig.lib.json", "libs/imng-snippets/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-snippets/**"]
+            "tsConfig": [
+              "libs/imng-snippets/tsconfig.lib.json",
+              "libs/imng-snippets/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-snippets/**"
+            ]
           }
         },
         "test": {
@@ -617,8 +687,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imng-kendo-grid/tsconfig.lib.json", "libs/imng-kendo-grid/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-grid/**"]
+            "tsConfig": [
+              "libs/imng-kendo-grid/tsconfig.lib.json",
+              "libs/imng-kendo-grid/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-kendo-grid/**"
+            ]
           }
         },
         "test": {
@@ -646,8 +722,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/imng-kendo-odata/tsconfig.lib.json", "libs/imng-kendo-odata/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-odata/**"]
+            "tsConfig": [
+              "libs/imng-kendo-odata/tsconfig.lib.json",
+              "libs/imng-kendo-odata/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/imng-kendo-odata/**"
+            ]
           }
         },
         "test": {
