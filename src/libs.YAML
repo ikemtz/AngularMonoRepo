@@ -93,7 +93,7 @@ jobs:
         displayName: 'Publish Artifact: dev-drop [BUILD Packages]'
         inputs:
           PathtoPublish: 'src/dist'
-          ArtifactName: 'debug-drop'
+          ArtifactName: 'package-drop'
 trigger: none
 pr:
   branches:
