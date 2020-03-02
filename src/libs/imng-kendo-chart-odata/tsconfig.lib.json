@@ -5,7 +5,7 @@
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
-    "types": [],
+    "types": ["@types/jest"],
     "lib": [
       "dom",
       "es2018"
@@ -22,13 +22,5 @@
   "exclude": [
     "src/test-setup.ts",
     "**/*.spec.ts"
-  ],
-  "paths": {
-    "imng-kendo-odata": [
-      "../imng-kendo-odata/src/index.ts"
-    ],
-    "@imng/kendo-odata": [
-      "../imng-kendo-odata/src/index.ts"
-    ]
-  }
+  ] 
 }
