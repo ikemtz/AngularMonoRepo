@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "nurserUi",
+      "imng",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "nurser-ui",
+      "imng",
       "kebab-case"
     ]
   }

@@ -3,7 +3,6 @@ import { IChartODataFacade, ChartSeriesDataPoint } from 'imng-kendo-chart-odata'
 import { GroupResult } from '@progress/kendo-data-query';
 
 export class ChartODataMockFacade implements IChartODataFacade {
-  public isDataLoadPending$: Observable<boolean> = of(true);
   public seriesData$: Observable<ChartSeriesDataPoint[] | GroupResult[]> = of([
     { seriesName: '🔷integration Tests🔷', metric: 5, interval: '💩' },
   ]);
