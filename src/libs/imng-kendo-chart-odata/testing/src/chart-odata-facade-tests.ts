@@ -1,6 +1,6 @@
 import { readFirst, cold } from '@nrwl/angular/testing';
 import { IChartODataFacade } from 'imng-kendo-chart-odata';
-import { ODataService, ODataResult } from '../../../imng-kendo-odata/src';
+import { ODataService, ODataResult } from 'imng-kendo-odata';
 
 export async function testLoadSeriesData<TFacade extends IChartODataFacade>(
   done: jest.DoneCallback,

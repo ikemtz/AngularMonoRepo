@@ -13,8 +13,8 @@
     "imng-kendo-odata": [
       "../imng-kendo-odata/src/index.ts"
     ],
-    "@imng/kendo-chart-odata/testing": [
-      "./testing/src/index.ts"
+    "@imng/kendo-odata": [
+      "../imng-kendo-odata/src/index.ts"
     ]
   }
 }
