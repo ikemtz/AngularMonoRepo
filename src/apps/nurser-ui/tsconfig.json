@@ -3,5 +3,13 @@
   "compilerOptions": {
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"],
+  "paths": {
+    "imng-kendo-odata": [ 
+      "../../libs/imng-kendo-odata/src"
+    ],
+    "@imng/kendo-chart-odata/testing": [
+      "./testing/src/index.ts"
+    ]
+  }
 }

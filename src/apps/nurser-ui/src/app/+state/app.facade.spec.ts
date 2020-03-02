@@ -9,9 +9,8 @@ import { NxModule } from '@nrwl/angular';
 
 import { AppEffects } from './app.effects';
 import { AppFacade } from './app.facade';
-
-import { appQuery } from './app.selectors';
-import { LoadApp, AppLoaded } from './app.actions';
+ 
+import { AppLoaded } from './app.actions';
 import { AppState, Entity, initialState, appReducer } from './app.reducer';
 
 interface TestSchema {
@@ -52,8 +51,8 @@ describe('AppFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(AppFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(AppFacade);
     });
 
     /**

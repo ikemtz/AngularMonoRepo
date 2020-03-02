@@ -1,5 +1,5 @@
 import * as NursesActions from './nurses.actions';
-import { NursesState, initialState, reducer } from './nurses.reducer';
+import { initialState, reducer } from './nurses.reducer';
 
 describe('Nurses Reducer', () => {
   beforeEach(() => {});

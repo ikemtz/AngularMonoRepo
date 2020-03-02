@@ -49,8 +49,8 @@ describe('NurseCertificationDataEntryFacade', () => {
         imports: [RootModule],
       });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(NurseCertificationDataEntryFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(NurseCertificationDataEntryFacade);
     });
 
     it('New Entity Set And Clear CurrentEntity', async done =>
@@ -58,8 +58,8 @@ describe('NurseCertificationDataEntryFacade', () => {
     it('Existing Entity Set And Clear CurrentEntity', async done =>
       testEditSetAndClearCurrentEntity<NurseCertificationDataEntryFacade>(done, facade));
     it('Save CurrentEntity', async done =>
-      testSaveCurrentEntity<NurseCertificationDataEntryFacade>(done, facade, TestBed.get(HttpClient)));
+      testSaveCurrentEntity<NurseCertificationDataEntryFacade>(done, facade, TestBed.inject(HttpClient)));
     it('Update CurrentEntity', async done =>
-      testUpdateCurrentEntity<NurseCertificationDataEntryFacade>(done, facade, TestBed.get(HttpClient)));
+      testUpdateCurrentEntity<NurseCertificationDataEntryFacade>(done, facade, TestBed.inject(HttpClient)));
   });
 });

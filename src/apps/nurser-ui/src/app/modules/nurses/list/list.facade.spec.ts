@@ -11,7 +11,6 @@ import { NursesEffects } from '../+state/nurses.effects';
 import { ListFacade } from './list.facade';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import * as NursesActions from '../+state/nurses.actions';
 import { NURSES_FEATURE_KEY, NursesState, initialState, reducer } from '../+state/nurses.reducer';
 import { IEmployee } from '../../models/emp-api';
 import { ODataService } from 'imng-kendo-odata';
@@ -58,15 +57,15 @@ describe('ListFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(ListFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(ListFacade);
     });
 
     it('loadEntities() should return empty list with loaded == true', async done => {
       try {
         let gridData = await readFirst(facade.gridData$);
         let isloading = await readFirst(facade.loading$);
-        const client: ODataService = TestBed.get(ODataService);
+        const client: ODataService = TestBed.inject(ODataService);
         const response = cold('-a-|', {
           a: { data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 },
         });
@@ -90,7 +89,7 @@ describe('ListFacade', () => {
 
     it('should deleteNurse', async done => {
       try {
-        const nurserApi: NursesApiService = TestBed.get(NursesApiService);
+        const nurserApi: NursesApiService = TestBed.inject(NursesApiService);
         facade.deleteNurse(createNursesEntity('💩', '🤳'));
         expect(nurserApi.delete).toBeCalledTimes(1);
         done();

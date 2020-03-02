@@ -283,7 +283,7 @@
 			"        let list = await readFirst(facade.gridData$);",
 			"        let isloading = await readFirst(facade.loading$);",
 			"",
-			"        const client: ODataService = TestBed.get(ODataService);",
+			"        const client: ODataService = TestBed.inject(ODataService);",
 			"        const response = cold('-a-|', {",
 			"          a: { data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 },",
 			"        });",
@@ -311,7 +311,7 @@
 		"prefix": "imng-spec-ngrx-facade-save-entities",
 		"body": [
 			"it('should save data', async done =>",
-			"  await testSaveCurrentEntity<$1Facade>(done, facade, TestBed.get(HttpClient)));"
+			"  await testSaveCurrentEntity<$1Facade>(done, facade, TestBed.inject(HttpClient)));"
 		],
 		"description": "SpecNgRxFacadeSaveEntities"
 	},
@@ -319,7 +319,7 @@
 		"prefix": "imng-spec-ngrx-facade-update-entities",
 		"body": [
 			"it('should update data', async done =>",
-			"  await testUpdateCurrentEntity<$1Facade>(done, facade, TestBed.get(HttpClient)));"
+			"  await testUpdateCurrentEntity<$1Facade>(done, facade, TestBed.inject(HttpClient)));"
 		],
 		"description": "SpecNgRxFacadeUpdateEntities"
 	},
@@ -371,9 +371,9 @@
 			"      class RootModule {}",
 			"      TestBed.configureTestingModule({ imports: [RootModule] });",
 			"",
-			"      store = TestBed.get(Store);",
-			"      httpClient = TestBed.get(HttpClient);",
-			"      facade = TestBed.get(${3:EntityName_Pascal}TypeAheadFacade);",
+			"      store = TestBed.inject(Store);",
+			"      httpClient = TestBed.inject(HttpClient);",
+			"      facade = TestBed.inject(${3:EntityName_Pascal}TypeAheadFacade);",
 			"    });",
 			"",
 			"    it('load${3:EntityName_Pascal}s() should execute http Get', async done => {",
@@ -390,7 +390,7 @@
 			"",
 			"    it('load${3:EntityName_Pascal}s() should execute odata fetch', async done => {",
 			"      try {",
-			"        const oDataService = TestBed.get(ODataService);",
+			"        const oDataService = TestBed.inject(ODataService);",
 			"        oDataService.fetch = jest.fn(() => of({ data: [{ id: '👼', [${3:EntityName}Properties.NAME]: '👿🕺' }], total: 500 }));",
 			"",
 			"        facade.loadMatches('🎂 🍩 😡');",

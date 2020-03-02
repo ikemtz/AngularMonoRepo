@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -19,14 +19,14 @@ describe('NursesEffects', () => {
       providers: [NursesEffects, DataPersistence, ODataService, provideMockActions(() => actions), provideMockStore()],
     });
 
-    effects = TestBed.get(NursesEffects);
+    effects = TestBed.inject(NursesEffects);
   });
 
   describe('loadNursesRequest$', () => {
     it('should work', () => {
       actions = hot('-a-|', { a: NursesActions.loadNursesRequest({}) });
       const response = cold('-a-|', { a: { data: [], total: 0 } });
-      const client: ODataService = TestBed.get(ODataService);
+      const client: ODataService = TestBed.inject(ODataService);
       client.fetch = jest.fn(() => response);
       expect(effects.loadNursesEffect$).toBeObservable(
         hot('--a-|', { a: NursesActions.loadNursesSuccess({ data: [], total: 0 }) }),
