@@ -47,7 +47,7 @@
     "build:data-entry": "rimraf ./dist/libs/imng-kendo-data-entry && ng-packagr -p ./libs/imng-kendo-data-entry/package.json",
     "build:odata": "rimraf ./dist/libs/imng-kendo-odata && ng-packagr -p ./libs/imng-kendo-odata/package.json",
     "build:chart-odata": "rimraf ./dist/libs/imng-kendo-chart-odata && ng-packagr -p ./libs/imng-kendo-chart-odata/package.json",
-    "build:grid": "npm run test:imng-kendo-grid && rimraf ./dist/libs/imng-kendo-grid && ng-packagr -p ./libs/imng-kendo-grid/package.json",
+    "build:grid": "npm run test:grid && rimraf ./dist/libs/imng-kendo-grid && ng-packagr -p ./libs/imng-kendo-grid/package.json",
     "build:grid-odata": "rimraf ./dist/libs/imng-kendo-grid-odata && ng-packagr -p ./libs/imng-kendo-grid-odata/package.json",
     "build:type-ahead": "rimraf ./dist/libs/imng-ngxb-typeahead && ng-packagr -p ./libs/imng-ngxb-typeahead/package.json",
     "build:auth0-oidc": "rimraf ./dist/libs/imng-auth0-oidc && ng-packagr -p ./libs/imng-auth0-oidc/package.json",

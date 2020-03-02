@@ -10,8 +10,8 @@
     "release:semantic": "semantic-release --prepare && npm run copyPackageJson && npm publish dist && semantic-release post"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0",
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0",
     "oidc-client": "^1.8.2",
     "@ngrx/store": "^8.0.0",
     "@ngrx/effects": "^8.0.0"
