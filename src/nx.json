@@ -10,16 +10,26 @@
   "projects": {
     "nurser-ui-e2e": {
       "tags": [],
-      "implicitDependencies": ["nurser-ui"]
+      "implicitDependencies": [
+        "nurser-ui"
+      ]
     },
     "nurser-ui": {
-      "tags": ["ngnu"]
+      "tags": [
+        "ngnu"
+      ]
     },
     "imng-auth0-oidc": {
       "tags": []
     },
     "imng-kendo-grid-odata": {
       "tags": []
+    },
+    "imng-kendo-chart-odata": {
+      "tags": [],
+      "implicitDependencies": [
+        "imng-kendo-odata"
+      ]
     },
     "imng-application-insights-ngrx": {
       "tags": []
@@ -36,15 +46,14 @@
     "imng-ngxb-typeahead": {
       "tags": []
     },
-    "imng-kendo-chart-odata": {
-      "tags": []
-    },
     "imng-kendo-odata": {
       "tags": []
     },
     "imng-az-func-configr-e2e": {
       "tags": [],
-      "implicitDependencies": ["imng-az-func-configr"]
+      "implicitDependencies": [
+        "imng-az-func-configr"
+      ]
     },
     "imng-az-func-configr": {
       "tags": []

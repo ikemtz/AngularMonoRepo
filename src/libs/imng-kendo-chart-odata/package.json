@@ -11,12 +11,12 @@
     "Charts",
     "OData"
   ],
+  "dependencies": {
+    "imng-kendo-odata": "*"
+  },
   "peerDependencies": {
     "@angular/common": "^9.0.0",
     "@angular/core": "^9.0.0"
-  },
-  "dependencies": {
-    "imng-kendo-odata": "*"
   },
   "devDependencies": {},
   "ngPackage": {

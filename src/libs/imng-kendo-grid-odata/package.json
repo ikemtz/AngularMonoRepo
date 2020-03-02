@@ -8,7 +8,7 @@
     "Angular",
     "NGRX",
     "Kendo",
-    "Charts",
+    "Grid",
     "OData"
   ],
   "dependencies": {

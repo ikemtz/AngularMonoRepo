@@ -61,6 +61,7 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:libs'
+          continueOnError: true
 
       - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'
@@ -89,7 +90,7 @@ jobs:
           failTaskOnFailedTests: true
 
       - task: PublishBuildArtifacts@1
-        displayName: 'Publish Artifact: dev-drop [DEVELOPMENT BUILD]'
+        displayName: 'Publish Artifact: dev-drop [BUILD Packages]'
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'debug-drop'

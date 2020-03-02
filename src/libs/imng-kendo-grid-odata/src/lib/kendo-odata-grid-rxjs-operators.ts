@@ -12,7 +12,7 @@ export const getODataPagerSettings = <T>(m: { gridData: ODataResult<T>; gridODat
   const settings: PagerSettings = {
     buttonCount: pageCount,
     info: true,
-    pageSizes: true,
+    pageSizes: [10, 20, 50, 100],
     previousNext: true,
     type: 'numeric',
   };
