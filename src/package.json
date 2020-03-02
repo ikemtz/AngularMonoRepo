@@ -9,7 +9,7 @@
     "build:prod": "ng build --prod",
     "test:nur": "ng test nurser-ui --code-coverage",
     "test:azc": "ng test imng-az-func-configr --code-coverage",
-    "test:libs": "npm run test:data-entry && npm run test:odata && npm run test:chart-odata && npm run test:grid && npm run test:grid-odata && npm run test:type-ahead && npm run test:auth0-oidc && npm run test:app-insight && npm run test:ngrx-utils && npm run test:nrsrx-utils",
+    "test:libs": "npm run test:data-entry && npm run test:odata && npm run test:grid-odata && npm run test:chart-odata && npm run test:grid && npm run test:type-ahead && npm run test:auth0-oidc && npm run test:app-insight && npm run test:ngrx-utils && npm run test:nrsrx-utils",
     "test:data-entry": "ng test imng-kendo-data-entry --code-coverage",
     "test:odata": "ng test imng-kendo-odata --code-coverage",
     "test:chart-odata": "ng test imng-kendo-chart-odata --code-coverage",
