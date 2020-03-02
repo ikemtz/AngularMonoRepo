@@ -1,4 +1,4 @@
-name: 1.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+name: 2.$(DayOfYear).$(Rev:.rr)
 resources:
   - repo: self
 jobs:
@@ -11,6 +11,12 @@ jobs:
         inputs:
           workingDir: 'src'
           verbose: false
+
+      - task: Bash@3
+        inputs:
+          filePath: '$(System.DefaultWorkingDirectory)/src/libs/build.sh'
+          arguments: '$(Build.BuildNumber)'
+          workingDir: '$(System.DefaultWorkingDirectory)/src/libs/'
 
       - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
         displayName: 'Prepare analysis on SonarCloud'
