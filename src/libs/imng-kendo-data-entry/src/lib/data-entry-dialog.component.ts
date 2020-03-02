@@ -16,6 +16,7 @@ export class DataEntryDialogComponent implements OnInit {
   public addEditForm: FormGroup;
   public submitted: boolean;
   public dialogTitle: string;
+  component: {};
 
   constructor() {}
 
@@ -26,7 +27,6 @@ export class DataEntryDialogComponent implements OnInit {
     this.dialogTitle = this.parentComponent.dialogTitle;
     this.loading$ = this.parentComponent.loading$;
     this.addEditForm = this.parentComponent.addEditForm;
-    this.submitted = this.submitted;
   }
 
   public close(): void {

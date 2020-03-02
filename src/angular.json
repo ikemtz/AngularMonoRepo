@@ -456,29 +456,6 @@
         }
       }
     },
-    "imng-kendo-odata": {
-      "root": "libs/imng-kendo-odata",
-      "sourceRoot": "libs/imng-kendo-odata/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/imng-kendo-odata/tsconfig.lib.json", "libs/imng-kendo-odata/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-odata/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-kendo-odata/jest.config.js",
-            "tsConfig": "libs/imng-kendo-odata/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "imng-az-func-configr": {
       "projectType": "application",
       "schematics": {
@@ -659,6 +636,31 @@
           "styleext": "scss"
         }
       }
+    },
+    "imng-kendo-odata": {
+      "projectType": "library",
+      "root": "libs/imng-kendo-odata",
+      "sourceRoot": "libs/imng-kendo-odata/src",
+      "prefix": "imng",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/imng-kendo-odata/tsconfig.lib.json", "libs/imng-kendo-odata/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-odata/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-kendo-odata/jest.config.js",
+            "tsConfig": "libs/imng-kendo-odata/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/imng-kendo-odata/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {
