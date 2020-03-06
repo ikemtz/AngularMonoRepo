@@ -1,5 +1,5 @@
 import { Observable, Subscription, isObservable } from 'rxjs';
-import { PagerSettings, GridDataResult, SortSettings } from '@progress/kendo-angular-grid';
+import { PagerSettings, GridDataResult } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
@@ -16,10 +16,6 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
    * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
    */
   public abstract readonly props: any;
-  public readonly sortSettings: SortSettings = {
-    allowUnsort: true,
-    mode: 'multiple',
-  };
   protected expanders: (string | Expander)[];
 
   constructor(
