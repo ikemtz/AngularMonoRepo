@@ -115,12 +115,11 @@ jobs:
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'release-drop'
-trigger: none
 pr:
+  autoCancel: true
   branches:
     include:
-      - master
+      - '*'
   paths:
     include:
-      - src/apps/nurser-ui
-      - src/libs
+      - src/apps/imng-az-func-configr

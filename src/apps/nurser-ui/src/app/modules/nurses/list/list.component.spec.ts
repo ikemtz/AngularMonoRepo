@@ -4,7 +4,6 @@ import { ListComponent } from './list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NurseCertificationDataEntryFacade } from '../add-edit-nurse-certification/nurse-certification-data-entry-facade';
-import { of } from 'rxjs';
 import { ListFacade } from './list.facade';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';

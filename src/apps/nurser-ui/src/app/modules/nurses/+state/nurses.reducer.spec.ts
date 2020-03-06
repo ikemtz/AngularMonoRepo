@@ -1,4 +1,3 @@
-import * as NursesActions from './nurses.actions';
 import { initialState, reducer } from './nurses.reducer';
 
 describe('Nurses Reducer', () => {

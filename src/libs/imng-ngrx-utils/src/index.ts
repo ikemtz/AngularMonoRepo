@@ -1,2 +1,2 @@
-export * from './lib/payload';
-export * from './lib/isTruthy';
+export { Payload, createPayloadAction } from './lib/payload';
+export { isTruthy, isFalsy } from './lib/isTruthy';
