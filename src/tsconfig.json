@@ -25,48 +25,56 @@
         "apps/nurser-ui/src/app/environments/*"
       ],
       "imng-auth0-oidc": [
-        "libs/imng-auth0-oidc/src/index.ts"
+        "dist/libs/imng-auth0-oidc",
+        "libs/imng-auth0-oidc/src"
       ],
       "imng-kendo-grid-odata": [
         "dist/libs/imng-kendo-grid-odata",
-        "libs/imng-kendo-grid-odata/src/index.ts"
+        "libs/imng-kendo-grid-odata/src"
       ],
       "imng-kendo-grid-odata/testing": [
-        "libs/imng-kendo-grid-odata/testing/src/index.ts"
+        "dist/libs/imng-kendo-grid-odata/testing",
+        "libs/imng-kendo-grid-odata/testing/src"
       ],
       "imng-application-insights-ngrx": [
-        "libs/imng-application-insights-ngrx/src/index.ts"
+        "dist/libs/imng-application-insights-ngrx",
+        "libs/imng-application-insights-ngrx/src"
       ],
       "imng-kendo-odata": [
         "dist/libs/imng-kendo-odata",
-        "libs/imng-kendo-odata/src/index.ts"
+        "libs/imng-kendo-odata/src"
       ],
       "imng-kendo-data-entry": [
         "dist/libs/imng-kendo-data-entry",
-        "libs/imng-kendo-data-entry/src/index.ts"
+        "libs/imng-kendo-data-entry/src"
       ],
       "imng-kendo-data-entry/testing": [
-        "libs/imng-kendo-data-entry/testing/src/index.ts"
+        "dist/libs/imng-kendo-data-entry/testing",
+        "libs/imng-kendo-data-entry/testing/src"
       ],
       "imng-ngrx-utils": [
-        "libs/imng-ngrx-utils/src/index.ts"
+        "dist/libs/imng-ngrx-utils",
+        "libs/imng-ngrx-utils/src"
       ],
       "imng-nrsrx-client-utils": [
-        "libs/imng-nrsrx-client-utils/src/index.ts"
+        "dist/libs/imng-nrsrx-client-utils",
+        "libs/imng-nrsrx-client-utils/src"
       ],
       "imng-ngxb-typeahead": [
         "dist/libs/imng-ngxb-typeahead",
-        "libs/imng-ngxb-typeahead/src/index.ts"
+        "libs/imng-ngxb-typeahead/src"
       ],
       "imng-kendo-chart-odata": [
         "dist/libs/imng-kendo-chart-odata",
-        "libs/imng-kendo-chart-odata/src/index.ts"
+        "libs/imng-kendo-chart-odata/src"
       ],
       "imng-kendo-grid": [
-        "libs/imng-kendo-grid/src/index.ts"
+        "dist/libs/imng-kendo-grid",
+        "libs/imng-kendo-grid/src"
       ],
       "imng-kendo-grid/testing": [
-        "libs/imng-kendo-grid/testing/src/index.ts"
+        "dist/libs/imng-kendo-grid/testing",
+        "libs/imng-kendo-grid/testing/src"
       ]
     }
   },

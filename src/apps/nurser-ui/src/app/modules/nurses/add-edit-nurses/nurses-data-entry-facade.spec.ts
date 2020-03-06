@@ -7,12 +7,10 @@ import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { initialState, NursesState, NURSES_FEATURE_KEY, reducer } from '../+state/nurses.reducer';
 import { NursesDataEntryFacade } from './nurses-data-entry-facade';
 import { NursesEffects } from '../+state/nurses.effects';
-import { IEmployee } from '../../models/emp-api';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
