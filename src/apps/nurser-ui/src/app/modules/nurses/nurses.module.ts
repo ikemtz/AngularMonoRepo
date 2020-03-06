@@ -23,7 +23,7 @@ import { NurseCertificationsApiService } from './services/nurse-certifications-a
 import { AddNurseCertificationComponent } from './add-edit-nurse-certification/add-nurse-certification.component';
 import { EditNurseCertificationComponent } from './add-edit-nurse-certification/edit-nurse-certification.component';
 import { NurseCertificationDataEntryFacade } from './add-edit-nurse-certification/nurse-certification-data-entry-facade';
-
+import { ImngODataGridModule } from 'imng-kendo-grid-odata';
 const routes: Routes = [{ path: '', component: ListComponent }];
 
 @NgModule({
@@ -47,6 +47,7 @@ const routes: Routes = [{ path: '', component: ListComponent }];
     FontAwesomeModule,
     DataEntryDialogModule,
     ReactiveFormsModule,
+    ImngODataGridModule,
   ],
   providers: [
     ListFacade,

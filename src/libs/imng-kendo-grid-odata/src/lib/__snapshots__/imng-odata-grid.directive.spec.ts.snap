@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImngODataGridDirective should create an instance 1`] = `Object {}`;
+
+exports[`ImngODataGridDirective should fire AfterViewInit 1`] = `
+Object {
+  "data": Object {},
+  "dataStateChange": Observable {
+    "_isScalar": false,
+    "_subscribe": [Function],
+  },
+  "filter": undefined,
+  "filterable": "menu",
+  "loading": false,
+  "navigable": true,
+  "pageSize": undefined,
+  "pageable": false,
+  "reorderable": true,
+  "resizable": true,
+  "skip": undefined,
+  "sort": undefined,
+  "sortable": Object {
+    "allowUnsort": true,
+    "mode": "multiple",
+  },
+}
+`;
+
+exports[`ImngODataGridDirective should fire OnInit 1`] = `
+Object {
+  "filterable": "menu",
+  "navigable": true,
+  "reorderable": true,
+  "resizable": true,
+  "sortable": Object {
+    "allowUnsort": true,
+    "mode": "multiple",
+  },
+}
+`;
