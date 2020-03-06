@@ -1,7 +1,9 @@
 import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
-import { IKendoODataGridFacade, KendoODataComponentBase, ODataGridStateChangeEvent } from 'imng-kendo-grid-odata';
 import { Subscription } from 'rxjs';
+import { KendoODataComponentBase } from './kendo-odata-component-base';
+import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
+import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 
 @Directive({
   selector: '[imngODataGrid]',

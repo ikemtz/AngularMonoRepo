@@ -19,7 +19,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   protected expanders: (string | Expander)[];
 
   constructor(
-    protected readonly facade: FACADE,
+    public readonly facade: FACADE,
     protected readonly state: ODataState | Observable<ODataState>,
     protected readonly gridRefresh$: Observable<any> = null,
   ) {

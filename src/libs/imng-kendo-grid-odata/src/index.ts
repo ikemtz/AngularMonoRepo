@@ -8,3 +8,5 @@ export * from './lib/kendo-odata-grid-rxjs-operators';
 export * from './lib/kendo-odata-grid-state-change-event';
 export * from './lib/kendo-odata-grid-selector-creator';
 export * from './lib/kendo-odata-initial-state-creator';
+export * from './lib/imng-odata-grid.module';
+export * from './lib/imng-odata-grid.directive';
