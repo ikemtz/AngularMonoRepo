@@ -50,7 +50,7 @@
     "build:chart-odata": "rimraf ./dist/libs/imng-kendo-chart-odata && ng build imng-kendo-chart-odata --prod",
     "build:grid-odata": "rimraf ./dist/libs/imng-kendo-grid-odata && ng build imng-kendo-grid-odata --prod",
     "build:type-ahead": "rimraf ./dist/libs/imng-ngxb-typeahead && ng build imng-ngxb-typeahead --prod",
-    "build:auth0-oidc": "rimraf ./dist/libs/imng-auth0-oidc && ng build imng-auth0-oidc --prod",
+    "build:auth0-oidc": "rimraf ./dist/libs/imng-auth0-oidc && ng build imng-auth0-oidc --prod && npm run copyfiles:auth0-oidc",
     "build:app-insight": "rimraf ./dist/libs/imng-application-insights-ngrx && ng build imng-application-insights-ngrx --prod",
     "build:ngrx-utils": "rimraf ./dist/libs/imng-ngrx-utils && ng build imng-ngrx-utils --prod",
     "build:nrsrx-utils": "rimraf ./dist/libs/imng-nrsrx-client-utils && ng build imng-nrsrx-client-utils --prod",
