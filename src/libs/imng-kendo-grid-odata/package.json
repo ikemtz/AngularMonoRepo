@@ -17,7 +17,7 @@
   "peerDependencies": {
     "@angular/common": "^9.0.0",
     "@angular/core": "^9.0.0",
-    "@ngrx/store": "^8.5.1"
+    "@ngrx/store": "^9.0.0"
   },
   "devDependencies": {},
   "ngPackage": {

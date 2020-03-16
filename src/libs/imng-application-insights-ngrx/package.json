@@ -19,9 +19,9 @@
   "peerDependencies": {
     "@angular/common": "^9.0.0",
     "@angular/core": "^9.0.0",
-    "@ngrx/store": "^8.0.1",
-    "@ngrx/effects": "^8.0.1",
-    "rxjs": "^6.5.2"
+    "@ngrx/store": "^9.0.0",
+    "@ngrx/effects": "^9.0.0",
+    "rxjs": "^6.5.4"
   },
   "devDependencies": {
     "copyfiles": "^2.1.0",

@@ -6,8 +6,8 @@
   "peerDependencies": {
     "@angular/common": "^9.0.0",
     "@angular/core": "^9.0.0",
-    "@progress/kendo-data-query": "^1.5.1",
-    "@ngrx/store": "^8.0.1"
+    "@progress/kendo-data-query": "^1.5.2",
+    "@ngrx/store": "^9.0.0"
   },
   "devDependencies": {},
   "ngPackage": {
