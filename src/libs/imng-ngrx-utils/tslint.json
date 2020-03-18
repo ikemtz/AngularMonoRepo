@@ -13,5 +13,10 @@
       "nurser-ui",
       "kebab-case"
     ]
+  },
+  "linterOptions": {
+    "exclude": [
+      "!**/*"
+    ]
   }
 }
