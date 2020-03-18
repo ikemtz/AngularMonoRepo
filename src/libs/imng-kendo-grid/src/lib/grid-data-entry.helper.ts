@@ -66,10 +66,8 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
       this.gridData.push(result);
     } else {
       const tempGrid = this.gridData.map(t => ({ ...t }));
-      console.log(`Pre Splice: ${JSON.stringify(tempGrid)}`);
       tempGrid.splice(saveEvent.rowIndex, 1, result);
       this.gridData = tempGrid;
-      console.log(`Post Splice: ${JSON.stringify(this.gridData)}`);
     }
     this._gridData$.next(this.gridData);
     this.closeEditor(saveEvent.sender, saveEvent.rowIndex);
