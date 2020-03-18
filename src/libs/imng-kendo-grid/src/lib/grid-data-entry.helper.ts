@@ -74,7 +74,9 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
   }
 
   public removeHandler(removeEvent: RemoveEvent) {
-    this.gridData = this.gridData.filter(t => t !== removeEvent.dataItem);
+    const tempGrid = this.gridData.map(t => ({ ...t }));
+    tempGrid.splice(removeEvent.rowIndex, 1);
+    this.gridData = tempGrid;
     this._gridData$.next(this.gridData);
   }
 

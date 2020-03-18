@@ -2,13 +2,17 @@ import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from '@nrwl/angular/testing';
 
-function gridComponentMockFac(): any {
-  return {
+const gridComponentMockFac = () =>
+  ({
     closeRow: jest.fn(() => {}),
     addRow: jest.fn(() => {}),
     editRow: jest.fn(() => {}),
-  };
-}
+  } as any);
+const formGroupFac = () =>
+  new FormGroup({
+    id: new FormControl('🐂🤏'),
+    test: new FormControl('👍'),
+  });
 describe('GridDataEntryHelper<>', () => {
   it('should report invalid if gridData is empty ', async done => {
     try {
@@ -140,6 +144,48 @@ describe('GridDataEntryHelper<>', () => {
       expect(gridComponentMock.editRow).toBeCalledTimes(1);
       expect(gridComponentMock.closeRow).toBeCalledTimes(1);
       expect(gridComponentMock.closeRow).toHaveBeenNthCalledWith(1, 4);
+      done();
+    } catch (x) {
+      done.fail(x);
+    }
+  });
+
+  it('should cancelHandler', async done => {
+    try {
+      const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
+      const gridComponentMock = gridComponentMockFac();
+      gridHelper.cancelHandler({
+        dataItem: {},
+        isNew: true,
+        rowIndex: 4,
+        sender: gridComponentMock,
+        formGroup: formGroupFac(),
+      });
+      expect(gridHelper.gridFormGroup).toBeFalsy();
+      expect(gridComponentMock.editRow).toBeCalledTimes(0);
+      expect(gridComponentMock.closeRow).toBeCalledTimes(1);
+      expect(gridComponentMock.closeRow).toHaveBeenNthCalledWith(1, 4);
+      done();
+    } catch (x) {
+      done.fail(x);
+    }
+  });
+
+  it('should removeHandler', async done => {
+    try {
+      const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
+      const gridComponentMock = gridComponentMockFac();
+      gridHelper.removeHandler({
+        dataItem: { id: '🐂' },
+        isNew: true,
+        rowIndex: 2,
+        sender: gridComponentMock,
+      });
+      expect(gridHelper.gridFormGroup).toBeFalsy();
+      expect(gridComponentMock.editRow).toBeCalledTimes(0);
+      expect(gridComponentMock.closeRow).toBeCalledTimes(0);
+      expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
+      expect(gridHelper.gridData.length).toBe(2);
       done();
     } catch (x) {
       done.fail(x);

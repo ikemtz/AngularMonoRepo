@@ -39,3 +39,14 @@ Array [
   },
 ]
 `;
+
+exports[`GridDataEntryHelper<> should removeHandler 1`] = `
+Array [
+  Object {
+    "id": "💩",
+  },
+  Object {
+    "id": "🐂",
+  },
+]
+`;
