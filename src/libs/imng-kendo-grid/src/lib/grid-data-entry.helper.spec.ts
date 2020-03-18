@@ -74,11 +74,6 @@ describe('GridDataEntryHelper<>', () => {
 
   it('should handle saving edited records ', async done => {
     try {
-      const formGroupFac = () =>
-        new FormGroup({
-          id: new FormControl('🐂'),
-          test: new FormControl('👍'),
-        });
       const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
 
       gridHelper.saveHandler({
@@ -99,11 +94,6 @@ describe('GridDataEntryHelper<>', () => {
 
   it('should handle saving new records ', async done => {
     try {
-      const formGroupFac = () =>
-        new FormGroup({
-          id: new FormControl('🐂🤏'),
-          test: new FormControl('👍'),
-        });
       const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
 
       gridHelper.saveHandler({
@@ -126,11 +116,6 @@ describe('GridDataEntryHelper<>', () => {
 
   it('should editHandler', async done => {
     try {
-      const formGroupFac = () =>
-        new FormGroup({
-          id: new FormControl('🐂🤏'),
-          test: new FormControl('👍'),
-        });
       const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
       const gridComponentMock = gridComponentMockFac();
       gridHelper.editHandler({
