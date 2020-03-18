@@ -1,6 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { EditEvent, CancelEvent, SaveEvent, RemoveEvent, AddEvent, GridComponent } from '@progress/kendo-angular-grid';
 
 export class GridDataEntryHelper<T extends { id?: string | number }> {
   private _editedRowIndex: number;
@@ -29,54 +30,63 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
   }
 
   public get isValid(): boolean {
-    return this._gridData.length > 0 && !this._gridFormGroup;
+    return this.gridValidationLogic(this.gridData);
   }
 
   public get isValid$(): Observable<boolean> {
-    return this.gridData$.pipe(map(t => t.length > 0 && !this._gridFormGroup));
+    return this.gridData$.pipe(map(t => this.gridValidationLogic(t)));
   }
   constructor(private readonly formGroupFactory: () => FormGroup, private _gridData: Array<T> = []) {
     this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
   }
 
-  public editHandler({ sender, rowIndex, dataItem }) {
-    this.closeEditor(sender, rowIndex);
+  public editHandler(editEvent: EditEvent) {
+    this.closeEditor(editEvent.sender, editEvent.rowIndex);
 
     this._gridFormGroup = this.formGroupFactory();
-    this._gridFormGroup.patchValue(dataItem);
-    this._editedRowIndex = rowIndex;
-
-    sender.editRow(rowIndex, this._gridFormGroup);
+    this._gridFormGroup.patchValue(editEvent.dataItem);
+    this._editedRowIndex = editEvent.rowIndex;
+    editEvent.sender.editRow(editEvent.rowIndex, this._gridFormGroup);
   }
 
-  private closeEditor(grid, rowIndex = this._editedRowIndex) {
+  private closeEditor(grid: GridComponent, rowIndex = this._editedRowIndex) {
     grid.closeRow(rowIndex);
     this._editedRowIndex = undefined;
     this._gridFormGroup = undefined;
   }
 
-  public cancelHandler({ sender, rowIndex }) {
-    this.closeEditor(sender, rowIndex);
+  public cancelHandler(cancelEvent: CancelEvent) {
+    this.closeEditor(cancelEvent.sender, cancelEvent.rowIndex);
   }
 
-  public saveHandler({ sender, rowIndex, formGroup, isNew }) {
-    const result: T = formGroup.value;
-    if (isNew) {
+  public saveHandler(saveEvent: SaveEvent) {
+    const result: T = saveEvent.formGroup.value;
+    if (saveEvent.isNew) {
       result.id = null;
       this.gridData.push(result);
+    } else {
+      const tempGrid = this.gridData.map(t => ({ ...t }));
+      console.log(`Pre Splice: ${JSON.stringify(tempGrid)}`);
+      tempGrid.splice(saveEvent.rowIndex, 1, result);
+      this.gridData = tempGrid;
+      console.log(`Post Splice: ${JSON.stringify(this.gridData)}`);
     }
     this._gridData$.next(this.gridData);
-    this.closeEditor(sender, rowIndex);
+    this.closeEditor(saveEvent.sender, saveEvent.rowIndex);
   }
 
-  public removeHandler({ dataItem }) {
-    this.gridData = this.gridData.filter(t => t !== dataItem);
+  public removeHandler(removeEvent: RemoveEvent) {
+    this.gridData = this.gridData.filter(t => t !== removeEvent.dataItem);
     this._gridData$.next(this.gridData);
   }
 
-  public addHandler({ sender }) {
-    this.closeEditor(sender);
+  public addHandler(addEvent: AddEvent) {
+    this.closeEditor(addEvent.sender);
     this._gridFormGroup = this.formGroupFactory();
-    sender.addRow(this._gridFormGroup);
+    addEvent.sender.addRow(this._gridFormGroup);
+  }
+
+  public gridValidationLogic(data: Array<T>): boolean {
+    return this._gridData.length > 0 && !this._gridFormGroup;
   }
 }

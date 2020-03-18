@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
-import { readFirst, readAll } from '@nrwl/angular/testing';
+import { readFirst } from '@nrwl/angular/testing';
 
 describe('GridDataEntryHelper<>', () => {
-  const gridComponentMock = {
+  const gridComponentMock: any = {
     closeRow: jest.fn(() => {}),
     addRow: jest.fn(() => {}),
   };
@@ -36,7 +36,7 @@ describe('GridDataEntryHelper<>', () => {
           }),
         [{ id: '😎😎' }],
       );
-      gridHelper.addHandler({ sender: gridComponentMock });
+      gridHelper.addHandler({ sender: gridComponentMock, dataItem: {} } as any);
       expect(await readFirst(gridHelper.isValid$)).toBe(false);
       expect(gridHelper.isValid).toBe(false);
       expect(gridHelper.isInEditMode).toBe(true);
@@ -59,6 +59,31 @@ describe('GridDataEntryHelper<>', () => {
       expect(gridHelper.isValid).toBe(true);
       expect(gridHelper.isInEditMode).toBe(false);
 
+      done();
+    } catch (x) {
+      done.fail(x);
+    }
+  });
+
+  it('should handle saving edited records ', async done => {
+    try {
+      const formGroupFac = () =>
+        new FormGroup({
+          id: new FormControl('🐂'),
+          test: new FormControl('👍'),
+        });
+      const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
+
+      gridHelper.saveHandler({
+        formGroup: formGroupFac(),
+        dataItem: {},
+        isNew: false,
+        rowIndex: 1,
+        sender: gridComponentMock,
+      });
+      const result = await readFirst(gridHelper.gridData$);
+      expect(result).toMatchSnapshot();
+      expect((result[1] as any).test).toBe('👍');
       done();
     } catch (x) {
       done.fail(x);
