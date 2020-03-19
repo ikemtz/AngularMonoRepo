@@ -107,11 +107,3 @@ jobs:
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'package-drop'
-pr:
-  autoCancel: true
-  branches:
-    include:
-      - '*'
-  paths:
-    include:
-      - src/libs

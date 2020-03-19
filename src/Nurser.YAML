@@ -130,12 +130,3 @@ jobs:
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'release-drop'
-pr:
-  autoCancel: true
-  branches:
-    include:
-      - '*'
-  paths:
-    include:
-      - src/apps/nurser-ui
-      - src/libs

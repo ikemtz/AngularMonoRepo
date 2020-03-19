@@ -129,11 +129,3 @@ jobs:
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'release-drop'
-pr:
-  autoCancel: true
-  branches:
-    include:
-      - '*'
-  paths:
-    include:
-      - src/apps/imng-az-func-configr
