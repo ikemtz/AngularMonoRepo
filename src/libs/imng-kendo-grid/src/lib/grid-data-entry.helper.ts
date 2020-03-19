@@ -61,14 +61,14 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
 
   public saveHandler(saveEvent: SaveEvent) {
     const result: T = saveEvent.formGroup.value;
+    const tempGrid: T[] = this.gridData.map(t => ({ ...t }));
     if (saveEvent.isNew) {
       result.id = null;
-      this.gridData.push(result);
+      tempGrid.push(result);
     } else {
-      const tempGrid = this.gridData.map(t => ({ ...t }));
       tempGrid.splice(saveEvent.rowIndex, 1, result);
-      this.gridData = tempGrid;
     }
+    this.gridData = tempGrid;
     this._gridData$.next(this.gridData);
     this.closeEditor(saveEvent.sender, saveEvent.rowIndex);
   }
