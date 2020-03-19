@@ -1,4 +1,7 @@
 name: 1.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+variables:
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
 resources:
   - repo: self
 jobs:
@@ -6,6 +9,17 @@ jobs:
     displayName: Produce Dev and Prod builds
 
     steps:
+      - task: Cache@2
+        inputs:
+          key: 'npm | "$(Agent.OS)" | src/package-lock.json'
+          restoreKeys: |
+            npm | "$(Agent.OS)"
+            npm
+          path: $(npm_config_cache)
+          displayName: Cache NPM packages
+
+      - script: npm ci
+
       - task: Npm@1
         displayName: 'npm install'
         inputs:
