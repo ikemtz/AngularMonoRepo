@@ -332,3 +332,4 @@ ASALocalRun/
 src/libs/**/package-lock.json
 src/junit.*.xml
 *.vsix
+**/__ivy_ngcc__/**

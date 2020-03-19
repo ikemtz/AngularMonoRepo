@@ -7,6 +7,8 @@ import {
   OnInit,
   OnDestroy,
   Input,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { TypeaheadDirective, TypeaheadConfig } from 'ngx-bootstrap/typeahead';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
@@ -14,7 +16,7 @@ import { ImngTypeAheadFacade } from './imng-type-ahead-facade';
 import { Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { NgControl } from '@angular/forms';
-import { ImngTypeaheadMatch } from './imng-type-ahead-match';
+import { ImngTypeaheadMatch, ImngMatchSelectedEvent } from './imng-type-ahead-match';
 
 /*
  * ### Example markup
@@ -66,6 +68,8 @@ export class ImngTypeaheadDirective extends TypeaheadDirective implements OnInit
     this.typeahead = typeAheadFacade.matches$;
     this._typeAheadFacade = typeAheadFacade;
   }
+  @Output()
+  typeaheadOnSelect: EventEmitter<ImngTypeaheadMatch<object>>;
 
   ngOnDestroy() {
     super.ngOnDestroy();
