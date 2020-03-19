@@ -69,7 +69,7 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
     this._typeAheadFacade = typeAheadFacade;
   }
   @Output()
-  typeaheadOnSelect: EventEmitter<ImngTypeaheadMatch<T>>;
+  typeaheadOnSelect: EventEmitter<ImngMatchSelectedEvent<T>>;
 
   ngOnDestroy() {
     super.ngOnDestroy();
