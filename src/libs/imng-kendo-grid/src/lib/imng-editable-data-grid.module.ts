@@ -5,5 +5,6 @@ import { ImngEditableDataGridDirective } from './imng-editable-data-grid.directi
 @NgModule({
   declarations: [ImngEditableDataGridDirective],
   imports: [CommonModule],
+  exports: [ImngEditableDataGridDirective],
 })
-export class ImngDataGridModule {}
+export class ImngEditableDataGridModule {}
