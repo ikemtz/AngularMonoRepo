@@ -30,8 +30,8 @@ import { ImngTypeaheadMatch, ImngMatchSelectedEvent } from './imng-type-ahead-ma
 @Directive({
   selector: '[imngTypeahead]',
 })
-export class ImngTypeaheadDirective extends TypeaheadDirective implements OnInit, OnDestroy {
-  private _typeAheadFacade: ImngTypeAheadFacade<object>;
+export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnInit, OnDestroy {
+  private _typeAheadFacade: ImngTypeAheadFacade<T>;
   private subscriptions: Subscription[];
 
   constructor(
@@ -64,12 +64,12 @@ export class ImngTypeaheadDirective extends TypeaheadDirective implements OnInit
   }
 
   @Input('imngTypeahead')
-  set facade(typeAheadFacade: ImngTypeAheadFacade<object>) {
+  set facade(typeAheadFacade: ImngTypeAheadFacade<T>) {
     this.typeahead = typeAheadFacade.matches$;
     this._typeAheadFacade = typeAheadFacade;
   }
   @Output()
-  typeaheadOnSelect: EventEmitter<ImngTypeaheadMatch<object>>;
+  typeaheadOnSelect: EventEmitter<ImngTypeaheadMatch<T>>;
 
   ngOnDestroy() {
     super.ngOnDestroy();
@@ -88,7 +88,7 @@ export class ImngTypeaheadDirective extends TypeaheadDirective implements OnInit
           tap(t => this._typeAheadFacade.loadMatches(t)),
           switchMap(t => this._typeAheadFacade.matches$),
         )
-        .subscribe((matches: ImngTypeaheadMatch<object>[]) => {
+        .subscribe((matches: ImngTypeaheadMatch<T>[]) => {
           this.finalizeAsyncCall(matches as any);
         }),
     );
