@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Auth0Facade, OidcFacade, IOidcUser } from 'imng-auth0-oidc';
+import { MsalNgrxService } from 'imng-msal-ngrx';
 
 @Component({
   selector: 'ngnu-nav-bar',
@@ -15,7 +16,11 @@ export class NavBarComponent {
   public readonly profilePicture$: Observable<string>;
   public collapsed = true;
 
-  constructor(private readonly oidcFacade: OidcFacade, private readonly auth0Facade: Auth0Facade) {
+  constructor(
+    private readonly oidcFacade: OidcFacade,
+    private readonly auth0Facade: Auth0Facade,
+    private readonly msalNgrxService: MsalNgrxService,
+  ) {
     this.identity$ = this.oidcFacade.identity$;
     this.email$ = this.auth0Facade.email$;
     this.loggedIn$ = this.oidcFacade.loggedIn$;
@@ -27,7 +32,8 @@ export class NavBarComponent {
   }
 
   signinRedirect() {
-    this.oidcFacade.signinRedirect();
+    // this.oidcFacade.signinRedirect();
+    this.msalNgrxService.loginRedirect();
   }
 
   signoutRedirect() {

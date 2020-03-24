@@ -75,6 +75,9 @@
       "imng-kendo-grid/testing": [
         "dist/libs/imng-kendo-grid/testing",
         "libs/imng-kendo-grid/testing/src"
+      ],
+      "imng-msal-ngrx": [
+        "libs/imng-msal-ngrx/src/index.ts"
       ]
     }
   },

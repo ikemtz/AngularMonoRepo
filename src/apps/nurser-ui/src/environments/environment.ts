@@ -3,6 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  msalConfig: {
+    auth: {
+      clientId: 'e5cac4cd-a55c-4a2d-951a-71b779137dba',
+      authority: 'https://ikemtzB2C.b2clogin.com/ikemtzB2C.onmicrosoft.com/b2c_1_login',
+      redirectUri: 'http://localhost:4200/callback.html',
+      tmp_clientSecret: 'CmDY`#g!7l/T71vuH3)28bkJ',
+      validateAuthority: false,
+      navigateToLoginRequestUrl: true,
+    },
+  },
   production: false,
   appInsights: { instrumentationKey: 'abcb7484-6a9c-48a9-b44a-0ee4364aabc1' },
   endPoints: {

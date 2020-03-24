@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { APP_FEATURE_KEY, initialState as appInitialState, appReducer } from './+state/app.reducer';
+import { initialState as appInitialState, appReducer } from './+state/app.reducer';
 import { AppEffects } from './+state/app.effects';
 import { AppFacade } from './+state/app.facade';
 import { NxModule } from '@nrwl/angular';
@@ -21,6 +21,7 @@ import {
   AppInsightsInfoRootEffects,
 } from 'imng-application-insights-ngrx';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { ImngMsalNgrxModule } from 'imng-msal-ngrx';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, HomeComponent],
@@ -53,6 +54,7 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
     }),
     AppInsightsNgrxModule.forRoot(environment.appInsights),
     DialogsModule,
+    ImngMsalNgrxModule.forRoot(environment.msalConfig),
   ],
   providers: [AppFacade],
   bootstrap: [AppComponent],
