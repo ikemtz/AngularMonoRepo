@@ -12,8 +12,8 @@
   "NgRxActionsDataEntry": {
     "prefix": "imng-ngrx-actions-data-entry",
     "body": [
-      "export const clearCurrent$1Item = createAction('[$2s] Clear Current $1');",
-      "export const setCurrent$1Item = createPayloadAction<I$1>('[$2s] Set Current $1');",
+      "export const clearCurrent$1 = createAction('[$2s] Clear Current $1');",
+      "export const setCurrent$1 = createPayloadAction<I$1>('[$2s] Set Current $1');",
       "export const save$1Request = createPayloadAction<I$1>('[$2s] Save $1 Request');",
       "export const update$1Request = createPayloadAction<I$1>('[$2s] Update $1 Request');",
       "export const delete$1Request = createPayloadAction<I$1>('[$2s] Delete $1 Request');"
@@ -134,10 +134,10 @@
       "  isEditActive$ = this.store.pipe(select(queries.getIsEditActive));",
       "  isNewActive$ = this.store.pipe(select(queries.getIsNewActive));",
       "  clearCurrentEntity(): void {",
-      "    this.store.dispatch(clearCurrent$1Item());",
+      "    this.store.dispatch(clearCurrent$1());",
       "  }",
       "  setCurrentEntity(entity: I$1, parentEntity?: unknown): void { ",
-      "    this.store.dispatch(setCurrent$1Item(item));",
+      "    this.store.dispatch(setCurrent$1(entity));",
       " }",
       "  saveNewEntity(entity: I$1): void {",
       "    this.store.dispatch(save$1Request(entity));",
