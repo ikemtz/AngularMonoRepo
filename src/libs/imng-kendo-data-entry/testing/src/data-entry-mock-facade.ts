@@ -6,10 +6,10 @@ export class DataEntryMockFacade implements IDataEntryFacade<object> {
   public currentEntity$: Observable<object> = of(null);
   public isEditActive$: Observable<boolean> = of(false);
   public isNewActive$: Observable<boolean> = of(false);
-  public setCurrentEntity(entity: object): void {}
-  public clearCurrentEntity(): void {}
-  public saveNewEntity(entity: object): void {}
-  public updateExistingEntity(entity: object): void {}
+  public setCurrentEntity = () => jest.fn();
+  public clearCurrentEntity = () => jest.fn();
+  public saveNewEntity = (entity: object) => jest.fn();
+  public updateExistingEntity = (entity: object) => jest.fn();
 }
 
 export function createDataEntryMockFacade(mockFacade?: IDataEntryFacade<object> | any): IDataEntryFacade<object> {
