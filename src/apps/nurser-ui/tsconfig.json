@@ -1,15 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node", "jest"]
-  },
-  "include": ["**/*.ts"],
-  "paths": {
-    "imng-kendo-odata": [ 
-      "../../libs/imng-kendo-odata/src"
-    ],
-    "@imng/kendo-chart-odata/testing": [
-      "./testing/src/index.ts"
+    "types": [
+      "node",
+      "jest"
     ]
-  }
+  },
+  "include": [
+    "**/*.ts"
+  ]
 }

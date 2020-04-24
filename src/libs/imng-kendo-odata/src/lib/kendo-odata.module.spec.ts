@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { KendoODataModule } from './imng-kendo-odata.module';
+import { ImngKendoODataModule } from './kendo-odata.module';
 
-describe('KendoODataModule', () => {
+describe('ImngKendoODataModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [KendoODataModule],
+      imports: [ImngKendoODataModule],
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(KendoODataModule).toBeDefined();
+    expect(ImngKendoODataModule).toBeDefined();
   });
 });

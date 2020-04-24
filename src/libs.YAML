@@ -60,21 +60,21 @@ jobs:
           customCommand: 'run lint'
 
       - task: Npm@1
-        displayName: 'npm run test:libs'
-        inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run test:libs'
-
-      - task: Npm@1
-        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        displayName: 'npm run build:libs'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:libs'
           continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:libs'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:libs'
 
       - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'

@@ -54,6 +54,15 @@ jobs:
           customCommand: 'run lint'
 
       - task: Npm@1
+        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:libs'
+          continueOnError: true
+
+      - task: Npm@1
         displayName: 'npm run test:nur'
         inputs:
           command: custom

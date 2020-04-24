@@ -7,10 +7,10 @@ import { IConfiguration } from '@microsoft/applicationinsights-web';
   imports: [CommonModule],
   providers: [AppInsightsMonitoringService],
 })
-export class AppInsightsNgrxModule {
-  static forRoot(appInsightsConfiguration: IConfiguration): ModuleWithProviders<AppInsightsNgrxModule> {
+export class ImngAppInsightsNgrxModule {
+  static forRoot(appInsightsConfiguration: IConfiguration): ModuleWithProviders<ImngAppInsightsNgrxModule> {
     return {
-      ngModule: AppInsightsNgrxModule,
+      ngModule: ImngAppInsightsNgrxModule,
       providers: [{ provide: APP_INSIGHTS_CONFIG, multi: false, useValue: appInsightsConfiguration }],
     };
   }

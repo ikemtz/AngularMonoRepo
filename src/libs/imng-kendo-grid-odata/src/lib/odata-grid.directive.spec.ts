@@ -1,4 +1,4 @@
-import { ImngODataGridDirective } from './imng-odata-grid.directive';
+import { ImngODataGridDirective } from './kendo-odata-grid.directive';
 import { of, Subscription } from 'rxjs';
 
 describe('ImngODataGridDirective', () => {

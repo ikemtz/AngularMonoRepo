@@ -6,10 +6,10 @@ import { ODataService } from './odata.service';
   imports: [CommonModule],
   providers: [ODataService],
 })
-export class KendoODataModule {
-  public static forRoot(): ModuleWithProviders<KendoODataModule> {
+export class ImngKendoODataModule {
+  public static forRoot(): ModuleWithProviders<ImngKendoODataModule> {
     return {
-      ngModule: KendoODataModule,
+      ngModule: ImngKendoODataModule,
       providers: [ODataService],
     };
   }
