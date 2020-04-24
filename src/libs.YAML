@@ -60,7 +60,7 @@ jobs:
           customCommand: 'run lint'
 
       - task: Npm@1
-        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        displayName: 'npm run build:libs'
         inputs:
           command: custom
           workingDir: 'src'
