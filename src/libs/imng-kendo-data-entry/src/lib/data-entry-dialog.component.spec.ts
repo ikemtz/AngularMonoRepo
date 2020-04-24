@@ -5,7 +5,10 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
 import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
-import { DataEntryMockFacade, createDataEntryMockFacade } from 'libs/imng-kendo-data-entry/testing/src/data-entry-mock-facade';
+import {
+  DataEntryMockFacade,
+  createDataEntryMockFacade,
+} from 'libs/imng-kendo-data-entry/testing/src/data-entry-mock-facade';
 
 describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
@@ -38,7 +41,7 @@ export class TestHostComponent extends BaseDataEntryComponent<object, DataEntryM
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   constructor() {
-    super(createDataEntryMockFacade());
+    super(createDataEntryMockFacade() as any);
   }
   public initForm() {}
   public save() {}
