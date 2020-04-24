@@ -1,8 +1,8 @@
 import { createAction } from '@ngrx/store';
 import { createPayloadAction } from 'imng-ngrx-utils';
 import { IEmployee, IEmployeeCertification } from '../../models/emp-api';
-import {} from 'imng-kendo-grid-odata';
 import { ODataState, ODataResult } from 'imng-kendo-odata';
+
 export const loadNursesRequest = createPayloadAction<ODataState>('[Nurses] Load Nurses Request');
 export const loadNursesSuccess = createPayloadAction<ODataResult<IEmployee>>('[Nurses] Load Nurses Success');
 export const loadNursesFailure = createPayloadAction<{ error: any }>('[Nurses] Load Nurses Failure');
