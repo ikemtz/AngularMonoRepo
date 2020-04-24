@@ -38,7 +38,7 @@ export class TestHostComponent extends BaseDataEntryComponent<object, DataEntryM
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   constructor() {
-    super(createDataEntryMockFacade());
+    super(createDataEntryMockFacade() as any);
   }
   public initForm() {}
   public save() {}
