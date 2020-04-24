@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ImngTypeaheadMatch } from './imng-type-ahead-match';
+import { ImngTypeaheadMatch } from './type-ahead-match';
 import { FilterDescriptor, CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 export interface ImngTypeAheadFacade<T> {
@@ -10,8 +10,9 @@ export interface ImngTypeAheadFacade<T> {
 export function createTypeaheadFilters(fields: string[], filterCriteria: string): CompositeFilterDescriptor {
   const filterSegments = filterCriteria.split(' ').filter(t => t !== '');
   const filters: FilterDescriptor[] = [];
-  fields.forEach(field => filterSegments.forEach(segment => filters.push(
-    { field: field, operator: 'contains', value: segment })));
+  fields.forEach(field =>
+    filterSegments.forEach(segment => filters.push({ field: field, operator: 'contains', value: segment })),
+  );
   return {
     logic: 'or',
     filters: filters,
