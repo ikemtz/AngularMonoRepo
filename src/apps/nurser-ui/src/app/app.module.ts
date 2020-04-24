@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Auth0OidcModule } from 'imng-auth0-oidc';
 import {
-  AppInsightsNgrxModule,
+  ImngAppInsightsNgrxModule,
   AppInsightsVerboseRootEffects,
   AppInsightsInfoRootEffects,
 } from 'imng-application-insights-ngrx';
@@ -51,7 +51,7 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
       name: 'nurser',
       logOnly: environment.production,
     }),
-    AppInsightsNgrxModule.forRoot(environment.appInsights),
+    ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
     DialogsModule,
   ],
   providers: [AppFacade],
