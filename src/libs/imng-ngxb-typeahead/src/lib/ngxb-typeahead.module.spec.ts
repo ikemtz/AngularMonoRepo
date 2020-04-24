@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { ImngNgxbTypeaheadModule } from './imng-ngxb-typeahead.module';
+import { ImngNgxbTypeaheadModule } from './ngxb-typeahead.module';
 
 describe('ImngNgxbTypeaheadModule', () => {
   beforeEach(async(() => {

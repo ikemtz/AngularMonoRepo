@@ -1,4 +1,4 @@
-import { ImngEditableDataGridDirective } from './imng-editable-data-grid.directive';
+import { ImngEditableDataGridDirective } from './editable-data-grid.directive';
 import { of } from 'rxjs';
 
 const gridComponent: any = {

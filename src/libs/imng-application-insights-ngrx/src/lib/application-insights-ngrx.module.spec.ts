@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { AppInsightsNgrxModule, } from './imai-application-insights-ngrx.module';
+import { ImngAppInsightsNgrxModule } from './application-insights-ngrx.module';
 
 describe('AppInsightsNgrxModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [AppInsightsNgrxModule]
+      imports: [ImngAppInsightsNgrxModule],
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(AppInsightsNgrxModule).toBeDefined();
+    expect(ImngAppInsightsNgrxModule).toBeDefined();
   });
 });

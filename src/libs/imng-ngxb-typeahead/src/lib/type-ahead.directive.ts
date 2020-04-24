@@ -12,11 +12,11 @@ import {
 } from '@angular/core';
 import { TypeaheadDirective, TypeaheadConfig } from 'ngx-bootstrap/typeahead';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
-import { ImngTypeAheadFacade } from './imng-type-ahead-facade';
+import { ImngTypeAheadFacade } from './type-ahead-facade';
 import { Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { NgControl } from '@angular/forms';
-import { ImngTypeaheadMatch, ImngMatchSelectedEvent } from './imng-type-ahead-match';
+import { ImngTypeaheadMatch, ImngMatchSelectedEvent } from './type-ahead-match';
 
 /*
  * ### Example markup
