@@ -24,7 +24,7 @@ export class MsalNgrxService extends UserAgentApplication {
 
   public loginRedirect(authenticationParameters: AuthenticationParameters = {}) {
     this.cacheStorage.setItem(TemporaryCacheKeys.URL_HASH, window.location.hash);
-    super.loginRedirect(authenticationParameters);
+    super.loginPopup(authenticationParameters).then(t => this.authRedirectCallBack(null, t));
   }
 
   public authRedirectCallBack(error, response) {

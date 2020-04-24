@@ -114,7 +114,7 @@
       "      action: ReturnType<typeof $2sActions.load$1sRequest>,",
       "      state: $2sPartialState,",
       "    ) =>",
-      "      this.odataservice",
+      "      this.odataService",
       "        .fetch<I$3>(environment.endPoints.$4, action.payload)",
       "        .pipe(map(t => $2sActions.load$1sSuccess(t))),",
       "    onError: this.exceptionHandler,",

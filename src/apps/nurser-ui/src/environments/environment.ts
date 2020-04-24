@@ -5,7 +5,7 @@
 export const environment = {
   msalConfig: {
     auth: {
-      clientId: 'e5cac4cd-a55c-4a2d-951a-71b779137dba',
+      clientId: 'f260f9fa-28ed-4e06-824a-5420d0cce38b',
       authority: 'https://ikemtzB2C.b2clogin.com/ikemtzB2C.onmicrosoft.com/b2c_1_login',
       redirectUri: 'http://localhost:4200/callback.html',
       tmp_clientSecret: 'CmDY`#g!7l/T71vuH3)28bkJ',
