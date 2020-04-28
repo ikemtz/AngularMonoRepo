@@ -54,40 +54,40 @@
     "prefix": "imng-ngrx-effects-data-entry",
     "body": [
       "  save$1Effect$ = createEffect(() =>",
-      "    this.dataPersistence.pessimisticUpdate($2sActions.save$1Request, {",
+      "    this.dataPersistence.pessimisticUpdate($2ActionTypes.save$1Request, {",
       "      run: (",
-      "        action: ReturnType<typeof $2sActions.save$1Request>,",
+      "        action: ReturnType<typeof $2ActionTypes.save$1Request>,",
       "        state: $3sPartialState,",
       "      ) =>",
       "        this.$4ApiService",
       "          .post(action.payload)",
-      "          .pipe(map(t => $2sActions.load$5sRequest(state[$6S_FEATURE_KEY].gridODataState))),",
+      "          .pipe(map(t => $2ActionTypes.load$5sRequest(state[$6S_FEATURE_KEY].gridODataState))),",
       "      onError: this.exceptionHandler,",
       "    }),",
       "  );",
       "",
       "  update$1Effect$ = createEffect(() =>",
-      "    this.dataPersistence.pessimisticUpdate($2sActions.update$1Request, {",
+      "    this.dataPersistence.pessimisticUpdate($2ActionTypes.update$1Request, {",
       "      run: (",
-      "        action: ReturnType<typeof $2sActions.update$1Request>,",
+      "        action: ReturnType<typeof $2ActionTypes.update$1Request>,",
       "        state: $3sPartialState,",
       "      ) =>",
       "        this.$4ApiService",
       "          .put(action.payload)",
-      "          .pipe(map(t => $2sActions.load$5sRequest(state[$6S_FEATURE_KEY].gridODataState))),",
+      "          .pipe(map(t => $2ActionTypes.load$5sRequest(state[$6S_FEATURE_KEY].gridODataState))),",
       "      onError: this.exceptionHandler,",
       "    }),",
       "  );",
       "",
       "  delete$1Effect$ = createEffect(() =>",
-      "    this.dataPersistence.pessimisticUpdate($2sActions.delete$1Request, {",
+      "    this.dataPersistence.pessimisticUpdate($2ActionTypes.delete$1Request, {",
       "      run: (",
-      "        action: ReturnType<typeof $2sActions.delete$1Request>,",
+      "        action: ReturnType<typeof $2ActionTypes.delete$1Request>,",
       "        state: $3sPartialState,",
       "      ) =>",
       "        this.$4ApiService",
       "          .delete(action.payload)",
-      "          .pipe(map(t => $2sActions.load$5sRequest(state[$6S_FEATURE_KEY].gridODataState))),",
+      "          .pipe(map(t => $2ActionTypes.load$5sRequest(state[$6S_FEATURE_KEY].gridODataState))),",
       "      onError: this.exceptionHandler,",
       "    }),",
       "  );"
@@ -99,7 +99,7 @@
     "body": [
       "private exceptionHandler(action, error) {",
       "  console.error('Error', error);  // NOSONAR",
-      "  return $1sActions.load$1sFailure({ error});",
+      "  return $1ActionTypes.load$1sFailure({ error});",
       "}"
     ],
     "description": "Create Exception Hanlder for Effects"
@@ -108,15 +108,15 @@
     "prefix": "imng-ngrx-effects-odata",
     "body": [
       "load$1sEffect$ = createEffect(() =>",
-      "  this.dataPersistence.fetch($2sActions.load$1sRequest,",
+      "  this.dataPersistence.fetch($2ActionTypes.load$1sRequest,",
       "  {",
       "    run: (",
-      "      action: ReturnType<typeof $2sActions.load$1sRequest>,",
+      "      action: ReturnType<typeof $2ActionTypes.load$1sRequest>,",
       "      state: $2sPartialState,",
       "    ) =>",
       "      this.odataservice",
       "        .fetch<I$3>(environment.endPoints.$4, action.payload)",
-      "        .pipe(map(t => $2sActions.load$1sSuccess(t))),",
+      "        .pipe(map(t => $2ActionTypes.load$1sSuccess(t))),",
       "    onError: this.exceptionHandler,",
       "}),",
       ");"
@@ -153,7 +153,7 @@
     "prefix": "imng-ngrx-facade-load-entities",
     "body": [
       " loadEntities(state: ODataState): void {",
-      "this.store.dispatch($1sActions.load$2sRequest(state));",
+      "this.store.dispatch($1ActionTypes.load$2sRequest(state));",
       "}"
     ],
     "description": "Create Load Entities method for Facades"
@@ -211,7 +211,7 @@
   "NgRxReducerFailure": {
     "prefix": "imng-ngrx-reducer-failure",
     "body": [
-      "  on($1sActions.load$2sFailure, (state, { payload }) => ({ ...state, error: payload.error })),",
+      "  on($1ActionTypes.load$2sFailure, (state, { payload }) => ({ ...state, error: payload.error })),",
       ""
     ],
     "description": "Create Reducer for failure action"
@@ -219,16 +219,16 @@
   "NgRxReducerOData": {
     "prefix": "imng-ngrx-reducer-odata",
     "body": [
-      " on($1sActions.load$2sRequest, (state, { payload }) => ({",
+      " on($1ActionTypes.load$2sRequest, (state, { payload }) => ({",
       "    ...state,",
       "    gridODataState: payload,",
       "    loading: true,",
       "    error: null,",
       "  })),",
-      "  on($1sActions.load$2sSuccess, (state, { payload }) => ({",
+      "  on($1ActionTypes.load$2sSuccess, (state, { payload }) => ({",
       "    ...state,",
       "    loading: false,",
-      "    list: payload,",
+      "    $3: payload,",
       "    error: null,",
       "  })),"
     ],
