@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 
 describe('formGroupPatcher', () => {
-  it('should create', () => {
+  it('should patch', () => {
     const formGroup = new FormGroup({
       id: new FormControl(''),
     });
