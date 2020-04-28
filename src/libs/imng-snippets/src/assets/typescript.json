@@ -228,6 +228,10 @@
       "  on($1ActionTypes.load$2sSuccess, (state, { payload }) => ({",
       "    ...state,",
       "    loading: false,",
+      "    gridPagerSettings: getODataPagerSettings({",
+      "      gridData: action.payload,",
+      "      gridODataState: state.gridODataState,",
+      "    }),",
       "    $3: payload,",
       "    error: null,",
       "  })),"
