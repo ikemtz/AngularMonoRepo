@@ -6,6 +6,7 @@
   "typescript.format.semicolons": "insert",
   "typescript.preferences.quoteStyle": "single",
   "typescript.suggest.completeFunctionCalls": true,
+  "editor.tabCompletion": "on",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
