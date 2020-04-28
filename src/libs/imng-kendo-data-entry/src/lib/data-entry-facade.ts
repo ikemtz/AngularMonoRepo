@@ -10,6 +10,3 @@ export interface IDataEntryFacade<Entity> {
   saveNewEntity(entity: Entity): void;
   updateExistingEntity(entity: Entity): void;
 }
-export interface IDataDeleteFacade<Entity> {
-  deleteExistingEntity(entity: Entity): void;
-}

@@ -1,4 +1,3 @@
-import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 
@@ -39,28 +38,6 @@ export async function testUpdateCurrentEntity<TFacade extends { updateExistingEn
     expect(httpClient.put).toBeCalledTimes(1);
     expect(httpClient.post).toBeCalledTimes(0);
     expect(httpClient.delete).toBeCalledTimes(0);
-    done();
-  } catch (err) {
-    done.fail(err);
-  }
-}
-
-export async function testDeleteCurrentEntity<TFacade extends IDataDeleteFacade<unknown>>(
-  done: jest.DoneCallback,
-  facade: TFacade,
-  httpClient: HttpClient,
-) {
-  try {
-    const entity: any = { id: '💃', name: '🧓👴👵' };
-
-    httpClient.post = jest.fn(() => of(entity));
-    httpClient.put = jest.fn(() => of(entity));
-    httpClient.delete = jest.fn(() => of(entity));
-
-    facade.deleteExistingEntity(entity);
-    expect(httpClient.put).toBeCalledTimes(0);
-    expect(httpClient.post).toBeCalledTimes(0);
-    expect(httpClient.delete).toBeCalledTimes(1);
     done();
   } catch (err) {
     done.fail(err);

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="4" failures="0" time="14.191">
+  <testsuite name="formGroupPatcher" errors="0" failures="0" skipped="0" timestamp="2020-04-28T17:30:00" time="6.844" tests="1">
+    <testcase classname="formGroupPatcher should patch" name="formGroupPatcher should patch" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="DataEntryDialogModule" errors="0" failures="0" skipped="0" timestamp="2020-04-28T17:30:00" time="8.874" tests="1">
+    <testcase classname="DataEntryDialogModule should create" name="DataEntryDialogModule should create" time="0.252">
+    </testcase>
+  </testsuite>
+  <testsuite name="DataEntryDialogComponent" errors="0" failures="0" skipped="0" timestamp="2020-04-28T17:30:00" time="9.012" tests="1">
+    <testcase classname="DataEntryDialogComponent should create" name="DataEntryDialogComponent should create" time="0.388">
+    </testcase>
+  </testsuite>
+  <testsuite name="Testing testDeleteCurrentEntity" errors="0" failures="0" skipped="0" timestamp="2020-04-28T17:30:00" time="11.005" tests="1">
+    <testcase classname="Testing testDeleteCurrentEntity should validate" name="Testing testDeleteCurrentEntity should validate" time="0.007">
+    </testcase>
+  </testsuite>
+</testsuites>
