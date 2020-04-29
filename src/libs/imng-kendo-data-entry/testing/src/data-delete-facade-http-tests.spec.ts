@@ -1,13 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { testDeleteCurrentEntity } from './data-delete-facade-http-tests';
-import { HttpClient } from '@angular/common/http';
 
 describe('Testing testDeleteCurrentEntity', () => {
   it('should validate', async done => {
     try {
-      const httpMock = { delete: jest.fn() };
+      const httpMock: any = { delete: jest.fn() };
       const facade = {
         deleteExistingEntity: () => {
           httpMock.delete('x');
@@ -15,6 +11,8 @@ describe('Testing testDeleteCurrentEntity', () => {
       };
       await testDeleteCurrentEntity(done, facade, httpMock as any);
       expect(httpMock.delete).toBeCalledTimes(1);
+      expect(httpMock.post).toBeCalledTimes(0);
+      expect(httpMock.put).toBeCalledTimes(0);
       done();
     } catch (err) {
       done.fail(err);
