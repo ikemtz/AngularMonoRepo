@@ -9,8 +9,8 @@ export async function testDeleteCurrentEntity<TFacade extends { deleteExistingEn
   try {
     const entity: any = { id: '💃', name: '🧓👴👵' };
 
-    httpClient.post = jest.fn(() => of(entity));
-    httpClient.put = jest.fn(() => of(entity));
+    httpClient.post = jest.fn();
+    httpClient.put = jest.fn();
     httpClient.delete = jest.fn(() => of(entity));
 
     facade.deleteExistingEntity(entity);

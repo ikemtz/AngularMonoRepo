@@ -6,6 +6,7 @@ import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/co
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
 import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock.facade';
+import { FormGroup, FormControl } from '@angular/forms';
 
 describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
@@ -16,6 +17,7 @@ describe('DataEntryDialogComponent', () => {
       declarations: [DataEntryDialogComponent, TestHostComponent],
       imports: [DialogModule, NoopAnimationsModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
+      providers: [{ provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() }],
     }).compileComponents();
   }));
 
@@ -28,6 +30,19 @@ describe('DataEntryDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should handle close()', () => {
+    component.allSubscriptions.push(component.submitted$.subscribe());
+    component.closeForm = jest.fn();
+    component.onCancel();
+    expect(component.closeForm).toBeCalledTimes(1);
+  });
+
+  it('should handle submit()', () => {
+    component.onSubmit();
+    component.save = jest.fn();
+    expect(component.saved).toBe(true);
+  });
 });
 
 @Component({
@@ -37,9 +52,61 @@ describe('DataEntryDialogComponent', () => {
 export class TestHostComponent extends BaseDataEntryComponent<object, DataEntryMockFacade> {
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
-  constructor() {
-    super(createDataEntryMockFacade() as any);
+  public saved = false;
+  constructor(facade: DataEntryMockFacade) {
+    super(facade);
   }
-  public initForm() {}
-  public save() {}
+  public initForm() {
+    this.addEditForm = new FormGroup({ id: new FormControl() });
+  }
+  public save() {
+    this.saved = true;
+  }
 }
+
+describe('DataEntryDialog', () => {
+  let component: DataEntryDialogComponent;
+  const parentComponent = {
+    dialogTitle: '🔥',
+    loading$: '💩',
+    addEditForm: '🐎',
+    closeForm: jest.fn(),
+    onCancel: jest.fn(),
+    onSubmit: jest.fn(),
+  };
+
+  beforeEach(() => {
+    component = new DataEntryDialogComponent();
+    component.parentComponent = parentComponent as any;
+  });
+
+  it('should create', () => {
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should close', () => {
+    component.close();
+    expect(parentComponent.closeForm).toBeCalledTimes(1);
+  });
+
+  it('should cancel', () => {
+    component.cancel();
+    expect(parentComponent.onCancel).toBeCalledTimes(1);
+  });
+
+  it('should submit', () => {
+    component.submit();
+    expect(parentComponent.onSubmit).toBeCalledTimes(1);
+  });
+
+  it('should handle null parent', done => {
+    try {
+      component.parentComponent = null;
+      component.ngOnInit();
+      done.fail('shouldve thrown an err');
+    } catch (err) {
+      expect(err).toMatchSnapshot();
+      done();
+    }
+  });
+});
