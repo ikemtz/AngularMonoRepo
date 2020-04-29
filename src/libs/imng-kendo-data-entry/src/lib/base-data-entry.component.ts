@@ -19,7 +19,7 @@ import { IDataEntryFacade } from './data-entry-facade';
 export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFacade<ENTITY>> implements OnDestroy {
   @Input() public width: string;
   @Input() public height: string;
-  protected allSubscriptions: Subscription[] = [];
+  public allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
   public abstract props: any;
   public addEditForm: FormGroup;
@@ -46,6 +46,7 @@ export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFa
     this.allSubscriptions.forEach(val => {
       if (val !== null) val.unsubscribe();
     });
+    this.allSubscriptions = [];
   }
 
   public closeForm(): void {

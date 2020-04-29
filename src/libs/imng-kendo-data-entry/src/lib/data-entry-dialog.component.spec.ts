@@ -5,7 +5,7 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
 import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
-import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock-facade';
+import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock.facade';
 
 describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
