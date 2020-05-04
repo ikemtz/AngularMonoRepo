@@ -8,4 +8,4 @@ import { DataEntryDialogComponent } from './data-entry-dialog.component';
   declarations: [DataEntryDialogComponent],
   exports: [DataEntryDialogComponent],
 })
-export class DataEntryDialogModule {}
+export class ImngDataEntryDialogModule {}
