@@ -261,6 +261,22 @@
     ],
     "description": "NgRx Selectors for Data Entry components"
   },
+  "NgRxSelectorsGridOData": {
+    "prefix": "imng-ngrx-selectors-grid-odata",
+    "body": [
+      "const get$1s = createSelector(get$1sState, state => state.gridData);",
+      "const getLoading = createSelector(get$1sState, state => state.loading);",
+      "const getGridODataState = createSelector(get$1sState, state => state.gridODataState);",
+      "const getPagerSettings = createSelector(get$1sState, state => state.gridPagerSettings);",
+      "export const standardQueries = {",
+      "  get$1s,",
+      "  getLoading,",
+      "  getGridODataState,",
+      "  getPagerSettings,",
+      "};"
+    ],
+    "description": "NgRxSelectorsGridOData"
+  },
   "ServicesDataEntry": {
     "prefix": "imng-services-data-entry",
     "body": [

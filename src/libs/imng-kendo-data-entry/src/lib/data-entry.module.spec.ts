@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { DataEntryDialogModule } from './data-entry.module';
+import { ImngDataEntryDialogModule } from './data-entry.module';
 
-describe('DataEntryDialogModule', () => {
+describe('ImngDataEntryDialogModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DataEntryDialogModule]
+      imports: [ImngDataEntryDialogModule],
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(DataEntryDialogModule).toBeDefined();
+    expect(ImngDataEntryDialogModule).toBeDefined();
   });
 });
