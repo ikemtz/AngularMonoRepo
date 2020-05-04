@@ -13,7 +13,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { AddNursesComponent } from './add-edit-nurses/add-nurses.component';
-import { DataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NursesDataEntryFacade } from './add-edit-nurses/nurses-data-entry-facade';
 import { ListDetailComponent } from './list-detail/list-detail.component';
@@ -45,7 +45,7 @@ const routes: Routes = [{ path: '', component: ListComponent }];
     ExcelModule,
     PDFModule,
     FontAwesomeModule,
-    DataEntryDialogModule,
+    ImngDataEntryDialogModule,
     ReactiveFormsModule,
     ImngKendoGridODataModule,
   ],
