@@ -17,8 +17,8 @@ import { IDataEntryFacade } from './data-entry-facade';
  */
 
 export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFacade<ENTITY>> implements OnDestroy {
-  @Input() public width: string;
-  @Input() public height: string;
+  @Input() public width: string | number;
+  @Input() public height: string | number;
   public allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
   public abstract props: any;
