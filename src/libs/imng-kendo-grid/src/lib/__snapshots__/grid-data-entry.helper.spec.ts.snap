@@ -7,6 +7,23 @@ Object {
 }
 `;
 
+exports[`GridDataEntryHelper<> should handle add 1`] = `
+Array [
+  Object {
+    "id": "💩",
+  },
+  Object {
+    "id": "🐂",
+  },
+  Object {
+    "id": "🥜",
+  },
+  Object {
+    "id": "🐂",
+  },
+]
+`;
+
 exports[`GridDataEntryHelper<> should handle saving edited records  1`] = `
 Array [
   Object {

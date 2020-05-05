@@ -22,7 +22,13 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
 
   public set gridData(value: Array<T>) {
     this._gridData = value;
+    this._gridData.push();
     this._gridData$.next(value);
+  }
+  public AddItems(...items: T[]): T[] {
+    this._gridData.push(...items);
+    this._gridData$.next(this._gridData);
+    return this._gridData;
   }
 
   public get isInEditMode(): boolean {

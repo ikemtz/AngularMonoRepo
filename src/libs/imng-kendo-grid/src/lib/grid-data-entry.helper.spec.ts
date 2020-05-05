@@ -176,4 +176,17 @@ describe('GridDataEntryHelper<>', () => {
       done.fail(x);
     }
   });
+
+  it('should handle add', async done => {
+    try {
+      const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
+      const gridComponentMock = gridComponentMockFac();
+      gridHelper.AddItems({ id: '🐂' });
+      expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
+      expect(gridHelper.gridData.length).toBe(4);
+      done();
+    } catch (x) {
+      done.fail(x);
+    }
+  });
 });
