@@ -9,8 +9,8 @@ import { BaseDataEntryComponent } from './base-data-entry.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataEntryDialogComponent implements OnInit {
-  @Input() public width: string;
-  @Input() public height: string;
+  @Input() public width: string | number;
+  @Input() public height: string | number;
   @Input() public parentComponent: BaseDataEntryComponent<any, any>;
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;
