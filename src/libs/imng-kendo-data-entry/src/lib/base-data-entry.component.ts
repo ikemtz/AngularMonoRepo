@@ -16,7 +16,13 @@ import { IDataEntryFacade } from './data-entry-facade';
  * @class BaseDataEntryComponent<ENTITY, FACADE extends DataEntryFacade<ENTITY>>
  */
 
-export abstract class BaseDataEntryComponent<ENTITY, FACADE extends IDataEntryFacade<ENTITY>> implements OnDestroy {
+export abstract class BaseDataEntryComponent<
+  ENTITY,
+  FACADE extends {
+    loading$: Observable<boolean>;
+    clearCurrentEntity(): void;
+  }
+> implements OnDestroy {
   @Input() public width: string | number;
   @Input() public height: string | number;
   public allSubscriptions: Subscription[] = [];
