@@ -2,12 +2,13 @@ import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EditEvent, CancelEvent, SaveEvent, RemoveEvent, AddEvent, GridComponent } from '@progress/kendo-angular-grid';
+import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 
 export class GridDataEntryHelper<T extends { id?: string | number }> {
   private _editedRowIndex: number;
   private _gridFormGroup: FormGroup;
   private readonly _gridData$: BehaviorSubject<Array<T>>;
-
+  public sortDescriptors: SortDescriptor[] = [];
   public get gridFormGroup(): FormGroup {
     return this._gridFormGroup;
   }
@@ -21,13 +22,10 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
   }
 
   public set gridData(value: Array<T>) {
-    this._gridData = [...value];
-    this._gridData$.next(this._gridData);
-  }
-  public AddItems(...items: T[]): T[] {
-    this._gridData.push(...items);
-    this._gridData$.next(this._gridData);
-    return this._gridData;
+    if (value) {
+      this._gridData = [...value];
+      this._gridData$.next(this._gridData);
+    }
   }
 
   public get isInEditMode(): boolean {
@@ -43,6 +41,14 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
   }
   constructor(private readonly formGroupFactory: () => FormGroup, private _gridData: Array<T> = []) {
     this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
+  }
+
+  public AddItems(...items: T[]): T[] {
+    if (items) {
+      this._gridData.push(...items);
+      this._gridData$.next(this._gridData);
+      return this._gridData;
+    }
   }
 
   public editHandler(editEvent: EditEvent) {
@@ -83,6 +89,11 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
     tempGrid.splice(removeEvent.rowIndex, 1);
     this.gridData = tempGrid;
     this._gridData$.next(this.gridData);
+  }
+
+  public sortHandler(sortDescriptors: SortDescriptor[]) {
+    this.sortDescriptors = sortDescriptors;
+    this.gridData = orderBy(this.gridData, this.sortDescriptors);
   }
 
   public addHandler(addEvent: AddEvent) {

@@ -57,6 +57,34 @@ Array [
 ]
 `;
 
+exports[`GridDataEntryHelper<> should handle sorting: asc 1`] = `
+Array [
+  Object {
+    "id": "A",
+  },
+  Object {
+    "id": "B",
+  },
+  Object {
+    "id": "C",
+  },
+]
+`;
+
+exports[`GridDataEntryHelper<> should handle sorting: desc 1`] = `
+Array [
+  Object {
+    "id": "C",
+  },
+  Object {
+    "id": "B",
+  },
+  Object {
+    "id": "A",
+  },
+]
+`;
+
 exports[`GridDataEntryHelper<> should removeHandler 1`] = `
 Array [
   Object {
