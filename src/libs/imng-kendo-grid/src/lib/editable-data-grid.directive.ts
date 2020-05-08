@@ -3,6 +3,7 @@ import { GridComponent, EditEvent, CancelEvent, SaveEvent, RemoveEvent, AddEvent
 import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { Subscription } from 'rxjs';
 import { SortDescriptor } from '@progress/kendo-data-query';
+import { tap } from 'rxjs/operators';
 
 @Directive({
   selector: '[imngEditableDataGrid]',
@@ -16,9 +17,13 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
   @Input('imngEditableDataGrid')
   set gridDataEntryHelper(value: GridDataEntryHelper<object>) {
     this._gridDataEntryHelper = value;
-    this.gridComponent.sort = this.gridDataEntryHelper.sortDescriptors;
+    this.subscriptions.push(
+      this.gridDataEntryHelper.sortDescriptors$
+        .pipe(tap(sortDescriptor => (this.gridComponent.sort = sortDescriptor)))
+        .subscribe(),
+    );
   }
-  constructor(private readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {}
+  constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
