@@ -191,10 +191,10 @@ describe('GridDataEntryHelper<>', () => {
       const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: 'C' }, { id: 'A' }, { id: 'B' }]);
       gridHelper.sortHandler([{ field: 'id', dir: 'desc' }]);
       expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot('desc');
-      expect(gridHelper.sortDescriptors).toStrictEqual([{ field: 'id', dir: 'desc' }]);
+      expect(await readFirst(gridHelper.sortDescriptors$)).toStrictEqual([{ field: 'id', dir: 'desc' }]);
       gridHelper.sortHandler([{ field: 'id', dir: 'asc' }]);
       expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot('asc');
-      expect(gridHelper.sortDescriptors).toStrictEqual([{ field: 'id', dir: 'asc' }]);
+      expect(await readFirst(gridHelper.sortDescriptors$)).toStrictEqual([{ field: 'id', dir: 'asc' }]);
       done();
     } catch (x) {
       done.fail(x);

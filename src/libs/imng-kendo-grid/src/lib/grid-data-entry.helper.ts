@@ -8,7 +8,7 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
   private _editedRowIndex: number;
   private _gridFormGroup: FormGroup;
   private readonly _gridData$: BehaviorSubject<Array<T>>;
-  public sortDescriptors: SortDescriptor[] = [];
+  public sortDescriptors$ = new BehaviorSubject<SortDescriptor[]>([]);
   public get gridFormGroup(): FormGroup {
     return this._gridFormGroup;
   }
@@ -92,8 +92,8 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
   }
 
   public sortHandler(sortDescriptors: SortDescriptor[]) {
-    this.sortDescriptors = sortDescriptors;
-    this.gridData = orderBy(this.gridData, this.sortDescriptors);
+    this.sortDescriptors$.next(sortDescriptors);
+    this.gridData = orderBy(this.gridData, sortDescriptors);
   }
 
   public addHandler(addEvent: AddEvent) {
