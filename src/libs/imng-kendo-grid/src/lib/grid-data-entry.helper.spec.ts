@@ -1,18 +1,14 @@
 import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from '@nrwl/angular/testing';
+import { formGroupFac } from './editable-data-grid.directive.spec';
 
-const gridComponentMockFac = () =>
+export const gridComponentMockFac = () =>
   ({
     closeRow: jest.fn(() => {}),
     addRow: jest.fn(() => {}),
     editRow: jest.fn(() => {}),
   } as any);
-const formGroupFac = () =>
-  new FormGroup({
-    id: new FormControl('🐂🤏'),
-    test: new FormControl('👍'),
-  });
 describe('GridDataEntryHelper<>', () => {
   it('should report invalid if gridData is empty ', async done => {
     try {
@@ -184,6 +180,21 @@ describe('GridDataEntryHelper<>', () => {
       gridHelper.AddItems({ id: '🐂' });
       expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
       expect(gridHelper.gridData.length).toBe(4);
+      done();
+    } catch (x) {
+      done.fail(x);
+    }
+  });
+
+  it('should handle sorting', async done => {
+    try {
+      const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: 'C' }, { id: 'A' }, { id: 'B' }]);
+      gridHelper.sortHandler([{ field: 'id', dir: 'desc' }]);
+      expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot('desc');
+      expect(gridHelper.sortDescriptors).toStrictEqual([{ field: 'id', dir: 'desc' }]);
+      gridHelper.sortHandler([{ field: 'id', dir: 'asc' }]);
+      expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot('asc');
+      expect(gridHelper.sortDescriptors).toStrictEqual([{ field: 'id', dir: 'asc' }]);
       done();
     } catch (x) {
       done.fail(x);

@@ -2,13 +2,22 @@ import { Directive, ChangeDetectorRef, OnInit, Input, OnDestroy } from '@angular
 import { GridComponent, EditEvent, CancelEvent, SaveEvent, RemoveEvent, AddEvent } from '@progress/kendo-angular-grid';
 import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { Subscription } from 'rxjs';
+import { SortDescriptor } from '@progress/kendo-data-query';
 
 @Directive({
   selector: '[imngEditableDataGrid]',
 })
 export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
   private readonly subscriptions: Subscription[] = [];
-  @Input('imngEditableDataGrid') public gridDataEntryHelper: GridDataEntryHelper<object>;
+  _gridDataEntryHelper: GridDataEntryHelper<object>;
+  get gridDataEntryHelper(): GridDataEntryHelper<object> {
+    return this._gridDataEntryHelper;
+  }
+  @Input('imngEditableDataGrid')
+  set gridDataEntryHelper(value: GridDataEntryHelper<object>) {
+    this._gridDataEntryHelper = value;
+    this.gridComponent.sort = this.gridDataEntryHelper.sortDescriptors;
+  }
   constructor(private readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -18,6 +27,7 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
       this.gridComponent.save.subscribe((t: SaveEvent) => this.gridDataEntryHelper.saveHandler(t)),
       this.gridComponent.remove.subscribe((t: RemoveEvent) => this.gridDataEntryHelper.removeHandler(t)),
       this.gridComponent.add.subscribe((t: AddEvent) => this.gridDataEntryHelper.addHandler(t)),
+      this.gridComponent.sortChange.subscribe((t: SortDescriptor[]) => this.gridDataEntryHelper.sortHandler(t)),
     );
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
