@@ -47,8 +47,8 @@ export class GridDataEntryHelper<T extends { id?: string | number }> {
     if (items) {
       this._gridData.push(...items);
       this._gridData$.next(this._gridData);
-      return this._gridData;
     }
+    return this._gridData;
   }
 
   public editHandler(editEvent: EditEvent) {
