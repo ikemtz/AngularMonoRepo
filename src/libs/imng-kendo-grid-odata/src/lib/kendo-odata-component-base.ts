@@ -9,7 +9,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   protected allSubscription: Subscription[] = [];
   public gridDataState: ODataState;
   public readonly gridDataResult$: Observable<ODataResult<ENTITY>>;
-  public readonly loading$: Observable<boolean>;
+  public loading$: Observable<boolean>;
   public readonly gridPagerSettings$: Observable<false | PagerSettings>;
   /**
    * A properties enum to make kendo grid columns definitions type safe
