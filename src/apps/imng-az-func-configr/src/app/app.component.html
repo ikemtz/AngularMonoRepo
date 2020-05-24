@@ -1,14 +1,38 @@
 <header class="text-center py-2">
-  <h2>Azure Function Configuration Converter</h2> This application allows you to convert your Azure Function
-  configuration file to the format required for your local.settings.json file. <span></span>
+  <h2>Azure Configuration Converter</h2>
+  This application allows you to convert your Azure web configuration settings to different formats to support your
+  local dev environment. <span></span>
 </header>
-<main class="container">
+<main class="container" *ngIf="currentTransformer$ | async as currentTransformer">
+  <div class="row">
+    <div class="col col-md-2 text-right pt-2 pr-0">Desired Output:</div>
+    <div class="col col-md-6 pb-1">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+          <img [src]="currentTransformer.icon" alt="Transfomer Icon" /> - {{ currentTransformer.name }}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button
+            class="py-4"
+            *ngFor="let transformer of transformers"
+            ngbDropdownItem
+            (click)="setTransformer(transformer)"
+          >
+            <img [src]="transformer.icon" alt="Transfomer Icon" /> - {{ transformer.name }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col col-md-6">
       <json-editor class="minHeight" [options]="editorOptions" [formControl]="azConfig"></json-editor>
     </div>
     <div class="col col-md-6">
-      <json-editor class="minHeight" [options]="editorOptions" [formControl]="devConfig"></json-editor>
+      <imng-json-viewer *ngIf="currentTransformer.id < 3; else elseBlock"></imng-json-viewer>
+      <ng-template #elseBlock>
+        <textarea class="w-100" type="text">{{ transformerOutput$ | async }} </textarea>
+      </ng-template>
     </div>
   </div>
 </main>

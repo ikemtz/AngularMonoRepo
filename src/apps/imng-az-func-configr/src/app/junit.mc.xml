@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="13" failures="0" time="11.724">
+  <testsuite name="StateService" errors="0" failures="0" skipped="0" timestamp="2020-05-24T16:24:49" time="9.094" tests="7">
+    <testcase classname="StateService should be created" name="StateService should be created" time="0.057">
+    </testcase>
+    <testcase classname="StateService should setTransformer AzFunc" name="StateService should setTransformer AzFunc" time="0.029">
+    </testcase>
+    <testcase classname="StateService should setTransformer AzWebApp" name="StateService should setTransformer AzWebApp" time="0.014">
+    </testcase>
+    <testcase classname="StateService should setTransformer DockerEnv" name="StateService should setTransformer DockerEnv" time="0.018">
+    </testcase>
+    <testcase classname="StateService should setTransformer AzFunc Empty" name="StateService should setTransformer AzFunc Empty" time="0.014">
+    </testcase>
+    <testcase classname="StateService should setTransformer AzWebApp Empy" name="StateService should setTransformer AzWebApp Empy" time="0.012">
+    </testcase>
+    <testcase classname="StateService should setTransformer DockerEnv Empty" name="StateService should setTransformer DockerEnv Empty" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="JsonViewerComponent" errors="0" failures="0" skipped="0" timestamp="2020-05-24T16:24:49" time="9.098" tests="2">
+    <testcase classname="JsonViewerComponent should create" name="JsonViewerComponent should create" time="0.12">
+    </testcase>
+    <testcase classname="JsonViewerComponent should destroy" name="JsonViewerComponent should destroy" time="0.03">
+    </testcase>
+  </testsuite>
+  <testsuite name="AppComponent" errors="0" failures="0" skipped="0" timestamp="2020-05-24T16:24:49" time="9.251" tests="4">
+    <testcase classname="AppComponent should create the app" name="AppComponent should create the app" time="0.162">
+    </testcase>
+    <testcase classname="AppComponent should render title" name="AppComponent should render title" time="0.067">
+    </testcase>
+    <testcase classname="AppComponent should handle form changes" name="AppComponent should handle form changes" time="0.058">
+    </testcase>
+    <testcase classname="AppComponent should handle setTransformer" name="AppComponent should handle setTransformer" time="0.046">
+    </testcase>
+  </testsuite>
+</testsuites>
