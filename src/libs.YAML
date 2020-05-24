@@ -10,6 +10,9 @@ jobs:
     displayName: Produce Dev and Prod builds
 
     steps:
+      - checkout: self
+        persistCredentials: true
+
       - task: Cache@2
         inputs:
           key: 'npm | "$(Agent.OS)" | src/package-lock.json'
@@ -116,3 +119,4 @@ jobs:
           tag: 'libs-$(Build.BuildNumber)'
           tagMessage: 'libs-$(Build.BuildNumber)'
           useLightweightTags: true
+          conditions: and(succeeded(), not(endsWith(variables['Build.SourceBranch'], 'master')))

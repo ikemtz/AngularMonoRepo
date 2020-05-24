@@ -10,7 +10,6 @@ import { ITransformer, transformers } from './transformers';
 @Component({
   selector: 'imng-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   public readonly azConfig = new FormControl('');
