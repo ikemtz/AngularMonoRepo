@@ -139,3 +139,12 @@ jobs:
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'release-drop'
+
+      - task: GitTag@5
+        inputs:
+          workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
+          tagUser: 'ikemtz'
+          tagEmail: 'ikemtz@outlook.com'
+          tag: 'cron-$(Build.BuildNumber)'
+          tagMessage: 'cron-$(Build.BuildNumber)'
+          useLightweightTags: true
