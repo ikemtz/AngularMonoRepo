@@ -38,7 +38,7 @@ jobs:
             sonar.projectKey=AzConfig
             sonar.sourceEncoding=UTF-8
             sonar.sources=src/apps/imng-az-func-configr/src,src/libs
-            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/imng-az-func-configr/src/app/models/**,**/main.ts,**/environment.prod.ts
+            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/imng-az-func-configr/src/app/models/**,**/main.ts,**/environment.prod.ts,src/libs/**,src/apps/nurser-ui/**
             sonar.tests=src/apps/imng-az-func-configr/src,src/libs
             sonar.test.inclusions=**/*.spec.ts
             sonar.typescript.lcov.reportPaths=src/coverage/apps/imng-az-func-configr/lcov.info,src/coverage/libs/imng-application-insights-ngrx/lcov.info,src/coverage/libs/imng-auth0-oidc/lcov.info,src/coverage/libs/imng-kendo-chart-odata/lcov.info,src/coverage/libs/imng-kendo-data-entry/lcov.info,src/coverage/libs/imng-kendo-grid-odata/lcov.info,src/coverage/libs/imng-kendo-odata/lcov.info,src/coverage/libs/imng-ngrx-utils/lcov.info,src/coverage/libs/imng-ngxb-typeahead/lcov.info,src/coverage/libs/imng-nrsrx-client-utils/lcov.info
@@ -129,3 +129,12 @@ jobs:
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'release-drop'
+
+      - task: GitTag@5
+        inputs:
+          workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
+          tagUser: 'ikemtz'
+          tagEmail: 'ikemtz@outlook.com'
+          tag: 'azcf-$(Build.BuildNumber)'
+          tagMessage: 'azcf-$(Build.BuildNumber)'
+          useLightweightTags: true

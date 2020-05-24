@@ -107,3 +107,12 @@ jobs:
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'package-drop'
+
+      - task: GitTag@5
+        inputs:
+          workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
+          tagUser: 'ikemtz'
+          tagEmail: 'ikemtz@outlook.com'
+          tag: 'libs-$(Build.BuildNumber)'
+          tagMessage: 'libs-$(Build.BuildNumber)'
+          useLightweightTags: true

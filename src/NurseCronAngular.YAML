@@ -39,7 +39,7 @@ jobs:
             sonar.projectKey=NurseCron-Angular
             sonar.sourceEncoding=UTF-8
             sonar.sources=src/apps/nurser-ui/src,src/libs
-            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/nurser-ui/src/app/models/**,**/main.ts,**/environment.prod.ts
+            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/nurser-ui/src/app/models/**,**/main.ts,**/environment.prod.ts,src/libs/**
             sonar.tests=src/apps/nurser-ui/src,src/libs
             sonar.test.inclusions=**/*.spec.ts
             sonar.typescript.lcov.reportPaths=src/coverage/apps/nurser-ui/lcov.info,src/coverage/libs/imng-application-insights-ngrx/lcov.info,src/coverage/libs/imng-auth0-oidc/lcov.info,src/coverage/libs/imng-kendo-chart-odata/lcov.info,src/coverage/libs/imng-kendo-data-entry/lcov.info,src/coverage/libs/imng-kendo-grid-odata/lcov.info,src/coverage/libs/imng-kendo-odata/lcov.info,src/coverage/libs/imng-ngrx-utils/lcov.info,src/coverage/libs/imng-ngxb-typeahead/lcov.info,src/coverage/libs/imng-nrsrx-client-utils/lcov.info
@@ -139,3 +139,12 @@ jobs:
         inputs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'release-drop'
+
+      - task: GitTag@5
+        inputs:
+          workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
+          tagUser: 'ikemtz'
+          tagEmail: 'ikemtz@outlook.com'
+          tag: 'cron-$(Build.BuildNumber)'
+          tagMessage: 'cron-$(Build.BuildNumber)'
+          useLightweightTags: true
