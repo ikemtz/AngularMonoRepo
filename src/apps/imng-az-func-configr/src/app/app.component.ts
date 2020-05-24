@@ -1,45 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { tap, catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { JsonEditorOptions } from 'ang-jsoneditor';
-import { IAzSetting } from './az-setting.model';
-import { of } from 'rxjs';
+import { ILocalSetting } from './az-setting.model';
+import { Observable } from 'rxjs';
+import { StateService } from './state.service';
+import { ITransformer, transformers } from './transformers';
+
 @Component({
   selector: 'imng-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  azConfig = new FormControl('');
-  devConfig = new FormControl('');
-  readonly initialDevSettings = { IsEncrypted: false, Values: {} };
-  public editorOptions: JsonEditorOptions;
+  public readonly azConfig = new FormControl('');
+  public readonly editorOptions: JsonEditorOptions;
+  public readonly currentTransformer$: Observable<ITransformer>;
+  public readonly transformers: ITransformer[];
+  public readonly transformerOutput$: Observable<ILocalSetting | string>;
 
-  constructor() {}
+  constructor(public readonly stateService: StateService) {
+    this.editorOptions = stateService.editorOptions;
+    this.currentTransformer$ = stateService.currentTransformer$;
+    this.transformers = transformers;
+    this.transformerOutput$ = stateService.output$;
+  }
+
   ngOnInit(): void {
     this.azConfig.valueChanges
       .pipe(
-        catchError(x => of([])),
-        tap(t => this.convertAzConfig(t)),
+        tap(data => this.stateService.setAzConfiguration(data)),
       )
       .subscribe();
-    this.editorOptions = new JsonEditorOptions();
-    this.editorOptions.modes = ['code'];
-    this.editorOptions.mode = 'code';
-    this.editorOptions.navigationBar = false;
-    this.editorOptions.mainMenuBar = false;
-    this.devConfig.patchValue(this.initialDevSettings);
   }
 
-  public convertAzConfig(settings: IAzSetting[]) {
-    const devSettings = { ...this.initialDevSettings };
-    if (Array.isArray(settings)) {
-      settings
-        .map(t => ({ name: t.name, value: t.value }))
-        .forEach(t => {
-          devSettings.Values[t.name] = t.value;
-        });
-      this.devConfig.patchValue(devSettings);
-    }
+  public setTransformer(transformer: ITransformer): void {
+    this.stateService.setTransformer(transformer);
   }
 }
