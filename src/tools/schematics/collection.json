@@ -1,0 +1,22 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "module": {
+      "aliases": ["mod"],
+      "description": "imng-schematics - Creates a module.",
+      "factory": "./imng-module/index#module",
+      "schema": "./imng-module/schema.json"
+    },
+    "list": {
+      "aliases": ["list"],
+      "description": "imng-schematics - Creates a kendo data grid component.",
+      "factory": "./imng-list/index#list",
+      "schema": "./imng-list/schema.json"
+    },
+    "crud": {
+      "description": "imng-schematics - Creates a kendo data entry component.",
+      "factory": "./imng-crud/index#crud",
+      "schema": "./imng-crud/schema.json"
+    }
+  }
+}
