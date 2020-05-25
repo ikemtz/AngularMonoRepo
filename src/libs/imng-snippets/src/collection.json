@@ -1,0 +1,9 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "imng-snippets": {
+      "description": "A blank schematic.",
+      "factory": "./imng-snippets/index#imngSnippets"
+    }
+  }
+}
