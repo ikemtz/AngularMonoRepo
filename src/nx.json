@@ -8,13 +8,6 @@
     "nx.json": "*"
   },
   "projects": {
-    "nurser-ui-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nurser-ui"]
-    },
-    "nurser-ui": {
-      "tags": ["ngnu"]
-    },
     "imng-auth0-oidc": {
       "tags": []
     },
@@ -58,6 +51,13 @@
     },
     "imng-schematics": {
       "tags": []
+    },
+    "nurse-cron": {
+      "tags": []
+    },
+    "nurse-cron-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nurse-cron"]
     }
   },
   "tasksRunnerOptions": {

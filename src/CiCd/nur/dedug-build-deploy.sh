@@ -20,15 +20,15 @@ export envLower=$(echo $1 | tr A-Z a-z)
 
 # Common Setup Variables
 export location="eastus"
-export planRgName=$envUpper"-Nurser"
-export appsRgName=$envUpper"-Nurser"
-export planName=$envLower"-ap-core-nrsr"
-export app1Name=$envLower"-wa-uipd-nrsr"
+export planRgName=$envUpper"-NurseCron"
+export appsRgName=$envUpper"-NurseCron"
+export planName=$envLower"-ap-core-nrcr"
+export app1Name=$envLower"-wa-uidv-nrcr"
 export dockerUrl=$(echo "https://index.docker.io")
 
 # Service specific
-export ainName=$envLower"-ai-core-nrsr"
-export dockerImageName="ikemtz/nurser:prod_latest"
+export ainName=$envLower"-ai-core-nrcr"
+export dockerImageName="ikemtz/nurse-cron:debug_latest"
 
 echo Create Web App Plan Resource Group $planRgName
 export planRgId=$(az group create --location $location --name $planRgName | jq -r '. | .id')
@@ -68,12 +68,15 @@ then
         --deployment-container-image-name $dockerImageName \
         | jq -r '. | .id')
     echo App Id 1: ${app1id}
+
     az resource move --destination-group $appsRgName --ids $app1id
 else
     echo Web App $app1Name already exists
     az webapp stop --name $app1Name --resource-group $appsRgName
     az webapp start --name $app1Name --resource-group $appsRgName
 fi
+
+echo Web App $app1Name already exists
 app1id=$(az webapp show --name $app1Name --resource-group $appsRgName | jq -r '.id')
 
 echo Configuring Web App $app1Name

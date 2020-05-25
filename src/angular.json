@@ -3,156 +3,6 @@
   "version": 1,
   "newProjectRoot": "",
   "projects": {
-    "nurser-ui": {
-      "projectType": "application",
-      "schematics": {
-        "@nrwl/workspace:component": {
-          "style": "scss"
-        }
-      },
-      "root": "apps/nurser-ui",
-      "sourceRoot": "apps/nurser-ui/src",
-      "prefix": "ngnu",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "aot": true,
-            "outputPath": "dist/apps/nurser-ui",
-            "index": "apps/nurser-ui/src/index.html",
-            "main": "apps/nurser-ui/src/main.ts",
-            "polyfills": "apps/nurser-ui/src/polyfills.ts",
-            "tsConfig": "apps/nurser-ui/tsconfig.app.json",
-            "assets": [
-              "apps/nurser-ui/src/favicon.ico",
-              "apps/nurser-ui/src/assets",
-              {
-                "glob": "**/*.html",
-                "input": "libs/imng-auth0-oidc/src/assets",
-                "output": "/"
-              },
-              {
-                "glob": "oidc-client.min.js",
-                "input": "node_modules/oidc-client/dist",
-                "output": "/"
-              },
-              {
-                "glob": "oidc-client.js",
-                "input": "node_modules/oidc-client/dist",
-                "output": "/"
-              }
-            ],
-            "styles": [
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              {
-                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
-              },
-              "apps/nurser-ui/src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/nurser-ui/src/environments/environment.ts",
-                  "with": "apps/nurser-ui/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "nurser-ui:build",
-            "proxyConfig": "proxy.conf.json"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "nurser-ui:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "nurser-ui:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/nurser-ui/tsconfig.app.json", "apps/nurser-ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/nurser-ui/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/nurser-ui/jest.config.js",
-            "tsConfig": "apps/nurser-ui/tsconfig.spec.json",
-            "setupFile": "apps/nurser-ui/src/test-setup.ts",
-            "styles": [
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              {
-                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
-              }
-            ],
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "nurser-ui-e2e": {
-      "root": "apps/nurser-ui-e2e",
-      "sourceRoot": "apps/nurser-ui-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/nurser-ui-e2e/cypress.json",
-            "tsConfig": "apps/nurser-ui-e2e/tsconfig.e2e.json",
-            "devServerTarget": "nurser-ui:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "nurser-ui:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "apps/nurser-ui-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**", "!apps/nurser-ui-e2e/**"]
-          }
-        }
-      }
-    },
     "imng-kendo-odata": {
       "projectType": "library",
       "root": "libs/imng-kendo-odata",
@@ -363,7 +213,7 @@
       "projectType": "library",
       "root": "libs/imng-ngrx-utils",
       "sourceRoot": "libs/imng-ngrx-utils/src",
-      "prefix": "nurser-ui",
+      "prefix": "imng",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
@@ -404,7 +254,7 @@
       "projectType": "library",
       "root": "libs/imng-nrsrx-client-utils",
       "sourceRoot": "libs/imng-nrsrx-client-utils/src",
-      "prefix": "nurser-ui",
+      "prefix": "imng",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
@@ -744,6 +594,125 @@
         }
       },
       "schematics": {}
+    },
+    "nurse-cron": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/nurse-cron",
+      "sourceRoot": "apps/nurse-cron/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/nurse-cron",
+            "index": "apps/nurse-cron/src/index.html",
+            "main": "apps/nurse-cron/src/main.ts",
+            "polyfills": "apps/nurse-cron/src/polyfills.ts",
+            "tsConfig": "apps/nurse-cron/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/nurse-cron/src/favicon.ico", "apps/nurse-cron/src/assets"],
+            "styles": ["apps/nurse-cron/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/nurse-cron/src/environments/environment.ts",
+                  "with": "apps/nurse-cron/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nurse-cron:build",
+            "proxyConfig": "apps/nurse-cron/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nurse-cron:build:production",
+              "proxyConfig": "apps/nurse-cron/proxy.conf.json"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nurse-cron:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/nurse-cron/tsconfig.app.json", "apps/nurse-cron/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/nurse-cron/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/nurse-cron/jest.config.js",
+            "tsConfig": "apps/nurse-cron/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/nurse-cron/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "nurse-cron-e2e": {
+      "root": "apps/nurse-cron-e2e",
+      "sourceRoot": "apps/nurse-cron-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/nurse-cron-e2e/cypress.json",
+            "tsConfig": "apps/nurse-cron-e2e/tsconfig.e2e.json",
+            "devServerTarget": "nurse-cron:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nurse-cron:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/nurse-cron-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/nurse-cron-e2e/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

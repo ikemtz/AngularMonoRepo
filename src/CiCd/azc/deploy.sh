@@ -14,21 +14,18 @@ fi
 #az login (if required, should not be included in this script)
 
 echo 'Spinning up resources for Angular App'
-# parameter variables
-export envUpper=$(echo $1 | tr a-z A-Z)
-export envLower=$(echo $1 | tr A-Z a-z)
+# parameter variables 
 
 # Common Setup Variables
 export location="eastus"
-export planRgName=$envUpper"-Nurser"
-export appsRgName=$envUpper"-Nurser"
-export planName=$envLower"-ap-core-nrsr"
-export app1Name=$envLower"-wa-uidv-nrsr"
+export planRgName="Az_Configuration"
+export appsRgName="Az_Configuration"
+export planName="AzConfig""
+export app1Name="azconfig""
 export dockerUrl=$(echo "https://index.docker.io")
 
 # Service specific
-export ainName=$envLower"-ai-core-nrsr"
-export dockerImageName="ikemtz/nurser:dev_latest"
+export dockerImageName="ikemtz/azconfig:latest"
 
 echo Create Web App Plan Resource Group $planRgName
 export planRgId=$(az group create --location $location --name $planRgName | jq -r '. | .id')
@@ -43,17 +40,6 @@ echo
 echo Create Web Apps Resource Group $appsRgName
 export appsRgId=$(az group create --location $location --name $appsRgName | jq -r '. | .id')
 echo Apps Group Id: ${appPlanId}
-echo
-
-echo Create App Insights $ainName
-export appInsightsKey=$(az resource create \
-    --resource-group $appsRgName \
-    --resource-type "Microsoft.Insights/components" \
-    --location $location \
-    --name $ainName \
-    --properties '{"Application_Type":"web","Flow_Type":"Redfield","Request_Source":"IbizaAIExtension"}' \
-    | jq -r '. | .properties.InstrumentationKey')
-echo App Insights Key: ${appInsightsKey}
 echo
 
 # this is necessary, otherwise create web app call will fail
