@@ -684,7 +684,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/nurse-cron-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/nurse-cron-e2e/**"]
+            "exclude": ["**/node_modules/**", "apps/nurse-cron-e2e/src/plugins/index.js", "!apps/nurse-cron-e2e/**"]
           }
         }
       }
