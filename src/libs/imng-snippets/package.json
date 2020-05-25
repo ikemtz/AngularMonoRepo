@@ -1,25 +1,35 @@
 {
   "name": "imng-snippets",
-  "version": "0.0.0",
-  "description": "A blank schematics",
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test": "npm run build && jasmine src/**/*_spec.js"
+  "displayName": "IMNG Snippets",
+  "description": "Snippets collection for IMNG based libraries",
+  "icon": "src/assets/imng-snippets.png",
+  "version": "0.2.0",
+  "repository": {
+    "url": "https://github.com/ikemtz/AngularMonoRepo/tree/master/src/libs/imng-snippets"
   },
-  "keywords": [
-    "schematics"
+  "scripts": {
+    "publish": "vsce package && vsce publish"
+  },
+  "publisher": "ikemtz",
+  "engines": {
+    "vscode": "^1.28.0"
+  },
+  "categories": [
+    "Snippets"
   ],
-  "author": "",
-  "license": "MIT",
-  "schematics": "./src/collection.json",
-  "dependencies": {
-    "@angular-devkit/core": "^9.1.7",
-    "@angular-devkit/schematics": "^9.1.7",
-    "typescript": "~3.8.2"
+  "contributes": {
+    "snippets": [
+      {
+        "language": "typescript",
+        "path": "./src/assets/typescript.json"
+      },
+      {
+        "language": "html",
+        "path": "./src/assets/html.json"
+      }
+    ]
   },
   "devDependencies": {
-    "@types/node": "^12.11.1",
-    "@types/jasmine": "~3.5.0",
-    "jasmine": "^3.5.0"
+    "vsce": "^1.74.0"
   }
 }
