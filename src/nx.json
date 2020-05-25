@@ -49,15 +49,15 @@
     "imng-kendo-grid": {
       "tags": []
     },
-    "imng-schematics": {
-      "tags": []
-    },
     "nurse-cron": {
       "tags": []
     },
     "nurse-cron-e2e": {
       "tags": [],
       "implicitDependencies": ["nurse-cron"]
+    },
+    "imng-schematics": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {
