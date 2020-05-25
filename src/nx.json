@@ -8,13 +8,6 @@
     "nx.json": "*"
   },
   "projects": {
-    "nurser-ui-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nurser-ui"]
-    },
-    "nurser-ui": {
-      "tags": ["ngnu"]
-    },
     "imng-auth0-oidc": {
       "tags": []
     },
@@ -54,6 +47,16 @@
       "tags": []
     },
     "imng-kendo-grid": {
+      "tags": []
+    },
+    "nurse-cron": {
+      "tags": []
+    },
+    "nurse-cron-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nurse-cron"]
+    },
+    "imng-schematics": {
       "tags": []
     }
   },
