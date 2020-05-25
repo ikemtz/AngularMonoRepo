@@ -22,7 +22,7 @@
     "test:nrsrx-utils": "ng test imng-nrsrx-client-utils --code-coverage",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
-    "gen:ts": "node ./gen-ts.js && npm run format:write",
+    "gen:ts:nrcrn": "node ./apps/nurse-cron/gen-ts.js && npm run format:write",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",

@@ -31,4 +31,4 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

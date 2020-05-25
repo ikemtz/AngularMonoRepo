@@ -5,7 +5,6 @@ import { readFirst } from '@nrwl/angular/testing';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
-
 describe('imng-schematics', () => {
   it('works', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);

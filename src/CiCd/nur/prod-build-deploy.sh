@@ -1,24 +1,33 @@
 #!/bin/bash
 #
+if [ -z $1 ]
+then
+echo Bash shell use
+echo $0 [D,Q,U,P]
+exit 1
+fi
 
-if [ $1 ]; then
-az account set -s $1
+if [ $2 ]; then
+az account set -s $2
 fi
 
 #az login (if required, should not be included in this script)
 
 echo 'Spinning up resources for Angular App'
-# parameter variables 
+# parameter variables
+export envUpper=$(echo $1 | tr a-z A-Z)
+export envLower=$(echo $1 | tr A-Z a-z)
 
 # Common Setup Variables
 export location="eastus"
-export rgName="Az_Configuration"
-export planName="AzConfig"
-export app1Name="azconfig"
+export rgName=$envUpper"-NurseCron"
+export planName=$envLower"-ap-core-nrcn"
+export app1Name=$envLower"-wa-uire-nrcn"
 export dockerUrl=$(echo "https://index.docker.io")
 
 # Service specific
-export dockerImageName="ikemtz/azconfig:latest"
+export ainName=$envLower"-ai-core-nrcn"
+export dockerImageName="ikemtz/nurse-cron:prod_latest"
 
 echo Create Web App Plan Resource Group $rgName
 export planRgId=$(az group create --location $location --name $rgName | jq -r '. | .id')
@@ -35,6 +44,17 @@ export appsRgId=$(az group create --location $location --name $rgName | jq -r '.
 echo Apps Group Id: ${appPlanId}
 echo
 
+echo Create App Insights $ainName
+export appInsightsKey=$(az resource create \
+    --resource-group $rgName \
+    --resource-type "Microsoft.Insights/components" \
+    --location $location \
+    --name $ainName \
+    --properties '{"Application_Type":"web","Flow_Type":"Redfield","Request_Source":"IbizaAIExtension"}' \
+    | jq -r '. | .properties.InstrumentationKey')
+echo App Insights Key: ${appInsightsKey}
+echo
+
 # this is necessary, otherwise create web app call will fail
 rgCheck=$(az webapp list --query "[?name=='$app1Name'].{group:resourceGroup}" | jq -r '.[0].group')
 if [ $rgCheck != ${rgName} ]
@@ -46,11 +66,7 @@ then
         --resource-group $rgName \
         --deployment-container-image-name $dockerImageName \
         | jq -r '. | .id')
-    echo App Id 1: ${app1id}
-else
-    echo Web App $app1Name already exists
 fi
-
 app1id=$(az webapp show --name $app1Name --resource-group $rgName | jq -r '.id')
 
 echo Configuring Web App $app1Name
