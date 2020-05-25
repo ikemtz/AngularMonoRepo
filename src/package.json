@@ -32,7 +32,7 @@
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
     "format": "nx format:write",
-    "format:write": "nx format:write",
+    "format:write": "nx format:write --uncommitted",
     "format:check": "nx format:check",
     "update": "ng update @nrwl/workspace",
     "update:check": "ng update",
