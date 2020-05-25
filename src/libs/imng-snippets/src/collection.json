@@ -1,9 +1,9 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "imng-snippets": {
+    "crud-module": {
       "description": "A blank schematic.",
-      "factory": "./imng-snippets/index#imngSnippets"
+      "factory": "./crud-module/index#crudModule"
     }
   }
 }
