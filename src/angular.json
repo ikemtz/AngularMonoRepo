@@ -448,18 +448,19 @@
       "projectType": "library",
       "root": "libs/imng-ngxb-typeahead",
       "sourceRoot": "libs/imng-ngxb-typeahead/src",
-      "architect": { "build": {
-        "builder": "@nrwl/angular:package",
-        "options": {
-          "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.json",
-          "project": "libs/imng-ngxb-typeahead/ng-package.json"
-        },
-        "configurations": {
-          "production": {
-            "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.prod.json"
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.json",
+            "project": "libs/imng-ngxb-typeahead/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.prod.json"
+            }
           }
-        }
-      },
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -683,18 +684,19 @@
       "root": "libs/imng-kendo-grid",
       "sourceRoot": "libs/imng-kendo-grid/src",
       "prefix": "imng",
-      "architect": {"build": {
-        "builder": "@nrwl/angular:package",
-        "options": {
-          "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.json",
-          "project": "libs/imng-kendo-grid/ng-package.json"
-        },
-        "configurations": {
-          "production": {
-            "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.prod.json"
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.json",
+            "project": "libs/imng-kendo-grid/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.prod.json"
+            }
           }
-        }
-      },
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -717,6 +719,31 @@
           "styleext": "scss"
         }
       }
+    },
+    "imng-schematics": {
+      "projectType": "library",
+      "root": "libs/imng-schematics",
+      "sourceRoot": "libs/imng-schematics/src",
+      "prefix": "imng",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/imng-schematics/tsconfig.lib.json", "libs/imng-schematics/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imng-schematics/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-schematics/jest.config.js",
+            "tsConfig": "libs/imng-schematics/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/imng-schematics/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

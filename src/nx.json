@@ -55,6 +55,9 @@
     },
     "imng-kendo-grid": {
       "tags": []
+    },
+    "imng-schematics": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {
