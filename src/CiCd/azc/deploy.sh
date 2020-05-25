@@ -1,14 +1,8 @@
 #!/bin/bash
 #
-if [ -z $1 ]
-then
-echo Bash shell use
-echo $0 [D,Q,U,P]
-exit 1
-fi
 
-if [ $2 ]; then
-az account set -s $2
+if [ $1 ]; then
+az account set -s $1
 fi
 
 #az login (if required, should not be included in this script)
@@ -20,8 +14,8 @@ echo 'Spinning up resources for Angular App'
 export location="eastus"
 export planRgName="Az_Configuration"
 export appsRgName="Az_Configuration"
-export planName="AzConfig""
-export app1Name="azconfig""
+export planName="AzConfig"
+export app1Name="azconfig"
 export dockerUrl=$(echo "https://index.docker.io")
 
 # Service specific
