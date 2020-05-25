@@ -1,22 +1,10 @@
 {
   "extends": "../../tslint.json",
   "rules": {
-    "directive-selector": [
-      true,
-      "attribute",
-      "nurserUi",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "nurser-ui",
-      "kebab-case"
-    ]
+    "directive-selector": [true, "attribute", "nurseCron", "camelCase"],
+    "component-selector": [true, "element", "nurse-cron", "kebab-case"]
   },
   "linterOptions": {
-    "exclude": [
-      "!**/*"
-    ]
+    "exclude": ["!**/*"]
   }
 }

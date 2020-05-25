@@ -732,5 +732,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "nurser-ui"
+  "defaultProject": "nurse-cron"
 }
