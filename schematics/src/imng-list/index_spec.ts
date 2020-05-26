@@ -19,6 +19,14 @@ describe('imng-list', () => {
     };
     const tree = await readFirst(runner.runSchematicAsync('imng-list', options, Tree.empty()));
 
-    expect(tree.files).toEqual([]);
+    expect(tree.files).toEqual([
+      '/test/employees-list/index.ts',
+      '/test/employees-list/list.component.html',
+      '/test/employees-list/list.component.scss',
+      '/test/employees-list/list.component.spec.ts',
+      '/test/employees-list/list.component.ts',
+      '/test/employees-list/list.facade.spec.ts',
+      '/test/employees-list/list.facade.ts',
+    ]);
   });
 });

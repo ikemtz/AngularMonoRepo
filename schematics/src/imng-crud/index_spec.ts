@@ -19,6 +19,18 @@ describe('imng-crud', () => {
     };
     const tree = await readFirst(runner.runSchematicAsync('imng-crud', options, Tree.empty()));
 
-    expect(tree.files).toEqual([]);
+    expect(tree.files).toEqual([
+      '/test/employees-crud/add-edit.component.html',
+      '/test/employees-crud/add-edit.component.scss',
+      '/test/employees-crud/add.component.spec.ts',
+      '/test/employees-crud/add.component.ts',
+      '/test/employees-crud/api.service.ts',
+      '/test/employees-crud/base-entry.component.ts',
+      '/test/employees-crud/crud.facade.spec.ts',
+      '/test/employees-crud/crud.facade.ts',
+      '/test/employees-crud/edit.component.spec.ts',
+      '/test/employees-crud/edit.component.ts',
+      '/test/employees-crud/index.ts',
+    ]);
   });
 });
