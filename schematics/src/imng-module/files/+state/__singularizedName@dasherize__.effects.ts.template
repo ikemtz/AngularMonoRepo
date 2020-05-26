@@ -8,6 +8,9 @@ import { environment } from '@env';
 
 import * as from<%= classify(pluralizedName) %>Reducer from './<%= dasherize(singularizedName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+<% if (swaggerJsonUrl) { %>
+import { <%= classify(singularizedName) %>ApiService } from '../<%= camelize(pluralizedName) %>-crud';
+<% } %>
 
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
@@ -15,7 +18,7 @@ export class <%= classify(singularizedName) %>Effects {
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
     private readonly store$: Store<from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState>,<% if (swaggerJsonUrl) { %> 
-    private readonly <%= camelize(singularizedName) %>ApiService,<% } %>
+    private readonly <%= camelize(singularizedName) %>ApiService : <%= classify(singularizedName) %>ApiService, <% } %>
   ) {}
 <% if (swaggerJsonUrl) { %>
   load<%= classify(pluralizedName) %>Effect$ = createEffect(() =>
