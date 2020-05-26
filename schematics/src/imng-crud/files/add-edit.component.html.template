@@ -1,0 +1,17 @@
+<imng-data-entry-dialog width="700" height="550" [parentComponent]="this">
+  <form novalidate [formGroup]="addEditForm" autocomplete="false">  
+    <div class="form-row"><% swaggerProperties.forEach(function(swaggerProperty) {%>
+        <div class="form-group col-md-6">
+          <label for="<%= underscore(swaggerProperty.name) %>" class="control-label mr-4"><%= capitalize(decamelize(swaggerProperty.name)) %>:</label>
+<% if (swaggerProperty.required)
+ { %>          <input type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= underscore(swaggerProperty.name).toUpperCase() %>"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= underscore(swaggerProperty.name).toUpperCase() %>) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= underscore(swaggerProperty.name).toUpperCase() %>)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.<%= underscore(swaggerProperty.name).toUpperCase() %>).required"><%= capitalize(decamelize(name)) %> <%= capitalize(decamelize(swaggerProperty.name)) %> is required</div>
+          </div>
+        </div><% } else
+ { %>          <input type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= underscore(swaggerProperty.name).toUpperCase() %>" />
+        </div><% } %><% }) %>
+    </div>
+  </form>
+</imng-data-entry-dialog>

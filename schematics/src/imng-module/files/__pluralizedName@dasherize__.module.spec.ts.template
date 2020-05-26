@@ -1,0 +1,16 @@
+import { async, TestBed } from '@angular/core/testing';
+import { <%= classify(name) %>sModule } from './<%= dasherize(name) %>s.module';
+
+describe('<%= classify(name) %>sModule', () => {
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [<%= classify(name) %>sModule],
+    }).compileComponents();
+  }));
+
+  it('should create', () => {
+    expect(<%= classify(name) %>sModule).toBeDefined();
+    const module = new <%= classify(name) %>sModule();
+    expect(module).toBeTruthy();
+  });
+});

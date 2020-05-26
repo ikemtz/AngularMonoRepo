@@ -1,0 +1,37 @@
+{
+  "name": "imng-schematics",
+  "version": "0.0.0",
+  "description": "A blank schematics",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && jasmine src/**/*_spec.js",
+    "schematic:module": "npm run build && schematics .:module employee --path=\"./dist/\" --swaggerJsonUrl=\"https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json\" --dry-run=false --force --verbose"
+  },
+  "keywords": [
+    "schematics"
+  ],
+  "author": "",
+  "license": "MIT",
+  "schematics": "./src/collection.json",
+  "dependencies": {
+    "@angular-devkit/core": "^9.1.7",
+    "@angular-devkit/schematics": "^9.1.7",
+    "typescript": "~3.8.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/schematics-cli": "^0.901.7",
+    "@angular/compiler": "^9.1.9",
+    "@angular/core": "^9.1.9",
+    "@nrwl/angular": "^9.3.0",
+    "@nrwl/workspace": "^9.3.0",
+    "@types/jasmine": "~3.5.0",
+    "@types/node": "^12.11.1",
+    "@types/node-fetch": "^2.5.7",
+    "@types/pluralize": "0.0.29",
+    "codelyzer": "^5.2.2",
+    "jasmine": "^3.5.0",
+    "node-fetch": "^2.6.0",
+    "pluralize": "^8.0.0",
+    "tslint": "^6.1.2"
+  }
+}

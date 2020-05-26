@@ -1,0 +1,64 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+
+import { <%= classify(name) %>AddComponent } from './add.component';
+import { <%= classify(name) %>CrudFacade } from './crud.facade';
+
+describe('<%= classify(name) %>AddComponent', () => {
+  let component: <%= classify(name) %>AddComponent;
+  let fixture: ComponentFixture<<%= classify(name) %>AddComponent>;
+  let facade: <%= classify(name) %>CrudFacade;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [<%= classify(name) %>AddComponent],
+      imports: [ReactiveFormsModule, ImngDataEntryDialogModule, NoopAnimationsModule],
+      providers: [{ provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade() }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(<%= classify(name) %>AddComponent);
+    component = fixture.componentInstance;
+    facade = TestBed.inject(<%= classify(name) %>CrudFacade);
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should save', () => {
+    component.initForm();
+    component.addEditForm.patchValue({
+<% swaggerProperties.forEach(function(swaggerProperty)
+ {%>      [<%= classify(name) %>Properties.<%= underscore(swaggerProperty.name).toUpperCase() %>]: '<%= dasherize(swaggerProperty.name).toUpperCase() %>',
+<% }) %>    });
+
+    let item: I<%= classify(name) %>;
+    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn();
+    component.save();
+    expect(facade.saveNewEntity).toBeCalledTimes(1);
+    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(item).toMatchSnapshot();
+  });
+
+  it('should not save', () => {
+    component.addEditForm = { valid: false } as any;
+    component.save();
+    expect(facade.saveNewEntity).toBeCalledTimes(0);
+    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+  });
+
+  it('should cancel', () => {
+    facade.clearCurrentEntity = jest.fn();
+    component.cancel();
+    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+  });
+});

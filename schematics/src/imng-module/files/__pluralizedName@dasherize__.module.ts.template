@@ -1,0 +1,39 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlusCircle, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { <%= classify(pluralizedName) %>RoutingModule } from './<%= dasherize(pluralizedName) %>.routing.module';
+import * as from<%= classify(pluralizedName) %>Reducer from './+state/<%= dasherize(singularizedName) %>.reducer';
+import { <%= classify(singularizedName) %>Effects } from './+state/<%= dasherize(singularizedName) %>.effects';
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    GridModule,
+    ExcelModule,
+    PDFModule,
+    FontAwesomeModule,
+    ImngKendoGridODataModule,
+    ImngDataEntryDialogModule,
+    ReactiveFormsModule,
+    <%= classify(pluralizedName) %>RoutingModule,
+    StoreModule.forFeature(from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY, from<%= classify(pluralizedName) %>Reducer.reducer),
+    EffectsModule.forFeature([<%= classify(singularizedName) %>Effects]),
+  ],
+  providers:[ ODataService ]
+})
+export class <%= classify(pluralizedName) %>Module {
+  constructor() {
+    library.add(faPlusCircle, faEdit);
+  }
+}

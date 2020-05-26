@@ -1,0 +1,9 @@
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { <%= decamelize(pluralizedName).toUpperCase() %>_FEATURE_KEY, State, <%= classify(pluralizedName) %>PartialState } from './<%= dasherize(singularizedName) %>.reducer';
+import { isTruthy } from 'imng-ngrx-utils';
+
+export const get<%= classify(name) %>sState = createFeatureSelector<<%= classify(pluralizedName) %>PartialState, State>(
+  <%= underscore(name).toUpperCase() %>S_FEATURE_KEY,
+);
+
+export const <%= camelize(singularizedName) %>Queries = {};

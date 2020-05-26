@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "imng-list",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Entity name",
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        }
+      },
+      "storeName": {
+        "type": "string",
+        "description": "NGRX Feature Store name"
+      },
+      "path": {
+        "type": "string",
+        "description": "Directory where you would like the output to go"
+      },
+      "swaggerJsonUrl": {
+        "type": "string",
+        "description": "URL of swagger page"
+      }
+    },
+    "required": ["name", "path", "swaggerJsonUrl"]
+  }
+  

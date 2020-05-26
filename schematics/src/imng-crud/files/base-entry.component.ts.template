@@ -1,0 +1,25 @@
+import { OnInit, OnDestroy } from '@angular/core';
+import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
+
+import { <%= classify(name) %>CrudFacade } from './crud.facade';
+
+export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEntryComponent<I<%= classify(name) %>, <%= classify(name) %>CrudFacade>
+  implements OnInit, OnDestroy {
+  public readonly props = <%= classify(name) %>Properties;
+
+  constructor(facade: <%= classify(name) %>CrudFacade) {
+    super(facade);
+  }
+
+  ngOnInit() {
+    this.initForm();
+  }
+
+  public initForm() {
+    this.addEditForm = <%= classify(name) %>FormGroupFac();
+  }
+
+  public cancel() {
+    this.facade.clearCurrentEntity();
+  }
+}

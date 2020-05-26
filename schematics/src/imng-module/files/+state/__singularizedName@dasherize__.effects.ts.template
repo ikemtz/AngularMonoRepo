@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { fetch } from '@nrwl/angular';
+import { ODataService } from 'imng-kendo-odata';
+import { map,withLatestFrom } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+
+import * as from<%= classify(pluralizedName) %>Reducer from './<%= dasherize(singularizedName) %>.reducer';
+import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+
+@Injectable()
+export class <%= classify(singularizedName) %>Effects {
+  constructor(
+    private readonly actions$: Actions,
+    private readonly odataservice: ODataService,
+    private readonly store$: Store<from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState>,
+    ) {}
+
+  private exceptionHandler(action, error) {
+    console.error('Error', error); // NOSONAR
+    return <%= camelize(singularizedName) %>ActionTypes.<%= camelize(pluralizedName) %>Failure({ error });
+  }
+}

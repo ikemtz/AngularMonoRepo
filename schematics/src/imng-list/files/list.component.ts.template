@@ -1,0 +1,50 @@
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
+import { McmsClientFacade } from '@ngmc/mcms-http-client';
+import { ODataState } from 'imng-kendo-odata';
+import { DetailExpandEvent } from '@progress/kendo-angular-grid';
+
+import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
+import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
+
+const initialGridState: ODataState = {
+  take: 20,
+  skip: 0,
+  selectors: [<% swaggerProperties.forEach(function(swaggerProperty){ %>
+    <%= classify(singularizedName) %>Properties.<%= underscore(swaggerProperty.name).toUpperCase() %>,<%})%>
+  ],
+  sort: [
+    { field: <%= classify(singularizedName) %>Properties.ID, dir: 'asc' },
+  ],
+};
+
+@Component({
+  selector: 'ngmc-<%= dasherize(singularizedName) %>-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class <%= classify(singularizedName) %>ListComponent extends KendoODataComponentBase<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
+  public readonly props = <%= classify(singularizedName) %>Properties;
+  public currentItem: I<%= classify(singularizedName) %>;
+
+  constructor(facade: <%= classify(singularizedName) %>ListFacade, mcmsFacade: McmsClientFacade, public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade) {
+    super(facade, initialGridState, mcmsFacade.getCurrentTenant$);
+  }
+
+  public addItem() {
+    this.crudFacade.setCurrentEntity({});
+  }
+
+  public editItem(item: I<%= classify(singularizedName) %>) {
+    this.crudFacade.setCurrentEntity(item);
+  }
+
+  public deleteItem(item: I<%= classify(singularizedName) %>) {
+    this.facade.deleteExistingEntity(item);
+  }
+
+  public detailExpanded(evt: DetailExpandEvent) {
+    this.currentItem = evt.dataItem;
+  }
+}
