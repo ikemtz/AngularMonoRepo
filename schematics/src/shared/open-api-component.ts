@@ -14,4 +14,5 @@ export interface PropertyInfo {
   readOnly?: boolean;
   required: boolean;
   htmlInputType: 'text' | 'number' | 'checkbox' | 'date';
+  snakeCaseName: string;
 }

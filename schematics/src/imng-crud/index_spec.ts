@@ -32,5 +32,17 @@ describe('imng-crud', () => {
       '/test/employees-crud/edit.component.ts',
       '/test/employees-crud/index.ts',
     ]);
+
+    const htmlFile = tree.get('/test/employees-crud/add-edit.component.html');
+    expect(htmlFile?.content.toString()).toContain("ADDRESS_LINE_1");
+
+    const addComponentSpecFile = tree.get('/test/employees-crud/add.component.spec.ts');
+    expect(addComponentSpecFile?.content.toString()).toContain("ADDRESS_LINE_1");
+
+    const facadeSpecFile = tree.get('/test/employees-crud/crud.facade.spec.ts');
+    expect(facadeSpecFile?.content.toString()).toContain("ADDRESS_LINE_1");
+
+    const editComponentSpecFile = tree.get('/test/employees-crud/edit.component.spec.ts');
+    expect(editComponentSpecFile?.content.toString()).toContain("ADDRESS_LINE_1");
   });
 });

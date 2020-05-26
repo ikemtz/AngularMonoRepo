@@ -16,9 +16,9 @@
     </div>
   </ng-template>
 <% swaggerProperties.forEach(function(swaggerProperty) {%><% if (swaggerProperty.format === 'date-time') { %>
-  <kendo-grid-column [field]="props.<%= underscore(swaggerProperty.name).toUpperCase() %>" [width]="100" format="{0:MM/dd/yy}">
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy}">
 <%} else if (swaggerProperty.type === 'boolean') { %>
-  <kendo-grid-column [field]="props.<%= underscore(swaggerProperty.name).toUpperCase() %>" [width]="100" filter="boolean">
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" filter="boolean">
     <ng-template kendoGridCellTemplate let-dataItem>
       <div *ngIf="dataItem.<%= underscore(swaggerProperty.name) %>">
         <span class="text-success font-weight-bolder h2" placement="left" tooltip="Active">
@@ -27,12 +27,12 @@
       </div>
     </ng-template>
 <%} else if (swaggerProperty.format === 'uuid') { %>
-  <kendo-grid-column [field]="props.<%= underscore(swaggerProperty.name).toUpperCase() %>" [width]="100">
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100">
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ dataItem.<%= underscore(swaggerProperty.name) %> | slice:0:5 }}
     </ng-template>
 <%} else { %>
-  <kendo-grid-column [field]="props.<%= underscore(swaggerProperty.name).toUpperCase() %>" [width]="100">
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100">
 <%} %>    <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6"><%= (capitalize(decamelize(swaggerProperty.name)) || '').replace('_', '') %></span>
     </ng-template>
