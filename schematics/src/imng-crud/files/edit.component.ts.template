@@ -5,7 +5,7 @@ import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component'
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
 @Component({
-  selector: 'ngmc-<%= dasherize(name) %>-edit',
+  selector: 'imng-<%= dasherize(name) %>-edit',
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

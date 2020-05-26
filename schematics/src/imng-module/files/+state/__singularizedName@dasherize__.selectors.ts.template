@@ -2,8 +2,40 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { <%= decamelize(pluralizedName).toUpperCase() %>_FEATURE_KEY, State, <%= classify(pluralizedName) %>PartialState } from './<%= dasherize(singularizedName) %>.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const get<%= classify(name) %>sState = createFeatureSelector<<%= classify(pluralizedName) %>PartialState, State>(
+export const get<%= classify(pluralizedName) %>State = createFeatureSelector<<%= classify(pluralizedName) %>PartialState, State>(
   <%= underscore(name).toUpperCase() %>S_FEATURE_KEY,
-);
+);<% if (swaggerJsonUrl) { %> 
 
+const get<%= classify(pluralizedName) %> = createSelector(get<%= classify(pluralizedName) %>State, state => state.gridData);
+const getLoading = createSelector(get<%= classify(pluralizedName) %>State, state => state.loading);
+const getGridODataState = createSelector(get<%= classify(pluralizedName) %>State, state => state.gridODataState);
+const getPagerSettings = createSelector(get<%= classify(pluralizedName) %>State, state => state.gridPagerSettings);
+export const odataGrid<%= classify(name) %>Queries = {
+  get<%= classify(pluralizedName) %>,
+  getLoading,
+  getGridODataState,
+  getPagerSettings,
+};
+
+const getCurrent<%= classify(name) %> = createSelector(
+  get<%= classify(pluralizedName) %>State,
+  state => state.current<%= classify(name) %>,
+);
+const getIsEdit<%= classify(name) %>Active = createSelector(
+  getCurrent<%= classify(name) %>,
+  entity => isTruthy(entity) && isTruthy(entity.id),
+);
+const getIsNew<%= classify(name) %>Active = createSelector(
+  getCurrent<%= classify(name) %>,
+  entity => isTruthy(entity) && !isTruthy(entity.id),
+);
+export const dataEntry<%= classify(name) %>Queries = {
+  getCurrent<%= classify(name) %>,
+  getIsEdit<%= classify(name) %>Active,
+  getIsNew<%= classify(name) %>Active,
+};
+
+export const employeeQueries = { ...odataGrid<%= classify(name) %>Queries, ...dataEntry<%= classify(name) %>Queries };
+<% } else { %>
 export const <%= camelize(singularizedName) %>Queries = {};
+<% } %>

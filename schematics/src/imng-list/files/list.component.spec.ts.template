@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
 import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { McmsClientFacade } from '@ngmc/mcms-http-client';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';

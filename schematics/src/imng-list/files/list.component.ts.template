@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
-import { McmsClientFacade } from '@ngmc/mcms-http-client';
 import { ODataState } from 'imng-kendo-odata';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
+import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
@@ -19,7 +19,7 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'ngmc-<%= dasherize(singularizedName) %>-list',
+  selector: '<%= dasherize(singularizedName) %>-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,9 +27,13 @@ const initialGridState: ODataState = {
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataComponentBase<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
   public readonly props = <%= classify(singularizedName) %>Properties;
   public currentItem: I<%= classify(singularizedName) %>;
+  public readonly faPlusCircle = faPlusCircle;
+  public readonly faCheck = faCheck;
+  public readonly faEdit = faEdit;
+  public readonly faTrash = faTrash;  
 
-  constructor(facade: <%= classify(singularizedName) %>ListFacade, mcmsFacade: McmsClientFacade, public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade) {
-    super(facade, initialGridState, mcmsFacade.getCurrentTenant$);
+  constructor(facade: <%= classify(singularizedName) %>ListFacade, public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade) {
+    super(facade, initialGridState);
   }
 
   public addItem() {

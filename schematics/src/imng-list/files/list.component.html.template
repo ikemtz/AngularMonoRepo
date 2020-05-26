@@ -4,7 +4,7 @@
       <h3><%= classify(name) %>s</h3>
       <div>
         <button type="button" title="Add <%= classify(name) %>" primary="true" (click)="addItem()" class="btn btn-primary mx-2">
-          <fa-icon icon="plus-circle"></fa-icon> Add <%= classify(name) %>
+          <fa-icon [icon]="faPlusCircle"></fa-icon> Add <%= classify(name) %>
         </button>
         <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="mx-2">
           Export to PDF
@@ -22,7 +22,7 @@
     <ng-template kendoGridCellTemplate let-dataItem>
       <div *ngIf="dataItem.<%= underscore(swaggerProperty.name) %>">
         <span class="text-success font-weight-bolder h2" placement="left" tooltip="Active">
-          <fa-icon icon="check"></fa-icon>
+          <fa-icon [icon]="faCheck"></fa-icon>
         </span>
       </div>
     </ng-template>
@@ -40,10 +40,10 @@
   <kendo-grid-column [width]="50">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
-        <fa-icon icon="edit"></fa-icon>
+        <fa-icon [icon]="faEdit"></fa-icon>
       </button>
       <button type="button" class="btn btn-sm mr-1" (click)="deleteItem(dataItem)" placement="left" tooltip="Delete">
-        <fa-icon icon="trash"></fa-icon>
+        <fa-icon [icon]="faTrash"></fa-icon>
       </button>
     </ng-template>
   </kendo-grid-column>
@@ -53,5 +53,5 @@
   </kendo-grid-pdf>
   <kendo-grid-excel fileName="<%= classify(name) %>s.xlsx" [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<ngmc-<%= dasherize(name) %>-add *ngIf="crudFacade.isNewActive$ | async"></ngmc-<%= dasherize(name) %>-add>
-<ngmc-<%= dasherize(name) %>-edit *ngIf="crudFacade.isEditActive$ | async"></ngmc-<%= dasherize(name) %>-edit>
+<imng-<%= dasherize(name) %>-add *ngIf="crudFacade.isNewActive$ | async"></imng-<%= dasherize(name) %>-add>
+<imng-<%= dasherize(name) %>-edit *ngIf="crudFacade.isEditActive$ | async"></imng-<%= dasherize(name) %>-edit>

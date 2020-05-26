@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
-import { map,withLatestFrom } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { environment } from '@env';
 
 import * as from<%= classify(pluralizedName) %>Reducer from './<%= dasherize(singularizedName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
@@ -13,9 +14,71 @@ export class <%= classify(singularizedName) %>Effects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private readonly store$: Store<from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState>,
-    ) {}
+    private readonly store$: Store<from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState>,<% if (swaggerJsonUrl) { %> 
+    private readonly <%= camelize(singularizedName) %>ApiService,<% } %>
+  ) {}
+<% if (swaggerJsonUrl) { %>
+  load<%= classify(pluralizedName) %>Effect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request),
+      fetch({
+        run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>, state: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
+          this.odataservice
+            .fetch<I<%= classify(name) %>>(environment.endPoints.<%= camelize(pluralizedName) %>..<%= camelize(pluralizedName) %>OData, action.payload)
+            .pipe(map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(t))),
+        onError: this.exceptionHandler,
+      }),
+    ),
+  );
 
+  save<%= classify(singularizedName) %>Effect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request),
+      fetch({
+        run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request>) =>
+          this.<%= camelize(singularizedName) %>ApiService.post(action.payload).pipe(
+            withLatestFrom(this.store$),
+            map(([_, store]) =>
+              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.EMPLOYEES_FEATURE_KEY].gridODataState),
+            ),
+          ),
+        onError: this.exceptionHandler,
+      }),
+    ),
+  );
+
+  update<%= classify(singularizedName) %>Effect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request),
+      fetch({
+        run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request>, state: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
+          this.<%= camelize(singularizedName) %>ApiService.put(action.payload).pipe(
+            withLatestFrom(this.store$),
+            map(([_, store]) =>
+              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.EMPLOYEES_FEATURE_KEY].gridODataState),
+            ),
+          ),
+        onError: this.exceptionHandler,
+      }),
+    ),
+  );
+
+  delete<%= classify(singularizedName) %>Effect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request),
+      fetch({
+        run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) =>
+          this.<%= camelize(singularizedName) %>ApiService.delete(action.payload).pipe(
+            withLatestFrom(this.store$),
+            map(([_, store]) =>
+              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.EMPLOYEES_FEATURE_KEY].gridODataState),
+            ),
+          ),
+        onError: this.exceptionHandler,
+      }),
+    ),
+  );
+<% } %>
   private exceptionHandler(action, error) {
     console.error('Error', error); // NOSONAR
     return <%= camelize(singularizedName) %>ActionTypes.<%= camelize(pluralizedName) %>Failure({ error });

@@ -3,3 +3,16 @@ import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 
 export const <%= camelize(pluralizedName) %>Failure = createPayloadAction<{ error: any }>('[<%= classify(pluralizedName) %>] <%= classify(pluralizedName) %> Failure'); //NOSONAR
+<% if (swaggerJsonUrl) { %>
+export const load<%= classify(pluralizedName) %>Request = createPayloadAction<ODataState>(
+    '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Request');
+export const load<%= classify(pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(name) %>>>(
+    '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Success',
+);
+
+export const clearCurrent<%= classify(name) %> = createAction('[<%= classify(pluralizedName) %>] Clear Current <%= classify(name) %>');
+export const setCurrent<%= classify(name) %> = createPayloadAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Set Current <%= classify(name) %>');
+export const save<%= classify(name) %>Request = createPayloadAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Save <%= classify(name) %> Request');
+export const update<%= classify(name) %>Request = createPayloadAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Update <%= classify(name) %> Request');
+export const delete<%= classify(name) %>Request = createPayloadAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Delete <%= classify(name) %> Request'); 
+<% } %>

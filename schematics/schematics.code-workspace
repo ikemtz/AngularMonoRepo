@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "prettier.endOfLine": "lf",
+    "typescript.format.semicolons": "insert",
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.suggest.completeFunctionCalls": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabCompletion": "on",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "html.format.preserveNewLines": false,
+    "html.format.extraLiners": null,
+    "prettier.singleQuote": true,
+    "debug.node.autoAttach": "on"
+  }
+}
