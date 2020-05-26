@@ -20,8 +20,8 @@ interface TestSchema {
 }
 
 export const create<%= classify(singularizedName) %> = () => <I<%= classify(singularizedName) %>>{
-<% swaggerProperties.forEach(function(swaggerProperty)
- {%>      [<%= classify(singularizedName) %>Properties.<%= underscore(swaggerProperty.name).toUpperCase() %>]: '<%= dasherize(swaggerProperty.name).toUpperCase() %>',
+<% swaggerProperties.filter(t=> t.format !== 'date-time').forEach(function(swaggerProperty)
+ {%>      [<%= classify(singularizedName) %>Properties.<%= underscore(swaggerProperty.name).toUpperCase() %>]: <% if (swaggerProperty.type === 'boolean') { %>true<% } else if (swaggerProperty.type === 'number'|| swaggerProperty.type === 'integer') { %>0<% } else { %>'<%= dasherize(swaggerProperty.name).toUpperCase() %>'<% } %>,
 <% }) %>    };
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {
@@ -47,7 +47,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       @NgModule({
         imports: [
           NxModule.forRoot(),
-          StoreModule.forRoot({}, { runtimeChecks: environment.ngrxRunTimeChecks }),
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
           EffectsModule.forRoot([]),
           CustomFeatureModule,
         ],
@@ -72,7 +72,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
         list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(1);
         expect(httpClient.get).toBeCalledTimes(1);
-        expect(httpClient.get).toBeCalledWith('<%= camelize(storeName) %>ODataMs/odata/v1/<%= classify(name) %>s?&$count=true');
+        expect(httpClient.get).toBeCalledWith('<%= camelize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(name) %>s?&$count=true');
         done();
       } catch (err) {
         done.fail(err);
