@@ -10,13 +10,15 @@ import {
   Tree,
   url,
 } from '@angular-devkit/schematics';
-import { strings, normalize } from '@angular-devkit/core'; 
+import { strings, normalize } from '@angular-devkit/core';
 import { TslintFixTask } from '@angular-devkit/schematics/tasks';
 import * as fetch from 'node-fetch';
 import { PropertyInfo, OpenApiComponent } from './open-api-component';
 import * as pluralize from 'pluralize';
 import { Observable } from '@angular-devkit/core/node_modules/rxjs/internal/Observable';
 import { IOptions } from './options';
+import _ = require('lodash');
+
 
 export function getSwaggerDoc(schema: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
@@ -49,6 +51,7 @@ export function getSwaggerDoc(schema: IOptions): Rule {
               } else {
                 property.htmlInputType = 'text';
               }
+              property.snakeCaseName = _.snakeCase(property.name);
               filteredProperties.push(property);
             }
           }

@@ -28,5 +28,15 @@ describe('imng-list', () => {
       '/test/employees-list/list.facade.spec.ts',
       '/test/employees-list/list.facade.ts',
     ]);
+
+    const htmlFile = tree.get('/test/employees-list/list.component.html');
+    expect(htmlFile?.content.toString()).toContain("ADDRESS_LINE_1");
+
+    const componentFile = tree.get('/test/employees-list/list.component.ts');
+    expect(componentFile?.content.toString()).toContain("ADDRESS_LINE_1");
+
+    const facadeSpecFile = tree.get('/test/employees-list/list.facade.spec.ts');
+    expect(facadeSpecFile?.content.toString()).toContain("ADDRESS_LINE_1");
+    
   });
 });
