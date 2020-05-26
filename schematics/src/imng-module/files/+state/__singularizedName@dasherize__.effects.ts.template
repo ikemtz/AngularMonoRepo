@@ -24,7 +24,7 @@ export class <%= classify(singularizedName) %>Effects {
       fetch({
         run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>, state: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
           this.odataservice
-            .fetch<I<%= classify(name) %>>(environment.endPoints.<%= camelize(pluralizedName) %>..<%= camelize(pluralizedName) %>OData, action.payload)
+            .fetch<I<%= classify(name) %>>(environment.endPoints.<%= camelize(pluralizedName) %>.<%= camelize(pluralizedName) %>OData, action.payload)
             .pipe(map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(t))),
         onError: this.exceptionHandler,
       }),

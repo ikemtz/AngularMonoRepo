@@ -1,10 +1,10 @@
-import { OnInit, OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
 export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEntryComponent<I<%= classify(name) %>, <%= classify(name) %>CrudFacade>
-  implements OnInit, OnDestroy {
+  implements OnInit {
   public readonly props = <%= classify(name) %>Properties;
 
   constructor(facade: <%= classify(name) %>CrudFacade) {

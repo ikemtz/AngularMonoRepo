@@ -23,7 +23,6 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
       providers: [
         { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: <%= classify(singularizedName) %>CrudFacade, useValue: createDataEntryMockFacade() },
-        { provide: McmsClientFacade, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();

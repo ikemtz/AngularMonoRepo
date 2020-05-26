@@ -15,7 +15,8 @@ describe('imng-module', () => {
       name: 'employee',
       swaggerJsonUrl: 'https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
       path: './test',
-      swaggerProperties: []
+      swaggerProperties: [],
+      storeName: 'employees'
     };
     const tree = await readFirst(runner.runSchematicAsync('imng-module', options, Tree.empty()));
 

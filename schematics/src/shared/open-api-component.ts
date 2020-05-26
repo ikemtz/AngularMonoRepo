@@ -8,7 +8,7 @@ export interface Properties {
 export interface PropertyInfo {
   name?: string;
   enum?: [string | number];
-  type: 'string' | 'boolean' | 'array' | 'integer' | 'number';
+  type: 'string' | 'boolean' | 'array' | 'integer' | 'number' | 'date';
   format?: 'date-time' | 'uuid' | 'int32' | 'double';
   nullable?: boolean;
   readOnly?: boolean;

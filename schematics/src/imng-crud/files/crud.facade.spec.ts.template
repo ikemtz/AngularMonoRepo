@@ -12,7 +12,7 @@ import {
 } from 'imng-kendo-data-entry/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ngrxRunTimeChecks } from '../../../app.module';
+import { environment } from '@env';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import {
@@ -30,8 +30,8 @@ interface TestSchema {
 
 export const create<%= classify(name) %> = () => 
   <I<%= classify(name) %>>{
-<% swaggerProperties.forEach(function(swaggerProperty)
- {%>      [<%= classify(name) %>Properties.<%= underscore(swaggerProperty.name).toUpperCase() %>]: '<%= dasherize(swaggerProperty.name).toUpperCase() %>',
+<% swaggerProperties.filter(t=> t.format !== 'date-time').forEach(function(swaggerProperty)
+ {%>   [<%= classify(name) %>Properties.<%= underscore(swaggerProperty.name).toUpperCase() %>]: <% if (swaggerProperty.type === 'boolean') { %>true<% } else if (swaggerProperty.type === 'number'|| swaggerProperty.type === 'integer') { %>0<% } else { %>'<%= dasherize(swaggerProperty.name).toUpperCase() %>'<% } %>,
 <% }) %>    };
 
 describe('<%= classify(name) %>CrudFacade', () => {
@@ -55,7 +55,7 @@ describe('<%= classify(name) %>CrudFacade', () => {
       @NgModule({
         imports: [
           NxModule.forRoot(),
-          StoreModule.forRoot({}, { runtimeChecks: ngrxRunTimeChecks }),
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
           EffectsModule.forRoot([]),
           CustomFeatureModule,
         ],
