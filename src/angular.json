@@ -579,7 +579,7 @@
       },
       "root": "apps/nurse-cron",
       "sourceRoot": "apps/nurse-cron/src",
-      "prefix": "imng",
+      "prefix": "nrcrn",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

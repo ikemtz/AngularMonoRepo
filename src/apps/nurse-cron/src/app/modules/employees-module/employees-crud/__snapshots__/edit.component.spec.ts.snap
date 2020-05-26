@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmployeeEditComponent should update 1`] = `
+Object {
+  "addressLine1": "ADDRESS-LINE1",
+  "addressLine2": "ADDRESS-LINE2",
+  "birthDate": "BIRTH-DATE",
+  "certificationCount": 0,
+  "city": "CITY",
+  "competencyCount": 0,
+  "email": "EMAIL",
+  "employeeCertifications": "",
+  "employeeCompetencies": "",
+  "employeeHealthItems": "",
+  "fireDate": "FIRE-DATE",
+  "firstName": "FIRST-NAME",
+  "healthItemCount": 0,
+  "hireDate": "HIRE-DATE",
+  "homePhone": "HOME-PHN",
+  "id": "ID",
+  "isEnabled": true,
+  "lastName": "LAST-NAME",
+  "mobilePhone": "MOBILE-PHN",
+  "photo": "PHOTO",
+  "state": "ST",
+  "totalHoursOfService": 0,
+  "zip": "ZIP",
+}
+`;

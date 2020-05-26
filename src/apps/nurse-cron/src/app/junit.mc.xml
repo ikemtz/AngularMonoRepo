@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="31" failures="0" time="13.641">
+  <testsuite name="EmployeeCrudFacade" errors="0" failures="0" skipped="0" timestamp="2020-05-26T07:34:56" time="3.968" tests="6">
+    <testcase classname="EmployeeCrudFacade used in NgModule clearCurrentEntity() should set currentEmployee to null" name="EmployeeCrudFacade used in NgModule clearCurrentEntity() should set currentEmployee to null" time="0.07">
+    </testcase>
+    <testcase classname="EmployeeCrudFacade used in NgModule saveNewEntity() should save new Entity" name="EmployeeCrudFacade used in NgModule saveNewEntity() should save new Entity" time="0.068">
+    </testcase>
+    <testcase classname="EmployeeCrudFacade used in NgModule New Entity Set And Clear CurrentEntity" name="EmployeeCrudFacade used in NgModule New Entity Set And Clear CurrentEntity" time="0.023">
+    </testcase>
+    <testcase classname="EmployeeCrudFacade used in NgModule Existing Entity Set And Clear CurrentEntity" name="EmployeeCrudFacade used in NgModule Existing Entity Set And Clear CurrentEntity" time="0.019">
+    </testcase>
+    <testcase classname="EmployeeCrudFacade used in NgModule Save CurrentEntity" name="EmployeeCrudFacade used in NgModule Save CurrentEntity" time="0.024">
+    </testcase>
+    <testcase classname="EmployeeCrudFacade used in NgModule Update CurrentEntity" name="EmployeeCrudFacade used in NgModule Update CurrentEntity" time="0.017">
+    </testcase>
+  </testsuite>
+  <testsuite name="AppComponent" errors="0" failures="0" skipped="0" timestamp="2020-05-26T07:35:00" time="0.627" tests="3">
+    <testcase classname="AppComponent should create the app" name="AppComponent should create the app" time="0.131">
+    </testcase>
+    <testcase classname="AppComponent should have as title &apos;nurse-cron&apos;" name="AppComponent should have as title &apos;nurse-cron&apos;" time="0.081">
+    </testcase>
+    <testcase classname="AppComponent should render title" name="AppComponent should render title" time="0.084">
+    </testcase>
+  </testsuite>
+  <testsuite name="HomeComponent" errors="0" failures="0" skipped="0" timestamp="2020-05-26T07:35:01" time="0.32" tests="1">
+    <testcase classname="HomeComponent should create" name="HomeComponent should create" time="0.036">
+    </testcase>
+  </testsuite>
+  <testsuite name="EmployeeAddComponent" errors="0" failures="0" skipped="0" timestamp="2020-05-26T07:34:56" time="5.034" tests="4">
+    <testcase classname="EmployeeAddComponent should create" name="EmployeeAddComponent should create" time="0.474">
+    </testcase>
+    <testcase classname="EmployeeAddComponent should save" name="EmployeeAddComponent should save" time="0.306">
+    </testcase>
+    <testcase classname="EmployeeAddComponent should not save" name="EmployeeAddComponent should not save" time="0.311">
+    </testcase>
+    <testcase classname="EmployeeAddComponent should cancel" name="EmployeeAddComponent should cancel" time="0.242">
+    </testcase>
+  </testsuite>
+  <testsuite name="EmployeeEditComponent" errors="0" failures="0" skipped="0" timestamp="2020-05-26T07:34:56" time="5.145" tests="3">
+    <testcase classname="EmployeeEditComponent should update" name="EmployeeEditComponent should update" time="0.688">
+    </testcase>
+    <testcase classname="EmployeeEditComponent should not update" name="EmployeeEditComponent should not update" time="0.474">
+    </testcase>
+    <testcase classname="EmployeeEditComponent should cancel" name="EmployeeEditComponent should cancel" time="0.338">
+    </testcase>
+  </testsuite>
+  <testsuite name="EmployeesModule" errors="0" failures="0" skipped="0" timestamp="2020-05-26T07:34:56" time="5.662" tests="1">
+    <testcase classname="EmployeesModule should create" name="EmployeesModule should create" time="1.899">
+    </testcase>
+  </testsuite>
+  <testsuite name="EmployeeListFacade" errors="0" failures="0" skipped="0" timestamp="2020-05-26T07:34:56" time="8.188" tests="4">
+    <testcase classname="EmployeeListFacade used in NgModule loadAll() should return empty list with loaded == true" name="EmployeeListFacade used in NgModule loadAll() should return empty list with loaded == true" time="0.051">
+    </testcase>
+    <testcase classname="EmployeeListFacade used in NgModule should get the grid state" name="EmployeeListFacade used in NgModule should get the grid state" time="0.021">
+    </testcase>
+    <testcase classname="EmployeeListFacade used in NgModule gridData$ should return the loaded list; and loaded flag == true" name="EmployeeListFacade used in NgModule gridData$ should return the loaded list; and loaded flag == true" time="0.013">
+    </testcase>
+    <testcase classname="EmployeeListFacade used in NgModule should handle DeleteItem" name="EmployeeListFacade used in NgModule should handle DeleteItem" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="EmployeeListFacade" errors="0" failures="0" skipped="0" timestamp="2020-05-26T07:34:56" time="12.041" tests="9">
+    <testcase classname="EmployeeListFacade used in NgModule loadAll() should return empty list with loaded == true" name="EmployeeListFacade used in NgModule loadAll() should return empty list with loaded == true" time="0.047">
+    </testcase>
+    <testcase classname="EmployeeListFacade used in NgModule should get the grid state" name="EmployeeListFacade used in NgModule should get the grid state" time="0.014">
+    </testcase>
+    <testcase classname="EmployeeListFacade used in NgModule gridData$ should return the loaded list; and loaded flag == true" name="EmployeeListFacade used in NgModule gridData$ should return the loaded list; and loaded flag == true" time="0.012">
+    </testcase>
+    <testcase classname="EmployeeListFacade used in NgModule should handle DeleteItem" name="EmployeeListFacade used in NgModule should handle DeleteItem" time="0.01">
+    </testcase>
+    <testcase classname="EmployeeListComponent should create" name="EmployeeListComponent should create" time="1.015">
+    </testcase>
+    <testcase classname="EmployeeListComponent should handle DetailExpanded" name="EmployeeListComponent should handle DetailExpanded" time="0.881">
+    </testcase>
+    <testcase classname="EmployeeListComponent should handle AddItem" name="EmployeeListComponent should handle AddItem" time="0.723">
+    </testcase>
+    <testcase classname="EmployeeListComponent should handle EditItem" name="EmployeeListComponent should handle EditItem" time="0.679">
+    </testcase>
+    <testcase classname="EmployeeListComponent should handle DeleteItem" name="EmployeeListComponent should handle DeleteItem" time="0.669">
+    </testcase>
+  </testsuite>
+</testsuites>
