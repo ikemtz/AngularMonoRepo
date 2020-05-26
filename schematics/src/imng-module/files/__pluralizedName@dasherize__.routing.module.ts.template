@@ -1,0 +1,15 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'imng-auth0-oidc';<% if (swaggerJsonUrl) { %>
+import { <%= classify(singularizedName) %>ListComponent } from './<%= dasherize(pluralizedName) %>-list';
+<% } %>
+
+const routes: Routes = [
+  { path: '', component: <% if (swaggerJsonUrl) { %><%= classify(singularizedName) %>ListComponent<% } %>, canActivate: [AuthGuard] }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class <%= classify(pluralizedName) %>RoutingModule { }

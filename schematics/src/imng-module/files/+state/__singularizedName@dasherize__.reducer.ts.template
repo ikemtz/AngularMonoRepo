@@ -1,0 +1,61 @@
+import { createReducer, on, Action } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+
+import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+export const <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY = '<%= camelize(pluralizedName) %>';
+
+export interface State extends KendoODataGridState<I<%= classify(singularizedName) %>> {
+  current<%= classify(singularizedName) %>?: I<%= classify(singularizedName) %>;
+}
+
+export interface <%= classify(pluralizedName) %>PartialState {
+  readonly [<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY]: State;
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  loading: false,
+};
+
+const <%= camelize(pluralizedName) %>Reducer = createReducer(
+  initialState,
+  on(<%= camelize(singularizedName) %>ActionTypes.<%= camelize(pluralizedName) %>Failure, (state, { payload }) => ({
+    ...state,
+    error: payload.error,
+  })),
+<% if (swaggerJsonUrl) { %>
+  on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, (state, { payload }) => ({
+    ...state,
+    gridODataState: payload,
+    loading: true,
+    error: null,
+  })),
+  on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    gridPagerSettings: getODataPagerSettings({
+      gridData: payload,
+      gridODataState: state.gridODataState,
+    }),
+    gridData: payload,
+    error: null,
+  })),
+
+  on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>, (state, { payload }) => ({ ...state, current<%= classify(singularizedName) %>: payload })),
+  on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>, state => ({ ...state, current<%= classify(singularizedName) %>: null })),
+  on(
+    <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request,
+    <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request,
+    <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request,
+    state => ({
+      ...state,
+      loading: true,
+    }),
+  ),
+<% } %>
+
+);
+
+export function reducer(state: State | undefined, action: Action) {
+  return <%= camelize(pluralizedName) %>Reducer(state, action);
+}

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmployeeAddComponent should save 1`] = `
+Object {
+  "addressLine1": "ADDRESS-LINE1",
+  "addressLine2": "ADDRESS-LINE2",
+  "birthDate": "BIRTH-DATE",
+  "certificationCount": "CERTIFICATION-COUNT",
+  "city": "CITY",
+  "competencyCount": "COMPETENCY-COUNT",
+  "email": "EMAIL",
+  "employeeCertifications": "",
+  "employeeCompetencies": "",
+  "employeeHealthItems": "",
+  "fireDate": "FIRE-DATE",
+  "firstName": "FIRST-NAME",
+  "healthItemCount": "HEALTH-ITEM-COUNT",
+  "hireDate": "HIRE-DATE",
+  "homePhone": "HOME-NE",
+  "id": null,
+  "isEnabled": "IS-ENABLED",
+  "lastName": "LAST-NAME",
+  "mobilePhone": "MOBILEHONE",
+  "photo": "PHOTO",
+  "state": "ST",
+  "totalHoursOfService": "TOTAL-HOURS-OF-SERVICE",
+  "zip": "ZIP",
+}
+`;

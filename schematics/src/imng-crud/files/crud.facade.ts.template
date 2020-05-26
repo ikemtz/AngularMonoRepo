@@ -1,0 +1,30 @@
+import { Injectable } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { ODataState } from 'imng-kendo-odata';
+import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { <%= classify(pluralizedStoreName) %>PartialState } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(singularizedStoreName) %>Queries } from '../+state/<%= dasherize(singularizedStoreName) %>.selectors';
+import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
+
+@Injectable()
+export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= classify(name) %>> {
+  loading$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getLoading));
+  currentEntity$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getCurrent<%= classify(name) %>));
+  isEditActive$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getIsEdit<%= classify(name) %>Active));
+  isNewActive$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getIsNew<%= classify(name) %>Active));
+
+  constructor(private readonly store: Store<<%= classify(pluralizedStoreName) %>PartialState>) {}
+  loadEntities(state: ODataState): void {}
+  setCurrentEntity(item: I<%= classify(name) %>): void {
+    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.setCurrent<%= classify(name) %>(item));
+  }
+  clearCurrentEntity(): void {
+    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.clearCurrent<%= classify(name) %>());
+  }
+  saveNewEntity(item: I<%= classify(name) %>): void {
+    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.save<%= classify(name) %>Request(item));
+  }
+  updateExistingEntity(item: I<%= classify(name) %>): void {
+    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.update<%= classify(name) %>Request(item));
+  }
+}

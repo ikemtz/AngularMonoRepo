@@ -1,0 +1,30 @@
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { <%= classify(name) %>CrudFacade } from './crud.facade';
+import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
+
+@Component({
+  selector: '<%= dasherize(name) %>-add',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class <%= classify(name) %>AddComponent extends <%= classify(name) %>BaseEntryComponent {
+  public dialogTitle = 'Add <%= classify(name) %>';
+  public active$ = this.facade.isNewActive$;
+
+  constructor(facade: <%= classify(name) %>CrudFacade) {
+    super(facade);
+  }
+  public initForm() {
+    super.initForm();
+    this.addEditForm.patchValue({});
+  }
+  public save() {
+    if (this.addEditForm.valid) {
+      const val: I<%= classify(name) %> = this.addEditForm.value;
+      val.id = null;
+      this.facade.saveNewEntity(val);
+    }
+  }
+}

@@ -5,7 +5,7 @@ async function generateTsModels() {
   console.log('** Certifications OData Models **');
   await generator.generateTsModels({
     openApiJsonUrl: 'https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/src/app/modules/models/certifications-odata/',
+    outputPath: './apps/nurse-cron/src/app/models/certifications-odata/',
     typeFilterCallBack: (val, i, arr) => !val.name.endsWith('ODataEnvelope'),
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
       !val.name.startsWith('created') && !val.name.startsWith('updated'),
@@ -15,7 +15,7 @@ async function generateTsModels() {
   console.log('** Competencies OData Models **');
   await generator.generateTsModels({
     openApiJsonUrl: 'https://im-wa-cmpo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/src/app/modules/models/competencies-odata/',
+    outputPath: './apps/nurse-cron/src/app/models/competencies-odata/',
     typeFilterCallBack: (val, i, arr) => !val.name.endsWith('ODataEnvelope'),
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
       !val.name.startsWith('created') && !val.name.startsWith('updated'),
@@ -25,7 +25,7 @@ async function generateTsModels() {
   console.log('** Employees OData Models **');
   await generator.generateTsModels({
     openApiJsonUrl: 'https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/src/app/modules/models/employees-odata/',
+    outputPath: './apps/nurse-cron/src/app/models/employees-odata/',
     typeFilterCallBack: (val, i, arr) => !val.name.endsWith('ODataEnvelope'),
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
       !val.name.startsWith('created') && !val.name.startsWith('updated'),
@@ -35,7 +35,7 @@ async function generateTsModels() {
   console.log('** HealthItems OData Models **');
   await generator.generateTsModels({
     openApiJsonUrl: 'https://im-wa-hlto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/src/app/modules/models/health-items-odata/',
+    outputPath: './apps/nurse-cron/src/app/models/health-items-odata/',
     typeFilterCallBack: (val, i, arr) => !val.name.endsWith('ODataEnvelope'),
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
       !val.name.startsWith('created') && !val.name.startsWith('updated'),
@@ -45,7 +45,7 @@ async function generateTsModels() {
   console.log('** Schedules OData Models **');
   await generator.generateTsModels({
     openApiJsonUrl: 'https://im-wa-scdo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/src/app/modules/models/schedules-odata/',
+    outputPath: './apps/nurse-cron/src/app/models/schedules-odata/',
     typeFilterCallBack: (val, i, arr) => !val.name.endsWith('ODataEnvelope'),
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
       !val.name.startsWith('created') && !val.name.startsWith('updated'),
@@ -55,7 +55,7 @@ async function generateTsModels() {
   console.log('** Units OData Models **');
   await generator.generateTsModels({
     openApiJsonUrl: 'https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/src/app/modules/models/units-odata/',
+    outputPath: './apps/nurse-cron/src/app/models/units-odata/',
     typeFilterCallBack: (val, i, arr) => !val.name.endsWith('ODataEnvelope'),
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
       !val.name.startsWith('created') && !val.name.startsWith('updated'),

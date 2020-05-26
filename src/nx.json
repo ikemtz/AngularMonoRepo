@@ -55,9 +55,6 @@
     "nurse-cron-e2e": {
       "tags": [],
       "implicitDependencies": ["nurse-cron"]
-    },
-    "imng-schematics": {
-      "tags": []
     }
   },
   "tasksRunnerOptions": {

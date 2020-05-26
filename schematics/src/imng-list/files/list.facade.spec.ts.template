@@ -1,0 +1,124 @@
+import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { readFirst } from '@nrwl/angular/testing';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { NxModule } from '@nrwl/angular';
+import { ODataState } from 'imng-kendo-odata';
+import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
+import { of } from 'rxjs';
+import { environment } from '@env';
+
+import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
+import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
+import { <%= classify(pluralizedStoreName) %>PartialState, initialState, reducer as <%= camelize(singularizedStoreName) %>Reducer, <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
+
+interface TestSchema {
+  [<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY]: <%= classify(pluralizedStoreName) %>PartialState;
+}
+
+export const create<%= classify(singularizedName) %> = () => <I<%= classify(singularizedName) %>>{
+<% swaggerProperties.filter(t=> t.format !== 'date-time').forEach(function(swaggerProperty)
+ {%>      [<%= classify(singularizedName) %>Properties.<%= underscore(swaggerProperty.name).toUpperCase() %>]: <% if (swaggerProperty.type === 'boolean') { %>true<% } else if (swaggerProperty.type === 'number'|| swaggerProperty.type === 'integer') { %>0<% } else { %>'<%= dasherize(swaggerProperty.name).toUpperCase() %>'<% } %>,
+<% }) %>    };
+
+describe('<%= classify(singularizedName) %>ListFacade', () => {
+  let facade: <%= classify(singularizedName) %>ListFacade;
+  let store: Store<TestSchema>;
+  let httpClient: HttpClient;
+
+  beforeEach(() => {});
+
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY, <%= camelize(storeName) %>Reducer, { initialState }),
+          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
+        ],
+        providers: [<%= classify(singularizedName) %>ListFacade,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of({ value: [create<%= classify(name) %>()], '@odata.count': 1 })) } },
+        ],
+      })
+      class CustomFeatureModule {}
+
+      @NgModule({
+        imports: [
+          NxModule.forRoot(),
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(<%= classify(singularizedName) %>ListFacade);
+      httpClient = TestBed.inject(HttpClient);
+    });
+
+    /**
+     * The initially generated facade::loadAll() returns empty array
+     */
+    it('loadAll() should return empty list with loaded == true', async done => {
+      try {
+        let list = await readFirst(facade.gridData$);
+        expect(list.data.length).toBe(0);
+        facade.loadEntities({});
+
+        list = await readFirst(facade.gridData$);
+        expect(list.data.length).toBe(1);
+        expect(httpClient.get).toBeCalledTimes(1);
+        expect(httpClient.get).toBeCalledWith('<%= camelize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(name) %>s?&$count=true');
+        done();
+      } catch (err) {
+        done.fail(err);
+      }
+    });
+
+    it('should get the grid state', async done => {
+      try {
+        const filteringState: ODataState = {
+          filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+        };
+        let state = await readFirst(facade.gridODataState$);
+        expect(state.count).toBeUndefined();
+        facade.loadEntities(filteringState);
+
+        state = await readFirst(facade.gridODataState$);
+        expect(state).toStrictEqual(filteringState);
+
+        facade.loadEntities({});
+        state = await readFirst(facade.gridODataState$);
+        expect(state).toStrictEqual({});
+        done();
+      } catch (err) {
+        done.fail(err);
+      }
+    });
+
+    /**
+     * Use `<%= camelize(storeName) %>sLoaded` to manually submit list for state management
+     */
+    it('gridData$ should return the loaded list; and loaded flag == true', async done => {
+      try {
+        let list = await readFirst(facade.gridData$);
+        expect(list.data.length).toBe(0);
+        store.dispatch(<%= camelize(storeName) %>ActionTypes.load<%= classify(name) %>sSuccess({ data: [create<%= classify(name) %>(), create<%= classify(name) %>()], total: 0 }));
+
+        list = await readFirst(facade.gridData$);
+        expect(list.data.length).toBe(2);
+        done();
+      } catch (err) {
+        done.fail(err);
+      }
+    });
+
+    it('should handle DeleteItem', done => {
+      testDeleteCurrentEntity(done, facade, httpClient);
+    });
+  });
+});

@@ -274,7 +274,7 @@
       "const getLoading = createSelector(get$1sState, state => state.loading);",
       "const getGridODataState = createSelector(get$1sState, state => state.gridODataState);",
       "const getPagerSettings = createSelector(get$1sState, state => state.gridPagerSettings);",
-      "export const standardODataGridQueries = {",
+      "export const odataGrid$1Queries = {",
       "  get$1s,",
       "  getLoading,",
       "  getGridODataState,",

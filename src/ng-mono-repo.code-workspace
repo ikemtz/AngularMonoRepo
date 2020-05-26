@@ -22,6 +22,6 @@
     "[sql]": {
       "editor.defaultFormatter": "ms-mssql.mssql"
     },
-    "debug.node.autoAttach": "on",
+    "debug.node.autoAttach": "on"
   }
 }
