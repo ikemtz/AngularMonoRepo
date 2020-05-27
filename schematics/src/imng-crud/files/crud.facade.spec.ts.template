@@ -31,7 +31,7 @@ interface TestSchema {
 export const create<%= classify(name) %> = () => 
   <I<%= classify(name) %>>{
 <% swaggerProperties.filter(t=> t.format !== 'date-time').forEach(function(swaggerProperty)
- {%>   [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <% if (swaggerProperty.type === 'boolean') { %>true<% } else if (swaggerProperty.type === 'number'|| swaggerProperty.type === 'integer') { %>0<% } else { %>'<%= dasherize(swaggerProperty.name).toUpperCase() %>'<% } %>,
+ {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
 <% }) %>    };
 
 describe('<%= classify(name) %>CrudFacade', () => {

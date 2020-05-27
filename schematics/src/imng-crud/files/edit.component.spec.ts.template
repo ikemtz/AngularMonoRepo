@@ -40,7 +40,7 @@ describe('<%= classify(name) %>EditComponent', () => {
     component.initForm();
     component.addEditForm.patchValue({
 <% swaggerProperties.forEach(function(swaggerProperty)
- {%>      [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <% if (swaggerProperty.type === 'boolean') { %>true<% } else if (swaggerProperty.type === 'number'|| swaggerProperty.type === 'integer') { %>0<% } else { %>'<%= dasherize(swaggerProperty.name).toUpperCase() %>'<% } %>,
+ {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
 <% }) %>    });
     let item: I<%= classify(name) %>;
     facade.updateExistingEntity = jest.fn(x => (item = x));

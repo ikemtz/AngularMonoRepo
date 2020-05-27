@@ -15,4 +15,6 @@ export interface PropertyInfo {
   required: boolean;
   htmlInputType: 'text' | 'number' | 'checkbox' | 'date';
   snakeCaseName: string;
+  maxLength: number;
+  testFactoryValue: string;
 }
