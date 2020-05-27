@@ -42,19 +42,19 @@ jobs:
             sonar.projectKey=imng-Schematics
             sonar.sourceEncoding=UTF-8
             sonar.sources=schematics/src
-            sonar.exclusions=**/node_modules/**,**/*_spec.ts
+            sonar.exclusions=**/node_modules/**,**/*.spec.ts
             sonar.tests=schematics/src
-            sonar.test.inclusions=**/*_spec.ts
-            sonar.typescript.lcov.reportPaths=schematics/coverage/apps/nurse-cron/lcov.info
-            #sonar.coverage.exclusions=src/libs/**
+            sonar.test.inclusions=**/*.spec.ts
+            sonar.typescript.lcov.reportPaths=schematics/coverage/lcov.info
+            sonar.coverage.exclusions=**/node_modules/**,**/*.spec.ts
 
-    #  - task: Npm@1
-    #    displayName: 'npm run lint'
-    #    inputs:
-    #      command: custom
-    #      workingDir: 'schematics'
-    #      verbose: false
-    #      customCommand: 'run lint'
+      - task: Npm@1
+        displayName: 'npm run lint'
+        inputs:
+          command: custom
+          workingDir: 'schematics'
+          verbose: false
+          customCommand: 'run lint'
 
       - task: Npm@1
         displayName: 'npm run build [DEVELOPMENT BUILD]'
@@ -63,13 +63,12 @@ jobs:
           workingDir: 'schematics'
           verbose: false
           customCommand: 'run build'
-          continueOnError: true
 
       - task: Npm@1
         displayName: 'npm run test'
         inputs:
           command: custom
-          workingDir: 'src'
+          workingDir: 'schematics'
           verbose: false
           customCommand: 'run test'
 
@@ -95,17 +94,17 @@ jobs:
       - task: PublishTestResults@2
         displayName: 'Publish Test Results junit.*.xml'
         inputs:
-          testResultsFiles: 'schematicss/junit.*.xml'
+          testResultsFiles: 'schematics/junit.*.xml'
           mergeTestResults: true
           failTaskOnFailedTests: true
 
-      - task: Npm@1
-        displayName: 'npm run distribute nur-cicd-scripts [DEVELOPMENT BUILD]'
-        inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run distribute:nur-cicd-scripts'
+#      - task: Npm@1
+#        displayName: 'npm run distribute nur-cicd-scripts [DEVELOPMENT BUILD]'
+#        inputs:
+#          command: custom
+#          workingDir: 'src'
+#          verbose: false
+#          customCommand: 'run distribute:nur-cicd-scripts'
 
 #      - task: PublishBuildArtifacts@1
 #        displayName: 'Publish Artifact: dev-drop [DEVELOPMENT BUILD]'
