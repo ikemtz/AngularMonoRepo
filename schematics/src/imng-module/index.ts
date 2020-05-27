@@ -18,8 +18,6 @@ export function imngModule(_options: IOptions): Rule {
       swaggerJsonUrl: _options.swaggerJsonUrl,
       path: normalize(`${_options.path}/${pluralize(_options.name)}-module`)
     };
-    console.warn('swaggerJsonUrl: ' + listOptions.swaggerJsonUrl);
-    console.warn('path: ' + listOptions.path);
 
     return chain([
       generateFiles(_options, 'module'),

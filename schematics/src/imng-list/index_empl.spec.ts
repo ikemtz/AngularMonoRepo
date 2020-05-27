@@ -30,13 +30,14 @@ describe('imng-list', () => {
     ]);
 
     const htmlFile = tree.get('/test/employees-list/list.component.html');
-    expect(htmlFile?.content.toString()).toContain("ADDRESS_LINE_1");
+    expect(htmlFile?.content.toString()).toContain('[field]="props.ADDRESS_LINE_1"');
 
     const componentFile = tree.get('/test/employees-list/list.component.ts');
-    expect(componentFile?.content.toString()).toContain("ADDRESS_LINE_1");
+    expect(componentFile?.content.toString()).toContain("EmployeeProperties.ADDRESS_LINE_1,");
 
     const facadeSpecFile = tree.get('/test/employees-list/list.facade.spec.ts');
-    expect(facadeSpecFile?.content.toString()).toContain("ADDRESS_LINE_1");
+    expect(facadeSpecFile?.content.toString()).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
+    expect(facadeSpecFile?.content.toString()).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
     
   });
 });

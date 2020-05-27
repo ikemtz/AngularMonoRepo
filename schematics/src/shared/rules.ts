@@ -35,6 +35,7 @@ export function getSwaggerDoc(schema: IOptions): Rule {
           };
           const filteredProperties: PropertyInfo[] = [];
           const excludedFields = ['createdBy', 'createdOnUtc', 'tenantId', 'updatedBy', 'updatedOnUtc'];
+          schema.hasDates = false;
           for (const propertyKey in properties) {
             if (excludedFields.indexOf(propertyKey) < 0 && properties[propertyKey].type !== 'array') {
               const property = {
@@ -44,12 +45,18 @@ export function getSwaggerDoc(schema: IOptions): Rule {
               };
               if (properties[propertyKey].type === 'number' || properties[propertyKey].type === 'integer') {
                 property.htmlInputType = 'number';
+                property.testFactoryValue = '0';
               } else if (properties[propertyKey].type === 'boolean') {
                 property.htmlInputType = 'checkbox';
+                property.testFactoryValue = 'true';
               } else if (properties[propertyKey].format === 'date-time') {
                 property.htmlInputType = 'date';
+                property.testFactoryValue = 'new Date()';
+                schema.hasDates = true;
               } else {
                 property.htmlInputType = 'text';
+                property.testFactoryValue = `'${property.maxLength ?
+                  _.snakeCase(propertyKey).toUpperCase().substring(0, property.maxLength) : _.snakeCase(propertyKey).toUpperCase()}'`;
               }
               property.snakeCaseName = _.snakeCase(property.name);
               filteredProperties.push(property);

@@ -1,0 +1,129 @@
+name: 1.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+variables:
+  AZP_BASHV3_OLD_SOURCE_BEHAVIOR: true
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
+resources:
+  - repo: self
+jobs:
+  - job: Build
+    displayName: Produce Dev and Prod builds
+
+    steps:
+      - checkout: self
+        persistCredentials: true
+
+      - task: Cache@2
+        inputs:
+          key: 'npm | "$(Agent.OS)" | schematics/package-lock.json'
+          restoreKeys: |
+            npm | "$(Agent.OS)"
+            npm
+          path: $(npm_config_cache)
+          displayName: Cache NPM packages
+
+      - script: cd schematics/ && npm ci
+
+      - task: Npm@1
+        displayName: 'npm install'
+        inputs:
+          workingDir: 'schematics'
+          verbose: false
+
+      - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+        displayName: 'Prepare analysis on SonarCloud'
+        inputs:
+          SonarCloud: 'SonarCloud IkeMtz'
+          organization: ikemtz
+          scannerMode: CLI
+          cliProjectKey: imng-Schematics
+          cliProjectName: imng-Schematics
+          extraProperties: |
+            sonar.projectKey=imng-Schematics
+            sonar.sourceEncoding=UTF-8
+            sonar.sources=schematics/src
+            sonar.exclusions=**/node_modules/**,**/*.spec.ts
+            sonar.tests=schematics/src
+            sonar.test.inclusions=**/*.spec.ts
+            sonar.typescript.lcov.reportPaths=schematics/coverage/lcov.info
+            sonar.coverage.exclusions=**/node_modules/**,**/*.spec.ts
+
+      - task: Npm@1
+        displayName: 'npm run lint'
+        inputs:
+          command: custom
+          workingDir: 'schematics'
+          verbose: false
+          customCommand: 'run lint'
+
+      - task: Npm@1
+        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'schematics'
+          verbose: false
+          customCommand: 'run build'
+
+      - task: Npm@1
+        displayName: 'npm run test'
+        inputs:
+          command: custom
+          workingDir: 'schematics'
+          verbose: false
+          customCommand: 'run test'
+
+      - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+        displayName: 'Run Code Analysis'
+
+      - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+        displayName: 'Publish Quality Gate Result'
+
+      - task: sonarcloud-buildbreaker@2
+        inputs:
+          SonarCloud: 'SonarCloud IkeMtz'
+          organization: 'ikemtz'
+
+      - task: PublishCodeCoverageResults@1
+        displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'
+        inputs:
+          codeCoverageTool: Cobertura
+          summaryFileLocation: '$(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'
+          reportDirectory: '$(System.DefaultWorkingDirectory)/schematics/coverage/'
+          failIfCoverageEmpty: true
+
+      - task: PublishTestResults@2
+        displayName: 'Publish Test Results junit.*.xml'
+        inputs:
+          testResultsFiles: 'schematics/junit.*.xml'
+          mergeTestResults: true
+          failTaskOnFailedTests: true
+
+#      - task: Npm@1
+#        displayName: 'npm run distribute nur-cicd-scripts [DEVELOPMENT BUILD]'
+#        inputs:
+#          command: custom
+#          workingDir: 'src'
+#          verbose: false
+#          customCommand: 'run distribute:nur-cicd-scripts'
+
+#      - task: PublishBuildArtifacts@1
+#        displayName: 'Publish Artifact: dev-drop [DEVELOPMENT BUILD]'
+#        inputs:
+#          PathtoPublish: 'schematics/dist'
+#          ArtifactName: 'debug-drop'#
+
+#      - task: PublishBuildArtifacts@1
+#        displayName: 'Publish Artifact: prod-drop [RELEASE BUILD]'
+#        inputs:
+#          PathtoPublish: 'src/dist'
+#          ArtifactName: 'release-drop'
+
+      - task: GitTag@5
+        inputs:
+          workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
+          tagUser: 'ikemtz'
+          tagEmail: 'ikemtz@outlook.com'
+          tag: 'schm-$(Build.BuildNumber)'
+          tagMessage: 'schm-$(Build.BuildNumber)'
+          useLightweightTags: true
+          conditions: and(succeeded(), not(endsWith(variables['Build.SourceBranch'], 'master')))

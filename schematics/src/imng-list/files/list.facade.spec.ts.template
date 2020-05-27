@@ -20,8 +20,8 @@ interface TestSchema {
 }
 
 export const create<%= classify(singularizedName) %> = () => <I<%= classify(singularizedName) %>>{
-<% swaggerProperties.filter(t=> t.format !== 'date-time').forEach(function(swaggerProperty)
- {%>  // <%= JSON.stringify(swaggerProperty) %>    [<%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <% if (swaggerProperty.type === 'boolean') { %>true<% } else if (swaggerProperty.type === 'number'|| swaggerProperty.type === 'integer') { %>0<% } else { %>'<%= dasherize(swaggerProperty.name).toUpperCase() %>'<% } %>,
+<% swaggerProperties.forEach(function(swaggerProperty)
+ {%>  [<%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
 <% }) %>    };
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {

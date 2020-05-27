@@ -37,7 +37,7 @@ describe('<%= classify(name) %>AddComponent', () => {
     component.initForm();
     component.addEditForm.patchValue({
 <% swaggerProperties.forEach(function(swaggerProperty)
- {%>      [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <% if (swaggerProperty.type === 'boolean') { %>true<% } else if (swaggerProperty.type === 'number'|| swaggerProperty.type === 'integer') { %>0<% } else { %>'<%= dasherize(swaggerProperty.name).toUpperCase() %>'<% } %>,
+ {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
 <% }) %>    });
 
     let item: I<%= classify(name) %>;
@@ -46,7 +46,14 @@ describe('<%= classify(name) %>AddComponent', () => {
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(1);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
+<% if (hasDates) { %>
+    expect(item).toMatchSnapshot({
+<% swaggerProperties.filter(t=> t.format === 'date-time').forEach(function(swaggerProperty)
+ {%>      <%= swaggerProperty.name %>: expect.any(Date),
+<% }); %>    });        
+<% } else { %>
     expect(item).toMatchSnapshot();
+<% } %>
   });
 
   it('should not save', () => {
