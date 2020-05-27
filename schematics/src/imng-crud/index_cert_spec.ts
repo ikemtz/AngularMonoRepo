@@ -34,15 +34,19 @@ describe('imng-crud', () => {
     ]);
 
     const htmlFile = tree.get('/test/certifications-crud/add-edit.component.html');
-    expect(htmlFile?.content.toString()).toContain('[formControlName]="props.IS_ENABLED"');
+    let content = htmlFile?.content.toString();
+    expect(content).toContain('[formControlName]="props.IS_ENABLED"');
 
     const addComponentSpecFile = tree.get('/test/certifications-crud/add.component.spec.ts');
-    expect(addComponentSpecFile?.content.toString()).toContain("[CertificationProperties.IS_ENABLED]: true,");
+    content = addComponentSpecFile?.content.toString();
+    expect(content).toContain("[CertificationProperties.IS_ENABLED]: true,");
 
     const facadeSpecFile = tree.get('/test/certifications-crud/crud.facade.spec.ts');
-    expect(facadeSpecFile?.content.toString()).toContain("[CertificationProperties.IS_ENABLED]: true,");
+    content = facadeSpecFile?.content.toString();
+    expect(content).toContain("[CertificationProperties.IS_ENABLED]: true,");
 
     const editComponentSpecFile = tree.get('/test/certifications-crud/edit.component.spec.ts');
-    expect(editComponentSpecFile?.content.toString()).toContain("[CertificationProperties.IS_ENABLED]: true,");
+    content = editComponentSpecFile?.content.toString();
+    expect(content).toContain("[CertificationProperties.IS_ENABLED]: true,");
   });
 });

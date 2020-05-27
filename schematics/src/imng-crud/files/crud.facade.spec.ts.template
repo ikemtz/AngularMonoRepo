@@ -30,7 +30,7 @@ interface TestSchema {
 
 export const create<%= classify(name) %> = () => 
   <I<%= classify(name) %>>{
-<% swaggerProperties.filter(t=> t.format !== 'date-time').forEach(function(swaggerProperty)
+<% swaggerProperties.forEach(function(swaggerProperty)
  {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
 <% }) %>    };
 

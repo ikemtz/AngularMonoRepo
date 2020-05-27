@@ -37,15 +37,20 @@ describe('imng-crud', () => {
     expect(htmlFile?.content.toString()).toContain('[formControlName]="props.ADDRESS_LINE_1"');
 
     const addComponentSpecFile = tree.get('/test/employees-crud/add.component.spec.ts');
-    expect(addComponentSpecFile?.content.toString()).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
-    expect(addComponentSpecFile?.content.toString()).toContain("[EmployeeProperties.STATE]: 'ST',");
+    let content = addComponentSpecFile?.content.toString();
+    expect(content).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
+    expect(content).toContain("[EmployeeProperties.STATE]: 'ST',");
+    expect(content).toContain("birthDate: expect.any(Date),");
 
     const facadeSpecFile = tree.get('/test/employees-crud/crud.facade.spec.ts');
-    expect(facadeSpecFile?.content.toString()).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
-    expect(facadeSpecFile?.content.toString()).toContain("[EmployeeProperties.STATE]: 'ST',");
+    content = facadeSpecFile?.content.toString();
+    expect(content).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
+    expect(content).toContain("[EmployeeProperties.STATE]: 'ST',");
 
-    const editComponentSpecFile = tree.get('/test/employees-crud/edit.component.spec.ts');
-    expect(editComponentSpecFile?.content.toString()).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
-    expect(editComponentSpecFile?.content.toString()).toContain("[EmployeeProperties.STATE]: 'ST',");
+    const editComponentSpecFile = tree.get('/test/employees-crud/edit.component.spec.ts');    
+    content = editComponentSpecFile?.content.toString();
+    expect(content).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
+    expect(content).toContain("[EmployeeProperties.STATE]: 'ST',");
+    expect(content).toContain("birthDate: expect.any(Date),");
   });
 });

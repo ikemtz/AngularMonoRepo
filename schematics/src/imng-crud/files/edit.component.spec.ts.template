@@ -47,7 +47,14 @@ describe('<%= classify(name) %>EditComponent', () => {
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
+<% if (hasDates) { %>
+    expect(item).toMatchSnapshot({
+<% swaggerProperties.filter(t=> t.format === 'date-time').forEach(function(swaggerProperty)
+ {%>      <%= swaggerProperty.name %>: expect.any(Date),
+<% }); %>    });        
+<% } else { %>
     expect(item).toMatchSnapshot();
+<% } %>
   });  
 
   it('should not update', () => {
