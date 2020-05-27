@@ -31,6 +31,7 @@ jobs:
           verbose: false    
 
       - task: Bash@3
+        displayName: 'running versioneer'
         inputs:
           filePath: '$(System.DefaultWorkingDirectory)/schematics/versioneer.sh'
           arguments: '$(Build.BuildNumber)'
