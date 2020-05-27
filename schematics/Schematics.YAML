@@ -28,7 +28,13 @@ jobs:
         displayName: 'npm install'
         inputs:
           workingDir: 'schematics'
-          verbose: false
+          verbose: false    
+
+      - task: Bash@3
+      inputs:
+        filePath: '$(System.DefaultWorkingDirectory)/schematics/versioneer.sh'
+        arguments: '$(Build.BuildNumber)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/schematics/'
 
       - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
         displayName: 'Prepare analysis on SonarCloud'
@@ -98,25 +104,11 @@ jobs:
           mergeTestResults: true
           failTaskOnFailedTests: true
 
-#      - task: Npm@1
-#        displayName: 'npm run distribute nur-cicd-scripts [DEVELOPMENT BUILD]'
-#        inputs:
-#          command: custom
-#          workingDir: 'src'
-#          verbose: false
-#          customCommand: 'run distribute:nur-cicd-scripts'
-
-#      - task: PublishBuildArtifacts@1
-#        displayName: 'Publish Artifact: dev-drop [DEVELOPMENT BUILD]'
-#        inputs:
-#          PathtoPublish: 'schematics/dist'
-#          ArtifactName: 'debug-drop'#
-
-#      - task: PublishBuildArtifacts@1
-#        displayName: 'Publish Artifact: prod-drop [RELEASE BUILD]'
-#        inputs:
-#          PathtoPublish: 'src/dist'
-#          ArtifactName: 'release-drop'
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: package-drop'
+        inputs:
+          PathtoPublish: 'schematics'
+          ArtifactName: 'package-drop'
 
       - task: GitTag@5
         inputs:

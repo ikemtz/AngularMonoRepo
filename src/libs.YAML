@@ -32,7 +32,7 @@ jobs:
 
       - task: Bash@3
         inputs:
-          filePath: '$(System.DefaultWorkingDirectory)/src/build.sh'
+          filePath: '$(System.DefaultWorkingDirectory)/src/versioneer.sh'
           arguments: '$(Build.BuildNumber)'
           workingDirectory: '$(System.DefaultWorkingDirectory)/src/'
 
