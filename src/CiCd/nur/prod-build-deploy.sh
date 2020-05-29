@@ -21,12 +21,12 @@ export envLower=$(echo $1 | tr A-Z a-z)
 # Common Setup Variables
 export location="eastus"
 export rgName=$envUpper"-NurseCron"
-export planName=$envLower"-ap-core-nrcn"
-export app1Name=$envLower"-wa-uire-nrcn"
+export planName=$envLower"-ap-core-nrcrn"
+export app1Name=$envLower"-wa-uire-nrcrn"
 export dockerUrl=$(echo "https://index.docker.io")
 
 # Service specific
-export ainName=$envLower"-ai-core-nrcn"
+export ainName=$envLower"-ai-core-nrcrn"
 export dockerImageName="ikemtz/nurse-cron:prod_latest"
 
 echo Create Web App Plan Resource Group $rgName
