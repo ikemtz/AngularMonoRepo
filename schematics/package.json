@@ -9,6 +9,7 @@
     "schematic:module:crt": "npm run build && schematics .:module certification --path=\"./dist/\" --swaggerJsonUrl=https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:cmp": "npm run build && schematics .:module competency --path=\"./dist/\" --swaggerJsonUrl=https://im-wa-cmpo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:emp": "npm run build && schematics .:module employee --path=\"./dist/\" --swaggerJsonUrl=https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
+    "schematic:module:hlt": "npm run build && schematics .:module healthItem --path=\"./dist/\" --swaggerJsonUrl=https://im-wa-hlto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:list": "npm run build && schematics .:list employee --path=\"./dist/\" --swaggerJsonUrl=https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn"
   },
   "keywords": [
