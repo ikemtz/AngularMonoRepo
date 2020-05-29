@@ -3,7 +3,7 @@ import { <%= decamelize(pluralizedName).toUpperCase() %>_FEATURE_KEY, State, <%=
 import { isTruthy } from 'imng-ngrx-utils';
 
 export const get<%= classify(pluralizedName) %>State = createFeatureSelector<<%= classify(pluralizedName) %>PartialState, State>(
-  <%= underscore(name).toUpperCase() %>S_FEATURE_KEY,
+  <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY,
 );<% if (swaggerJsonUrl) { %> 
 
 const get<%= classify(pluralizedName) %> = createSelector(get<%= classify(pluralizedName) %>State, state => state.gridData);

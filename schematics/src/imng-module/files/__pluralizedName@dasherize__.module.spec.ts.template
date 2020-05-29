@@ -1,18 +1,18 @@
 import { async, TestBed } from '@angular/core/testing';
-import { <%= classify(name) %>sModule } from './<%= dasherize(name) %>s.module';
+import { <%= classify(pluralizedName) %>Module } from './<%= dasherize(pluralizedName) %>.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('<%= classify(name) %>sModule', () => {
+describe('<%= classify(pluralizedName) %>Module', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [<%= classify(name) %>sModule],
+      imports: [<%= classify(pluralizedName) %>Module],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(<%= classify(name) %>sModule).toBeDefined();
-    const module = new <%= classify(name) %>sModule();
+    expect(<%= classify(pluralizedName) %>Module).toBeDefined();
+    const module = new <%= classify(pluralizedName) %>Module();
     expect(module).toBeTruthy();
   });
 });

@@ -4,19 +4,18 @@ import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing';
 import * as pluralize from 'pluralize';
-import { classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('imng-module', () => {
-  it('works - Certifications', async () => {
+  it('works - Competencies', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const options: IOptions = {
-      name: 'certification',
-      swaggerJsonUrl: 'https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
+      name: 'competency',
+      swaggerJsonUrl: 'https://im-wa-cmpo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
       path: './test',
       swaggerProperties: [],
-      storeName: 'certifications',
+      storeName: 'competencies',
       appPrefix: 'nrcrn'
     };
     const tree = await readFirst(runner.runSchematicAsync('imng-module', options, Tree.empty()));
@@ -48,9 +47,12 @@ describe('imng-module', () => {
       `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/edit.component.ts`,
       `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/index.ts`,
     ]);
-
-    const effectsFile = tree.get(`/test/${pluralize(options.name)}-module/+state/${options.name}.effects.ts`,);
-    const content = effectsFile?.content.toString();
-    expect(content).toContain(`${options.name}ActionTypes.load${classify(pluralize(options.name))}Request(store[from${classify(pluralize(options.name))}Reducer.${pluralize(options.name).toUpperCase()}_FEATURE_KEY].gridODataState),`);
+    tree.files.forEach(file => {
+      let content = tree.get(file)?.content.toString();
+      if (content) {
+        content = content.toLowerCase();
+        expect(content.indexOf('competencys')).toBeLessThan(0);
+      }
+    })
   });
 });
