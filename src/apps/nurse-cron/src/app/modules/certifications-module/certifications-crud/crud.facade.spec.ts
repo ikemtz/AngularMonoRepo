@@ -29,19 +29,19 @@ interface TestSchema {
   [CERTIFICATIONS_FEATURE_KEY]: CertificationsPartialState;
 }
 
-export const createCertification = () => 
+export const createCertification = () =>
   <ICertification>{
     [CertificationProperties.ID]: 'ID',
     [CertificationProperties.NAME]: 'NAME',
     [CertificationProperties.IS_ENABLED]: true,
     [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
-    };
+  };
 
 describe('CertificationCrudFacade', () => {
   let facade: CertificationCrudFacade;
   let store: Store<TestSchema>;
 
-  beforeEach(() => {});
+  beforeEach(() => { });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -53,7 +53,7 @@ describe('CertificationCrudFacade', () => {
         ],
         providers: [CertificationCrudFacade, CertificationApiService],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -63,7 +63,7 @@ describe('CertificationCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -78,21 +78,6 @@ describe('CertificationCrudFacade', () => {
         facade.clearCurrentEntity();
         isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
-    });
-
-    it('saveNewEntity() should save new Entity', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
-
-        facade.saveNewEntity(createCertification());
-        isNewActive = await readFirst(facade.isNewActive$);
         expect(isNewActive).toBeFalsy();
 
         done();

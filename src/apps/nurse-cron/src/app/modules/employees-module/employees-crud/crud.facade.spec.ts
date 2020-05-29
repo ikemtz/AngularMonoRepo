@@ -29,7 +29,7 @@ interface TestSchema {
   [EMPLOYEES_FEATURE_KEY]: EmployeesPartialState;
 }
 
-export const createEmployee = () => 
+export const createEmployee = () =>
   <IEmployee>{
     [EmployeeProperties.ID]: 'ID',
     [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
@@ -51,13 +51,13 @@ export const createEmployee = () =>
     [EmployeeProperties.CERTIFICATION_COUNT]: 0,
     [EmployeeProperties.COMPETENCY_COUNT]: 0,
     [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-    };
+  };
 
 describe('EmployeeCrudFacade', () => {
   let facade: EmployeeCrudFacade;
   let store: Store<TestSchema>;
 
-  beforeEach(() => {});
+  beforeEach(() => { });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -69,7 +69,7 @@ describe('EmployeeCrudFacade', () => {
         ],
         providers: [EmployeeCrudFacade, EmployeeApiService],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -79,7 +79,7 @@ describe('EmployeeCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -94,21 +94,6 @@ describe('EmployeeCrudFacade', () => {
         facade.clearCurrentEntity();
         isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
-    });
-
-    it('saveNewEntity() should save new Entity', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
-
-        facade.saveNewEntity(createEmployee());
-        isNewActive = await readFirst(facade.isNewActive$);
         expect(isNewActive).toBeFalsy();
 
         done();

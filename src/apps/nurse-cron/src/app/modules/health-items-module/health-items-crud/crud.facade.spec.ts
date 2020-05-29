@@ -85,21 +85,6 @@ describe('HealthItemCrudFacade', () => {
       }
     });
 
-    it('saveNewEntity() should save new Entity', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
-
-        facade.saveNewEntity(createHealthItem());
-        isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
-    });
-
     it('New Entity Set And Clear CurrentEntity', async done =>
       testAddSetAndClearCurrentEntity<HealthItemCrudFacade>(done, facade));
     it('Existing Entity Set And Clear CurrentEntity', async done =>
