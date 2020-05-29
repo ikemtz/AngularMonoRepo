@@ -4,6 +4,7 @@ import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing';
 import * as pluralize from 'pluralize';
+import { classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
@@ -47,5 +48,9 @@ describe('imng-module', () => {
       `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/edit.component.ts`,
       `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/index.ts`,
     ]);
+
+    const effectsFile = tree.get(`/test/${pluralize(options.name)}-module/+state/${options.name}.effects.ts`,);
+    const content = effectsFile?.content.toString();
+    expect(content).toContain(`${options.name}ActionTypes.load${classify(pluralize(options.name))}Request(store[from${classify(pluralize(options.name))}Reducer.${pluralize(options.name).toUpperCase()}_FEATURE_KEY].gridODataState),`);
   });
 });
