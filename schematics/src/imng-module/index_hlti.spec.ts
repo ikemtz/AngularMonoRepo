@@ -9,14 +9,14 @@ import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('imng-module', () => {
-  it('works - Certifications', async () => {
+  it('works - Health Items', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const options: IOptions = {
-      name: 'certification',
-      swaggerJsonUrl: 'https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
+      name: 'healthItem',
+      swaggerJsonUrl: 'https://im-wa-hlto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
       path: './test',
       swaggerProperties: [],
-      storeName: 'certifications',
+      storeName: 'healthItems',
       appPrefix: 'nrcrn'
     };
     const tree = await readFirst(runner.runSchematicAsync('imng-module', options, Tree.empty()));
@@ -49,8 +49,9 @@ describe('imng-module', () => {
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/index.ts`,
     ]);
 
-    const effectsFile = tree.get(`/test/${pluralize(options.name)}-module/+state/${options.name}.effects.ts`,);
+    const effectsFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(options.name)}.effects.ts`);
     const content = effectsFile?.content.toString();
-    expect(content).toContain(`${options.name}ActionTypes.load${classify(pluralize(options.name))}Request(store[from${classify(pluralize(options.name))}Reducer.${pluralize(options.name).toUpperCase()}_FEATURE_KEY].gridODataState),`);
+    expect(content).toContain(`import { ${classify(options.name)}ApiService } from '../${dasherize(pluralize(options.name))}-crud';`);
+
   });
 });

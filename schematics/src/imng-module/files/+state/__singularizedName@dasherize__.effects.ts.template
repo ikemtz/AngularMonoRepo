@@ -9,7 +9,7 @@ import { environment } from '@env';
 import * as from<%= classify(pluralizedName) %>Reducer from './<%= dasherize(singularizedName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
 <% if (swaggerJsonUrl) { %>
-import { <%= classify(singularizedName) %>ApiService } from '../<%= camelize(pluralizedName) %>-crud';
+import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-crud';
 <% } %>
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
