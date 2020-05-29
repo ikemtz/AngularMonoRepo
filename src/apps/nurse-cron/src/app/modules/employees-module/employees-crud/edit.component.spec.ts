@@ -40,34 +40,40 @@ describe('EmployeeEditComponent', () => {
   it('should update', () => {
     component.initForm();
     component.addEditForm.patchValue({
-      [EmployeeProperties.ID]: 'ID',
-      [EmployeeProperties.LAST_NAME]: 'LAST-NAME',
-      [EmployeeProperties.FIRST_NAME]: 'FIRST-NAME',
-      [EmployeeProperties.BIRTH_DATE]: 'BIRTH-DATE',
-      [EmployeeProperties.MOBILE_PHONE]: 'MOBILE-PHN',
-      [EmployeeProperties.HOME_PHONE]: 'HOME-PHN',
-      [EmployeeProperties.PHOTO]: 'PHOTO',
-      [EmployeeProperties.EMAIL]: 'EMAIL',
-      [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS-LINE1',
-      [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS-LINE2',
-      [EmployeeProperties.CITY]: 'CITY',
-      [EmployeeProperties.STATE]: 'ST',
-      [EmployeeProperties.ZIP]: 'ZIP',
-      [EmployeeProperties.IS_ENABLED]: true,
-      [EmployeeProperties.HIRE_DATE]: 'HIRE-DATE',
-      [EmployeeProperties.FIRE_DATE]: 'FIRE-DATE',
-      [EmployeeProperties.TOTAL_HOURS_OF_SERVICE]: 0,
-      [EmployeeProperties.CERTIFICATION_COUNT]: 0,
-      [EmployeeProperties.COMPETENCY_COUNT]: 0,
-      [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
+    [EmployeeProperties.ID]: 'ID',
+    [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
+    [EmployeeProperties.FIRST_NAME]: 'FIRST_NAME',
+    [EmployeeProperties.BIRTH_DATE]: new Date(),
+    [EmployeeProperties.MOBILE_PHONE]: 'MOBILE_PHO',
+    [EmployeeProperties.HOME_PHONE]: 'HOME_PHONE',
+    [EmployeeProperties.PHOTO]: 'PHOTO',
+    [EmployeeProperties.EMAIL]: 'EMAIL',
+    [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
+    [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS_LINE_2',
+    [EmployeeProperties.CITY]: 'CITY',
+    [EmployeeProperties.STATE]: 'ST',
+    [EmployeeProperties.ZIP]: 'ZIP',
+    [EmployeeProperties.IS_ENABLED]: true,
+    [EmployeeProperties.HIRE_DATE]: new Date(),
+    [EmployeeProperties.FIRE_DATE]: new Date(),
+    [EmployeeProperties.TOTAL_HOURS_OF_SERVICE]: 0,
+    [EmployeeProperties.CERTIFICATION_COUNT]: 0,
+    [EmployeeProperties.COMPETENCY_COUNT]: 0,
+    [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
     });
     let item: IEmployee;
     facade.updateExistingEntity = jest.fn(x => (item = x));
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
-    expect(item).toMatchSnapshot();
-  });
+
+    expect(item).toMatchSnapshot({
+      birthDate: expect.any(Date),
+      hireDate: expect.any(Date),
+      fireDate: expect.any(Date),
+    });        
+
+  });  
 
   it('should not update', () => {
     component.addEditForm = { valid: false } as any;
