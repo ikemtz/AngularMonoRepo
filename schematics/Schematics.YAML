@@ -120,3 +120,17 @@ jobs:
           tagMessage: 'schm-$(Build.BuildNumber)'
           useLightweightTags: true
           conditions: and(succeeded(), not(endsWith(variables['Build.SourceBranch'], 'master')))
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - schematics*
+pr:
+  branches:
+    exclude:
+      - master
+  paths:
+    include:
+      - schematics*
