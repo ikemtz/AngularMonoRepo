@@ -53,5 +53,5 @@
   </kendo-grid-pdf>
   <kendo-grid-excel fileName="<%= classify(name) %>s.xlsx" [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<imng-<%= dasherize(name) %>-add *ngIf="crudFacade.isNewActive$ | async"></imng-<%= dasherize(name) %>-add>
-<imng-<%= dasherize(name) %>-edit *ngIf="crudFacade.isEditActive$ | async"></imng-<%= dasherize(name) %>-edit>
+<<%= appPrefix %>-<%= dasherize(name) %>-add *ngIf="crudFacade.isNewActive$ | async"></<%= appPrefix %>-<%= dasherize(name) %>-add>
+<<%= appPrefix %>-<%= dasherize(name) %>-edit *ngIf="crudFacade.isEditActive$ | async"></<%= appPrefix %>-<%= dasherize(name) %>-edit>

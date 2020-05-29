@@ -3,6 +3,8 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing';
+import * as pluralize from 'pluralize';
+import { classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
@@ -15,7 +17,8 @@ describe('imng-crud', () => {
       swaggerJsonUrl: 'https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
       path: './test',
       swaggerProperties: [],
-      storeName: 'employees'
+      storeName: 'employees',
+      appPrefix: 'nrcrn'
     };
     const tree = await readFirst(runner.runSchematicAsync('imng-crud', options, Tree.empty()));
 
@@ -33,24 +36,33 @@ describe('imng-crud', () => {
       '/test/employees-crud/index.ts',
     ]);
 
-    const htmlFile = tree.get('/test/employees-crud/add-edit.component.html');
-    expect(htmlFile?.content.toString()).toContain('[formControlName]="props.ADDRESS_LINE_1"');
+    const htmlFile = tree.get(`/test/${pluralize(options.name)}-crud/add-edit.component.html`);
+    let content = htmlFile?.content.toString();
+    expect(content).toContain('[formControlName]="props.ADDRESS_LINE_1"');
 
-    const addComponentSpecFile = tree.get('/test/employees-crud/add.component.spec.ts');
-    let content = addComponentSpecFile?.content.toString();
-    expect(content).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
-    expect(content).toContain("[EmployeeProperties.STATE]: 'ST',");
-    expect(content).toContain("birthDate: expect.any(Date),");
+    const addComponent = tree.get(`/test/${pluralize(options.name)}-crud/add.component.ts`);
+    content = addComponent?.content.toString();
+    expect(content).toContain(`'${options.appPrefix}-${options.name}-add'`);
 
-    const facadeSpecFile = tree.get('/test/employees-crud/crud.facade.spec.ts');
+    const addComponentSpecFile = tree.get(`/test/${pluralize(options.name)}-crud/add.component.spec.ts`);
+    content = addComponentSpecFile?.content.toString();
+    expect(content).toContain(`[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`);
+    expect(content).toContain(`[${classify(options.name)}Properties.STATE]: 'ST',`);
+    expect(content).toContain(`birthDate: expect.any(Date),`);
+
+    const facadeSpecFile = tree.get(`/test/${pluralize(options.name)}-crud/crud.facade.spec.ts`);
     content = facadeSpecFile?.content.toString();
-    expect(content).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
-    expect(content).toContain("[EmployeeProperties.STATE]: 'ST',");
+    expect(content).toContain(`[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`);
+    expect(content).toContain(`[${classify(options.name)}Properties.STATE]: 'ST',`);
+
+    const editComponent = tree.get(`/test/${pluralize(options.name)}-crud/edit.component.ts`);
+    content = editComponent?.content.toString();
+    expect(content).toContain(`'${options.appPrefix}-${options.name}-edit'`);
 
     const editComponentSpecFile = tree.get('/test/employees-crud/edit.component.spec.ts');    
     content = editComponentSpecFile?.content.toString();
-    expect(content).toContain("[EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',");
-    expect(content).toContain("[EmployeeProperties.STATE]: 'ST',");
-    expect(content).toContain("birthDate: expect.any(Date),");
+    expect(content).toContain(`[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`);
+    expect(content).toContain(`[${classify(options.name)}Properties.STATE]: 'ST',`);
+    expect(content).toContain(`birthDate: expect.any(Date),`);
   });
 });

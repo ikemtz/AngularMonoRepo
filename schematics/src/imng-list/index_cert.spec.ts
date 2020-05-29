@@ -3,6 +3,8 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing';
+import * as pluralize from 'pluralize';
+import { classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
@@ -15,29 +17,36 @@ describe('imng-list', () => {
       swaggerJsonUrl: 'https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
       path: './test',
       swaggerProperties: [],
-      storeName: 'certifications'
+      storeName: 'certifications',
+      appPrefix: 'nrcrn',
     };
     const tree = await readFirst(runner.runSchematicAsync('imng-list', options, Tree.empty()));
 
     expect(tree.files).toEqual([
-      '/test/certifications-list/index.ts',
-      '/test/certifications-list/list.component.html',
-      '/test/certifications-list/list.component.scss',
-      '/test/certifications-list/list.component.spec.ts',
-      '/test/certifications-list/list.component.ts',
-      '/test/certifications-list/list.facade.spec.ts',
-      '/test/certifications-list/list.facade.ts',
+      `/test/${pluralize(options.name)}-list/index.ts`,
+      `/test/${pluralize(options.name)}-list/list.component.html`,
+      `/test/${pluralize(options.name)}-list/list.component.scss`,
+      `/test/${pluralize(options.name)}-list/list.component.spec.ts`,
+      `/test/${pluralize(options.name)}-list/list.component.ts`,
+      `/test/${pluralize(options.name)}-list/list.facade.spec.ts`,
+      `/test/${pluralize(options.name)}-list/list.facade.ts`,
     ]);
 
-    const htmlFile = tree.get('/test/certifications-list/list.component.html');
-    expect(htmlFile?.content.toString()).toContain('[field]="props.IS_ENABLED"');
+    const htmlFile = tree.get(`/test/${pluralize(options.name)}-list/list.component.html`);
+    let content = htmlFile?.content.toString();
+    expect(content).toContain(`[field]="props.IS_ENABLED"`);
+    expect(content).toContain(`<${options.appPrefix}-${options.name}-add `);
+    expect(content).toContain(`<${options.appPrefix}-${options.name}-edit `);
 
-    const componentFile = tree.get('/test/certifications-list/list.component.ts');
-    expect(componentFile?.content.toString()).toContain("CertificationProperties.EXPIRES_ON_UTC,");
+    const componentFile = tree.get(`/test/${pluralize(options.name)}-list/list.component.ts`);
+    content = componentFile?.content.toString();
+    expect(content).toContain(`${classify(options.name)}Properties.EXPIRES_ON_UTC,`);
+    expect(content).toContain(`'${options.appPrefix}-${options.name}-list'`);
 
-    const facadeSpecFile = tree.get('/test/certifications-list/list.facade.spec.ts');
-    expect(facadeSpecFile?.content.toString()).toContain("[CertificationProperties.IS_ENABLED]: true,");
-    expect(facadeSpecFile?.content.toString()).toContain(" [CertificationProperties.NAME]: 'NAME',");
+    const facadeSpecFile = tree.get(`/test/${pluralize(options.name)}-list/list.facade.spec.ts`);
+    content = facadeSpecFile?.content.toString();
+    expect(content).toContain(`[${classify(options.name)}Properties.IS_ENABLED]: true,`);
+    expect(content).toContain(`[${classify(options.name)}Properties.NAME]: 'NAME',`);
 
   });
 });

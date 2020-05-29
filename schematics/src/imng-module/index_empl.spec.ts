@@ -2,50 +2,52 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
+import * as pluralize from 'pluralize';
 import { readFirst } from '@nrwl/angular/testing';
 
 
-const collectionPath = path.join(__dirname, '../collection.json');
+const collectionPath = path.join(__dirname, `../collection.json`);
 
 
-describe('imng-module', () => {
-  it('works', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+describe(`imng-module`, () => {
+  it(`works`, async () => {
+    const runner = new SchematicTestRunner(`schematics`, collectionPath);
     const options: IOptions = {
-      name: 'employee',
-      swaggerJsonUrl: 'https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-      path: './test',
+      name: `employee`,
+      swaggerJsonUrl: `https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json`,
+      path: `./test`,
       swaggerProperties: [],
-      storeName: 'employees'
+      storeName: `employees`,
+      appPrefix: ''
     };
-    const tree = await readFirst(runner.runSchematicAsync('imng-module', options, Tree.empty()));
+    const tree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()));
 
     expect(tree.files).toEqual([
-      '/test/employees-module/employees.module.spec.ts',
-      '/test/employees-module/employees.module.ts',
-      '/test/employees-module/employees.routing.module.ts',
-      '/test/employees-module/+state/employee.actions.ts',
-      '/test/employees-module/+state/employee.effects.ts',
-      '/test/employees-module/+state/employee.reducer.ts',
-      '/test/employees-module/+state/employee.selectors.ts',
-      '/test/employees-module/employees-list/index.ts',
-      '/test/employees-module/employees-list/list.component.html',
-      '/test/employees-module/employees-list/list.component.scss',
-      '/test/employees-module/employees-list/list.component.spec.ts',
-      '/test/employees-module/employees-list/list.component.ts',
-      '/test/employees-module/employees-list/list.facade.spec.ts',
-      '/test/employees-module/employees-list/list.facade.ts',
-      '/test/employees-module/employees-crud/add-edit.component.html',
-      '/test/employees-module/employees-crud/add-edit.component.scss',
-      '/test/employees-module/employees-crud/add.component.spec.ts',
-      '/test/employees-module/employees-crud/add.component.ts',
-      '/test/employees-module/employees-crud/api.service.ts',
-      '/test/employees-module/employees-crud/base-entry.component.ts',
-      '/test/employees-module/employees-crud/crud.facade.spec.ts',
-      '/test/employees-module/employees-crud/crud.facade.ts',
-      '/test/employees-module/employees-crud/edit.component.spec.ts',
-      '/test/employees-module/employees-crud/edit.component.ts',
-      '/test/employees-module/employees-crud/index.ts',
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}.module.spec.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}.module.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}.routing.module.ts`,
+      `/test/${pluralize(options.name)}-module/+state/${options.name}.actions.ts`,
+      `/test/${pluralize(options.name)}-module/+state/${options.name}.effects.ts`,
+      `/test/${pluralize(options.name)}-module/+state/${options.name}.reducer.ts`,
+      `/test/${pluralize(options.name)}-module/+state/${options.name}.selectors.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-list/index.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-list/list.component.html`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-list/list.component.scss`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-list/list.component.spec.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-list/list.component.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-list/list.facade.spec.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-list/list.facade.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/add-edit.component.html`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/add-edit.component.scss`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/add.component.spec.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/add.component.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/api.service.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/base-entry.component.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/crud.facade.spec.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/crud.facade.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/edit.component.spec.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/edit.component.ts`,
+      `/test/${pluralize(options.name)}-module/${pluralize(options.name)}-crud/index.ts`,
     ]);
   });
 });
