@@ -7,4 +7,5 @@ export interface IOptions {
   swaggerJsonUrl?: string;
   swaggerProperties: PropertyInfo[];
   hasDates?: boolean;
+  appPrefix: string;
 }

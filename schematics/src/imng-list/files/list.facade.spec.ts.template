@@ -72,7 +72,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
         list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(1);
         expect(httpClient.get).toBeCalledTimes(1);
-        expect(httpClient.get).toBeCalledWith('<%= camelize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(name) %>s?&$count=true');
+        expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
         done();
       } catch (err) {
         done.fail(err);
@@ -101,13 +101,13 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
     });
 
     /**
-     * Use `<%= camelize(storeName) %>sLoaded` to manually submit list for state management
+     * Use `<%= camelize(pluralizedName) %>Loaded` to manually submit list for state management
      */
     it('gridData$ should return the loaded list; and loaded flag == true', async done => {
       try {
         let list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(0);
-        store.dispatch(<%= camelize(storeName) %>ActionTypes.load<%= classify(name) %>sSuccess({ data: [create<%= classify(name) %>(), create<%= classify(name) %>()], total: 0 }));
+        store.dispatch(<%= camelize(storeName) %>ActionTypes.load<%= classify(pluralizedName) %>Success({ data: [create<%= classify(name) %>(), create<%= classify(name) %>()], total: 0 }));
 
         list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(2);

@@ -52,16 +52,18 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith({});
   });
-
+  
   it('should handle EditItem', () => {
-    component.editItem(create<%= classify(singularizedName) %>());
+    const item = create<%= classify(singularizedName) %>();
+    component.editItem(item);
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith(create<%= classify(name) %>());
+    expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
   });
 
   it('should handle DeleteItem', () => {
-    component.deleteItem(create<%= classify(singularizedName) %>());
+    const item = create<%= classify(singularizedName) %>();
+    component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toBeCalledWith(create<%= classify(name) %>());
+    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
   });
 });

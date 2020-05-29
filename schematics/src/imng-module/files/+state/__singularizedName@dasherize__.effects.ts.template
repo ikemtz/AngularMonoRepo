@@ -9,9 +9,8 @@ import { environment } from '@env';
 import * as from<%= classify(pluralizedName) %>Reducer from './<%= dasherize(singularizedName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
 <% if (swaggerJsonUrl) { %>
-import { <%= classify(singularizedName) %>ApiService } from '../<%= camelize(pluralizedName) %>-crud';
+import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-crud';
 <% } %>
-
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
   constructor(
@@ -42,7 +41,7 @@ export class <%= classify(singularizedName) %>Effects {
           this.<%= camelize(singularizedName) %>ApiService.post(action.payload).pipe(
             withLatestFrom(this.store$),
             map(([_, store]) =>
-              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.EMPLOYEES_FEATURE_KEY].gridODataState),
+              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
@@ -58,7 +57,7 @@ export class <%= classify(singularizedName) %>Effects {
           this.<%= camelize(singularizedName) %>ApiService.put(action.payload).pipe(
             withLatestFrom(this.store$),
             map(([_, store]) =>
-              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.EMPLOYEES_FEATURE_KEY].gridODataState),
+              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
@@ -74,7 +73,7 @@ export class <%= classify(singularizedName) %>Effects {
           this.<%= camelize(singularizedName) %>ApiService.delete(action.payload).pipe(
             withLatestFrom(this.store$),
             map(([_, store]) =>
-              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.EMPLOYEES_FEATURE_KEY].gridODataState),
+              <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(store[from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,

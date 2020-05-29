@@ -1,7 +1,7 @@
 <kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="d-flex justify-content-between">
-      <h3><%= classify(name) %>s</h3>
+      <h3><%= classify(pluralizedName) %></h3>
       <div>
         <button type="button" title="Add <%= classify(name) %>" primary="true" (click)="addItem()" class="btn btn-primary mx-2">
           <fa-icon [icon]="faPlusCircle"></fa-icon> Add <%= classify(name) %>
@@ -48,10 +48,10 @@
     </ng-template>
   </kendo-grid-column>
 
-  <kendo-grid-pdf fileName="<%= classify(name) %>s.pdf" [allPages]="true">
+  <kendo-grid-pdf fileName="<%= classify(pluralizedName) %>.pdf" [allPages]="true">
     <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
   </kendo-grid-pdf>
-  <kendo-grid-excel fileName="<%= classify(name) %>s.xlsx" [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel fileName="<%= classify(pluralizedName) %>.xlsx" [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<imng-<%= dasherize(name) %>-add *ngIf="crudFacade.isNewActive$ | async"></imng-<%= dasherize(name) %>-add>
-<imng-<%= dasherize(name) %>-edit *ngIf="crudFacade.isEditActive$ | async"></imng-<%= dasherize(name) %>-edit>
+<<%= appPrefix %>-<%= dasherize(name) %>-add *ngIf="crudFacade.isNewActive$ | async"></<%= appPrefix %>-<%= dasherize(name) %>-add>
+<<%= appPrefix %>-<%= dasherize(name) %>-edit *ngIf="crudFacade.isEditActive$ | async"></<%= appPrefix %>-<%= dasherize(name) %>-edit>

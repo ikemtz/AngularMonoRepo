@@ -22,6 +22,11 @@
       "swaggerJsonUrl": {
         "type": "string",
         "description": "URL of swagger page"
+      },
+      "appPrefix": {
+        "type": "string",
+        "default": "imng",
+        "description": "Application selector prefix for components and directives."
       }
     },
     "required": ["name", "path", "swaggerJsonUrl"]

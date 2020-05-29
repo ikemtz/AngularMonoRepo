@@ -8,7 +8,7 @@ import { IEmployee } from '../../../models/employees-odata';
   providedIn: 'root',
 })
 export class EmployeeApiService extends NrsrxBaseApiClientService<IEmployee> {
-  public url = environment.endPoints.employees.employeessApi;
+  public url = environment.endPoints.employees.employeesApi;
   constructor(http: HttpClient) {
     super(http);
   }

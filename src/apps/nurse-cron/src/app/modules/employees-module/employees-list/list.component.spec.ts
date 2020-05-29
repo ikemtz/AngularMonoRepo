@@ -54,14 +54,16 @@ describe('EmployeeListComponent', () => {
   });
 
   it('should handle EditItem', () => {
-    component.editItem(createEmployee());
+    const item = createEmployee();
+    component.editItem(item);
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith(createEmployee());
+    expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
   });
 
   it('should handle DeleteItem', () => {
-    component.deleteItem(createEmployee());
+    const item = createEmployee();
+    component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toBeCalledWith(createEmployee());
+    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
   });
 });

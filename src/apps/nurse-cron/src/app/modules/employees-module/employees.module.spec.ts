@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 describe('EmployeesModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [EmployeesModule, ],
+      imports: [EmployeesModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

@@ -32,18 +32,21 @@ interface TestSchema {
 export const createEmployee = () =>
   <IEmployee>{
     [EmployeeProperties.ID]: 'ID',
-    [EmployeeProperties.LAST_NAME]: 'LAST-NAME',
-    [EmployeeProperties.FIRST_NAME]: 'FIRST-NAME',
-    [EmployeeProperties.MOBILE_PHONE]: 'MOBILE-PHONE',
-    [EmployeeProperties.HOME_PHONE]: 'HOME-PHONE',
+    [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
+    [EmployeeProperties.FIRST_NAME]: 'FIRST_NAME',
+    [EmployeeProperties.BIRTH_DATE]: new Date(),
+    [EmployeeProperties.MOBILE_PHONE]: 'MOBILE_PHO',
+    [EmployeeProperties.HOME_PHONE]: 'HOME_PHONE',
     [EmployeeProperties.PHOTO]: 'PHOTO',
     [EmployeeProperties.EMAIL]: 'EMAIL',
-    [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS-LINE1',
-    [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS-LINE2',
+    [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
+    [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS_LINE_2',
     [EmployeeProperties.CITY]: 'CITY',
-    [EmployeeProperties.STATE]: 'STATE',
+    [EmployeeProperties.STATE]: 'ST',
     [EmployeeProperties.ZIP]: 'ZIP',
     [EmployeeProperties.IS_ENABLED]: true,
+    [EmployeeProperties.HIRE_DATE]: new Date(),
+    [EmployeeProperties.FIRE_DATE]: new Date(),
     [EmployeeProperties.TOTAL_HOURS_OF_SERVICE]: 0,
     [EmployeeProperties.CERTIFICATION_COUNT]: 0,
     [EmployeeProperties.COMPETENCY_COUNT]: 0,
@@ -91,21 +94,6 @@ describe('EmployeeCrudFacade', () => {
         facade.clearCurrentEntity();
         isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
-    });
-
-    it('saveNewEntity() should save new Entity', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
-
-        facade.saveNewEntity(createEmployee());
-        isNewActive = await readFirst(facade.isNewActive$);
         expect(isNewActive).toBeFalsy();
 
         done();
