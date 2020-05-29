@@ -7,22 +7,22 @@ import { of } from 'rxjs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { CertificationEditComponent } from './edit.component';
-import { CertificationCrudFacade } from './crud.facade';
-import { CertificationProperties, ICertification } from '../../../models/certifications-odata';
+import { CompetencyEditComponent } from './edit.component';
+import { CompetencyCrudFacade } from './crud.facade';
+import { CompetencyProperties, ICompetency } from '../../../models/competencies-odata';
 
-describe('CertificationEditComponent', () => {
-  let component: CertificationEditComponent;
-  let fixture: ComponentFixture<CertificationEditComponent>;
-  let facade: CertificationCrudFacade;
+describe('CompetencyEditComponent', () => {
+  let component: CompetencyEditComponent;
+  let fixture: ComponentFixture<CompetencyEditComponent>;
+  let facade: CompetencyCrudFacade;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CertificationEditComponent],
+      declarations: [CompetencyEditComponent],
       imports: [ReactiveFormsModule, ImngDataEntryDialogModule, NoopAnimationsModule, DatePickerModule],
       providers: [
         {
-          provide: CertificationCrudFacade,
+          provide: CompetencyCrudFacade,
           useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
         },
       ],
@@ -31,29 +31,26 @@ describe('CertificationEditComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CertificationEditComponent);
+    fixture = TestBed.createComponent(CompetencyEditComponent);
     component = fixture.componentInstance;
-    facade = TestBed.inject(CertificationCrudFacade);
+    facade = TestBed.inject(CompetencyCrudFacade);
     fixture.detectChanges();
   });
 
   it('should update', () => {
     component.initForm();
     component.addEditForm.patchValue({
-      [CertificationProperties.ID]: 'ID',
-      [CertificationProperties.NAME]: 'NAME',
-      [CertificationProperties.IS_ENABLED]: true,
-      [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
+      [CompetencyProperties.ID]: 'ID',
+      [CompetencyProperties.NAME]: 'NAME',
+      [CompetencyProperties.IS_ENABLED]: true,
     });
-    let item: ICertification;
+    let item: ICompetency;
     facade.updateExistingEntity = jest.fn(x => (item = x));
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
 
-    expect(item).toMatchSnapshot({
-      expiresOnUtc: expect.any(Date),
-    });
+    expect(item).toMatchSnapshot();
 
   });
 

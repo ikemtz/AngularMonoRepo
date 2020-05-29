@@ -54,14 +54,16 @@ describe('CertificationListComponent', () => {
   });
 
   it('should handle EditItem', () => {
-    component.editItem(createCertification());
+    const item = createCertification();
+    component.editItem(item);
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith(createCertification());
+    expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
   });
 
   it('should handle DeleteItem', () => {
-    component.deleteItem(createCertification());
+    const item = createCertification();
+    component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toBeCalledWith(createCertification());
+    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
   });
 });

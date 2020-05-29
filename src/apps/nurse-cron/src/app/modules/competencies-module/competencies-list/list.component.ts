@@ -4,39 +4,38 @@ import { ODataState } from 'imng-kendo-odata';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import { CertificationListFacade } from './list.facade';
-import { CertificationCrudFacade } from '../certifications-crud';
-import { CertificationProperties, ICertification } from '../../../models/certifications-odata';
+import { CompetencyListFacade } from './list.facade';
+import { CompetencyCrudFacade } from '../competencies-crud';
+import { CompetencyProperties, ICompetency } from '../../../models/competencies-odata';
 
 const initialGridState: ODataState = {
   take: 20,
   skip: 0,
   selectors: [
-    CertificationProperties.ID,
-    CertificationProperties.NAME,
-    CertificationProperties.IS_ENABLED,
-    CertificationProperties.EXPIRES_ON_UTC,
+    CompetencyProperties.ID,
+    CompetencyProperties.NAME,
+    CompetencyProperties.IS_ENABLED,
   ],
   sort: [
-    { field: CertificationProperties.ID, dir: 'asc' },
+    { field: CompetencyProperties.ID, dir: 'asc' },
   ],
 };
 
 @Component({
-  selector: 'nrcrn-certification-list',
+  selector: 'nrcrn-competency-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CertificationListComponent extends KendoODataComponentBase<ICertification, CertificationListFacade> {
-  public readonly props = CertificationProperties;
-  public currentItem: ICertification;
+export class CompetencyListComponent extends KendoODataComponentBase<ICompetency, CompetencyListFacade> {
+  public readonly props = CompetencyProperties;
+  public currentItem: ICompetency;
   public readonly faPlusCircle = faPlusCircle;
   public readonly faCheck = faCheck;
   public readonly faEdit = faEdit;
   public readonly faTrash = faTrash;
 
-  constructor(facade: CertificationListFacade, public readonly crudFacade: CertificationCrudFacade) {
+  constructor(facade: CompetencyListFacade, public readonly crudFacade: CompetencyCrudFacade) {
     super(facade, initialGridState);
   }
 
@@ -44,11 +43,11 @@ export class CertificationListComponent extends KendoODataComponentBase<ICertifi
     this.crudFacade.setCurrentEntity({});
   }
 
-  public editItem(item: ICertification) {
+  public editItem(item: ICompetency) {
     this.crudFacade.setCurrentEntity(item);
   }
 
-  public deleteItem(item: ICertification) {
+  public deleteItem(item: ICompetency) {
     this.facade.deleteExistingEntity(item);
   }
 
