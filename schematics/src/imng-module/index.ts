@@ -7,16 +7,14 @@ import { normalize } from 'path';
 export function imngModule(_options: IOptions): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const listOptions = {
-      name: _options.name,
+      ..._options,
       storeName: _options.storeName || _options.name,
-      swaggerJsonUrl: _options.swaggerJsonUrl,
       path: normalize(`${_options.path}/${pluralize(_options.name)}-module`)
     };
     const crudOptions = {
-      name: _options.name,
+      ..._options,
       storeName: _options.storeName || _options.name,
-      swaggerJsonUrl: _options.swaggerJsonUrl,
-      path: normalize(`${_options.path}/${pluralize(_options.name)}-module`)
+      path: normalize(`${_options.path}/${pluralize(_options.name)}-module`),
     };
 
     return chain([

@@ -6,7 +6,7 @@ describe('<%= classify(name) %>sModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [<%= classify(name) %>sModule],
-      schemas:[ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
