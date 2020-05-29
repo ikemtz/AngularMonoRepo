@@ -48,7 +48,7 @@ describe('imng-module', () => {
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/edit.component.ts`,
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/index.ts`,
     ]);
-    let content: string = null;
+    let content: string | undefined = '';
     tree.files.forEach(file => {
       content = tree.get(file)?.content.toString();
       if (content) {
@@ -56,7 +56,6 @@ describe('imng-module', () => {
         expect(content.indexOf('competencys')).toBeLessThan(0);
       }
     });
-
 
     const effectsFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(options.name)}.effects.ts`);
     content = effectsFile?.content.toString();
