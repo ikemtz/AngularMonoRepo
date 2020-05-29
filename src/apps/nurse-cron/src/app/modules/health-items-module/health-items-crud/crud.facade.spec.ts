@@ -23,23 +23,24 @@ import {
 } from '../+state/health-item.reducer';
 import { HealthItemCrudFacade } from './crud.facade';
 import { HealthItemApiService } from './api.service';
+import { IHealthItem, HealthItemProperties } from '../../../models/health-items-odata';
 
 interface TestSchema {
   [HEALTH_ITEMS_FEATURE_KEY]: HealthItemsPartialState;
 }
 
-export const createHealthItem = () => 
+export const createHealthItem = () =>
   <IHealthItem>{
     [HealthItemProperties.ID]: 'ID',
     [HealthItemProperties.NAME]: 'NAME',
     [HealthItemProperties.IS_ENABLED]: true,
-    };
+  };
 
 describe('HealthItemCrudFacade', () => {
   let facade: HealthItemCrudFacade;
   let store: Store<TestSchema>;
 
-  beforeEach(() => {});
+  beforeEach(() => { });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -51,7 +52,7 @@ describe('HealthItemCrudFacade', () => {
         ],
         providers: [HealthItemCrudFacade, HealthItemApiService],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -61,7 +62,7 @@ describe('HealthItemCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);

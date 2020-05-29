@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { HealthItemAddComponent } from './add.component';
 import { HealthItemCrudFacade } from './crud.facade';
+import { HealthItemProperties, IHealthItem } from '../../../models/health-items-odata';
 
 describe('HealthItemAddComponent', () => {
   let component: HealthItemAddComponent;
@@ -36,9 +37,9 @@ describe('HealthItemAddComponent', () => {
   it('should save', () => {
     component.initForm();
     component.addEditForm.patchValue({
-    [HealthItemProperties.ID]: 'ID',
-    [HealthItemProperties.NAME]: 'NAME',
-    [HealthItemProperties.IS_ENABLED]: true,
+      [HealthItemProperties.ID]: 'ID',
+      [HealthItemProperties.NAME]: 'NAME',
+      [HealthItemProperties.IS_ENABLED]: true,
     });
 
     let item: IHealthItem;

@@ -51,9 +51,14 @@ describe(`imng-module`, () => {
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/index.ts`,
     ]);
 
-    const effectsFile = tree.get(`/test/${pluralize(options.name)}-module/+state/${options.name}.effects.ts`,);
-    const content = effectsFile?.content.toString();
+    const effectsFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(options.name)}.effects.ts`);
+    let content = effectsFile?.content.toString();
     expect(content).toContain(`${options.name}ActionTypes.load${classify(pluralize(options.name))}Request(store[from${classify(pluralize(options.name))}Reducer.${pluralize(options.name).toUpperCase()}_FEATURE_KEY].gridODataState),`);
+    expect(content).toContain(`import { ${classify(options.name)}ApiService } from '../${dasherize(pluralize(options.name))}-crud';`);
+
+    const listFacadeSpecFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-list/list.facade.spec.ts`);
+    content = listFacadeSpecFile?.content.toString();
+    expect(content).toContain(`expect(httpClient.get).toBeCalledWith('${dasherize(pluralize(options.name))}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`);
 
   });
 });

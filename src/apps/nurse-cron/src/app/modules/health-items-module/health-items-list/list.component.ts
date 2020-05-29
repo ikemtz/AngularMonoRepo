@@ -6,6 +6,7 @@ import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-
 
 import { HealthItemListFacade } from './list.facade';
 import { HealthItemCrudFacade } from '../health-items-crud';
+import { HealthItemProperties, IHealthItem } from '../../../models/health-items-odata';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -32,7 +33,7 @@ export class HealthItemListComponent extends KendoODataComponentBase<IHealthItem
   public readonly faPlusCircle = faPlusCircle;
   public readonly faCheck = faCheck;
   public readonly faEdit = faEdit;
-  public readonly faTrash = faTrash;  
+  public readonly faTrash = faTrash;
 
   constructor(facade: HealthItemListFacade, public readonly crudFacade: HealthItemCrudFacade) {
     super(facade, initialGridState);

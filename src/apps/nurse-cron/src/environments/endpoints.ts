@@ -11,4 +11,8 @@ export const endPoints = {
         employeesOData: 'employees-odata/odata/v1/Employees',
         employeesApi: 'employees-webapi/api/v1/Employees.json',
     },
-}
+    healthItems: {
+        healthItemsOData: 'health-items-odata/odata/v1/HealthItems',
+        healthItemsApi: 'health-items-webapi/api/v1/HealthItems.json',
+    }
+};

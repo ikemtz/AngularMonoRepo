@@ -5,6 +5,7 @@ import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { HealthItemsPartialState } from '../+state/health-item.reducer';
 import { healthItemQueries } from '../+state/health-item.selectors';
 import * as healthItemActionTypes from '../+state/health-item.actions';
+import { IHealthItem } from '../../../models/health-items-odata';
 
 @Injectable()
 export class HealthItemCrudFacade implements IDataEntryFacade<IHealthItem> {
@@ -13,8 +14,8 @@ export class HealthItemCrudFacade implements IDataEntryFacade<IHealthItem> {
   isEditActive$ = this.store.pipe(select(healthItemQueries.getIsEditHealthItemActive));
   isNewActive$ = this.store.pipe(select(healthItemQueries.getIsNewHealthItemActive));
 
-  constructor(private readonly store: Store<HealthItemsPartialState>) {}
-  loadEntities(state: ODataState): void {}
+  constructor(private readonly store: Store<HealthItemsPartialState>) { }
+  loadEntities(state: ODataState): void { }
   setCurrentEntity(item: IHealthItem): void {
     this.store.dispatch(healthItemActionTypes.setCurrentHealthItem(item));
   }

@@ -1,8 +1,9 @@
 import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
+import { IHealthItem } from '../../../models/health-items-odata';
 
-export const healthItemsFailure = createPayloadAction<{ error: any }>('[HealthItems] HealthItems Failure'); //NOSONAR
+export const healthItemsFailure = createPayloadAction<{ error: any; }>('[HealthItems] HealthItems Failure'); //NOSONAR
 
 export const loadHealthItemsRequest = createPayloadAction<ODataState>(
     '[HealthItems] Load HealthItems Request');

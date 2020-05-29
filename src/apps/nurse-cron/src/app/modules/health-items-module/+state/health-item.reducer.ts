@@ -2,6 +2,7 @@ import { createReducer, on, Action } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
 
 import * as healthItemActionTypes from './health-item.actions';
+import { IHealthItem } from '../../../models/health-items-odata';
 export const HEALTH_ITEMS_FEATURE_KEY = 'healthItems';
 
 export interface State extends KendoODataGridState<IHealthItem> {

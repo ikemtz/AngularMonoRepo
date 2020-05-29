@@ -7,6 +7,7 @@ import { ODataState } from 'imng-kendo-odata';
 import { HealthItemsPartialState } from '../+state/health-item.reducer';
 import { healthItemQueries } from '../+state/health-item.selectors';
 import * as healthItemActionTypes from '../+state/health-item.actions';
+import { IHealthItem } from '../../../models/health-items-odata';
 
 @Injectable()
 export class HealthItemListFacade implements IKendoODataGridFacade<IHealthItem>, IDataDeleteFacade<IHealthItem> {
@@ -15,7 +16,7 @@ export class HealthItemListFacade implements IKendoODataGridFacade<IHealthItem>,
   gridData$ = this.store.pipe(select(healthItemQueries.getHealthItems));
   gridPagerSettings$ = this.store.pipe(select(healthItemQueries.getPagerSettings));
 
-  constructor(private readonly store: Store<HealthItemsPartialState>) {}
+  constructor(private readonly store: Store<HealthItemsPartialState>) { }
 
   loadEntities(state: ODataState) {
     this.store.dispatch(healthItemActionTypes.loadHealthItemsRequest(state));

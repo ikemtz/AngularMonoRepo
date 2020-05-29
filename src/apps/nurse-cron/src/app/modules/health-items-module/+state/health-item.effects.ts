@@ -9,16 +9,17 @@ import { environment } from '@env';
 import * as fromHealthItemsReducer from './health-item.reducer';
 import * as healthItemActionTypes from './health-item.actions';
 
-import { HealthItemApiService } from '../healthItems-crud';
+import { HealthItemApiService } from '../health-items-crud';
+import { IHealthItem } from '../../../models/health-items-odata';
 
 @Injectable()
 export class HealthItemEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private readonly store$: Store<fromHealthItemsReducer.HealthItemsPartialState>, 
-    private readonly healthItemApiService : HealthItemApiService, 
-  ) {}
+    private readonly store$: Store<fromHealthItemsReducer.HealthItemsPartialState>,
+    private readonly healthItemApiService: HealthItemApiService,
+  ) { }
 
   loadHealthItemsEffect$ = createEffect(() =>
     this.actions$.pipe(

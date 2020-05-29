@@ -3,6 +3,7 @@ import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { HealthItemBaseEntryComponent } from './base-entry.component';
 import { HealthItemCrudFacade } from './crud.facade';
+import { IHealthItem } from '../../../models/health-items-odata';
 
 @Component({
   selector: 'nrcrn-health-item-edit',

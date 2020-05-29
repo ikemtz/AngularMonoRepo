@@ -4,7 +4,7 @@ import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing';
 import * as pluralize from 'pluralize';
-import { dasherize } from '@angular-devkit/core/src/utils/strings';
+import { dasherize, classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
@@ -48,13 +48,24 @@ describe('imng-module', () => {
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/edit.component.ts`,
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/index.ts`,
     ]);
-
+    let content: string = null;
     tree.files.forEach(file => {
-      let content = tree.get(file)?.content.toString();
+      content = tree.get(file)?.content.toString();
       if (content) {
         content = content.toLowerCase();
         expect(content.indexOf('competencys')).toBeLessThan(0);
       }
-    })
+    });
+
+
+    const effectsFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(options.name)}.effects.ts`);
+    content = effectsFile?.content.toString();
+    expect(content).toContain(`${options.name}ActionTypes.load${classify(pluralize(options.name))}Request(store[from${classify(pluralize(options.name))}Reducer.${pluralize(options.name).toUpperCase()}_FEATURE_KEY].gridODataState),`);
+    expect(content).toContain(`import { ${classify(options.name)}ApiService } from '../${dasherize(pluralize(options.name))}-crud';`);
+
+    const listFacadeSpecFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-list/list.facade.spec.ts`);
+    content = listFacadeSpecFile?.content.toString();
+    expect(content).toContain(`expect(httpClient.get).toBeCalledWith('${dasherize(pluralize(options.name))}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`);
+
   });
 });

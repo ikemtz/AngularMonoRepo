@@ -72,7 +72,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
         list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(1);
         expect(httpClient.get).toBeCalledTimes(1);
-        expect(httpClient.get).toBeCalledWith('<%= camelize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
+        expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
         done();
       } catch (err) {
         done.fail(err);

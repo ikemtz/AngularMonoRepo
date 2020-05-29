@@ -14,6 +14,7 @@ import { HealthItemEffects } from '../+state/health-item.effects';
 import * as healthItemActionTypes from '../+state/health-item.actions';
 import { HealthItemsPartialState, initialState, reducer as healthItemReducer, HEALTH_ITEMS_FEATURE_KEY } from '../+state/health-item.reducer';
 import { HealthItemListFacade } from './list.facade';
+import { IHealthItem, HealthItemProperties } from '../../../models/health-items-odata';
 
 interface TestSchema {
   [HEALTH_ITEMS_FEATURE_KEY]: HealthItemsPartialState;
@@ -23,14 +24,14 @@ export const createHealthItem = () => <IHealthItem>{
   [HealthItemProperties.ID]: 'ID',
   [HealthItemProperties.NAME]: 'NAME',
   [HealthItemProperties.IS_ENABLED]: true,
-    };
+};
 
 describe('HealthItemListFacade', () => {
   let facade: HealthItemListFacade;
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
 
-  beforeEach(() => {});
+  beforeEach(() => { });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -43,7 +44,7 @@ describe('HealthItemListFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of({ value: [createHealthItem()], '@odata.count': 1 })) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -53,7 +54,7 @@ describe('HealthItemListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -73,7 +74,7 @@ describe('HealthItemListFacade', () => {
         list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(1);
         expect(httpClient.get).toBeCalledTimes(1);
-        expect(httpClient.get).toBeCalledWith('healthItems-odata/odata/v1/HealthItems?&$count=true');
+        expect(httpClient.get).toBeCalledWith('health-items-odata/odata/v1/HealthItems?&$count=true');
         done();
       } catch (err) {
         done.fail(err);

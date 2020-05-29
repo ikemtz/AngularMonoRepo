@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HealthItemCrudFacade } from './crud.facade';
 import { HealthItemBaseEntryComponent } from './base-entry.component';
+import { IHealthItem } from '../../../models/health-items-odata';
 
 @Component({
   selector: 'nrcrn-health-item-add',
