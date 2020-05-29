@@ -8,6 +8,9 @@ const routes: Routes = [
   {
     path: 'employees',
     loadChildren: () => import('./modules/employees-module/employees.module').then(m => m.EmployeesModule),
+  },  {
+    path: 'certifications',
+    loadChildren: () => import('./modules/certifications-module/certifications.module').then(m => m.CertificationsModule),
   },
   oidcSupportRoute,
   oidcAccessDeniedRoute,
