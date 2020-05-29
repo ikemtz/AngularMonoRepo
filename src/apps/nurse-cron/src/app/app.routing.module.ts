@@ -14,6 +14,9 @@ const routes: Routes = [
   }, {
     path: 'competencies',
     loadChildren: () => import('./modules/competencies-module/competencies.module').then(m => m.CompetenciesModule),
+  }, {
+    path: 'health-items',
+    loadChildren: () => import('./modules/health-items-module/health-items.module').then(m => m.HealthItemsModule),
   },
   oidcSupportRoute,
   oidcAccessDeniedRoute,
