@@ -8,4 +8,4 @@ value='s/\"?version\"?\: \"[0-9.]*\"/"version\"\: \"X\"/m'
 value="${value/X/$buildNumber}"\
 
 $(sed -i "$value" ./libs/imng-*/package.json)
-$(sed -i "$value" ./app/**/environments/environment*ts)
+$(sed -i "$value" ./apps/**/environments/environment*ts)
