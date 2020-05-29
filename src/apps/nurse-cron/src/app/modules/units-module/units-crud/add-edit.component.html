@@ -1,0 +1,50 @@
+<imng-data-entry-dialog width="700" height="550" [parentComponent]="this">
+  <form novalidate [formGroup]="addEditForm" autocomplete="false">  
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id" class="control-label mr-4">Id:</label>
+          <input type="text" class="form-control" [formControlName]="props.ID" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="building_id" class="control-label mr-4">Building_id:</label>
+          <input type="text" class="form-control" [formControlName]="props.BUILDING_ID"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.BUILDING_ID) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.BUILDING_ID)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.BUILDING_ID).required">Unit Building_id is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="name" class="control-label mr-4">Name:</label>
+          <input type="text" class="form-control" [formControlName]="props.NAME"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NAME) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.NAME)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.NAME).required">Unit Name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="del" class="control-label mr-4">Del:</label>
+          <input type="text" class="form-control" [formControlName]="props.DEL" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="room_count" class="control-label mr-4">Room_count:</label>
+          <input type="number" class="form-control" [formControlName]="props.ROOM_COUNT"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ROOM_COUNT) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.ROOM_COUNT)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.ROOM_COUNT).required">Unit Room_count is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="deleted_by" class="control-label mr-4">Deleted_by:</label>
+          <input type="text" class="form-control" [formControlName]="props.DELETED_BY" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="deleted_on_utc" class="control-label mr-4">Deleted_on_utc:</label>
+          <input type="date" class="form-control" [formControlName]="props.DELETED_ON_UTC" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="building" class="control-label mr-4">Building:</label>
+          <input type="text" class="form-control" [formControlName]="props.BUILDING" />
+        </div>
+    </div>
+  </form>
+</imng-data-entry-dialog>

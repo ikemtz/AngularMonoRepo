@@ -6,6 +6,9 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
+    path: 'buildings',
+    loadChildren: () => import('./modules/buildings-module/buildings.module').then(m => m.BuildingsModule),
+  }, {
     path: 'employees',
     loadChildren: () => import('./modules/employees-module/employees.module').then(m => m.EmployeesModule),
   }, {
@@ -17,6 +20,9 @@ const routes: Routes = [
   }, {
     path: 'health-items',
     loadChildren: () => import('./modules/health-items-module/health-items.module').then(m => m.HealthItemsModule),
+  }, {
+    path: 'units',
+    loadChildren: () => import('./modules/units-module/units.module').then(m => m.UnitsModule),
   },
   oidcSupportRoute,
   oidcAccessDeniedRoute,

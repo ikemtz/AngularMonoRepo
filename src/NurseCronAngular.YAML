@@ -47,6 +47,7 @@ jobs:
             sonar.test.inclusions=**/*.spec.ts
             sonar.typescript.lcov.reportPaths=src/coverage/apps/nurse-cron/lcov.info,src/coverage/libs/imng-application-insights-ngrx/lcov.info,src/coverage/libs/imng-auth0-oidc/lcov.info,src/coverage/libs/imng-kendo-chart-odata/lcov.info,src/coverage/libs/imng-kendo-data-entry/lcov.info,src/coverage/libs/imng-kendo-grid-odata/lcov.info,src/coverage/libs/imng-kendo-odata/lcov.info,src/coverage/libs/imng-ngrx-utils/lcov.info,src/coverage/libs/imng-ngxb-typeahead/lcov.info,src/coverage/libs/imng-nrsrx-client-utils/lcov.info
             sonar.coverage.exclusions=src/libs/**
+            sonar.cpd.exclusions=**/*.html
 
       - task: Npm@1
         displayName: 'npm run lint'
@@ -152,3 +153,21 @@ jobs:
           tagMessage: 'cron-$(Build.BuildNumber)'
           useLightweightTags: true
           conditions: and(succeeded(), not(endsWith(variables['Build.SourceBranch'], 'master')))
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - src/apps/nurse-cron/*
+      - libs/*
+      - src/package.json
+pr:
+  branches:
+    exclude:
+      - master
+  paths:
+    include:
+      - src/apps/nurse-cron/*
+      - libs/*
+      - src/package.json

@@ -1,0 +1,86 @@
+<imng-data-entry-dialog width="700" height="550" [parentComponent]="this">
+  <form novalidate [formGroup]="addEditForm" autocomplete="false">  
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id" class="control-label mr-4">Id:</label>
+          <input type="text" class="form-control" [formControlName]="props.ID"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.ID).required">Building Id is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="name" class="control-label mr-4">Name:</label>
+          <input type="text" class="form-control" [formControlName]="props.NAME"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NAME) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.NAME)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.NAME).required">Building Name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="site_name" class="control-label mr-4">Site_name:</label>
+          <input type="text" class="form-control" [formControlName]="props.SITE_NAME" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="address_line1" class="control-label mr-4">Address_line1:</label>
+          <input type="text" class="form-control" [formControlName]="props.ADDRESS_LINE_1"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ADDRESS_LINE_1) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.ADDRESS_LINE_1)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.ADDRESS_LINE_1).required">Building Address_line1 is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="address_line2" class="control-label mr-4">Address_line2:</label>
+          <input type="text" class="form-control" [formControlName]="props.ADDRESS_LINE_2"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ADDRESS_LINE_2) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.ADDRESS_LINE_2)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.ADDRESS_LINE_2).required">Building Address_line2 is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="city_or_municipality" class="control-label mr-4">City_or_municipality:</label>
+          <input type="text" class="form-control" [formControlName]="props.CITY_OR_MUNICIPALITY"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.CITY_OR_MUNICIPALITY) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.CITY_OR_MUNICIPALITY)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.CITY_OR_MUNICIPALITY).required">Building City_or_municipality is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="state_or_providence" class="control-label mr-4">State_or_providence:</label>
+          <input type="text" class="form-control" [formControlName]="props.STATE_OR_PROVIDENCE"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STATE_OR_PROVIDENCE) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.STATE_OR_PROVIDENCE)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.STATE_OR_PROVIDENCE).required">Building State_or_providence is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="postal_code" class="control-label mr-4">Postal_code:</label>
+          <input type="text" class="form-control" [formControlName]="props.POSTAL_CODE"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.POSTAL_CODE) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.POSTAL_CODE)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.POSTAL_CODE).required">Building Postal_code is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="country" class="control-label mr-4">Country:</label>
+          <input type="text" class="form-control" [formControlName]="props.COUNTRY"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.COUNTRY) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.COUNTRY)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.COUNTRY).required">Building Country is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="gps_data" class="control-label mr-4">Gps_data:</label>
+          <input type="text" class="form-control" [formControlName]="props.GPS_DATA" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="deleted_by" class="control-label mr-4">Deleted_by:</label>
+          <input type="text" class="form-control" [formControlName]="props.DELETED_BY" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="deleted_on_utc" class="control-label mr-4">Deleted_on_utc:</label>
+          <input type="date" class="form-control" [formControlName]="props.DELETED_ON_UTC" />
+        </div>
+    </div>
+  </form>
+</imng-data-entry-dialog>
