@@ -7,7 +7,7 @@ import { environment } from '@env';
   providedIn: 'root',
 })
 export class <%= classify(name) %>ApiService extends NrsrxBaseApiClientService<I<%= classify(name) %>> {
-  public url = environment.endPoints.<%= camelize(pluralizedStoreName) %>.<%= camelize(pluralizedStoreName) %>sApi;
+  public url = environment.endPoints.<%= camelize(pluralizedStoreName) %>.<%= camelize(pluralizedStoreName) %>Api;
   constructor(http: HttpClient) {
     super(http);
   }

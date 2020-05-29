@@ -11,7 +11,6 @@ import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(s
 <% if (swaggerJsonUrl) { %>
 import { <%= classify(singularizedName) %>ApiService } from '../<%= camelize(pluralizedName) %>-crud';
 <% } %>
-
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
   constructor(
