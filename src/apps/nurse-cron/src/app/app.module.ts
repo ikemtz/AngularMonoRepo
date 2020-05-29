@@ -9,10 +9,13 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { ODataService } from 'imng-kendo-odata';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { environment } from '@env';
-import { AppRoutingModule } from './app.routing.module'; 
+import { AppRoutingModule } from './app.routing.module';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { Auth0OidcModule } from 'imng-auth0-oidc';
+import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NavBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,6 +29,9 @@ import { AppRoutingModule } from './app.routing.module';
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
+    Auth0OidcModule.forRoot(environment.auth0_options),
+    ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
+    FontAwesomeModule,
   ],
   providers: [ODataService],
   bootstrap: [AppComponent],
