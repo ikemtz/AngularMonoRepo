@@ -28,7 +28,7 @@ jobs:
         displayName: 'npm install'
         inputs:
           workingDir: 'schematics'
-          verbose: false    
+          verbose: false
 
       - task: Bash@3
         displayName: 'running versioneer'
@@ -108,7 +108,7 @@ jobs:
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact: package-drop'
         inputs:
-          PathtoPublish: 'schematics'
+          PathtoPublish: 'schematics/dist'
           ArtifactName: 'package-drop'
 
       - task: GitTag@5
@@ -120,3 +120,17 @@ jobs:
           tagMessage: 'schm-$(Build.BuildNumber)'
           useLightweightTags: true
           conditions: and(succeeded(), not(endsWith(variables['Build.SourceBranch'], 'master')))
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - schematics*
+pr:
+  branches:
+    exclude:
+      - master
+  paths:
+    include:
+      - schematics*

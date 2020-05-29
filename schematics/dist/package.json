@@ -1,0 +1,45 @@
+{
+  "name": "imng-schematics",
+  "version": "0.0.0",
+  "description": "A collection of schematics",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "jest",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "postbuild": "bash package.sh"
+  },
+  "keywords": [
+    "schematics"
+  ],
+  "author": "@IkeMtz",
+  "license": "MIT",
+  "schematics": "./schematics/collection.json",
+  "peerDependencies": {
+    "pluralize": "^8.x"
+  },
+  "dependencies": {
+    "@angular/compiler": "^9.1.9",
+    "@angular/core": "^9.1.9",
+    "@angular-devkit/core": "^9.1.7",
+    "@angular-devkit/schematics": "^9.1.7",
+    "@nrwl/angular": "^9.3.0",
+    "@nrwl/workspace": "^9.3.0",
+    "@nrwl/jest": "^9.3.0",
+    "jest": "^26.0.1",
+    "jest-junit": "^10.0.0",
+    "typescript": "~3.8.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/schematics-cli": "^0.901.7",
+    "@types/lodash": "^4.14.152",
+    "@types/node": "^12.11.1",
+    "@types/node-fetch": "^2.5.7",
+    "@types/pluralize": "0.0.29",
+    "codelyzer": "^5.2.2",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
+    "pluralize": "^8.0.0",
+    "ts-jest": "^26.0.0",
+    "tslint": "^6.1.2"
+  }
+}

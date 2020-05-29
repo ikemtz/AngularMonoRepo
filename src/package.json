@@ -69,7 +69,8 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "nx": "nx",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "schematic:module:unt": "ng g imng-schematics:module unit --path=\"./dist/\" --swaggerJsonUrl=https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=true --force --appPrefix=nrcrn"
   },
   "private": true,
   "dependencies": {
@@ -114,6 +115,7 @@
     "jsoneditor": "^8.6.8",
     "ngx-bootstrap": "^5.6.1",
     "oidc-client": "^1.10.1",
+    "pluralize": "^8.0.0",
     "rxjs": "^6.5.5",
     "tslib": "^1.13.0",
     "zone.js": "^0.10.3"
@@ -135,6 +137,7 @@
     "copyfiles": "^2.2.0",
     "cypress": "3.8.3",
     "dotenv": "6.2.0",
+    "imng-schematics": "^1.20.15-0.11",
     "jest": "^25.5.4",
     "jest-junit": "^9.0.0",
     "jest-preset-angular": "^8.2.0",

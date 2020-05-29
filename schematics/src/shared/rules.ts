@@ -38,26 +38,12 @@ export function getSwaggerDoc(schema: IOptions): Rule {
           schema.hasDates = false;
           for (const propertyKey in properties) {
             if (excludedFields.indexOf(propertyKey) < 0 && properties[propertyKey].type !== 'array') {
-              const property = {
-                ...properties[propertyKey],
-                name: propertyKey,
-                required: (openApiComonent.required ?? []).indexOf(propertyKey) > -1,
-              };
-              if (properties[propertyKey].type === 'number' || properties[propertyKey].type === 'integer') {
-                property.htmlInputType = 'number';
-                property.testFactoryValue = '0';
-              } else if (properties[propertyKey].type === 'boolean') {
-                property.htmlInputType = 'checkbox';
-                property.testFactoryValue = 'true';
-              } else if (properties[propertyKey].format === 'date-time') {
-                property.htmlInputType = 'date';
-                property.testFactoryValue = 'new Date()';
-                schema.hasDates = true;
-              } else {
-                property.htmlInputType = 'text';
-                property.testFactoryValue = `'${property.maxLength ?
-                  _.snakeCase(propertyKey).toUpperCase().substring(0, property.maxLength) : _.snakeCase(propertyKey).toUpperCase()}'`;
-              }
+              const property =
+                mapPropertyAttributes(schema, properties[propertyKey], {
+                  ...properties[propertyKey],
+                  name: propertyKey,
+                  required: (openApiComonent.required ?? []).indexOf(propertyKey) > -1,
+                });
               property.snakeCaseName = _.snakeCase(property.name);
               filteredProperties.push(property);
             }
@@ -73,6 +59,26 @@ export function getSwaggerDoc(schema: IOptions): Rule {
         });
     });
   };
+}
+
+function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: any) {
+
+  if (source.type === 'number' || source.type === 'integer') {
+    dest.htmlInputType = 'number';
+    dest.testFactoryValue = '0';
+  } else if (source.type === 'boolean') {
+    dest.htmlInputType = 'checkbox';
+    dest.testFactoryValue = 'true';
+  } else if (source.format === 'date-time') {
+    dest.htmlInputType = 'date';
+    dest.testFactoryValue = 'new Date()';
+    options.hasDates = true;
+  } else {
+    dest.htmlInputType = 'text';
+    dest.testFactoryValue = `'${dest.maxLength ?
+      _.snakeCase(dest.name).toUpperCase().substring(0, dest.maxLength) : _.snakeCase(dest.name).toUpperCase()}'`;
+  }
+  return dest;
 }
 
 export function generateFiles(schema: IOptions, templateType: 'list' | 'crud' | 'module'): Rule {
