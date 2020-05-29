@@ -15,4 +15,4 @@ do
   cp -rv $sourceFile $outputFile
 done
 
-cp ./src/collection.json ./dist/schematics/
+cp -v ./src/collection.json ./dist/schematics/
