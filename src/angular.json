@@ -599,7 +599,12 @@
                 "output": "/"
               }
             ],
-            "styles": ["apps/nurse-cron/src/styles.scss"],
+            "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "apps/nurse-cron/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
