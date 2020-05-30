@@ -148,8 +148,7 @@ trigger:
       - master
   paths:
     include:
-      - src/apps/nurse-cron/*
-      - libs/*
+      - src/apps/imng-az-func-configr/*
       - src/package.json
 pr:
   branches:
@@ -157,6 +156,5 @@ pr:
       - master
   paths:
     include:
-      - src/apps/nurse-cron/*
-      - libs/*
+      - src/apps/imng-az-func-configr/*
       - src/package.json
