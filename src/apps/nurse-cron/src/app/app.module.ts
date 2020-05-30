@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app.routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Auth0OidcModule } from 'imng-auth0-oidc';
 import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
+import { NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent],
@@ -32,6 +34,7 @@ import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
     Auth0OidcModule.forRoot(environment.auth0_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
     FontAwesomeModule,
+    NgbDropdownMenu
   ],
   providers: [ODataService],
   bootstrap: [AppComponent],
