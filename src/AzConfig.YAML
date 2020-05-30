@@ -150,11 +150,13 @@ trigger:
     include:
       - src/apps/imng-az-func-configr/*
       - src/package.json
+      - src/AzConfig.YAML
 pr:
   branches:
-    exclude:
+    include:
       - master
   paths:
     include:
       - src/apps/imng-az-func-configr/*
       - src/package.json
+      - src/AzConfig.YAML

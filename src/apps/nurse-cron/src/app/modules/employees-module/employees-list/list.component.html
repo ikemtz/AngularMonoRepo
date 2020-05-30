@@ -18,25 +18,30 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.id | slice:0:5 }}
+      {{ dataItem.id | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
     </ng-template>
   </kendo-grid-column>
+  <kendo-grid-column [field]="props.PHOTO" [width]="100">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Photo</span>
+    </ng-template>
+  </kendo-grid-column>
   <kendo-grid-column [field]="props.LAST_NAME" [width]="100">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Lastname</span>
+      <span class="h6">Last Name</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.FIRST_NAME" [width]="100">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Firstname</span>
+      <span class="h6">First Name</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.BIRTH_DATE" [width]="100" format="{0:MM/dd/yy}">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Birthdate</span>
+      <span class="h6">DoB</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.MOBILE_PHONE" [width]="100">
@@ -49,39 +54,9 @@
       <span class="h6">Homephone</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.PHOTO" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Photo</span>
-    </ng-template>
-  </kendo-grid-column>
   <kendo-grid-column [field]="props.EMAIL" [width]="100">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Email</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.ADDRESS_LINE_1" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Addressline1</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.ADDRESS_LINE_2" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Addressline2</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.CITY" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">City</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.STATE" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">State</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.ZIP" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Zip</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.IS_ENABLED" [width]="100" filter="boolean">
@@ -93,22 +68,12 @@
       </div>
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Isenabled</span>
+      <span class="h6">Is Enabled</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.HIRE_DATE" [width]="100" format="{0:MM/dd/yy}">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Hiredate</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.FIRE_DATE" [width]="100" format="{0:MM/dd/yy}">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Firedate</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.TOTAL_HOURS_OF_SERVICE" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Totalhours_of_service</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.CERTIFICATION_COUNT" [width]="100">
