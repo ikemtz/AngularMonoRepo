@@ -1,6 +1,6 @@
 import { endPoints } from './endpoints';
 export const environment = {
-  version: "0.0.0",
+  "version": "0.0.0",
   production: true,
   runtimeChecks: {
     strictActionImmutability: false,

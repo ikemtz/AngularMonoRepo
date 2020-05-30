@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 import { endPoints } from './endpoints';
 export const environment = {
-  version: "0.0.0",
+  "version": "0.0.0",
   production: false,
   runtimeChecks: {
     strictActionImmutability: true,
