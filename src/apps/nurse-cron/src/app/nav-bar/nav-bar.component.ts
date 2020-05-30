@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OidcFacade, Auth0Facade, IOidcUser } from 'imng-auth0-oidc';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'nrcrn-nav-bar',
@@ -14,7 +15,7 @@ export class NavBarComponent {
   public readonly profilePicture$: Observable<string>;
   public collapsed = true;
 
-  constructor(private readonly oidcFacade: OidcFacade, private readonly auth0Facade: Auth0Facade) {
+  constructor(private readonly oidcFacade: OidcFacade, private readonly auth0Facade: Auth0Facade, public readonly router: Router) {
     this.identity$ = this.oidcFacade.identity$;
     this.email$ = this.auth0Facade.email$;
     this.loggedIn$ = this.oidcFacade.loggedIn$;

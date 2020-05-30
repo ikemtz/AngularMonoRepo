@@ -14,7 +14,7 @@ To facilitate this last requirement, I recommend you utilize your angular.json a
 
 Open up your angular.json and navigate to the node for your project. Let's assume your project name is MyAngularProject and the folder name was my-angular-project. Just copy the code higlighted below to 'assets' node as shown below.
 
-```javascript
+```json
 "MyAngularProject": {
       "projectType": "application",
       "schematics": {
@@ -39,7 +39,6 @@ Open up your angular.json and navigate to the node for your project. Let's assum
               "apps/my-angular-project/src/favicon.ico",
               "apps/my-angular-project/src/assets",
               "apps/my-angular-project/src/manifest.webmanifest",
-              "apps/my-angular-project/src/assets",
               // THIS IS WHAT YOU'LL NEED TO ADD (START)
               {
                 "glob": "*",

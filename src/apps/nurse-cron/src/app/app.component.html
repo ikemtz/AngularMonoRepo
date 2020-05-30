@@ -4,21 +4,30 @@
   <router-outlet></router-outlet>
 </main>
 <footer class="footer">
-  <div class="d-flex justify-content-center">
-    <span>Crafted by: <a href="//twitter.com/ikemtz" rel="noopener noreferer" arget="_blank">@IkeMtz</a></span>
-    <span class="text-muted">version: &nbsp;</span>
-    <a
-      class="font-weight-bold"
-      target="_blank"
-      href="//ikemtz.visualstudio.com/Devops/_build?definitionId=28&_a=summary"
-    >
-      <span class="badge badge-pill badge-secondary"> {{ buildNumber }} </span>
-      <img
-        class="img ml-2"
-        src="//docs.microsoft.com/en-us/azure/devops/_img/index/devopsiconpipelines96.svg?view=azure-devops"
-        alt="azure"
-        height="15"
-      />
-    </a>
+  <div class="d-flex justify-content-between">
+    <div></div>
+    <div>
+      <span class="text-muted px-1">Version:</span>
+      <a
+        class="font-weight-bold"
+        target="_blank"
+        href="//ikemtz.visualstudio.com/Devops/_build?definitionId=28&_a=summary"
+      >
+        <span class="badge badge-pill badge-secondary">{{ buildNumber }}</span>
+        <img
+          class="img ml-2"
+          src="//docs.microsoft.com/en-us/azure/devops/_img/index/devopsiconpipelines96.svg?view=azure-devops"
+          alt="azure"
+          height="15"
+        />
+      </a>
+    </div>
+    <div class="pr-3">
+      Crafted by:
+      <a href="//twitter.com/ikemtz" rel="noopener noreferer" arget="_blank">
+        @IkeMtz
+        <img class="img twit" src="//cdn2.iconfinder.com/data/icons/minimalism/512/twitter.png" alt="twitter-icon"
+      /></a>
+    </div>
   </div>
 </footer>

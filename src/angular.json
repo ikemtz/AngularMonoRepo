@@ -590,7 +590,15 @@
             "polyfills": "apps/nurse-cron/src/polyfills.ts",
             "tsConfig": "apps/nurse-cron/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/nurse-cron/src/favicon.ico", "apps/nurse-cron/src/assets"],
+            "assets": [
+              "apps/nurse-cron/src/favicon.ico",
+              "apps/nurse-cron/src/assets",
+              {
+                "glob": "*",
+                "input": "node_modules/imng-auth0-oidc/assets",
+                "output": "/"
+              }
+            ],
             "styles": ["apps/nurse-cron/src/styles.scss"],
             "scripts": []
           },
