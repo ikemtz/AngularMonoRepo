@@ -31,4 +31,4 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=NurseCron-Angular&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=NurseCron-Angular)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=NurseCron-Angular&metric=ncloc)](https://sonarcloud.io/dashboard?id=NurseCron-Angular)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=NurseCron-Angular&metric=coverage)](https://sonarcloud.io/dashboard?id=NurseCron-Angular)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ikemtz/nurser)](https://hub.docker.com/repository/docker/ikemtz/nurser)
+[![Docker Pulls](https://img.shields.io/docker/pulls/ikemtz/nurse-cron-angular)](https://hub.docker.com/repository/docker/ikemtz/nurse-cron-angular)

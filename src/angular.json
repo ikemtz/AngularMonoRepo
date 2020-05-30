@@ -595,7 +595,7 @@
               "apps/nurse-cron/src/assets",
               {
                 "glob": "*",
-                "input": "node_modules/imng-auth0-oidc/assets",
+                "input": "libs/imng-auth0-oidc/src/assets",
                 "output": "/"
               }
             ],
