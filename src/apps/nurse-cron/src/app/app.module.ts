@@ -13,6 +13,9 @@ import { AppRoutingModule } from './app.routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Auth0OidcModule } from 'imng-auth0-oidc';
 import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent],
@@ -32,6 +35,8 @@ import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
     Auth0OidcModule.forRoot(environment.auth0_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
     FontAwesomeModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
   ],
   providers: [ODataService],
   bootstrap: [AppComponent],

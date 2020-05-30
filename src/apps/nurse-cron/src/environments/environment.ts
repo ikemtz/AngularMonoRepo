@@ -10,11 +10,11 @@ export const environment = {
     strictStateImmutability: true,
   },
   endPoints,
-  appInsights: { instrumentationKey: 'abcb7484-6a9c-48a9-b44a-0ee4364aabc1' },
+  appInsights: { instrumentationKey: 'e92419ad-e3e7-488a-81d4-794b498de73e' },
   auth0_options: {
-    authority: 'https://nurser.auth0.com',
-    client_id: 'NlqroNO9CSspZo7UUsW5Cq8jRrWy1vbn',
-    audience: 'nurser',
+    authority: 'https://nrsrx-demo.auth0.com',
+    client_id: '6JEcsWCEL4y5k5Lvr9YGgdLG3qVTylTn',
+    audience: 'IM-NurseCron',
   },
 };
 
