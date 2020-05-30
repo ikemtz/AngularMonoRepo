@@ -27,7 +27,7 @@ export dockerUrl=$(echo "https://index.docker.io")
 
 # Service specific
 export ainName=$envLower"-ai-core-nrcrn"
-export dockerImageName="ikemtz/nurse-cron:prod_latest"
+export dockerImageName="ikemtz/nurse-cron-angular:production_latest"
 
 echo Create Web App Plan Resource Group $rgName
 export planRgId=$(az group create --location $location --name $rgName | jq -r '. | .id')
