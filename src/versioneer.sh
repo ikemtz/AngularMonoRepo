@@ -6,7 +6,7 @@ ls ./apps/*/src/environments/environment*ts
 
 echo BuildNumber $1
 buildNumber=$1
-value='s/\"?version\"?\: \"[0-9.]*\"/"version\"\: \"X\"/m'
+value='s/\"version\"\: \"[0-9.]*\"/"version\"\: \"X\"/m'
 value="${value/X/$buildNumber}"\
 
 $(sed -i "$value" ./libs/imng-*/package.json)
