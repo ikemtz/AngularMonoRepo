@@ -13,7 +13,8 @@ import { AppRoutingModule } from './app.routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Auth0OidcModule } from 'imng-auth0-oidc';
 import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
-import { NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap';
     Auth0OidcModule.forRoot(environment.auth0_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
     FontAwesomeModule,
-    NgbDropdownMenu
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
   ],
   providers: [ODataService],
   bootstrap: [AppComponent],
