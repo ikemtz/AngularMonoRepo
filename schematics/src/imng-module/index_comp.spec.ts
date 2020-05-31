@@ -9,7 +9,7 @@ import { dasherize, classify } from '@angular-devkit/core/src/utils/strings';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('imng-module', () => {
-  it('works - Competencies', async () => {
+  it('works - Competencies', async done => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const options: IOptions = {
       name: 'competency',
@@ -65,6 +65,6 @@ describe('imng-module', () => {
     const listFacadeSpecFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-list/list.facade.spec.ts`);
     content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(`expect(httpClient.get).toBeCalledWith('${dasherize(pluralize(options.name))}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`);
-
+    done();
   });
 });
