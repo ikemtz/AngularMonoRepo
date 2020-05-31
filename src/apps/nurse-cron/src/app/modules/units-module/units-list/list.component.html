@@ -29,7 +29,7 @@
       {{ dataItem.building_id | slice:0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Buildingid</span>
+      <span class="h6">Building Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.NAME" [width]="100">
@@ -44,17 +44,17 @@
   </kendo-grid-column>
   <kendo-grid-column [field]="props.ROOM_COUNT" [width]="100">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Roomcount</span>
+      <span class="h6">Room Count</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.DELETED_BY" [width]="100">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Deletedby</span>
+      <span class="h6">Deleted By</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.DELETED_ON_UTC" [width]="100" format="{0:MM/dd/yy}">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Deletedon_utc</span>
+      <span class="h6">Deleted On Utc</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.BUILDING" [width]="100">
