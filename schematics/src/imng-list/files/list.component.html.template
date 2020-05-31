@@ -34,7 +34,7 @@
 <%} else { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100">
 <%} %>    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6"><%= (capitalize(decamelize(swaggerProperty.name)) || '').replace('_', '') %></span>
+      <span class="h6"><%= swaggerProperty.startCaseName %></span>
     </ng-template>
   </kendo-grid-column><% }) %>
   <kendo-grid-column [width]="50">

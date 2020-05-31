@@ -130,12 +130,14 @@ trigger:
       - src/apps/nurse-cron/*
       - libs/*
       - src/package.json
+      - src/libs.YAML
 pr:
   branches:
-    exclude:
+    include:
       - master
   paths:
     include:
       - src/apps/nurse-cron/*
       - libs/*
       - src/package.json
+      - src/libs.YAML
