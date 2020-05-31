@@ -5,7 +5,7 @@
           <label for="<%= underscore(swaggerProperty.name) %>" class="control-label mr-4"><%= swaggerProperty.startCaseName %>:</label>
 <% if (swaggerProperty.htmlInputType === 'checkbox')
  { %>          <input type="<%= swaggerProperty.htmlInputType %>" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
-<%} else if (swaggerProperty.required)
+        </div><%} else if (swaggerProperty.required)
  { %>          <input type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
             [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
           <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
