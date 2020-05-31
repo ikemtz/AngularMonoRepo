@@ -14,7 +14,8 @@ export interface PropertyInfo {
   readOnly?: boolean;
   required: boolean;
   htmlInputType: 'text' | 'number' | 'checkbox' | 'date';
-  snakeCaseName: string;
+  snakeCaseName: string; 
+  startCaseName: string;
   maxLength: number;
   testFactoryValue: string;
 }

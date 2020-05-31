@@ -39,6 +39,8 @@ describe('imng-crud', () => {
     const htmlFile = tree.get(`/test/${pluralize(options.name)}-crud/add-edit.component.html`);
     let content = htmlFile?.content.toString();
     expect(content).toContain('[formControlName]="props.ADDRESS_LINE_1"');
+    expect(content).toContain('<div *ngIf="formControlErrors(props.HIRE_DATE).required">Employee hire date is required</div>');
+    expect(content).toContain('<label for="hire_date" class="control-label mr-4">Hire Date:</label>');
 
     const addComponent = tree.get(`/test/${pluralize(options.name)}-crud/add.component.ts`);
     content = addComponent?.content.toString();
@@ -59,7 +61,7 @@ describe('imng-crud', () => {
     content = editComponent?.content.toString();
     expect(content).toContain(`'${options.appPrefix}-${options.name}-edit'`);
 
-    const editComponentSpecFile = tree.get('/test/employees-crud/edit.component.spec.ts');    
+    const editComponentSpecFile = tree.get('/test/employees-crud/edit.component.spec.ts');
     content = editComponentSpecFile?.content.toString();
     expect(content).toContain(`[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`);
     expect(content).toContain(`[${classify(options.name)}Properties.STATE]: 'ST',`);
