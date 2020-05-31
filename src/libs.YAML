@@ -83,13 +83,13 @@ jobs:
       - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'
 
-      #      - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
-      #        displayName: 'Publish Quality Gate Result'
-      #
-      #      - task: sonarcloud-buildbreaker@2
-      #        inputs:
-      #          SonarCloud: 'SonarCloud IkeMtz'
-      #          organization: 'ikemtz'
+      - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+        displayName: 'Publish Quality Gate Result'
+
+      - task: sonarcloud-buildbreaker@2
+        inputs:
+          SonarCloud: 'SonarCloud IkeMtz'
+          organization: 'ikemtz'
 
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/src/coverage/**/cobertura-coverage.xml'
