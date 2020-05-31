@@ -1,4 +1,21 @@
 {
+  "/buildings-odata": {
+    "target": "https://im-wa-unto-nrcrn.azurewebsites.net",
+    "secure": true,
+    "pathRewrite": {
+      "^/buildings-odata": ""
+    },
+    "changeOrigin": true,
+    "_logLevel": "debug"
+  },
+  "/buildings-webapi": {
+    "target": "https://im-wa-unta-nrcrn.azurewebsites.net",
+    "secure": true,
+    "pathRewrite": {
+      "^/buildings-webapi": ""
+    },
+    "changeOrigin": true
+  },
   "/certifications-odata": {
     "target": "https://im-wa-crto-nrcrn.azurewebsites.net",
     "secure": true,
@@ -85,7 +102,7 @@
     "logLevel": "debug"
   },
   "/units-odata": {
-    "target": "https://im-wa-scdo-nrcrn.azurewebsites.net",
+    "target": "https://im-wa-unto-nrcrn.azurewebsites.net",
     "secure": true,
     "pathRewrite": {
       "^/units-odata": ""
@@ -93,7 +110,7 @@
     "changeOrigin": true
   },
   "/units-webapi": {
-    "target": "https://im-wa-scda-nrcrn.azurewebsites.net",
+    "target": "https://im-wa-unta-nrcrn.azurewebsites.net",
     "secure": true,
     "pathRewrite": {
       "^/units-webapi": ""
