@@ -44,7 +44,6 @@ export function getSwaggerDoc(schema: IOptions): Rule {
                   name: propertyKey,
                   required: (openApiComonent.required ?? []).indexOf(propertyKey) > -1,
                 });
-              property.snakeCaseName = _.snakeCase(property.name);
               filteredProperties.push(property);
             }
           }
@@ -78,6 +77,8 @@ function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: an
     dest.testFactoryValue = `'${dest.maxLength ?
       _.snakeCase(dest.name).toUpperCase().substring(0, dest.maxLength) : _.snakeCase(dest.name).toUpperCase()}'`;
   }
+  dest.snakeCaseName = _.snakeCase(dest.name);
+  dest.startCaseName = _.startCase(dest.name);
   return dest;
 }
 
