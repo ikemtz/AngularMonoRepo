@@ -161,6 +161,7 @@ jobs:
           useLightweightTags: true
           conditions: and(succeeded(), not(endsWith(variables['Build.SourceBranch'], 'master')))
 trigger:
+  batch: true
   branches:
     include:
       - master
