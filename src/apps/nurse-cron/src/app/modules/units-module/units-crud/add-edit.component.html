@@ -22,10 +22,6 @@
           </div>
         </div>
         <div class="form-group col-md-6">
-          <label for="del" class="control-label mr-4">Del:</label>
-          <input type="text" class="form-control" [formControlName]="props.DEL" />
-        </div>
-        <div class="form-group col-md-6">
           <label for="room_count" class="control-label mr-4">Room Count:</label>
           <input type="number" class="form-control" [formControlName]="props.ROOM_COUNT"
             [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ROOM_COUNT) }" />

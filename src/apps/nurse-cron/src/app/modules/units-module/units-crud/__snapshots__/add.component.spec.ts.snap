@@ -4,7 +4,6 @@ exports[`UnitAddComponent should save 1`] = `
 Object {
   "building": "BUILDING",
   "buildingId": "BUILDING_ID",
-  "del": "DEL",
   "deletedBy": "DELETED_BY",
   "deletedOnUtc": Any<Date>,
   "id": null,
