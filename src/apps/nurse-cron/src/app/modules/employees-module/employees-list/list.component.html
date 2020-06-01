@@ -28,6 +28,9 @@
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Photo</span>
     </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <img *ngIf="dataItem[props.PHOTO]" [src]="dataItem[props.PHOTO]" alt="Nurse Picture" />
+    </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.LAST_NAME" [width]="100">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
