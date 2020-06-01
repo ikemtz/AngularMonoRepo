@@ -1,10 +1,10 @@
 <kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="d-flex justify-content-between">
-      <h3>Employees</h3>
+      <h3>Nurses</h3>
       <div>
         <button type="button" title="Add Employee" primary="true" (click)="addItem()" class="btn btn-primary mx-2">
-          <fa-icon [icon]="faPlusCircle"></fa-icon> Add Employee
+          <fa-icon [icon]="faPlusCircle"></fa-icon> Add Nurse
         </button>
         <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="mx-2">
           Export to PDF
@@ -39,59 +39,32 @@
       <span class="h6">First Name</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.BIRTH_DATE" [width]="100" format="{0:MM/dd/yy}">
+  <kendo-grid-column [width]="250">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">DoB</span>
+      <span class="h6">Contact</span>
     </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.MOBILE_PHONE" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Mobilephone</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.HOME_PHONE" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Homephone</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.EMAIL" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Email</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.IS_ENABLED" [width]="100" filter="boolean">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf="dataItem.is_enabled">
-        <span class="text-success font-weight-bolder h2" placement="left" tooltip="Active">
-          <fa-icon [icon]="faCheck"></fa-icon>
-        </span>
-      </div>
-    </ng-template>
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Is Enabled</span>
+      Email: {{ dataItem[props.EMAIL] }} <br />
+      Mobile: {{ dataItem[props.MOBILE_PHONE] }} <br />
+      Home: {{ dataItem[props.HOME_PHONE] }}
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.HIRE_DATE" [width]="100" format="{0:MM/dd/yy}">
+  <kendo-grid-column [field]="props.HIRE_DATE" [width]="100" format="{0:MM/dd/yy}" filter="date">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Hiredate</span>
+      <span class="h6">Hired</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.CERTIFICATION_COUNT" [width]="100">
+  <kendo-grid-column [width]="100" filterable="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Certificationcount</span>
+      <span class="h6">Skillsets</span>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      Cert: {{ dataItem[props.CERTIFICATION_COUNT] || 0 }} <br />
+      Comp: {{ dataItem[props.COMPETENCY_COUNT] || 0 }} <br />
+      Hlti: {{ dataItem[props.HEALTH_ITEM_COUNT] || 0 }}
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.COMPETENCY_COUNT" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Competencycount</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.HEALTH_ITEM_COUNT" [width]="100">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Healthitem_count</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [width]="50">
+  <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
         <fa-icon [icon]="faEdit"></fa-icon>

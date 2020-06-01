@@ -14,6 +14,14 @@ export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<
 
   ngOnInit() {
     this.initForm();
+    this.addEditForm.patchValue({
+      [EmployeeProperties.CERTIFICATION_COUNT]: 0,
+      [EmployeeProperties.COMPETENCY_COUNT]: 0,
+      [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
+      [EmployeeProperties.IS_ENABLED]: true,
+      [EmployeeProperties.HIRE_DATE]: new Date()
+    });
+    this.addEditForm.removeControl(EmployeeProperties.ID);
   }
 
   public initForm() {
