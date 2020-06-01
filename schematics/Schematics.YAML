@@ -127,11 +127,11 @@ trigger:
       - master
   paths:
     include:
-      - schematics*
+      - schematics/*
 pr:
   branches:
     exclude:
       - master
   paths:
     include:
-      - schematics*
+      - schematics/*
