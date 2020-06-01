@@ -11,7 +11,6 @@ export interface IUnit {
   id?: string;
   buildingId?: string;
   name?: string;
-  del?: string;
   roomCount?: number;
   deletedBy?: string;
   deletedOnUtc?: Date;

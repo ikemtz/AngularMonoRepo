@@ -9,7 +9,6 @@ export enum UnitProperties {
   ID = 'id',
   BUILDING_ID = 'buildingId',
   NAME = 'name',
-  DEL = 'del',
   ROOM_COUNT = 'roomCount',
   DELETED_BY = 'deletedBy',
   DELETED_ON_UTC = 'deletedOnUtc',

@@ -15,7 +15,6 @@ const initialGridState: ODataState = {
     UnitProperties.ID,
     UnitProperties.BUILDING_ID,
     UnitProperties.NAME,
-    UnitProperties.DEL,
     UnitProperties.ROOM_COUNT,
     UnitProperties.DELETED_BY,
     UnitProperties.DELETED_ON_UTC,

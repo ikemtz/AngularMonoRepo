@@ -12,7 +12,6 @@ export function UnitFormGroupFac(): FormGroup {
     id: new FormControl(''),
     buildingId: new FormControl('', Validators.required),
     name: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(102)])),
-    del: new FormControl(''),
     roomCount: new FormControl('', Validators.required),
     deletedBy: new FormControl('', Validators.maxLength(250)),
     deletedOnUtc: new FormControl(''),

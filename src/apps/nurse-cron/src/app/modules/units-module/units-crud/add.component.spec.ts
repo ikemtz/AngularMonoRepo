@@ -40,7 +40,6 @@ describe('UnitAddComponent', () => {
       [UnitProperties.ID]: 'ID',
       [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
       [UnitProperties.NAME]: 'NAME',
-      [UnitProperties.DEL]: 'DEL',
       [UnitProperties.ROOM_COUNT]: 0,
       [UnitProperties.DELETED_BY]: 'DELETED_BY',
       [UnitProperties.DELETED_ON_UTC]: new Date(),
