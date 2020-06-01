@@ -11,7 +11,7 @@ import { IEmployee } from '../../../models/employees-odata';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeAddComponent extends EmployeeBaseEntryComponent {
-  public dialogTitle = 'Add Employee';
+  public dialogTitle = 'Add Nurse';
   public active$ = this.facade.isNewActive$;
 
   constructor(facade: EmployeeCrudFacade) {

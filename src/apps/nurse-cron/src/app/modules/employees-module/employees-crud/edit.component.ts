@@ -12,7 +12,7 @@ import { IEmployee } from '../../../models/employees-odata';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeEditComponent extends EmployeeBaseEntryComponent {
-  public dialogTitle = 'Edit Employee';
+  public dialogTitle = 'Edit Nurse';
   public active$ = this.facade.isEditActive$;
 
   constructor(facade: EmployeeCrudFacade) {
