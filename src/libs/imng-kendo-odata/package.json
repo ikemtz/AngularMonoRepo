@@ -11,9 +11,9 @@
     "OData"
   ],
   "peerDependencies": {
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0",
-    "@progress/kendo-data-query": "^1.5.2"
+    "@angular/common": "^9.x",
+    "@angular/core": "^9.x",
+    "@progress/kendo-data-query": "^1.x"
   },
   "devDependencies": {},
   "ngPackage": {
