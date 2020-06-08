@@ -141,7 +141,7 @@ jobs:
           tag: 'azcf-$(Build.BuildNumber)'
           tagMessage: 'azcf-$(Build.BuildNumber)'
           useLightweightTags: true
-          conditions: and(succeeded(), not(endsWith(variables['Build.SourceBranch'], 'master')))
+          conditions: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 trigger:
   batch: true
   branches:
