@@ -159,7 +159,7 @@ jobs:
           tag: 'cron-$(Build.BuildNumber)'
           tagMessage: 'cron-$(Build.BuildNumber)'
           useLightweightTags: true
-          conditions: and(succeeded(), not(endsWith(variables['Build.SourceBranch'], 'master')))
+          conditions: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
 trigger:
   batch: true
   branches:
