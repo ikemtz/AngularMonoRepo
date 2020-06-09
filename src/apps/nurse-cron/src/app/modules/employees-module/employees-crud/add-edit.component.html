@@ -1,10 +1,12 @@
 <imng-data-entry-dialog width="700" height="550" [parentComponent]="this">
   <form novalidate [formGroup]="addEditForm" autocomplete="false">
+    <input type="text" hidden class="form-control" [formControlName]="props.ID" />
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="first_name" class="control-label mr-4">First Name:</label>
         <input
           type="text"
+          maxlength="250"
           class="form-control"
           [formControlName]="props.FIRST_NAME"
           [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.FIRST_NAME) }"
@@ -17,6 +19,7 @@
         <label for="last_name" class="control-label mr-4">Last Name:</label>
         <input
           type="text"
+          maxlength="250"
           class="form-control"
           [formControlName]="props.LAST_NAME"
           [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.LAST_NAME) }"
@@ -26,9 +29,14 @@
         </div>
       </div>
       <div class="form-group col-md-6">
+        <label for="photo" class="control-label mr-4">Photo Url:</label>
+        <input type="text" maxlength="4000" class="form-control" [formControlName]="props.PHOTO" />
+      </div>
+      <div class="form-group col-md-6">
         <label for="email" class="control-label mr-4">Email:</label>
         <input
           type="text"
+          maxlength="250"
           class="form-control"
           [formControlName]="props.EMAIL"
           [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.EMAIL) }"
@@ -43,31 +51,31 @@
       </div>
       <div class="form-group col-md-6">
         <label for="mobile_phone" class="control-label mr-4">Mobile Phone:</label>
-        <input type="text" class="form-control" [formControlName]="props.MOBILE_PHONE" />
+        <input type="text" maxlength="25" class="form-control" [formControlName]="props.MOBILE_PHONE" />
       </div>
       <div class="form-group col-md-6">
         <label for="home_phone" class="control-label mr-4">Home Phone:</label>
-        <input type="text" class="form-control" [formControlName]="props.HOME_PHONE" />
+        <input type="text" maxlength="25" class="form-control" [formControlName]="props.HOME_PHONE" />
       </div>
       <div class="form-group col-md-6">
         <label for="address_line1" class="control-label mr-4">Address Line 1:</label>
-        <input type="text" class="form-control" [formControlName]="props.ADDRESS_LINE_1" />
+        <input type="text" maxlength="250" class="form-control" [formControlName]="props.ADDRESS_LINE_1" />
       </div>
       <div class="form-group col-md-6">
         <label for="address_line2" class="control-label mr-4">Address Line 2:</label>
-        <input type="text" class="form-control" [formControlName]="props.ADDRESS_LINE_2" />
+        <input type="text" maxlength="250" class="form-control" [formControlName]="props.ADDRESS_LINE_2" />
       </div>
       <div class="form-group col-md-6">
         <label for="city" class="control-label mr-4">City:</label>
-        <input type="text" class="form-control" [formControlName]="props.CITY" />
+        <input type="text" maxlength="150" class="form-control" [formControlName]="props.CITY" />
       </div>
       <div class="form-group col-md-6">
         <label for="state" class="control-label mr-4">State:</label>
-        <input type="text" class="form-control" [formControlName]="props.STATE" />
+        <input type="text" maxlength="2" class="form-control" [formControlName]="props.STATE" />
       </div>
       <div class="form-group col-md-6">
         <label for="zip" class="control-label mr-4">Zip:</label>
-        <input type="text" class="form-control" [formControlName]="props.ZIP" />
+        <input type="text" maxlength="10" class="form-control" [formControlName]="props.ZIP" />
       </div>
       <div class="form-group col-md-6">
         <label for="hire_date" class="control-label mr-4">Hire Date:</label>
