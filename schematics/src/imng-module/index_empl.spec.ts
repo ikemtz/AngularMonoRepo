@@ -1,5 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
+import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
 import * as pluralize from 'pluralize';
@@ -16,13 +16,14 @@ describe(`imng-module`, () => {
       const runner = new SchematicTestRunner(`schematics`, collectionPath);
       const options: IOptions = {
         name: `employee`,
-        swaggerJsonUrl: `https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json`,
+        openApiJsonUrl: `https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json`,
+        openApiJsonFileName: '../../open-api-docs/nrcrn-empl-odata.json',
         path: `./test`,
         swaggerProperties: [],
         storeName: `employees`,
         appPrefix: ''
       };
-      const tree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()));
+      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()) as any);
 
       expect(tree.files).toEqual([
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}.module.spec.ts`,

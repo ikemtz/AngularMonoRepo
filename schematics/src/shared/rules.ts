@@ -11,53 +11,58 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import { strings, normalize } from '@angular-devkit/core';
-import { TslintFixTask } from '@angular-devkit/schematics/tasks';
-import * as fetch from 'node-fetch';
+import fetch from 'node-fetch';
 import { PropertyInfo, OpenApiComponent } from './open-api-component';
 import * as pluralize from 'pluralize';
-import { Observable } from '@angular-devkit/core/node_modules/rxjs/internal/Observable';
+import { Observable, from, of } from '@angular-devkit/core/node_modules/rxjs';
+import { map, switchMap } from '@angular-devkit/core/node_modules/rxjs/operators';
 import { IOptions } from './options';
 import _ = require('lodash');
+import { TslintFixTask } from '@angular-devkit/schematics/tasks';
+import * as fs from 'fs';
 
-
-export function getSwaggerDoc(schema: IOptions): Rule {
+export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
-    return new Observable<Tree>(observer => {
-      context.logger.info(`Getting Swagger Document @${schema.swaggerJsonUrl}`);
-      fetch.default(schema.swaggerJsonUrl || '')
-        .then(res => {
-          return res.json();
-        })
-        .then(data => {
-          const openApiComonent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
-          const properties = openApiComonent.properties as {
-            [key: string]: PropertyInfo;
-          };
-          const filteredProperties: PropertyInfo[] = [];
-          const excludedFields = ['createdBy', 'createdOnUtc', 'tenantId', 'updatedBy', 'updatedOnUtc'];
-          schema.hasDates = false;
-          for (const propertyKey in properties) {
-            if (excludedFields.indexOf(propertyKey) < 0 && properties[propertyKey].type !== 'array') {
-              const property =
-                mapPropertyAttributes(schema, properties[propertyKey], {
-                  ...properties[propertyKey],
-                  name: propertyKey,
-                  required: (openApiComonent.required ?? []).indexOf(propertyKey) > -1,
-                });
-              filteredProperties.push(property);
-            }
-          }
-          schema.swaggerProperties = filteredProperties;
-          observer.next(host);
-          observer.complete();
-          return host;
-        })
-        .catch(function (err: any) {
-          context.logger.warn('An error occured');
-          observer.error(err);
-        });
-    });
+    let jsonDoc: Observable<any> | null = null;
+    if (options.openApiJsonFileName) {
+      context.logger.info(`Getting Swagger Document @${options.openApiJsonFileName}`);
+      const response = fs.readFileSync(`${__dirname}/${options.openApiJsonFileName}`);
+      const apiDoc = JSON.parse(response.toString());
+      jsonDoc = of(apiDoc);
+    } else if (options.openApiJsonUrl) {
+      context.logger.info(`Getting Swagger Document @${options.openApiJsonUrl}`);
+      jsonDoc = from(fetch(options.openApiJsonUrl)).pipe(
+        switchMap(resp => from(resp.json())));
+    }
+    if (jsonDoc) {
+      return jsonDoc.pipe(map(data => processOpenApiDoc(data, options, host)));
+    }
+    return of(host);
+
   };
+}
+
+function processOpenApiDoc(data: any, schema: IOptions, host: Tree) {
+  const openApiComonent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
+  const properties = openApiComonent.properties as {
+    [key: string]: PropertyInfo;
+  };
+  const filteredProperties: PropertyInfo[] = [];
+  const excludedFields = ['createdBy', 'createdOnUtc', 'tenantId', 'updatedBy', 'updatedOnUtc'];
+  schema.hasDates = false;
+  for (const propertyKey in properties) {
+    if (excludedFields.indexOf(propertyKey) < 0 && properties[propertyKey].type !== 'array') {
+      const property =
+        mapPropertyAttributes(schema, properties[propertyKey], {
+          ...properties[propertyKey],
+          name: propertyKey,
+          required: (openApiComonent.required ?? []).indexOf(propertyKey) > -1,
+        });
+      filteredProperties.push(property);
+    }
+  }
+  schema.swaggerProperties = filteredProperties;
+  return host;
 }
 
 function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: any) {
