@@ -30,7 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       },
     ),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument({ name: 'NurseCRON' }) : [],
     StoreRouterConnectingModule.forRoot(),
     Auth0OidcModule.forRoot(environment.auth0_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
