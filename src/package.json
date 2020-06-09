@@ -70,7 +70,7 @@
     "help": "nx help",
     "nx": "nx",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
-    "schematic:module:unt": "ng g imng-schematics:module unit --path=./apps/nurse-cron/src/app/modules --swaggerJsonUrl=https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --force --appPrefix=nrcrn"
+    "schematic:module:emp": "ng g imng-schematics:module employee --path=./apps/nurse-cron/src/app/modules --openApiJsonUrl=https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --force --appPrefix=nrcrn"
   },
   "private": true,
   "dependencies": {
@@ -137,7 +137,7 @@
     "copyfiles": "^2.3.0",
     "cypress": "3.8.3",
     "dotenv": "6.2.0",
-    "imng-schematics": "^1.20.15-3.2",
+    "imng-schematics": "^1.20.16-0.3",
     "jest": "^25.5.4",
     "jest-junit": "^9.0.0",
     "jest-preset-angular": "^8.2.0",
