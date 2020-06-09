@@ -130,7 +130,7 @@ trigger:
       - schematics/*
 pr:
   branches:
-    exclude:
+    include:
       - master
   paths:
     include:
