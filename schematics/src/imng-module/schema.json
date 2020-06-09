@@ -15,9 +15,13 @@
         "type": "string",
         "description": "Directory where you would like the output to go"
       },
-      "swaggerJsonUrl": {
+      "openApiJsonUrl": {
         "type": "string",
         "description": "URL of swagger page"
+      },
+      "openApiJsonFileName": {
+        "type": "string",
+        "description": "Relative file name and path"
       },
       "storeName": {
         "type": "string",

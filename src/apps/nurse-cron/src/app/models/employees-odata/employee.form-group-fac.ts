@@ -9,12 +9,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export function EmployeeFormGroupFac(): FormGroup {
   return new FormGroup({
-    id: new FormControl('', Validators.required),
+    id: new FormControl(''),
     lastName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(250)])),
     firstName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(250)])),
     birthDate: new FormControl(''),
-    mobilePhone: new FormControl('', Validators.maxLength(10)),
-    homePhone: new FormControl('', Validators.maxLength(10)),
+    mobilePhone: new FormControl('', Validators.maxLength(25)),
+    homePhone: new FormControl('', Validators.maxLength(25)),
     photo: new FormControl('', Validators.maxLength(4000)),
     email: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(250)])),
     addressLine1: new FormControl('', Validators.maxLength(250)),

@@ -1,0 +1,371 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Units OData Microservice",
+    "description": "<div style='color:gray;font-weight:bold'>Build #: <span style='font-weight:bolder'>1.20.160.02</span></div>",
+    "version": "1.0"
+  },
+  "paths": {
+    "/odata/v1/Buildings": {
+      "get": {
+        "tags": [
+          "Buildings"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "OData $filter parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "OData $orderby parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "OData $top parameter",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "OData $skip parameter",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "$count",
+            "in": "query",
+            "description": "OData $count parameter",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuildingGuidODataEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/odata/v1/Units": {
+      "get": {
+        "tags": [
+          "Units"
+        ],
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "OData $filter parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "OData $orderby parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "OData $top parameter",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "OData $skip parameter",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "$count",
+            "in": "query",
+            "description": "OData $count parameter",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitGuidODataEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Building": {
+        "required": [
+          "addressLine1",
+          "addressLine2",
+          "cityOrMunicipality",
+          "country",
+          "createdBy",
+          "createdOnUtc",
+          "id",
+          "name",
+          "postalCode",
+          "stateOrProvidence"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "siteName": {
+            "maxLength": 150,
+            "type": "string",
+            "nullable": true
+          },
+          "addressLine1": {
+            "maxLength": 250,
+            "type": "string"
+          },
+          "addressLine2": {
+            "maxLength": 250,
+            "type": "string"
+          },
+          "cityOrMunicipality": {
+            "maxLength": 250,
+            "type": "string"
+          },
+          "stateOrProvidence": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "postalCode": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "country": {
+            "maxLength": 3,
+            "type": "string"
+          },
+          "gpsData": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "createdBy": {
+            "maxLength": 250,
+            "type": "string"
+          },
+          "updatedBy": {
+            "maxLength": 250,
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBy": {
+            "maxLength": 250,
+            "type": "string",
+            "nullable": true
+          },
+          "createdOnUtc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedOnUtc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "deletedOnUtc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuildingGuidODataEnvelope": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Building"
+            },
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Unit": {
+        "required": [
+          "buildingId",
+          "createdBy",
+          "createdOnUtc",
+          "name",
+          "roomCount"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "buildingId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "maxLength": 102,
+            "type": "string"
+          },
+          "roomCount": {
+            "type": "number",
+            "format": "double"
+          },
+          "createdBy": {
+            "maxLength": 250,
+            "type": "string"
+          },
+          "updatedBy": {
+            "maxLength": 250,
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBy": {
+            "maxLength": 250,
+            "type": "string",
+            "nullable": true
+          },
+          "createdOnUtc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedOnUtc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "deletedOnUtc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "building": {
+            "$ref": "#/components/schemas/Building"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UnitGuidODataEnvelope": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Unit"
+            },
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "oauth2",
+        "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://nrsrx-demo.auth0.com/authorize?audience=IM-NurseCron",
+            "scopes": {
+              "openid": "required"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

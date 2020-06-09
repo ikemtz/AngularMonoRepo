@@ -4,9 +4,9 @@
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0",
-    "rxjs": "^6.5.0"
+    "@angular/common": "^9.x",
+    "@angular/core": "^9.x",
+    "rxjs": "^6.x"
   },
   "devDependencies": {},
   "ngPackage": {

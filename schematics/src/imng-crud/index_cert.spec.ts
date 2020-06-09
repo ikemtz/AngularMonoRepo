@@ -1,5 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
+import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing';
@@ -15,13 +15,14 @@ describe(`imng-crud`, () => {
       const runner = new SchematicTestRunner(`schematics`, collectionPath);
       const options: IOptions = {
         name: `certification`,
-        swaggerJsonUrl: `https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json`,
+        openApiJsonUrl: `https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json`,
+        openApiJsonFileName: '../../open-api-docs/nrcrn-cert-odata.json',
         path: `./test`,
         swaggerProperties: [],
         storeName: `certifications`,
         appPrefix: `nrcrn`
       };
-      const tree = await readFirst(runner.runSchematicAsync(`imng-crud`, options, Tree.empty()));
+      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-crud`, options, Tree.empty()) as any);
 
       expect(tree.files).toEqual([
         `/test/${pluralize(options.name)}-crud/add-edit.component.html`,
