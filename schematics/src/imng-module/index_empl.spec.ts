@@ -61,6 +61,11 @@ describe(`imng-module`, () => {
       const listFacadeSpecFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-list/list.facade.spec.ts`);
       content = listFacadeSpecFile?.content.toString();
       expect(content).toContain(`expect(httpClient.get).toBeCalledWith('${dasherize(pluralize(options.name))}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`);
+
+      const htmlFile = tree.get(`/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/add-edit.component.html`,);
+      content = htmlFile?.content.toString();
+      expect(content).toContain(`<input type="text" maxlength="25" class="form-control" [formControlName]="props.MOBILE_PHONE" />`);
+
       done();
     }
     catch (err) {

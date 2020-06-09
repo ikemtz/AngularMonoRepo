@@ -20,13 +20,18 @@ import { IOptions } from './options';
 import _ = require('lodash');
 import { TslintFixTask } from '@angular-devkit/schematics/tasks';
 import * as fs from 'fs';
+import * as findUp from 'find-up';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     let jsonDoc: Observable<any> | null = null;
     if (options.openApiJsonFileName) {
-      context.logger.info(`Getting Swagger Document @${options.openApiJsonFileName}`);
-      const response = fs.readFileSync(`${__dirname}/${options.openApiJsonFileName}`);
+      const fileName = getFileNames(options.openApiJsonFileName);
+      context.logger.info(`Getting Swagger Document @${fileName}`);
+      if (!fileName) {
+        throw new Error(`File not found: ${options.openApiJsonFileName}`);
+      }
+      const response = fs.readFileSync(fileName);
       const apiDoc = JSON.parse(response.toString());
       jsonDoc = of(apiDoc);
     } else if (options.openApiJsonUrl) {
@@ -42,7 +47,14 @@ export function getSwaggerDoc(options: IOptions): Rule {
   };
 }
 
-function processOpenApiDoc(data: any, schema: IOptions, host: Tree) {
+function getFileNames(openApiJsonFileName: string) {
+  if (fs.existsSync(`${__dirname}/${openApiJsonFileName}`)) {
+    return `${__dirname}/${openApiJsonFileName}`;
+  }
+  return findUp.sync(openApiJsonFileName);
+}
+
+export function processOpenApiDoc(data: any, schema: IOptions, host: Tree) {
   const openApiComonent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
   const properties = openApiComonent.properties as {
     [key: string]: PropertyInfo;

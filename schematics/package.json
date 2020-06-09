@@ -11,7 +11,7 @@
     "schematic:module:bld": "npm run build && schematics ./dist/schematics/collection.json:module building --path=\"./dist/\" --openApiJsonUrl=https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:crt": "npm run build && schematics ./dist/schematics/collection.json:module certification --path=\"./dist/\" --openApiJsonUrl=https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:cmp": "npm run build && schematics ./dist/schematics/collection.json:module competency --path=\"./dist/\" --openApiJsonUrl=https://im-wa-cmpo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
-    "schematic:module:emp": "npm run build && schematics ./dist/schematics/collection.json:module employee --path=\"./dist/\" --openApiJsonUrl=https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
+    "schematic:module:emp": "npm run build && schematics ./dist/schematics/collection.json:module employee --path=\"./dist/\" --openApiJsonFileName=./open-api-docs/nrcrn-empl-odata.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:hlt": "npm run build && schematics ./dist/schematics/collection.json:module healthItem --path=\"./dist/\" --openApiJsonUrl=https://im-wa-hlto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:unt": "npm run build && schematics ./dist/schematics/collection.json:module unit --path=\"./dist/\" --openApiJsonUrl=https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn"
   },
@@ -25,6 +25,7 @@
     "@angular-devkit/core": "^9.1.7",
     "@angular-devkit/schematics": "^9.1.7",
     "@nrwl/jest": "^9.3.0",
+    "find-up": "^4.1.0",
     "jest": "^26.0.1",
     "jest-junit": "^10.0.0",
     "typescript": "~3.8.2"
