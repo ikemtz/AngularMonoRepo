@@ -4,7 +4,8 @@ export interface IOptions {
   name: string;
   storeName?: string;
   path: string;
-  swaggerJsonUrl?: string;
+  openApiJsonUrl?: string;
+  openApiJsonFileName?: string;
   swaggerProperties: PropertyInfo[];
   hasDates?: boolean;
   appPrefix: string;

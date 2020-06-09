@@ -4,7 +4,7 @@ import { isTruthy } from 'imng-ngrx-utils';
 
 export const get<%= classify(pluralizedName) %>State = createFeatureSelector<<%= classify(pluralizedName) %>PartialState, State>(
   <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY,
-);<% if (swaggerJsonUrl) { %> 
+);<% if (openApiJsonUrl) { %> 
 
 const get<%= classify(pluralizedName) %> = createSelector(get<%= classify(pluralizedName) %>State, state => state.gridData);
 const getLoading = createSelector(get<%= classify(pluralizedName) %>State, state => state.loading);

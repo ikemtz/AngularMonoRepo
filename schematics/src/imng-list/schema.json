@@ -19,9 +19,13 @@
         "type": "string",
         "description": "Directory where you would like the output to go"
       },
-      "swaggerJsonUrl": {
+      "openApiJsonUrl": {
         "type": "string",
         "description": "URL of swagger page"
+      },
+      "openApiJsonFileName": {
+        "type": "string",
+        "description": "Relative file name and path"
       },
       "appPrefix": {
         "type": "string",
@@ -29,6 +33,6 @@
         "description": "Application selector prefix for components and directives."
       }
     },
-    "required": ["name", "path", "swaggerJsonUrl"]
+    "required": ["name", "path"]
   }
   

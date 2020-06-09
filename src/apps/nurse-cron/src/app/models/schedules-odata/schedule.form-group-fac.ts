@@ -9,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export function ScheduleFormGroupFac(): FormGroup {
   return new FormGroup({
-    id: new FormControl('', Validators.required),
+    id: new FormControl(''),
     unitId: new FormControl('', Validators.required),
     unitName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(250)])),
     employeeId: new FormControl('', Validators.required),

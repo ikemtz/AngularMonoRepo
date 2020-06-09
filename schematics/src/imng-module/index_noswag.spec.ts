@@ -1,5 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
+import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing';
@@ -19,7 +19,7 @@ describe(`imng-module`, () => {
         swaggerProperties: [],
         appPrefix: ''
       };
-      const tree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()));
+      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()) as any);
 
       expect(tree.files).toEqual([
         `/test/${pluralize(options.name)}-module/${pluralize(options.name)}.module.spec.ts`,

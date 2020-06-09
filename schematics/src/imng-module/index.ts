@@ -20,8 +20,8 @@ export function imngModule(_options: IOptions): Rule {
 
     return chain([
       generateFiles(_options, 'module'),
-      _options.swaggerJsonUrl ? schematic('imng-list', listOptions) : noop(),
-      _options.swaggerJsonUrl ? schematic('imng-crud', crudOptions) : noop(),
+      _options.openApiJsonUrl || _options.openApiJsonFileName ? schematic('imng-list', listOptions) : noop(),
+      _options.openApiJsonUrl || _options.openApiJsonFileName ? schematic('imng-crud', crudOptions) : noop(),
       runLint(_options)
     ])(tree, _context);
   };

@@ -9,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export function BuildingFormGroupFac(): FormGroup {
   return new FormGroup({
-    id: new FormControl('', Validators.required),
+    id: new FormControl(''),
     name: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(50)])),
     siteName: new FormControl('', Validators.maxLength(150)),
     addressLine1: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(250)])),
