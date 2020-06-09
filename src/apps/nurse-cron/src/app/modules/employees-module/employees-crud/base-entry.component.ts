@@ -21,7 +21,6 @@ export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<
       [EmployeeProperties.IS_ENABLED]: true,
       [EmployeeProperties.HIRE_DATE]: new Date()
     });
-    this.addEditForm.removeControl(EmployeeProperties.ID);
   }
 
   public initForm() {
