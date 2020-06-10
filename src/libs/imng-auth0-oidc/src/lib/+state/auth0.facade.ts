@@ -7,10 +7,10 @@ import { Auth0Profile } from '../models/auth0-profile';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Auth0Facade {
-  constructor(private store: Store<OidcState>) { }
+  constructor(private readonly store: Store<OidcState>) {}
   profile$: Observable<Auth0Profile> = this.store.select(auth0Query.getProfile);
   email$: Observable<string> = this.store.select(auth0Query.getEmail);
   profilePicture$: Observable<string> = this.store.select(auth0Query.getProfilePicture);
@@ -18,7 +18,7 @@ export class Auth0Facade {
 
   public hasPermissions(requiredPermissions: Array<string>): Observable<boolean> {
     return this.permissions$.pipe(
-      map(t => -1 < requiredPermissions.findIndex(f => -1 < t.findIndex(i => i === f)))
+      map((t) => -1 < requiredPermissions.findIndex((f) => -1 < t.findIndex((i) => i === f))),
     );
   }
-}  
+}

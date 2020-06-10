@@ -1,4 +1,3 @@
-import { User as OidcUser } from 'oidc-client';
 import { oidcActions } from './oidc.action';
 import { jwtDecoder } from '../util/jwt-decoder';
 import { on, createReducer, Action } from '@ngrx/store';
@@ -54,8 +53,8 @@ const featureReducer = createReducer(
   on(oidcActions.userFound, (state, identity) => ({
     ...state,
     identity: identity.payload,
-    audiences: jwtDecoder<{ aud?: [] }>(identity.payload.access_token).aud,
-    permissions: jwtDecoder<{ permissions?: [] }>(identity.payload.access_token).permissions,
+    audiences: jwtDecoder<{ aud?: []; }>(identity.payload.access_token).aud,
+    permissions: jwtDecoder<{ permissions?: []; }>(identity.payload.access_token).permissions,
   })),
   on(oidcActions.userExpired, state => ({ ...state, expiring: false })),
   on(oidcActions.onSilentRenewError, (state, err) => ({
@@ -66,15 +65,7 @@ const featureReducer = createReducer(
       silentRenewError: err.payload,
     },
   })),
-  on(oidcActions.userDoneLoadingError, (state, err) => ({
-    ...state,
-    loading: false,
-    errors: {
-      ...state.errors,
-      signInError: err.payload,
-    },
-  })),
-  on(oidcActions.signInError, (state, err) => ({
+  on(oidcActions.userDoneLoadingError, oidcActions.signInError, (state, err) => ({
     ...state,
     loading: false,
     errors: {

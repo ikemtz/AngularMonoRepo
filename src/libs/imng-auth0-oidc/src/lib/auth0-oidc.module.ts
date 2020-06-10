@@ -43,11 +43,11 @@ import { Auth0OidcRoutingModule } from './auth0-oidc-routing.module';
   ]
 })
 export class Auth0OidcModule {
-  static forRoot(auth0_options: Auth0Config): ModuleWithProviders<Auth0OidcModule> {
+  static forRoot(auth00ptions: Auth0Config): ModuleWithProviders<Auth0OidcModule> {
     return {
       ngModule: Auth0OidcModule,
       providers: [
-        { provide: AUTH0_CONFIG, useValue: auth0_options },
+        { provide: AUTH0_CONFIG, useValue: auth00ptions },
       ]
     };
   }

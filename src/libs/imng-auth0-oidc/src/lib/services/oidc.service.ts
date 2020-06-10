@@ -15,7 +15,7 @@ export class OidcService {
 
   private _useCallbackFlag = true;
 
-  constructor(@Inject(OIDC_CONFIG) private config: Config, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(OIDC_CONFIG) private readonly config: Config, @Inject(PLATFORM_ID) private readonly platformId: Object) {
     const logSettings = this.config.log;
     let clientSettings = this.config.oidc_config;
 

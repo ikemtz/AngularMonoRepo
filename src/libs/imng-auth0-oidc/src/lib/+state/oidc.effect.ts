@@ -13,10 +13,10 @@ import { IOidcUser } from '../models/i-oidc-user';
 })
 export class OidcEffects implements OnInitEffects {
   constructor(
-    private actions$: Actions,
-    private oidcService: OidcService,
-    @Inject(OIDC_CONFIG) private config: Config,
-  ) {}
+    private readonly actions$: Actions,
+    private readonly oidcService: OidcService,
+    @Inject(OIDC_CONFIG) private readonly config: Config,
+  ) { }
 
   getOicdUser$ = createEffect(() =>
     this.actions$.pipe(

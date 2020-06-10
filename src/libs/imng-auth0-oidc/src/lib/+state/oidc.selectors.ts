@@ -8,7 +8,7 @@ const getOidcLoading = createSelector(selectOidcState, (state: OidcState) => sta
 const getOidcIdentity = createSelector(selectOidcState, (state: OidcState) => state.identity);
 const getAccessToken = createSelector(
   getOidcIdentity,
-  (user: IOidcUser) => (user || <IOidcUser>{ access_token: null }).access_token,
+  (user: IOidcUser) => (user || { access_token: null }).access_token,
 );
 const isIdentityExpiring = createSelector(selectOidcState, (state: OidcState) => state.expiring);
 
@@ -39,7 +39,7 @@ const getProfile = createSelector(getOidcIdentity, (state: IOidcUser) => {
     return [];
   }
   return Object.entries(state.profile).map((k, v) => {
-    return { key: k[0], value: <string>k[1] };
+    return { key: k[0], value: k[1] as string };
   });
 });
 
