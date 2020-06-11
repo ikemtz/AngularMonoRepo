@@ -1,4 +1,4 @@
-import * as oidcActions from './oidc.action';
+import * as oidcActions from './oidc.actions';
 import { jwtDecoder } from '../util/jwt-decoder';
 import { on, createReducer, Action } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';

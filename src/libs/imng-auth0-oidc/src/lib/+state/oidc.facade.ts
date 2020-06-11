@@ -8,7 +8,7 @@ import { oidcQuery } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
 import { RequestArugments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
-import * as oidcActions from './oidc.action';
+import * as oidcActions from './oidc.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IOidcUser } from '../models/oidc-user';
 
@@ -71,8 +71,8 @@ export class OidcFacade {
 
   // OIDC Methods
 
-  public getOidcUser(args?: any): void {
-    this.store.dispatch(oidcActions.getOidcUser(args));
+  public getOidcUser(): void {
+    this.store.dispatch(oidcActions.getOidcUser());
   }
 
   public removeOidcUser(): void {

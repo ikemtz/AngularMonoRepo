@@ -8,7 +8,7 @@ export const clearCurrentEmployee = createAction('[Employees] Clear Current Empl
 
 // OIDC COMMANDS
 
-export const getOidcUser = createPayloadAction<any>('[Oidc] get oidc user');
+export const getOidcUser = createAction('[Oidc] get oidc user');
 export const removeOidcUser = createAction('[Oidc] remove oidc user');
 export const userExpired = createAction('[Oidc] user expired');
 export const userFound = createPayloadAction<IOidcUser>('[Oidc] user found');

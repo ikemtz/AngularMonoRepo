@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { catchError, concatMap, map, filter } from 'rxjs/operators';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcService } from '../services/oidc.service';
-import * as oidcActions from './oidc.action';
+import * as oidcActions from './oidc.actions';
 import { IOidcUser } from '../models/oidc-user';
 
 @Injectable({
@@ -18,10 +18,10 @@ export class OidcEffects implements OnInitEffects {
     @Inject(OIDC_CONFIG) private readonly config: Config,
   ) { }
 
-  getOicdUser$ = createEffect(() =>
+  getOidcUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.getOidcUser),
-      concatMap(args =>
+      concatMap(() =>
         this.oidcService.getOidcUser().pipe(
           map((userData: IOidcUser) => oidcActions.userFound(this.makeOidcUserSerializable(userData))),
           catchError(err => of(oidcActions.userDoneLoadingError(err))),
@@ -138,7 +138,7 @@ export class OidcEffects implements OnInitEffects {
   );
 
   ngrxOnInitEffects(): Action {
-    return oidcActions.getOidcUser({});
+    return oidcActions.getOidcUser();
   }
 
   makeOidcUserSerializable(user: IOidcUser): IOidcUser {

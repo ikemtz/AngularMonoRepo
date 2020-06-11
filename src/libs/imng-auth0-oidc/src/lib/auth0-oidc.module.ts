@@ -3,7 +3,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { AuthGuard } from './services/auth-guard';
 import { auth0Configurator } from './util/auth0-configurator';
 import { Auth0Config, AUTH0_CONFIG } from './models/auth0-config';
-import { OidcEffects } from './+state/oidc.effect';
+import { OidcEffects } from './+state/oidc.effects';
 import { OIDC_CONFIG } from './models/config.model';
 import { OidcService } from './services/oidc.service';
 import { OidcFacade } from './+state/oidc.facade';

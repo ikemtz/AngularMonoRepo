@@ -1,5 +1,5 @@
 
-import * as oidcActions from './oidc.action';
+import * as oidcActions from './oidc.actions';
 import { initialState, oidcReducer } from './oidc.reducer';
 
 describe('Employees Reducer', () => {
@@ -8,7 +8,7 @@ describe('Employees Reducer', () => {
 
   describe('valid Oidc actions', () => {
     it('getOidcUser', () => {
-      const action = oidcActions.getOidcUser('');
+      const action = oidcActions.getOidcUser();
 
       const result = oidcReducer(initialState, action);
 

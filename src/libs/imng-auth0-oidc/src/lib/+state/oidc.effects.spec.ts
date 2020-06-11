@@ -6,8 +6,8 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { NxModule, DataPersistence } from '@nrwl/angular';
 import { readFirst } from '@nrwl/angular/testing';
-import { OidcEffects } from './oidc.effect';
-import * as OidcActions from './oidc.action';
+import { OidcEffects } from './oidc.effects';
+import * as OidcActions from './oidc.actions';
 import { OIDC_CONFIG } from '../models/config.model';
 
 describe('Oidc Effects', () => {
@@ -79,7 +79,7 @@ describe('Oidc Effects', () => {
   describe('oidc effects', () => {
     it('should initialize', () => {
       const result = effects.ngrxOnInitEffects();
-      expect(result).toStrictEqual({ payload: {}, type: "[Oidc] get oidc user" });
+      expect(result).toStrictEqual({ type: "[Oidc] get oidc user" });
     });
   });
 });

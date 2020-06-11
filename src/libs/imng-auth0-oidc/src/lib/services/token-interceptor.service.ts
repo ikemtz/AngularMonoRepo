@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { oidcQuery } from '../+state/oidc.selectors';
 import { OidcState } from '../+state/oidc.reducer';
-import * as oidcActions from '../+state/oidc.action';
+import * as oidcActions from '../+state/oidc.actions';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
