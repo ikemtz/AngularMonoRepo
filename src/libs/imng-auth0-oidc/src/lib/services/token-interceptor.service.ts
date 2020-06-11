@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { oidcQuery } from '../+state/oidc.selectors';
 import { OidcState } from '../+state/oidc.reducer';
-import { oidcActions } from '../+state/oidc.action';
+import * as oidcActions from '../+state/oidc.action';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
@@ -24,7 +24,7 @@ export class TokenInterceptorService implements HttpInterceptor {
           .pipe(
             catchError((err: any) => {
               if (err instanceof HttpErrorResponse) {
-                this.store.dispatch(oidcActions.setHttpError({ payload: err }));
+                this.store.dispatch(oidcActions.setHttpError(err));
               }
               return of(err);
             }));

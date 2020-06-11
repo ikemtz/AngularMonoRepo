@@ -1,7 +1,7 @@
 
 
 import { oidcQuery } from './oidc.selectors';
-import { OIDC_FEATURE_KEY, OidcState } from './oidc.reducer';
+import { OIDC_FEATURE_KEY } from './oidc.reducer';
 
 describe('OIDC Selectors', () => {
 

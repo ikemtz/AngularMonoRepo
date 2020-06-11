@@ -110,11 +110,11 @@ export class OidcFacade {
   }
 
   public signoutPopup(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signoutPopup(args));
+    this.store.dispatch(oidcActions.signOutPopup(args));
   }
 
   public signoutRedirect(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signoutRedirect(args));
+    this.store.dispatch(oidcActions.signOutRedirect(args));
   }
 
   public getSigninUtrl(args?: RequestArugments): Observable<SigninRequest> {

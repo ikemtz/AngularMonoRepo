@@ -115,7 +115,7 @@ export class OidcEffects implements OnInitEffects {
 
   signOutPopup$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(oidcActions.signoutPopup),
+      ofType(oidcActions.signOutPopup),
       concatMap(args =>
         this.oidcService.signOutPopup(args.payload).pipe(
           map(user => oidcActions.userDoneLoading()),
@@ -127,7 +127,7 @@ export class OidcEffects implements OnInitEffects {
 
   signOutRedirect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(oidcActions.signoutRedirect),
+      ofType(oidcActions.signOutRedirect),
       concatMap(args =>
         this.oidcService.signOutRedirect(args.payload).pipe(
           map(user => oidcActions.userDoneLoading()),
