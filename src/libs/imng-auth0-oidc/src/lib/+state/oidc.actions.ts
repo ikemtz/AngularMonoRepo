@@ -1,0 +1,40 @@
+import { createAction } from '@ngrx/store';
+import { RequestArugments } from '../models/arguments.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { IOidcUser } from '../models/oidc-user';
+import { createPayloadAction } from 'imng-ngrx-utils';
+
+export const clearCurrentEmployee = createAction('[Employees] Clear Current Employee');
+
+// OIDC COMMANDS
+
+export const getOidcUser = createAction('[Oidc] get oidc user');
+export const removeOidcUser = createAction('[Oidc] remove oidc user');
+export const userExpired = createAction('[Oidc] user expired');
+export const userFound = createPayloadAction<IOidcUser>('[Oidc] user found');
+export const onSessionChanged = createAction('[Oidc] session changed');
+export const onAccessTokenExpired = createAction('[Oidc] on access token expired');
+export const onAccessTokenExpiring = createAction('[Oidc] user expiring');
+export const onUserLoading = createAction('[Oidc] user loading');
+export const userDoneLoading = createAction('[Oidc] user done loading');
+export const userDoneLoadingError = createPayloadAction<Error>('[Oidc] user done loading error');
+
+// OIDC EVENTS
+
+export const onUserLoaded = createPayloadAction<IOidcUser>('[Oidc] on user loaded');
+export const onUserloadError = createPayloadAction<Error>('[Oidc] user load error');
+export const onUserUnloaded = createAction('[Oidc] on user unloaded');
+export const onUserSignedOut = createAction('[Oidc] on user signed out');
+export const onSilentRenewError = createPayloadAction<Error>('[Oidc] on silent renew error');
+export const signinPopup = createPayloadAction<RequestArugments>('[Oidc] sign in popup');
+export const signinRedirect = createPayloadAction<RequestArugments>('[Oidc] sign in redirect');
+export const signInError = createPayloadAction<Error>('[Oidc] sign in popup error');
+export const signOutPopup = createPayloadAction<RequestArugments>('[Oidc] sign out popup');
+export const signOutRedirect = createPayloadAction<RequestArugments>('[Oidc] sign out redirect');
+export const signOutError = createPayloadAction<Error>('[Oidc] sign out popup error');
+export const signinSilent = createPayloadAction<RequestArugments>('[Oidc] sign in silent');
+export const oidcError = createPayloadAction<Error>('[Oidc] error');
+
+// HTTP
+export const setHttpError = createPayloadAction<HttpErrorResponse>('[HTTP] Set Http Error');
+export const clearErrors = createAction('[HTTP] Clear Errors');

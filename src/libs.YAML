@@ -117,7 +117,7 @@ jobs:
           workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
           tagUser: 'ikemtz'
           tagEmail: 'ikemtz@outlook.com'
-          tag: 'packages-$(Build.BuildNumber)'
+          tag: 'pack-$(Build.BuildNumber)'
           tagMessage: 'Build libs.yaml'
           useLightweightTags: true
           conditions: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))

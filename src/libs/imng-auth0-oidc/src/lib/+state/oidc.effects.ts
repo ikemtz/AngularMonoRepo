@@ -5,25 +5,25 @@ import { of } from 'rxjs';
 import { catchError, concatMap, map, filter } from 'rxjs/operators';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcService } from '../services/oidc.service';
-import { oidcActions } from './oidc.action';
-import { IOidcUser } from '../models/i-oidc-user';
+import * as oidcActions from './oidc.actions';
+import { IOidcUser } from '../models/oidc-user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OidcEffects implements OnInitEffects {
   constructor(
-    private actions$: Actions,
-    private oidcService: OidcService,
-    @Inject(OIDC_CONFIG) private config: Config,
-  ) {}
+    private readonly actions$: Actions,
+    private readonly oidcService: OidcService,
+    @Inject(OIDC_CONFIG) private readonly config: Config,
+  ) { }
 
-  getOicdUser$ = createEffect(() =>
+  getOidcUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.getOidcUser),
-      concatMap(args =>
+      concatMap(() =>
         this.oidcService.getOidcUser().pipe(
-          map((userData: IOidcUser) => oidcActions.userFound({ payload: this.makeOidcUserSerializable(userData) })),
+          map((userData: IOidcUser) => oidcActions.userFound(this.makeOidcUserSerializable(userData))),
           catchError(err => of(oidcActions.userDoneLoadingError(err))),
         ),
       ),
@@ -39,7 +39,7 @@ export class OidcEffects implements OnInitEffects {
         // user expired, initiate silent sign-in if configured to automatic
         return userFound.payload != null && userFound.payload.expired && automaticSilentRenew;
       }),
-      map(userFound => oidcActions.signinSilent({ payload: userFound.payload })),
+      map(userFound => oidcActions.signinSilent(userFound.payload)),
     ),
   );
 
@@ -72,7 +72,7 @@ export class OidcEffects implements OnInitEffects {
   onUserLoaded$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.onUserLoaded),
-      map(userData => oidcActions.userFound({ payload: this.makeOidcUserSerializable(userData.payload) })),
+      map(userData => oidcActions.userFound(this.makeOidcUserSerializable(userData.payload))),
     ),
   );
 
@@ -81,7 +81,7 @@ export class OidcEffects implements OnInitEffects {
       ofType(oidcActions.signinPopup),
       concatMap(args =>
         this.oidcService.signInPopup(args.payload).pipe(
-          map(user => oidcActions.userFound({ payload: this.makeOidcUserSerializable(user) })),
+          map(user => oidcActions.userFound(this.makeOidcUserSerializable(user))),
           catchError(err => of(oidcActions.signInError(err))),
         ),
       ),
@@ -94,7 +94,7 @@ export class OidcEffects implements OnInitEffects {
       concatMap(args =>
         this.oidcService.signInRedirect(args.payload).pipe(
           concatMap(() => this.oidcService.signinRedirectCallback()),
-          map(user => oidcActions.userFound({ payload: this.makeOidcUserSerializable(user) })),
+          map(user => oidcActions.userFound(this.makeOidcUserSerializable(user))),
           catchError(err => of(oidcActions.signInError(err))),
         ),
       ),
@@ -106,7 +106,7 @@ export class OidcEffects implements OnInitEffects {
       ofType(oidcActions.signinSilent),
       concatMap(args =>
         this.oidcService.signInSilent(args.payload).pipe(
-          map(user => oidcActions.userFound({ payload: this.makeOidcUserSerializable(user) })),
+          map(user => oidcActions.userFound(this.makeOidcUserSerializable(user))),
           catchError(err => of(oidcActions.onSilentRenewError(err))),
         ),
       ),
@@ -115,7 +115,7 @@ export class OidcEffects implements OnInitEffects {
 
   signOutPopup$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(oidcActions.signoutPopup),
+      ofType(oidcActions.signOutPopup),
       concatMap(args =>
         this.oidcService.signOutPopup(args.payload).pipe(
           map(user => oidcActions.userDoneLoading()),
@@ -127,7 +127,7 @@ export class OidcEffects implements OnInitEffects {
 
   signOutRedirect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(oidcActions.signoutRedirect),
+      ofType(oidcActions.signOutRedirect),
       concatMap(args =>
         this.oidcService.signOutRedirect(args.payload).pipe(
           map(user => oidcActions.userDoneLoading()),
@@ -138,7 +138,7 @@ export class OidcEffects implements OnInitEffects {
   );
 
   ngrxOnInitEffects(): Action {
-    return oidcActions.getOidcUser({ payload: {} });
+    return oidcActions.getOidcUser();
   }
 
   makeOidcUserSerializable(user: IOidcUser): IOidcUser {

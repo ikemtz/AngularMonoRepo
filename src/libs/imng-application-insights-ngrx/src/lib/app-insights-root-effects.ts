@@ -12,9 +12,9 @@ abstract class AppInsightsBaseffects {
 
   protected getTrackLoginPipe() {
     return this.actions$.pipe(
-      filter(x => x.type.toUpperCase().endsWith('USER FOUND') && (<any>x).payload),
+      filter(x => x.type.toUpperCase().endsWith('USER FOUND') && (x as any).payload),
       tap(x => {
-        this.monitor.setAuthenticatedUserContext((<any>x).payload.profile.email);
+        this.monitor.setAuthenticatedUserContext((x as any).payload.profile.email);
       })
     );
   }
@@ -32,7 +32,7 @@ abstract class AppInsightsBaseffects {
     return this.actions$.pipe(
       filter(x => x.type.toUpperCase().endsWith('ERROR')),
       tap(x => {
-        this.monitor.logException((<any>x).payload);
+        this.monitor.logException((x as any).payload);
       })
     );
   }
@@ -41,7 +41,7 @@ abstract class AppInsightsBaseffects {
 @Injectable()
 export class AppInsightsVerboseRootEffects extends AppInsightsBaseffects {
   trackEvents = createEffect(() => this.actions$.pipe(
-    tap(x => this.monitor.logEvent(x.type, (<any>x).payload))), this.noDispatch);
+    tap(x => this.monitor.logEvent(x.type, (x as any).payload))), this.noDispatch);
 
   trackLogin = createEffect(() => this.getTrackLoginPipe(), this.noDispatch);
 
@@ -52,7 +52,7 @@ export class AppInsightsVerboseRootEffects extends AppInsightsBaseffects {
   constructor(
     actions$: Actions,
     monitor: AppInsightsMonitoringService
-  ) { super(actions$, monitor) }
+  ) { super(actions$, monitor); }
 }
 
 @Injectable()
@@ -70,5 +70,5 @@ export class AppInsightsInfoRootEffects extends AppInsightsBaseffects {
   constructor(
     actions$: Actions,
     monitor: AppInsightsMonitoringService
-  ) { super(actions$, monitor) }
+  ) { super(actions$, monitor); }
 }
