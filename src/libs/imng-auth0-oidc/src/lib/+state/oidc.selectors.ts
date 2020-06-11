@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { ErrorState, OidcState } from './oidc.reducer';
-import { IOidcUser } from '../models/i-oidc-user';
+import { IOidcUser } from '../models/oidc-user';
 // State Selectors
 
 const selectOidcState = createFeatureSelector<OidcState>('oidc');

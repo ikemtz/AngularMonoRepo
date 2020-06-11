@@ -10,7 +10,7 @@ import { RequestArugments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
 import * as oidcActions from './oidc.action';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IOidcUser } from '../models/i-oidc-user';
+import { IOidcUser } from '../models/oidc-user';
 
 @Injectable({
   providedIn: 'root',

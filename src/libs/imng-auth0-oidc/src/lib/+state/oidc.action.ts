@@ -1,7 +1,7 @@
 import { createAction } from '@ngrx/store';
 import { RequestArugments } from '../models/arguments.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IOidcUser } from '../models/i-oidc-user';
+import { IOidcUser } from '../models/oidc-user';
 import { createPayloadAction } from 'imng-ngrx-utils';
 
 export const clearCurrentEmployee = createAction('[Employees] Clear Current Employee');

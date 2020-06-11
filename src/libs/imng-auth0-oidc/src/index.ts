@@ -20,4 +20,4 @@ export * from './lib/services/permission-guard';
 export * from './lib/components/access-denied.component';
 export * from './lib/support/support.component';
 export * from './lib/auth0-oidc-routing.module';
-export * from './lib/models/i-oidc-user';
+export * from './lib/models/oidc-user';

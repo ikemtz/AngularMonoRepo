@@ -2,7 +2,7 @@ import * as oidcActions from './oidc.action';
 import { jwtDecoder } from '../util/jwt-decoder';
 import { on, createReducer, Action } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IOidcUser } from '../models/i-oidc-user';
+import { IOidcUser } from '../models/oidc-user';
 
 export const OIDC_FEATURE_KEY = 'oidc';
 export interface OidcState {

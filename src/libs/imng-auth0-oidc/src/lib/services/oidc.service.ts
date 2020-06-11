@@ -4,7 +4,7 @@ import { Log, OidcClient, SigninRequest, SignoutRequest, UserManager } from 'oid
 import { from, Observable } from 'rxjs';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcEvent, StorageKeys } from '../models/constants';
-import { IOidcUser } from '../models/i-oidc-user';
+import { IOidcUser } from '../models/oidc-user';
 
 @Injectable({
   providedIn: 'root',

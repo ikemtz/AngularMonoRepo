@@ -6,7 +6,7 @@ import { catchError, concatMap, map, filter } from 'rxjs/operators';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcService } from '../services/oidc.service';
 import * as oidcActions from './oidc.action';
-import { IOidcUser } from '../models/i-oidc-user';
+import { IOidcUser } from '../models/oidc-user';
 
 @Injectable({
   providedIn: 'root',
