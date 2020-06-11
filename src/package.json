@@ -39,7 +39,7 @@
     "workspace-schematic": "nx workspace-schematic",
     "distribute:azc-cicd-scripts": "copyfiles -V 'CiCd/azc/*' dist",
     "distribute:nur-cicd-scripts": "copyfiles -V 'CiCd/nur/*' dist",
-    "build:libs": "npm run build:odata && npm run build:data-entry && npm run build:auth0-oidc && npm run build:app-insight && npm run build:ngrx-utils && npm run build:nrsrx-utils && npm run build:grid && npm run build:grid-odata && npm run build:type-ahead && npm run build:chart-odata ",
+    "build:libs": "npm run build:odata && npm run build:data-entry && npm run build:app-insight && npm run build:ngrx-utils && npm run build:auth0-oidc && npm run build:nrsrx-utils && npm run build:grid && npm run build:grid-odata && npm run build:type-ahead && npm run build:chart-odata ",
     "build:nur": "ng build nurse-cron --sourceMap=true --statsJson",
     "build:nur-prod": "ng build nurse-cron --prod --sourceMap=true --configuration=production",
     "build:azc": "ng build imng-az-func-configr --sourceMap=true --statsJson",
