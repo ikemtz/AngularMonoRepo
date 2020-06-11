@@ -12,7 +12,7 @@ const getAccessToken = createSelector(
 );
 const isIdentityExpiring = createSelector(selectOidcState, (state: OidcState) => state.expiring);
 
-const isIdentityExpired = createSelector(getOidcIdentity, (identity: IOidcUser) => identity && identity.expired);
+const isIdentityExpired = createSelector(selectOidcState, (state: OidcState) => state.expired);
 const isLoggedIn = createSelector(getOidcIdentity, (identity: IOidcUser) => identity && !identity.expired);
 
 // errors

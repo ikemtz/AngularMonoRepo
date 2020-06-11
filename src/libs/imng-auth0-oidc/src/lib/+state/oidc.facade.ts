@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { OidcClient, SigninRequest, SignoutRequest, User as OidcUser, UserManager } from 'oidc-client';
 import { Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter, take, map } from 'rxjs/operators';
 import { OidcState } from './oidc.reducer';
 import { oidcQuery } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
@@ -40,7 +40,7 @@ export class OidcFacade {
     this.store.dispatch(oidcActions.onUserUnloaded());
   }
 
-  public accessTokenExpired(e): void {
+  public accessTokenExpired(): void {
     this.store.dispatch(oidcActions.onAccessTokenExpired());
   };
 
@@ -94,6 +94,7 @@ export class OidcFacade {
     return this.loading$.pipe(
       filter(loading => loading === false),
       take(1),
+      map(() => true)
     );
   }
 

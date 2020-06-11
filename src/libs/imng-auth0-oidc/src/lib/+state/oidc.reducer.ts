@@ -11,6 +11,7 @@ export interface OidcState {
   permissions: string[];
   loading: boolean;
   expiring: boolean;
+  expired: boolean;
   errors: ErrorState;
 }
 
@@ -26,6 +27,7 @@ export const initialState: OidcState = {
   permissions: [],
   loading: true,
   expiring: false,
+  expired: false,
   errors: {
     silentRenewError: null,
     signInError: null,
@@ -36,7 +38,7 @@ export const initialState: OidcState = {
 const featureReducer = createReducer(
   initialState,
   on(oidcActions.getOidcUser, state => ({ ...state, loading: true })),
-  on(oidcActions.removeOidcUser, state => ({ ...state, loading: true })),
+  on(oidcActions.removeOidcUser, state => ({ ...state, loading: true, identity: null })),
   on(oidcActions.onUserLoading, state => ({ ...state, loading: true })),
   on(oidcActions.setHttpError, (state, err) => ({
     ...state,
@@ -49,6 +51,7 @@ const featureReducer = createReducer(
   on(oidcActions.clearErrors, state => ({ ...state, errors: {} })),
   on(oidcActions.userDoneLoading, state => ({ ...state, loading: false })),
   on(oidcActions.onAccessTokenExpiring, state => ({ ...state, expiring: true })),
+  on(oidcActions.onAccessTokenExpired, state => ({ ...state, expiring: false, expired: true })),
   on(oidcActions.onUserLoaded, state => ({ ...state, loading: false, expiring: false })),
   on(oidcActions.onUserUnloaded, state => ({ ...state, identity: null, expiring: false })),
   on(oidcActions.userFound, (state, identity) => ({
