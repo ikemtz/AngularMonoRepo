@@ -1,8 +1,8 @@
 export * from './lib/auth0-oidc.module';
 export * from './lib/+state/auth0.facade';
 export { auth0Query } from './lib/+state/auth0.selectors';
-export * from './lib/+state/oidc.action';
-export * from './lib/+state/oidc.effect';
+export * from './lib/+state/oidc.actions';
+export * from './lib/+state/oidc.effects';
 export * from './lib/+state/oidc.facade';
 export { OidcState, ErrorState, oidcReducer } from './lib/+state/oidc.reducer';
 export { oidcQuery } from './lib/+state/oidc.selectors';
@@ -20,4 +20,4 @@ export * from './lib/services/permission-guard';
 export * from './lib/components/access-denied.component';
 export * from './lib/support/support.component';
 export * from './lib/auth0-oidc-routing.module';
-export * from './lib/models/i-oidc-user';
+export * from './lib/models/oidc-user';
