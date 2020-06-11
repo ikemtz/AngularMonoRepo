@@ -53,7 +53,7 @@ const featureReducer = createReducer(
   on(oidcActions.onAccessTokenExpiring, state => ({ ...state, expiring: true })),
   on(oidcActions.onAccessTokenExpired, state => ({ ...state, expiring: false, expired: true })),
   on(oidcActions.onUserLoaded, state => ({ ...state, loading: false, expiring: false })),
-  on(oidcActions.onUserUnloaded, state => ({ ...state, identity: null, expiring: false })),
+  on(oidcActions.onUserUnloaded, oidcActions.onUserSignedOut, state => ({ ...state, identity: null, expiring: false })),
   on(oidcActions.userFound, (state, identity) => ({
     ...state,
     identity: identity.payload,
