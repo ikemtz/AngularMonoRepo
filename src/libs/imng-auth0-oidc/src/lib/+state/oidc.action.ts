@@ -1,102 +1,40 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 import { RequestArugments } from '../models/arguments.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IOidcUser } from '../models/i-oidc-user';
+import { createPayloadAction } from 'imng-ngrx-utils';
 
-export enum OidcActionTypes {
-  GetOidcUser = '[Oidc] get oidc user',
-  RemoveOidcUser = '[Oidc] remove oidc user',
-
-  UserExpired = '[Oidc] user expired',
-  UserFound = '[Oidc] user found',
-
-  OnAccessTokenExpired = '[Oidc] on access token expired',
-  OnAccessTokenExpiring = '[Oidc] user expiring',
-  OnSilentRenewError = '[Oidc] on silent renew error',
-  OnUserLoaded = '[Oidc] on user loaded',
-  OnUserUnloaded = '[Oidc] on user unloaded',
-  OnUserloadError = '[Oidc] user load error',
-  OnUserSignedOut = '[Oidc] on user signed out',
-  OnSessionChanged = '[Oidc] session changed',
-
-  UserLoading = '[Oidc] user loading',
-  UserDoneLoading = '[Oidc] user done loading',
-  UserDoneLoadingError = '[Oidc] user done loading error',
-
-  // Sign In
-  SignInPopup = '[Oidc] sign in popup',
-  SignInRedirect = '[Oidc] sign in redirect',
-  SignInSilent = '[Oidc] sign in silent',
-  SignInError = '[Oidc] sign in popup error',
-
-  // Sign Out
-  SignOutPopup = '[Oidc] sign out popup',
-  SignOutRedirect = '[Oidc] sign out redirect',
-  SignOutError = '[Oidc] sign out popup error',
-
-  OidcError = '[Oidc] error',
-
-  // Http Error
-  SetHttpError = '[HTTP] Set Http Error',
-  ClearErrors = '[HTTP] Clear Errors',
-}
+export const clearCurrentEmployee = createAction('[Employees] Clear Current Employee');
 
 // OIDC COMMANDS
 
-export const getOidcUser = createAction(OidcActionTypes.GetOidcUser, props<{ payload: any }>());
-export const removeOidcUser = createAction(OidcActionTypes.RemoveOidcUser);
-export const userExpired = createAction(OidcActionTypes.UserExpired);
-export const userFound = createAction(OidcActionTypes.UserFound, props<{ payload?: IOidcUser }>());
-export const onSessionChanged = createAction(OidcActionTypes.OnSessionChanged);
-export const onAccessTokenExpired = createAction(OidcActionTypes.OnAccessTokenExpired);
-export const onAccessTokenExpiring = createAction(OidcActionTypes.OnAccessTokenExpiring);
-export const onUserLoading = createAction(OidcActionTypes.UserLoading);
-export const userDoneLoading = createAction(OidcActionTypes.UserDoneLoading);
-export const userDoneLoadingError = createAction(OidcActionTypes.UserDoneLoadingError, props<{ payload: Error }>());
+export const getOidcUser = createPayloadAction<any>('[Oidc] get oidc user');
+export const removeOidcUser = createAction('[Oidc] remove oidc user');
+export const userExpired = createAction('[Oidc] user expired');
+export const userFound = createPayloadAction<IOidcUser>('[Oidc] user found');
+export const onSessionChanged = createAction('[Oidc] session changed');
+export const onAccessTokenExpired = createAction('[Oidc] on access token expired');
+export const onAccessTokenExpiring = createAction('[Oidc] user expiring');
+export const onUserLoading = createAction('[Oidc] user loading');
+export const userDoneLoading = createAction('[Oidc] user done loading');
+export const userDoneLoadingError = createPayloadAction<Error>('[Oidc] user done loading error');
 
 // OIDC EVENTS
 
-export const onUserLoaded = createAction(OidcActionTypes.OnUserLoaded, props<{ payload: IOidcUser }>());
-export const onUserloadError = createAction(OidcActionTypes.OnUserloadError, props<{ payload: Error }>());
-export const onUserUnloaded = createAction(OidcActionTypes.OnUserUnloaded);
-export const onUserSignedOut = createAction(OidcActionTypes.OnUserSignedOut);
-export const onSilentRenewError = createAction(OidcActionTypes.OnSilentRenewError, props<{ payload: Error }>());
-export const signinPopup = createAction(OidcActionTypes.SignInPopup, props<{ payload: RequestArugments }>());
-export const signinRedirect = createAction(OidcActionTypes.SignInRedirect, props<{ payload: RequestArugments }>());
-export const signInError = createAction(OidcActionTypes.SignInError, props<{ payload: Error }>());
-export const signoutPopup = createAction(OidcActionTypes.SignOutPopup, props<{ payload: RequestArugments }>());
-export const signoutRedirect = createAction(OidcActionTypes.SignOutRedirect, props<{ payload: RequestArugments }>());
-export const signOutError = createAction(OidcActionTypes.SignOutError, props<{ payload: Error }>());
-export const signinSilent = createAction(OidcActionTypes.SignInSilent, props<{ payload: RequestArugments }>());
-export const oidcError = createAction(OidcActionTypes.OidcError, props<{ payload: Error }>());
+export const onUserLoaded = createPayloadAction<IOidcUser>('[Oidc] on user loaded');
+export const onUserloadError = createPayloadAction<Error>('[Oidc] user load error');
+export const onUserUnloaded = createAction('[Oidc] on user unloaded');
+export const onUserSignedOut = createAction('[Oidc] on user signed out');
+export const onSilentRenewError = createPayloadAction<Error>('[Oidc] on silent renew error');
+export const signinPopup = createPayloadAction<RequestArugments>('[Oidc] sign in popup');
+export const signinRedirect = createPayloadAction<RequestArugments>('[Oidc] sign in redirect');
+export const signInError = createPayloadAction<Error>('[Oidc] sign in popup error');
+export const signoutPopup = createPayloadAction<RequestArugments>('[Oidc] sign out popup');
+export const signoutRedirect = createPayloadAction<RequestArugments>('[Oidc] sign out redirect');
+export const signOutError = createPayloadAction<Error>('[Oidc] sign out popup error');
+export const signinSilent = createPayloadAction<RequestArugments>('[Oidc] sign in silent');
+export const oidcError = createPayloadAction<Error>('[Oidc] error');
 
 // HTTP
-export const setHttpError = createAction(OidcActionTypes.SetHttpError, props<{ payload: HttpErrorResponse }>());
-export const clearErrors = createAction(OidcActionTypes.ClearErrors);
-
-export const oidcActions = {
-  getOidcUser,
-  removeOidcUser,
-  userExpired,
-  userFound,
-  onSessionChanged,
-  onAccessTokenExpired,
-  onAccessTokenExpiring,
-  onUserLoading,
-  userDoneLoading,
-  userDoneLoadingError,
-  onUserLoaded,
-  onUserUnloaded,
-  onUserSignedOut,
-  onSilentRenewError,
-  signinPopup,
-  signinRedirect,
-  signInError,
-  signoutPopup,
-  signoutRedirect,
-  signOutError,
-  signinSilent,
-  oidcError,
-  setHttpError,
-  clearErrors,
-};
+export const setHttpError = createPayloadAction<HttpErrorResponse>('[HTTP] Set Http Error');
+export const clearErrors = createAction('[HTTP] Clear Errors');

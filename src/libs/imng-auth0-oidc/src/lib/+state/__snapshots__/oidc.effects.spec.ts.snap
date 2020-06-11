@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Oidc Effects signInSilent$ should fail because silent_redirect_uri is not configured 1`] = `
+Object {
+  "payload": [Error: No silent_redirect_uri configured],
+  "type": "[Oidc] on silent renew error",
+}
+`;

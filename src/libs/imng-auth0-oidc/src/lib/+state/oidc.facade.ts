@@ -8,7 +8,7 @@ import { oidcQuery } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
 import { RequestArugments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
-import { oidcActions } from './oidc.action';
+import * as oidcActions from './oidc.action';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IOidcUser } from '../models/i-oidc-user';
 
@@ -49,11 +49,11 @@ export class OidcFacade {
   }
 
   public addSilentRenewError(e): void {
-    this.store.dispatch(oidcActions.onSilentRenewError({ payload: e }));
+    this.store.dispatch(oidcActions.onSilentRenewError(e));
   }
 
   public addUserLoaded(loadedUser: OidcUser): void {
-    this.store.dispatch(oidcActions.onUserLoaded({ payload: loadedUser }));
+    this.store.dispatch(oidcActions.onUserLoaded(loadedUser));
   }
 
   public addUserSignedOut(): void {
@@ -72,7 +72,7 @@ export class OidcFacade {
   // OIDC Methods
 
   public getOidcUser(args?: any): void {
-    this.store.dispatch(oidcActions.getOidcUser({ payload: args }));
+    this.store.dispatch(oidcActions.getOidcUser(args));
   }
 
   public removeOidcUser(): void {
@@ -98,38 +98,38 @@ export class OidcFacade {
   }
 
   public signinPopup(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signinPopup({ payload: args }));
+    this.store.dispatch(oidcActions.signinPopup(args));
   }
 
   public signinRedirect(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signinRedirect({ payload: args }));
+    this.store.dispatch(oidcActions.signinRedirect(args));
   }
 
   public signinSilent(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signinSilent({ payload: args }));
+    this.store.dispatch(oidcActions.signinSilent(args));
   }
 
   public signoutPopup(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signoutPopup({ payload: args }));
+    this.store.dispatch(oidcActions.signoutPopup(args));
   }
 
   public signoutRedirect(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signoutRedirect({ payload: args }));
+    this.store.dispatch(oidcActions.signoutRedirect(args));
   }
 
   public getSigninUtrl(args?: RequestArugments): Observable<SigninRequest> {
     return this.oidcService.getSigninUrl(args);
   }
 
-  public getSignoutUrl(args?: RequestArugments): Observable<SignoutRequest> {
+  getSignoutUrl(args?: RequestArugments): Observable<SignoutRequest> {
     return this.oidcService.getSignoutUrl(args);
   }
 
-  public registerEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
+  registerEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
     this.oidcService.registerOidcEvent(event, callback);
   }
 
-  public registerDefaultEvents() {
+  private registerDefaultEvents() {
     // add simple loggers
     this.oidcService.registerOidcEvent(OidcEvent.AccessTokenExpired, this.accessTokenExpired);
     this.oidcService.registerOidcEvent(OidcEvent.AccessTokenExpiring, this.accessTokenExpiring);
