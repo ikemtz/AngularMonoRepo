@@ -12,7 +12,7 @@ Object {
 
 exports[`OidcFacade used in NgModule should getOidcUser and removeOidcUser: profile 1`] = `Array []`;
 
-exports[`OidcFacade used in NgModule should handle clearingErrors 1`] = `
+exports[`OidcFacade used in NgModule should handle clearingHttpErrors 1`] = `
 HttpErrorResponse {
   "error": [Error: this is an expected error during unit tests, do not be alarmed!],
   "headers": HttpHeaders {
@@ -28,3 +28,5 @@ HttpErrorResponse {
   "url": null,
 }
 `;
+
+exports[`OidcFacade used in NgModule should handle clearingSilentRenewErrors 1`] = `[Error: this is an expected error during unit tests, do not be alarmed!]`;

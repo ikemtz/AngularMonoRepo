@@ -42,7 +42,7 @@ export class OidcFacade {
 
   public accessTokenExpired(): void {
     this.store.dispatch(oidcActions.onAccessTokenExpired());
-  };
+  }
 
   public accessTokenExpiring(): void {
     this.store.dispatch(oidcActions.onAccessTokenExpiring());
@@ -118,7 +118,7 @@ export class OidcFacade {
     this.store.dispatch(oidcActions.signOutRedirect(args));
   }
 
-  public getSigninUtrl(args?: RequestArugments): Observable<SigninRequest> {
+  public getSigninUrl(args?: RequestArugments): Observable<SigninRequest> {
     return this.oidcService.getSigninUrl(args);
   }
 
@@ -132,13 +132,13 @@ export class OidcFacade {
 
   private registerDefaultEvents() {
     // add simple loggers
-    this.oidcService.registerOidcEvent(OidcEvent.AccessTokenExpired, this.accessTokenExpired);
-    this.oidcService.registerOidcEvent(OidcEvent.AccessTokenExpiring, this.accessTokenExpiring);
-    this.oidcService.registerOidcEvent(OidcEvent.SilentRenewError, this.addSilentRenewError);
+    this.registerEvent(OidcEvent.AccessTokenExpired, this.accessTokenExpired);
+    this.registerEvent(OidcEvent.AccessTokenExpiring, this.accessTokenExpiring);
+    this.registerEvent(OidcEvent.SilentRenewError, this.addSilentRenewError);
 
-    this.oidcService.registerOidcEvent(OidcEvent.UserLoaded, this.addUserLoaded);
-    this.oidcService.registerOidcEvent(OidcEvent.UserUnloaded, this.addUserUnLoaded);
-    this.oidcService.registerOidcEvent(OidcEvent.UserSignedOut, this.addUserSignedOut);
-    this.oidcService.registerOidcEvent(OidcEvent.UserSessionChanged, this.addUserSessionChanged);
+    this.registerEvent(OidcEvent.UserLoaded, this.addUserLoaded);
+    this.registerEvent(OidcEvent.UserUnloaded, this.addUserUnLoaded);
+    this.registerEvent(OidcEvent.UserSignedOut, this.addUserSignedOut);
+    this.registerEvent(OidcEvent.UserSessionChanged, this.addUserSessionChanged);
   }
 }
