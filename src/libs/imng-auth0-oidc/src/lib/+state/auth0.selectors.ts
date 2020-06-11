@@ -5,7 +5,7 @@ import { oidcQuery } from './oidc.selectors';
 import { OidcState } from './oidc.reducer';
 
 const getProfile = createSelector(oidcQuery.getOidcIdentity, (identity: User) =>
-  <Auth0Profile>(identity || { profile: {} }).profile);
+  (identity || { profile: {} }.profile) as Auth0Profile);
 
 const getPermissions = createSelector(oidcQuery.selectOidcState, (state: OidcState) =>
   (state || { permissions: Array<string>() }).permissions);
@@ -23,4 +23,4 @@ export const auth0Query =
   getEmail,
   getProfilePicture,
   getPermissions
-}
+};

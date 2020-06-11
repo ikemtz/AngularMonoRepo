@@ -4,7 +4,7 @@ import { Log, OidcClient, SigninRequest, SignoutRequest, UserManager } from 'oid
 import { from, Observable } from 'rxjs';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcEvent, StorageKeys } from '../models/constants';
-import { IOidcUser } from '../models/i-oidc-user';
+import { IOidcUser } from '../models/oidc-user';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class OidcService {
 
   private _useCallbackFlag = true;
 
-  constructor(@Inject(OIDC_CONFIG) private config: Config, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(OIDC_CONFIG) private readonly config: Config, @Inject(PLATFORM_ID) private readonly platformId: Object) {
     const logSettings = this.config.log;
     let clientSettings = this.config.oidc_config;
 

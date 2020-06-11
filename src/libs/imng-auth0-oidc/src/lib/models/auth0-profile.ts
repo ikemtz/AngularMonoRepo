@@ -1,4 +1,4 @@
 export interface Auth0Profile {
-    email?: string;
-    picture?: string;
+  email?: string;
+  picture?: string;
 }
