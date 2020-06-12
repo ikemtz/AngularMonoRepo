@@ -44,7 +44,7 @@
     "build:nur-prod": "ng build nurse-cron --prod --sourceMap=true --configuration=production",
     "build:azc": "ng build imng-az-func-configr --sourceMap=true --statsJson",
     "build:azc-prod": "ng build imng-az-func-configr --prod --sourceMap=true --configuration=production",
-    "build:data-entry": "rimraf ./dist/libs/imng-kendo-data-entry && ng build imng-kendo-data-entry --prod",
+    "build:data-entry": "rimraf ./dist/libs/imng-kendo-data-entry & ng build imng-kendo-data-entry --prod",
     "build:odata": "rimraf ./dist/libs/imng-kendo-odata && ng build imng-kendo-odata --prod",
     "build:grid": "rimraf ./dist/libs/imng-kendo-grid && ng build imng-kendo-grid --prod",
     "build:chart-odata": "rimraf ./dist/libs/imng-kendo-chart-odata && ng build imng-kendo-chart-odata --prod",

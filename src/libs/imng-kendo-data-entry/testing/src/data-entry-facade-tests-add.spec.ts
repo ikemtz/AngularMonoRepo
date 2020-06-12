@@ -13,6 +13,7 @@ describe('TestEditSetAndClearCurrentEntity', () => {
     it('Existing Entity Set And Clear CurrentEntity', async done =>
         testEditSetAndClearCurrentEntity<TestFacade>(done, new TestFacade()));
 });
+
 class TestFacade {
     entity$ = new BehaviorSubject<{ id: string, name: string; }>(null);
     currentEntity$ = this.entity$.asObservable();
