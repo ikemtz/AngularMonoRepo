@@ -38,7 +38,7 @@ describe('OidcFacade', () => {
           EffectsModule.forFeature([OidcEffects]),
         ],
         providers: [OidcFacade, OidcService,
-          { provide: OIDC_CONFIG, useValue: { oidc_config: { automaticSilentRenew: true } } }],
+          { provide: OIDC_CONFIG, useValue: { oidc_config: { automaticSilentRenew: true }, log: { level: 0, logger: console } } }],
       })
       class CustomFeatureModule { }
 
