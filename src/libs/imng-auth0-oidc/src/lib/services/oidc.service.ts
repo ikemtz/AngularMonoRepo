@@ -10,17 +10,17 @@ import { IOidcUser } from '../models/oidc-user';
   providedIn: 'root',
 })
 export class OidcService {
-  private _oidcUserManager: UserManager;
-  private _oidcClient: OidcClient;
+  private readonly _oidcUserManager: UserManager;
+  private readonly _oidcClient: OidcClient;
 
-  private _useCallbackFlag = true;
+  private readonly _useCallbackFlag: boolean = true;
 
   constructor(@Inject(OIDC_CONFIG) private readonly config: Config, @Inject(PLATFORM_ID) private readonly platformId: Object) {
     const logSettings = this.config.log;
     let clientSettings = this.config.oidc_config;
 
     if (this.config.useCallbackFlag != null) {
-      this._useCallbackFlag = this.config.useCallbackFlag;
+      this._useCallbackFlag = this.config.useCallbackFlag.valueOf();
     } else {
       this._useCallbackFlag = true;
     }

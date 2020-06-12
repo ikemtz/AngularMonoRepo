@@ -9,15 +9,15 @@ import * as oidcActions from '../+state/oidc.actions';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
-  constructor(private store: Store<OidcState>) { }
+  constructor(private readonly store: Store<OidcState>) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.store.select(oidcQuery.getAccessToken).pipe(
       first(),
-      flatMap(access_token => {
-        if (access_token) {
+      flatMap(accessToken => {
+        if (accessToken) {
           req = req.clone({
-            setHeaders: { Authorization: `Bearer ${access_token}` }
+            setHeaders: { Authorization: `Bearer ${accessToken}` }
           });
         }
         return next.handle(req)
