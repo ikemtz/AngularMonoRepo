@@ -1,10 +1,10 @@
 import { FormGroup } from '@angular/forms';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EditEvent, CancelEvent, SaveEvent, RemoveEvent, AddEvent, GridComponent } from '@progress/kendo-angular-grid';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 
-export class GridDataEntryHelper<T extends { id?: string | number }> {
+export class GridDataEntryHelper<T extends { id?: string | number; }> {
   private _editedRowIndex: number;
   private _gridFormGroup: FormGroup;
   private readonly _gridData$: BehaviorSubject<Array<T>>;

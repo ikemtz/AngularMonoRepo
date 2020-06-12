@@ -3,20 +3,19 @@ import { PagerSettings } from '@progress/kendo-angular-grid';
 import { map } from 'rxjs/operators';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 
-export const getODataPagerSettings = <T>(m: { gridData: ODataResult<T>; gridODataState?: ODataState }) => {
+export const getODataPagerSettings = <T>(m: { gridData: ODataResult<T>; gridODataState?: ODataState; }) => {
   if (!m.gridODataState || m.gridData.total <= m.gridODataState.take) {
     return false;
   }
   let pageCount = m.gridData.total / m.gridODataState.take;
   pageCount = Math.min(10, Math.ceil(pageCount));
-  const settings: PagerSettings = {
+  return {
     buttonCount: pageCount,
     info: true,
     pageSizes: [10, 20, 50, 100],
     previousNext: true,
     type: 'numeric',
   };
-  return settings;
 };
 
 export const mapPagerSettings = <T>() => (

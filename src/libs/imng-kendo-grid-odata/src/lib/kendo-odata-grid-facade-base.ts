@@ -6,14 +6,14 @@ import { ODataState, ODataResult } from 'imng-kendo-odata';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 
 export abstract class KendoODataFacadeBase<Entity, PartialState> implements IKendoODataGridFacade<Entity> {
-  loading$: Observable<boolean> = (<Observable<any>>this.store).pipe(select(this.selector.getLoading));
-  gridODataState$: Observable<ODataState> = (<Observable<any>>this.store).pipe(select(this.selector.getGridODataState));
-  gridData$: Observable<ODataResult<Entity>> = (<Observable<any>>this.store).pipe(select(this.selector.getGridData));
-  gridPagerSettings$: Observable<false | PagerSettings> = (<Observable<any>>this.store).pipe(
+  loading$: Observable<boolean> = (this.store as Observable<any>).pipe(select(this.selector.getLoading));
+  gridODataState$: Observable<ODataState> = (this.store as Observable<any>).pipe(select(this.selector.getGridODataState));
+  gridData$: Observable<ODataResult<Entity>> = (this.store as Observable<any>).pipe(select(this.selector.getGridData));
+  gridPagerSettings$: Observable<false | PagerSettings> = (this.store as Observable<any>).pipe(
     select(this.selector.getPagerSettings),
   );
 
-  constructor(protected store: Store<PartialState>, protected selector: KendoODataSelector) {}
+  constructor(protected store: Store<PartialState>, protected selector: KendoODataSelector) { }
 
   abstract loadEntities(state: ODataState): void;
 }

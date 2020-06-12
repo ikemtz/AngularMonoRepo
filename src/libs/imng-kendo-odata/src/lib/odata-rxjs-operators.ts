@@ -4,15 +4,15 @@ import { ODataResult } from './odata-result';
 
 export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNullableProps: string[] = []) =>
   map((response: ODataPayload<T>) => {
-    const result = <ODataResult<T>>{
+    const result = {
       data: response.value,
       total: response['@odata.count'],
-    };
+    } as ODataResult<T>;
     result.data = parseDatesInCollection(result.data, utcNullableProps, dateNullableProps);
     return result;
   });
 
-export const firstRecord = <T>() => map((result: ODataResult<T>) => <T>(result.data.length > 0 ? result.data[0] : {}));
+export const firstRecord = <T>() => map((result: ODataResult<T>) => (result.data.length > 0 ? result.data[0] : {}) as T);
 
 export function parseDatesInCollection<T>(
   collection: Array<T>,
@@ -24,11 +24,11 @@ export function parseDatesInCollection<T>(
     const dateProps = Object.keys(collection[0]).filter(x => x.endsWith('Date'));
 
     utcNullableProps.forEach(t => {
-      if (utcProps.indexOf(t) === -1) utcProps.push(t);
+      if (utcProps.indexOf(t) === -1) { utcProps.push(t); }
     });
 
     dateNullableProps.forEach(t => {
-      if (dateProps.indexOf(t) === -1) dateProps.push(t);
+      if (dateProps.indexOf(t) === -1) { dateProps.push(t); }
     });
 
     collection.forEach((val: any) => {
