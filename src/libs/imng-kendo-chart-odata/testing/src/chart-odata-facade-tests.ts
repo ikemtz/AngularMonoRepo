@@ -8,11 +8,10 @@ export async function testLoadSeriesData<TFacade extends IChartODataFacade>(
   odataservice: ODataService,
 ) {
   try {
-    const entity = { name: '🆕' };
     let seriesData = await readFirst(facade.seriesData$);
     expect(seriesData).toBeFalsy();
     const response = cold('a-|', {
-      a: { data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 } as ODataResult<{ id: string }>,
+      a: { data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 } as ODataResult<{ id: string; }>,
     });
     odataservice.fetch = jest.fn(() => response);
     facade.loadSeriesData({});
