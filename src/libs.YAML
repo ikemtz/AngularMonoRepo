@@ -129,7 +129,7 @@ trigger:
   paths:
     include:
       - src/apps/nurse-cron/*
-      - libs/*
+      - src/libs/*
       - src/package.json
       - src/libs.YAML
 pr:
@@ -139,6 +139,6 @@ pr:
   paths:
     include:
       - src/apps/nurse-cron/*
-      - libs/*
+      - src/libs/*
       - src/package.json
       - src/libs.YAML
