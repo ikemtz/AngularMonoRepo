@@ -1,11 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PermissionsGuard } from './permissions.guard';
-import { OidcFacade } from '../+state/oidc.facade';
-import { Auth0Facade } from '../+state/auth0.facade';
-import { Router } from '@angular/router';
-import { of, Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 import { readFirst } from '@nrwl/angular/testing';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { Store } from '@ngrx/store';
