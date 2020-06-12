@@ -6,5 +6,7 @@ export function jwtDecoder<TYPE>(rawToken: string) {
   if (splits.length > 1) {
     const payload = splits[1];
     return JSON.parse(window.atob(payload)) as TYPE;
-  } else return null;
+  } else {
+    return null;
+  }
 }

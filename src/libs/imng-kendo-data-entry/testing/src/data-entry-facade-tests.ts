@@ -53,7 +53,7 @@ export async function testEditSetAndClearCurrentEntity<TFacade extends IDataEntr
     let isNewActive = await readFirst(facade.isNewActive$);
     expect(currentEntity).toBeFalsy();
     expect(isEditActive).toBeFalsy();
-    expect(isEditActive).toBeFalsy();
+    expect(isNewActive).toBeFalsy();
 
     facade.setCurrentEntity(entity, { name: 'parentEntity' });
     currentEntity = await readFirst(facade.currentEntity$);
@@ -69,7 +69,7 @@ export async function testEditSetAndClearCurrentEntity<TFacade extends IDataEntr
     isNewActive = await readFirst(facade.isNewActive$);
     expect(currentEntity).toBeFalsy();
     expect(isEditActive).toBeFalsy();
-    expect(isEditActive).toBeFalsy();
+    expect(isNewActive).toBeFalsy();
 
     done();
   } catch (err) {

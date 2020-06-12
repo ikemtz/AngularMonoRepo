@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from './base-data-entry.component';
@@ -18,7 +18,7 @@ export class DataEntryDialogComponent implements OnInit {
   public dialogTitle: string;
   component: {};
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     if (!this.parentComponent) {
