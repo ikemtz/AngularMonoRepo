@@ -28,6 +28,7 @@ export class ODataService {
   public fetchByPrimaryKey<T>(odataEndpoint: string, id: string, state?: ODataState): Observable<T> {
     const request: ODataState = {
       expanders: state.expanders,
+      selectors: state.selectors,
       filter: {
         logic: 'and',
         filters: [{ operator: 'eq', field: 'id', value: id }],
@@ -49,20 +50,22 @@ export class ODataService {
   }
 
   private processGuids(queryString: string): string {
-    const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'?/gi;
+    const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'/gi;
     let m: RegExpExecArray;
+    const guidMatches: string[] = [];
     while ((m = guidRegex.exec(queryString)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
       if (m.index === guidRegex.lastIndex) {
         guidRegex.lastIndex++;
       }
-
       m.forEach(match => {
-        queryString = queryString.replace(match, match.replace(/'/g, ''));
+        guidMatches.push(match);
       });
     }
+    guidMatches.forEach(guid => queryString = queryString.replace(guid, guid.replace(/'/g, '')));
     return queryString;
   }
+
   private processSelectors(state: ODataState, queryString: string): string {
     if (state.selectors && state.selectors.length > 0) {
       queryString += `&$select=${state.selectors.join()}`;

@@ -11,4 +11,10 @@ describe('ImngKendoODataModule', () => {
   it('should create', () => {
     expect(ImngKendoODataModule).toBeDefined();
   });
+
+
+  it('should initialize', () => {
+    const result = ImngKendoODataModule.forRoot();
+    expect(result).toMatchSnapshot();
+  });
 });
