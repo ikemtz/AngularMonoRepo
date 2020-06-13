@@ -10,7 +10,7 @@ import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
   providedIn: 'root',
 })
 export class ODataService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   public fetch<T>(
     odataEndpoint: string,
@@ -26,8 +26,9 @@ export class ODataService {
   }
 
   public fetchByPrimaryKey<T>(odataEndpoint: string, id: string, state?: ODataState): Observable<T> {
-    const request = <ODataState>{
+    const request: ODataState = {
       expanders: state.expanders,
+      selectors: state.selectors,
       filter: {
         logic: 'and',
         filters: [{ operator: 'eq', field: 'id', value: id }],
@@ -49,20 +50,22 @@ export class ODataService {
   }
 
   private processGuids(queryString: string): string {
-    const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'?/gi;
+    const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'/gi;
     let m: RegExpExecArray;
+    const guidMatches: string[] = [];
     while ((m = guidRegex.exec(queryString)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
       if (m.index === guidRegex.lastIndex) {
         guidRegex.lastIndex++;
       }
-
       m.forEach(match => {
-        queryString = queryString.replace(match, match.replace(/'/g, ''));
+        guidMatches.push(match);
       });
     }
+    guidMatches.forEach(guid => queryString = queryString.replace(guid, guid.replace(/'/g, '')));
     return queryString;
   }
+
   private processSelectors(state: ODataState, queryString: string): string {
     if (state.selectors && state.selectors.length > 0) {
       queryString += `&$select=${state.selectors.join()}`;
@@ -88,7 +91,8 @@ export class ODataService {
     if (!state.childFilter) {
       return queryString;
     }
-    const childFilterString = `(${state.childFilter.childTableNavigationProperty}/${state.childFilter.linqOperation}(o: o/${state.childFilter.field} ${state.childFilter.operator} ${state.childFilter.value}))`;
+    const childFilterString = `(${state.childFilter.childTableNavigationProperty}/${state.childFilter.linqOperation}` +
+      `(o: o/${state.childFilter.field} ${state.childFilter.operator} ${state.childFilter.value}))`;
     if (queryString.match(/\$Filter=/gi)) {
       //Todo: handle additional filters
       return queryString;
@@ -102,7 +106,8 @@ export class ODataService {
       return queryString;
     }
     const deDupedVals = Array.from(new Set(state.inFilter.values.filter(f => f)));
-    const inFilterString = `(${state.inFilter.field} in (${deDupedVals.map(m => `'${m}'`).join(',')}))`;
+    const inVals = deDupedVals.map(m => `'${m}'`).join(',');
+    const inFilterString = `(${state.inFilter.field} in (${inVals}))`;
     if (!queryString || queryString.trim().length === 0) {
       return `$filter=${inFilterString}`;
     }

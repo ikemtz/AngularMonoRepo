@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImngKendoODataModule should initialize 1`] = `
+Object {
+  "ngModule": [Function],
+  "providers": Array [
+    [Function],
+  ],
+}
+`;

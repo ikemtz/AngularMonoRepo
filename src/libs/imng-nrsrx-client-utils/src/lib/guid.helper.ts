@@ -1,6 +1,7 @@
 export class GuidHelper {
   private static readonly guidSegmentCriteria = `[a-f0-9]`;
-  private static readonly guidRegexWithDashes = new RegExp(`${GuidHelper.guidSegmentCriteria}{8}-${GuidHelper.guidSegmentCriteria}{4}-${GuidHelper.guidSegmentCriteria}{4}-${GuidHelper.guidSegmentCriteria}{4}-${GuidHelper.guidSegmentCriteria}`, 'gim');
+  private static readonly guidRegexWithDashes = new RegExp(`${GuidHelper.guidSegmentCriteria}{8}-${GuidHelper.guidSegmentCriteria}{4}-` +
+    `${GuidHelper.guidSegmentCriteria}{4}-${GuidHelper.guidSegmentCriteria}{4}-${GuidHelper.guidSegmentCriteria}`, 'gim');
   private static readonly dashRegex = new RegExp('-', 'g');
   public static minimize(str: string): string {
     let m: RegExpExecArray | null;

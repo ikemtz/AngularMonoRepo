@@ -1,7 +1,6 @@
 import { OnDestroy, Input } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { IDataEntryFacade } from './data-entry-facade';
 
 /**
  * The extending class has to implement the following properties on ngInit
@@ -22,7 +21,7 @@ export abstract class BaseDataEntryComponent<
     loading$: Observable<boolean>;
     clearCurrentEntity(): void;
   }
-> implements OnDestroy {
+  > implements OnDestroy {
   @Input() public width: string | number;
   @Input() public height: string | number;
   public allSubscriptions: Subscription[] = [];
@@ -50,7 +49,9 @@ export abstract class BaseDataEntryComponent<
 
   public ngOnDestroy(): void {
     this.allSubscriptions.forEach(val => {
-      if (val !== null) val.unsubscribe();
+      if (val !== null) {
+        val.unsubscribe();
+      }
     });
     this.allSubscriptions = [];
   }
