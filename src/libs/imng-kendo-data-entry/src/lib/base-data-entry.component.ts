@@ -49,7 +49,9 @@ export abstract class BaseDataEntryComponent<
 
   public ngOnDestroy(): void {
     this.allSubscriptions.forEach(val => {
-      if (val !== null) { val.unsubscribe(); }
+      if (val !== null) {
+        val.unsubscribe();
+      }
     });
     this.allSubscriptions = [];
   }

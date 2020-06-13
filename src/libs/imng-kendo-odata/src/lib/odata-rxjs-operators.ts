@@ -24,11 +24,15 @@ export function parseDatesInCollection<T>(
     const dateProps = Object.keys(collection[0]).filter(x => x.endsWith('Date'));
 
     utcNullableProps.forEach(t => {
-      if (utcProps.indexOf(t) === -1) { utcProps.push(t); }
+      if (utcProps.indexOf(t) === -1) {
+        utcProps.push(t);
+      }
     });
 
     dateNullableProps.forEach(t => {
-      if (dateProps.indexOf(t) === -1) { dateProps.push(t); }
+      if (dateProps.indexOf(t) === -1) {
+        dateProps.push(t);
+      }
     });
 
     collection.forEach((val: any) => {
