@@ -3,7 +3,7 @@ import { PagerSettings } from '@progress/kendo-angular-grid';
 import { map } from 'rxjs/operators';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 
-export const getODataPagerSettings = <T>(m: { gridData: ODataResult<T>; gridODataState?: ODataState; }) => {
+export const getODataPagerSettings = <T>(m: { gridData: ODataResult<T>; gridODataState?: ODataState; }): false | PagerSettings => {
   if (!m.gridODataState || m.gridData.total <= m.gridODataState.take) {
     return false;
   }
