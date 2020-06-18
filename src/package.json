@@ -88,6 +88,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@microsoft/applicationinsights-web": "^2.5.5",
+    "@microsoft/signalr": "^3.1.5",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "@ngrx/effects": "9.2.0",
     "@ngrx/entity": "9.2.0",
