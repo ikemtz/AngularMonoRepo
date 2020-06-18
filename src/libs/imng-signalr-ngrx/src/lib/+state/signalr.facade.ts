@@ -11,7 +11,7 @@ export class SignalrFacade {
   lastReceivedMessage$ = this.store.pipe(select(signalrSelectors.getLastReceivedMessage));
   receivedMessages$ = this.store.pipe(select(signalrSelectors.getReceivedMessages));
 
-  constructor(private store: Store<fromSignalr.SignalrPartialState>) {
+  constructor(private readonly store: Store<fromSignalr.SignalrPartialState>) {
   }
 
   dispatchAction(action: Action) {
