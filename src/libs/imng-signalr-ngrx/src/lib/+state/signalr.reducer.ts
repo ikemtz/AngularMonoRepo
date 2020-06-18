@@ -29,7 +29,7 @@ const signalrReducer = createReducer(
   })),
   on(SignalrActions.receivedMessage, (state, action) => ({
     ...state,
-    receivedMessages: [...state.receivedMessages, action.payload],
+    receivedMessages: [action.payload, ...state.receivedMessages,],
     lastReceivedMessage: action.payload,
   })),
   on(SignalrActions.clearMessages, (state) => ({

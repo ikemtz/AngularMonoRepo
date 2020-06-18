@@ -99,10 +99,12 @@ describe('SignalrFacade', () => {
         expect(result).toMatchSnapshot('pre-clear');
 
         const message = await readFirst(facade.lastReceivedMessage$);
-        expect(message).toStrictEqual({ methodName: 'helloWorld', data: '😎' });
+        expect(message).toStrictEqual({ methodName: 'x', data: '😎' });
 
         const messages = await readFirst(facade.receivedMessages$);
-        expect(messages).toStrictEqual([{ methodName: 'helloWorld', data: '😎' }]);
+        expect(messages).toStrictEqual([
+          { methodName: 'x', data: '😎' },
+          { methodName: 'helloWorld', data: '😎' }]);
 
         facade.dispatchAction(clearMessages());
         result = await readFirst(store);
