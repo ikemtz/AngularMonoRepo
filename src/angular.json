@@ -701,6 +701,47 @@
           }
         }
       }
+    },
+    "imng-signalr-ngrx": {
+      "projectType": "library",
+      "root": "libs/imng-signalr-ngrx",
+      "sourceRoot": "libs/imng-signalr-ngrx/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.json",
+            "project": "libs/imng-signalr-ngrx/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/imng-signalr-ngrx/tsconfig.lib.json", "libs/imng-signalr-ngrx/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/imng-signalr-ngrx/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-signalr-ngrx/jest.config.js",
+            "tsConfig": "libs/imng-signalr-ngrx/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/imng-signalr-ngrx/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
