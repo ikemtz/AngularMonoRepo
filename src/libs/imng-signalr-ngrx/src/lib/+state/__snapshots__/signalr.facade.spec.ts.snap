@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignalrFacade used in NgModule should handle connect 1`] = `
+Object {
+  "signalr": Object {
+    "isConnected": true,
+    "lastReceivedMessage": null,
+    "receivedMessages": Array [],
+  },
+}
+`;
+
+exports[`SignalrFacade used in NgModule should handle received messages: post-cleared 1`] = `
+Object {
+  "signalr": Object {
+    "isConnected": false,
+    "lastReceivedMessage": null,
+    "receivedMessages": Array [],
+  },
+}
+`;
+
+exports[`SignalrFacade used in NgModule should handle received messages: pre-clear 1`] = `
+Object {
+  "signalr": Object {
+    "isConnected": false,
+    "lastReceivedMessage": Object {
+      "data": "😎",
+      "methodName": "x",
+    },
+    "receivedMessages": Array [
+      Object {
+        "data": "😎",
+        "methodName": "x",
+      },
+      Object {
+        "data": "😎",
+        "methodName": "helloWorld",
+      },
+    ],
+  },
+}
+`;
