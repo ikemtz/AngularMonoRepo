@@ -21,7 +21,7 @@ export const initialState: State = {
   receivedMessages: []
 };
 
-const signalrReducer = createReducer(
+const featureReducer = createReducer(
   initialState,
   on(SignalrActions.setConnectionState, (state, action) => ({
     ...state,
@@ -39,6 +39,6 @@ const signalrReducer = createReducer(
   })),
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return signalrReducer(state, action);
+export function signalrReducer(state: State | undefined, action: Action) {
+  return featureReducer(state, action);
 }

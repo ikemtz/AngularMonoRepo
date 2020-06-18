@@ -10,7 +10,7 @@ import { NxModule } from '@nrwl/angular';
 import { SignalrEffects } from './signalr.effects';
 import { SignalrFacade } from './signalr.facade';
 
-import { SIGNALR_FEATURE_KEY, State, initialState, reducer } from './signalr.reducer';
+import { SIGNALR_FEATURE_KEY, State, initialState, signalrReducer } from './signalr.reducer';
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
 import { SIGNALR_CONFIG } from '../models/signalr.configuration';
 import { connect, sendMessage, receivedMessage, clearMessages } from './signalr.actions';
@@ -31,7 +31,7 @@ describe('SignalrFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(SIGNALR_FEATURE_KEY, reducer, { initialState }),
+          StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer, { initialState }),
           EffectsModule.forFeature([SignalrEffects])],
         providers: [SignalrFacade,
           {
