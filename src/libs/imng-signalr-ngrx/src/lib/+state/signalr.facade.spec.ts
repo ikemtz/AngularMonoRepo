@@ -40,7 +40,7 @@ describe('SignalrFacade', () => {
                 on: jest.fn((x, y) => messageReceivedCallBack = y),
                 send: jest.fn(),
                 start: jest.fn(() => Promise.resolve()),
-                onclose: jest.fn(x => x)
+                onclose: jest.fn(x => closeCallback = x)
               }
             }
           },
@@ -71,6 +71,21 @@ describe('SignalrFacade', () => {
     });
 
     it('should handle connect', async done => {
+      try {
+        closeCallback();
+        expect(service.hubConnection.start).toBeCalledTimes(1);
+        const result = await readFirst(store);
+        expect(result).toMatchSnapshot();
+        const isConnected = await readFirst(facade.isConnected$);
+        expect(isConnected).toBe(true);
+        done();
+      }
+      catch (err) {
+        done.fail(err);
+      }
+    });
+
+    it('should handle reconnect', async done => {
       try {
         facade.dispatchAction(connect());
         expect(service.hubConnection.start).toBeCalledTimes(1);

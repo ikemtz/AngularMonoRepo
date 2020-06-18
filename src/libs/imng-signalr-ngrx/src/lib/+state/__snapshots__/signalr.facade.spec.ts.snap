@@ -41,3 +41,13 @@ Object {
   },
 }
 `;
+
+exports[`SignalrFacade used in NgModule should handle reconnect 1`] = `
+Object {
+  "signalr": Object {
+    "isConnected": true,
+    "lastReceivedMessage": null,
+    "receivedMessages": Array [],
+  },
+}
+`;
