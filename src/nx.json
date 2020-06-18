@@ -55,6 +55,10 @@
     "nurse-cron-e2e": {
       "tags": [],
       "implicitDependencies": ["nurse-cron"]
+    },
+    "imng-signalr-ngrx": {
+      "tags": [],
+      "implicitDependencies": ["imng-ngrx-utils"]
     }
   },
   "tasksRunnerOptions": {
