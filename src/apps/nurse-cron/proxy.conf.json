@@ -101,6 +101,14 @@
     "changeOrigin": true,
     "logLevel": "debug"
   },
+  "/signalr": {
+    "target": "https://im-wa-coms-nrcrn.azurewebsites.net",
+    "secure": true,
+    "pathRewrite": {
+      "^/signalr": ""
+    },
+    "changeOrigin": true
+  },
   "/units-odata": {
     "target": "https://im-wa-unto-nrcrn.azurewebsites.net",
     "secure": true,

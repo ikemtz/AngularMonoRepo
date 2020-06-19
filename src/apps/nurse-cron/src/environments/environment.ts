@@ -2,6 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 import { endPoints } from './endpoints';
+import { LogLevel } from '@microsoft/signalr';
 export const environment = {
   "version": "0.0.0",
   production: false,
@@ -16,6 +17,11 @@ export const environment = {
     client_id: '6JEcsWCEL4y5k5Lvr9YGgdLG3qVTylTn',
     audience: 'IM-NurseCron',
   },
+  signalr: {
+    hostUrl: '/signalr/notificationHub',
+    logLevel: LogLevel.Trace,
+    clientMethods: ['OnMessageRecieved']
+  }
 };
 
 /*
