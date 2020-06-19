@@ -1,4 +1,5 @@
 import { endPoints } from './endpoints';
+import { LogLevel } from '@microsoft/signalr';
 export const environment = {
   "version": "0.0.0",
   production: true,
@@ -13,4 +14,9 @@ export const environment = {
     client_id: '6JEcsWCEL4y5k5Lvr9YGgdLG3qVTylTn',
     audience: 'IM-NurseCron',
   },
+  signalr: {
+    hostUrl: '/signalr/notificationHub',
+    logLevel: LogLevel.Trace,
+    clientMethods: ['OnMessageRecieved']
+  }
 };
