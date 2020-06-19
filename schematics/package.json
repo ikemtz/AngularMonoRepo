@@ -22,13 +22,14 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^9.1.7",
-    "@angular-devkit/schematics": "^9.1.7",
-    "@nrwl/jest": "^9.3.0",
+    "@angular-devkit/core": "^9.x",
+    "@angular-devkit/schematics": "^9.x",
+    "@nrwl/jest": "^9.x",
     "find-up": "^4.1.0",
-    "jest": "^26.0.1",
-    "jest-junit": "^10.0.0",
-    "typescript": "~3.8.2"
+    "typescript": "~3.8.2",
+    "pluralize": "^8.0.0",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@angular-devkit/schematics-cli": "^0.901.7",
@@ -41,10 +42,9 @@
     "@types/node": "^12.12.45",
     "@types/node-fetch": "^2.5.7",
     "@types/pluralize": "0.0.29",
+    "jest": "^26.0.1",
+    "jest-junit": "^10.0.0",
     "codelyzer": "^5.2.2",
-    "lodash": "^4.17.15",
-    "node-fetch": "^2.6.0",
-    "pluralize": "^8.0.0",
     "ts-jest": "^26.1.0",
     "tslint": "^6.1.2"
   }
