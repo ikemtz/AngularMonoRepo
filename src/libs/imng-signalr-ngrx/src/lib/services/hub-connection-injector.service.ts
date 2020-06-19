@@ -21,7 +21,6 @@ export class HubConnectionInjectorService implements OnDestroy {
           .withAutomaticReconnect()
           .build();
       })).subscribe());
-
   }
   ngOnDestroy(): void {
     this.subscriptions.filter(t => t).forEach(t => t.unsubscribe());
