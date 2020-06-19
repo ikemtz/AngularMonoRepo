@@ -7,12 +7,14 @@ import { SignalrEffects } from './+state/signalr.effects';
 import { SignalrFacade } from './+state/signalr.facade';
 import { ISignalrConfiguration, SIGNALR_CONFIG } from './models/signalr.configuration';
 import { HubConnectionInjectorService } from './services/hub-connection-injector.service';
+import { Auth0OidcModule } from 'imng-auth0-oidc';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer),
     EffectsModule.forFeature([SignalrEffects]),
+    Auth0OidcModule
   ],
   providers: [HubConnectionInjectorService, SignalrFacade],
 })
