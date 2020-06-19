@@ -81,16 +81,20 @@ function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: an
 
   if (source.type === 'number' || source.type === 'integer') {
     dest.htmlInputType = 'number';
+    dest.filterExpression = 'numeric';
     dest.testFactoryValue = '0';
   } else if (source.type === 'boolean') {
     dest.htmlInputType = 'checkbox';
+    dest.filterExpression = 'boolean';
     dest.testFactoryValue = 'true';
   } else if (source.format === 'date-time') {
     dest.htmlInputType = 'date';
+    dest.filterExpression = 'date';
     dest.testFactoryValue = 'new Date()';
     options.hasDates = true;
   } else {
     dest.htmlInputType = 'text';
+    dest.filterExpression = 'text';
     dest.testFactoryValue = `'${dest.maxLength ?
       _.snakeCase(dest.name).toUpperCase().substring(0, dest.maxLength) : _.snakeCase(dest.name).toUpperCase()}'`;
   }

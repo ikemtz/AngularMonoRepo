@@ -15,10 +15,12 @@ import { Auth0OidcModule } from 'imng-auth0-oidc';
 import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ImngSignalrNgrxModule } from 'imng-signalr-ngrx';
+import { MessagingComponent } from './messaging/messaging.component';
 
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent],
+  declarations: [AppComponent, NavBarComponent, MessagingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,10 +32,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       },
     ),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument({ name: 'NurseCRON' }) : [],
+    StoreDevtoolsModule.instrument({ name: 'NurseCRON' }),
     StoreRouterConnectingModule.forRoot(),
     Auth0OidcModule.forRoot(environment.auth0_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
+    ImngSignalrNgrxModule.forRoot(environment.signalr),
     FontAwesomeModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),

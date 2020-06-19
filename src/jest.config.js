@@ -13,7 +13,7 @@ module.exports = {
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.mc.xml',
+        outputName: './junit.xml',
       },
     ],
   ],

@@ -14,7 +14,7 @@ export interface <%= classify(pluralizedName) %>PartialState {
 
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
-  loading: false,
+  loading: true,
 };
 
 const <%= camelize(pluralizedName) %>Reducer = createReducer(

@@ -10,6 +10,7 @@ export interface PropertyInfo {
   enum?: [string | number];
   type: 'string' | 'boolean' | 'array' | 'integer' | 'number' | 'date';
   format?: 'date-time' | 'uuid' | 'int32' | 'double';
+  filterExpression: 'text' | 'numeric' | 'boolean' | 'date';
   nullable?: boolean;
   readOnly?: boolean;
   required: boolean;
