@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 
 describe('HubConnectionInjectorService', () => {
   let service: HubConnectionInjectorService;
-  let store: Store;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
