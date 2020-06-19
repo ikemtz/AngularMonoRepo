@@ -1,15 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SignalrFacade used in NgModule should handle connect 1`] = `
-Object {
-  "signalr": Object {
-    "isConnected": true,
-    "lastReceivedMessage": null,
-    "receivedMessages": Array [],
-  },
-}
-`;
-
 exports[`SignalrFacade used in NgModule should handle received messages: post-cleared 1`] = `
 Object {
   "signalr": Object {
@@ -26,13 +16,9 @@ Object {
     "isConnected": false,
     "lastReceivedMessage": Object {
       "data": "😎",
-      "methodName": "x",
+      "methodName": "helloWorld",
     },
     "receivedMessages": Array [
-      Object {
-        "data": "😎",
-        "methodName": "x",
-      },
       Object {
         "data": "😎",
         "methodName": "helloWorld",

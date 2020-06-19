@@ -15,28 +15,31 @@ export class HubConnectionInjectorService implements OnDestroy {
   private readonly subscriptions: Subscription[] = [];
   public hubConnection: HubConnection;
 
-  constructor(@Inject(SIGNALR_CONFIG) signalrConfiguration: ISignalrConfiguration, private readonly store$: Store<fromSignalr.SignalrPartialState>, oidcFacade: OidcFacade) {
+  constructor(@Inject(SIGNALR_CONFIG) private readonly signalrConfiguration: ISignalrConfiguration, private readonly store$: Store<fromSignalr.SignalrPartialState>, oidcFacade: OidcFacade) {
     this.subscriptions.push(oidcFacade.accessToken$.pipe(
       filter(accessToken => !!accessToken),
       tap(accessToken => {
-        this.hubConnection = new HubConnectionBuilder()
-          .withUrl(signalrConfiguration.hostUrl, { accessTokenFactory: () => accessToken })
-          .configureLogging(signalrConfiguration.logLevel)
-          .withAutomaticReconnect()
-          .build();
+        this.hubConnection = this.getNewHubConnection(accessToken);
+        this.hubConnection.onclose(async () =>
+          this.store$.dispatch(signalrActions.connect())
+        );
 
-        this.hubConnection.onclose(async () => {
-          this.store$.dispatch(signalrActions.connect());
-        });
-
-        signalrConfiguration.clientMethods.forEach(clientMethod => {
+        signalrConfiguration.clientMethods.forEach(clientMethod =>
           this.hubConnection.on(clientMethod,
             data => this.store$.dispatch(signalrActions.receivedMessage({ methodName: clientMethod, data: data }))
-          );
-        });
+          )
+        );
       })).subscribe());
-
   }
+
+  private getNewHubConnection(accessToken: string) {
+    return new HubConnectionBuilder()
+      .withUrl(this.signalrConfiguration.hostUrl, { accessTokenFactory: () => accessToken })
+      .configureLogging(this.signalrConfiguration.logLevel)
+      .withAutomaticReconnect()
+      .build();
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.filter(t => t).forEach(t => t.unsubscribe());
   }
