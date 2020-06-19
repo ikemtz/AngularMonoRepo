@@ -35,7 +35,7 @@ export const dataEntry<%= classify(name) %>Queries = {
   getIsNew<%= classify(name) %>Active,
 };
 
-export const <%= name %>Queries = { ...odataGrid<%= classify(name) %>Queries, ...dataEntry<%= classify(name) %>Queries };
+export const <%= camelize(singularizedName) %>Queries = { ...odataGrid<%= classify(name) %>Queries, ...dataEntry<%= classify(name) %>Queries };
 <% } else { %>
 export const <%= camelize(singularizedName) %>Queries = {};
 <% } %>
