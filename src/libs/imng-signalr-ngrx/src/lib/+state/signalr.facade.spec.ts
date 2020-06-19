@@ -14,6 +14,8 @@ import { SIGNALR_FEATURE_KEY, State, initialState, signalrReducer } from './sign
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
 import { SIGNALR_CONFIG } from '../models/signalr.configuration';
 import { connect, sendMessage, receivedMessage, clearMessages } from './signalr.actions';
+import { OidcFacade } from 'imng-auth0-oidc';
+import { of } from 'rxjs';
 
 interface TestSchema {
   signalr: State;
@@ -23,8 +25,6 @@ describe('SignalrFacade', () => {
   let facade: SignalrFacade;
   let store: Store<TestSchema>;
   let service: HubConnectionInjectorService;
-  let closeCallback;
-  let messageReceivedCallBack;
   beforeEach(() => { });
 
   describe('used in NgModule', () => {
@@ -33,18 +33,21 @@ describe('SignalrFacade', () => {
         imports: [
           StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer, { initialState }),
           EffectsModule.forFeature([SignalrEffects])],
-        providers: [SignalrFacade,
+        providers: [
+          { provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1, clientMethods: ['x'] } },
+          { provide: OidcFacade, useValue: { accessToken$: of('xyz') } },
           {
             provide: HubConnectionInjectorService, useValue: {
               hubConnection: {
-                on: jest.fn((x, y) => messageReceivedCallBack = y),
+                on: jest.fn(),
                 send: jest.fn(),
                 start: jest.fn(() => Promise.resolve()),
-                onclose: jest.fn(x => closeCallback = x)
+                onclose: jest.fn()
               }
             }
           },
-          { provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1, clientMethods: ['x'] } }],
+          SignalrFacade,],
+
       })
       class CustomFeatureModule { }
 
@@ -67,23 +70,8 @@ describe('SignalrFacade', () => {
       expect(store).toBeTruthy();
       expect(service).toBeTruthy();
       expect(facade).toBeTruthy();
-      expect(service.hubConnection.on).toBeCalledTimes(1);
     });
 
-    it('should handle connect', async done => {
-      try {
-        closeCallback();
-        expect(service.hubConnection.start).toBeCalledTimes(1);
-        const result = await readFirst(store);
-        expect(result).toMatchSnapshot();
-        const isConnected = await readFirst(facade.isConnected$);
-        expect(isConnected).toBe(true);
-        done();
-      }
-      catch (err) {
-        done.fail(err);
-      }
-    });
 
     it('should handle reconnect', async done => {
       try {
@@ -109,16 +97,15 @@ describe('SignalrFacade', () => {
     it('should handle received messages', async done => {
       try {
         facade.dispatchAction(receivedMessage({ methodName: 'helloWorld', data: '😎' }));
-        messageReceivedCallBack('😎');
+
         let result = await readFirst(store);
         expect(result).toMatchSnapshot('pre-clear');
 
         const message = await readFirst(facade.lastReceivedMessage$);
-        expect(message).toStrictEqual({ methodName: 'x', data: '😎' });
+        expect(message).toStrictEqual({ methodName: 'helloWorld', data: '😎' });
 
         const messages = await readFirst(facade.receivedMessages$);
         expect(messages).toStrictEqual([
-          { methodName: 'x', data: '😎' },
           { methodName: 'helloWorld', data: '😎' }]);
 
         facade.dispatchAction(clearMessages());
