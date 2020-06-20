@@ -18,7 +18,7 @@ export const environment = {
     audience: 'IM-NurseCron',
   },
   signalr: {
-    hostUrl: '/signalr/notificationHub',
+    hostUrl: 'https://im-wa-coms-nrcrn.azurewebsites.net/notificationHub',
     logLevel: LogLevel.Trace,
     clientMethods: ['OnMessageRecieved']
   }
