@@ -22,7 +22,9 @@ describe('MessagingComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create and destroy', () => {
     expect(component).toBeTruthy();
+    
+    component.ngOnDestroy();
   });
 });
