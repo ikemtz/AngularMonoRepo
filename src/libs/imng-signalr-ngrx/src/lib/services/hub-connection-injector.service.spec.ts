@@ -25,7 +25,7 @@ describe('HubConnectionInjectorService', () => {
     expect((service as any).subscriptions.length).toBe(1);
   });
 
-  it('should be created', () => {
+  it('should be ngOnDestroy', () => {
     service.ngOnDestroy();
     expect((service as any).subscriptions.filter(t => !t.closed).length).toBe(0);
   });
