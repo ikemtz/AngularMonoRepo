@@ -104,6 +104,7 @@
   "/signalr": {
     "target": "https://im-wa-coms-nrcrn.azurewebsites.net",
     "secure": true,
+    "ws": true,
     "pathRewrite": {
       "^/signalr": ""
     },
