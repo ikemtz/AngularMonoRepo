@@ -5,6 +5,7 @@
     "ms-vscode.vscode-typescript-tslint-plugin",
     "esbenp.prettier-vscode",
     "msjsdiag.debugger-for-chrome",
-    "ms-azuretools.vscode-docker"
+    "ms-azuretools.vscode-docker",
+    "sonarsource.sonarlint-vscode"
   ]
 }

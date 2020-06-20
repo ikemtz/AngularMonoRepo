@@ -2,12 +2,20 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { OidcFacade } from 'imng-auth0-oidc';
+import { of } from 'rxjs';
+import { readFirst } from '@nrwl/angular/testing';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [AppComponent],
+      providers: [
+        { provide: Store, useValue: {} },
+        { provide: OidcFacade, useValue: { loggedIn$: of(true) } },
+      ],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
@@ -16,5 +24,12 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  it('should initialize', async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
+    component.ngOnInit();
+    expect(await readFirst(component.loggedIn$)).toBe(true);
   });
 });
