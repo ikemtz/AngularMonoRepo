@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { oidcAccessDeniedRoute, oidcSupportRoute } from 'imng-auth0-oidc';
 import { HomeComponent } from './home/home.component';
+import { MessagingComponent } from './messaging/messaging.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,9 @@ const routes: Routes = [
   }, {
     path: 'units',
     loadChildren: () => import('./modules/units-module/units.module').then(m => m.UnitsModule),
+  }, {
+    path: 'messaging',
+    component: MessagingComponent,
   },
   oidcSupportRoute,
   oidcAccessDeniedRoute,
