@@ -1,11 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Log, OidcClient, SigninRequest, SignoutRequest, UserManager, UserManagerSettings } from 'oidc-client';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcEvent, StorageKeys } from '../models/constants';
 import { IOidcUser } from '../models/oidc-user';
-import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
