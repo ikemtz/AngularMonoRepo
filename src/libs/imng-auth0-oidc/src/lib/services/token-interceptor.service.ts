@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { first, flatMap, catchError } from 'rxjs/operators';
+import { first, catchError, mergeMap } from 'rxjs/operators';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -14,7 +14,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.store.select(oidcQuery.getAccessToken).pipe(
       first(),
-      flatMap(accessToken => {
+      mergeMap(accessToken => {
         if (accessToken) {
           req = req.clone({
             setHeaders: { Authorization: `Bearer ${accessToken}` }

@@ -1,9 +1,10 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { EmployeeCrudFacade } from './crud.facade';
 import { IEmployee, EmployeeProperties, EmployeeFormGroupFac } from '../../../models/employees-odata';
 
+@Directive()
 export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<IEmployee, EmployeeCrudFacade>
   implements OnInit {
   public readonly props = EmployeeProperties;
