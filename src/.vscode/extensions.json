@@ -6,6 +6,7 @@
     "esbenp.prettier-vscode",
     "msjsdiag.debugger-for-chrome",
     "ms-azuretools.vscode-docker",
-    "sonarsource.sonarlint-vscode"
+    "sonarsource.sonarlint-vscode",
+    "visualstudioexptteam.vscodeintellicode"
   ]
 }

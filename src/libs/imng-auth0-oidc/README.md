@@ -6,9 +6,9 @@ To utilize this library you will need to be in an Angular Application running NG
 
 In addition, you'll need to deploy these three files to the root of your site:
 
-- callback.html -> [./src/asets/signout-callback.html](./src/asets/signout-callback.html)
-- renew-callback.html -> [./src/asets/signout-callback.html](./src/asets/signout-callback.html)
-- signout-callback.html -> [./src/asets/signout-callback.html](./src/asets/signout-callback.html)
+- callback.html -> [./src/assets/signout-callback.html](./src/assets/signout-callback.html)
+- renew-callback.html -> [./src/assets/signout-callback.html](./src/assets/signout-callback.html)
+- signout-callback.html -> [./src/assets/signout-callback.html](./src/assets/signout-callback.html)
 
 To facilitate this last requirement, I recommend you utilize your angular.json and automate this process.
 

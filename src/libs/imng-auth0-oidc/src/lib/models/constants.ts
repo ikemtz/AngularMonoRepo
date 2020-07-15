@@ -9,7 +9,8 @@ export enum OidcEvent {
 }
 
 export enum StorageKeys {
-  PopupCallback = 'ngoidc:isPopupCallback'
+  PopupCallback = 'ngoidc:isPopupCallback',
+  OidcSettings = 'ngoidc:settings',
 }
 
 export const ACTION_NO_ACTION = 'NO_ACTION';
