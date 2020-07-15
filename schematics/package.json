@@ -22,8 +22,8 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^9.x",
-    "@angular-devkit/schematics": "^9.x",
+    "@angular-devkit/core": "^9.1.11",
+    "@angular-devkit/schematics": "^9.1.11",
     "@nrwl/jest": "^9.5.1",
     "find-up": "^4.1.0",
     "lodash": "^4.17.19",
