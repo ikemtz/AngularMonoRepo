@@ -135,10 +135,7 @@ export class OidcService {
 
   signOutRedirect(args?: any): Observable<any> {
     this.setCallbackInformation(false);
-    return from(this._oidcUserManager.signoutRedirect({ ...args })).pipe(catchError(err => {
-      console.error(err);
-      return of();
-    }));
+    return from(this._oidcUserManager.signoutRedirect({ ...args }));
   }
 
   signInSilent(args?: any): Observable<IOidcUser> {
