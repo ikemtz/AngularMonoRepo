@@ -15,16 +15,7 @@ export function auth0Configurator(auth0Config: Auth0Config, document: Document):
         }/signout-callback.html`,
       silent_redirect_uri: `${document.location.origin}/renew-callback.html`,
       automaticSilentRenew: auth0Config.automaticSilentRenew || true,
-      metadata: {
-        issuer: `${auth0Config.authority}/`,
-        token_endpoint: `${auth0Config.authority}/oauth/token`,
-        authorization_endpoint: `${auth0Config.authority}/authorize`,
-        userinfo_endpoint: `${auth0Config.authority}/userinfo`,
-        end_session_endpoint: `${auth0Config.authority}/v2/logout?client_id=${
-          auth0Config.client_id
-          }&returnTo=${document.location.origin}/signout-callback.html`,
-        jwks_uri: `${auth0Config.authority}/.well-known/jwks.json`,
-      }
+      metadataUrl: `${auth0Config.authority}/.well-known/openid-configuration`,
     }
   };
 }
