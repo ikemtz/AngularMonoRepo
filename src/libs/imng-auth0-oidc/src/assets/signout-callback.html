@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <title>Signout Callback</title>
     <link rel="icon" type="image/x-icon" href="favicon.png" />
-    <script src="oidc-client.min.js" type="application/javascript"></script>
+    <script src="oidc-client.js" type="application/javascript"></script>
   </head>
 
   <body>
     <script>
       var Oidc = window.Oidc;
-      var isPopupCallback = JSON.parse(window.sessionStorage.getItem('ngoidc:isPopupCallback'));
+      var isPopupCallback = JSON.parse(window.localStorage.getItem('ngoidc:isPopupCallback'));
       if (isPopupCallback) {
         new Oidc.UserManager(config).signoutPopupCallback();
       } else {
