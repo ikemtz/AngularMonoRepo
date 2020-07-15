@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Callback</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <script src="oidc-client.min.js" type="application/javascript"></script>
+    <script>
+      const x = (0 < window.location.href.indexOf('#') && 0 < window.location.href.toLowerCase().indexOf('error')
+        ? window.location.href.split('#')
+        : window.location.href.split('?'))[1];
+      if (x) {
+        x.split('&')
+          .map((t) => decodeURI(t))
+          .forEach((t) => document.writeln(`<h6>${t}</h6>`));
+      }
+    </script>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>Callback</title>
-  <link rel="icon" type="image/x-icon" href="favicon.png">
-  <script src="oidc-client.min.js" type="application/javascript"></script>
-  <script>
-    const x = (0 < window.location.href.indexOf('#') && 0 < window.location.href.toLowerCase().indexOf('error') ? window.location.href.split('#') : window.location.href.split('?'))[1];
-    if (x) { x.split('&').map(t => decodeURI(t)).forEach(t => document.writeln(`<h6>${t}</h6>`)) };
-  </script>
-</head>
-
-<body>
-  <script>
-    var Oidc = window.Oidc;
-    var isPopupCallback = JSON.parse(window.localStorage.getItem('ngoidc:isPopupCallback'));
-    if (isPopupCallback) {
-      new Oidc.UserManager().signinPopupCallback();
-    } else {
-      new Oidc.UserManager().signinRedirectCallback().then(t => {
-        window.location.href = (t.state || {}).redirect_url || '/';
-      });
-    }
-  </script>
-</body>
-
+  <body>
+    <script>
+      var Oidc = window.Oidc;
+      var isPopupCallback = JSON.parse(window.sessionStorage.getItem('ngoidc:isPopupCallback'));
+      if (isPopupCallback) {
+        new Oidc.UserManager().signinPopupCallback();
+      } else {
+        new Oidc.UserManager().signinRedirectCallback().then((t) => {
+          window.location.href = (t.state || {}).redirect_url || '/';
+        });
+      }
+    </script>
+  </body>
 </html>

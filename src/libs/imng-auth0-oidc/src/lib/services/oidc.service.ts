@@ -168,7 +168,7 @@ export class OidcService {
   private setCallbackInformation(isPopupCallback: boolean) {
     // is browser and useCallbackFlag set to true or defaults to true
     if (isPlatformBrowser(this.platformId) && this._useCallbackFlag) {
-      localStorage.setItem(StorageKeys.PopupCallback, `${isPopupCallback}`);
+      sessionStorage.setItem(StorageKeys.PopupCallback, `${isPopupCallback}`);
     }
   }
 }
