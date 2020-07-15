@@ -8,11 +8,11 @@
     "build": "ng-packagr -p ng-package.json",
     "copyPackageJson": "copyfiles package.json dist",
     "release:semantic": "semantic-release --prepare && npm run copyPackageJson && npm publish dist && semantic-release post",
-    "postinstall": "cp -v ../../node_modules/oidc-client/dist/oidc-client.min.js ./src/assets/"
+    "postinstall": "cp -v ../../node_modules/oidc-client/dist/* ./src/assets/"
   },
   "peerDependencies": {
-    "@angular/common": "^9.x",
-    "@angular/core": "^9.x",
+    "@angular/common": "^10.x",
+    "@angular/core": "^10.x",
     "oidc-client": "^1.x",
     "@ngrx/store": "^9.x",
     "@ngrx/effects": "^9.x",

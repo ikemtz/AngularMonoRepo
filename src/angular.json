@@ -25,7 +25,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs/imng-kendo-odata/tsconfig.lib.json", "libs/imng-kendo-odata/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-odata/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-odata/**/*"]
           }
         },
         "test": {
@@ -61,7 +61,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs/imng-auth0-oidc/tsconfig.lib.json", "libs/imng-auth0-oidc/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-auth0-oidc/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-auth0-oidc/**/*"]
           }
         },
         "test": {
@@ -104,7 +104,7 @@
               "libs/imng-kendo-grid-odata/tsconfig.lib.json",
               "libs/imng-kendo-grid-odata/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-grid-odata/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-grid-odata/**/*"]
           }
         },
         "test": {
@@ -147,7 +147,7 @@
               "libs/imng-application-insights-ngrx/tsconfig.lib.json",
               "libs/imng-application-insights-ngrx/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-application-insights-ngrx/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-application-insights-ngrx/**/*"]
           }
         },
         "test": {
@@ -190,7 +190,7 @@
               "libs/imng-kendo-data-entry/tsconfig.lib.json",
               "libs/imng-kendo-data-entry/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-data-entry/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-data-entry/**/*"]
           }
         },
         "test": {
@@ -231,7 +231,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs/imng-ngrx-utils/tsconfig.lib.json", "libs/imng-ngrx-utils/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-ngrx-utils/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-ngrx-utils/**/*"]
           }
         },
         "test": {
@@ -275,7 +275,7 @@
               "libs/imng-nrsrx-client-utils/tsconfig.lib.json",
               "libs/imng-nrsrx-client-utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-nrsrx-client-utils/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-nrsrx-client-utils/**/*"]
           }
         },
         "test": {
@@ -315,7 +315,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs/imng-ngxb-typeahead/tsconfig.lib.json", "libs/imng-ngxb-typeahead/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-ngxb-typeahead/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-ngxb-typeahead/**/*"]
           }
         },
         "test": {
@@ -358,7 +358,7 @@
               "libs/imng-kendo-chart-odata/tsconfig.lib.json",
               "libs/imng-kendo-chart-odata/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-chart-odata/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-chart-odata/**/*"]
           }
         },
         "test": {
@@ -463,7 +463,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/imng-az-func-configr/tsconfig.app.json", "apps/imng-az-func-configr/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/imng-az-func-configr/**"]
+            "exclude": ["**/node_modules/**", "!apps/imng-az-func-configr/**/*"]
           }
         },
         "test": {
@@ -499,7 +499,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/imng-az-func-configr-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/imng-az-func-configr-e2e/**"]
+            "exclude": ["**/node_modules/**", "!apps/imng-az-func-configr-e2e/**/*"]
           }
         }
       }
@@ -514,7 +514,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs/imng-snippets/tsconfig.lib.json", "libs/imng-snippets/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-snippets/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-snippets/**/*"]
           }
         },
         "test": {
@@ -551,7 +551,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs/imng-kendo-grid/tsconfig.lib.json", "libs/imng-kendo-grid/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-kendo-grid/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-kendo-grid/**/*"]
           }
         },
         "test": {
@@ -661,7 +661,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/nurse-cron/tsconfig.app.json", "apps/nurse-cron/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/nurse-cron/**"]
+            "exclude": ["**/node_modules/**", "!apps/nurse-cron/**/*"]
           }
         },
         "test": {
@@ -697,7 +697,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/nurse-cron-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "apps/nurse-cron-e2e/src/plugins/index.js", "!apps/nurse-cron-e2e/**"]
+            "exclude": ["**/node_modules/**", "apps/nurse-cron-e2e/src/plugins/index.js", "!apps/nurse-cron-e2e/**/*"]
           }
         }
       }
@@ -724,7 +724,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs/imng-signalr-ngrx/tsconfig.lib.json", "libs/imng-signalr-ngrx/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/imng-signalr-ngrx/**"]
+            "exclude": ["**/node_modules/**", "!libs/imng-signalr-ngrx/**/*"]
           }
         },
         "test": {

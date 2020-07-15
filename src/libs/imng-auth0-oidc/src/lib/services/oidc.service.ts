@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Log, OidcClient, SigninRequest, SignoutRequest, UserManager } from 'oidc-client';
+import { Log, OidcClient, SigninRequest, SignoutRequest, UserManager, UserManagerSettings } from 'oidc-client';
 import { from, Observable } from 'rxjs';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcEvent, StorageKeys } from '../models/constants';
@@ -12,6 +12,7 @@ import { IOidcUser } from '../models/oidc-user';
 export class OidcService {
   private readonly _oidcUserManager: UserManager;
   private readonly _oidcClient: OidcClient;
+  private readonly _userManagerSettings: UserManagerSettings;
 
   private readonly _useCallbackFlag: boolean = true;
 
@@ -36,7 +37,7 @@ export class OidcService {
         userStore: clientSettings.userStore,
       };
     }
-
+    this._userManagerSettings = { ...clientSettings };
     this._oidcUserManager = new UserManager(clientSettings);
     this._oidcClient = new OidcClient(clientSettings);
   }
@@ -133,7 +134,6 @@ export class OidcService {
 
   signOutRedirect(args?: any): Observable<any> {
     this.setCallbackInformation(false);
-
     return from(this._oidcUserManager.signoutRedirect({ ...args }));
   }
 
@@ -169,6 +169,7 @@ export class OidcService {
     // is browser and useCallbackFlag set to true or defaults to true
     if (isPlatformBrowser(this.platformId) && this._useCallbackFlag) {
       localStorage.setItem(StorageKeys.PopupCallback, `${isPopupCallback}`);
+      localStorage.setItem(StorageKeys.OidcSettings, JSON.stringify(this._userManagerSettings));
     }
   }
 }
