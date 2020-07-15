@@ -24,7 +24,7 @@
   "dependencies": {
     "@angular-devkit/core": "^9.x",
     "@angular-devkit/schematics": "^9.x",
-    "@nrwl/jest": "^9.x",
+    "@nrwl/jest": "^9.5.1",
     "find-up": "^4.1.0",
     "typescript": "~3.8.2",
     "pluralize": "^8.0.0",
@@ -33,10 +33,10 @@
   },
   "devDependencies": {
     "@angular-devkit/schematics-cli": "^0.901.7",
-    "@angular/compiler": "^9.1.9",
-    "@angular/core": "^9.1.9",
-    "@nrwl/angular": "^9.3.0",
-    "@nrwl/workspace": "^9.3.0",
+    "@angular/compiler": "^10.0.4",
+    "@angular/core": "^10.0.4",
+    "@nrwl/angular": "^9.5.1",
+    "@nrwl/workspace": "^9.5.1",
     "@types/jasmine": "^3.5.10",
     "@types/lodash": "^4.14.155",
     "@types/node": "^12.12.45",
