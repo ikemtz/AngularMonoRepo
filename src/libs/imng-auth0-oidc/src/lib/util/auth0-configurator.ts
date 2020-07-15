@@ -8,7 +8,7 @@ export function auth0Configurator(auth0Config: Auth0Config, document: Document):
       client_id: auth0Config.client_id,
       extraQueryParams: { audience: auth0Config.audience },
       redirect_uri: `${document.location.origin}/callback.html`,
-      response_type: 'id_token token',
+      response_type: auth0Config.response_type || 'id_token token',
       scope: auth0Config.scope || 'openid profile offline_access email',
       post_logout_redirect_uri: `${
         document.location.origin

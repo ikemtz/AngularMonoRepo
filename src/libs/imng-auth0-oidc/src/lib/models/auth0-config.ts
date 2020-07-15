@@ -5,5 +5,6 @@ export interface Auth0Config {
   client_id: string;
   authority: string;
   scope?: string;
+  response_type?: string;
 }
 export const AUTH0_CONFIG = new InjectionToken<Auth0Config>('auth0-config');
