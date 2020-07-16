@@ -30,8 +30,9 @@ export const signinPopup = createPayloadAction<RequestArugments>('[Oidc] sign in
 export const signinRedirect = createPayloadAction<RequestArugments>('[Oidc] sign in redirect');
 export const signInError = createPayloadAction<Error>('[Oidc] sign in popup error');
 export const signOutPopup = createPayloadAction<RequestArugments>('[Oidc] sign out popup');
+export const signOutPopupError = createPayloadAction<string>('[Oidc] sign out popup error');
 export const signOutRedirect = createPayloadAction<RequestArugments>('[Oidc] sign out redirect');
-export const signOutError = createPayloadAction<Error>('[Oidc] sign out popup error');
+export const signOutRedirectError = createPayloadAction<string>('[Oidc] sign out redirect error');
 export const signinSilent = createPayloadAction<RequestArugments>('[Oidc] sign in silent');
 export const oidcError = createPayloadAction<Error>('[Oidc] error');
 
