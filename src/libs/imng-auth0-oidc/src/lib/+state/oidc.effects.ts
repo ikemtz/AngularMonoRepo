@@ -35,7 +35,7 @@ export class OidcEffects implements OnInitEffects {
         // user expired, initiate silent sign-in if configured to automatic
         return userFound.payload != null && userFound.payload.expired && automaticSilentRenew;
       }),
-      map(userFound => oidcActions.signinSilent(userFound.payload))));
+      map(userFound => oidcActions.signInSilent(userFound.payload))));
 
   removeOidcUser$ = createEffect(() =>
     this.actions$.pipe(
@@ -62,7 +62,7 @@ export class OidcEffects implements OnInitEffects {
 
   signInPopup$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(oidcActions.signinPopup),
+      ofType(oidcActions.signInPopup),
       concatMap(args =>
         this.oidcService.signInPopup(args.payload).pipe(
           map(user => oidcActions.userFound(this.makeOidcUserSerializable(user))),
@@ -70,7 +70,7 @@ export class OidcEffects implements OnInitEffects {
 
   signInRedirect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(oidcActions.signinRedirect),
+      ofType(oidcActions.signInRedirect),
       concatMap(args =>
         this.oidcService.signInRedirect(args.payload).pipe(
           concatMap(() => this.oidcService.signinRedirectCallback()),
@@ -79,7 +79,7 @@ export class OidcEffects implements OnInitEffects {
 
   signInSilent$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(oidcActions.signinSilent),
+      ofType(oidcActions.signInSilent),
       concatMap(args =>
         this.oidcService.signInSilent(args.payload).pipe(
           map(user => oidcActions.userFound(this.makeOidcUserSerializable(user))),
