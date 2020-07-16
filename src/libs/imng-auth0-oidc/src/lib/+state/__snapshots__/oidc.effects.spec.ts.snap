@@ -9,14 +9,14 @@ Object {
 
 exports[`Oidc Effects signOutPopup$ should fail because silent_redirect_uri is not configured 1`] = `
 Object {
-  "payload": [Error: No authority or metadataUrl configured on settings],
+  "payload": "No authority or metadataUrl configured on settings",
   "type": "[Oidc] sign out popup error",
 }
 `;
 
 exports[`Oidc Effects signOutRedirect$ should fail because silent_redirect_uri is not configured 1`] = `
 Object {
-  "payload": [Error: No authority or metadataUrl configured on settings],
-  "type": "[Oidc] sign out popup error",
+  "payload": "No authority or metadataUrl configured on settings",
+  "type": "[Oidc] sign out redirect error",
 }
 `;
