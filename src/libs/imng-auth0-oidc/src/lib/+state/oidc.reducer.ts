@@ -10,6 +10,7 @@ export interface OidcState {
   audiences: string[];
   permissions: string[];
   loading: boolean;
+  loggedIn: boolean;
   expiring: boolean;
   expired: boolean;
   errors: ErrorState;
@@ -26,6 +27,7 @@ export const initialState: OidcState = {
   audiences: [],
   permissions: [],
   loading: true,
+  loggedIn: false,
   expiring: false,
   expired: false,
   errors: {
@@ -37,9 +39,9 @@ export const initialState: OidcState = {
 
 const featureReducer = createReducer(
   initialState,
-  on(oidcActions.getOidcUser, state => ({ ...state, loading: true })),
-  on(oidcActions.removeOidcUser, state => ({ ...state, loading: true, identity: null })),
-  on(oidcActions.onUserLoading, state => ({ ...state, loading: true })),
+  on(oidcActions.getOidcUser, state => ({ ...state, loading: true, loggedIn: false })),
+  on(oidcActions.removeOidcUser, state => ({ ...state, loading: true, loggedIn: false, identity: null })),
+  on(oidcActions.onUserLoading, state => ({ ...state, loading: true, loggedIn: false })),
   on(oidcActions.setHttpError, (state, err) => ({
     ...state,
     loading: false,
@@ -49,19 +51,20 @@ const featureReducer = createReducer(
     },
   })),
   on(oidcActions.clearErrors, state => ({ ...state, errors: {} })),
-  on(oidcActions.userDoneLoading, state => ({ ...state, loading: false })),
+  on(oidcActions.userDoneLoading, state => ({ ...state, loading: false, })),
   on(oidcActions.onAccessTokenExpiring, state => ({ ...state, expiring: true })),
-  on(oidcActions.onAccessTokenExpired, state => ({ ...state, expiring: false, expired: true })),
-  on(oidcActions.onUserLoaded, state => ({ ...state, loading: false, expiring: false })),
-  on(oidcActions.onUserUnloaded, oidcActions.onUserSignedOut, state => ({ ...state, identity: null, expiring: false })),
+  on(oidcActions.onAccessTokenExpired, state => ({ ...state, loggedIn: false, expiring: false, expired: true })),
+  on(oidcActions.onUserLoaded, state => ({ ...state, loading: false, expiring: false, })),
+  on(oidcActions.onUserUnloaded, oidcActions.onUserSignedOut, oidcActions.signOutPopupError, oidcActions.signOutRedirectError,
+    state => ({ ...state, loggedIn: false, identity: null, expired: true, expiring: false })),
   on(oidcActions.userFound, (state, identity) => ({
     ...state,
     identity: identity.payload,
+    loggedIn: true,
     audiences: jwtDecoder<{ aud?: []; }>(identity.payload.access_token).aud,
     permissions: jwtDecoder<{ permissions?: []; }>(identity.payload.access_token).permissions,
-
   })),
-  on(oidcActions.userExpired, state => ({ ...state, expiring: false })),
+  on(oidcActions.userExpired, state => ({ ...state, loggedIn: false, expiring: false })),
   on(oidcActions.onSilentRenewError, (state, err) => ({
     ...state,
     loading: false,

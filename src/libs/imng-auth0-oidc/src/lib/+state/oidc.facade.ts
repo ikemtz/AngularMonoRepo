@@ -101,15 +101,15 @@ export class OidcFacade {
   }
 
   public signinPopup(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signinPopup(args));
+    this.store.dispatch(oidcActions.signInPopup(args));
   }
 
   public signinRedirect(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signinRedirect(args));
+    this.store.dispatch(oidcActions.signInRedirect(args));
   }
 
   public signinSilent(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signinSilent(args));
+    this.store.dispatch(oidcActions.signInSilent(args));
   }
 
   public signoutPopup(args?: RequestArugments): void {
