@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SupportComponent } from './support.component';
 import { OidcFacade } from '../+state/oidc.facade';
+import { Auth0Facade } from '../+state/auth0.facade';
 
 describe('SupportComponent', () => {
   let component: SupportComponent;
@@ -10,7 +11,9 @@ describe('SupportComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SupportComponent],
-      providers: [{ provide: OidcFacade, useValue: {} }],
+      providers: [
+        { provide: OidcFacade, useValue: {} },
+        { provide: Auth0Facade, useValue: {} }],
     }).compileComponents();
   }));
 

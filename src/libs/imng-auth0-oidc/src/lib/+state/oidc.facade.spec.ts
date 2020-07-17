@@ -18,6 +18,7 @@ import { OidcFacade } from './oidc.facade';
 import { OIDC_CONFIG } from '../models/config.model';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Auth0Facade } from './auth0.facade';
 
 interface TestSchema {
   [OIDC_FEATURE_KEY]: OidcState;
@@ -25,6 +26,7 @@ interface TestSchema {
 
 describe('OidcFacade', () => {
   let facade: OidcFacade;
+  let auth0Facade: Auth0Facade;
   let store: Store<TestSchema>;
   let service: OidcService;
 
@@ -37,7 +39,7 @@ describe('OidcFacade', () => {
           StoreModule.forFeature(OIDC_FEATURE_KEY, oidcReducer, { initialState }),
           EffectsModule.forFeature([OidcEffects]),
         ],
-        providers: [OidcFacade, OidcService,
+        providers: [OidcFacade, OidcService, Auth0Facade,
           { provide: OIDC_CONFIG, useValue: { oidc_config: { automaticSilentRenew: true }, log: { level: 0, logger: console } } }],
       })
       class CustomFeatureModule { }
@@ -56,6 +58,7 @@ describe('OidcFacade', () => {
       store = TestBed.inject(Store);
       facade = TestBed.inject(OidcFacade);
       service = TestBed.inject(OidcService);
+      auth0Facade = TestBed.inject(Auth0Facade);
     });
 
     it('current state should match initial', async done => {
@@ -86,7 +89,12 @@ describe('OidcFacade', () => {
         const getResult = await readFirst(facade.identity$);
         expect(getResult).toMatchSnapshot('identity');
         expect(await readFirst(facade.waitForAuthenticationLoaded())).toBe(true);
-        expect(await readFirst(facade.profile$)).toMatchSnapshot('profile');
+        expect(await readFirst(facade.permissions$)).toMatchSnapshot('permissions');
+        expect(await readFirst(auth0Facade.permissions$)).toMatchSnapshot('auth0_permissions');
+        expect(await readFirst(auth0Facade.email$)).toMatchSnapshot('email');
+        expect(await readFirst(auth0Facade.profilePicture$)).toMatchSnapshot('profilePicture');
+
+        expect(await readFirst(auth0Facade.hasPermissions(['requiredPermission']))).toBe(false);
         expect(getUserMock).toBeCalledTimes(1);
 
         facade.removeOidcUser();
@@ -115,7 +123,7 @@ describe('OidcFacade', () => {
         const getResult = await readFirst(facade.identity$);
         expect(getResult).toMatchSnapshot('identity');
         expect(await readFirst(facade.waitForAuthenticationLoaded())).toBe(true);
-        expect(await readFirst(facade.profile$)).toMatchSnapshot('profile');
+        expect(await readFirst(auth0Facade.profile$)).toMatchSnapshot('profile');
 
         facade.addUserSignedOut();
         const removeResult = await readFirst(facade.identity$);

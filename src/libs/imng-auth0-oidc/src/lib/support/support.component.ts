@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OidcFacade } from '../+state/oidc.facade';
+import { Auth0Facade } from '../+state/auth0.facade';
 
 @Component({
   selector: 'imng-support',
@@ -7,7 +8,7 @@ import { OidcFacade } from '../+state/oidc.facade';
 })
 export class SupportComponent implements OnInit {
 
-  constructor(public facade: OidcFacade) { }
+  constructor(public readonly facade: OidcFacade, public readonly auth0Facade: Auth0Facade) { }
 
   ngOnInit() {
   }
