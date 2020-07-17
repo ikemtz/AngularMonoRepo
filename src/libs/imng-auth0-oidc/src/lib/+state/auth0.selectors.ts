@@ -1,21 +1,18 @@
 import { createSelector } from '@ngrx/store';
-import { User } from 'oidc-client';
 import { Auth0Profile } from '../models/auth0-profile';
 import { oidcQuery } from './oidc.selectors';
 import { OidcState } from './oidc.reducer';
+import { IOidcUser } from '../models/oidc-user';
 
-const getProfile = createSelector(oidcQuery.getOidcIdentity, (identity: User) =>
-  (identity || { profile: {} }.profile) as Auth0Profile);
+const getProfile = createSelector(oidcQuery.getOidcIdentity, (identity: IOidcUser) =>
+  identity?.profile as Auth0Profile);
 
 const getPermissions = createSelector(oidcQuery.selectOidcState, (state: OidcState) =>
-  (state || { permissions: Array<string>() }).permissions);
+  state?.permissions);
 
-const getEmail = createSelector(getProfile,
-  (profile) => profile.email);
+const getEmail = createSelector(getProfile, (profile) => profile?.email);
 
-const getProfilePicture = createSelector(getProfile,
-  (profile) => profile.picture);
-
+const getProfilePicture = createSelector(getProfile, (profile) => profile?.picture);
 
 export const auth0Query =
 {

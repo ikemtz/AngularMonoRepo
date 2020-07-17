@@ -1,6 +1,6 @@
 <nrcrn-nav-bar></nrcrn-nav-bar>
 
-<main>
+<main *ngIf="loggedIn$ | async">
   <router-outlet></router-outlet>
 </main>
 <footer class="footer">
