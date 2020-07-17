@@ -34,17 +34,8 @@ const getHttpError = createSelector(selectOidcErrorState, (errors: ErrorState) =
 const getPermissions = createSelector(selectOidcState, (state: OidcState) => state.permissions);
 const getAudiences = createSelector(selectOidcState, (state: OidcState) => state.audiences);
 const getExpiresAt = createSelector(getOidcIdentity, (state: IOidcUser) => new Date(state.expires_at * 1000));
-const getProfile = createSelector(getOidcIdentity, (state: IOidcUser) => {
-  if (!state || !state.profile) {
-    return [];
-  }
-  return Object.entries(state.profile).map((k, v) => {
-    return { key: k[0], value: k[1] as string };
-  });
-});
 
 export const oidcQuery = {
-  getProfile,
   getExpiresAt,
   getPermissions,
   selectOidcState,
