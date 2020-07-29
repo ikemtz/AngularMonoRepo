@@ -15,8 +15,8 @@
     "imng-kendo-odata": "*"
   },
   "peerDependencies": {
-    "@angular/common": "^9.x",
-    "@angular/core": "^9.x",
+    "@angular/common": "^10.x",
+    "@angular/core": "^10.x",
     "@ngrx/store": "^9.x"
   },
   "devDependencies": {},

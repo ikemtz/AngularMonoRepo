@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "ng-packagr -p ng-package.json",
-    "copyPackageJson": "copyfiles package.json dist",
+    "copyPackageJson": "cp package.json dist",
     "release:semantic": "semantic-release --prepare && npm run copyPackageJson && npm publish dist && semantic-release post"
   },
   "ngPackage": {
@@ -17,15 +17,14 @@
     "dest": "../../dist/libs/imng-application-insights-ngrx"
   },
   "peerDependencies": {
-    "@angular/common": "^9.x",
-    "@angular/core": "^9.x",
+    "@angular/common": "^10.x",
+    "@angular/core": "^10.x",
     "@ngrx/store": "^9.x",
     "@ngrx/effects": "^9.x",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.x"
   },
   "devDependencies": {
-    "copyfiles": "^2.1.0",
-    "ng-packagr": "^5.3.0"
+    "ng-packagr": "^10.x"
   },
   "repository": {
     "type": "git",
