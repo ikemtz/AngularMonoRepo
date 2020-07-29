@@ -59,6 +59,13 @@
     "imng-signalr-ngrx": {
       "tags": [],
       "implicitDependencies": ["imng-ngrx-utils"]
+    },
+    "imng-inventory": {
+      "tags": []
+    },
+    "imng-inventory-e2e": {
+      "tags": [],
+      "implicitDependencies": ["imng-inventory"]
     }
   },
   "tasksRunnerOptions": {
