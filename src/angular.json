@@ -742,6 +742,123 @@
           "style": "scss"
         }
       }
+    },
+    "imng-inventory": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/imng-inventory",
+      "sourceRoot": "apps/imng-inventory/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/imng-inventory",
+            "index": "apps/imng-inventory/src/index.html",
+            "main": "apps/imng-inventory/src/main.ts",
+            "polyfills": "apps/imng-inventory/src/polyfills.ts",
+            "tsConfig": "apps/imng-inventory/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/imng-inventory/src/favicon.ico", "apps/imng-inventory/src/assets"],
+            "styles": ["apps/imng-inventory/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/imng-inventory/src/environments/environment.ts",
+                  "with": "apps/imng-inventory/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "imng-inventory:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "imng-inventory:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "imng-inventory:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/imng-inventory/tsconfig.app.json", "apps/imng-inventory/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!apps/imng-inventory/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/imng-inventory/jest.config.js",
+            "tsConfig": "apps/imng-inventory/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/imng-inventory/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "imng-inventory-e2e": {
+      "root": "apps/imng-inventory-e2e",
+      "sourceRoot": "apps/imng-inventory-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/imng-inventory-e2e/cypress.json",
+            "tsConfig": "apps/imng-inventory-e2e/tsconfig.e2e.json",
+            "devServerTarget": "imng-inventory:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "imng-inventory:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/imng-inventory-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/imng-inventory-e2e/**/*"]
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -761,5 +878,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "nurse-cron"
+  "defaultProject": "imng-inventory"
 }
