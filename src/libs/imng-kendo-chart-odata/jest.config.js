@@ -1,6 +1,17 @@
 module.exports = {
   name: 'imng-kendo-chart-odata',
   preset: '../../jest.config.js',
+  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  globals: {
+    'ts-jest': {
+      tsConfig: '<rootDir>/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.(html|svg)$',
+      astTransformers: [
+        'jest-preset-angular/build/InlineFilesTransformer',
+        'jest-preset-angular/build/StripStylesTransformer',
+      ],
+    },
+  },
   coverageDirectory: '../../coverage/libs/imng-kendo-chart-odata',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
