@@ -97,7 +97,7 @@
     "@ngrx/entity": "9.2.0",
     "@ngrx/router-store": "9.2.0",
     "@ngrx/store": "^9.2.0",
-    "@nrwl/angular": "9.5.1",
+    "@nrwl/angular": "10.0.7",
     "@progress/kendo-angular-buttons": "^5.4.4",
     "@progress/kendo-angular-common": "^1.2.3",
     "@progress/kendo-angular-dateinputs": "^4.3.1",
@@ -133,8 +133,8 @@
     "@angular/language-service": "^10.0.3",
     "@ngrx/schematics": "9.2.0",
     "@ngrx/store-devtools": "9.2.0",
-    "@nrwl/jest": "^9.5.1",
-    "@nrwl/workspace": "9.5.1",
+    "@nrwl/jest": "^10.0.7",
+    "@nrwl/workspace": "10.0.7",
     "@types/jest": "25.1.4",
     "@types/node": "^12.12.50",
     "codelyzer": "^5.2.2",
@@ -154,6 +154,6 @@
     "tslint": "~6.1.0",
     "typescript": "~3.9.6",
     "cypress": "^4.1.0",
-    "@nrwl/cypress": "9.5.1"
+    "@nrwl/cypress": "10.0.7"
   }
 }

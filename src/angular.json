@@ -32,9 +32,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-kendo-odata/jest.config.js",
-            "tsConfig": "libs/imng-kendo-odata/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/imng-kendo-odata/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -68,8 +66,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-auth0-oidc/jest.config.js",
-            "tsConfig": "libs/imng-auth0-oidc/tsconfig.spec.json",
-            "setupFile": "libs/imng-auth0-oidc/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -111,8 +107,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-kendo-grid-odata/jest.config.js",
-            "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-grid-odata/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -154,8 +148,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-application-insights-ngrx/jest.config.js",
-            "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.spec.json",
-            "setupFile": "libs/imng-application-insights-ngrx/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -197,8 +189,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-kendo-data-entry/jest.config.js",
-            "tsConfig": "libs/imng-kendo-data-entry/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-data-entry/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -238,8 +228,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-ngrx-utils/jest.config.js",
-            "tsConfig": "libs/imng-ngrx-utils/tsconfig.spec.json",
-            "setupFile": "libs/imng-ngrx-utils/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -282,8 +270,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.js",
-            "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.spec.json",
-            "setupFile": "libs/imng-nrsrx-client-utils/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -322,8 +308,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-ngxb-typeahead/jest.config.js",
-            "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.spec.json",
-            "setupFile": "libs/imng-ngxb-typeahead/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -365,8 +349,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-kendo-chart-odata/jest.config.js",
-            "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-chart-odata/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -470,8 +452,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/imng-az-func-configr/jest.config.js",
-            "tsConfig": "apps/imng-az-func-configr/tsconfig.spec.json",
-            "setupFile": "apps/imng-az-func-configr/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -521,8 +501,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-snippets/jest.config.js",
-            "tsConfig": "libs/imng-snippets/tsconfig.spec.json",
-            "setupFile": "libs/imng-snippets/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -558,8 +536,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-kendo-grid/jest.config.js",
-            "tsConfig": "libs/imng-kendo-grid/tsconfig.spec.json",
-            "setupFile": "libs/imng-kendo-grid/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -668,9 +644,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/nurse-cron/jest.config.js",
-            "tsConfig": "apps/nurse-cron/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/nurse-cron/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -731,9 +705,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-signalr-ngrx/jest.config.js",
-            "tsConfig": "libs/imng-signalr-ngrx/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/imng-signalr-ngrx/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -826,9 +798,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/imng-inventory/jest.config.js",
-            "tsConfig": "apps/imng-inventory/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/imng-inventory/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
