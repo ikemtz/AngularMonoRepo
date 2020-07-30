@@ -14,7 +14,8 @@
       if (isPopupCallback) {
         new Oidc.UserManager(config).signoutPopupCallback();
       } else {
-        new Oidc.UserManager().signoutRedirectCallback().then((test) => {
+        var promise = new Oidc.UserManager().signoutRedirectCallback();
+        promise.then(function () {
           window.location.href = '/';
         });
       }
