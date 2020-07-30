@@ -44,7 +44,7 @@ export class AppComponent implements AfterViewInit {
       });
   }
 
-  onBarcodeScanned(code: string) {
+  onBarcodeScanned(code: string): void {
     console.log(code);
   }
 }
