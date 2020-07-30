@@ -11,9 +11,10 @@
         const x = (0 < window.location.href.indexOf('#')
           ? window.location.href.split('#')
           : window.location.href.split('?'))[1];
-        x.split('&')
-          .map((t) => decodeURI(t))
-          .forEach((t) => document.writeln(`<h6>${t}</h6>`));
+        for (var queryString in x.split('&')) {
+          queryString = decodeURI(queryString);
+          document.writeln('<h6>' + queryString + '</h6>');
+        }
       }
     </script>
   </head>
@@ -26,7 +27,8 @@
       if (isPopupCallback) {
         new Oidc.UserManager(settings).signinPopupCallback();
       } else {
-        new Oidc.UserManager(settings).signinRedirectCallback().then((t) => {
+        var promise = new Oidc.UserManager(settings).signinRedirectCallback();
+        promise.then(function (t) {
           window.location.href = (t.state || {}).redirect_url || '/';
         });
       }
