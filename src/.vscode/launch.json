@@ -29,6 +29,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Jest azconfig",
+      "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+      "cwd": "${workspaceFolder}",
+      "args": ["test", "imng-az-func-configr", "--runInBand"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "ng build imng-kendo-grid-odata",
       "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
       "cwd": "${workspaceFolder}",
