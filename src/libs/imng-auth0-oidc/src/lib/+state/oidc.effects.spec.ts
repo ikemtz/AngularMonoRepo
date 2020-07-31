@@ -10,6 +10,7 @@ import { OidcEffects } from './oidc.effects';
 import * as OidcActions from './oidc.actions';
 import { OIDC_CONFIG } from '../models/config.model';
 import { OidcService } from '../services/oidc.service';
+import { HttpClient } from '@angular/common/http';
 
 describe('Oidc Effects', () => {
   let actions: Observable<any>;
@@ -25,7 +26,8 @@ describe('Oidc Effects', () => {
         provideMockActions(() => actions),
         provideMockStore(),
         { provide: OIDC_CONFIG, useValue: { oidc_config: {} } },
-        OidcService
+        OidcService,
+        { provide: HttpClient, useValue: { get: of({ userinfo_endpoint: 'xyz' }) } }
       ],
 
     });

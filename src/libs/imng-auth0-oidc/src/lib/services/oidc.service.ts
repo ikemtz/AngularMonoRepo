@@ -66,7 +66,7 @@ export class OidcService {
     return from(this._oidcUserManager.removeUser());
   }
 
-  registerOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void) {
+  registerOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
     switch (event) {
       case OidcEvent.AccessTokenExpired:
         this._oidcUserManager.events.addAccessTokenExpired(callback);
@@ -94,7 +94,7 @@ export class OidcService {
     }
   }
 
-  removeOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void) {
+  removeOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
     switch (event) {
       case OidcEvent.AccessTokenExpired:
         this._oidcUserManager.events.removeAccessTokenExpired(callback);
@@ -173,7 +173,7 @@ export class OidcService {
     return from(this._oidcUserManager.createSignoutRequest(args));
   }
 
-  private setCallbackInformation(isPopupCallback: boolean) {
+  private setCallbackInformation(isPopupCallback: boolean): void {
     // is browser and useCallbackFlag set to true or defaults to true
     if (isPlatformBrowser(this.platformId) && this._useCallbackFlag) {
       localStorage.setItem(StorageKeys.PopupCallback, `${isPopupCallback}`);

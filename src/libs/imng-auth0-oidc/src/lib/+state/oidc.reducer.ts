@@ -1,6 +1,6 @@
 import * as oidcActions from './oidc.actions';
 import { jwtDecoder } from '../util/jwt-decoder';
-import { on, createReducer, Action, State } from '@ngrx/store';
+import { on, createReducer, Action, ActionReducer } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IOidcUser } from '../models/oidc-user';
 
@@ -86,6 +86,7 @@ const featureReducer = createReducer(
   })),
 );
 
+// tslint:disable-next-line: typedef
 export function oidcReducer(state: OidcState | undefined, action: Action) {
   return featureReducer(state, action);
 }
