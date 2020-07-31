@@ -22,11 +22,7 @@ export class OidcService {
     const logSettings = this.config.log;
     let clientSettings = this.config.oidc_config;
 
-    if (this.config.useCallbackFlag != null) {
-      this._useCallbackFlag = this.config.useCallbackFlag.valueOf();
-    } else {
-      this._useCallbackFlag = true;
-    }
+    this._useCallbackFlag = this.config?.useCallbackFlag ? this.config.useCallbackFlag.valueOf() : true;
 
     if (logSettings) {
       Log.level = logSettings.level;

@@ -11,8 +11,8 @@ describe('OidcService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: OIDC_CONFIG, useValue: { oidc_config: {} } },
-        { provide: HttpClient, useValue: { get: of({ userinfo_endpoint: 'xyz' }) } }
+        { provide: OIDC_CONFIG, useValue: { oidc_config: {}, getUserMetadata: true, } },
+        { provide: HttpClient, useValue: { get: () => of({ userinfo_endpoint: 'xyz' }) } }
       ]
     });
     service = TestBed.inject(OidcService);

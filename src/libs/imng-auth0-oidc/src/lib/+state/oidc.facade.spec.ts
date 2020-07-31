@@ -40,8 +40,8 @@ describe('OidcFacade', () => {
           EffectsModule.forFeature([OidcEffects]),
         ],
         providers: [OidcFacade, OidcService, Auth0Facade,
-          { provide: OIDC_CONFIG, useValue: { oidc_config: { automaticSilentRenew: true }, log: { level: 0, logger: console } } },
-          { provide: HttpClient, useValue: { get: of({ userinfo_endpoint: 'xyz' }) } },
+          { provide: OIDC_CONFIG, useValue: { getUserMetadata: true, oidc_config: { automaticSilentRenew: true }, log: { level: 0, logger: console } } },
+          { provide: HttpClient, useValue: { get: () => of({ userinfo_endpoint: 'xyz' }) } },
         ],
       })
       class CustomFeatureModule { }
@@ -92,6 +92,7 @@ describe('OidcFacade', () => {
         expect(getResult).toMatchSnapshot('identity');
         expect(await readFirst(facade.waitForAuthenticationLoaded())).toBe(true);
         expect(await readFirst(facade.permissions$)).toMatchSnapshot('permissions');
+        expect(await readFirst(facade.userMetadata$)).toMatchSnapshot('userMetadata');
         expect(await readFirst(auth0Facade.permissions$)).toMatchSnapshot('auth0_permissions');
         expect(await readFirst(auth0Facade.email$)).toMatchSnapshot('email');
         expect(await readFirst(auth0Facade.profilePicture$)).toMatchSnapshot('profilePicture');

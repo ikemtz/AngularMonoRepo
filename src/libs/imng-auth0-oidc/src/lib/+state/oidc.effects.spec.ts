@@ -25,9 +25,9 @@ describe('Oidc Effects', () => {
         DataPersistence,
         provideMockActions(() => actions),
         provideMockStore(),
-        { provide: OIDC_CONFIG, useValue: { oidc_config: {} } },
+        { provide: OIDC_CONFIG, useValue: { oidc_config: {}, getUserMetadata: true, } },
         OidcService,
-        { provide: HttpClient, useValue: { get: of({ userinfo_endpoint: 'xyz' }) } }
+        { provide: HttpClient, useValue: { get: () => of({ userinfo_endpoint: 'xyz' }) } }
       ],
 
     });
