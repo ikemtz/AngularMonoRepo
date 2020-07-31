@@ -18,6 +18,7 @@ export const onAccessTokenExpiring = createAction('[Oidc] user expiring');
 export const onUserLoading = createAction('[Oidc] user loading');
 export const userDoneLoading = createAction('[Oidc] user done loading');
 export const userDoneLoadingError = createPayloadAction<Error>('[Oidc] user done loading error');
+export const onUserMetadataLoaded = createPayloadAction<unknown>('[Oidc] on User Metadata Loaded');
 
 // OIDC EVENTS
 
