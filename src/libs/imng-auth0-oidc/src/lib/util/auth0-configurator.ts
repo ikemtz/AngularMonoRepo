@@ -16,6 +16,8 @@ export function auth0Configurator(auth0Config: Auth0Config, document: Document):
       silent_redirect_uri: `${document.location.origin}/renew-callback.html`,
       automaticSilentRenew: auth0Config.automaticSilentRenew || true,
       metadataUrl: `${auth0Config.authority}/.well-known/openid-configuration`,
-    }
+
+    },
+    getUserMetadata: auth0Config.getUserMetadata
   };
 }

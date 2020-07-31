@@ -30,6 +30,12 @@ exports[`OidcFacade used in NgModule should getOidcUser and removeOidcUser: perm
 
 exports[`OidcFacade used in NgModule should getOidcUser and removeOidcUser: profilePicture 1`] = `undefined`;
 
+exports[`OidcFacade used in NgModule should getOidcUser and removeOidcUser: userMetadata 1`] = `
+Object {
+  "userinfo_endpoint": "xyz",
+}
+`;
+
 exports[`OidcFacade used in NgModule should handle clearingHttpErrors 1`] = `
 HttpErrorResponse {
   "error": [Error: this is an expected error during unit tests, do not be alarmed!],
