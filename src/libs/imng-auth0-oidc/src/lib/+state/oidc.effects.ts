@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Actions, ofType, OnInitEffects, createEffect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, filter, tap } from 'rxjs/operators';
+import { catchError, concatMap, map, filter, tap, switchMap } from 'rxjs/operators';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcService } from '../services/oidc.service';
 import * as oidcActions from './oidc.actions';
@@ -49,6 +49,13 @@ export class OidcEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(oidcActions.userFound),
       map(() => oidcActions.userDoneLoading())));
+
+  userDoneLoading$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(oidcActions.userDoneLoading),
+      filter(() => this.config.getUserMetadata),
+      switchMap(() => this.oidcService.getUserMetadata()),
+      map(metadata => oidcActions.onUserMetadataLoaded(metadata))));
 
   onAccessTokenExpired$ = createEffect(() =>
     this.actions$.pipe(
