@@ -1,4 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route, UrlSegment, UrlTree, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OidcFacade } from '../+state/oidc.facade';
 import { Injectable, Inject } from '@angular/core';
@@ -8,7 +8,7 @@ import { DOCUMENT } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(@Inject(DOCUMENT) private readonly document: any, private readonly oidcFacade: OidcFacade) { }
 
   public readonly isLoggedInPipe$ = this.oidcFacade.waitForAuthenticationLoaded().pipe(
@@ -23,6 +23,10 @@ export class AuthGuard implements CanActivate {
   );
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+    return this.isLoggedInPipe$;
+  }
+
+  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.isLoggedInPipe$;
   }
 }
