@@ -14,7 +14,7 @@ export const environment = {
     client_id: '6JEcsWCEL4y5k5Lvr9YGgdLG3qVTylTn',
     audience: 'IM-NurseCron',
     response_type: 'code',
-    getUserMetaData: true,
+    getUserMetadata: true,
   },
   signalr: {
     hostUrl: 'https://im-wa-coms-nrcrn.azurewebsites.net/notificationHub',
