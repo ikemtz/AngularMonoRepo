@@ -34,6 +34,7 @@ const getHttpError = createSelector(selectOidcErrorState, (errors: ErrorState) =
 const getPermissions = createSelector(selectOidcState, (state: OidcState) => state.permissions);
 const getAudiences = createSelector(selectOidcState, (state: OidcState) => state.audiences);
 const getExpiresAt = createSelector(getOidcIdentity, (state: IOidcUser) => new Date(state.expires_at * 1000));
+const getUserMetadata = createSelector(selectOidcState, (state: OidcState) => state.userMetadata);
 
 export const oidcQuery = {
   getExpiresAt,
@@ -50,4 +51,5 @@ export const oidcQuery = {
   getHttpError,
   hasErrors,
   getAudiences,
+  getUserMetadata,
 };
