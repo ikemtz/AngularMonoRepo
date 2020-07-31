@@ -33,6 +33,7 @@ export class OidcFacade {
   permissions$: Observable<string[]> = this.store.select(oidcQuery.getPermissions);
   audiences$: Observable<string[]> = this.store.select(oidcQuery.getAudiences);
   expiresAt$: Observable<Date> = this.store.select(oidcQuery.getExpiresAt);
+  userMetadata$: Observable<unknown> = this.store.select(oidcQuery.getUserMetadata);
 
   // default bindings to events
   public addUserUnLoaded(): void {
