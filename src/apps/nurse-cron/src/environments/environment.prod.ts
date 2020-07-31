@@ -13,7 +13,8 @@ export const environment = {
     authority: 'https://nrsrx-demo.auth0.com',
     client_id: '6JEcsWCEL4y5k5Lvr9YGgdLG3qVTylTn',
     audience: 'IM-NurseCron',
-    response_type: 'code'
+    response_type: 'code',
+    getUserMetadata: true,
   },
   signalr: {
     hostUrl: 'https://im-wa-coms-nrcrn.azurewebsites.net/notificationHub',

@@ -4,6 +4,7 @@ import { UserManagerSettings, Logger } from 'oidc-client';
 export interface Config {
   oidc_config: UserManagerSettings;
   useCallbackFlag?: boolean;
+  getUserMetadata?: boolean;
   log?: {
     logger: Logger;
     level: number;

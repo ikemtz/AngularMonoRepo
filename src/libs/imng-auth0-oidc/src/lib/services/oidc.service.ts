@@ -5,6 +5,8 @@ import { from, Observable } from 'rxjs';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcEvent, StorageKeys } from '../models/constants';
 import { IOidcUser } from '../models/oidc-user';
+import { switchMap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +18,11 @@ export class OidcService {
 
   private readonly _useCallbackFlag: boolean = true;
 
-  constructor(@Inject(OIDC_CONFIG) private readonly config: Config, @Inject(PLATFORM_ID) private readonly platformId: Object) {
+  constructor(@Inject(OIDC_CONFIG) private readonly config: Config, @Inject(PLATFORM_ID) private readonly platformId: Object, private readonly httpClient: HttpClient) {
     const logSettings = this.config.log;
     let clientSettings = this.config.oidc_config;
 
-    if (this.config.useCallbackFlag != null) {
-      this._useCallbackFlag = this.config.useCallbackFlag.valueOf();
-    } else {
-      this._useCallbackFlag = true;
-    }
+    this._useCallbackFlag = this.config?.useCallbackFlag ? this.config.useCallbackFlag.valueOf() : true;
 
     if (logSettings) {
       Log.level = logSettings.level;
@@ -40,6 +38,12 @@ export class OidcService {
     this._userManagerSettings = { ...clientSettings };
     this._oidcUserManager = new UserManager(clientSettings);
     this._oidcClient = new OidcClient(clientSettings);
+  }
+
+  public getUserMetadata(): Observable<unknown> {
+    return this.httpClient.get<any>(this.config.oidc_config.metadataUrl).pipe(switchMap(openidConfig =>
+      this.httpClient.get<unknown>(openidConfig.userinfo_endpoint)
+    ));
   }
 
   getUserManager(): UserManager {
@@ -58,7 +62,7 @@ export class OidcService {
     return from(this._oidcUserManager.removeUser());
   }
 
-  registerOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void) {
+  registerOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
     switch (event) {
       case OidcEvent.AccessTokenExpired:
         this._oidcUserManager.events.addAccessTokenExpired(callback);
@@ -86,7 +90,7 @@ export class OidcService {
     }
   }
 
-  removeOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void) {
+  removeOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
     switch (event) {
       case OidcEvent.AccessTokenExpired:
         this._oidcUserManager.events.removeAccessTokenExpired(callback);
@@ -165,7 +169,7 @@ export class OidcService {
     return from(this._oidcUserManager.createSignoutRequest(args));
   }
 
-  private setCallbackInformation(isPopupCallback: boolean) {
+  private setCallbackInformation(isPopupCallback: boolean): void {
     // is browser and useCallbackFlag set to true or defaults to true
     if (isPlatformBrowser(this.platformId) && this._useCallbackFlag) {
       localStorage.setItem(StorageKeys.PopupCallback, `${isPopupCallback}`);
