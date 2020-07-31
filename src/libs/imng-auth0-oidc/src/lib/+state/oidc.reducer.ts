@@ -1,6 +1,6 @@
 import * as oidcActions from './oidc.actions';
 import { jwtDecoder } from '../util/jwt-decoder';
-import { on, createReducer, Action } from '@ngrx/store';
+import { on, createReducer, Action, ActionReducer } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IOidcUser } from '../models/oidc-user';
 
@@ -8,6 +8,7 @@ export const OIDC_FEATURE_KEY = 'oidc';
 export interface OidcState {
   identity: IOidcUser | null;
   audiences: string[];
+  userMetadata?: unknown;
   permissions: string[];
   loading: boolean;
   loggedIn: boolean;
@@ -50,13 +51,15 @@ const featureReducer = createReducer(
       httpError: err.payload,
     },
   })),
+  on(oidcActions.onUserMetadataLoaded, (state, userMetadata) => ({ ...state, userMetadata: userMetadata.payload })),
   on(oidcActions.clearErrors, state => ({ ...state, errors: {} })),
   on(oidcActions.userDoneLoading, state => ({ ...state, loading: false, })),
   on(oidcActions.onAccessTokenExpiring, state => ({ ...state, expiring: true })),
   on(oidcActions.onAccessTokenExpired, state => ({ ...state, loggedIn: false, expiring: false, expired: true })),
   on(oidcActions.onUserLoaded, state => ({ ...state, loading: false, expiring: false, })),
   on(oidcActions.onUserUnloaded, oidcActions.onUserSignedOut, oidcActions.signOutPopupError, oidcActions.signOutRedirectError,
-    state => ({ ...state, loggedIn: false, identity: null, expired: true, expiring: false })),
+    state => ({ ...state, loggedIn: false, identity: null, expired: true, expiring: false, userMetadata: undefined })),
+  on(oidcActions.signOutRedirect, oidcActions.signOutPopup, state => ({ ...state, identity: null, userMetadata: null, loggedIn: false })),
   on(oidcActions.userFound, (state, identity) => ({
     ...state,
     identity: identity.payload,
@@ -83,6 +86,7 @@ const featureReducer = createReducer(
   })),
 );
 
+// tslint:disable-next-line: typedef
 export function oidcReducer(state: OidcState | undefined, action: Action) {
   return featureReducer(state, action);
 }

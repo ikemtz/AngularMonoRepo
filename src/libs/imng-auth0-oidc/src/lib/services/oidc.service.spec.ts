@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { OidcService } from './oidc.service';
 import { OIDC_CONFIG } from '../models/config.model';
 import { OidcEvent } from '../models/constants';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 describe('OidcService', () => {
   let service: OidcService;
@@ -9,7 +11,9 @@ describe('OidcService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: OIDC_CONFIG, useValue: { oidc_config: {} } }]
+        { provide: OIDC_CONFIG, useValue: { oidc_config: {} } },
+        { provide: HttpClient, useValue: { get: of({ userinfo_endpoint: 'xyz' }) } }
+      ]
     });
     service = TestBed.inject(OidcService);
   });
