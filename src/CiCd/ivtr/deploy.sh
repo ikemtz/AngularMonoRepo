@@ -14,7 +14,7 @@ echo 'Spinning up resources for Angular App'
 export location="eastus"
 export rgName="Inventory"
 export planName="InventoryPlan"
-export app1Name="inventory"
+export app1Name="imng-inventory"
 export dockerUrl=$(echo "https://index.docker.io")
 
 # Service specific
