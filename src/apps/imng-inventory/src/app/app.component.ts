@@ -1,50 +1,30 @@
-import { Component, AfterViewInit } from '@angular/core';
-import Quagga from 'quagga';
+import { Component, AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { BarecodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 
 @Component({
   selector: 'imng-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit {
+
+  @ViewChild(BarecodeScannerLivestreamComponent)
+  barecodeScanner: BarecodeScannerLivestreamComponent;
+  barcodeValue;
+  barcodeTypes = ['upc'];
+
   public errorMessage: string;
 
-
   ngAfterViewInit(): void {
-    if (!navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
-      this.errorMessage = 'getUserMedia is not supported';
-      return;
-    }
-
-    Quagga.init({
-      inputStream: {
-        constraints: {
-          facingMode: 'environment'
-        },
-        area: { // defines rectangle of the detection/localization area
-          top: '40%',    // top offset
-          right: '0%',  // right offset
-          left: '0%',   // left offset
-          bottom: '40%'  // bottom offset
-        },
-      },
-      decoder: {
-        readers: ['ean_reader']
-      },
-    },
-      (err) => {
-        if (err) {
-          this.errorMessage = `QuaggaJS could not be initialized, err: ${err}`;
-        } else {
-          Quagga.start();
-          Quagga.onDetected((res) => {
-            this.onBarcodeScanned(res.codeResult.code);
-          });
-        }
-      });
+    this.barecodeScanner.start();
   }
 
-  onBarcodeScanned(code: string): void {
-    console.log(code);
+  onValueChanges(result: { codeResult: { code: string; }; }): void {
+    this.barcodeValue = result.codeResult.code;
+    console.log(JSON.stringify(result));
+  }
+  onStarted(started: unknown): void {
+    console.log(started);
   }
 }
