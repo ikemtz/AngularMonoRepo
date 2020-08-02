@@ -50,7 +50,7 @@ jobs:
             sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/nurse-cron/src/app/models/**,**/main.ts,**/environment*.ts,src/libs/**
             sonar.tests=src/apps/nurse-cron/src,src/libs
             sonar.test.inclusions=**/*.spec.ts
-            sonar.typescript.lcov.reportPaths=src/coverage/apps/nurse-cron/lcov.info,src/coverage/libs/imng-application-insights-ngrx/lcov.info,src/coverage/libs/imng-auth0-oidc/lcov.info,src/coverage/libs/imng-kendo-chart-odata/lcov.info,src/coverage/libs/imng-kendo-data-entry/lcov.info,src/coverage/libs/imng-kendo-grid-odata/lcov.info,src/coverage/libs/imng-kendo-odata/lcov.info,src/coverage/libs/imng-ngrx-utils/lcov.info,src/coverage/libs/imng-ngxb-typeahead/lcov.info,src/coverage/libs/imng-nrsrx-client-utils/lcov.info
+            sonar.javascript.lcov.reportPaths=src/coverage/apps/nurse-cron/lcov.info
             sonar.coverage.exclusions=src/libs/**
             sonar.cpd.exclusions=**/*.html
 
