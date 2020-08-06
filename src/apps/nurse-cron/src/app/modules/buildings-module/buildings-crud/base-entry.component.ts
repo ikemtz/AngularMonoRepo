@@ -13,15 +13,15 @@ export abstract class BuildingBaseEntryComponent extends BaseDataEntryComponent<
     super(facade);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
   }
 
-  public initForm() {
+  public initForm(): void {
     this.addEditForm = BuildingFormGroupFac();
   }
 
-  public cancel() {
+  public cancel(): void {
     this.facade.clearCurrentEntity();
   }
 }

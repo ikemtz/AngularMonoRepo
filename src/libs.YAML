@@ -126,7 +126,6 @@ trigger:
       - master
   paths:
     include:
-      - src/apps/nurse-cron/*
       - src/libs/*
       - src/package.json
       - src/libs.YAML
@@ -136,7 +135,6 @@ pr:
       - master
   paths:
     include:
-      - src/apps/nurse-cron/*
       - src/libs/*
       - src/package.json
       - src/libs.YAML

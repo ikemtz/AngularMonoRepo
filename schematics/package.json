@@ -14,7 +14,7 @@
     "schematic:module:emp": "npm run build && schematics ./dist/schematics/collection.json:module employee --path=\"./dist/\" --openApiJsonFileName=./open-api-docs/nrcrn-empl-odata.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:hlt": "npm run build && schematics ./dist/schematics/collection.json:module healthItem --path=\"./dist/\" --openApiJsonUrl=https://im-wa-hlto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:unt": "npm run build && schematics ./dist/schematics/collection.json:module unit --path=\"./dist/\" --openApiJsonUrl=https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn"
-  },
+   },
   "keywords": [
     "schematics"
   ],
@@ -22,8 +22,8 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^10.0.4",
-    "@angular-devkit/schematics": "^10.0.4",
+    "@angular-devkit/core": "^10.0.5",
+    "@angular-devkit/schematics": "^10.0.5",
     "@nrwl/jest": "^10.0.7",
     "find-up": "^4.1.0",
     "lodash": "^4.17.19",
@@ -32,20 +32,21 @@
     "typescript": "~3.8.2"
   },
   "devDependencies": {
-    "@angular-devkit/schematics-cli": "^0.1000.4",
-    "@angular/compiler": "^10.0.6",
-    "@angular/core": "^10.0.6",
+    "@angular-devkit/schematics-cli": "^0.1000.5",
+    "@angular/compiler": "^10.0.8",
+    "@angular/core": "^10.0.8",
     "@nrwl/angular": "^10.0.7",
     "@nrwl/workspace": "^10.0.7",
-    "@types/jasmine": "^3.5.11",
-    "@types/lodash": "^4.14.158",
-    "@types/node": "^12.12.53",
+    "@types/jest": "^26.0.9",
+    "@types/lodash": "^4.14.159",
+    "@types/node": "^12.12.54",
     "@types/node-fetch": "^2.5.7",
     "@types/pluralize": "0.0.29",
     "codelyzer": "^5.2.2",
-    "jest": "^26.1.0",
+    "jest": "^26.2.2",
     "jest-junit": "^10.0.0",
+    "schematics": "^0.2.0",
     "ts-jest": "^26.1.4",
-    "tslint": "^6.1.2"
+    "tslint": "^6.1.3"
   }
 }
