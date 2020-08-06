@@ -21,7 +21,8 @@ import _ = require('lodash');
 import { TslintFixTask } from '@angular-devkit/schematics/tasks';
 import * as fs from 'fs';
 import * as findUp from 'find-up';
-import { Agent } from 'https';
+import * as https from 'https';
+import * as http from 'http';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
@@ -37,9 +38,9 @@ export function getSwaggerDoc(options: IOptions): Rule {
       jsonDoc = of(apiDoc);
     } else if (options.openApiJsonUrl) {
       context.logger.info(`Getting Swagger Document @${options.openApiJsonUrl}`);
-      const httpsAgent = new Agent({
+      const httpsAgent = options.openApiJsonUrl.toLowerCase().startsWith("https") ? new https.Agent({
         rejectUnauthorized: false,
-      });
+      }) : new http.Agent();
       jsonDoc = from(fetch(options.openApiJsonUrl, {
         agent: httpsAgent
       })).pipe(
