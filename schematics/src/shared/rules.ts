@@ -21,6 +21,7 @@ import _ = require('lodash');
 import { TslintFixTask } from '@angular-devkit/schematics/tasks';
 import * as fs from 'fs';
 import * as findUp from 'find-up';
+import { Agent } from 'https';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
@@ -36,7 +37,12 @@ export function getSwaggerDoc(options: IOptions): Rule {
       jsonDoc = of(apiDoc);
     } else if (options.openApiJsonUrl) {
       context.logger.info(`Getting Swagger Document @${options.openApiJsonUrl}`);
-      jsonDoc = from(fetch(options.openApiJsonUrl)).pipe(
+      const httpsAgent = new Agent({
+        rejectUnauthorized: false,
+      });
+      jsonDoc = from(fetch(options.openApiJsonUrl, {
+        agent: httpsAgent
+      })).pipe(
         switchMap(resp => from(resp.json())));
     }
     if (jsonDoc) {
@@ -56,7 +62,7 @@ function getFileNames(openApiJsonFileName: string) {
 
 export function processOpenApiDoc(data: any, schema: IOptions, host: Tree) {
   const openApiComonent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
-  if (!openApiComonent){    
+  if (!openApiComonent) {
     throw new Error(`OpenApi Component not found in swagger doc: ${schema.name}`);
   }
   const properties = openApiComonent.properties as {
