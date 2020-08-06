@@ -38,7 +38,7 @@ export function getSwaggerDoc(options: IOptions): Rule {
       jsonDoc = of(apiDoc);
     } else if (options.openApiJsonUrl) {
       context.logger.info(`Getting Swagger Document @${options.openApiJsonUrl}`);
-      const httpsAgent = options.openApiJsonUrl.startsWith("https") ? new https.Agent({
+      const httpsAgent = options.openApiJsonUrl.toLowerCase().startsWith("https") ? new https.Agent({
         rejectUnauthorized: false,
       }) : new http.Agent();
       jsonDoc = from(fetch(options.openApiJsonUrl, {
