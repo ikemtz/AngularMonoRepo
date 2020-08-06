@@ -1,8 +1,9 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
+@Directive()
 export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEntryComponent<I<%= classify(name) %>, <%= classify(name) %>CrudFacade>
   implements OnInit {
   public readonly props = <%= classify(name) %>Properties;
@@ -11,15 +12,15 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
     super(facade);
   }
 
-  ngOnInit() {
+  ngOnInit() : void {
     this.initForm();
   }
 
-  public initForm() {
+  public initForm() : void {
     this.addEditForm = <%= classify(name) %>FormGroupFac();
   }
 
-  public cancel() {
+  public cancel() : void {
     this.facade.clearCurrentEntity();
   }
 }

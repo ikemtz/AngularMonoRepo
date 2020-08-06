@@ -18,7 +18,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "types": ["jasmine", "node"]
+    "types": ["jest", "node"]
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.spec.ts"]
