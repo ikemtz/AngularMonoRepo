@@ -56,6 +56,9 @@ function getFileNames(openApiJsonFileName: string) {
 
 export function processOpenApiDoc(data: any, schema: IOptions, host: Tree) {
   const openApiComonent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
+  if (!openApiComonent){    
+    throw new Error(`OpenApi Component not found in swagger doc: ${schema.name}`);
+  }
   const properties = openApiComonent.properties as {
     [key: string]: PropertyInfo;
   };
