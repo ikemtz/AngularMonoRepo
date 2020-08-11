@@ -1,0 +1,19 @@
+{
+  "name": "imng-ngrx-idle",
+  "version": "0.0.5",
+  "author": "Isaac Martinez <@ikemtz>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^10.x",
+    "@angular/core": "^10.x",
+    "@ngrx/store": "^9.x"
+  },
+  "devDependencies": {},
+  "ngPackage": {
+    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+    "lib": {
+      "entryFile": "src/index.ts"
+    },
+    "dest": "../../dist/libs/imng-ngrx-idle"
+  }
+}

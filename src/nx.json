@@ -66,6 +66,9 @@
     "imng-inventory-e2e": {
       "tags": [],
       "implicitDependencies": ["imng-inventory"]
+    },
+    "imng-ngrx-idle": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

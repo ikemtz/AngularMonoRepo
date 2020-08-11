@@ -38,7 +38,8 @@
       "imng-kendo-chart-odata": ["dist/libs/imng-kendo-chart-odata", "libs/imng-kendo-chart-odata/src"],
       "imng-kendo-grid": ["dist/libs/imng-kendo-grid", "libs/imng-kendo-grid/src"],
       "imng-kendo-grid/testing": ["dist/libs/imng-kendo-grid/testing", "libs/imng-kendo-grid/testing/src"],
-      "imng-signalr-ngrx": ["dist/libs/imng-signalr-ngrx", "libs/imng-signalr-ngrx/src/index.ts"]
+      "imng-signalr-ngrx": ["dist/libs/imng-signalr-ngrx", "libs/imng-signalr-ngrx/src/index.ts"],
+      "@imng/imng-ngrx-idle": ["libs/imng-ngrx-idle/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
