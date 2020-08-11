@@ -17,6 +17,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImngSignalrNgrxModule } from 'imng-signalr-ngrx';
 import { MessagingComponent } from './messaging/messaging.component';
+import { ImngNgrxIdleModule } from 'imng-ngrx-idle';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { MessagingComponent } from './messaging/messaging.component';
     FontAwesomeModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    ImngNgrxIdleModule.forRoot(environment.idleConfig)
   ],
   providers: [ODataService],
   bootstrap: [AppComponent],
