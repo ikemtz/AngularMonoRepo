@@ -25,8 +25,8 @@ export const environment = {
     clientMethods: ['OnMessageRecieved']
   },
   idleConfig: {
-    timeoutWarningInMs: 3000, //9 minutes
-    autoLogoutInMs: 6000 //10 minutes
+    timeoutWarningInMs: 540000, //9 minutes
+    autoLogoutInMs: 600000 //10 minutes
   }
 };
 
