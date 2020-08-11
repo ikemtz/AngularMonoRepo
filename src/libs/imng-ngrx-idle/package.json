@@ -1,0 +1,28 @@
+{
+  "name": "imng-ngrx-idle",
+  "version": "0.0.5",
+  "author": "Isaac Martinez <@ikemtz>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^10.x",
+    "@angular/core": "^10.x",
+    "@ngrx/store": ">=9.x",
+    "@ngrx/effects": ">=10.x",
+    "imng-auth0-oidc": "^2.x",
+    "@progress/kendo-angular-dialog": ">=4.2.1",
+    "@progress/kendo-angular-buttons": ">=5.4.4"
+  },
+  "dependencies": {
+    "imng-auth0-oidc": "^2.x"
+  },
+  "ngPackage": {
+    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+    "lib": {
+      "entryFile": "src/index.ts"
+    },
+    "dest": "../../dist/libs/imng-ngrx-idle",
+    "whitelistedNonPeerDependencies": [
+      "imng-auth0-oidc"
+    ]
+  }
+}
