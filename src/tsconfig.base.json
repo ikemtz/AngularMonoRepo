@@ -16,7 +16,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@env": ["apps/nurse-cron/src/environments/environment.ts"],
       "imng-auth0-oidc": ["dist/libs/imng-auth0-oidc", "libs/imng-auth0-oidc/src"],
       "imng-kendo-grid-odata": ["dist/libs/imng-kendo-grid-odata", "libs/imng-kendo-grid-odata/src"],
       "imng-kendo-grid-odata/testing": [
