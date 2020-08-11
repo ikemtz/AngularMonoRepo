@@ -23,6 +23,10 @@ export const environment = {
     hostUrl: 'https://im-wa-coms-nrcrn.azurewebsites.net/notificationHub',
     logLevel: LogLevel.Trace,
     clientMethods: ['OnMessageRecieved']
+  },
+  idleConfig: {
+    timeoutWarningInMs: 3000, //9 minutes
+    autoLogoutInMs: 6000 //10 minutes
   }
 };
 
