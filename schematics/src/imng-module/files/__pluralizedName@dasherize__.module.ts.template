@@ -12,13 +12,13 @@ import * as from<%= classify(pluralizedName) %>Reducer from './+state/<%= dasher
 import { <%= classify(singularizedName) %>Effects } from './+state/<%= dasherize(singularizedName) %>.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-<% if (openApiJsonUrl) { %>
+<% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(pluralizedName) %>-list';
 import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent, <%= classify(singularizedName) %>ApiService, <%= classify(singularizedName) %>CrudFacade  } from './<%= dasherize(pluralizedName) %>-crud';
 <% } %>
 
 @NgModule({
-  declarations: [<% if (openApiJsonUrl) { %> <%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent <% } %>],
+  declarations: [<% if (openApiJsonUrl || openApiJsonFileName) { %> <%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent <% } %>],
   imports: [
     CommonModule,
     GridModule,
@@ -32,6 +32,6 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     StoreModule.forFeature(from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY, from<%= classify(pluralizedName) %>Reducer.reducer),
     EffectsModule.forFeature([<%= classify(singularizedName) %>Effects]),
   ],
-  providers:[<% if (openApiJsonUrl) { %> <%= classify(singularizedName) %>ApiService, <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade<% } %> ]
+  providers:[<% if (openApiJsonUrl || openApiJsonFileName) { %> <%= classify(singularizedName) %>ApiService, <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade<% } %> ]
 })
 export class <%= classify(pluralizedName) %>Module { }

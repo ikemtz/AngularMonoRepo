@@ -3,7 +3,7 @@ import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 
 export const <%= camelize(pluralizedName) %>Failure = createPayloadAction<{ error: any }>('[<%= classify(pluralizedName) %>] <%= classify(pluralizedName) %> Failure'); //NOSONAR
-<% if (openApiJsonUrl) { %>
+<% if (openApiJsonUrl || openApiJsonFileName) { %>
 export const load<%= classify(pluralizedName) %>Request = createPayloadAction<ODataState>(
     '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Request');
 export const load<%= classify(pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(name) %>>>(
