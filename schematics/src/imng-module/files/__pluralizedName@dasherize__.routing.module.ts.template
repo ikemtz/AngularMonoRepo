@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'imng-auth0-oidc';<% if (openApiJsonUrl) { %>
+import { AuthGuard } from 'imng-auth0-oidc';<% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ListComponent } from './<%= dasherize(pluralizedName) %>-list';
 <% } %>
 
 const routes: Routes = [
-  { path: '', component: <% if (openApiJsonUrl) { %><%= classify(singularizedName) %>ListComponent<% } %>, canActivate: [AuthGuard] }
+  { path: '', component: <% if (openApiJsonUrl || openApiJsonFileName) { %><%= classify(singularizedName) %>ListComponent<% } %>, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
