@@ -23,7 +23,7 @@ const <%= camelize(pluralizedName) %>Reducer = createReducer(
     ...state,
     error: payload.error,
   })),
-<% if (openApiJsonUrl) { %>
+<% if (openApiJsonUrl || openApiJsonFileName) { %>
   on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, (state, { payload }) => ({
     ...state,
     gridODataState: payload,
