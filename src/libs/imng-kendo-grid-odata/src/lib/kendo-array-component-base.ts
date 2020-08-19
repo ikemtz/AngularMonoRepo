@@ -33,7 +33,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
     }
   }
 
-  public dataStateChange(state: DataStateChangeEvent): void {
+  public dataStateChange(state: DataStateChangeEvent | State): void {
     this.state = state;
     this.gridData$.next(process(this.detail, this.state));
   }
