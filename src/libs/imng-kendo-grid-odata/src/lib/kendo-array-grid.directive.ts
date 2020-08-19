@@ -3,12 +3,13 @@ import { GridComponent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { KendoArrayComponentBase } from './kendo-array-component-base';
+import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 @Directive({
   selector: '[imngArrayGrid]',
 })
 export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy {
-  private readonly subscriptions: Subscription[] = [];
+  protected readonly subscriptions: Subscription[] = [];
   @Input('imngArrayGrid') public arrayComponent: KendoArrayComponentBase<object, object>;
   constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
   ngOnInit(): void {
@@ -37,6 +38,10 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
         this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
         this.gridComponent.skip = this.arrayComponent.state.skip = t.skip;
         this.arrayComponent.pageChange(t);
+      }),
+      this.gridComponent.filterChange.subscribe((t: CompositeFilterDescriptor) => {
+        this.gridComponent.filter = this.arrayComponent.state.filter = t;
+        this.arrayComponent.filterChange(t);
       }),
       this.arrayComponent.gridData$.subscribe(s => this.gridComponent.data = s),
     );
