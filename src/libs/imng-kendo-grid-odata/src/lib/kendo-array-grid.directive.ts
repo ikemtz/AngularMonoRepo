@@ -26,8 +26,6 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       pageSizes: [5, 10, 20, 50, 100],
 
     };
-    this.gridComponent.groupable = true;
-    this.gridComponent.data = this.arrayComponent.gridData;
   }
 
   ngAfterViewInit(): void {
@@ -35,6 +33,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) =>
         this.arrayComponent.dataStateChange(t),
       ),
+      this.arrayComponent.gridData$.subscribe(s => this.gridComponent.data = s),
     );
 
     this.gridComponent.pageSize = this.arrayComponent.state.take;
