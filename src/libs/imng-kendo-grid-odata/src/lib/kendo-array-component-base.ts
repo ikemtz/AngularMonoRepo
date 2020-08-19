@@ -24,7 +24,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
     mode: 'multiple',
   };
 
-  public gridData$: Subject<ODataResult<LISTED_ENTITY>>;
+  public gridData$ = new Subject<ODataResult<LISTED_ENTITY>>();
 
   public readonly gridPagerSettings$: Observable<PagerSettings>;
 
