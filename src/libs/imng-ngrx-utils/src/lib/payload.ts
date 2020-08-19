@@ -1,18 +1,12 @@
 import { createAction } from '@ngrx/store';
-import { FunctionWithParametersType, TypedAction } from '@ngrx/store/src/models';
 
 export class Payload<T> {
   payload: T;
 }
 
+// tslint:disable-next-line: typedef , doing otherwise would involve having deep imports on the @ngrx library
 export function createPayloadAction<T>(
   actionType: string,
-): FunctionWithParametersType<
-  [T],
-  {
-    payload: T;
-  } & TypedAction<string>
-> &
-  TypedAction<string> {
+) {
   return createAction(actionType, (payload: T) => ({ payload }));
 }
