@@ -1,6 +1,6 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Input, OnInit, Directive } from '@angular/core';
-import { process, State } from '@progress/kendo-data-query';
+import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
 import { Subject } from 'rxjs';
 
@@ -33,11 +33,14 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
     }
   }
 
-  public dataStateChange(state: DataStateChangeEvent): void {
+  public dataStateChange(state: DataStateChangeEvent | State): void {
     this.state = state;
     this.gridData$.next(process(this.detail, this.state));
   }
 
   public pageChange(t: PageChangeEvent): void {
+  }
+
+  public filterChange(t: CompositeFilterDescriptor): void {
   }
 }
