@@ -41,6 +41,12 @@ describe('KendoODataComponentBase', () => {
     expect(component.state).toStrictEqual({ take: 99, skip: 1000, group: [], sort: [], filter: undefined });
   });
 
+  it('should handle filterChange', () => {
+    const grid = fixture.debugElement.query(By.directive(GridComponent)).injector.get(GridComponent);
+    grid.filterChange.emit({ logic: 'and', filters: [{ field: 'id', operator: 'eq', value: '😒😒' }] });
+    expect(component.state).toStrictEqual({ take: undefined, skip: 0, group: [], sort: [], filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: '😒😒' }] } });
+  });
+
   it('should destroy', () => {
     const imngDirective = fixture.debugElement.query(By.directive(ImngArrayGridDirective)).injector.get(ImngArrayGridDirective);
     imngDirective.ngOnDestroy();
@@ -50,7 +56,7 @@ describe('KendoODataComponentBase', () => {
 
 @Component({
   selector: 'imng-test-component',
-  template: '<kendo-grid [imngArrayGrid]="this" name="testGrid"></kendo-grid>',
+  template: '<kendo-grid [imngArrayGrid]="this" ></kendo-grid>',
 })
 export class KendoArrayGridTestComponent extends KendoArrayComponentBase<object, object> {
   state = {};
