@@ -1,4 +1,7 @@
 export * from './lib/kendo-array-component-base';
+export * from './lib/kendo-array-grid.directive';
+export * from './lib/kendo-array-grid.module';
+
 export * from './lib/kendo-odata-component-base';
 export * from './lib/kendo-odata-grid-facade';
 export * from './lib/kendo-odata-grid-facade-base';
