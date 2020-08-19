@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { GridComponent } from '@progress/kendo-angular-grid';
+import { GridComponent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { KendoArrayComponentBase } from './kendo-array-component-base';
@@ -33,6 +33,11 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) =>
         this.arrayComponent.dataStateChange(t),
       ),
+      this.gridComponent.pageChange.subscribe((t: PageChangeEvent) => {
+        this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
+        this.gridComponent.skip = this.arrayComponent.state.skip = t.skip;
+        this.arrayComponent.pageChange(t);
+      }),
       this.arrayComponent.gridData$.subscribe(s => this.gridComponent.data = s),
     );
 
