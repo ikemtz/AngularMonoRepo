@@ -43,7 +43,12 @@ export class OidcFacade {
   }
 
   public accessTokenExpired(): void {
-    this.store.dispatch(oidcActions.onAccessTokenExpired());
+    if (this.store) {
+      this.store.dispatch(oidcActions.onAccessTokenExpired());
+    } else {
+      sessionStorage.clear();
+      window.location.href = window.location.href;
+    }
   }
 
   public accessTokenExpiring(): void {

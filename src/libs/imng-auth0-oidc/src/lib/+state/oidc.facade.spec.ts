@@ -236,5 +236,12 @@ describe('OidcFacade', () => {
         done.fail(err);
       }
     });
+
+    it('should handle accessTokenExpired without a store', () => {
+      sessionStorage.setItem('unit_test', 'validation');
+      (<any>facade).store = null;
+      facade.accessTokenExpired();
+      expect(sessionStorage.getItem('unit_test')).toBeNull();
+    });
   });
 });
