@@ -1,11 +1,12 @@
-import { DataStateChangeEvent, SortSettings, PagerSettings } from '@progress/kendo-angular-grid';
+import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Input, OnInit, Directive } from '@angular/core';
 import { process, State } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Directive()
 export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements OnInit {
+
 
   @Input() public item?: PARENT_ENTITY;
   @Input() public detail: LISTED_ENTITY[];
@@ -26,9 +27,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
 
   public gridData$ = new Subject<ODataResult<LISTED_ENTITY>>();
 
-  public readonly gridPagerSettings$: Observable<PagerSettings>;
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.detail) {
       this.gridData$.next(process(this.detail, this.state));
     }
@@ -37,5 +36,8 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
     this.gridData$.next(process(this.detail, this.state));
+  }
+
+  public pageChange(t: PageChangeEvent): void {
   }
 }

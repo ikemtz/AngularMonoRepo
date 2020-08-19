@@ -35,6 +35,12 @@ describe('KendoODataComponentBase', () => {
     expect(component.state).toStrictEqual({ take: 99, skip: 1000 });
   });
 
+  it('should handle pageChange', () => {
+    const grid = fixture.debugElement.query(By.directive(GridComponent)).injector.get(GridComponent);
+    grid.pageChange.emit({ take: 99, skip: 1000 });
+    expect(component.state).toStrictEqual({ take: 99, skip: 1000, group: [], sort: [], filter: undefined });
+  });
+
   it('should destroy', () => {
     const imngDirective = fixture.debugElement.query(By.directive(ImngArrayGridDirective)).injector.get(ImngArrayGridDirective);
     imngDirective.ngOnDestroy();
