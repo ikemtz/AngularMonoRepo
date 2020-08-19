@@ -29,7 +29,6 @@ describe('KendoODataComponentBase', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should handle dataStateChange', () => {
     const grid = fixture.debugElement.query(By.directive(GridComponent)).injector.get(GridComponent);
     grid.dataStateChange.emit({ take: 99, skip: 1000 });
