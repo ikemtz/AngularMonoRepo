@@ -1,4 +1,4 @@
-import { DataStateChangeEvent, SortSettings, PagerSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
+import { DataStateChangeEvent, SortSettings, PagerSettings } from '@progress/kendo-angular-grid';
 import { Input, OnInit, Directive } from '@angular/core';
 import { process, State } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';

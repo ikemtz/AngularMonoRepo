@@ -10,7 +10,7 @@ import { KendoArrayComponentBase } from './kendo-array-component-base';
 export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy {
   private readonly subscriptions: Subscription[] = [];
   @Input('imngArrayGrid') public arrayComponent: KendoArrayComponentBase<object, object>;
-  constructor(private readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
+  constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
