@@ -21,7 +21,7 @@ export class OidcEffects implements OnInitEffects {
   getOidcUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.getOidcUser),
-      concatMap(() =>
+      switchMap(() =>
         this.oidcService.getOidcUser().pipe(
           map((userData: IOidcUser) => oidcActions.userFound(this.makeOidcUserSerializable(userData))),
           catchError(err => of(oidcActions.userDoneLoadingError(err)))))));
@@ -45,14 +45,9 @@ export class OidcEffects implements OnInitEffects {
           map(() => oidcActions.userDoneLoading()),
           catchError(err => of(oidcActions.oidcError(err)))))));
 
-  userFound$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(oidcActions.userFound),
-      map(() => oidcActions.userDoneLoading())));
-
   userDoneLoading$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(oidcActions.userDoneLoading),
+      ofType(oidcActions.userFound),
       filter(() => this.config.getUserMetadata),
       switchMap(() => this.oidcService.getUserMetadata()),
       map(metadata => oidcActions.onUserMetadataLoaded(metadata))));
@@ -62,17 +57,12 @@ export class OidcEffects implements OnInitEffects {
       ofType(oidcActions.onAccessTokenExpired),
       map(() => oidcActions.removeOidcUser())));
 
-  onUserLoaded$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(oidcActions.onUserLoaded),
-      map(userData => oidcActions.userFound(this.makeOidcUserSerializable(userData.payload)))));
-
   signInPopup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.signInPopup),
       concatMap(args =>
         this.oidcService.signInPopup(args.payload).pipe(
-          map(user => oidcActions.userFound(this.makeOidcUserSerializable(user))),
+          map(user => oidcActions.onSignInPopup(this.makeOidcUserSerializable(user))),
           catchError(err => of(oidcActions.signInError(err)))))));
 
   signInRedirect$ = createEffect(() =>
@@ -81,7 +71,7 @@ export class OidcEffects implements OnInitEffects {
       concatMap(args =>
         this.oidcService.signInRedirect(args.payload).pipe(
           concatMap(() => this.oidcService.signinRedirectCallback()),
-          map(user => oidcActions.userFound(this.makeOidcUserSerializable(user))),
+          map(user => oidcActions.onSignInRedirect(this.makeOidcUserSerializable(user))),
           catchError(err => of(oidcActions.signInError(err)))))));
 
   signInSilent$ = createEffect(() =>
@@ -89,7 +79,7 @@ export class OidcEffects implements OnInitEffects {
       ofType(oidcActions.signInSilent),
       concatMap(args =>
         this.oidcService.signInSilent(args.payload).pipe(
-          map(user => oidcActions.userFound(this.makeOidcUserSerializable(user))),
+          map(user => oidcActions.onSignInSilent(this.makeOidcUserSerializable(user))),
           catchError(err => of(oidcActions.onSilentRenewError(err)))))));
 
   signOutPopup$ = createEffect(() =>

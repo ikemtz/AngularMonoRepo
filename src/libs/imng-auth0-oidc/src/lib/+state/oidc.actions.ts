@@ -21,6 +21,9 @@ export const userDoneLoadingError = createPayloadAction<Error>('[Oidc] user done
 export const onUserMetadataLoaded = createPayloadAction<unknown>('[Oidc] on User Metadata Loaded');
 
 // OIDC EVENTS
+export const onSignInPopup = createPayloadAction<IOidcUser>('[Oidc] on SignInPopup');
+export const onSignInRedirect = createPayloadAction<IOidcUser>('[Oidc] on onSignInRedirect');
+export const onSignInSilent = createPayloadAction<IOidcUser>('[Oidc] on onSignInSilent');
 
 export const onUserLoaded = createPayloadAction<IOidcUser>('[Oidc] on user loaded');
 export const onUserloadError = createPayloadAction<Error>('[Oidc] user load error');

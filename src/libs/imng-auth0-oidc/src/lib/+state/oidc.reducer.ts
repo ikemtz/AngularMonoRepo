@@ -60,7 +60,7 @@ const featureReducer = createReducer(
   on(oidcActions.onUserUnloaded, oidcActions.onUserSignedOut, oidcActions.signOutPopupError, oidcActions.signOutRedirectError,
     state => ({ ...state, loggedIn: false, identity: null, expired: true, expiring: false, userMetadata: undefined })),
   on(oidcActions.signOutRedirect, oidcActions.signOutPopup, state => ({ ...state, identity: null, userMetadata: null, loggedIn: false })),
-  on(oidcActions.userFound, (state, identity) => ({
+  on(oidcActions.userFound, oidcActions.onSignInPopup, oidcActions.onSignInRedirect, oidcActions.onSignInSilent, (state, identity) => ({
     ...state,
     identity: identity.payload,
     loggedIn: true,
