@@ -9,11 +9,13 @@
     "@ngrx/store": ">=9.x",
     "@ngrx/effects": ">=10.x",
     "imng-auth0-oidc": "^2.x",
+    "imng-ngrx-utils": "^2.x",
     "@progress/kendo-angular-dialog": ">=4.2.1",
     "@progress/kendo-angular-buttons": ">=5.4.4"
   },
   "dependencies": {
-    "imng-auth0-oidc": "^2.x"
+    "imng-auth0-oidc": "^2.x",
+    "imng-ngrx-utils": "^2.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
@@ -22,7 +24,8 @@
     },
     "dest": "../../dist/libs/imng-ngrx-idle",
     "whitelistedNonPeerDependencies": [
-      "imng-auth0-oidc"
+      "imng-auth0-oidc",
+      "imng-ngrx-utils"
     ]
   }
 }

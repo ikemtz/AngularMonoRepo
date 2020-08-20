@@ -5,6 +5,7 @@ export const IDLE_FEATURE_KEY = 'idle';
 
 export interface IdleState {
   isTimingOut: boolean;
+  timeoutSpanInMs?: number;
 }
 
 export const initialState: IdleState = {
@@ -13,8 +14,9 @@ export const initialState: IdleState = {
 
 export const featureReducer = createReducer(
   initialState,
-  on(idleActions.onSessionTimingOut, state => ({ ...state, isTimingOut: true })),
-  on(idleActions.onSessionExtended, state => ({ ...state, isTimingOut: false })),
+  on(idleActions.onSessionTimingOut, (state, { payload }) => ({ ...state, isTimingOut: true, timeoutSpanInMs: payload.autoLogoutInMs - payload.timeoutWarningInMs })),
+  on(idleActions.onSessionExtended, state => ({ ...state, isTimingOut: false, timeoutSpanInMs: null })),
+  on(idleActions.signOutRedirect, state => ({ ...state, isTimingOut: false, timeoutSpanInMs: null }))
 );
 
 export function idleReducer(state: IdleState | undefined, action: Action): IdleState {

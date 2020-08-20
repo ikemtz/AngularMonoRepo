@@ -8,4 +8,5 @@ export const selectIdleState = createFeatureSelector<IdleState>(
 const selectState = createFeatureSelector<IdleState>(IDLE_FEATURE_KEY);
 const getIsTimingOut = createSelector(selectState, (state: IdleState) => state.isTimingOut);
 
-export const idleQuery = { getIsTimingOut };
+const getTimeoutSpanInMs = createSelector(selectState, (state: IdleState) => state.timeoutSpanInMs);
+export const idleQuery = { getIsTimingOut, getTimeoutSpanInMs };

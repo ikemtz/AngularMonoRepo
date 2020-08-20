@@ -19,7 +19,7 @@ export class IdleEffects {
 
   timingOut$ = createEffect(() => this.getLoggedInActionPipe().pipe(
     switchMap(() => timer(this.idleConfig.timeoutWarningInMs)),
-    map(() => onSessionTimingOut())));
+    map(() => onSessionTimingOut(this.idleConfig))));
 
   constructor(
     @Inject(IDLE_CONFIG) private readonly idleConfig: IdleConfig,

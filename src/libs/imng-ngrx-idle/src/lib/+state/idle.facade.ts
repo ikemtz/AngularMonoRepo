@@ -12,6 +12,7 @@ export class IdleFacade {
   constructor(private readonly store: Store<IdleState>) { }
 
   isTimingOut$: Observable<boolean> = this.store.select(idleQuery.getIsTimingOut);
+  timeOutSpanInMs$: Observable<number> = this.store.select(idleQuery.getTimeoutSpanInMs);
 
   public extendSession(): void {
     this.store.dispatch(onSessionExtended());
