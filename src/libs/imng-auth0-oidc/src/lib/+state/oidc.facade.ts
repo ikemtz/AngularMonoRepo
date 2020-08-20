@@ -137,7 +137,7 @@ export class OidcFacade {
     this.oidcService.registerOidcEvent(event, callback);
   }
 
-  private registerDefaultEvents() {
+  private registerDefaultEvents(): void {
     // add simple loggers
     this.registerEvent(OidcEvent.AccessTokenExpired, this.accessTokenExpired);
     this.registerEvent(OidcEvent.AccessTokenExpiring, this.accessTokenExpiring);
