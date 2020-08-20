@@ -35,10 +35,10 @@ jobs:
           SonarCloud: 'SonarCloud IkeMtz'
           organization: ikemtz
           scannerMode: CLI
-          cliProjectKey: Inventory
-          cliProjectName: Inventory
+          cliProjectKey: Mechanager-Angular
+          cliProjectName: Mechanager-Angular
           extraProperties: |
-            sonar.projectKey=Inventory
+            sonar.projectKey=Mechanager-Angular
             sonar.sourceEncoding=UTF-8
             sonar.sources=src/apps/imng-inventory/src,src/libs
             sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/imng-inventory/src/app/models/**,**/main.ts,**/environment.prod.ts,src/libs/**,src/apps/nurse-cron/**
