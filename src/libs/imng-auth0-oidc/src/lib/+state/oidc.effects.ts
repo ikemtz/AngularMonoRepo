@@ -45,7 +45,13 @@ export class OidcEffects implements OnInitEffects {
           map(() => oidcActions.userDoneLoading()),
           catchError(err => of(oidcActions.oidcError(err)))))));
 
-  userDoneLoading$ = createEffect(() =>
+  userDoneLoadingNoMetadata$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(oidcActions.userFound),
+      filter(() => !this.config.getUserMetadata),
+      map(metadata => oidcActions.userDoneLoading())));
+
+  userDoneLoadingWithMetadata$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.userFound),
       filter(() => this.config.getUserMetadata),

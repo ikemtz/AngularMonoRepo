@@ -14,7 +14,7 @@ describe('IdleWarningComponent', () => {
     TestBed.configureTestingModule({
       declarations: [IdleWarningComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      providers: [{ provide: IdleFacade, useValue: { isTimingOut$: of(true) } }]
+      providers: [{ provide: IdleFacade, useValue: { isTimingOut$: of(true), timeOutSpanInMs$: of(20) } }]
     })
       .compileComponents();
   }));

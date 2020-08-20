@@ -17,7 +17,7 @@ Object {
 exports[`Oidc Effects signInPopup$ should work 1`] = `
 Object {
   "payload": 1,
-  "type": "[Oidc] user found",
+  "type": "[Oidc] on SignInPopup",
 }
 `;
 
@@ -31,7 +31,7 @@ Object {
 exports[`Oidc Effects signInRedirect$ should work 1`] = `
 Object {
   "payload": 1,
-  "type": "[Oidc] user found",
+  "type": "[Oidc] on onSignInRedirect",
 }
 `;
 
@@ -45,7 +45,7 @@ Object {
 exports[`Oidc Effects signInSilent$ should work 1`] = `
 Object {
   "payload": 1,
-  "type": "[Oidc] user found",
+  "type": "[Oidc] on onSignInSilent",
 }
 `;
 

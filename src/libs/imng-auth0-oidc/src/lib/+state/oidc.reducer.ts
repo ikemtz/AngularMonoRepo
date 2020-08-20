@@ -51,7 +51,7 @@ const featureReducer = createReducer(
       httpError: err.payload,
     },
   })),
-  on(oidcActions.onUserMetadataLoaded, (state, userMetadata) => ({ ...state, userMetadata: userMetadata.payload })),
+  on(oidcActions.onUserMetadataLoaded, (state, userMetadata) => ({ ...state, userMetadata: userMetadata.payload, loading: false })),
   on(oidcActions.clearErrors, state => ({ ...state, errors: {} })),
   on(oidcActions.userDoneLoading, state => ({ ...state, loading: false, })),
   on(oidcActions.onAccessTokenExpiring, state => ({ ...state, expiring: true })),
