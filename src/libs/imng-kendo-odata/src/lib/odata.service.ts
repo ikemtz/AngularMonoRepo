@@ -46,9 +46,15 @@ export class ODataService {
     queryString = this.processChildFilterDescriptor(state, queryString);
     queryString = this.processInFilter(state, queryString);
     queryString = this.processGuids(queryString);
+    queryString = this.applyTransformations(state, queryString);
     return queryString;
   }
-
+  private applyTransformations(state: ODataState, queryString): string {
+    if (state.transformations) {
+      return queryString += `&$apply=${state.transformations}`;
+    }
+    return queryString;
+  }
   private processGuids(queryString: string): string {
     const guidRegex = /\'[0-9A-F]{8}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{4}-?[0-9A-F]{12}\'/gi;
     let m: RegExpExecArray;
