@@ -6,6 +6,7 @@ export interface ODataState extends State {
   inFilter?: InFilter;
   childFilter?: ChildFilterDescriptor;
   count?: boolean;
+  transformations?: string;
 }
 
 export interface InFilter {
@@ -13,9 +14,9 @@ export interface InFilter {
   values: (string | number)[];
 }
 
-export interface ChildFilterDescriptor extends FilterDescriptor{
+export interface ChildFilterDescriptor extends FilterDescriptor {
   childTableNavigationProperty: string;
-  linqOperation: 'all' | 'any'
+  linqOperation: 'all' | 'any';
 }
 
 export interface Expander {
