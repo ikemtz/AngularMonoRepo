@@ -1,5 +1,5 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { Input, OnInit, Directive, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Input, Directive, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
 import { Subscription } from 'rxjs';
@@ -30,7 +30,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
     return this._gridData;
   }
   set gridData(value: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[]) {
-    this._gridData = name;
+    this._gridData = value;
     this.changeDetectorRef?.markForCheck();
   }
 
