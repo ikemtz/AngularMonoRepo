@@ -49,6 +49,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
     this.gridComponent.filter = this.arrayComponent.state.filter;
     this.gridComponent.skip = this.arrayComponent.state.skip;
     this.gridComponent.sort = this.arrayComponent.state.sort;
+    this.gridComponent.data = this.arrayComponent.gridData;
   }
 
   ngAfterViewInit(): void {
