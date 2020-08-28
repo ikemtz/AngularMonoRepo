@@ -1,11 +1,11 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { Input, OnInit, Directive } from '@angular/core';
+import { Input, OnInit, Directive, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Directive()
-export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements OnInit {
+export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements AfterViewInit {
 
   public readonly subscriptions: Subscription[] = [];
   @Input() public item?: PARENT_ENTITY;
@@ -25,17 +25,26 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
     mode: 'multiple',
   };
 
-  public gridData$ = new Subject<ODataResult<LISTED_ENTITY>>();
+  private _gridData: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[];
+  get gridData(): ODataResult<LISTED_ENTITY> | LISTED_ENTITY[] {
+    return this._gridData;
+  }
+  set gridData(value: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[]) {
+    this._gridData = name;
+    this.changeDetectorRef?.markForCheck();
+  }
 
-  public ngOnInit(): void {
+  constructor(public readonly changeDetectorRef: ChangeDetectorRef = null) { }
+
+  public ngAfterViewInit(): void {
     if (this.detail) {
-      this.gridData$.next(process(this.detail, this.state));
+      this.gridData = process(this.detail, this.state);
     }
   }
 
   public dataStateChange(state: DataStateChangeEvent | State): void {
     this.state = state;
-    this.gridData$.next(process(this.detail, this.state));
+    this.gridData = process(this.detail, this.state);
   }
 
   public pageChange(t: PageChangeEvent): void {

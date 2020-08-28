@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Directive, Input, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { GridComponent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
@@ -11,7 +11,7 @@ import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy {
   protected readonly subscriptions: Subscription[] = [];
   @Input('imngArrayGrid') public arrayComponent: KendoArrayComponentBase<object, object>;
-  constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
+  constructor(public readonly gridComponent: GridComponent) { }
 
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
@@ -35,17 +35,13 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       this.gridComponent.pageChange.subscribe((t: PageChangeEvent) => {
         this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
         this.gridComponent.skip = this.arrayComponent.state.skip = t.skip;
-        this.changeDetectorRef.markForCheck();
+        this.arrayComponent?.changeDetectorRef?.markForCheck();
         this.arrayComponent.pageChange(t);
       }),
       this.gridComponent.filterChange.subscribe((t: CompositeFilterDescriptor) => {
         this.gridComponent.filter = this.arrayComponent.state.filter = t;
-        this.changeDetectorRef.markForCheck();
+        this.arrayComponent?.changeDetectorRef?.markForCheck();
         this.arrayComponent.filterChange(t);
-      }),
-      this.arrayComponent.gridData$.subscribe(s => {
-        this.gridComponent.data = s;
-        this.changeDetectorRef.markForCheck();
       }),
     );
 
@@ -56,7 +52,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    this.changeDetectorRef.markForCheck();
+    this.arrayComponent?.changeDetectorRef?.markForCheck();
   }
 
   ngOnDestroy(): void {
