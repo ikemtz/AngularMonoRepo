@@ -1,11 +1,11 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { Input, OnInit, Directive, ChangeDetectorRef } from '@angular/core';
+import { Input, OnInit, Directive, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
 import { Subscription } from 'rxjs';
 
 @Directive()
-export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements OnInit {
+export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements AfterViewInit {
 
   public readonly subscriptions: Subscription[] = [];
   @Input() public item?: PARENT_ENTITY;
@@ -36,7 +36,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
 
   constructor(public readonly changeDetectorRef: ChangeDetectorRef = null) { }
 
-  public ngOnInit(): void {
+  public ngAfterViewInit(): void {
     if (this.detail) {
       this.gridData = process(this.detail, this.state);
     }
