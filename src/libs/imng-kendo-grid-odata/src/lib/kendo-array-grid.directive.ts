@@ -1,14 +1,14 @@
-import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { GridComponent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { KendoArrayComponentBase } from './kendo-array-component-base';
-import { process, CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 @Directive({
   selector: '[imngArrayGrid]',
 })
-export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy {
+export class ImngArrayGridDirective implements OnInit, OnDestroy {
   protected readonly subscriptions: Subscription[] = [];
   @Input('imngArrayGrid') public arrayComponent: KendoArrayComponentBase<object, object>;
   constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
@@ -27,9 +27,6 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       pageSizes: [5, 10, 20, 50, 100],
 
     };
-  }
-
-  ngAfterViewInit(): void {
     this.subscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
         this.arrayComponent.dataStateChange(t);
@@ -58,10 +55,10 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(t => {
-      if (t) {
-        t.unsubscribe();
-      }
-    });
+    this.subscriptions.forEach(t =>
+      t?.unsubscribe()
+    );
+    this.arrayComponent?.subscriptions.forEach(t =>
+      t?.unsubscribe());
   }
 }

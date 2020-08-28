@@ -2,12 +2,12 @@ import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/k
 import { Input, OnInit, Directive } from '@angular/core';
 import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Directive()
 export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements OnInit {
 
-
+  public readonly subscriptions: Subscription[] = [];
   @Input() public item?: PARENT_ENTITY;
   @Input() public detail: LISTED_ENTITY[];
   /**
