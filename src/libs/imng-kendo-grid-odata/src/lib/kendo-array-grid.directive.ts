@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { GridComponent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
@@ -8,10 +8,11 @@ import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 @Directive({
   selector: '[imngArrayGrid]',
 })
-export class ImngArrayGridDirective implements OnInit, OnDestroy {
+export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy {
   protected readonly subscriptions: Subscription[] = [];
   @Input('imngArrayGrid') public arrayComponent: KendoArrayComponentBase<object, object>;
   constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
+
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
@@ -52,6 +53,10 @@ export class ImngArrayGridDirective implements OnInit, OnDestroy {
     this.gridComponent.filter = this.arrayComponent.state.filter;
     this.gridComponent.skip = this.arrayComponent.state.skip;
     this.gridComponent.sort = this.arrayComponent.state.sort;
+  }
+
+  ngAfterViewInit(): void {
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy(): void {
