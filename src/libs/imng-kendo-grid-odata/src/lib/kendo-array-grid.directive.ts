@@ -43,6 +43,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
         this.arrayComponent?.changeDetectorRef?.markForCheck();
         this.arrayComponent.filterChange(t);
       }),
+      this.arrayComponent.gridData$.subscribe(t => this.gridComponent.data = t),
     );
 
     this.gridComponent.pageSize = this.arrayComponent.state.take;
