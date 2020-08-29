@@ -1,13 +1,14 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { Input, Directive, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { Input, Directive, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { process, State, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
 import { Subscription, BehaviorSubject } from 'rxjs';
 
 @Directive()
-export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements AfterViewInit {
+export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements AfterViewInit, OnDestroy {
 
   public readonly subscriptions: Subscription[] = [];
+
   @Input() public item?: PARENT_ENTITY;
   @Input() public detail: LISTED_ENTITY[];
   /**
@@ -33,11 +34,12 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   public set gridData(value: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[]) {
     this._gridData = value;
     this.gridData$.next(value);
-    this.changeDetectorRef?.markForCheck();
+    this.markForCheck();
   }
 
   constructor(public readonly changeDetectorRef: ChangeDetectorRef = null) { }
 
+  public readonly markForCheck = (): void => this.changeDetectorRef?.markForCheck();
   public ngAfterViewInit(): void {
     if (this.detail) {
       this.gridData = process(this.detail, this.state);
@@ -53,5 +55,13 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   }
 
   public filterChange(t: CompositeFilterDescriptor): void {
+  }
+
+  public sortChange(t: SortDescriptor[]): void {
+  }
+
+  public ngOnDestroy(): void {
+    const unsub = (t: Subscription): void => t?.unsubscribe();
+    this.subscriptions.forEach(unsub);
   }
 }

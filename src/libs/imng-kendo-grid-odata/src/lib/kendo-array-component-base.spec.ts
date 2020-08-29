@@ -4,7 +4,7 @@ import { KendoArrayComponentBase } from './kendo-array-component-base';
 import { GridModule, GridComponent } from '@progress/kendo-angular-grid';
 import { ImngArrayGridDirective } from './kendo-array-grid.directive';
 import { By } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 
 describe('KendoODataComponentBase', () => {
   let component: KendoArrayGridTestComponent;
@@ -47,6 +47,12 @@ describe('KendoODataComponentBase', () => {
     expect(component.state).toStrictEqual({ take: undefined, skip: 0, group: [], sort: [], filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: '😒😒' }] } });
   });
 
+  it('should handle sortChange', () => {
+    const grid = fixture.debugElement.query(By.directive(GridComponent)).injector.get(GridComponent);
+    grid.sortChange.emit([{ field: 'id', dir: 'asc' }]);
+    expect(component.state).toStrictEqual({ filter: undefined, take: undefined, skip: 0, group: [], sort: [{ field: 'id', dir: 'asc' }] });
+  });
+
   it('should destroy', () => {
     const imngDirective = fixture.debugElement.query(By.directive(ImngArrayGridDirective)).injector.get(ImngArrayGridDirective);
     imngDirective.ngOnDestroy();
@@ -64,5 +70,6 @@ export class KendoArrayGridTestComponent extends KendoArrayComponentBase<object,
   constructor() {
     super();
     this.detail = [];
+    this.subscriptions.push(of(123).subscribe());
   }
 }
