@@ -1,4 +1,4 @@
-export function findAndReplace<ENTITY extends { id?: number | string; }>(
+export function findAndModify<ENTITY extends { id?: number | string; }>(
   data: ENTITY[],
   lookupId: number | string,
   replacementLogic: (matchingRecord: ENTITY) => void): ENTITY[] {
