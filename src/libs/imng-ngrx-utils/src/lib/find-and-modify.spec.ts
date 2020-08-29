@@ -1,12 +1,12 @@
-import { findAndReplace } from './find-and-replace';
+import { findAndModify } from './find-and-modify';
 
-describe('findAndReplace', () => {
+describe('findAndModify', () => {
   it('should work', () => {
 
     const data = [
       { id: 123, collection: ['😎', '🐱‍👤'] },
       { id: 456, collection: ['a', 'b', 'c'] }
     ];
-    findAndReplace(data, 456, x => x.collection = ['x', 'y', 'z']);
+    findAndModify(data, 456, x => x.collection = ['x', 'y', 'z']);
   });
 });
