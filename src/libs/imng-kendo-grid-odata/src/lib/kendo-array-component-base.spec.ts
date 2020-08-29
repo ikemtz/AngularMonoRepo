@@ -4,7 +4,7 @@ import { KendoArrayComponentBase } from './kendo-array-component-base';
 import { GridModule, GridComponent } from '@progress/kendo-angular-grid';
 import { ImngArrayGridDirective } from './kendo-array-grid.directive';
 import { By } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 
 describe('KendoODataComponentBase', () => {
   let component: KendoArrayGridTestComponent;
@@ -70,5 +70,6 @@ export class KendoArrayGridTestComponent extends KendoArrayComponentBase<object,
   constructor() {
     super();
     this.detail = [];
+    this.subscriptions.push(of(123).subscribe());
   }
 }

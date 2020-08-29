@@ -13,7 +13,6 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   @Input('imngArrayGrid') public arrayComponent: KendoArrayComponentBase<object, object>;
   constructor(public readonly gridComponent: GridComponent) { }
 
-  private readonly markForCheck = (): void => this.arrayComponent?.changeDetectorRef?.markForCheck();
 
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
@@ -34,22 +33,22 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
         this.arrayComponent.dataStateChange(t);
         this.gridComponent.sort = t.sort;
-        this.markForCheck();
+        this.arrayComponent.markForCheck();
       }),
       this.gridComponent.pageChange.subscribe((t: PageChangeEvent) => {
         this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
         this.gridComponent.skip = this.arrayComponent.state.skip = t.skip;
-        this.markForCheck();
+        this.arrayComponent.markForCheck();
         this.arrayComponent.pageChange(t);
       }),
       this.gridComponent.sortChange.subscribe((t: SortDescriptor[]) => {
         this.arrayComponent.sortChange(t);
         this.gridComponent.sort = this.arrayComponent.state.sort = t;
-        this.markForCheck();
+        this.arrayComponent.markForCheck();
       }),
       this.gridComponent.filterChange.subscribe((t: CompositeFilterDescriptor) => {
         this.gridComponent.filter = this.arrayComponent.state.filter = t;
-        this.markForCheck();
+        this.arrayComponent.markForCheck();
         this.arrayComponent.filterChange(t);
       }),
       this.arrayComponent.gridData$.subscribe(t => {
@@ -65,7 +64,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    this.markForCheck();
+    this.arrayComponent.markForCheck();
   }
 
   ngOnDestroy(): void {

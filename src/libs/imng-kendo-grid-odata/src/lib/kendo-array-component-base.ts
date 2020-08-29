@@ -8,6 +8,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements AfterViewInit, OnDestroy {
 
   public readonly subscriptions: Subscription[] = [];
+
   @Input() public item?: PARENT_ENTITY;
   @Input() public detail: LISTED_ENTITY[];
   /**
@@ -33,11 +34,12 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   public set gridData(value: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[]) {
     this._gridData = value;
     this.gridData$.next(value);
-    this.changeDetectorRef?.markForCheck();
+    this.markForCheck();
   }
 
   constructor(public readonly changeDetectorRef: ChangeDetectorRef = null) { }
 
+  public readonly markForCheck = (): void => this.changeDetectorRef?.markForCheck();
   public ngAfterViewInit(): void {
     if (this.detail) {
       this.gridData = process(this.detail, this.state);
