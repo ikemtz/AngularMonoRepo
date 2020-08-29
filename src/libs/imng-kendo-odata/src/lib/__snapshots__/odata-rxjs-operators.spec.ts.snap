@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RxJs Operators should be created 1`] = `
+Array [
+  Object {
+    "val": "abc",
+  },
+  Object {
+    "val": 456,
+  },
+]
+`;
