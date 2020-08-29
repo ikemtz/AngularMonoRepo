@@ -13,6 +13,8 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   @Input('imngArrayGrid') public arrayComponent: KendoArrayComponentBase<object, object>;
   constructor(public readonly gridComponent: GridComponent) { }
 
+  private readonly markForCheck = (): void => this.arrayComponent?.changeDetectorRef?.markForCheck();
+
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
@@ -32,22 +34,22 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
         this.arrayComponent.dataStateChange(t);
         this.gridComponent.sort = t.sort;
-        this.arrayComponent?.changeDetectorRef?.markForCheck();
+        this.markForCheck();
       }),
       this.gridComponent.pageChange.subscribe((t: PageChangeEvent) => {
         this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
         this.gridComponent.skip = this.arrayComponent.state.skip = t.skip;
-        this.arrayComponent?.changeDetectorRef?.markForCheck();
+        this.markForCheck();
         this.arrayComponent.pageChange(t);
       }),
       this.gridComponent.sortChange.subscribe((t: SortDescriptor[]) => {
         this.arrayComponent.sortChange(t);
         this.gridComponent.sort = this.arrayComponent.state.sort = t;
-        this.arrayComponent?.changeDetectorRef?.markForCheck();
+        this.markForCheck();
       }),
       this.gridComponent.filterChange.subscribe((t: CompositeFilterDescriptor) => {
         this.gridComponent.filter = this.arrayComponent.state.filter = t;
-        this.arrayComponent?.changeDetectorRef?.markForCheck();
+        this.markForCheck();
         this.arrayComponent.filterChange(t);
       }),
       this.arrayComponent.gridData$.subscribe(t => {
@@ -63,14 +65,12 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    this.arrayComponent?.changeDetectorRef?.markForCheck();
+    this.markForCheck();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(t =>
-      t?.unsubscribe()
-    );
-    this.arrayComponent?.subscriptions.forEach(t =>
-      t?.unsubscribe());
+    const unsub = (t: Subscription): void => t?.unsubscribe();
+    this.subscriptions.forEach(unsub);
+    this.arrayComponent?.subscriptions.forEach(unsub);
   }
 }
