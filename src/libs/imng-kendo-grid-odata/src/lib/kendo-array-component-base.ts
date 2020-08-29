@@ -27,10 +27,10 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
 
   private _gridData: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[];
   public gridData$ = new BehaviorSubject<ODataResult<LISTED_ENTITY> | LISTED_ENTITY[]>({ data: [], total: 0 });
-  get gridData(): ODataResult<LISTED_ENTITY> | LISTED_ENTITY[] {
+  public get gridData(): ODataResult<LISTED_ENTITY> | LISTED_ENTITY[] {
     return this._gridData;
   }
-  set gridData(value: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[]) {
+  public set gridData(value: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[]) {
     this._gridData = value;
     this.gridData$.next(value);
     this.changeDetectorRef?.markForCheck();
