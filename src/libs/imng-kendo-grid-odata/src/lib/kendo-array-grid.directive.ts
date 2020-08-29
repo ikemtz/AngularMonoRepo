@@ -71,6 +71,5 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   ngOnDestroy(): void {
     const unsub = (t: Subscription): void => t?.unsubscribe();
     this.subscriptions.forEach(unsub);
-    this.arrayComponent?.subscriptions.forEach(unsub);
   }
 }
