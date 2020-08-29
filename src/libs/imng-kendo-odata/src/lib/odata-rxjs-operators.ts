@@ -1,6 +1,7 @@
 import { ODataPayload } from './odata-payload';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { ODataResult } from './odata-result';
+import { Observable } from 'rxjs';
 
 export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNullableProps: string[] = []) =>
   map((response: ODataPayload<T>) => {
@@ -46,4 +47,19 @@ export function parseDatesInCollection<T>(
 export function toLocalDate(date: string): Date {
   const dt = new Date(date);
   return new Date(dt.getTime() + Math.abs(dt.getTimezoneOffset() * 60000));
+}
+
+export function getSubGridData<
+  PARENT_ENTITY extends { id?: number | string; },
+  SUB_ENTITY>(
+    id: number | string,
+    mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[]):
+  (source: Observable<ODataResult<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
+  return function (source: Observable<ODataResult<PARENT_ENTITY>>): Observable<SUB_ENTITY[]> {
+    return source.pipe(
+      map(t => t.data.find(f => f.id === id)),
+      map((entity: PARENT_ENTITY) => mappingFunction(entity)),
+      filter((t) => !!t)
+    );
+  };
 }
