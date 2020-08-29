@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`findAndReplace should work 1`] = `
+Array [
+  Object {
+    "collection": Array [
+      "😎",
+      "🐱‍👤",
+    ],
+    "id": 123,
+  },
+  Object {
+    "collection": Array [
+      "x",
+      "y",
+      "z",
+    ],
+    "id": 456,
+  },
+]
+`;
