@@ -1,11 +1,12 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Input, Directive, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { process, State, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
 import { Subscription, BehaviorSubject } from 'rxjs';
 
 @Directive()
 export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements AfterViewInit {
+
 
   public readonly subscriptions: Subscription[] = [];
   @Input() public item?: PARENT_ENTITY;
@@ -53,5 +54,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   }
 
   public filterChange(t: CompositeFilterDescriptor): void {
+  }
+  public sortChange(t: SortDescriptor[]): void {
   }
 }

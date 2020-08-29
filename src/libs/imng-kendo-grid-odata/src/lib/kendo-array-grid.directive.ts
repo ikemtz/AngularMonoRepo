@@ -3,7 +3,7 @@ import { GridComponent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { KendoArrayComponentBase } from './kendo-array-component-base';
-import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 
 @Directive({
   selector: '[imngArrayGrid]',
@@ -31,6 +31,8 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
     this.subscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
         this.arrayComponent.dataStateChange(t);
+        this.gridComponent.sort = t.sort;
+        this.arrayComponent?.changeDetectorRef?.markForCheck();
       }),
       this.gridComponent.pageChange.subscribe((t: PageChangeEvent) => {
         this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
@@ -38,12 +40,19 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
         this.arrayComponent?.changeDetectorRef?.markForCheck();
         this.arrayComponent.pageChange(t);
       }),
+      this.gridComponent.sortChange.subscribe((t: SortDescriptor[]) => {
+        this.arrayComponent.sortChange(t);
+        this.gridComponent.sort = this.arrayComponent.state.sort = t;
+        this.arrayComponent?.changeDetectorRef?.markForCheck();
+      }),
       this.gridComponent.filterChange.subscribe((t: CompositeFilterDescriptor) => {
         this.gridComponent.filter = this.arrayComponent.state.filter = t;
         this.arrayComponent?.changeDetectorRef?.markForCheck();
         this.arrayComponent.filterChange(t);
       }),
-      this.arrayComponent.gridData$.subscribe(t => this.gridComponent.data = t),
+      this.arrayComponent.gridData$.subscribe(t => {
+        this.gridComponent.data = t;
+      }),
     );
 
     this.gridComponent.pageSize = this.arrayComponent.state.take;
