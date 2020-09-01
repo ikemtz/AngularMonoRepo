@@ -19,6 +19,7 @@ import { OIDC_CONFIG, Config } from '../models/config.model';
 import { of } from 'rxjs';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Auth0Facade } from './auth0.facade';
+import { Router } from '@angular/router';
 
 interface TestSchema {
   [OIDC_FEATURE_KEY]: OidcState;
@@ -43,6 +44,7 @@ describe('OidcFacade', () => {
         providers: [OidcFacade, OidcService, Auth0Facade,
           { provide: OIDC_CONFIG, useValue: { getUserMetadata: true, oidc_config: { automaticSilentRenew: true }, log: { level: 0, logger: console } } },
           { provide: HttpClient, useValue: { get: () => of({ userinfo_endpoint: 'xyz' }) } },
+          { provide: Router, useValue: { navigateByUrl: jest.fn() } }
         ],
       })
       class CustomFeatureModule { }

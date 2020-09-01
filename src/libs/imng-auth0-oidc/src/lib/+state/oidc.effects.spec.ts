@@ -11,6 +11,7 @@ import * as OidcActions from './oidc.actions';
 import { OIDC_CONFIG } from '../models/config.model';
 import { OidcService } from '../services/oidc.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 describe('Oidc Effects', () => {
   let actions: Observable<any>;
@@ -27,7 +28,8 @@ describe('Oidc Effects', () => {
         provideMockStore(),
         { provide: OIDC_CONFIG, useValue: { oidc_config: {}, getUserMetadata: true, } },
         OidcService,
-        { provide: HttpClient, useValue: { get: () => of({ userinfo_endpoint: 'xyz' }) } }
+        { provide: HttpClient, useValue: { get: () => of({ userinfo_endpoint: 'xyz' }) } },
+        { provide: Router, useValue: { navigateByUrl: jest.fn() } }
       ],
 
     });

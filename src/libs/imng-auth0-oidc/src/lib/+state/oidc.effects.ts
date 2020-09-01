@@ -7,6 +7,8 @@ import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcService } from '../services/oidc.service';
 import * as oidcActions from './oidc.actions';
 import { IOidcUser } from '../models/oidc-user';
+import { Router } from '@angular/router';
+import { oidcLogoutRoute } from '../auth0-oidc-routing.module';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +18,7 @@ export class OidcEffects implements OnInitEffects {
     private readonly actions$: Actions,
     private readonly oidcService: OidcService,
     @Inject(OIDC_CONFIG) private readonly config: Config,
+    private readonly router: Router,
   ) { }
 
   getOidcUser$ = createEffect(() =>
@@ -109,6 +112,7 @@ export class OidcEffects implements OnInitEffects {
       tap(() => {
         localStorage.clear();
         sessionStorage.clear();
+        this.router.navigateByUrl(oidcLogoutRoute.path);
       })), { dispatch: false });
 
   ngrxOnInitEffects(): Action {
