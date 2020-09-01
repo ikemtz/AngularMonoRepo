@@ -11,7 +11,7 @@ import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event
 export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy {
   private readonly subscriptions: Subscription[] = [];
   @Input('imngODataGrid') public odataComponent: KendoODataComponentBase<object, IKendoODataGridFacade<object>>;
-  constructor(private readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
@@ -32,7 +32,10 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy 
         this.gridComponent.data = t;
         this.changeDetectorRef.markForCheck();
       }),
-      facade.loading$.subscribe(t => (this.gridComponent.loading = t)),
+      facade.loading$.subscribe(t => {
+        this.gridComponent.loading = t;
+        this.changeDetectorRef.markForCheck();
+      }),
       facade.gridPagerSettings$.subscribe(t => (this.gridComponent.pageable = t)),
       facade.gridODataState$.subscribe(t => {
         this.gridComponent.pageSize = t.take;
