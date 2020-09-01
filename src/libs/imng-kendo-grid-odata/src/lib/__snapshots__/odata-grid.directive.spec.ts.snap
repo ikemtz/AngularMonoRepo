@@ -29,6 +29,7 @@ Object {
 exports[`ImngODataGridDirective should fire OnInit 1`] = `
 Object {
   "filterable": "menu",
+  "loading": true,
   "navigable": true,
   "reorderable": true,
   "resizable": true,
