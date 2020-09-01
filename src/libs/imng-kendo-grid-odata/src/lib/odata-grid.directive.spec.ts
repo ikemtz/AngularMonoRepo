@@ -12,7 +12,17 @@ describe('ImngODataGridDirective', () => {
   it('should fire OnInit', () => {
     const gridComponent: any = {};
     const changeDetectorRef: any = {};
+    const odataComponent: any = {
+      facade: {
+        gridData$: of({}),
+        loading$: of(true),
+        gridPagerSettings$: of(false),
+        gridODataState$: of({}),
+      },
+      dataStateChange: jest.fn(),
+    };
     const directive = new ImngODataGridDirective(gridComponent, changeDetectorRef);
+    directive.odataComponent = odataComponent;
     directive.ngOnInit();
     expect(gridComponent).toMatchSnapshot();
     expect(directive).toBeTruthy();

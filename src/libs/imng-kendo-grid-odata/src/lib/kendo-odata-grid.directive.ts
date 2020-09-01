@@ -10,14 +10,15 @@ import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event
 })
 export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy {
   private readonly subscriptions: Subscription[] = [];
-  private readonly facade: IKendoODataGridFacade<object>;
+  private facade: IKendoODataGridFacade<object>;
 
   @Input('imngODataGrid') public odataComponent: KendoODataComponentBase<object, IKendoODataGridFacade<object>>;
   constructor(private readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {
-    this.facade = this.odataComponent.facade;
+
   }
 
   ngOnInit(): void {
+    this.facade = this.odataComponent.facade;
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
     this.gridComponent.filterable = 'menu';
