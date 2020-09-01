@@ -16,9 +16,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AccessDeniedComponent } from './components/access-denied.component';
 import { SupportComponent } from './support/support.component';
 import { Auth0OidcRoutingModule } from './auth0-oidc-routing.module';
+import { LogoutSuccessComponent } from './components/logout-success.component';
 
 @NgModule({
-  declarations: [AccessDeniedComponent, SupportComponent],
+  declarations: [AccessDeniedComponent, SupportComponent, LogoutSuccessComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -26,7 +27,7 @@ import { Auth0OidcRoutingModule } from './auth0-oidc-routing.module';
     EffectsModule.forFeature([OidcEffects]),
     Auth0OidcRoutingModule,
   ],
-  exports: [AccessDeniedComponent],
+  exports: [AccessDeniedComponent, SupportComponent, LogoutSuccessComponent],
   providers: [
     { provide: OIDC_CONFIG, useFactory: auth0Configurator, deps: [AUTH0_CONFIG, DOCUMENT] },
     OidcService,

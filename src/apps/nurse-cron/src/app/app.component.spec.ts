@@ -5,7 +5,6 @@ import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { OidcFacade } from 'imng-auth0-oidc';
 import { of } from 'rxjs';
-import { readFirst } from '@nrwl/angular/testing';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -24,12 +23,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it('should initialize', async () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    component.ngOnInit();
-    expect(await readFirst(component.loggedIn$)).toBe(true);
   });
 });
