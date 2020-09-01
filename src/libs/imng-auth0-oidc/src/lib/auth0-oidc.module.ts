@@ -27,7 +27,7 @@ import { LogoutSuccessComponent } from './components/logout-success.component';
     EffectsModule.forFeature([OidcEffects]),
     Auth0OidcRoutingModule,
   ],
-  exports: [AccessDeniedComponent, LogoutSuccessComponent],
+  exports: [AccessDeniedComponent, SupportComponent, LogoutSuccessComponent],
   providers: [
     { provide: OIDC_CONFIG, useFactory: auth0Configurator, deps: [AUTH0_CONFIG, DOCUMENT] },
     OidcService,
