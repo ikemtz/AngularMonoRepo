@@ -27,7 +27,7 @@
     "@nrwl/jest": "^10.0.7",
     "find-up": "^4.1.0",
     "imng-kendo-data-entry": ">=2.215.4",
-    "imng-kendo-odata": ">=2.215.4",
+    "imng-kendo-odata": ">=2.224.5",
     "lodash": "^4.17.19",
     "node-fetch": "^2.6.0",
     "pluralize": "^8.0.0",
