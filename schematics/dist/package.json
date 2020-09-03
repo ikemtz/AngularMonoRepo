@@ -27,7 +27,7 @@
     "@nrwl/jest": "^9.3.0",
     "jest": "^26.0.1",
     "jest-junit": "^10.0.0",
-    "typescript": "~3.8.2"
+    "typescript": "~3.9.7"
   },
   "devDependencies": {
     "@angular-devkit/schematics-cli": "^0.901.7",
