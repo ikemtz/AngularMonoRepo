@@ -24,7 +24,7 @@
   "dependencies": {
     "@angular-devkit/core": "^10.0.5",
     "@angular-devkit/schematics": "^10.0.5",
-    "@nrwl/jest": "^10.0.7",
+    "@nrwl/jest": "^10.0.11",
     "find-up": "^4.1.0",
     "imng-kendo-data-entry": ">=2.215.4",
     "imng-kendo-odata": ">=2.215.4",
