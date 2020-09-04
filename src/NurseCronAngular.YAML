@@ -104,7 +104,7 @@ jobs:
           testType: 'app'
           severityThreshold: 'medium'
           monitorOnBuild: false
-          failOnIssues: true
+          failOnIssues: false
           projectName: 'AngularMonoRepo'
           organization: 'ikemtz'
           testDirectory: '$(Build.SourcesDirectory)/src'
