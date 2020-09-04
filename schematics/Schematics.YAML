@@ -90,6 +90,16 @@ jobs:
           SonarCloud: 'SonarCloud IkeMtz'
           organization: 'ikemtz'
 
+      - task: SnykSecurityScan@0
+        inputs:
+          serviceConnectionEndpoint: 'synk'
+          testType: 'app'
+          severityThreshold: 'medium'
+          monitorOnBuild: false
+          failOnIssues: true
+          projectName: 'AngularMonoRepo'
+          organization: 'ikemtz'
+
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'
         inputs:
