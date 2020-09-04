@@ -97,8 +97,9 @@ jobs:
           severityThreshold: 'medium'
           monitorOnBuild: false
           failOnIssues: true
-          projectName: 'AngularMonoRepo'
+          projectName: 'imng-schematics'
           organization: 'ikemtz'
+          testDirectory: '$(Build.SourcesDirectory)/schematics'
 
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'

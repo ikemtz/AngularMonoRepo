@@ -107,6 +107,7 @@ jobs:
           failOnIssues: true
           projectName: 'AngularMonoRepo'
           organization: 'ikemtz'
+          testDirectory: '$(Build.SourcesDirectory)/src'
 
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/src/coverage/**/cobertura-coverage.xml'
