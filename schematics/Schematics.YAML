@@ -90,6 +90,17 @@ jobs:
           SonarCloud: 'SonarCloud IkeMtz'
           organization: 'ikemtz'
 
+      - task: SnykSecurityScan@0
+        inputs:
+          serviceConnectionEndpoint: 'synk'
+          testType: 'app'
+          severityThreshold: 'medium'
+          monitorOnBuild: false
+          failOnIssues: true
+          projectName: 'imng-schematics'
+          organization: 'ikemtz'
+          testDirectory: '$(Build.SourcesDirectory)/schematics'
+
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'
         inputs:
