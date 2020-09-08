@@ -17,6 +17,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
    */
   public abstract readonly props: any;
   protected expanders: (string | Expander)[];
+  protected transformations: string;
 
   constructor(
     public readonly facade: FACADE,
@@ -31,11 +32,13 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
         state.subscribe(t => {
           this.gridDataState = t;
           this.expanders = t.expanders;
+          this.transformations = t.transformations;
         }),
       );
     } else {
       this.gridDataState = state;
       this.expanders = state.expanders;
+      this.transformations = state.transformations;
     }
     if (gridRefresh$) {
       this.allSubscription.push(gridRefresh$.subscribe(() => this.facade.loadEntities(this.gridDataState)));
@@ -60,6 +63,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     this.gridDataState = {
       ...state,
       expanders: this.expanders,
+      transformations: this.transformations,
     };
     this.facade.loadEntities(this.gridDataState);
   }

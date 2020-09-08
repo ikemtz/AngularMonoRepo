@@ -15,7 +15,8 @@ export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNulla
 
 export const firstRecord = <T>() => map((result: ODataResult<T>) => (result.data.length > 0 ? result.data[0] : {} as T));
 
-export const findById = <T extends { id: string | number; }>(id: string | number) => map((source: ODataResult<T>) => source.data.find(f => f.id === id) || {} as T);
+export const findById = <T extends { id: string | number; }>(id: string | number) =>
+  map((source: ODataResult<T>) => source.data.find(f => f.id === id) || {} as T);
 
 export function parseDatesInCollection<T>(
   collection: Array<T>,
