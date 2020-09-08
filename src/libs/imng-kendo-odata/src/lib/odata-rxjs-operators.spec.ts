@@ -9,6 +9,9 @@ describe('RxJs Operators', () => {
       { id: 2, subData: [{ val: 'abc' }, { val: 456 }] },
     ], total: 5000
   });
+  const emptyGridData$ = of({
+    data: [], total: 0
+  });
   it('should be created', async done => {
     try {
       const result = await readFirst(gridData$.pipe(getSubGridData(2, x => x.subData)));
@@ -32,17 +35,27 @@ describe('RxJs Operators', () => {
   it('should not findById', async done => {
     try {
       const result = await readFirst(gridData$.pipe(findById(3)));
-      expect(result).toBeUndefined();
+      expect(result).toStrictEqual({});
       done();
     } catch (err) {
       done.fail(err);
     }
   });
 
-  it('should firstRecord', async done => {
+  it('should match firstRecord', async done => {
     try {
       const result = await readFirst(gridData$.pipe(firstRecord()));
       expect(result).toMatchSnapshot();
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
+  it('should empty firstRecord', async done => {
+    try {
+      const result = await readFirst(emptyGridData$.pipe(firstRecord()));
+      expect(result).toStrictEqual({});
       done();
     } catch (err) {
       done.fail(err);

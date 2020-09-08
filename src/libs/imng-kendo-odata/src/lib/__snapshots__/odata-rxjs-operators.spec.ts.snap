@@ -25,7 +25,7 @@ Object {
 }
 `;
 
-exports[`RxJs Operators should firstRecord 1`] = `
+exports[`RxJs Operators should match firstRecord 1`] = `
 Object {
   "id": 1,
   "subData": Array [
