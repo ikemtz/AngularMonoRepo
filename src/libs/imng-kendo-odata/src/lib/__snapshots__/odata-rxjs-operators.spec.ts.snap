@@ -10,3 +10,31 @@ Array [
   },
 ]
 `;
+
+exports[`RxJs Operators should findById 1`] = `
+Object {
+  "id": 2,
+  "subData": Array [
+    Object {
+      "val": "abc",
+    },
+    Object {
+      "val": 456,
+    },
+  ],
+}
+`;
+
+exports[`RxJs Operators should match firstRecord 1`] = `
+Object {
+  "id": 1,
+  "subData": Array [
+    Object {
+      "val": "xyz",
+    },
+    Object {
+      "val": 123,
+    },
+  ],
+}
+`;
