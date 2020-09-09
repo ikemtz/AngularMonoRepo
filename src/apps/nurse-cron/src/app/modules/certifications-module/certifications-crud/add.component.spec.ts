@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,14 +14,14 @@ describe('CertificationAddComponent', () => {
   let fixture: ComponentFixture<CertificationAddComponent>;
   let facade: CertificationCrudFacade;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CertificationAddComponent],
       imports: [ReactiveFormsModule, ImngDataEntryDialogModule, NoopAnimationsModule],
       providers: [{ provide: CertificationCrudFacade, useValue: createDataEntryMockFacade() }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CertificationAddComponent);
@@ -37,10 +37,10 @@ describe('CertificationAddComponent', () => {
   it('should save', () => {
     component.initForm();
     component.addEditForm.patchValue({
-    [CertificationProperties.ID]: 'ID',
-    [CertificationProperties.NAME]: 'NAME',
-    [CertificationProperties.IS_ENABLED]: true,
-    [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
+      [CertificationProperties.ID]: 'ID',
+      [CertificationProperties.NAME]: 'NAME',
+      [CertificationProperties.IS_ENABLED]: true,
+      [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
     });
 
     let item: ICertification;
@@ -52,7 +52,7 @@ describe('CertificationAddComponent', () => {
 
     expect(item).toMatchSnapshot({
       expiresOnUtc: expect.any(Date),
-    });        
+    });
 
   });
 
