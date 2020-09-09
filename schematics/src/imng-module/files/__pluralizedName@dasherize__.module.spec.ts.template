@@ -1,14 +1,14 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { <%= classify(pluralizedName) %>Module } from './<%= dasherize(pluralizedName) %>.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('<%= classify(pluralizedName) %>Module', () => {
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [<%= classify(pluralizedName) %>Module],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
-  }));
+  });
 
   it('should create', () => {
     expect(<%= classify(pluralizedName) %>Module).toBeDefined();

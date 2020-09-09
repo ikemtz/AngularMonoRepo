@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,14 +14,14 @@ describe('CompetencyAddComponent', () => {
   let fixture: ComponentFixture<CompetencyAddComponent>;
   let facade: CompetencyCrudFacade;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CompetencyAddComponent],
       imports: [ReactiveFormsModule, ImngDataEntryDialogModule, NoopAnimationsModule],
       providers: [{ provide: CompetencyCrudFacade, useValue: createDataEntryMockFacade() }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CompetencyAddComponent);
