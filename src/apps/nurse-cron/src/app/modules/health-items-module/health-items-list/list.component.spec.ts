@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HealthItemListComponent } from './list.component';
 import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
@@ -16,7 +16,7 @@ describe('HealthItemListComponent', () => {
   let listFacade: HealthItemListFacade;
   let crudFacade: HealthItemCrudFacade;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HealthItemListComponent],
       imports: [GridModule],
@@ -26,7 +26,7 @@ describe('HealthItemListComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HealthItemListComponent);
@@ -52,7 +52,7 @@ describe('HealthItemListComponent', () => {
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith({});
   });
-  
+
   it('should handle EditItem', () => {
     const item = createHealthItem();
     component.editItem(item);

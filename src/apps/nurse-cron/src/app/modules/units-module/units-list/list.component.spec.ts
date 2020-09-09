@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UnitListComponent } from './list.component';
 import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
@@ -16,7 +16,7 @@ describe('UnitListComponent', () => {
   let listFacade: UnitListFacade;
   let crudFacade: UnitCrudFacade;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [UnitListComponent],
       imports: [GridModule],
@@ -26,7 +26,7 @@ describe('UnitListComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UnitListComponent);
@@ -52,7 +52,7 @@ describe('UnitListComponent', () => {
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith({});
   });
-  
+
   it('should handle EditItem', () => {
     const item = createUnit();
     component.editItem(item);
