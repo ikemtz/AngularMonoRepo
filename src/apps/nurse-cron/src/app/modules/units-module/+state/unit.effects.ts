@@ -82,6 +82,7 @@ export class UnitEffects {
     ),
   );
 
+  // tslint:disable-next-line: typedef
   private exceptionHandler(action, error) {
     console.error('Error', error); // NOSONAR
     return unitActionTypes.unitsFailure({ error });

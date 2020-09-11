@@ -17,11 +17,11 @@ export class CompetencyAddComponent extends CompetencyBaseEntryComponent {
   constructor(facade: CompetencyCrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
   }
-  public save() {
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: ICompetency = this.addEditForm.value;
       val.id = null;

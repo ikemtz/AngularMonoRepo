@@ -51,7 +51,7 @@ export class MockBaseComponent extends BaseDataEntryComponent<MockEntity, MockFa
   dialogTitle = '';
   props = {};
   save = jest.fn();
-  initForm() {
+  public initForm(): void {
     this.addEditForm = new FormGroup({
       id: new FormControl(''),
     });

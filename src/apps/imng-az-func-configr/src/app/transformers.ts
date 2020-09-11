@@ -1,9 +1,9 @@
 import { IAzSetting, ILocalSetting } from './az-setting.model';
 
 export interface ITransformer {
-    icon: string,
-    name: string,
-    id: number,
+    icon: string;
+    name: string;
+    id: number;
     convert(data: IAzSetting[]): ILocalSetting | string;
 }
 export const initialFunctionDevSettings = (): ILocalSetting => ({ IsEncrypted: false, Values: {} });

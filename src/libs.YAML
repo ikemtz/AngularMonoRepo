@@ -54,12 +54,12 @@ jobs:
       #           sonar.coverage.exclusions=src/libs/**
 
       - task: Npm@1
-        displayName: 'npm run lint'
+        displayName: 'npm run lint:libs'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run lint'
+          customCommand: 'run lint:libs'
 
       - task: Npm@1
         displayName: 'npm run build:libs'

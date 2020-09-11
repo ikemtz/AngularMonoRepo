@@ -16,11 +16,12 @@ export class <%= classify(name) %>AddComponent extends <%= classify(name) %>Base
   constructor(facade: <%= classify(name) %>CrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
   }
-  public save() {
+
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: I<%= classify(name) %> = this.addEditForm.value;
       val.id = null;

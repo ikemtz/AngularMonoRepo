@@ -17,11 +17,11 @@ export class EmployeeAddComponent extends EmployeeBaseEntryComponent {
   constructor(facade: EmployeeCrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
   }
-  public save() {
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: IEmployee = this.addEditForm.value;
       val.id = null;

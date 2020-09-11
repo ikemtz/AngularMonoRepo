@@ -13,7 +13,7 @@ export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<
     super(facade);
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.initForm();
     this.addEditForm.patchValue({
       [EmployeeProperties.CERTIFICATION_COUNT]: 0,
@@ -24,11 +24,11 @@ export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<
     });
   }
 
-  public initForm() {
+  public initForm(): void {
     this.addEditForm = EmployeeFormGroupFac();
   }
 
-  public cancel() {
+  public cancel(): void {
     this.facade.clearCurrentEntity();
   }
 }

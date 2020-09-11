@@ -17,11 +17,11 @@ export class HealthItemAddComponent extends HealthItemBaseEntryComponent {
   constructor(facade: HealthItemCrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
   }
-  public save() {
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: IHealthItem = this.addEditForm.value;
       val.id = null;

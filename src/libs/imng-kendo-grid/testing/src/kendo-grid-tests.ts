@@ -1,10 +1,10 @@
 import { GridDataEntryHelper } from 'imng-kendo-grid';
 import { DebugElement } from '@angular/core';
 
-export async function validateGridAddHandler<entity extends { id?: string | number }>(
+export async function validateGridAddHandler<entity extends { id?: string | number; }>(
   gridEntryHelper: GridDataEntryHelper<entity>,
   gridDebugElement: DebugElement,
-) {
+): Promise<void> {
   expect(gridDebugElement).toBeTruthy();
   expect(gridDebugElement.componentInstance).toBeTruthy();
   const spy = jest.spyOn(gridEntryHelper, 'addHandler');
@@ -12,10 +12,10 @@ export async function validateGridAddHandler<entity extends { id?: string | numb
   expect(spy).toBeCalledTimes(1);
 }
 
-export async function validateGridEditHandler<entity extends { id?: string | number }>(
+export async function validateGridEditHandler<entity extends { id?: string | number; }>(
   gridEntryHelper: GridDataEntryHelper<entity>,
   gridDebugElement: DebugElement,
-) {
+): Promise<void> {
   expect(gridDebugElement).toBeTruthy();
   expect(gridDebugElement.componentInstance).toBeTruthy();
   const spy = jest.spyOn(gridEntryHelper, 'editHandler');

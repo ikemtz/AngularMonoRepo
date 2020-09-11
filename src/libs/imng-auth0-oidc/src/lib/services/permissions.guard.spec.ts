@@ -34,7 +34,7 @@ describe('PermissionsGuard', () => {
       const result = await readFirst(guard.canActivate(null, null) as Observable<boolean>);
       expect(result).toBe(false);
       expect(router.navigate).toBeCalledTimes(1);
-      expect(router.navigate).toBeCalledWith(["oidc/access-denied"], { "relativeTo": "🌳🌳🌳" });
+      expect(router.navigate).toBeCalledWith(['oidc/access-denied'], { relativeTo: '🌳🌳🌳' });
       done();
     } catch (err) {
       done.fail(err);

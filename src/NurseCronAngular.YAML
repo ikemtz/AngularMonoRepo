@@ -55,12 +55,12 @@ jobs:
             sonar.cpd.exclusions=**/*.html
 
       - task: Npm@1
-        displayName: 'npm run lint'
+        displayName: 'npm run lint:nur'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run lint'
+          customCommand: 'run lint:nur'
 
       - task: Npm@1
         displayName: 'npm run build [DEVELOPMENT BUILD]'

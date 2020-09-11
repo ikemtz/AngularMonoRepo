@@ -46,7 +46,8 @@ describe('SignalrFacade', () => {
               }
             }
           },
-          SignalrFacade,],
+          SignalrFacade
+        ],
 
       })
       class CustomFeatureModule { }
