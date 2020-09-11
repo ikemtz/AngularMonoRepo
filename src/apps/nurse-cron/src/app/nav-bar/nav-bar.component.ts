@@ -26,11 +26,11 @@ export class NavBarComponent {
     this.collapsed = !this.collapsed;
   }
 
-  signinRedirect() {
+  signinRedirect(): void {
     this.oidcFacade.signinRedirect();
   }
 
-  signoutRedirect() {
+  signoutRedirect(): void {
     this.oidcFacade.signoutRedirect();
   }
 }

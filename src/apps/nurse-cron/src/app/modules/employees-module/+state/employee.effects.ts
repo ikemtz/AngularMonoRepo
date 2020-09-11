@@ -16,9 +16,9 @@ export class EmployeeEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private readonly store$: Store<fromEmployeesReducer.EmployeesPartialState>, 
-    private readonly employeeApiService : EmployeeApiService, 
-  ) {}
+    private readonly store$: Store<fromEmployeesReducer.EmployeesPartialState>,
+    private readonly employeeApiService: EmployeeApiService,
+  ) { }
 
   loadEmployeesEffect$ = createEffect(() =>
     this.actions$.pipe(
@@ -81,6 +81,7 @@ export class EmployeeEffects {
     ),
   );
 
+  // tslint:disable-next-line: typedef
   private exceptionHandler(action, error) {
     console.error('Error', error); // NOSONAR
     return employeeActionTypes.employeesFailure({ error });

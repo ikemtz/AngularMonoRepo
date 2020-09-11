@@ -16,13 +16,13 @@ export class CertificationListFacade implements IKendoODataGridFacade<ICertifica
   gridData$ = this.store.pipe(select(certificationQueries.getCertifications));
   gridPagerSettings$ = this.store.pipe(select(certificationQueries.getPagerSettings));
 
-  constructor(private readonly store: Store<CertificationsPartialState>) {}
+  constructor(private readonly store: Store<CertificationsPartialState>) { }
 
-  loadEntities(state: ODataState) {
+  public loadEntities(state: ODataState): void {
     this.store.dispatch(certificationActionTypes.loadCertificationsRequest(state));
   }
 
-  deleteExistingEntity(entity: ICertification): void {
+  public deleteExistingEntity(entity: ICertification): void {
     this.store.dispatch(certificationActionTypes.deleteCertificationRequest(entity));
   }
 }

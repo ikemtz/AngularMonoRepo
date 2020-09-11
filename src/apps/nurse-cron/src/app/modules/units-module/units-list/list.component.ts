@@ -43,19 +43,19 @@ export class UnitListComponent extends KendoODataComponentBase<IUnit, UnitListFa
     super(facade, initialGridState);
   }
 
-  public addItem() {
+  public addItem(): void {
     this.crudFacade.setCurrentEntity({});
   }
 
-  public editItem(item: IUnit) {
+  public editItem(item: IUnit): void {
     this.crudFacade.setCurrentEntity(item);
   }
 
-  public deleteItem(item: IUnit) {
+  public deleteItem(item: IUnit): void {
     this.facade.deleteExistingEntity(item);
   }
 
-  public detailExpanded(evt: DetailExpandEvent) {
+  public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
   }
 }

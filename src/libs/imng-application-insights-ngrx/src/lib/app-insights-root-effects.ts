@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
 import { AppInsightsMonitoringService } from './app-insights-monitoring.service';
 
@@ -10,7 +12,7 @@ abstract class AppInsightsBaseffects {
   ) { }
   protected readonly noDispatch = { dispatch: false };
 
-  protected getTrackLoginPipe() {
+  protected getTrackLoginPipe(): Observable<Action> {
     return this.actions$.pipe(
       filter(x => x.type.toUpperCase().endsWith('USER FOUND') && (x as any).payload),
       tap(x => {
@@ -19,7 +21,7 @@ abstract class AppInsightsBaseffects {
     );
   }
 
-  protected getTrackLogoutPipe() {
+  protected getTrackLogoutPipe(): Observable<Action> {
     return this.actions$.pipe(
       filter(x => 0 < x.type.toUpperCase().indexOf('SIGN OUT')),
       tap(x => {
@@ -28,7 +30,7 @@ abstract class AppInsightsBaseffects {
     );
   }
 
-  protected getTrackExceptionsPipe() {
+  protected getTrackExceptionsPipe(): Observable<Action> {
     return this.actions$.pipe(
       filter(x => x.type.toUpperCase().endsWith('ERROR')),
       tap(x => {

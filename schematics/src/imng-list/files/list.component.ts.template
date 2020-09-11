@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
@@ -27,28 +26,24 @@ const initialGridState: ODataState = {
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataComponentBase<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
   public readonly props = <%= classify(singularizedName) %>Properties;
   public currentItem: I<%= classify(singularizedName) %>;
-  public readonly faPlusCircle = faPlusCircle;
-  public readonly faCheck = faCheck;
-  public readonly faEdit = faEdit;
-  public readonly faTrash = faTrash;  
 
   constructor(facade: <%= classify(singularizedName) %>ListFacade, public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade) {
     super(facade, initialGridState);
   }
 
-  public addItem() {
+  public addItem(): void {
     this.crudFacade.setCurrentEntity({});
   }
 
-  public editItem(item: I<%= classify(singularizedName) %>) {
+  public editItem(item: I<%= classify(singularizedName) %>): void {
     this.crudFacade.setCurrentEntity(item);
   }
 
-  public deleteItem(item: I<%= classify(singularizedName) %>) {
+  public deleteItem(item: I<%= classify(singularizedName) %>): void {
     this.facade.deleteExistingEntity(item);
   }
 
-  public detailExpanded(evt: DetailExpandEvent) {
+  public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
   }
 }

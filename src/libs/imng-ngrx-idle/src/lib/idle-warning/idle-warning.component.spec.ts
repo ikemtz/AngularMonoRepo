@@ -1,5 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IdleWarningComponent } from './idle-warning.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { IdleFacade } from '../+state/idle.facade';
@@ -10,14 +9,14 @@ describe('IdleWarningComponent', () => {
   let component: IdleWarningComponent;
   let fixture: ComponentFixture<IdleWarningComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [IdleWarningComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [{ provide: IdleFacade, useValue: { isTimingOut$: of(true), timeOutSpanInMs$: of(20) } }]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(IdleWarningComponent);

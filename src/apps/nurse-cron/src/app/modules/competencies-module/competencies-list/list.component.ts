@@ -39,19 +39,19 @@ export class CompetencyListComponent extends KendoODataComponentBase<ICompetency
     super(facade, initialGridState);
   }
 
-  public addItem() {
+  public addItem(): void {
     this.crudFacade.setCurrentEntity({});
   }
 
-  public editItem(item: ICompetency) {
+  public editItem(item: ICompetency): void {
     this.crudFacade.setCurrentEntity(item);
   }
 
-  public deleteItem(item: ICompetency) {
+  public deleteItem(item: ICompetency): void {
     this.facade.deleteExistingEntity(item);
   }
 
-  public detailExpanded(evt: DetailExpandEvent) {
+  public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
   }
 }

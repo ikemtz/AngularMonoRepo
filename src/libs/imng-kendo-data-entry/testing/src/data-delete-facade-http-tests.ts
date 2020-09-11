@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 
-export async function testDeleteCurrentEntity<TFacade extends { deleteExistingEntity(entity: unknown): void }>(
+export async function testDeleteCurrentEntity<TFacade extends { deleteExistingEntity(entity: unknown): void; }>(
   done: jest.DoneCallback,
   facade: TFacade,
   httpClient: HttpClient,
-) {
+): Promise<void> {
   try {
     const entity: any = { id: '💃', name: '🧓👴👵' };
 

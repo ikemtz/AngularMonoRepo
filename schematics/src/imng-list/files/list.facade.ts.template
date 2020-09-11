@@ -17,11 +17,11 @@ export class <%= classify(singularizedName) %>ListFacade implements IKendoODataG
 
   constructor(private readonly store: Store<<%= classify(pluralizedStoreName) %>PartialState>) {}
 
-  loadEntities(state: ODataState) {
+  public loadEntities(state: ODataState): void {
     this.store.dispatch(<%= camelize(storeName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(state));
   }
 
-  deleteExistingEntity(entity: I<%= classify(name) %>): void {
+  public deleteExistingEntity(entity: I<%= classify(name) %>): void {
     this.store.dispatch(<%= camelize(storeName) %>ActionTypes.delete<%= classify(name) %>Request(entity));
   }
 }

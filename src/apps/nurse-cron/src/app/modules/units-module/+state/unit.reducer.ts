@@ -57,6 +57,6 @@ const unitsReducer = createReducer(
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action): State {
   return unitsReducer(state, action);
 }

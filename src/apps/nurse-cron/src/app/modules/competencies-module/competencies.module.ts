@@ -14,11 +14,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { CompetencyListComponent, CompetencyListFacade } from './competencies-list';
-import { CompetencyAddComponent, CompetencyEditComponent, CompetencyApiService, CompetencyCrudFacade  } from './competencies-crud';
+import { CompetencyAddComponent, CompetencyEditComponent, CompetencyApiService, CompetencyCrudFacade } from './competencies-crud';
 
 
 @NgModule({
-  declarations: [ CompetencyListComponent, CompetencyAddComponent, CompetencyEditComponent ],
+  declarations: [CompetencyListComponent, CompetencyAddComponent, CompetencyEditComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -32,6 +32,6 @@ import { CompetencyAddComponent, CompetencyEditComponent, CompetencyApiService, 
     StoreModule.forFeature(fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY, fromCompetenciesReducer.reducer),
     EffectsModule.forFeature([CompetencyEffects]),
   ],
-  providers:[ CompetencyApiService, CompetencyListFacade, CompetencyCrudFacade ]
+  providers: [CompetencyApiService, CompetencyListFacade, CompetencyCrudFacade]
 })
 export class CompetenciesModule { }

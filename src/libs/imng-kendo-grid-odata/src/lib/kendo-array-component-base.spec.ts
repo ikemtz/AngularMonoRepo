@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { KendoArrayComponentBase } from './kendo-array-component-base';
 import { GridModule, GridComponent } from '@progress/kendo-angular-grid';
@@ -10,14 +10,14 @@ describe('KendoODataComponentBase', () => {
   let component: KendoArrayGridTestComponent;
   let fixture: ComponentFixture<KendoArrayGridTestComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [KendoArrayGridTestComponent, ImngArrayGridDirective],
       imports: [GridModule],
 
       providers: [],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(KendoArrayGridTestComponent);

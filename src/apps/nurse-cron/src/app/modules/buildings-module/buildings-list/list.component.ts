@@ -48,19 +48,19 @@ export class BuildingListComponent extends KendoODataComponentBase<IBuilding, Bu
     super(facade, initialGridState);
   }
 
-  public addItem() {
+  public addItem(): void {
     this.crudFacade.setCurrentEntity({});
   }
 
-  public editItem(item: IBuilding) {
+  public editItem(item: IBuilding): void {
     this.crudFacade.setCurrentEntity(item);
   }
 
-  public deleteItem(item: IBuilding) {
+  public deleteItem(item: IBuilding): void {
     this.facade.deleteExistingEntity(item);
   }
 
-  public detailExpanded(evt: DetailExpandEvent) {
+  public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
   }
 }

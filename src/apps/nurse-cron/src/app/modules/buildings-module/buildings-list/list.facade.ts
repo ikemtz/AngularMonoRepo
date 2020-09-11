@@ -18,11 +18,11 @@ export class BuildingListFacade implements IKendoODataGridFacade<IBuilding>, IDa
 
   constructor(private readonly store: Store<BuildingsPartialState>) { }
 
-  loadEntities(state: ODataState) {
+  public loadEntities(state: ODataState): void {
     this.store.dispatch(buildingActionTypes.loadBuildingsRequest(state));
   }
 
-  deleteExistingEntity(entity: IBuilding): void {
+  public deleteExistingEntity(entity: IBuilding): void {
     this.store.dispatch(buildingActionTypes.deleteBuildingRequest(entity));
   }
 }

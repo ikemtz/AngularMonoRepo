@@ -71,7 +71,7 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
   @Output()
   typeaheadOnSelect: EventEmitter<ImngMatchSelectedEvent<T>>;
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     super.ngOnDestroy();
     this.subscriptions.forEach(t => {
       if (t) {

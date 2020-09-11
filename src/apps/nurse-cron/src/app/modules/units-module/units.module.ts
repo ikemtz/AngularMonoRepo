@@ -14,11 +14,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { UnitListComponent, UnitListFacade } from './units-list';
-import { UnitAddComponent, UnitEditComponent, UnitApiService, UnitCrudFacade  } from './units-crud';
+import { UnitAddComponent, UnitEditComponent, UnitApiService, UnitCrudFacade } from './units-crud';
 
 
 @NgModule({
-  declarations: [ UnitListComponent, UnitAddComponent, UnitEditComponent ],
+  declarations: [UnitListComponent, UnitAddComponent, UnitEditComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -32,6 +32,6 @@ import { UnitAddComponent, UnitEditComponent, UnitApiService, UnitCrudFacade  } 
     StoreModule.forFeature(fromUnitsReducer.UNITS_FEATURE_KEY, fromUnitsReducer.reducer),
     EffectsModule.forFeature([UnitEffects]),
   ],
-  providers:[ UnitApiService, UnitListFacade, UnitCrudFacade ]
+  providers: [UnitApiService, UnitListFacade, UnitCrudFacade]
 })
 export class UnitsModule { }

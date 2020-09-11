@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 
-export async function testSaveCurrentEntity<TFacade extends { saveNewEntity(entity: unknown): void }>(
+export async function testSaveCurrentEntity<TFacade extends { saveNewEntity(entity: unknown): void; }>(
   done: jest.DoneCallback,
   facade: TFacade,
   httpClient: HttpClient,
-) {
+): Promise<void> {
   try {
     const entity: any = { name: '🆕' };
     httpClient.post = jest.fn(() => of(entity));
@@ -22,11 +22,11 @@ export async function testSaveCurrentEntity<TFacade extends { saveNewEntity(enti
   }
 }
 
-export async function testUpdateCurrentEntity<TFacade extends { updateExistingEntity(entity: unknown): void }>(
+export async function testUpdateCurrentEntity<TFacade extends { updateExistingEntity(entity: unknown): void; }>(
   done: jest.DoneCallback,
   facade: TFacade,
   httpClient: HttpClient,
-) {
+): Promise<void> {
   try {
     const entity: any = { id: '💃', name: '🧓👴👵' };
 
