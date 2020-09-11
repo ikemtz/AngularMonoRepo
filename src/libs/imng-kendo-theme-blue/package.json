@@ -4,17 +4,19 @@
   "description": "A Blue Kendo UI Theme by @ikemtz",
   "icon": "assets/imng-kendo-theme-blue.png",
   "version": "0.0.1",
+  "author": "Isaac Martinez <@ikemtz>",
+  "license": "MIT",
   "repository": {
+    "type": "git",
     "url": "https://github.com/ikemtz/AngularMonoRepo/tree/master/src/libs/imng-kendo-theme-blue"
   },
-  "publisher": "ikemtz",
   "categories": [
     "Themes"
   ],
   "files": [
-    "./dist",
-    "./src",
-    "./assets"
+    "dist",
+    "src",
+    "assets"
   ],
   "main": "./dist/styles.css",
   "sass": "src/styles.scss",
