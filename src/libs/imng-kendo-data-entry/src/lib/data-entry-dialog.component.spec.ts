@@ -12,14 +12,14 @@ describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DataEntryDialogComponent, TestHostComponent],
       imports: [DialogModule, NoopAnimationsModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [{ provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() }],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TestHostComponent);
@@ -56,10 +56,10 @@ export class TestHostComponent extends BaseDataEntryComponent<object, DataEntryM
   constructor(facade: DataEntryMockFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     this.addEditForm = new FormGroup({ id: new FormControl() });
   }
-  public save() {
+  public save(): void {
     this.saved = true;
   }
 }

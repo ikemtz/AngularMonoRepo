@@ -17,11 +17,11 @@ export class BuildingAddComponent extends BuildingBaseEntryComponent {
   constructor(facade: BuildingCrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
   }
-  public save() {
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: IBuilding = this.addEditForm.value;
       val.id = null;

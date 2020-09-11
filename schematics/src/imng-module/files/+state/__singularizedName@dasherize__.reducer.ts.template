@@ -53,9 +53,8 @@ const <%= camelize(pluralizedName) %>Reducer = createReducer(
     }),
   ),
 <% } %>
-
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action): State {
   return <%= camelize(pluralizedName) %>Reducer(state, action);
 }

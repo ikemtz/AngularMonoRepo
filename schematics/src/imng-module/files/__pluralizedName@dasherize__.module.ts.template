@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { <%= classify(pluralizedName) %>RoutingModule } from './<%= dasherize(pluralizedName) %>.routing.module';
 import * as from<%= classify(pluralizedName) %>Reducer from './+state/<%= dasherize(singularizedName) %>.reducer';
 import { <%= classify(singularizedName) %>Effects } from './+state/<%= dasherize(singularizedName) %>.effects';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(pluralizedName) %>-list';
@@ -27,7 +26,6 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     ImngKendoGridODataModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
     <%= classify(pluralizedName) %>RoutingModule,
     StoreModule.forFeature(from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY, from<%= classify(pluralizedName) %>Reducer.reducer),
     EffectsModule.forFeature([<%= classify(singularizedName) %>Effects]),

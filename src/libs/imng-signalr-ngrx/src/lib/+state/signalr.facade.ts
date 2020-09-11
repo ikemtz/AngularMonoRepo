@@ -7,14 +7,14 @@ import { signalrSelectors } from './signalr.selectors';
 
 @Injectable()
 export class SignalrFacade {
-  isConnected$ = this.store.pipe(select(signalrSelectors.getIsConnected));
-  lastReceivedMessage$ = this.store.pipe(select(signalrSelectors.getLastReceivedMessage));
-  receivedMessages$ = this.store.pipe(select(signalrSelectors.getReceivedMessages));
+  public readonly isConnected$ = this.store.pipe(select(signalrSelectors.getIsConnected));
+  public readonly lastReceivedMessage$ = this.store.pipe(select(signalrSelectors.getLastReceivedMessage));
+  public readonly receivedMessages$ = this.store.pipe(select(signalrSelectors.getReceivedMessages));
 
   constructor(private readonly store: Store<fromSignalr.SignalrPartialState>) {
   }
 
-  dispatchAction(action: Action) {
+  public dispatchAction(action: Action): void {
     this.store.dispatch(action);
   }
 }

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChartODataBaseComponent } from './chart-odata-base.component';
 import { ChartODataMockFacade, createChartODataMockFacade } from '../../testing/src/chart-odata-mock-facade';
 import { Component } from '@angular/core';
@@ -7,12 +7,12 @@ describe('ChartODataBaseComponent', () => {
   let component: ChartODataTestComponent;
   let fixture: ComponentFixture<ChartODataTestComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ChartODataTestComponent],
       providers: [],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChartODataTestComponent);

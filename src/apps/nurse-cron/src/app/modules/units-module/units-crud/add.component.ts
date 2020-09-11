@@ -17,11 +17,11 @@ export class UnitAddComponent extends UnitBaseEntryComponent {
   constructor(facade: UnitCrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
   }
-  public save() {
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: IUnit = this.addEditForm.value;
       val.id = null;

@@ -82,6 +82,7 @@ export class BuildingEffects {
     ),
   );
 
+  // tslint:disable-next-line: typedef
   private exceptionHandler(action, error) {
     console.error('Error', error); // NOSONAR
     return buildingActionTypes.buildingsFailure({ error });

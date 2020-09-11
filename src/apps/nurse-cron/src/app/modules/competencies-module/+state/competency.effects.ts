@@ -17,9 +17,9 @@ export class CompetencyEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private readonly store$: Store<fromCompetenciesReducer.CompetenciesPartialState>, 
-    private readonly competencyApiService : CompetencyApiService, 
-  ) {}
+    private readonly store$: Store<fromCompetenciesReducer.CompetenciesPartialState>,
+    private readonly competencyApiService: CompetencyApiService,
+  ) { }
 
   loadCompetenciesEffect$ = createEffect(() =>
     this.actions$.pipe(
@@ -82,6 +82,7 @@ export class CompetencyEffects {
     ),
   );
 
+  // tslint:disable-next-line: typedef
   private exceptionHandler(action, error) {
     console.error('Error', error); // NOSONAR
     return competencyActionTypes.competenciesFailure({ error });

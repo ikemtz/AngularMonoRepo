@@ -16,13 +16,13 @@ export class EmployeeListFacade implements IKendoODataGridFacade<IEmployee>, IDa
   gridData$ = this.store.pipe(select(employeeQueries.getEmployees));
   gridPagerSettings$ = this.store.pipe(select(employeeQueries.getPagerSettings));
 
-  constructor(private readonly store: Store<EmployeesPartialState>) {}
+  constructor(private readonly store: Store<EmployeesPartialState>) { }
 
-  loadEntities(state: ODataState) {
+  public loadEntities(state: ODataState): void {
     this.store.dispatch(employeeActionTypes.loadEmployeesRequest(state));
   }
 
-  deleteExistingEntity(entity: IEmployee): void {
+  public deleteExistingEntity(entity: IEmployee): void {
     this.store.dispatch(employeeActionTypes.deleteEmployeeRequest(entity));
   }
 }

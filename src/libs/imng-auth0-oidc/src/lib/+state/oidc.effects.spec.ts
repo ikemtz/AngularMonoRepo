@@ -195,7 +195,7 @@ describe('Oidc Effects', () => {
   describe('oidc effects', () => {
     it('should initialize', () => {
       const result = effects.ngrxOnInitEffects();
-      expect(result).toStrictEqual({ type: "[Oidc] get oidc user" });
+      expect(result).toStrictEqual({ type: '[Oidc] get oidc user' });
     });
   });
 });

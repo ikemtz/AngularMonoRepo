@@ -18,11 +18,11 @@ export class CompetencyEditComponent extends CompetencyBaseEntryComponent {
   constructor(facade: CompetencyCrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
   }
-  public save() {
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: ICompetency = this.addEditForm.value;
       this.facade.updateExistingEntity(val);

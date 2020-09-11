@@ -66,7 +66,7 @@ export abstract class BaseDataEntryComponent<
     this.closeForm();
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     this._submitted$.next(true);
 
     // stop here if form is invalid

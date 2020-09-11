@@ -13,15 +13,15 @@ export abstract class CertificationBaseEntryComponent extends BaseDataEntryCompo
     super(facade);
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.initForm();
   }
 
-  public initForm() {
+  public initForm(): void {
     this.addEditForm = CertificationFormGroupFac();
   }
 
-  public cancel() {
+  public cancel(): void {
     this.facade.clearCurrentEntity();
   }
 }

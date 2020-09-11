@@ -14,11 +14,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { EmployeeListComponent, EmployeeListFacade } from './employees-list';
-import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, EmployeeCrudFacade  } from './employees-crud';
+import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, EmployeeCrudFacade } from './employees-crud';
 
 
 @NgModule({
-  declarations: [ EmployeeListComponent, EmployeeAddComponent, EmployeeEditComponent ],
+  declarations: [EmployeeListComponent, EmployeeAddComponent, EmployeeEditComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -32,6 +32,6 @@ import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, Employ
     StoreModule.forFeature(fromEmployeesReducer.EMPLOYEES_FEATURE_KEY, fromEmployeesReducer.reducer),
     EffectsModule.forFeature([EmployeeEffects]),
   ],
-  providers:[ EmployeeApiService, EmployeeListFacade, EmployeeCrudFacade ]
+  providers: [EmployeeApiService, EmployeeListFacade, EmployeeCrudFacade]
 })
 export class EmployeesModule { }

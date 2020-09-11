@@ -18,7 +18,7 @@ export class HealthItemListFacade implements IKendoODataGridFacade<IHealthItem>,
 
   constructor(private readonly store: Store<HealthItemsPartialState>) { }
 
-  loadEntities(state: ODataState) {
+  loadEntities(state: ODataState): void {
     this.store.dispatch(healthItemActionTypes.loadHealthItemsRequest(state));
   }
 

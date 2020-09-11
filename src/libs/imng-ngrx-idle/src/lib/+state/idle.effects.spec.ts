@@ -7,6 +7,7 @@ import { IDLE_CONFIG } from '../idle-config';
 import { State } from '@ngrx/store';
 
 describe('IdleEffects', () => {
+  // tslint:disable-next-line: prefer-const
   let actions$: Observable<any>;
   let effects: IdleEffects;
 

@@ -53,10 +53,8 @@ const healthItemsReducer = createReducer(
       loading: true,
     }),
   ),
-
-
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action): State {
   return healthItemsReducer(state, action);
 }
