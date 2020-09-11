@@ -18,9 +18,9 @@ export class CertificationEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private readonly store$: Store<fromCertificationsReducer.CertificationsPartialState>, 
-    private readonly certificationApiService : CertificationApiService, 
-  ) {}
+    private readonly store$: Store<fromCertificationsReducer.CertificationsPartialState>,
+    private readonly certificationApiService: CertificationApiService,
+  ) { }
 
   loadCertificationsEffect$ = createEffect(() =>
     this.actions$.pipe(
@@ -83,6 +83,7 @@ export class CertificationEffects {
     ),
   );
 
+  // tslint:disable-next-line: typedef
   private exceptionHandler(action, error) {
     console.error('Error', error); // NOSONAR
     return certificationActionTypes.certificationsFailure({ error });

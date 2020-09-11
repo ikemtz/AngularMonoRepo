@@ -1,14 +1,14 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { ImngSignalrNgrxModule } from './signalr-ngrx.module';
 import { SIGNALR_CONFIG } from './models/signalr.configuration';
 
 describe('ImngSignalrNgrxModule', () => {
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ImngSignalrNgrxModule],
       providers: [{ provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1 } }]
     }).compileComponents();
-  }));
+  });
 
   it('should create', () => {
     expect(ImngSignalrNgrxModule).toBeDefined();

@@ -13,15 +13,15 @@ export abstract class CompetencyBaseEntryComponent extends BaseDataEntryComponen
     super(facade);
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.initForm();
   }
 
-  public initForm() {
+  public initForm(): void {
     this.addEditForm = CompetencyFormGroupFac();
   }
 
-  public cancel() {
+  public cancel(): void {
     this.facade.clearCurrentEntity();
   }
 }

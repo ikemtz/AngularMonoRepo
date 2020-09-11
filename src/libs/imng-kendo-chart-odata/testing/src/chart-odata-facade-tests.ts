@@ -6,7 +6,7 @@ export async function testLoadSeriesData<TFacade extends IChartODataFacade>(
   done: jest.DoneCallback,
   facade: TFacade,
   odataservice: ODataService,
-) {
+): Promise<void> {
   try {
     let seriesData = await readFirst(facade.seriesData$);
     expect(seriesData).toBeFalsy();

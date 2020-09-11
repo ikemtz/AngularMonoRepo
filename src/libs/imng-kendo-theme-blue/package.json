@@ -1,0 +1,28 @@
+{
+  "name": "imng-kendo-theme-blue",
+  "displayName": "IMNG Kendo Theme Blue",
+  "description": "A Blue Kendo UI Theme by @ikemtz",
+  "icon": "assets/imng-kendo-theme-blue.png",
+  "version": "0.0.1",
+  "repository": {
+    "url": "https://github.com/ikemtz/AngularMonoRepo/tree/master/src/libs/imng-kendo-theme-blue"
+  },
+  "publisher": "ikemtz",
+  "categories": [
+    "Themes"
+  ],
+  "files": [
+    "./dist",
+    "./src",
+    "./assets"
+  ],
+  "main": "./dist/styles.css",
+  "sass": "src/styles.scss",
+  "scripts": {
+    "build": "node-sass ./src/styles.scss --source-map true --output dist --source-map-content scss --output-style compressed"
+  },
+  "devDependencies": {
+    "@progress/kendo-theme-default": "^4.22.0",
+    "node-sass": "^4.14.1"
+  }
+}

@@ -18,11 +18,11 @@ export class CertificationEditComponent extends CertificationBaseEntryComponent 
   constructor(facade: CertificationCrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
   }
-  public save() {
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: ICertification = this.addEditForm.value;
       this.facade.updateExistingEntity(val);

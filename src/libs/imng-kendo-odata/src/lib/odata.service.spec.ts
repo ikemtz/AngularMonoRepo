@@ -105,5 +105,8 @@ const mockDataFactory = () => (
   });
 
 const jestPropertyMatcher = {
-  data: [{ birthDate: expect.any(Date), hireDate: expect.any(Date) }, { birthDate: expect.any(Date), fireDate: expect.any(Date), hireDate: expect.any(Date) },]
+  data: [
+    { birthDate: expect.any(Date), hireDate: expect.any(Date) },
+    { birthDate: expect.any(Date), fireDate: expect.any(Date), hireDate: expect.any(Date) }
+  ]
 };

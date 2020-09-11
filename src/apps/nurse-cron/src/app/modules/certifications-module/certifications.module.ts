@@ -14,11 +14,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { CertificationListComponent, CertificationListFacade } from './certifications-list';
-import { CertificationAddComponent, CertificationEditComponent, CertificationApiService, CertificationCrudFacade  } from './certifications-crud';
+import { CertificationAddComponent, CertificationEditComponent, CertificationApiService, CertificationCrudFacade } from './certifications-crud';
 
 
 @NgModule({
-  declarations: [ CertificationListComponent, CertificationAddComponent, CertificationEditComponent ],
+  declarations: [CertificationListComponent, CertificationAddComponent, CertificationEditComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -32,6 +32,6 @@ import { CertificationAddComponent, CertificationEditComponent, CertificationApi
     StoreModule.forFeature(fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY, fromCertificationsReducer.reducer),
     EffectsModule.forFeature([CertificationEffects]),
   ],
-  providers:[ CertificationApiService, CertificationListFacade, CertificationCrudFacade ]
+  providers: [CertificationApiService, CertificationListFacade, CertificationCrudFacade]
 })
 export class CertificationsModule { }

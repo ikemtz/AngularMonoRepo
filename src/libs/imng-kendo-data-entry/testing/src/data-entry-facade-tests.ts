@@ -2,7 +2,7 @@ import { readFirst } from '@nrwl/angular/testing';
 import { Observable } from 'rxjs';
 
 export async function testAddSetAndClearCurrentEntity
-  <TFacade extends TestableFacade>(done: jest.DoneCallback, facade: TFacade) {
+  <TFacade extends TestableFacade>(done: jest.DoneCallback, facade: TFacade): Promise<void> {
   try {
     const entity = { name: '🆕' };
     await validateInitialState(facade);
@@ -28,7 +28,7 @@ export async function testAddSetAndClearCurrentEntity
 export async function testEditSetAndClearCurrentEntity<TFacade extends TestableFacade>(
   done: jest.DoneCallback,
   facade: TFacade,
-) {
+): Promise<void> {
   try {
     const entity = { id: '💃', name: '🧓👴👵' };
     await validateInitialState(facade);
@@ -50,14 +50,18 @@ export async function testEditSetAndClearCurrentEntity<TFacade extends TestableF
     done.fail(err);
   }
 }
-async function validateInitialState(facade: TestableFacade) {
+async function validateInitialState(facade: TestableFacade): Promise<void> {
   const status = await getEntityStatus(facade);
   expect(status.currentEntity).toBeFalsy();
   expect(status.isEditActive).toBeFalsy();
   expect(status.isNewActive).toBeFalsy();
 }
 
-async function getEntityStatus<TFacade extends TestableFacade>(facade: TFacade) {
+async function getEntityStatus<TFacade extends TestableFacade>(facade: TFacade): Promise<{
+  currentEntity: unknown,
+  isEditActive: unknown,
+  isNewActive: unknown;
+}> {
   return {
     currentEntity: await readFirst(facade.currentEntity$),
     isEditActive: await readFirst(facade.isEditActive$),

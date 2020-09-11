@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IdleFacade } from '../+state/idle.facade';
-import { BehaviorSubject, Subscription, Subject, interval, Observable } from 'rxjs';
+import { BehaviorSubject, Subscription, interval, Observable } from 'rxjs';
 import { tap, filter, switchMap, map } from 'rxjs/operators';
 
 @Component({
@@ -16,7 +16,7 @@ export class IdleWarningComponent implements OnInit, OnDestroy {
   constructor(private readonly idleFacade: IdleFacade) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     let timeOutSpan = 0;
     const msInSec = 1000;
     this.timeoutSub = this.idleFacade.isTimingOut$.pipe(tap(value => this.isSessionTimingOut$.next(value))).subscribe();
@@ -27,15 +27,17 @@ export class IdleWarningComponent implements OnInit, OnDestroy {
       map(() => Math.floor(timeOutSpan / msInSec)),
       tap(() => timeOutSpan -= msInSec)
     );
-  };
+  }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.timeoutSub?.unsubscribe();
-  };
-  close(): void {
+  }
+
+  public close(): void {
     this.isSessionTimingOut$.next(false);
-  };
-  extend(): void {
+  }
+
+  public extend(): void {
     this.idleFacade.extendSession();
   }
 }

@@ -8,7 +8,7 @@ export function testLoadMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
   done: jest.DoneCallback,
   facade: TFacade,
   httpClient: HttpClient,
-) {
+): void {
   try {
     const getSpy = jest.spyOn(httpClient, 'get');
     facade.loadMatches('🎂 🍩 😡');
@@ -23,7 +23,7 @@ export async function testOdataMatches<TFacade extends ImngTypeAheadFacade<unkno
   done: jest.DoneCallback,
   facade: TFacade,
   oDataService: ODataService,
-) {
+): Promise<void> {
   try {
     oDataService.fetch = jest.fn(() => of({ data: [{ id: '👼', name: '👿🕺' }], total: 500 })) as any;
 

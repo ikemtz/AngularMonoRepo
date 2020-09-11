@@ -12,15 +12,15 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
     super(facade);
   }
 
-  ngOnInit() : void {
+  public ngOnInit(): void {
     this.initForm();
   }
 
-  public initForm() : void {
+  public initForm(): void {
     this.addEditForm = <%= classify(name) %>FormGroupFac();
   }
 
-  public cancel() : void {
+  public cancel(): void {
     this.facade.clearCurrentEntity();
   }
 }

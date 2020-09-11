@@ -18,7 +18,7 @@ export abstract class ChartODataBaseComponent<FACADE extends IChartODataFacade> 
 
   public abstract loadChart(): void;
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.allSubscription.forEach(subscription => {
       if (subscription) {
         subscription.unsubscribe();

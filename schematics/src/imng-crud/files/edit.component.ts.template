@@ -17,11 +17,12 @@ export class <%= classify(name) %>EditComponent extends <%= classify(name) %>Bas
   constructor(facade: <%= classify(name) %>CrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
   }
-  public save() {
+
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: I<%= classify(name) %> = this.addEditForm.value;
       this.facade.updateExistingEntity(val);

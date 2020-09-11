@@ -20,9 +20,9 @@ export class DataEntryDialogComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     if (!this.parentComponent) {
-      throw new TypeError("The input 'parentComponent' is required");
+      throw new TypeError(`The input 'parentComponent' is required`);
     }
     this.dialogTitle = this.parentComponent.dialogTitle;
     this.loading$ = this.parentComponent.loading$;
@@ -35,7 +35,7 @@ export class DataEntryDialogComponent implements OnInit {
   public cancel(): void {
     this.parentComponent.onCancel();
   }
-  public submit() {
+  public submit(): void {
     this.parentComponent.onSubmit();
   }
 }
