@@ -162,6 +162,7 @@
     "jpeg-js": "^0.4.2",
     "ng-packagr": "^10.0.1",
     "ngrx-store-freeze": "0.2.4",
+    "node-sass": "^4.14.1",
     "openapi-ts-generator": "^1.20.16-0.6",
     "prettier": "2.0.5",
     "snyk": "^1.392.1",
