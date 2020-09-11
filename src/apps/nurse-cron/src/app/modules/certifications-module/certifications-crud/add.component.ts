@@ -17,11 +17,11 @@ export class CertificationAddComponent extends CertificationBaseEntryComponent {
   constructor(facade: CertificationCrudFacade) {
     super(facade);
   }
-  public initForm() {
+  public initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
   }
-  public save() {
+  public save(): void {
     if (this.addEditForm.valid) {
       const val: ICertification = this.addEditForm.value;
       val.id = null;

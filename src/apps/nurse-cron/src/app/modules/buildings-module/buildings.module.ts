@@ -14,11 +14,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { BuildingListComponent, BuildingListFacade } from './buildings-list';
-import { BuildingAddComponent, BuildingEditComponent, BuildingApiService, BuildingCrudFacade  } from './buildings-crud';
+import { BuildingAddComponent, BuildingEditComponent, BuildingApiService, BuildingCrudFacade } from './buildings-crud';
 
 
 @NgModule({
-  declarations: [ BuildingListComponent, BuildingAddComponent, BuildingEditComponent ],
+  declarations: [BuildingListComponent, BuildingAddComponent, BuildingEditComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -32,6 +32,6 @@ import { BuildingAddComponent, BuildingEditComponent, BuildingApiService, Buildi
     StoreModule.forFeature(fromBuildingsReducer.BUILDINGS_FEATURE_KEY, fromBuildingsReducer.reducer),
     EffectsModule.forFeature([BuildingEffects]),
   ],
-  providers:[ BuildingApiService, BuildingListFacade, BuildingCrudFacade ]
+  providers: [BuildingApiService, BuildingListFacade, BuildingCrudFacade]
 })
 export class BuildingsModule { }

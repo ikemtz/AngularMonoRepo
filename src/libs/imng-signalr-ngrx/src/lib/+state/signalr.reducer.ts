@@ -29,7 +29,7 @@ const featureReducer = createReducer(
   })),
   on(SignalrActions.receivedMessage, (state, action) => ({
     ...state,
-    receivedMessages: [action.payload, ...state.receivedMessages,],
+    receivedMessages: [action.payload, ...state.receivedMessages],
     lastReceivedMessage: action.payload,
   })),
   on(SignalrActions.clearMessages, (state) => ({
@@ -39,6 +39,6 @@ const featureReducer = createReducer(
   })),
 );
 
-export function signalrReducer(state: State | undefined, action: Action) {
+export function signalrReducer(state: State | undefined, action: Action): State {
   return featureReducer(state, action);
 }

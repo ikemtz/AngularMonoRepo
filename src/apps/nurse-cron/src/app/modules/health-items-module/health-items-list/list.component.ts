@@ -39,19 +39,19 @@ export class HealthItemListComponent extends KendoODataComponentBase<IHealthItem
     super(facade, initialGridState);
   }
 
-  public addItem() {
+  public addItem(): void {
     this.crudFacade.setCurrentEntity({});
   }
 
-  public editItem(item: IHealthItem) {
+  public editItem(item: IHealthItem): void {
     this.crudFacade.setCurrentEntity(item);
   }
 
-  public deleteItem(item: IHealthItem) {
+  public deleteItem(item: IHealthItem): void {
     this.facade.deleteExistingEntity(item);
   }
 
-  public detailExpanded(evt: DetailExpandEvent) {
+  public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
   }
 }

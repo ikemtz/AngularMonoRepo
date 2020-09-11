@@ -31,7 +31,7 @@ export class HubConnectionInjectorService implements OnDestroy {
       })).subscribe());
   }
 
-  private getNewHubConnection(accessToken: string) {
+  public getNewHubConnection(accessToken: string): HubConnection {
     return new HubConnectionBuilder()
       .withUrl(this.signalrConfiguration.hostUrl, { accessTokenFactory: () => accessToken })
       .configureLogging(this.signalrConfiguration.logLevel)
@@ -39,7 +39,7 @@ export class HubConnectionInjectorService implements OnDestroy {
       .build();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.subscriptions.filter(t => t).forEach(t => t.unsubscribe());
   }
 }

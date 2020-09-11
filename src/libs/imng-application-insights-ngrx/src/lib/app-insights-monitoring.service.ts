@@ -1,6 +1,8 @@
 import { Injectable, Inject, InjectionToken } from '@angular/core';
 import { ApplicationInsights, IConfiguration } from '@microsoft/applicationinsights-web';
 import { Actions } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
 export const APP_INSIGHTS_CONFIG = new InjectionToken('app-insights-config');
 
@@ -14,23 +16,23 @@ export class AppInsightsMonitoringService {
     this.appInsights.loadAppInsights();
   }
 
-  public setAuthenticatedUserContext(userId: string) {
+  public setAuthenticatedUserContext(userId: string): void {
     this.appInsights.setAuthenticatedUserContext(userId, null, true);
   }
 
-  public clearAuthenticatedUserContext() {
+  public clearAuthenticatedUserContext(): void {
     this.appInsights.clearAuthenticatedUserContext();
   }
 
-  public logException(exception: Error, properties?: any, measurements?: any) {
+  public logException(exception: Error, properties?: any, measurements?: any): void {
     this.appInsights.trackException({ exception, properties, measurements });
   }
 
-  public logEvent(name: string, properties?: any, measurements?: any) {
+  public logEvent(name: string, properties?: any, measurements?: any): void {
     this.appInsights.trackEvent({ name, properties, measurements });
   }
 
-  public trackEventsEffect(actions$: Actions, logPayload: boolean) {
+  public trackEventsEffect(actions$: Actions, logPayload: boolean): Observable<Action> {
     return actions$.pipe(
       tap(x => {
         this.logEvent(x.type, logPayload ? (x as any).payload : null);
@@ -38,7 +40,7 @@ export class AppInsightsMonitoringService {
     );
   }
 
-  public trackErrorsEffect(actions$: Actions) {
+  public trackErrorsEffect(actions$: Actions): Observable<Action> {
     return actions$.pipe(
       filter(x => {
         const type = x.type.toUpperCase();

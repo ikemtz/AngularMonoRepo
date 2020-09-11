@@ -57,6 +57,6 @@ const certificationsReducer = createReducer(
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action): State {
   return certificationsReducer(state, action);
 }

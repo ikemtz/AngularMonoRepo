@@ -68,7 +68,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     this.facade.loadEntities(this.gridDataState);
   }
 
-  public excelData = (): Observable<GridDataResult> => {
+  public excelData(): Observable<GridDataResult> {
     return this.facade.gridData$;
-  };
+  }
 }

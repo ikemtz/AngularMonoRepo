@@ -50,25 +50,25 @@ export class EmployeeListComponent extends KendoODataComponentBase<IEmployee, Em
   public readonly faPlusCircle = faPlusCircle;
   public readonly faCheck = faCheck;
   public readonly faEdit = faEdit;
-  public readonly faTrash = faTrash;  
+  public readonly faTrash = faTrash;
 
   constructor(facade: EmployeeListFacade, public readonly crudFacade: EmployeeCrudFacade) {
     super(facade, initialGridState);
   }
 
-  public addItem() {
+  public addItem(): void {
     this.crudFacade.setCurrentEntity({});
   }
 
-  public editItem(item: IEmployee) {
+  public editItem(item: IEmployee): void {
     this.crudFacade.setCurrentEntity(item);
   }
 
-  public deleteItem(item: IEmployee) {
+  public deleteItem(item: IEmployee): void {
     this.facade.deleteExistingEntity(item);
   }
 
-  public detailExpanded(evt: DetailExpandEvent) {
+  public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
   }
 }

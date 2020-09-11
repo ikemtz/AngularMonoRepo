@@ -14,17 +14,21 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
   isNewActive$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getIsNew<%= classify(name) %>Active));
 
   constructor(private readonly store: Store<<%= classify(pluralizedStoreName) %>PartialState>) {}
-  loadEntities(state: ODataState): void {}
-  setCurrentEntity(item: I<%= classify(name) %>): void {
+  public loadEntities(state: ODataState): void {}
+  
+  public setCurrentEntity(item: I<%= classify(name) %>): void {
     this.store.dispatch(<%= camelize(storeName) %>ActionTypes.setCurrent<%= classify(name) %>(item));
   }
-  clearCurrentEntity(): void {
+
+  public clearCurrentEntity(): void {
     this.store.dispatch(<%= camelize(storeName) %>ActionTypes.clearCurrent<%= classify(name) %>());
   }
-  saveNewEntity(item: I<%= classify(name) %>): void {
+
+  public saveNewEntity(item: I<%= classify(name) %>): void {
     this.store.dispatch(<%= camelize(storeName) %>ActionTypes.save<%= classify(name) %>Request(item));
   }
-  updateExistingEntity(item: I<%= classify(name) %>): void {
+
+  public updateExistingEntity(item: I<%= classify(name) %>): void {
     this.store.dispatch(<%= camelize(storeName) %>ActionTypes.update<%= classify(name) %>Request(item));
   }
 }

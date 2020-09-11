@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { ODataGridMockFacade, createODataGridMockFacade } from '../../testing/src';
@@ -7,12 +7,12 @@ describe('KendoODataComponentBase', () => {
   let component: KendoODataGridTestComponent;
   let fixture: ComponentFixture<KendoODataGridTestComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [KendoODataGridTestComponent],
       providers: [],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(KendoODataGridTestComponent);

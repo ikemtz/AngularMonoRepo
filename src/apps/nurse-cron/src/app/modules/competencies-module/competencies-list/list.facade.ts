@@ -18,7 +18,7 @@ export class CompetencyListFacade implements IKendoODataGridFacade<ICompetency>,
 
   constructor(private readonly store: Store<CompetenciesPartialState>) { }
 
-  loadEntities(state: ODataState) {
+  loadEntities(state: ODataState): void {
     this.store.dispatch(competencyActionTypes.loadCompetenciesRequest(state));
   }
 

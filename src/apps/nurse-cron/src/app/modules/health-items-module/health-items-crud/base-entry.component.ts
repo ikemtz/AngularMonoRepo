@@ -13,15 +13,15 @@ export abstract class HealthItemBaseEntryComponent extends BaseDataEntryComponen
     super(facade);
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.initForm();
   }
 
-  public initForm() {
+  public initForm(): void {
     this.addEditForm = HealthItemFormGroupFac();
   }
 
-  public cancel() {
+  public cancel(): void {
     this.facade.clearCurrentEntity();
   }
 }

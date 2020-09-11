@@ -338,4 +338,6 @@ schematics/coverage/**
 schematics/junit.*.xml
 !schematics/dist/package.json
 src/documentation/**
+**/junit.xml
+**/junit*xml
 **/dist/*

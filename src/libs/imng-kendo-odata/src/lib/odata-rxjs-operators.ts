@@ -58,6 +58,7 @@ export function getSubGridData<
     id: number | string,
     mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[]):
   (source: Observable<ODataResult<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
+  // tslint:disable-next-line: space-before-function-paren
   return function (source: Observable<ODataResult<PARENT_ENTITY>>): Observable<SUB_ENTITY[]> {
     return source.pipe(
       map(t => t.data.find(f => f.id === id)),

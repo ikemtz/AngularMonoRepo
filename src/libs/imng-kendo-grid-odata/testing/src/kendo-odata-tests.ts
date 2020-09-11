@@ -5,7 +5,7 @@ import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 export async function testGridODataState<TFacade extends IKendoODataGridFacade<unknown>>(
   done: jest.DoneCallback,
   facade: TFacade,
-) {
+): Promise<void> {
   try {
     const filteringState: ODataState = {
       filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
@@ -29,7 +29,7 @@ export async function testGridODataState<TFacade extends IKendoODataGridFacade<u
 export async function testGridPagerSettings<TFacade extends IKendoODataGridFacade<unknown>>(
   done: jest.DoneCallback,
   facade: TFacade,
-) {
+): Promise<void> {
   try {
     const pagerSettings = await readFirst(facade.gridPagerSettings$);
     expect(pagerSettings).toEqual(false);

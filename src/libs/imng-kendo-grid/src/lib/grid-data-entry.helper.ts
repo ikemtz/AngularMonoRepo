@@ -17,7 +17,7 @@ export class GridDataEntryHelper<T extends { id?: string | number; }> {
     return this._gridData$.asObservable();
   }
 
-  public get gridData() {
+  public get gridData(): Array<T> {
     return this._gridData;
   }
 
@@ -51,7 +51,7 @@ export class GridDataEntryHelper<T extends { id?: string | number; }> {
     return this._gridData;
   }
 
-  public editHandler(editEvent: EditEvent) {
+  public editHandler(editEvent: EditEvent): void {
     this.closeEditor(editEvent.sender, editEvent.rowIndex);
 
     this._gridFormGroup = this.formGroupFactory();
@@ -60,17 +60,17 @@ export class GridDataEntryHelper<T extends { id?: string | number; }> {
     editEvent.sender.editRow(editEvent.rowIndex, this._gridFormGroup);
   }
 
-  private closeEditor(grid: GridComponent, rowIndex = this._editedRowIndex) {
+  private closeEditor(grid: GridComponent, rowIndex = this._editedRowIndex): void {
     grid.closeRow(rowIndex);
     this._editedRowIndex = undefined;
     this._gridFormGroup = undefined;
   }
 
-  public cancelHandler(cancelEvent: CancelEvent) {
+  public cancelHandler(cancelEvent: CancelEvent): void {
     this.closeEditor(cancelEvent.sender, cancelEvent.rowIndex);
   }
 
-  public saveHandler(saveEvent: SaveEvent) {
+  public saveHandler(saveEvent: SaveEvent): void {
     const result: T = saveEvent.formGroup.value;
     const tempGrid: T[] = this.gridData.map(t => ({ ...t }));
     if (saveEvent.isNew) {
@@ -84,19 +84,19 @@ export class GridDataEntryHelper<T extends { id?: string | number; }> {
     this.closeEditor(saveEvent.sender, saveEvent.rowIndex);
   }
 
-  public removeHandler(removeEvent: RemoveEvent) {
+  public removeHandler(removeEvent: RemoveEvent): void {
     const tempGrid = this.gridData.map(t => ({ ...t }));
     tempGrid.splice(removeEvent.rowIndex, 1);
     this.gridData = tempGrid;
     this._gridData$.next(this.gridData);
   }
 
-  public sortHandler(sortDescriptors: SortDescriptor[]) {
+  public sortHandler(sortDescriptors: SortDescriptor[]): void {
     this.sortDescriptors$.next(sortDescriptors);
     this.gridData = orderBy(this.gridData, sortDescriptors);
   }
 
-  public addHandler(addEvent: AddEvent) {
+  public addHandler(addEvent: AddEvent): void {
     this.closeEditor(addEvent.sender);
     this._gridFormGroup = this.formGroupFactory();
     addEvent.sender.addRow(this._gridFormGroup);

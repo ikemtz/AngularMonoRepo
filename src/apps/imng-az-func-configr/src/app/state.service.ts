@@ -22,13 +22,13 @@ export class StateService {
     this.editorOptions.mainMenuBar = false;
   }
 
-  public setTransformer(transformer: ITransformer) {
+  public setTransformer(transformer: ITransformer): void {
     this.currentTransformer = transformer;
     this.currentTransformer$.next(transformer);
     this.output$.next(transformer.convert(this.currentData));
   }
 
-  public setAzConfiguration(data: IAzSetting[]) {
+  public setAzConfiguration(data: IAzSetting[]): void {
     this.currentData = data;
     this.output$.next(this.currentTransformer.convert(data));
   }

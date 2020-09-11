@@ -18,7 +18,8 @@ export class SignalrEffects {
     map(async action => this.hubConnectionInjectorService.hubConnection.send(action.payload.methodName, action.payload.data)),
   ), { dispatch: false });
 
-  constructor(private readonly actions$: Actions,
+  constructor(
+    private readonly actions$: Actions,
     private readonly hubConnectionInjectorService: HubConnectionInjectorService,
   ) {
   }

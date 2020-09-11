@@ -14,11 +14,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { HealthItemListComponent, HealthItemListFacade } from './health-items-list';
-import { HealthItemAddComponent, HealthItemEditComponent, HealthItemApiService, HealthItemCrudFacade  } from './health-items-crud';
+import { HealthItemAddComponent, HealthItemEditComponent, HealthItemApiService, HealthItemCrudFacade } from './health-items-crud';
 
 
 @NgModule({
-  declarations: [ HealthItemListComponent, HealthItemAddComponent, HealthItemEditComponent ],
+  declarations: [HealthItemListComponent, HealthItemAddComponent, HealthItemEditComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -32,6 +32,6 @@ import { HealthItemAddComponent, HealthItemEditComponent, HealthItemApiService, 
     StoreModule.forFeature(fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY, fromHealthItemsReducer.reducer),
     EffectsModule.forFeature([HealthItemEffects]),
   ],
-  providers:[ HealthItemApiService, HealthItemListFacade, HealthItemCrudFacade ]
+  providers: [HealthItemApiService, HealthItemListFacade, HealthItemCrudFacade]
 })
 export class HealthItemsModule { }
