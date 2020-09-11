@@ -4,7 +4,7 @@
       <h3><%= classify(pluralizedName) %></h3>
       <div>
         <button type="button" title="Add <%= classify(name) %>" primary="true" (click)="addItem()" class="btn btn-primary mx-2">
-          <fa-icon [icon]="faPlusCircle"></fa-icon> Add <%= classify(name) %>
+          <span class="k-icon k-i-plus-circle"></span> Add <%= classify(name) %>
         </button>
         <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="mx-2">
           Export to PDF
@@ -16,13 +16,13 @@
     </div>
   </ng-template>
 <% swaggerProperties.forEach(function(swaggerProperty) {%><% if (swaggerProperty.format === 'date-time') { %>
-  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy}" filter="<%= swaggerProperty.filterExpression %>">
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yyyy}" filter="<%= swaggerProperty.filterExpression %>">
 <%} else if (swaggerProperty.type === 'boolean') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" filter="<%= swaggerProperty.filterExpression %>">
     <ng-template kendoGridCellTemplate let-dataItem>
       <div *ngIf="dataItem.<%= underscore(swaggerProperty.name) %>">
         <span class="text-success font-weight-bolder h2" placement="left" tooltip="Active">
-          <fa-icon [icon]="faCheck"></fa-icon>
+          <span class="k-icon k-i-check-circle"></span>
         </span>
       </div>
     </ng-template>
@@ -40,10 +40,10 @@
   <kendo-grid-column [width]="50">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
-        <fa-icon [icon]="faEdit"></fa-icon>
+        <span class="k-icon k-i-edit"></span>
       </button>
       <button type="button" class="btn btn-sm mr-1" (click)="deleteItem(dataItem)" placement="left" tooltip="Delete">
-        <fa-icon [icon]="faTrash"></fa-icon>
+        <span class="k-icon k-i-delete"></span>
       </button>
     </ng-template>
   </kendo-grid-column>
