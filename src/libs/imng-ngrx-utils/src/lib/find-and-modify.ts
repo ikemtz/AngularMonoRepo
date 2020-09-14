@@ -1,5 +1,5 @@
 
-export function findAndModify<ENTITY extends { id?: number | string; }>(
+export function findAndModify<ENTITY extends { id?: number | string | Date; }>(
   data: ENTITY[],
   lookupId: number | string,
   modificationLogic: (matchingRecord: ENTITY) => void): ENTITY[] {
