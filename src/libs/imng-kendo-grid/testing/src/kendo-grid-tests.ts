@@ -1,7 +1,7 @@
 import { GridDataEntryHelper } from 'imng-kendo-grid';
 import { DebugElement } from '@angular/core';
 
-export async function validateGridAddHandler<entity extends { id?: string | number; }>(
+export async function validateGridAddHandler<entity extends { id?: string | number | Date; }>(
   gridEntryHelper: GridDataEntryHelper<entity>,
   gridDebugElement: DebugElement,
 ): Promise<void> {
@@ -12,7 +12,7 @@ export async function validateGridAddHandler<entity extends { id?: string | numb
   expect(spy).toBeCalledTimes(1);
 }
 
-export async function validateGridEditHandler<entity extends { id?: string | number; }>(
+export async function validateGridEditHandler<entity extends { id?: string | number | Date; }>(
   gridEntryHelper: GridDataEntryHelper<entity>,
   gridDebugElement: DebugElement,
 ): Promise<void> {

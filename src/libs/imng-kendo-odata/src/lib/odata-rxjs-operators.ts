@@ -15,7 +15,7 @@ export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNulla
 
 export const firstRecord = <T>() => map((result: ODataResult<T>) => (result.data.length > 0 ? result.data[0] : {} as T));
 
-export const findById = <T extends { id?: string | number; }>(id?: string | number) =>
+export const findById = <T extends { id?: string | number | Date; }>(id?: string | number | Date) =>
   map((source: ODataResult<T>) => source.data.find(f => f.id === id) || {} as T);
 
 export function parseDatesInCollection<T>(
@@ -53,9 +53,9 @@ export function toLocalDate(date: string): Date {
 }
 
 export function getSubGridData<
-  PARENT_ENTITY extends { id?: number | string; },
+  PARENT_ENTITY extends { id?: number | string | Date; },
   SUB_ENTITY>(
-    id: number | string,
+    id: number | string | Date,
     mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[]):
   (source: Observable<ODataResult<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
   // tslint:disable-next-line: space-before-function-paren
