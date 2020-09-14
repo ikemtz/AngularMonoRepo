@@ -859,9 +859,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/imng-ngrx-idle/jest.config.js",
-            "tsConfig": "libs/imng-ngrx-idle/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/imng-ngrx-idle/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
