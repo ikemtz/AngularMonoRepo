@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { EditEvent, CancelEvent, SaveEvent, RemoveEvent, AddEvent, GridComponent } from '@progress/kendo-angular-grid';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 
-export class GridDataEntryHelper<T extends { id?: string | number; }> {
+export class GridDataEntryHelper<T extends { id?: string | number | Date; }> {
   private _editedRowIndex: number;
   private _gridFormGroup: FormGroup;
   private readonly _gridData$: BehaviorSubject<Array<T>>;

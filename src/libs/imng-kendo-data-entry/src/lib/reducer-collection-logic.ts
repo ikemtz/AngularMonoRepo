@@ -1,4 +1,4 @@
-export function updateStateCollectionItem<Entity extends { id?: string }>(
+export function updateStateCollectionItem<Entity extends { id?: string | number | Date; }>(
   collection: Entity[],
   item: Entity,
 ): Entity[] {
@@ -8,7 +8,7 @@ export function updateStateCollectionItem<Entity extends { id?: string }>(
   return items;
 }
 
-export function removeStateCollectionItem<Entity extends { id?: string }>(
+export function removeStateCollectionItem<Entity extends { id?: string | number | Date; }>(
   collection: Entity[],
   item: Entity,
 ): Entity[] {
@@ -18,7 +18,7 @@ export function removeStateCollectionItem<Entity extends { id?: string }>(
   return items;
 }
 
-export function addStateCollectionItem<Entity extends { id?: string }>(collection: Entity[], item: Entity): Entity[] {
+export function addStateCollectionItem<Entity extends { id?: string | number | Date; }>(collection: Entity[], item: Entity): Entity[] {
   const items = [...collection];
   items.unshift(item);
   return items;
