@@ -1,7 +1,7 @@
 
 export function findAndModify<ENTITY extends { id?: number | string | Date; }>(
   data: ENTITY[],
-  lookupId: number | string,
+  lookupId: number | string | Date,
   modificationLogic: (matchingRecord: ENTITY) => void): ENTITY[] {
   return [...data.map(m => m.id === lookupId ?
     applyChanges(m, modificationLogic)
