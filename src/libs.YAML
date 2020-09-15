@@ -62,12 +62,102 @@ jobs:
           customCommand: 'run lint:libs'
 
       - task: Npm@1
-        displayName: 'npm run build:libs'
+        displayName: 'npm run build:data-entry'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run build:libs'
+          customCommand: 'run build:data-entry'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:odata'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:odata'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:grid'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:grid'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:chart-odata'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:chart-odata'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:grid-odata'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:grid-odata'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:type-ahead'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:type-ahead'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:auth0-oidc'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:auth0-oidc'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:app-insight'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:app-insight'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:ngrx-utils'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:ngrx-utils'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:theme-blue'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:theme-blue'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run build:signalr'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:signalr'
           continueOnError: true
 
       - task: Npm@1
