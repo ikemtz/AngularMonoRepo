@@ -67,3 +67,20 @@ export function getSubGridData<
     );
   };
 }
+
+export function getSubData<
+  PARENT_ENTITY extends { id?: number | string | Date; },
+  SUB_ENTITY>(
+    id: number | string | Date,
+    mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[]):
+  (source: Observable<Array<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
+  // tslint:disable-next-line: space-before-function-paren
+  return function (source: Observable<Array<PARENT_ENTITY>>): Observable<SUB_ENTITY[]> {
+    return source.pipe(
+      map(t => t.find(f => f.id === id)),
+      map((entity: PARENT_ENTITY) => mappingFunction(entity)),
+      filter((t) => !!t)
+    );
+  };
+}
+
