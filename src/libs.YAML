@@ -60,7 +60,7 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run lint:libs'
-
+      #Build
       - task: Npm@1
         displayName: 'npm run build:data-entry'
         inputs:
@@ -168,14 +168,114 @@ jobs:
           verbose: false
           customCommand: 'run build:nrsrx-utils'
           continueOnError: true
-
+      #Tests
       - task: Npm@1
-        displayName: 'npm run test:libs'
+        displayName: 'npm run test:data-entry'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run test:libs'
+          customCommand: 'run test:data-entry'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:odata'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:odata'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:grid'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:grid'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:chart-odata'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:chart-odata'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:grid-odata'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:grid-odata'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:type-ahead'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run butestild:type-ahead'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:auth0-oidc'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:auth0-oidc'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:app-insight'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:app-insight'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:ngrx-utils'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:ngrx-utils'
+          continueOnError: true
+
+      #      - task: Npm@1
+      #        displayName: 'npm run test:theme-blue'
+      #        inputs:
+      #          command: custom
+      #          workingDir: 'src'
+      #          verbose: false
+      #          customCommand: 'run test:theme-blue'
+      #          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:signalr'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:signalr'
+          continueOnError: true
+
+      - task: Npm@1
+        displayName: 'npm run test:nrsrx-utils'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:nrsrx-utils'
+          continueOnError: true'
 
       - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'
