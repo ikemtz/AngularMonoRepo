@@ -161,6 +161,15 @@ jobs:
           continueOnError: true
 
       - task: Npm@1
+        displayName: 'npm run build:nrsrx-utils'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:nrsrx-utils'
+          continueOnError: true
+
+      - task: Npm@1
         displayName: 'npm run test:libs'
         inputs:
           command: custom
