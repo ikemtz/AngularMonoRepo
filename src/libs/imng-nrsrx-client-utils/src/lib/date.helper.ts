@@ -6,5 +6,5 @@ export class DateHelper {
   // tslint:disable-next-line: space-before-function-paren
   public static toShortDateString(dt: Date): string {
     return dt.toShortDateString();
-  };
+  }
 }
