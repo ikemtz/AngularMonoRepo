@@ -14,7 +14,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   private _detail: LISTED_ENTITY[];
   @Input()
   public set detail(value: LISTED_ENTITY[]) {
-    this._detail = value;
+    this._detail = value || [];
     this.gridData = process(this._detail, this.state);
   }
 
