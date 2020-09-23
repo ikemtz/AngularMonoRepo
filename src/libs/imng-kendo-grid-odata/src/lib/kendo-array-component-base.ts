@@ -14,7 +14,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   private _detail: LISTED_ENTITY[];
   @Input()
   public set detail(value: LISTED_ENTITY[]) {
-    this._detail = value;
+    this._detail = value || [];
     this.gridData = process(this._detail, this.state);
   }
 
@@ -50,7 +50,7 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
 
   public dataStateChange(state: DataStateChangeEvent | State): void {
     this.state = state;
-    this.gridData = process(this.detail, this.state);
+    this.gridData = process(this._detail, this.state);
   }
 
   public pageChange(t: PageChangeEvent): void {
