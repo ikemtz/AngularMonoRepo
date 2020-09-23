@@ -2,15 +2,22 @@ import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/k
 import { Input, Directive, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { process, State, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Directive()
-export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements AfterViewInit, OnDestroy {
+export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy {
 
   public readonly subscriptions: Subscription[] = [];
 
   @Input() public item?: PARENT_ENTITY;
-  @Input() public detail: LISTED_ENTITY[];
+
+  private _detail: LISTED_ENTITY[];
+  @Input()
+  public set detail(value: LISTED_ENTITY[]) {
+    this._detail = value;
+    this.gridData = process(this._detail, this.state);
+  }
+
   /**
    * A properties enum to make kendo grid columns definitions type safe
    * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
@@ -40,11 +47,6 @@ export abstract class KendoArrayComponentBase<PARENT_ENTITY, LISTED_ENTITY> impl
   constructor(public readonly changeDetectorRef: ChangeDetectorRef = null) { }
 
   public readonly markForCheck = (): void => this.changeDetectorRef?.markForCheck();
-  public ngAfterViewInit(): void {
-    if (this.detail) {
-      this.gridData = process(this.detail, this.state);
-    }
-  }
 
   public dataStateChange(state: DataStateChangeEvent | State): void {
     this.state = state;
