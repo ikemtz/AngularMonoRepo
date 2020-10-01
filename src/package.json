@@ -118,7 +118,7 @@
     "@progress/kendo-angular-dialog": "^4.2.1",
     "@progress/kendo-angular-dropdowns": "^4.3.1",
     "@progress/kendo-angular-excel-export": "^3.1.5",
-    "@progress/kendo-angular-grid": "^4.7.3",
+    "@progress/kendo-angular-grid": "^4.7.4",
     "@progress/kendo-angular-inputs": "^6.6.1",
     "@progress/kendo-angular-intl": "^2.0.2",
     "@progress/kendo-angular-l10n": "^2.0.2",
