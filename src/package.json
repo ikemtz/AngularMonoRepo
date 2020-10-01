@@ -120,7 +120,7 @@
     "@progress/kendo-angular-excel-export": "^3.1.5",
     "@progress/kendo-angular-grid": "^4.7.3",
     "@progress/kendo-angular-inputs": "^6.6.1",
-    "@progress/kendo-angular-intl": "^2.0.2",
+    "@progress/kendo-angular-intl": "^2.0.3",
     "@progress/kendo-angular-l10n": "^2.0.2",
     "@progress/kendo-angular-pdf-export": "^2.0.4",
     "@progress/kendo-angular-popup": "^3.0.6",
