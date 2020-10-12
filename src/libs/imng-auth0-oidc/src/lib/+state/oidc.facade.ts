@@ -47,12 +47,17 @@ export class OidcFacade {
       this.store.dispatch(oidcActions.onAccessTokenExpired());
     } else {
       sessionStorage.clear();
-      window.location.href = window.location.href;
+      localStorage.clear();
+      window.location.reload();
     }
   }
 
   public accessTokenExpiring(): void {
-    this.store.dispatch(oidcActions.onAccessTokenExpiring());
+    if (this.store) {
+      this.store.dispatch(oidcActions.onAccessTokenExpiring());
+    } else {
+      this.accessTokenExpired();
+    }
   }
 
   public addSilentRenewError(e): void {
