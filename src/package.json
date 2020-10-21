@@ -149,6 +149,7 @@
     "@angular/language-service": "^10.1.1",
     "@ngrx/schematics": "10.0.0",
     "@ngrx/store-devtools": "10.0.0",
+    "@nrwl/cli": "^10.3.1",
     "@nrwl/jest": "^10.2.0",
     "@nrwl/workspace": "10.2.0",
     "@types/jest": "26.0.8",
