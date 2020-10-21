@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 import { readFirst } from '@nrwl/angular/testing';
-import { getSubGridData, findById, firstRecord, getSubData } from './odata-rxjs-operators';
+import { getSubGridData, findById, firstRecord, getSubData, mapToExtDataResult } from './odata-rxjs-operators';
 import { map } from 'rxjs/operators';
 
 describe('RxJs Operators', () => {
@@ -13,6 +13,33 @@ describe('RxJs Operators', () => {
   const emptyGridData$ = of({
     data: [], total: 0
   });
+
+  it('mapToExtDataResult should function', async done => {
+    try {
+      const result = await readFirst(gridData$.pipe(
+        map(t => ({
+          value: t.data,
+          '@odata.count': t.data.length
+        })),
+        mapToExtDataResult()));
+      expect(result).toMatchSnapshot();
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
+  it('mapToExtDataResult should handle null', async done => {
+    try {
+      const result = await readFirst(of(null).pipe(mapToExtDataResult()));
+      expect(result).toMatchSnapshot();
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
+
   it('getSubGridData should function', async done => {
     try {
       const result = await readFirst(gridData$.pipe(getSubGridData(2, x => x.subData)));

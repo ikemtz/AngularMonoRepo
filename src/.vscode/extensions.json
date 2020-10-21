@@ -7,6 +7,7 @@
     "msjsdiag.debugger-for-chrome",
     "ms-azuretools.vscode-docker",
     "sonarsource.sonarlint-vscode",
-    "visualstudioexptteam.vscodeintellicode"
+    "visualstudioexptteam.vscodeintellicode",
+    "firsttris.vscode-jest-runner"
   ]
 }

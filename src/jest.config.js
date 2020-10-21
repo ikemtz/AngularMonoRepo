@@ -1,23 +1,20 @@
 module.exports = {
-  testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
-  transform: {
-    '^.+\\.(ts|js|html)$': 'ts-jest'
-  },
-  resolver: '@nrwl/jest/plugins/resolver',
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  collectCoverage: true,
-  coverageReporters: ['html', 'lcov', 'cobertura'],
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: '.',
-        outputName: './junit.xml',
-      },
-    ],
+  projects: [
+    '<rootDir>/libs/imng-kendo-odata',
+    '<rootDir>/libs/imng-auth0-oidc',
+    '<rootDir>/libs/imng-kendo-grid-odata',
+    '<rootDir>/libs/imng-application-insights-ngrx',
+    '<rootDir>/libs/imng-kendo-data-entry',
+    '<rootDir>/libs/imng-ngrx-utils',
+    '<rootDir>/libs/imng-nrsrx-client-utils',
+    '<rootDir>/libs/imng-ngxb-typeahead',
+    '<rootDir>/libs/imng-kendo-chart-odata',
+    '<rootDir>/apps/imng-az-func-configr',
+    '<rootDir>/libs/imng-snippets',
+    '<rootDir>/libs/imng-kendo-grid',
+    '<rootDir>/apps/nurse-cron',
+    '<rootDir>/libs/imng-signalr-ngrx',
+    '<rootDir>/apps/imng-inventory',
+    '<rootDir>/libs/imng-ngrx-idle',
   ],
-  moduleNameMapper: {
-    "imng-(.*)": "<rootDir>/../../dist/libs/imng-$1",
-  },
 };
