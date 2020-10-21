@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 
 export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNullableProps: string[] = []) =>
   map((response: ODataPayload<T>) => {
+    if (!response) {
+      return { data: [], total: 0 };
+    }
     const result = {
       data: response.value,
       total: response['@odata.count'],
