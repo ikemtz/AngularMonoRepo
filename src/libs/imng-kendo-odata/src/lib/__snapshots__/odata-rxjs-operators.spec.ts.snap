@@ -22,6 +22,43 @@ Array [
 ]
 `;
 
+exports[`RxJs Operators mapToExtDataResult should function 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "id": 1,
+      "subData": Array [
+        Object {
+          "val": "xyz",
+        },
+        Object {
+          "val": 123,
+        },
+      ],
+    },
+    Object {
+      "id": 2,
+      "subData": Array [
+        Object {
+          "val": "abc",
+        },
+        Object {
+          "val": 456,
+        },
+      ],
+    },
+  ],
+  "total": 2,
+}
+`;
+
+exports[`RxJs Operators mapToExtDataResult should handle null 1`] = `
+Object {
+  "data": Array [],
+  "total": 0,
+}
+`;
+
 exports[`RxJs Operators should be created 1`] = `
 Array [
   Object {

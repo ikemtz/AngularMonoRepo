@@ -13,7 +13,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-kendo-odata/tsconfig.lib.json",
-            "project": "libs/imng-kendo-odata/ng-package.json"
+            "project": "libs/imng-kendo-odata/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -47,7 +48,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-auth0-oidc/tsconfig.lib.json",
-            "project": "libs/imng-auth0-oidc/ng-package.json"
+            "project": "libs/imng-auth0-oidc/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -85,7 +87,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.lib.json",
-            "project": "libs/imng-kendo-grid-odata/ng-package.json"
+            "project": "libs/imng-kendo-grid-odata/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -126,7 +129,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.lib.json",
-            "project": "libs/imng-application-insights-ngrx/ng-package.json"
+            "project": "libs/imng-application-insights-ngrx/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -167,7 +171,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json",
-            "project": "libs/imng-kendo-data-entry/ng-package.json"
+            "project": "libs/imng-kendo-data-entry/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -209,7 +214,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.json",
-            "project": "libs/imng-ngrx-utils/ng-package.json"
+            "project": "libs/imng-ngrx-utils/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -248,7 +254,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.json",
-            "project": "libs/imng-nrsrx-client-utils/ng-package.json"
+            "project": "libs/imng-nrsrx-client-utils/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -289,7 +296,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.json",
-            "project": "libs/imng-ngxb-typeahead/ng-package.json"
+            "project": "libs/imng-ngxb-typeahead/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -327,7 +335,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.json",
-            "project": "libs/imng-kendo-chart-odata/ng-package.json"
+            "project": "libs/imng-kendo-chart-odata/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -517,7 +526,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.json",
-            "project": "libs/imng-kendo-grid/ng-package.json"
+            "project": "libs/imng-kendo-grid/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -686,7 +696,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.json",
-            "project": "libs/imng-signalr-ngrx/ng-package.json"
+            "project": "libs/imng-signalr-ngrx/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -840,7 +851,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/imng-ngrx-idle/tsconfig.lib.json",
-            "project": "libs/imng-ngrx-idle/ng-package.json"
+            "project": "libs/imng-ngrx-idle/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
