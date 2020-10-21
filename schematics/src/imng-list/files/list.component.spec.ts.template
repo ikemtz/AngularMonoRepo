@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
 import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
@@ -16,7 +16,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   let listFacade: <%= classify(singularizedName) %>ListFacade;
   let crudFacade: <%= classify(singularizedName) %>CrudFacade;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [<%= classify(singularizedName) %>ListComponent],
       imports: [GridModule],
