@@ -17,11 +17,11 @@
     "dest": "../../dist/libs/imng-application-insights-ngrx"
   },
   "peerDependencies": {
-    "@angular/common": "^10.x",
-    "@angular/core": "^10.x",
-    "@ngrx/store": "^9.x",
-    "@ngrx/effects": "^9.x",
-    "rxjs": "^6.6.0"
+    "@angular/common": ">=10.x",
+    "@angular/core": ">=10.x",
+    "@ngrx/store": ">=9.x",
+    "@ngrx/effects": ">=9.x",
+    "rxjs": ">=6.6.0"
   },
   "devDependencies": {
     "ng-packagr": "^10.x"
