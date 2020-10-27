@@ -36,7 +36,7 @@ describe('<%= classify(name) %>EditComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should update', () => {
+  test('should update', () => {
     component.initForm();
     component.addEditForm.patchValue({
 <% swaggerProperties.forEach(function(swaggerProperty)
@@ -57,14 +57,14 @@ describe('<%= classify(name) %>EditComponent', () => {
 <% } %>
   });  
 
-  it('should not update', () => {
+  test('should not update', () => {
     component.addEditForm = { valid: false } as any;
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
   });
 
-  it('should cancel', () => {
+  test('should cancel', () => {
     component.cancel();
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
   });

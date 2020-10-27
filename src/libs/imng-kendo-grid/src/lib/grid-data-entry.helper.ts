@@ -43,13 +43,24 @@ export class GridDataEntryHelper<T extends { id?: string | number | Date; }> {
     this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
   }
 
-  public AddItems(...items: T[]): T[] {
+  public addItems(...items: T[]): T[] {
     if (items) {
       this._gridData.push(...items);
       this._gridData$.next(this._gridData);
     }
     return this._gridData;
   }
+
+  public removeItems(...items: T[]): T[] {
+    if (items) {
+      items.forEach(f => {
+        this._gridData = this.gridData.filter(t => t !== f);
+      });
+      this._gridData$.next(this._gridData);
+    }
+    return this._gridData;
+  }
+
 
   public editHandler(editEvent: EditEvent): void {
     this.closeEditor(editEvent.sender, editEvent.rowIndex);

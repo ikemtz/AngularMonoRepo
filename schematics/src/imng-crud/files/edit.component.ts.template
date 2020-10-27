@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
@@ -10,7 +10,7 @@ import { <%= classify(name) %>CrudFacade } from './crud.facade';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class <%= classify(name) %>EditComponent extends <%= classify(name) %>BaseEntryComponent {
+export class <%= classify(name) %>EditComponent extends <%= classify(name) %>BaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit <%= classify(name) %>';
   public active$ = this.facade.isEditActive$;
 
