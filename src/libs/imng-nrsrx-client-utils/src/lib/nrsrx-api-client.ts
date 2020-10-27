@@ -6,7 +6,7 @@ export abstract class NrsrxBaseApiClientService<T extends { id?: string | number
   constructor(protected readonly http: HttpClient) { }
   // Used to insert entities on NRSRx based API endpoints
   public post(payload: T): Observable<T> {
-    return this.http.post<T>(this.url, payload);
+    return this.http.post<T>(payload.id ? `${this.url}?id=${payload.id}` : this.url, payload);
   }
 
   // Used to update entities on NRSRx based API endpoints
