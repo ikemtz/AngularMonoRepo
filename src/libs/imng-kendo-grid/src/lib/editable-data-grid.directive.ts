@@ -5,6 +5,15 @@ import { Subscription } from 'rxjs';
 import { SortDescriptor } from '@progress/kendo-data-query';
 import { tap } from 'rxjs/operators';
 
+
+/*
+ * ### Example markup
+ * <kendo-grid [imngEditableDataGrid]="gridDataEntryHelper" .... />
+ *
+ * ### Note:
+ * gridDataEntryHelper must be set to an instance GridDataEntryHelper
+ */
+
 @Directive({
   selector: '[imngEditableDataGrid]',
 })
@@ -41,7 +50,7 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
       allowUnsort: true,
       mode: 'multiple',
     };
-    this.gridComponent.navigable = true;
+    this.gridComponent.navigable = true; 
   }
 
   ngOnDestroy(): void {
