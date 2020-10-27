@@ -10,7 +10,7 @@ describe('<%= classify(pluralizedName) %>Module', () => {
     }).compileComponents();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(<%= classify(pluralizedName) %>Module).toBeDefined();
     const module = new <%= classify(pluralizedName) %>Module();
     expect(module).toBeTruthy();
