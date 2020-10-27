@@ -5,9 +5,9 @@ import { formGroupFac } from './editable-data-grid.directive.spec';
 
 export const gridComponentMockFac = () =>
   ({
-    closeRow: jest.fn(() => {}),
-    addRow: jest.fn(() => {}),
-    editRow: jest.fn(() => {}),
+    closeRow: jest.fn(() => { }),
+    addRow: jest.fn(() => { }),
+    editRow: jest.fn(() => { }),
   } as any);
 describe('GridDataEntryHelper<>', () => {
   it('should report invalid if gridData is empty ', async done => {
@@ -176,10 +176,23 @@ describe('GridDataEntryHelper<>', () => {
   it('should handle add', async done => {
     try {
       const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
-      const gridComponentMock = gridComponentMockFac();
-      gridHelper.AddItems({ id: '🐂' });
+      gridHelper.addItems({ id: '🐂' });
       expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
       expect(gridHelper.gridData.length).toBe(4);
+      done();
+    } catch (x) {
+      done.fail(x);
+    }
+  });
+
+  it('should handle remove', async done => {
+    try {
+      const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
+      gridHelper.removeItems({ id: '😜' });
+      expect(gridHelper.gridData.length).toBe(3);
+      gridHelper.removeItems(gridHelper.gridData[2]);
+      expect(gridHelper.gridData.length).toBe(2);
+      expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
       done();
     } catch (x) {
       done.fail(x);
