@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
@@ -9,7 +9,7 @@ import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component'
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class <%= classify(name) %>AddComponent extends <%= classify(name) %>BaseEntryComponent {
+export class <%= classify(name) %>AddComponent extends <%= classify(name) %>BaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add <%= classify(name) %>';
   public active$ = this.facade.isNewActive$;
 

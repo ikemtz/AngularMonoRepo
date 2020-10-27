@@ -67,7 +67,7 @@ describe('<%= classify(name) %>CrudFacade', () => {
       facade = TestBed.inject(<%= classify(name) %>CrudFacade);
     });
 
-    it('clearCurrentEntity() should set current<%= classify(name) %> to null', async done => {
+    test('clearCurrentEntity() should set current<%= classify(name) %> to null', async done => {
       try {
         let isNewActive = await readFirst(facade.isNewActive$);
         expect(isNewActive).toBeFalsy();
@@ -83,13 +83,13 @@ describe('<%= classify(name) %>CrudFacade', () => {
       }
     });
 
-    it('New Entity Set And Clear CurrentEntity', async done =>
+    test('New Entity Set And Clear CurrentEntity', async done =>
       testAddSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(done, facade));
-    it('Existing Entity Set And Clear CurrentEntity', async done =>
+    test('Existing Entity Set And Clear CurrentEntity', async done =>
       testEditSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(done, facade));
-    it('Save CurrentEntity', async done =>
+    test('Save CurrentEntity', async done =>
       testSaveCurrentEntity<<%= classify(name) %>CrudFacade>(done, facade, TestBed.inject(HttpClient)));
-    it('Update CurrentEntity', async done =>
+    test('Update CurrentEntity', async done =>
       testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(done, facade, TestBed.inject(HttpClient)));
   });
 });
