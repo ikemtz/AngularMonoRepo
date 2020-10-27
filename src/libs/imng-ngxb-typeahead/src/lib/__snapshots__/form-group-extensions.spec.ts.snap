@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addTypeAheadControl should work 1`] = `
+Object {
+  "typeAhead": "",
+}
+`;
+
+exports[`addTypeAheadControl to handle 1/1/2020 1`] = `
+Object {
+  "typeAhead": "",
+}
+`;
