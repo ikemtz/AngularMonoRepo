@@ -42,6 +42,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
       enableTracing: false,
+      relativeLinkResolution: 'corrected'
     }),
   ],
   exports: [RouterModule],
