@@ -8,7 +8,7 @@ import { BarecodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, RouterModule.forRoot([], { initialNavigation: 'enabled' }), BarecodeScannerLivestreamModule],
+  imports: [BrowserModule, RouterModule.forRoot([], { initialNavigation: 'enabled', relativeLinkResolution: 'corrected' }), BarecodeScannerLivestreamModule],
   providers: [],
   bootstrap: [AppComponent],
 })

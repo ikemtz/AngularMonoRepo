@@ -30,15 +30,23 @@ describe('KendoODataComponentBase', () => {
   });
 
   it('should handle dataStateChange', () => {
+    const dataStateChangeSpy = jest.spyOn(component, 'dataStateChange');
     const grid = fixture.debugElement.query(By.directive(GridComponent)).injector.get(GridComponent);
-    grid.dataStateChange.emit({ take: 99, skip: 1000 });
-    expect(component.state).toStrictEqual({ take: 99, skip: 1000 });
+    grid.dataStateChange.emit({ take: 3, skip: 7, sort: [{ field: 'id', dir: 'desc' }] });
+    expect(component.state).toStrictEqual({ take: 3, skip: 7, sort: [{ field: 'id', dir: 'desc' }] });
+    expect((component as any)._gridData).toMatchSnapshot();
+    expect(dataStateChangeSpy).toBeCalledTimes(1);
   });
 
   it('should handle pageChange', () => {
+    const pageChangeSpy = jest.spyOn(component, 'pageChange');
+    const dataStateChangeSpy = jest.spyOn(component, 'dataStateChange');
     const grid = fixture.debugElement.query(By.directive(GridComponent)).injector.get(GridComponent);
-    grid.pageChange.emit({ take: 99, skip: 1000 });
-    expect(component.state).toStrictEqual({ take: 99, skip: 1000, group: [], sort: [], filter: undefined });
+    grid.pageChange.emit({ take: 2, skip: 4 });
+    expect(component.state).toStrictEqual({ take: 2, skip: 4, group: [], sort: [], filter: undefined });
+    expect((component as any)._gridData).toMatchSnapshot();
+    expect(pageChangeSpy).toBeCalledTimes(1);
+    expect(dataStateChangeSpy).toBeCalledTimes(1);
   });
 
   it('should handle filterChange', () => {
@@ -48,28 +56,34 @@ describe('KendoODataComponentBase', () => {
   });
 
   it('should handle sortChange', () => {
+    const dataStateChangeSpy = jest.spyOn(component, 'dataStateChange');
+    const sortChangeSpy = jest.spyOn(component, 'sortChange');
     const grid = fixture.debugElement.query(By.directive(GridComponent)).injector.get(GridComponent);
+    grid.pageChange.emit({ take: 3, skip: 1 });
     grid.sortChange.emit([{ field: 'id', dir: 'asc' }]);
-    expect(component.state).toStrictEqual({ filter: undefined, take: undefined, skip: 0, group: [], sort: [{ field: 'id', dir: 'asc' }] });
+    expect(component.state).toStrictEqual({ filter: undefined, take: 3, skip: 1, group: [], sort: [{ field: 'id', dir: 'asc' }] });
+    expect((component as any)._gridData).toMatchSnapshot();
+    expect(dataStateChangeSpy).toBeCalledTimes(2);
+    expect(sortChangeSpy).toBeCalledTimes(1);
   });
 
   it('should destroy', () => {
     const imngDirective = fixture.debugElement.query(By.directive(ImngArrayGridDirective)).injector.get(ImngArrayGridDirective);
-    imngDirective.ngOnDestroy();
+    fixture.destroy();
     (imngDirective as any).subscriptions.forEach((t: Subscription) => expect(t.closed).toBeTruthy());
   });
 });
 
 @Component({
   selector: 'imng-test-component',
-  template: '<kendo-grid [imngArrayGrid]="this" ></kendo-grid>',
+  template: '<kendo-grid [imngArrayGrid]="this"><kendo-grid-column field="id"></kendo-grid-column></kendo-grid>',
 })
 export class KendoArrayGridTestComponent extends KendoArrayComponentBase<object, object> {
   state = {};
   props = {};
   constructor() {
     super();
-    this.detail = [];
+    this.detail = [{ id: 6 }, { id: 9 }, { id: 10 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 7 }, { id: 8 }, { id: 11 }, { id: 12 }, { id: 13 }, { id: 14 }, { id: 15 }, { id: 16 }, { id: 17 }, { id: 18 }, { id: 19 }];
     this.subscriptions.push(of(123).subscribe());
   }
 }
