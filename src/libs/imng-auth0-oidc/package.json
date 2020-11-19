@@ -7,7 +7,6 @@
   "scripts": {
     "build": "ng-packagr -p ng-package.json",
     "copyPackageJson": "cp package.json dist",
-    "release:semantic": "semantic-release --prepare && npm run copyPackageJson && npm publish dist && semantic-release post",
     "postinstall": "cp -v ../../node_modules/oidc-client/dist/* ./src/assets/"
   },
   "peerDependencies": {
@@ -26,8 +25,7 @@
     "dest": "../../dist/libs/imng-auth0-oidc"
   },
   "devDependencies": {
-    "ng-packagr": "^5.3.0",
-    "semantic-release": "^15.13.18"
+    "ng-packagr": ">=11"
   },
   "repository": {
     "type": "git",
