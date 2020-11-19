@@ -1,9 +1,10 @@
 import { Observable, Subscription, isObservable } from 'rxjs';
-import { PagerSettings, GridDataResult } from '@progress/kendo-angular-grid';
+import { PagerSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
+
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
   implements OnInit, OnDestroy {
   protected allSubscription: Subscription[] = [];
@@ -67,8 +68,5 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     };
     this.facade.loadEntities(this.gridDataState);
   }
-
-  public excelData(): Observable<GridDataResult> {
-    return this.facade.gridData$;
-  }
+  public excelData = (): Observable<ODataResult<ENTITY>> => this.gridDataResult$;
 }
