@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createODataPayload should work 1`] = `
+Object {
+  "@odata.count": 4,
+  "value": Array [
+    1,
+    2,
+    3,
+    4,
+  ],
+}
+`;
