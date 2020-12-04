@@ -26,7 +26,7 @@ describe('imng-module', () => {
       expect(tree.files).toEqual([
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}.module.spec.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}.module.ts`,
-        `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}.routing.module.ts`,
+        `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}.routing.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(options.name)}.actions.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(options.name)}.effects.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(options.name)}.reducer.ts`,
