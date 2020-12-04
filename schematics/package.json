@@ -6,6 +6,7 @@
     "build": "tsc -p tsconfig.json",
     "test": "jest",
     "lint": "tslint -p tsconfig.json -c tslint.json",
+    "preinstall": "npx npm-force-resolutions",
     "postbuild": "bash package.sh",
     "schematic:list": "npm run build && schematics ./dist/schematics/collection.json:list employee --path=\"./dist/\" --openApiJsonUrl=https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
     "schematic:module:bld": "npm run build && schematics ./dist/schematics/collection.json:module building --path=\"./dist/\" --openApiJsonUrl=https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",
@@ -48,9 +49,13 @@
     "codelyzer": "^5.2.2",
     "jest": "^26.6.3",
     "jest-junit": "^10.0.0",
+    "npm-force-resolutions": "0.0.3",
     "schematics": "^0.2.0",
     "snyk": "^1.434.1",
     "ts-jest": "^26.4.4",
     "tslint": "^6.1.3"
+  },
+  "resolutions": {
+    "rxjs": "^6.6.3"
   }
 }
