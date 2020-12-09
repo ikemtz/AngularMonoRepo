@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { <%= classify(pluralizedName) %>RoutingModule } from './<%= dasherize(pluralizedName) %>.routing';
 import * as from<%= classify(pluralizedName) %>Reducer from './+state/<%= dasherize(singularizedName) %>.reducer';
 import { <%= classify(singularizedName) %>Effects } from './+state/<%= dasherize(singularizedName) %>.effects';
-
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(pluralizedName) %>-list';
 import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent, <%= classify(singularizedName) %>ApiService, <%= classify(singularizedName) %>CrudFacade  } from './<%= dasherize(pluralizedName) %>-crud';

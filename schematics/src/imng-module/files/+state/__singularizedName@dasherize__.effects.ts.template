@@ -81,7 +81,6 @@ export class <%= classify(singularizedName) %>Effects {
     ),
   );
 <% } %>
-
   // tslint:disable-next-line: typedef
   private exceptionHandler(action, error) {
     console.error('Error', error); // NOSONAR
