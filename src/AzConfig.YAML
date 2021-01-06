@@ -1,4 +1,4 @@
-name: 1.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+name: 3.$(Year:yy).$(DayOfYear)$(Rev:.rr)
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm
 
