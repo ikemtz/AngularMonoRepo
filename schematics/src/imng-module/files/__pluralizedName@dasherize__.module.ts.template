@@ -35,6 +35,6 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     <% if (openApiJsonUrl || openApiJsonFileName) { %><%= classify(singularizedName) %>ListFacade,
     <%= classify(singularizedName) %>CrudFacade,
     <%= classify(singularizedName) %>ApiService, <% } %>
-  ]
+  ],
 })
 export class <%= classify(pluralizedName) %>Module { }
