@@ -10,12 +10,12 @@
     "postinstall": "cp -v ../../node_modules/oidc-client/dist/* ./src/assets/"
   },
   "peerDependencies": {
-    "@angular/common": "^10.x",
-    "@angular/core": "^10.x",
+    "@angular/common": "^11.x",
+    "@angular/core": "^11.x",
     "oidc-client": "^1.x",
-    "@ngrx/store": ">=9.x",
-    "@ngrx/effects": ">=9.x",
-    "imng-ngrx-utils": "^2.x"
+    "@ngrx/store": ">=10.x",
+    "@ngrx/effects": ">=10.x",
+    "imng-ngrx-utils": "^3.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
