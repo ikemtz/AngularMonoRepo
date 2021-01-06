@@ -1,4 +1,4 @@
-name: 1.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+name: 3.$(Year:yy).$(DayOfYear)$(Rev:.rr)
 variables:
   AZP_BASHV3_OLD_SOURCE_BEHAVIOR: true
   npm_config_cache: $(Pipeline.Workspace)/.npm

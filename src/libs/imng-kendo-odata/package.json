@@ -11,8 +11,8 @@
     "OData"
   ],
   "peerDependencies": {
-    "@angular/common": "^10.x",
-    "@angular/core": "^10.x",
+    "@angular/common": "^11.x",
+    "@angular/core": "^11.x",
     "@progress/kendo-data-query": "^1.x"
   },
   "devDependencies": {},

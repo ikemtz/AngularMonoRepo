@@ -4,10 +4,10 @@
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^10.x",
-    "@angular/core": "^10.x",
-    "@ngrx/store": "^9.x",
-    "@ngrx/effects": "^9.x",
+    "@angular/common": ">=11.x",
+    "@angular/core": ">=11.x",
+    "@ngrx/store": ">=10.x",
+    "@ngrx/effects": ">=10.x",
     "@microsoft/signalr": "^3.x",
     "imng-auth0-oidc": "*"
   },
