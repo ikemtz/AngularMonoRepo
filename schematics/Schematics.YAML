@@ -96,7 +96,7 @@ jobs:
           testType: 'app'
           severityThreshold: 'medium'
           monitorOnBuild: false
-          failOnIssues: true
+          failOnIssues: false
           projectName: 'imng-schematics'
           organization: 'ikemtz'
           testDirectory: '$(Build.SourcesDirectory)/schematics'

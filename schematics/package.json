@@ -27,8 +27,6 @@
     "@angular-devkit/schematics": "^10.2.1",
     "@nrwl/jest": "^11.0.20",
     "find-up": "^4.1.0",
-    "imng-kendo-data-entry": "^3.5.3",
-    "imng-kendo-odata": "^3.5.3",
     "lodash": "^4.17.20",
     "node-fetch": "^2.6.1",
     "pluralize": "^8.0.0",
