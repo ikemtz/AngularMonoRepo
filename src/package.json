@@ -131,7 +131,7 @@
     "core-js": "^2.6.11",
     "imng-kendo-theme-blue": "^3.x",
     "jsoneditor": "^9.1.4",
-    "ngx-barcode-scanner": "0.0.7",
+    "ngx-barcode-scanner": "0.2.0",
     "ngx-bootstrap": "^6.2.0",
     "oidc-client": "^1.10.1",
     "pluralize": "^8.0.0",
