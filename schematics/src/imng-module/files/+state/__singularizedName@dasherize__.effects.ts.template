@@ -33,7 +33,7 @@ export class <%= classify(singularizedName) %>Effects {
 
   save<%= classify(singularizedName) %>Effect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request, { 
-      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request, partialState: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
+      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request>, partialState: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
         this.<%= camelize(singularizedName) %>ApiService.post(action.payload).pipe(
           map(m => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(partialState[from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
@@ -42,7 +42,7 @@ export class <%= classify(singularizedName) %>Effects {
 
   update<%= classify(singularizedName) %>Effect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(<%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request, {
-      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request>, state: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
+      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request>, partialState: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
         this.<%= camelize(singularizedName) %>ApiService.put(action.payload).pipe( 
           map(m => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(partialState[from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
@@ -51,7 +51,7 @@ export class <%= classify(singularizedName) %>Effects {
 
   delete<%= classify(singularizedName) %>Effect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request, {
-      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>, state: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
+      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>, partialState: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
         this.<%= camelize(singularizedName) %>ApiService.delete(action.payload).pipe(
           map(m => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(partialState[from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY].gridODataState))),
       onError: this.exceptionHandler,
