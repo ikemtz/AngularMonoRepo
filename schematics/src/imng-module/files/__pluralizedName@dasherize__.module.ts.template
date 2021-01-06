@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { DataPersistence } from '@nrwl/angular';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -29,6 +30,6 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     StoreModule.forFeature(from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY, from<%= classify(pluralizedName) %>Reducer.reducer),
     EffectsModule.forFeature([<%= classify(singularizedName) %>Effects]),
   ],
-  providers:[<% if (openApiJsonUrl || openApiJsonFileName) { %> <%= classify(singularizedName) %>ApiService, <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade<% } %> ]
+  providers:[DataPersistence, <% if (openApiJsonUrl || openApiJsonFileName) { %><%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade, <%= classify(singularizedName) %>ApiService, <% } %>]
 })
 export class <%= classify(pluralizedName) %>Module { }
