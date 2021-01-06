@@ -30,13 +30,13 @@ export function parseDatesInCollection<T>(
     const utcProps = Object.keys(collection[0]).filter(x => x.endsWith('Utc'));
     const dateProps = Object.keys(collection[0]).filter(x => x.endsWith('Date'));
 
-    utcNullableProps.forEach(t => {
+    utcNullableProps?.forEach(t => {
       if (utcProps.indexOf(t) === -1) {
         utcProps.push(t);
       }
     });
 
-    dateNullableProps.forEach(t => {
+    dateNullableProps?.forEach(t => {
       if (dateProps.indexOf(t) === -1) {
         dateProps.push(t);
       }
