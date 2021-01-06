@@ -1,4 +1,4 @@
-name: 2.$(DayOfYear)$(Rev:.rr)
+name: 3.$(DayOfYear)$(Rev:.rr)
 variables:
   AZP_BASHV3_OLD_SOURCE_BEHAVIOR: true
   npm_config_cache: $(Pipeline.Workspace)/.npm
@@ -96,7 +96,7 @@ jobs:
           testType: 'app'
           severityThreshold: 'medium'
           monitorOnBuild: false
-          failOnIssues: true
+          failOnIssues: false
           projectName: 'imng-schematics'
           organization: 'ikemtz'
           testDirectory: '$(Build.SourcesDirectory)/schematics'
