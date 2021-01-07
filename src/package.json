@@ -112,7 +112,7 @@
     "@ngrx/store": "^10.1.2",
     "@nrwl/angular": "11.0.20",
     "@progress/kendo-angular-buttons": "^5.5.2",
-    "@progress/kendo-angular-common": "^1.2.3",
+    "@progress/kendo-angular-common": "^1.2.4",
     "@progress/kendo-angular-dateinputs": "^4.4.0",
     "@progress/kendo-angular-dialog": "^4.2.3",
     "@progress/kendo-angular-dropdowns": "^4.4.1",
@@ -125,7 +125,7 @@
     "@progress/kendo-angular-popup": "^3.0.7",
     "@progress/kendo-data-query": "^1.5.4",
     "@progress/kendo-drawing": "^1.13.7",
-    "@progress/kendo-theme-default": "^4.26.0",
+    "@progress/kendo-theme-default": "^4.29.0",
     "ang-jsoneditor": "^1.10.3",
     "bootstrap": "^4.5.3",
     "core-js": "^2.6.11",
@@ -138,7 +138,7 @@
     "quagga": "^0.12.1",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.3",
-    "zone.js": "^0.10.3"
+    "zone.js": "^0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.5",
