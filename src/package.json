@@ -128,7 +128,7 @@
     "@progress/kendo-theme-default": "^4.29.0",
     "ang-jsoneditor": "^1.10.3",
     "bootstrap": "^4.5.3",
-    "core-js": "^2.6.11",
+    "core-js": "^2.6.12",
     "imng-kendo-theme-blue": "^3.x",
     "jsoneditor": "^9.1.4",
     "ngx-barcode-scanner": "0.0.7",
