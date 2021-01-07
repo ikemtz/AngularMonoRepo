@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
+import { DataPersistence } from '@nrwl/angular';
 import { readFirst } from '@nrwl/angular/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
@@ -38,7 +39,9 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
           StoreModule.forFeature(<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY, <%= camelize(storeName) %>Reducer, { initialState }),
           EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
         ],
-        providers: [<%= classify(singularizedName) %>ListFacade,
+        providers: [
+          DataPersistence,
+          <%= classify(singularizedName) %>ListFacade,
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([create<%= classify(name) %>()]))) } },
         ],
       })
