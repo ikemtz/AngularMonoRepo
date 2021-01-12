@@ -1,4 +1,4 @@
-import { OnDestroy, Input } from '@angular/core';
+import { OnDestroy, Input, Directive } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 
@@ -12,10 +12,10 @@ import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
  * active$: Observable<boolean> - This typically would be assigned to the isNewActive$ or isEditActive on the facade
  * addEditForm: FormGroup - This will be created by your component
  *
- * @class BaseDataEntryComponent<FACADE extends DataEntryFacade<ENTITY>>
+ * @class BaseDataEntryDirective<FACADE extends DataEntryFacade<ENTITY>>
  */
-
-export abstract class BaseDataEntryComponent<
+@Directive()
+export abstract class BaseDataEntryDirective<
   FACADE extends {
     loading$: Observable<boolean>;
     clearCurrentEntity(): void;

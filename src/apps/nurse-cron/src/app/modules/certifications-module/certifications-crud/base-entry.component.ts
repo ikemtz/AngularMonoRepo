@@ -1,12 +1,12 @@
 import { OnInit, Directive } from '@angular/core';
-import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
+import { BaseDataEntryDirective } from 'imng-kendo-data-entry';
 
 import { CertificationCrudFacade } from './crud.facade';
-import { ICertification, CertificationProperties, CertificationFormGroupFac } from '../../../models/certifications-odata';
+import { CertificationProperties, CertificationFormGroupFac } from '../../../models/certifications-odata';
 
 @Directive()
 export abstract class CertificationBaseEntryDirective
-  extends BaseDataEntryComponent<ICertification, CertificationCrudFacade>
+  extends BaseDataEntryDirective<CertificationCrudFacade>
   implements OnInit {
   public readonly props = CertificationProperties;
 
