@@ -24,9 +24,11 @@ describe('TokenInterceptorService', () => {
 
   it('should support canActivate', async done => {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const req: any = {
         clone: jest.fn()
       };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const next: any = {
         handle: jest.fn(() => of('😎'))
       };

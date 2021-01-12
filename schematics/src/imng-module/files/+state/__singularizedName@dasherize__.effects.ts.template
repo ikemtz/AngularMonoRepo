@@ -32,7 +32,7 @@ export class <%= classify(singularizedName) %>Effects {
   );
 
   save<%= classify(singularizedName) %>Effect$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request, { 
+    this.dataPersistence.pessimisticUpdate(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request, {
       run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request>, partialState: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
         this.<%= camelize(singularizedName) %>ApiService.post(action.payload).pipe(
           map(m => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(partialState[from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY].gridODataState))),

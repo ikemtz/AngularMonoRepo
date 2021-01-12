@@ -4,15 +4,17 @@ import { dir } from 'console';
 import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from '@nrwl/angular/testing';
+import { GridComponent } from '@progress/kendo-angular-grid';
+import { ChangeDetectorRef } from '@angular/core';
 
-const gridComponent: any = {
+const gridComponent = {
   edit: of({}),
   cancel: of({}),
   save: of({}),
   remove: of({}),
   add: of({}),
   sortChange: of({}),
-};
+} as unknown as GridComponent;
 export const formGroupFac = () =>
   new FormGroup({
     id: new FormControl('🐂🤏'),
@@ -21,7 +23,7 @@ export const formGroupFac = () =>
 
 describe('ImngEditableDataGridDirective', () => {
   it('should create an instance', () => {
-    const changeDetectorRef: any = {};
+    const changeDetectorRef = {} as ChangeDetectorRef;
     const directive = new ImngEditableDataGridDirective(gridComponent, changeDetectorRef);
     dir();
     expect(directive).toBeTruthy();
@@ -29,7 +31,7 @@ describe('ImngEditableDataGridDirective', () => {
   });
 
   it('should destroy an instance', () => {
-    const changeDetectorRef: any = {};
+    const changeDetectorRef = {} as ChangeDetectorRef;
     const directive = new ImngEditableDataGridDirective(gridComponent, changeDetectorRef);
     expect(directive).toBeTruthy();
     directive.ngOnInit();
@@ -38,7 +40,7 @@ describe('ImngEditableDataGridDirective', () => {
 
   it('should set sorting properly', async done => {
     try {
-      const changeDetectorRef: any = {};
+      const changeDetectorRef = {} as ChangeDetectorRef;
       const directive = new ImngEditableDataGridDirective(gridComponent, changeDetectorRef);
       expect(directive).toBeTruthy();
       expect(directive.gridDataEntryHelper).toBeFalsy();

@@ -5,5 +5,5 @@ export interface IAzSetting {
 }
 
 export interface ILocalSetting {
-  [key: string]: string | number | boolean | object;
+  [key: string]: string | number | boolean | unknown;
 }

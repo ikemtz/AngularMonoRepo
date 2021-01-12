@@ -47,7 +47,7 @@ describe('MockBaseComponent', () => {
   });
 });
 
-export class MockBaseComponent extends BaseDataEntryComponent<MockEntity, MockFacade> {
+export class MockBaseComponent extends BaseDataEntryComponent<MockFacade> {
   dialogTitle = '';
   props = {};
   save = jest.fn();

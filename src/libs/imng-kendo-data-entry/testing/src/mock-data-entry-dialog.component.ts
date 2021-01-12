@@ -1,9 +1,9 @@
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { DataEntryMockFacade } from './data-entry-mock.facade';
 
-export class MockDataEntryComponent extends BaseDataEntryComponent<object, DataEntryMockFacade> {
+export class MockDataEntryComponent extends BaseDataEntryComponent<DataEntryMockFacade> {
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
-  public initForm(): void { }
-  public save = () => jest.fn(() => { });
+  public initForm = jest.fn();
+  public save = () => jest.fn();
 }

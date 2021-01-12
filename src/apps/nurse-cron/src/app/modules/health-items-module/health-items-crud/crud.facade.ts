@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ODataState } from 'imng-kendo-odata';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { HealthItemsPartialState } from '../+state/health-item.reducer';
 import { healthItemQueries } from '../+state/health-item.selectors';
@@ -15,7 +14,6 @@ export class HealthItemCrudFacade implements IDataEntryFacade<IHealthItem> {
   isNewActive$ = this.store.pipe(select(healthItemQueries.getIsNewHealthItemActive));
 
   constructor(private readonly store: Store<HealthItemsPartialState>) { }
-  loadEntities(state: ODataState): void { }
   setCurrentEntity(item: IHealthItem): void {
     this.store.dispatch(healthItemActionTypes.setCurrentHealthItem(item));
   }

@@ -25,7 +25,6 @@ describe('SignalrFacade', () => {
   let facade: SignalrFacade;
   let store: Store<TestSchema>;
   let service: HubConnectionInjectorService;
-  beforeEach(() => { });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
