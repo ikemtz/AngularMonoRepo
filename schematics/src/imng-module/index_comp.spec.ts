@@ -4,7 +4,7 @@ import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing';
 import * as pluralize from 'pluralize';
-import { dasherize, classify } from '@angular-devkit/core/src/utils/strings'; 
+import { dasherize, classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
@@ -21,7 +21,7 @@ describe('imng-module', () => {
         storeName: 'competencies',
         appPrefix: 'nrcrn'
       };
-      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync('imng-module', options, Tree.empty()) as any);
+      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync('imng-module', options, Tree.empty()));
 
       expect(tree.files).toEqual([
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}.module.spec.ts`,
