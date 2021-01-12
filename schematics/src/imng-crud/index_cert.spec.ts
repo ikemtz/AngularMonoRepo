@@ -22,7 +22,7 @@ describe(`imng-crud`, () => {
         storeName: `certifications`,
         appPrefix: `nrcrn`
       };
-      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-crud`, options, Tree.empty()) as any);
+      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-crud`, options, Tree.empty()));
 
       expect(tree.files).toEqual([
         `/test/${pluralize(options.name)}-crud/add-edit.component.html`,

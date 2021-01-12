@@ -23,7 +23,7 @@ describe(`imng-module`, () => {
         storeName: `employees`,
         appPrefix: ''
       };
-      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()) as any);
+      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()));
 
       expect(tree.files).toEqual([
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}.module.spec.ts`,

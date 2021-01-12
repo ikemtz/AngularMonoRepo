@@ -26,6 +26,7 @@ import * as http from 'http';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let jsonDoc: Observable<any> | null = null;
     if (options.openApiJsonFileName) {
       const fileName = getFileNames(options.openApiJsonFileName);
@@ -61,7 +62,8 @@ function getFileNames(openApiJsonFileName: string) {
   return findUp.sync(openApiJsonFileName);
 }
 
-export function processOpenApiDoc(data: any, schema: IOptions, host: Tree) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+export function processOpenApiDoc(data: any, schema: IOptions, host: Tree): Tree {
   const openApiComonent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
   if (!openApiComonent) {
     throw new Error(`OpenApi Component not found in swagger doc: ${schema.name}`);
@@ -87,8 +89,7 @@ export function processOpenApiDoc(data: any, schema: IOptions, host: Tree) {
   return host;
 }
 
-function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: any) {
-
+function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: PropertyInfo) {
   if (source.type === 'number' || source.type === 'integer') {
     dest.htmlInputType = 'number';
     dest.filterExpression = 'numeric';

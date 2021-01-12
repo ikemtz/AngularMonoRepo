@@ -21,7 +21,7 @@ describe('imng-list', () => {
         storeName: 'employees',
         appPrefix: 'nrcrn'
       };
-      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync('imng-list', options, Tree.empty()) as any);
+      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync('imng-list', options, Tree.empty()));
 
       expect(tree.files).toEqual([
         `/test/${pluralize(options.name)}-list/index.ts`,
