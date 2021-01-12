@@ -40,7 +40,7 @@ describe('CompetencyCrudFacade', () => {
   let facade: CompetencyCrudFacade;
   let store: Store<TestSchema>;
 
-  beforeEach(() => { });
+
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -78,6 +78,7 @@ describe('CompetencyCrudFacade', () => {
         isNewActive = await readFirst(facade.isNewActive$);
 
         expect(isNewActive).toBeFalsy();
+        expect(store).toBeFalsy();
 
         done();
       } catch (err) {

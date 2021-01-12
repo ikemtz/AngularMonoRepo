@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { UnitCrudFacade } from './crud.facade';
-import { UnitBaseEntryComponent } from './base-entry.component';
+import { UnitBaseEntryDirective } from './base-entry.component';
 import { IUnit } from '../../../models/units-odata';
 
 @Component({
@@ -10,7 +10,7 @@ import { IUnit } from '../../../models/units-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UnitAddComponent extends UnitBaseEntryComponent {
+export class UnitAddComponent extends UnitBaseEntryDirective {
   public dialogTitle = 'Add Unit';
   public active$ = this.facade.isNewActive$;
 

@@ -12,7 +12,12 @@ import { environment } from '@env';
 
 import { HealthItemEffects } from '../+state/health-item.effects';
 import * as healthItemActionTypes from '../+state/health-item.actions';
-import { HealthItemsPartialState, initialState, reducer as healthItemReducer, HEALTH_ITEMS_FEATURE_KEY } from '../+state/health-item.reducer';
+import {
+  HealthItemsPartialState,
+  initialState,
+  reducer as healthItemReducer,
+  HEALTH_ITEMS_FEATURE_KEY
+} from '../+state/health-item.reducer';
 import { HealthItemListFacade } from './list.facade';
 import { IHealthItem, HealthItemProperties } from '../../../models/health-items-odata';
 
@@ -31,7 +36,7 @@ describe('HealthItemListFacade', () => {
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
 
-  beforeEach(() => { });
+
 
   describe('used in NgModule', () => {
     beforeEach(() => {

@@ -8,7 +8,7 @@ export abstract class ChartODataBaseComponent<FACADE extends IChartODataFacade> 
   public allSubscription: Subscription[] = [];
   public readonly seriesData$: Observable<ChartSeriesDataPoint[] | GroupResult[]>;
   public readonly isDataLoadPending$: Observable<boolean>;
-  constructor(public readonly facade: FACADE, public readonly gridRefresh$: Observable<any> = null) {
+  constructor(public readonly facade: FACADE, public readonly gridRefresh$: Observable<unknown> = null) {
     this.seriesData$ = this.facade.seriesData$;
 
     if (gridRefresh$) {

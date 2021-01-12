@@ -16,6 +16,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
    * A properties enum to make kendo grid columns definitions type safe
    * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract readonly props: any;
   protected expanders: (string | Expander)[];
   protected transformations: string;
@@ -23,6 +24,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   constructor(
     public readonly facade: FACADE,
     protected readonly state: ODataState | Observable<ODataState>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     protected readonly gridRefresh$: Observable<any> = null,
   ) {
     this.loading$ = this.facade.loading$;
