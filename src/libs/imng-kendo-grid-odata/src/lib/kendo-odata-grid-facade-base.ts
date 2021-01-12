@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Observable } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { select, Store } from '@ngrx/store';

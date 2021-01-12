@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
-import { CompetencyBaseEntryComponent } from './base-entry.component';
+import { CompetencyBaseEntryDirective } from './base-entry.component';
 import { CompetencyCrudFacade } from './crud.facade';
 import { ICompetency } from '../../../models/competencies-odata';
 
@@ -11,7 +11,7 @@ import { ICompetency } from '../../../models/competencies-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompetencyEditComponent extends CompetencyBaseEntryComponent {
+export class CompetencyEditComponent extends CompetencyBaseEntryDirective {
   public dialogTitle = 'Edit Competency';
   public active$ = this.facade.isEditActive$;
 

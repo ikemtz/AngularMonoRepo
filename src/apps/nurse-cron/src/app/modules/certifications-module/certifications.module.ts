@@ -14,7 +14,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { CertificationListComponent, CertificationListFacade } from './certifications-list';
-import { CertificationAddComponent, CertificationEditComponent, CertificationApiService, CertificationCrudFacade } from './certifications-crud';
+import {
+  CertificationAddComponent,
+  CertificationEditComponent,
+  CertificationApiService,
+  CertificationCrudFacade
+} from './certifications-crud';
 
 
 @NgModule({

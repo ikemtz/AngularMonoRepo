@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
-import { UnitBaseEntryComponent } from './base-entry.component';
+import { UnitBaseEntryDirective } from './base-entry.component';
 import { UnitCrudFacade } from './crud.facade';
 import { IUnit } from '../../../models/units-odata';
 
@@ -11,7 +11,7 @@ import { IUnit } from '../../../models/units-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UnitEditComponent extends UnitBaseEntryComponent {
+export class UnitEditComponent extends UnitBaseEntryDirective {
   public dialogTitle = 'Edit Unit';
   public active$ = this.facade.isEditActive$;
 

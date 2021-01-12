@@ -2,13 +2,14 @@ import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from '@nrwl/angular/testing';
 import { formGroupFac } from './editable-data-grid.directive.spec';
+import { AddEvent, GridComponent } from '@progress/kendo-angular-grid';
 
 export const gridComponentMockFac = () =>
-  ({
-    closeRow: jest.fn(() => { }),
-    addRow: jest.fn(() => { }),
-    editRow: jest.fn(() => { }),
-  } as any);
+({
+  closeRow: jest.fn(),
+  addRow: jest.fn(),
+  editRow: jest.fn(),
+} as unknown as GridComponent);
 describe('GridDataEntryHelper<>', () => {
   it('should report invalid if gridData is empty ', async done => {
     try {
@@ -39,7 +40,7 @@ describe('GridDataEntryHelper<>', () => {
           }),
         [{ id: '😎😎' }],
       );
-      gridHelper.addHandler({ sender: gridComponentMockFac(), dataItem: {} } as any);
+      gridHelper.addHandler({ sender: gridComponentMockFac(), dataItem: {} } as AddEvent);
       expect(await readFirst(gridHelper.isValid$)).toBe(false);
       expect(gridHelper.isValid).toBe(false);
       expect(gridHelper.isInEditMode).toBe(true);
@@ -81,7 +82,7 @@ describe('GridDataEntryHelper<>', () => {
       });
       const result = await readFirst(gridHelper.gridData$);
       expect(result).toMatchSnapshot();
-      expect((result[1] as any).test).toBe('👍');
+      expect((result[1] as unknown as { test: string; }).test).toBe('👍');
       done();
     } catch (x) {
       done.fail(x);
@@ -90,7 +91,7 @@ describe('GridDataEntryHelper<>', () => {
 
   it('should handle saving new records ', async done => {
     try {
-      const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }]);
+      const gridHelper = new GridDataEntryHelper(formGroupFac, [{ id: '💩', test: 'i' }, { id: '🐂' }, { id: '🥜' }]);
 
       gridHelper.saveHandler({
         formGroup: formGroupFac(),
@@ -101,7 +102,7 @@ describe('GridDataEntryHelper<>', () => {
       });
       const result = await readFirst(gridHelper.gridData$);
       expect(result).toMatchSnapshot();
-      const newRec: any = result[3];
+      const newRec = result[3];
       expect(newRec.id).toBeNull();
       expect(newRec.test).toBe('👍');
       done();

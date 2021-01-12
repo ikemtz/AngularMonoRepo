@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { environment } from '@env';
 
@@ -25,7 +25,7 @@ export class UnitEffects {
     this.actions$.pipe(
       ofType(unitActionTypes.loadUnitsRequest),
       fetch({
-        run: (action: ReturnType<typeof unitActionTypes.loadUnitsRequest>, state: fromUnitsReducer.UnitsPartialState) =>
+        run: (action: ReturnType<typeof unitActionTypes.loadUnitsRequest>) =>
           this.odataservice
             .fetch<IUnit>(environment.endPoints.units.unitsOData, action.payload)
             .pipe(map(t => unitActionTypes.loadUnitsSuccess(t))),
@@ -38,11 +38,10 @@ export class UnitEffects {
     this.actions$.pipe(
       ofType(unitActionTypes.saveUnitRequest),
       fetch({
-        run: (action: ReturnType<typeof unitActionTypes.saveUnitRequest>) =>
+        run: (action: ReturnType<typeof unitActionTypes.saveUnitRequest>, state: fromUnitsReducer.UnitsPartialState) =>
           this.unitApiService.post(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              unitActionTypes.loadUnitsRequest(store[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState),
+            map(() =>
+              unitActionTypes.loadUnitsRequest(state[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
@@ -56,9 +55,8 @@ export class UnitEffects {
       fetch({
         run: (action: ReturnType<typeof unitActionTypes.updateUnitRequest>, state: fromUnitsReducer.UnitsPartialState) =>
           this.unitApiService.put(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              unitActionTypes.loadUnitsRequest(store[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState),
+            map(() =>
+              unitActionTypes.loadUnitsRequest(state[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
@@ -70,11 +68,10 @@ export class UnitEffects {
     this.actions$.pipe(
       ofType(unitActionTypes.deleteUnitRequest),
       fetch({
-        run: (action: ReturnType<typeof unitActionTypes.deleteUnitRequest>) =>
+        run: (action: ReturnType<typeof unitActionTypes.deleteUnitRequest>, state: fromUnitsReducer.UnitsPartialState) =>
           this.unitApiService.delete(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              unitActionTypes.loadUnitsRequest(store[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState),
+            map(() =>
+              unitActionTypes.loadUnitsRequest(state[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,

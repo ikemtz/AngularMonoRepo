@@ -5,7 +5,7 @@ import { UnitCrudFacade } from './crud.facade';
 import { IUnit, UnitProperties, UnitFormGroupFac } from '../../../models/units-odata';
 
 @Directive()
-export abstract class UnitBaseEntryComponent extends BaseDataEntryComponent<IUnit, UnitCrudFacade>
+export abstract class UnitBaseEntryDirective extends BaseDataEntryComponent<IUnit, UnitCrudFacade>
   implements OnInit {
   public readonly props = UnitProperties;
 

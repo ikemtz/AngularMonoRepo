@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFeatureSelector, createSelector, MemoizedSelector, DefaultProjectorFn } from '@ngrx/store';
 import { KendoODataGridState } from './kendo-odata-grid-state';
 import { getODataPagerSettings } from './kendo-odata-grid-rxjs-operators';

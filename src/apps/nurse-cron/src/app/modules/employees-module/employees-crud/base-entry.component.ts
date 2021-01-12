@@ -5,7 +5,7 @@ import { EmployeeCrudFacade } from './crud.facade';
 import { IEmployee, EmployeeProperties, EmployeeFormGroupFac } from '../../../models/employees-odata';
 
 @Directive()
-export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<IEmployee, EmployeeCrudFacade>
+export abstract class EmployeeBaseEntryDirective extends BaseDataEntryComponent<IEmployee, EmployeeCrudFacade>
   implements OnInit {
   public readonly props = EmployeeProperties;
 

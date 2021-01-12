@@ -5,7 +5,7 @@ import { CompetencyCrudFacade } from './crud.facade';
 import { ICompetency, CompetencyProperties, CompetencyFormGroupFac } from '../../../models/competencies-odata';
 
 @Directive()
-export abstract class CompetencyBaseEntryComponent extends BaseDataEntryComponent<ICompetency, CompetencyCrudFacade>
+export abstract class CompetencyBaseEntryDirective extends BaseDataEntryComponent<ICompetency, CompetencyCrudFacade>
   implements OnInit {
   public readonly props = CompetencyProperties;
 

@@ -8,6 +8,7 @@ export interface ITransformer {
 }
 export const initialFunctionDevSettings = (): ILocalSetting => ({ IsEncrypted: false, Values: {} });
 export const AzFunc: ITransformer = {
+    // eslint-disable-next-line max-len
     icon: '//raw.githubusercontent.com/Azure/azure-functions-cli/master/src/Azure.Functions.Cli/npm/assets/azure-functions-logo-color-raster.png',
     name: 'AZ Function',
     id: 1,
