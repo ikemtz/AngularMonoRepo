@@ -19,7 +19,7 @@ describe(`imng-module`, () => {
         swaggerProperties: [],
         appPrefix: ''
       };
-      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()) as any);
+      const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-module`, options, Tree.empty()));
 
       expect(tree.files).toEqual([
         `/test/${pluralize(options.name)}-module/${pluralize(options.name)}.module.spec.ts`,
