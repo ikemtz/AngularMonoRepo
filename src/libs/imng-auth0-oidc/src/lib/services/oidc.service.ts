@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Log, OidcClient, SigninRequest, SignoutRequest, UserManager, UserManagerSettings } from 'oidc-client';
@@ -18,7 +19,11 @@ export class OidcService {
 
   private readonly _useCallbackFlag: boolean = true;
 
-  constructor(@Inject(OIDC_CONFIG) private readonly config: Config, @Inject(PLATFORM_ID) private readonly platformId: Object, private readonly httpClient: HttpClient) {
+  constructor(
+    @Inject(OIDC_CONFIG) private readonly config: Config,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly httpClient: HttpClient) {
     const logSettings = this.config.log;
     let clientSettings = this.config.oidc_config;
 
@@ -41,7 +46,7 @@ export class OidcService {
   }
 
   public getUserMetadata(): Observable<unknown> {
-    return this.httpClient.get<any>(this.config.oidc_config.metadataUrl).pipe(switchMap(openidConfig =>
+    return this.httpClient.get<{ userinfo_endpoint: string; }>(this.config.oidc_config.metadataUrl).pipe(switchMap(openidConfig =>
       this.httpClient.get<unknown>(openidConfig.userinfo_endpoint)
     ));
   }

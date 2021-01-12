@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IOidcUser {
   id_token: string;
   session_state?: any;

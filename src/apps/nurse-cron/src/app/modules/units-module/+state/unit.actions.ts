@@ -3,7 +3,7 @@ import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 import { IUnit } from '../../../models/units-odata';
 
-export const unitsFailure = createPayloadAction<{ error: any; }>('[Units] Units Failure'); //NOSONAR
+export const unitsFailure = createPayloadAction<{ error: unknown; }>('[Units] Units Failure');
 
 export const loadUnitsRequest = createPayloadAction<ODataState>(
     '[Units] Load Units Request');

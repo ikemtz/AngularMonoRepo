@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
+import { createEffect, Actions } from '@ngrx/effects';
+import { DataPersistence } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
-import { map, withLatestFrom } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { environment } from '@env';
 
 import * as fromCertificationsReducer from './certification.reducer';
@@ -18,69 +17,63 @@ export class CertificationEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private readonly store$: Store<fromCertificationsReducer.CertificationsPartialState>,
     private readonly certificationApiService: CertificationApiService,
+    private readonly dataPersistence: DataPersistence<fromCertificationsReducer.CertificationsPartialState>,
   ) { }
 
   loadCertificationsEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(certificationActionTypes.loadCertificationsRequest),
-      fetch({
-        run: (action: ReturnType<typeof certificationActionTypes.loadCertificationsRequest>, state: fromCertificationsReducer.CertificationsPartialState) =>
+    this.dataPersistence.fetch(certificationActionTypes.loadCertificationsRequest,
+      {
+        run: (action: ReturnType<typeof certificationActionTypes.loadCertificationsRequest>) =>
           this.odataservice
             .fetch<ICertification>(environment.endPoints.certifications.certificationsOData, action.payload)
             .pipe(map(t => certificationActionTypes.loadCertificationsSuccess(t))),
         onError: this.exceptionHandler,
       }),
-    ),
   );
 
   saveCertificationEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(certificationActionTypes.saveCertificationRequest),
-      fetch({
-        run: (action: ReturnType<typeof certificationActionTypes.saveCertificationRequest>) =>
-          this.certificationApiService.post(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              certificationActionTypes.loadCertificationsRequest(store[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState),
-            ),
+    this.dataPersistence.pessimisticUpdate(certificationActionTypes.saveCertificationRequest, {
+      run: (action: ReturnType<typeof certificationActionTypes.saveCertificationRequest>,
+        state: fromCertificationsReducer.CertificationsPartialState) =>
+        this.certificationApiService.post(action.payload).pipe(
+          map(() =>
+            certificationActionTypes.loadCertificationsRequest(
+              state[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState),
           ),
-        onError: this.exceptionHandler,
-      }),
-    ),
+        ),
+      onError: this.exceptionHandler,
+    })
   );
 
   updateCertificationEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(certificationActionTypes.updateCertificationRequest),
-      fetch({
-        run: (action: ReturnType<typeof certificationActionTypes.updateCertificationRequest>, state: fromCertificationsReducer.CertificationsPartialState) =>
+    this.dataPersistence.pessimisticUpdate(certificationActionTypes.updateCertificationRequest,
+      {
+        run: (action: ReturnType<typeof certificationActionTypes.updateCertificationRequest>,
+          state: fromCertificationsReducer.CertificationsPartialState) =>
           this.certificationApiService.put(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              certificationActionTypes.loadCertificationsRequest(store[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState),
+            map(() =>
+              certificationActionTypes.loadCertificationsRequest(
+                state[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
-      }),
-    ),
+      })
   );
 
   deleteCertificationEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(certificationActionTypes.deleteCertificationRequest),
-      fetch({
-        run: (action: ReturnType<typeof certificationActionTypes.deleteCertificationRequest>) =>
+    this.dataPersistence.pessimisticUpdate(certificationActionTypes.deleteCertificationRequest,
+      {
+        run: (action: ReturnType<typeof certificationActionTypes.deleteCertificationRequest>,
+          state: fromCertificationsReducer.CertificationsPartialState) =>
           this.certificationApiService.delete(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              certificationActionTypes.loadCertificationsRequest(store[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState),
+            map(() =>
+              certificationActionTypes.loadCertificationsRequest(
+                state[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
-      }),
-    ),
+      })
   );
 
   // tslint:disable-next-line: typedef

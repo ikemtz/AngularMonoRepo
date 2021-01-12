@@ -3,7 +3,7 @@ import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 import { ICompetency } from '../../../models/competencies-odata';
 
-export const competenciesFailure = createPayloadAction<{ error: any }>('[Competencies] Competencies Failure'); //NOSONAR
+export const competenciesFailure = createPayloadAction<{ error: unknown; }>('[Competencies] Competencies Failure'); //NOSONAR
 
 export const loadCompetenciesRequest = createPayloadAction<ODataState>(
     '[Competencies] Load Competencies Request');

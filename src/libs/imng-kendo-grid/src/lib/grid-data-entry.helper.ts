@@ -113,6 +113,7 @@ export class GridDataEntryHelper<T extends { id?: string | number | Date; }> {
     addEvent.sender.addRow(this._gridFormGroup);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public gridValidationLogic(data: Array<T>): boolean {
     return this._gridData.length > 0 && !this._gridFormGroup;
   }

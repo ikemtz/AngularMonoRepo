@@ -5,7 +5,7 @@ import { endPoints } from './endpoints';
 import { LogLevel } from '@microsoft/signalr';
 export const environment = {
   // tslint:disable-next-line: object-literal-key-quotes quotemark
-  "version": "0.0.0",
+  version: '0.0.0',
   production: false,
   runtimeChecks: {
     strictActionImmutability: true,

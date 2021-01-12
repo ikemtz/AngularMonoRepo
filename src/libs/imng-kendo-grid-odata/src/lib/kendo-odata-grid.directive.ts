@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';

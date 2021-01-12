@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, Inject, InjectionToken } from '@angular/core';
 import { ApplicationInsights, IConfiguration } from '@microsoft/applicationinsights-web';
 import { Actions } from '@ngrx/effects';

@@ -14,7 +14,11 @@ export const initialState: IdleState = {
 
 export const featureReducer = createReducer(
   initialState,
-  on(idleActions.onSessionTimingOut, (state, { payload }) => ({ ...state, isTimingOut: true, timeoutSpanInMs: payload.autoLogoutInMs - payload.timeoutWarningInMs })),
+  on(idleActions.onSessionTimingOut, (state, { payload }) => ({
+    ...state,
+    isTimingOut: true,
+    timeoutSpanInMs: payload.autoLogoutInMs - payload.timeoutWarningInMs
+  })),
   on(idleActions.onSessionExtended, state => ({ ...state, isTimingOut: false, timeoutSpanInMs: null })),
   on(idleActions.signOutRedirect, state => ({ ...state, isTimingOut: false, timeoutSpanInMs: null }))
 );

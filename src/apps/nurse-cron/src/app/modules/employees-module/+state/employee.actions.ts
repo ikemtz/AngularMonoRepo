@@ -3,7 +3,7 @@ import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 import { IEmployee } from '../../../models/employees-odata';
 
-export const employeesFailure = createPayloadAction<{ error: any }>('[Employees] Employees Failure'); //NOSONAR
+export const employeesFailure = createPayloadAction<{ error: unknown; }>('[Employees] Employees Failure'); //NOSONAR
 
 export const loadEmployeesRequest = createPayloadAction<ODataState>(
     '[Employees] Load Employees Request');
