@@ -52,7 +52,7 @@ export class OidcEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(oidcActions.userFound),
       filter(() => !this.config.getUserMetadata),
-      map(metadata => oidcActions.userDoneLoading())));
+      map(() => oidcActions.userDoneLoading())));
 
   userDoneLoadingWithMetadata$ = createEffect(() =>
     this.actions$.pipe(
@@ -96,14 +96,14 @@ export class OidcEffects implements OnInitEffects {
       ofType(oidcActions.signOutPopup),
       concatMap(args =>
         this.oidcService.signOutPopup(args.payload).pipe(
-          map(user => oidcActions.onUserSignedOut()),
+          map(() => oidcActions.onUserSignedOut()),
           catchError(err => of(oidcActions.signOutPopupError(err.message)))))));
 
   signOutRedirect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.signOutRedirect),
       concatMap(args => this.oidcService.signOutRedirect(args.payload).pipe(
-        map(user => oidcActions.onUserSignedOut()),
+        map(() => oidcActions.onUserSignedOut()),
         catchError(err => of(oidcActions.signOutRedirectError(err.message)))))));
 
   onUserSignedOut$ = createEffect(() =>

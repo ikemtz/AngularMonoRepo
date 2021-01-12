@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ODataState } from 'imng-kendo-odata';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { UnitsPartialState } from '../+state/unit.reducer';
 import { unitQueries } from '../+state/unit.selectors';
@@ -15,7 +14,6 @@ export class UnitCrudFacade implements IDataEntryFacade<IUnit> {
   isNewActive$ = this.store.pipe(select(unitQueries.getIsNewUnitActive));
 
   constructor(private readonly store: Store<UnitsPartialState>) { }
-  loadEntities(state: ODataState): void { }
   setCurrentEntity(item: IUnit): void {
     this.store.dispatch(unitActionTypes.setCurrentUnit(item));
   }

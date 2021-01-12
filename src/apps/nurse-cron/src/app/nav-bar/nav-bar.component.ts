@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { OidcFacade, Auth0Facade, IOidcUser } from 'imng-auth0-oidc';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';

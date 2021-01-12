@@ -1,4 +1,6 @@
-import { NgModule, InjectionToken } from '@angular/core';
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
@@ -32,7 +34,6 @@ describe('OidcFacade', () => {
   let service: OidcService;
   let oidcConfig: Config;
 
-  beforeEach(() => { });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -42,7 +43,12 @@ describe('OidcFacade', () => {
           EffectsModule.forFeature([OidcEffects]),
         ],
         providers: [OidcFacade, OidcService, Auth0Facade,
-          { provide: OIDC_CONFIG, useValue: { getUserMetadata: true, oidc_config: { automaticSilentRenew: true }, log: { level: 0, logger: console } } },
+          {
+            provide: OIDC_CONFIG, useValue: {
+              getUserMetadata: true, oidc_config:
+                { automaticSilentRenew: true }, log: { level: 0, logger: console }
+            }
+          },
           { provide: HttpClient, useValue: { get: () => of({ userinfo_endpoint: 'xyz' }) } },
           { provide: Router, useValue: { navigateByUrl: jest.fn() } }
         ],
@@ -218,7 +224,9 @@ describe('OidcFacade', () => {
 
     it('should handle clearingHttpErrors', async done => {
       try {
-        store.dispatch(oidcActions.setHttpError(new HttpErrorResponse({ error: new Error('this is an expected error during unit tests, do not be alarmed!') })));
+        store.dispatch(oidcActions.setHttpError(new HttpErrorResponse({
+          error: new Error('this is an expected error during unit tests, do not be alarmed!')
+        })));
         const initialresult: any = await readFirst(facade.httpError$);
         expect(initialresult).toMatchSnapshot();
         expect(await readFirst(facade.hasErrors$)).toBe(true);

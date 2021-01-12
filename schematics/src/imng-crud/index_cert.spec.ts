@@ -30,7 +30,7 @@ describe(`imng-crud`, () => {
         `/test/${pluralize(options.name)}-crud/add.component.spec.ts`,
         `/test/${pluralize(options.name)}-crud/add.component.ts`,
         `/test/${pluralize(options.name)}-crud/api.service.ts`,
-        `/test/${pluralize(options.name)}-crud/base-entry.component.ts`,
+        `/test/${pluralize(options.name)}-crud/base-entry.directive.ts`,
         `/test/${pluralize(options.name)}-crud/crud.facade.spec.ts`,
         `/test/${pluralize(options.name)}-crud/crud.facade.ts`,
         `/test/${pluralize(options.name)}-crud/edit.component.spec.ts`,

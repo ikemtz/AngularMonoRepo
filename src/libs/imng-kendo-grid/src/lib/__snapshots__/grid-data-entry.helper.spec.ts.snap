@@ -54,6 +54,7 @@ exports[`GridDataEntryHelper<> should handle saving new records  1`] = `
 Array [
   Object {
     "id": "💩",
+    "test": "i",
   },
   Object {
     "id": "🐂",
