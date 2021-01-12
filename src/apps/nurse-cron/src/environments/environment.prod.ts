@@ -1,7 +1,7 @@
 import { endPoints } from './endpoints';
 import { LogLevel } from '@microsoft/signalr';
 export const environment = {
-  "version": "0.0.0",
+  version: '0.0.0',
   production: true,
   runtimeChecks: {
     strictActionImmutability: false,

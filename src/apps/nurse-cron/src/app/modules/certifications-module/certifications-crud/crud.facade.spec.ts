@@ -41,7 +41,7 @@ describe('CertificationCrudFacade', () => {
   let facade: CertificationCrudFacade;
   let store: Store<TestSchema>;
 
-  beforeEach(() => { });
+
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -74,6 +74,7 @@ describe('CertificationCrudFacade', () => {
       try {
         let isNewActive = await readFirst(facade.isNewActive$);
         expect(isNewActive).toBeFalsy();
+        expect(store).toBeTruthy();
 
         facade.clearCurrentEntity();
         isNewActive = await readFirst(facade.isNewActive$);

@@ -12,8 +12,8 @@ export const shortDateOptions: Intl.DateTimeFormatOptions = {
 };
 export const millisecsInDay = 86400000;
 
-// tslint:disable-next-line: space-before-function-paren
 Date.prototype.toShortDateString = function (): string {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const dt: Date = this;
 
   const locale = navigator.language ||
@@ -24,6 +24,7 @@ Date.prototype.toShortDateString = function (): string {
 
 // tslint:disable-next-line: space-before-function-paren
 Date.prototype.weekOfYear = function (): number {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const dt: Date = this;
   const onejan = new Date(dt.getFullYear(), 0, 1);
   return Math.ceil(((dt.getTime() - onejan.getTime()) / millisecsInDay + onejan.getDay() + 1) / 7);

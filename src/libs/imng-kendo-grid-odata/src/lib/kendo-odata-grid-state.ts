@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 

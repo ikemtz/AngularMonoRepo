@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TestBed } from '@angular/core/testing';
 import { Observable, of, throwError } from 'rxjs';
 
@@ -111,7 +112,7 @@ describe('Oidc Effects', () => {
     it('should signInRedirect', async done => {
       try {
         actions = of(OidcActions.signInRedirect({}));
-        service.signInPopup = jest.fn(x => of('x'));
+        service.signInPopup = jest.fn(() => of('x'));
         const result = await readFirst(effects.signInRedirect$);
         expect(result).toMatchSnapshot();
         done();

@@ -44,8 +44,6 @@ describe('UnitCrudFacade', () => {
   let facade: UnitCrudFacade;
   let store: Store<TestSchema>;
 
-  beforeEach(() => { });
-
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
@@ -82,7 +80,7 @@ describe('UnitCrudFacade', () => {
         isNewActive = await readFirst(facade.isNewActive$);
 
         expect(isNewActive).toBeFalsy();
-
+        expect(await readFirst(store)).toMatchSnapshot();
         done();
       } catch (err) {
         done.fail(err);

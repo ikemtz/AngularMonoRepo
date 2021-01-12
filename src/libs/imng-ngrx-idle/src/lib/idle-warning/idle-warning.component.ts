@@ -23,7 +23,7 @@ export class IdleWarningComponent implements OnInit, OnDestroy {
     this.secondsRemaining$ = this.idleFacade.timeOutSpanInMs$.pipe(
       filter(t => t > 0),
       tap(t => timeOutSpan = t),
-      switchMap(t => interval(msInSec)),
+      switchMap(() => interval(msInSec)),
       map(() => Math.floor(timeOutSpan / msInSec)),
       tap(() => timeOutSpan -= msInSec)
     );

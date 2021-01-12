@@ -7,6 +7,7 @@ declare module '@angular/forms' {
 }
 // tslint:disable-next-line: space-before-function-paren
 FormGroup.prototype.addTypeAheadControl = function (controlName: string = 'typeAhead', initialValue: string = ''): FormControl {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const formGroup: FormGroup = this;
   return addTypeAheadControl(formGroup, controlName, initialValue);
 };
