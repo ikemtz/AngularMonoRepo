@@ -40,8 +40,6 @@ describe('BuildingListFacade', () => {
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
 
-  beforeEach(() => { });
-
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({

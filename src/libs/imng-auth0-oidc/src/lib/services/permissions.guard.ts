@@ -9,6 +9,7 @@ export abstract class PermissionsGuard implements CanActivate {
 
   protected abstract permissions: string[] = [];
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     return this.oidcFacade.waitForAuthenticationLoaded().pipe(
       switchMap(() => this.auth0Facade.hasPermissions(this.permissions)),

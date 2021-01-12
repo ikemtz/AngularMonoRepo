@@ -2,7 +2,7 @@ import { Directive, Input, OnInit, OnDestroy, AfterViewInit } from '@angular/cor
 import { GridComponent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
-import { KendoArrayComponentBase } from './kendo-array-component-base';
+import { KendoArrayBaseDirective } from './kendo-array-base-directive';
 import { CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 
 @Directive({
@@ -10,7 +10,8 @@ import { CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-
 })
 export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy {
   protected readonly subscriptions: Subscription[] = [];
-  @Input('imngArrayGrid') public arrayComponent: KendoArrayComponentBase<object, object>;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  @Input('imngArrayGrid') public arrayComponent: KendoArrayBaseDirective<object, object>;
   constructor(public readonly gridComponent: GridComponent) { }
 
 

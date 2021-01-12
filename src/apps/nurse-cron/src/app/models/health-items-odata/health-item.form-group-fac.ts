@@ -4,8 +4,8 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-/* tslint:disable */
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormControl, FormGroup, Validators } from '@angular/forms'; //NOSONAR
 
 export function HealthItemFormGroupFac(): FormGroup {
   return new FormGroup({

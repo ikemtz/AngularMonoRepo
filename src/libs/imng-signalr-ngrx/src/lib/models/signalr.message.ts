@@ -1,4 +1,4 @@
-export interface ISignalrMessage<T = any> {
+export interface ISignalrMessage<T = unknown> {
     methodName: string;
     data: T;
 }

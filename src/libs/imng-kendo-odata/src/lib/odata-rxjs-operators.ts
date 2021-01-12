@@ -42,7 +42,7 @@ export function parseDatesInCollection<T>(
       }
     });
 
-    collection.forEach((val: any) => {
+    collection.forEach((val: unknown) => {
       utcProps.filter(p => val[p]).forEach(p => (val[p] = new Date(val[p])));
       dateProps.filter(p => val[p]).forEach(p => (val[p] = toLocalDate(val[p])));
     });
