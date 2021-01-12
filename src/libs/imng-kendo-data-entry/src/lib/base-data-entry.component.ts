@@ -9,6 +9,7 @@ const FACADE = new InjectionToken<{
   clearCurrentEntity(): void;
 }>('facade');
 
+/** @dynamic */
 /**
  * The extending class has to implement the following properties on ngInit
  * dialogTitle: string - This will be the text displayed at the top of the modal title bar
@@ -21,7 +22,6 @@ const FACADE = new InjectionToken<{
  *
  * @class BaseDataEntryComponent>
  */
-@Component({ template: '' })
 export abstract class BaseDataEntryComponent<FACADE extends {
   loading$: Observable<boolean>;
   clearCurrentEntity(): void;
