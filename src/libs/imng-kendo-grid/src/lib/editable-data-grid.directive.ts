@@ -19,11 +19,14 @@ import { tap } from 'rxjs/operators';
 })
 export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
   private readonly subscriptions: Subscription[] = [];
+  // eslint-disable-next-line @typescript-eslint/ban-types
   _gridDataEntryHelper: GridDataEntryHelper<object>;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   get gridDataEntryHelper(): GridDataEntryHelper<object> {
     return this._gridDataEntryHelper;
   }
   @Input('imngEditableDataGrid')
+  // eslint-disable-next-line @typescript-eslint/ban-types
   set gridDataEntryHelper(value: GridDataEntryHelper<object>) {
     this._gridDataEntryHelper = value;
     this.subscriptions.push(
@@ -32,7 +35,7 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
         .subscribe(),
     );
   }
-  constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {}
+  constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -50,7 +53,7 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
       allowUnsort: true,
       mode: 'multiple',
     };
-    this.gridComponent.navigable = true; 
+    this.gridComponent.navigable = true;
   }
 
   ngOnDestroy(): void {

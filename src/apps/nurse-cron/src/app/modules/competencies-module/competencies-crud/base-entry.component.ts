@@ -1,11 +1,11 @@
-import { OnInit, Directive } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { CompetencyCrudFacade } from './crud.facade';
-import { ICompetency, CompetencyProperties, CompetencyFormGroupFac } from '../../../models/competencies-odata';
+import { CompetencyProperties, CompetencyFormGroupFac } from '../../../models/competencies-odata';
 
-@Directive()
-export abstract class CompetencyBaseEntryComponent extends BaseDataEntryComponent<ICompetency, CompetencyCrudFacade>
+@Component({ template: '' })
+export abstract class CompetencyBaseEntryComponent extends BaseDataEntryComponent<CompetencyCrudFacade>
   implements OnInit {
   public readonly props = CompetencyProperties;
 

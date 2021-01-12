@@ -1,11 +1,11 @@
-import { OnInit, Directive } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { UnitCrudFacade } from './crud.facade';
-import { IUnit, UnitProperties, UnitFormGroupFac } from '../../../models/units-odata';
+import { UnitProperties, UnitFormGroupFac } from '../../../models/units-odata';
 
-@Directive()
-export abstract class UnitBaseEntryComponent extends BaseDataEntryComponent<IUnit, UnitCrudFacade>
+@Component({ template: '' })
+export abstract class UnitBaseEntryComponent extends BaseDataEntryComponent<UnitCrudFacade>
   implements OnInit {
   public readonly props = UnitProperties;
 

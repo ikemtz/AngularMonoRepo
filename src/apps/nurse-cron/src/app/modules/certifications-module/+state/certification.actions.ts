@@ -3,7 +3,7 @@ import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 import { ICertification } from '../../../models/certifications-odata';
 
-export const certificationsFailure = createPayloadAction<{ error: any }>('[Certifications] Certifications Failure'); //NOSONAR
+export const certificationsFailure = createPayloadAction<{ error: unknown; }>('[Certifications] Certifications Failure'); //NOSONAR
 
 export const loadCertificationsRequest = createPayloadAction<ODataState>(
     '[Certifications] Load Certifications Request');
