@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
-import { HealthItemBaseEntryDirective } from './base-entry.component';
+import { HealthItemBaseEntryComponent } from './base-entry.component';
 import { HealthItemCrudFacade } from './crud.facade';
 import { IHealthItem } from '../../../models/health-items-odata';
 
@@ -11,7 +11,7 @@ import { IHealthItem } from '../../../models/health-items-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HealthItemEditComponent extends HealthItemBaseEntryDirective {
+export class HealthItemEditComponent extends HealthItemBaseEntryComponent {
   public dialogTitle = 'Edit HealthItem';
   public active$ = this.facade.isEditActive$;
 

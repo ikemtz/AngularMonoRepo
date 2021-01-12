@@ -1,11 +1,11 @@
-import { OnInit, Directive } from '@angular/core';
-import { BaseDataEntryDirective } from 'imng-kendo-data-entry';
+import { OnInit, Component } from '@angular/core';
+import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { HealthItemCrudFacade } from './crud.facade';
 import { HealthItemProperties, HealthItemFormGroupFac } from '../../../models/health-items-odata';
 
-@Directive()
-export abstract class HealthItemBaseEntryDirective extends BaseDataEntryDirective<HealthItemCrudFacade>
+@Component({ template: '' })
+export abstract class HealthItemBaseEntryComponent extends BaseDataEntryComponent<HealthItemCrudFacade>
   implements OnInit {
   public readonly props = HealthItemProperties;
 

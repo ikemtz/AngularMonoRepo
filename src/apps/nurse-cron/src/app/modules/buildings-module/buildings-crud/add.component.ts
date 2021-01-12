@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { BuildingCrudFacade } from './crud.facade';
-import { BuildingBaseEntryDirective } from './base-entry.component';
+import { BuildingBaseEntryComponent } from './base-entry.component';
 import { IBuilding } from '../../../models/units-odata';
 
 @Component({
@@ -10,7 +10,7 @@ import { IBuilding } from '../../../models/units-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuildingAddComponent extends BuildingBaseEntryDirective {
+export class BuildingAddComponent extends BuildingBaseEntryComponent {
   public dialogTitle = 'Add Building';
   public active$ = this.facade.isNewActive$;
 

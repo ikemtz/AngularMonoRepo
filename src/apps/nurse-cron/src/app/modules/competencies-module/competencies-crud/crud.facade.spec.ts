@@ -78,7 +78,7 @@ describe('CompetencyCrudFacade', () => {
         isNewActive = await readFirst(facade.isNewActive$);
 
         expect(isNewActive).toBeFalsy();
-        expect(store).toBeFalsy();
+        expect(store).toBeTruthy();
 
         done();
       } catch (err) {

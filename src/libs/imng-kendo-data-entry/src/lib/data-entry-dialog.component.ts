@@ -1,27 +1,32 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { BaseDataEntryDirective } from './base-data-entry.directive';
+import { BaseDataEntryComponent } from './base-data-entry.component';
 
 @Component({
   selector: 'imng-data-entry-dialog[parentComponent]',
-  templateUrl: './data-entry-dialog.component.html',
+  template: `
+  <kendo-dialog [width]="width" [height]="height" (close)="close()">
+  <kendo-dialog-titlebar class="bg-primary">{{dialogTitle}}</kendo-dialog-titlebar>
+  <ng-content></ng-content>
+  <kendo-dialog-actions>
+    <button id="btnCancel" class="k-button" (click)="cancel()">Cancel</button>
+    <button id="btnSave" class="k-button k-primary" (click)="submit()">Save</button>
+  </kendo-dialog-actions>
+  </kendo-dialog>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataEntryDialogComponent implements OnInit {
   @Input() public width: string | number;
   @Input() public height: string | number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() public parentComponent: BaseDataEntryDirective<any>;
+  @Input() public parentComponent: BaseDataEntryComponent<any>;
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;
   public submitted: boolean;
   public dialogTitle: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
-  component: {};
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() { }
+  public component: {};
 
   public ngOnInit(): void {
     if (!this.parentComponent) {

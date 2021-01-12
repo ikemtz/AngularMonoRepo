@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
-import { CertificationBaseEntryDirective } from './base-entry.component';
+import { CertificationBaseEntryComponent } from './base-entry.component';
 import { CertificationCrudFacade } from './crud.facade';
 import { ICertification } from '../../../models/certifications-odata';
 
@@ -11,7 +11,7 @@ import { ICertification } from '../../../models/certifications-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CertificationEditComponent extends CertificationBaseEntryDirective {
+export class CertificationEditComponent extends CertificationBaseEntryComponent {
   public dialogTitle = 'Edit Certification';
   public active$ = this.facade.isEditActive$;
 

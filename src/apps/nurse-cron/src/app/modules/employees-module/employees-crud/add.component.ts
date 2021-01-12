@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { EmployeeCrudFacade } from './crud.facade';
-import { EmployeeBaseEntryDirective } from './base-entry.component';
+import { EmployeeBaseEntryComponent } from './base-entry.component';
 import { IEmployee } from '../../../models/employees-odata';
 
 @Component({
@@ -10,7 +10,7 @@ import { IEmployee } from '../../../models/employees-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmployeeAddComponent extends EmployeeBaseEntryDirective {
+export class EmployeeAddComponent extends EmployeeBaseEntryComponent {
   public dialogTitle = 'Add Nurse';
   public active$ = this.facade.isNewActive$;
 

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { CompetencyCrudFacade } from './crud.facade';
-import { CompetencyBaseEntryDirective } from './base-entry.component';
+import { CompetencyBaseEntryComponent } from './base-entry.component';
 import { ICompetency } from '../../../models/competencies-odata';
 
 @Component({
@@ -10,7 +10,7 @@ import { ICompetency } from '../../../models/competencies-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompetencyAddComponent extends CompetencyBaseEntryDirective {
+export class CompetencyAddComponent extends CompetencyBaseEntryComponent {
   public dialogTitle = 'Add Competency';
   public active$ = this.facade.isNewActive$;
 

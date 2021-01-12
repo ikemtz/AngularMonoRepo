@@ -3,7 +3,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BaseDataEntryDirective } from './base-data-entry.directive';
+import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
 import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock.facade';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -57,7 +57,7 @@ describe('DataEntryDialogComponent', () => {
   template: '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class TestHostComponent extends BaseDataEntryDirective<DataEntryMockFacade> {
+export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacade> {
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   public saved = false;

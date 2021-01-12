@@ -1,6 +1,13 @@
-import { OnDestroy, Input, Directive } from '@angular/core';
+import { Component, Inject, Input, OnDestroy } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
+
+import { InjectionToken } from '@angular/core';
+
+const FACADE = new InjectionToken<{
+  loading$: Observable<boolean>;
+  clearCurrentEntity(): void;
+}>('facade');
 
 /**
  * The extending class has to implement the following properties on ngInit
@@ -12,17 +19,16 @@ import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
  * active$: Observable<boolean> - This typically would be assigned to the isNewActive$ or isEditActive on the facade
  * addEditForm: FormGroup - This will be created by your component
  *
- * @class BaseDataEntryDirective<FACADE extends DataEntryFacade<ENTITY>>
+ * @class BaseDataEntryComponent>
  */
-@Directive()
-export abstract class BaseDataEntryDirective<
-  FACADE extends {
-    loading$: Observable<boolean>;
-    clearCurrentEntity(): void;
-  }
-  > implements OnDestroy {
+@Component({ template: '' })
+export abstract class BaseDataEntryComponent<FACADE extends {
+  loading$: Observable<boolean>;
+  clearCurrentEntity(): void;
+}> implements OnDestroy {
   @Input() public width: string | number;
   @Input() public height: string | number;
+
   public allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -42,7 +48,7 @@ export abstract class BaseDataEntryDirective<
     return this.addEditForm.controls[controlName].errors;
   }
 
-  constructor(protected facade: FACADE) {
+  constructor(@Inject(FACADE) protected facade: FACADE) {
     this.loading$ = this.facade.loading$;
     this.initForm();
   }

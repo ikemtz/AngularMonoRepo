@@ -36,8 +36,6 @@ describe('HealthItemListFacade', () => {
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
 
-
-
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
