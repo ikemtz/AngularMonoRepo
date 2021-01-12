@@ -63,7 +63,7 @@ function getFileNames(openApiJsonFileName: string) {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-export function processOpenApiDoc(data: any, schema: IOptions, host: Tree): Tree {
+export function processOpenApiDoc(data: any, schema: IOptions, host: Tree): Tree { //NOSONAR
   const openApiComonent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
   if (!openApiComonent) {
     throw new Error(`OpenApi Component not found in swagger doc: ${schema.name}`);
