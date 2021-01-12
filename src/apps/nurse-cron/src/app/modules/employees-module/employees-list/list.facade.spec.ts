@@ -41,14 +41,12 @@ export const createEmployee = () => <IEmployee>{
   [EmployeeProperties.CERTIFICATION_COUNT]: 0,
   [EmployeeProperties.COMPETENCY_COUNT]: 0,
   [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-    };
+};
 
 describe('EmployeeListFacade', () => {
   let facade: EmployeeListFacade;
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
-
-  beforeEach(() => {});
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -61,7 +59,7 @@ describe('EmployeeListFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of({ value: [createEmployee()], '@odata.count': 1 })) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -71,7 +69,7 @@ describe('EmployeeListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);

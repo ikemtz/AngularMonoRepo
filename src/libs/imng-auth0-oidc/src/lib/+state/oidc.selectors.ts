@@ -16,11 +16,13 @@ const isIdentityExpired = createSelector(selectOidcState, (state: OidcState) => 
 const isLoggedIn = createSelector(selectOidcState, (state: OidcState) => state.loggedIn);
 
 // errors
+// eslint-disable-next-line @typescript-eslint/ban-types
 const selectOidcErrorState: MemoizedSelector<{}, ErrorState> = createSelector(
   selectOidcState,
   (state: OidcState) => state.errors,
 );
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const hasErrors: MemoizedSelector<{}, boolean> = createSelector(
   selectOidcErrorState,
   (state: ErrorState) => !!state.httpError || !!state.signInError || !!state.silentRenewError,

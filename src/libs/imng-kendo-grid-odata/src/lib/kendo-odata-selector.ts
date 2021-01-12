@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
 import { MemoizedSelector } from '@ngrx/store';
 import { GridDataResult, PagerSettings } from '@progress/kendo-angular-grid';
 import { ODataState } from 'imng-kendo-odata';

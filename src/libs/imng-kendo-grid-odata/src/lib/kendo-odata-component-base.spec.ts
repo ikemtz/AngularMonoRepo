@@ -42,6 +42,7 @@ describe('KendoODataComponentBase', () => {
   selector: 'imng-test-component',
   template: '<h1></h1>',
 })
+// eslint-disable-next-line @typescript-eslint/ban-types
 export class KendoODataGridTestComponent extends KendoODataComponentBase<object, ODataGridMockFacade> {
   state = {};
   props = {};

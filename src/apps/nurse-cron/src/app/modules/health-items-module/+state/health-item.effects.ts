@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { environment } from '@env';
 
@@ -25,7 +25,7 @@ export class HealthItemEffects {
     this.actions$.pipe(
       ofType(healthItemActionTypes.loadHealthItemsRequest),
       fetch({
-        run: (action: ReturnType<typeof healthItemActionTypes.loadHealthItemsRequest>, state: fromHealthItemsReducer.HealthItemsPartialState) =>
+        run: (action: ReturnType<typeof healthItemActionTypes.loadHealthItemsRequest>) =>
           this.odataservice
             .fetch<IHealthItem>(environment.endPoints.healthItems.healthItemsOData, action.payload)
             .pipe(map(t => healthItemActionTypes.loadHealthItemsSuccess(t))),
@@ -38,11 +38,11 @@ export class HealthItemEffects {
     this.actions$.pipe(
       ofType(healthItemActionTypes.saveHealthItemRequest),
       fetch({
-        run: (action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>) =>
+        run: (action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>,
+          state: fromHealthItemsReducer.HealthItemsPartialState) =>
           this.healthItemApiService.post(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              healthItemActionTypes.loadHealthItemsRequest(store[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
+            map(() =>
+              healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
@@ -54,11 +54,11 @@ export class HealthItemEffects {
     this.actions$.pipe(
       ofType(healthItemActionTypes.updateHealthItemRequest),
       fetch({
-        run: (action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>, state: fromHealthItemsReducer.HealthItemsPartialState) =>
+        run: (action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>,
+          state: fromHealthItemsReducer.HealthItemsPartialState) =>
           this.healthItemApiService.put(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              healthItemActionTypes.loadHealthItemsRequest(store[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
+            map(() =>
+              healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
@@ -70,11 +70,11 @@ export class HealthItemEffects {
     this.actions$.pipe(
       ofType(healthItemActionTypes.deleteHealthItemRequest),
       fetch({
-        run: (action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>) =>
+        run: (action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>,
+          state: fromHealthItemsReducer.HealthItemsPartialState) =>
           this.healthItemApiService.delete(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              healthItemActionTypes.loadHealthItemsRequest(store[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
+            map(() =>
+              healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,

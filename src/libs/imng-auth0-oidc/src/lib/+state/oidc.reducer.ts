@@ -18,7 +18,9 @@ export interface OidcState {
 }
 
 export interface ErrorState {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   silentRenewError?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   signInError?: any;
   httpError?: HttpErrorResponse;
 }

@@ -12,7 +12,12 @@ import { environment } from '@env';
 
 import { CompetencyEffects } from '../+state/competency.effects';
 import * as competencyActionTypes from '../+state/competency.actions';
-import { CompetenciesPartialState, initialState, reducer as competencyReducer, COMPETENCIES_FEATURE_KEY } from '../+state/competency.reducer';
+import {
+  CompetenciesPartialState,
+  initialState,
+  reducer as competencyReducer,
+  COMPETENCIES_FEATURE_KEY
+} from '../+state/competency.reducer';
 import { CompetencyListFacade } from './list.facade';
 import { ICompetency, CompetencyProperties } from '../../../models/competencies-odata';
 
@@ -31,7 +36,7 @@ describe('CompetencyListFacade', () => {
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
 
-  beforeEach(() => { });
+
 
   describe('used in NgModule', () => {
     beforeEach(() => {
