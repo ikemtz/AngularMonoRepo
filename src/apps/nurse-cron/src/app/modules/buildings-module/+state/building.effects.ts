@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { environment } from '@env';
 
@@ -25,7 +25,7 @@ export class BuildingEffects {
     this.actions$.pipe(
       ofType(buildingActionTypes.loadBuildingsRequest),
       fetch({
-        run: (action: ReturnType<typeof buildingActionTypes.loadBuildingsRequest>, state: fromBuildingsReducer.BuildingsPartialState) =>
+        run: (action: ReturnType<typeof buildingActionTypes.loadBuildingsRequest>) =>
           this.odataservice
             .fetch<IBuilding>(environment.endPoints.buildings.buildingsOData, action.payload)
             .pipe(map(t => buildingActionTypes.loadBuildingsSuccess(t))),
@@ -38,11 +38,11 @@ export class BuildingEffects {
     this.actions$.pipe(
       ofType(buildingActionTypes.saveBuildingRequest),
       fetch({
-        run: (action: ReturnType<typeof buildingActionTypes.saveBuildingRequest>) =>
+        run: (action: ReturnType<typeof buildingActionTypes.saveBuildingRequest>,
+          state: fromBuildingsReducer.BuildingsPartialState) =>
           this.buildingApiService.post(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              buildingActionTypes.loadBuildingsRequest(store[fromBuildingsReducer.BUILDINGS_FEATURE_KEY].gridODataState),
+            map(() =>
+              buildingActionTypes.loadBuildingsRequest(state[fromBuildingsReducer.BUILDINGS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
@@ -54,11 +54,11 @@ export class BuildingEffects {
     this.actions$.pipe(
       ofType(buildingActionTypes.updateBuildingRequest),
       fetch({
-        run: (action: ReturnType<typeof buildingActionTypes.updateBuildingRequest>, state: fromBuildingsReducer.BuildingsPartialState) =>
+        run: (action: ReturnType<typeof buildingActionTypes.updateBuildingRequest>,
+          state: fromBuildingsReducer.BuildingsPartialState) =>
           this.buildingApiService.put(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              buildingActionTypes.loadBuildingsRequest(store[fromBuildingsReducer.BUILDINGS_FEATURE_KEY].gridODataState),
+            map(() =>
+              buildingActionTypes.loadBuildingsRequest(state[fromBuildingsReducer.BUILDINGS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,
@@ -70,11 +70,11 @@ export class BuildingEffects {
     this.actions$.pipe(
       ofType(buildingActionTypes.deleteBuildingRequest),
       fetch({
-        run: (action: ReturnType<typeof buildingActionTypes.deleteBuildingRequest>) =>
+        run: (action: ReturnType<typeof buildingActionTypes.deleteBuildingRequest>,
+          state: fromBuildingsReducer.BuildingsPartialState) =>
           this.buildingApiService.delete(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              buildingActionTypes.loadBuildingsRequest(store[fromBuildingsReducer.BUILDINGS_FEATURE_KEY].gridODataState),
+            map(() =>
+              buildingActionTypes.loadBuildingsRequest(state[fromBuildingsReducer.BUILDINGS_FEATURE_KEY].gridODataState),
             ),
           ),
         onError: this.exceptionHandler,

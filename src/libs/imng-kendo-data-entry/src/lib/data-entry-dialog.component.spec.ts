@@ -1,12 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BaseDataEntryComponent } from './base-data-entry.component';
+import { BaseDataEntryDirective } from './base-data-entry.directive';
 // tslint:disable-next-line: nx-enforce-module-boundaries
 import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock.facade';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
 
 describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
@@ -32,10 +33,16 @@ describe('DataEntryDialogComponent', () => {
   });
 
   it('should handle close()', () => {
-    component.allSubscriptions.push(component.submitted$.subscribe());
-    component.closeForm = jest.fn();
-    component.onCancel();
-    expect(component.closeForm).toBeCalledTimes(1);
+    const comp = component as unknown as {
+      allSubscriptions: Subscription[],
+      submitted$: Observable<boolean>;
+      closeForm: () => void;
+      onCancel: () => void;
+    };
+    comp.allSubscriptions.push(comp.submitted$.subscribe());
+    comp.closeForm = jest.fn();
+    comp.onCancel();
+    expect(comp.closeForm).toBeCalledTimes(1);
   });
 
   it('should handle submit()', () => {
@@ -49,7 +56,8 @@ describe('DataEntryDialogComponent', () => {
   selector: 'imng-thc',
   template: '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>',
 })
-export class TestHostComponent extends BaseDataEntryComponent<object, DataEntryMockFacade> {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export class TestHostComponent extends BaseDataEntryDirective<DataEntryMockFacade> {
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   public saved = false;
@@ -77,7 +85,7 @@ describe('DataEntryDialog', () => {
 
   beforeEach(() => {
     component = new DataEntryDialogComponent();
-    component.parentComponent = parentComponent as any;
+    component.parentComponent = parentComponent as never;
   });
 
   it('should create', () => {

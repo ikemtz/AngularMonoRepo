@@ -14,9 +14,13 @@ abstract class AppInsightsBaseffects {
 
   protected getTrackLoginPipe(): Observable<Action> {
     return this.actions$.pipe(
-      filter(x => x.type.toUpperCase().endsWith('USER FOUND') && (x as any).payload),
-      tap(x => {
-        this.monitor.setAuthenticatedUserContext((x as any).payload.profile.email);
+      filter((x: {
+        type: string; payload?: { profile?: { email?: string; }; };
+      }) => x.type.toUpperCase().endsWith('USER FOUND') && !!x.payload),
+      tap((x: {
+        type: string; payload?: { profile?: { email?: string; }; };
+      }) => {
+        this.monitor.setAuthenticatedUserContext(x.payload?.profile.email);
       })
     );
   }
@@ -24,7 +28,7 @@ abstract class AppInsightsBaseffects {
   protected getTrackLogoutPipe(): Observable<Action> {
     return this.actions$.pipe(
       filter(x => 0 < x.type.toUpperCase().indexOf('SIGN OUT')),
-      tap(x => {
+      tap(() => {
         this.monitor.clearAuthenticatedUserContext();
       })
     );
@@ -33,8 +37,8 @@ abstract class AppInsightsBaseffects {
   protected getTrackExceptionsPipe(): Observable<Action> {
     return this.actions$.pipe(
       filter(x => x.type.toUpperCase().endsWith('ERROR')),
-      tap(x => {
-        this.monitor.logException((x as any).payload);
+      tap((x: { type: string, payload?; }) => {
+        this.monitor.logException(x.payload);
       })
     );
   }
@@ -43,7 +47,7 @@ abstract class AppInsightsBaseffects {
 @Injectable()
 export class AppInsightsVerboseRootEffects extends AppInsightsBaseffects {
   trackEvents = createEffect(() => this.actions$.pipe(
-    tap(x => this.monitor.logEvent(x.type, (x as any).payload))), this.noDispatch);
+    tap((x: { type: string, payload?; }) => this.monitor.logEvent(x.type, x.payload))), this.noDispatch);
 
   trackLogin = createEffect(() => this.getTrackLoginPipe(), this.noDispatch);
 

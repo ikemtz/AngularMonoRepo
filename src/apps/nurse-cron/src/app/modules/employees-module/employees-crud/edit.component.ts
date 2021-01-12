@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
-import { EmployeeBaseEntryComponent } from './base-entry.component';
+import { EmployeeBaseEntryDirective } from './base-entry.component';
 import { EmployeeCrudFacade } from './crud.facade';
 import { IEmployee } from '../../../models/employees-odata';
 
@@ -11,7 +11,7 @@ import { IEmployee } from '../../../models/employees-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmployeeEditComponent extends EmployeeBaseEntryComponent {
+export class EmployeeEditComponent extends EmployeeBaseEntryDirective {
   public dialogTitle = 'Edit Nurse';
   public active$ = this.facade.isEditActive$;
 

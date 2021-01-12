@@ -1,6 +1,6 @@
-import { OnDestroy, Input } from '@angular/core';
+import { OnDestroy, Input, Directive } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 
 /**
  * The extending class has to implement the following properties on ngInit
@@ -12,11 +12,10 @@ import { FormGroup, AbstractControl } from '@angular/forms';
  * active$: Observable<boolean> - This typically would be assigned to the isNewActive$ or isEditActive on the facade
  * addEditForm: FormGroup - This will be created by your component
  *
- * @class BaseDataEntryComponent<ENTITY, FACADE extends DataEntryFacade<ENTITY>>
+ * @class BaseDataEntryDirective<FACADE extends DataEntryFacade<ENTITY>>
  */
-
-export abstract class BaseDataEntryComponent<
-  ENTITY,
+@Directive()
+export abstract class BaseDataEntryDirective<
   FACADE extends {
     loading$: Observable<boolean>;
     clearCurrentEntity(): void;
@@ -26,6 +25,7 @@ export abstract class BaseDataEntryComponent<
   @Input() public height: string | number;
   public allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract props: any;
   public addEditForm: FormGroup;
   public loading$: Observable<boolean>;
@@ -38,7 +38,7 @@ export abstract class BaseDataEntryComponent<
   public formControl(controlName: string): AbstractControl {
     return this.addEditForm.controls[controlName];
   }
-  public formControlErrors(controlName: string): any {
+  public formControlErrors(controlName: string): ValidationErrors {
     return this.addEditForm.controls[controlName].errors;
   }
 
