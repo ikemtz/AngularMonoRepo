@@ -1,11 +1,11 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { Input, Directive, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Input, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { process, State, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
-@Directive()
-export abstract class KendoArrayBaseDirective<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy {
+/** @dynamic */
+export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy {
 
   public readonly subscriptions: Subscription[] = [];
 

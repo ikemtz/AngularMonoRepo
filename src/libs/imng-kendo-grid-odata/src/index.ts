@@ -1,4 +1,4 @@
-export * from './lib/kendo-array-base-directive';
+export * from './lib/kendo-array-base-component';
 export * from './lib/kendo-array-grid.directive';
 export * from './lib/kendo-array-grid.module';
 

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { KendoArrayBaseDirective } from './kendo-array-base-directive';
+import { KendoArrayBasedComponent } from './kendo-array-base-component';
 import { GridModule, GridComponent } from '@progress/kendo-angular-grid';
 import { ImngArrayGridDirective } from './kendo-array-grid.directive';
 import { By } from '@angular/platform-browser';
@@ -82,7 +82,7 @@ describe('KendoODataComponentBase', () => {
   template: '<kendo-grid [imngArrayGrid]="this"><kendo-grid-column field="id"></kendo-grid-column></kendo-grid>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class KendoArrayGridTestComponent extends KendoArrayBaseDirective<object, object> {
+export class KendoArrayGridTestComponent extends KendoArrayBasedComponent<object, object> {
   state = {};
   props = {};
   constructor() {
