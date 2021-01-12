@@ -9,6 +9,7 @@ import { DOCUMENT } from '@angular/common';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(@Inject(DOCUMENT) private readonly document: any, private readonly oidcFacade: OidcFacade) { }
 
   public readonly isLoggedInPipe$ = this.oidcFacade.waitForAuthenticationLoaded().pipe(
@@ -22,11 +23,14 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     })
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     return this.isLoggedInPipe$;
   }
 
-  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+    : boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.isLoggedInPipe$;
   }
 }

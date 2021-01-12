@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HealthItemCrudFacade } from './crud.facade';
-import { HealthItemBaseEntryComponent } from './base-entry.component';
+import { HealthItemBaseEntryDirective } from './base-entry.component';
 import { IHealthItem } from '../../../models/health-items-odata';
 
 @Component({
@@ -10,7 +10,7 @@ import { IHealthItem } from '../../../models/health-items-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HealthItemAddComponent extends HealthItemBaseEntryComponent {
+export class HealthItemAddComponent extends HealthItemBaseEntryDirective {
   public dialogTitle = 'Add HealthItem';
   public active$ = this.facade.isNewActive$;
 

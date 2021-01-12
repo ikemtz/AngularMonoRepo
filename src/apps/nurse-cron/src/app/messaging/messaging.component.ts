@@ -17,7 +17,7 @@ export class MessagingComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.signalrFacade.isConnected$.pipe(
       filter(t => t),
       take(1),
-      tap(t => this.signalrFacade.dispatchAction(signalrActions.sendMessage({
+      tap(() => this.signalrFacade.dispatchAction(signalrActions.sendMessage({
         methodName: 'SendMessage',
         data: 'Signed In'
       })))).subscribe());

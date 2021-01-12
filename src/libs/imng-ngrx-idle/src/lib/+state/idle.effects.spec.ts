@@ -8,7 +8,7 @@ import { State } from '@ngrx/store';
 
 describe('IdleEffects', () => {
   // tslint:disable-next-line: prefer-const
-  let actions$: Observable<any>;
+  let actions$: Observable<unknown>;
   let effects: IdleEffects;
 
   beforeEach(() => {

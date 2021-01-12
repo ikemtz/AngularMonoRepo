@@ -4,8 +4,6 @@ import { initialState, oidcReducer } from './oidc.reducer';
 
 describe('Employees Reducer', () => {
 
-  beforeEach(() => { });
-
   describe('valid Oidc actions', () => {
     it('getOidcUser', () => {
       const action = oidcActions.getOidcUser();

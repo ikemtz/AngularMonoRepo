@@ -40,7 +40,7 @@ describe('HealthItemCrudFacade', () => {
   let facade: HealthItemCrudFacade;
   let store: Store<TestSchema>;
 
-  beforeEach(() => { });
+
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -79,6 +79,7 @@ describe('HealthItemCrudFacade', () => {
 
         expect(isNewActive).toBeFalsy();
 
+        expect(await readFirst(store)).toMatchSnapshot();
         done();
       } catch (err) {
         done.fail(err);

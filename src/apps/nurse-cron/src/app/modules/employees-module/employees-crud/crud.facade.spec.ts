@@ -57,7 +57,7 @@ describe('EmployeeCrudFacade', () => {
   let facade: EmployeeCrudFacade;
   let store: Store<TestSchema>;
 
-  beforeEach(() => { });
+
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -96,6 +96,7 @@ describe('EmployeeCrudFacade', () => {
 
         expect(isNewActive).toBeFalsy();
 
+        expect(await readFirst(store)).toMatchSnapshot();
         done();
       } catch (err) {
         done.fail(err);

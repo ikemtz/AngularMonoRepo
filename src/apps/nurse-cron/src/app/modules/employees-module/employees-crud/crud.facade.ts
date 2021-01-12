@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ODataState } from 'imng-kendo-odata';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { EmployeesPartialState } from '../+state/employee.reducer';
 import { employeeQueries } from '../+state/employee.selectors';
@@ -14,8 +13,7 @@ export class EmployeeCrudFacade implements IDataEntryFacade<IEmployee> {
   isEditActive$ = this.store.pipe(select(employeeQueries.getIsEditEmployeeActive));
   isNewActive$ = this.store.pipe(select(employeeQueries.getIsNewEmployeeActive));
 
-  constructor(private readonly store: Store<EmployeesPartialState>) {}
-  loadEntities(state: ODataState): void {}
+  constructor(private readonly store: Store<EmployeesPartialState>) { }
   setCurrentEntity(item: IEmployee): void {
     this.store.dispatch(employeeActionTypes.setCurrentEmployee(item));
   }

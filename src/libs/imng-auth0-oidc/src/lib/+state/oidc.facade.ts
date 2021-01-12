@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { OidcClient, SigninRequest, SignoutRequest, User as OidcUser, UserManager } from 'oidc-client';
@@ -73,6 +74,7 @@ export class OidcFacade {
     this.store.dispatch(oidcActions.onUserSignedOut());
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public addUserSessionChanged(e): void {
     this.store.dispatch(oidcActions.onSessionChanged());
   }
@@ -138,6 +140,7 @@ export class OidcFacade {
     return this.oidcService.getSignoutUrl(args);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
     this.oidcService.registerOidcEvent(event, callback);
   }

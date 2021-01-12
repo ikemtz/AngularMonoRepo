@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { BaseDataEntryComponent } from './base-data-entry.component';
+import { BaseDataEntryDirective } from './base-data-entry.directive';
 
 @Component({
   selector: 'imng-data-entry-dialog[parentComponent]',
@@ -11,13 +11,16 @@ import { BaseDataEntryComponent } from './base-data-entry.component';
 export class DataEntryDialogComponent implements OnInit {
   @Input() public width: string | number;
   @Input() public height: string | number;
-  @Input() public parentComponent: BaseDataEntryComponent<any, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() public parentComponent: BaseDataEntryDirective<any>;
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;
   public submitted: boolean;
   public dialogTitle: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   component: {};
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() { }
 
   public ngOnInit(): void {
