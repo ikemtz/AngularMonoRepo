@@ -4,7 +4,7 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-/* tslint:disable */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export function CertificationFormGroupFac(): FormGroup {

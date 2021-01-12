@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
+import { DataPersistence, fetch } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
-import { map, withLatestFrom } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { environment } from '@env';
 
 import * as fromHealthItemsReducer from './health-item.reducer';
@@ -17,7 +16,7 @@ export class HealthItemEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private readonly store$: Store<fromHealthItemsReducer.HealthItemsPartialState>,
+    private readonly dataPersistence: DataPersistence<fromHealthItemsReducer.HealthItemsPartialState>,
     private readonly healthItemApiService: HealthItemApiService,
   ) { }
 
@@ -25,7 +24,7 @@ export class HealthItemEffects {
     this.actions$.pipe(
       ofType(healthItemActionTypes.loadHealthItemsRequest),
       fetch({
-        run: (action: ReturnType<typeof healthItemActionTypes.loadHealthItemsRequest>, state: fromHealthItemsReducer.HealthItemsPartialState) =>
+        run: (action: ReturnType<typeof healthItemActionTypes.loadHealthItemsRequest>) =>
           this.odataservice
             .fetch<IHealthItem>(environment.endPoints.healthItems.healthItemsOData, action.payload)
             .pipe(map(t => healthItemActionTypes.loadHealthItemsSuccess(t))),
@@ -35,51 +34,42 @@ export class HealthItemEffects {
   );
 
   saveHealthItemEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(healthItemActionTypes.saveHealthItemRequest),
-      fetch({
-        run: (action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>) =>
-          this.healthItemApiService.post(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              healthItemActionTypes.loadHealthItemsRequest(store[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
-            ),
+    this.dataPersistence.pessimisticUpdate(healthItemActionTypes.saveHealthItemRequest, {
+      run: (action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>,
+        state: fromHealthItemsReducer.HealthItemsPartialState) =>
+        this.healthItemApiService.post(action.payload).pipe(
+          map(() =>
+            healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
           ),
-        onError: this.exceptionHandler,
-      }),
-    ),
+        ),
+      onError: this.exceptionHandler,
+    }),
   );
 
   updateHealthItemEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(healthItemActionTypes.updateHealthItemRequest),
-      fetch({
-        run: (action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>, state: fromHealthItemsReducer.HealthItemsPartialState) =>
-          this.healthItemApiService.put(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              healthItemActionTypes.loadHealthItemsRequest(store[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
-            ),
+    this.dataPersistence.pessimisticUpdate(healthItemActionTypes.updateHealthItemRequest, {
+      run: (action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>,
+        state: fromHealthItemsReducer.HealthItemsPartialState) =>
+        this.healthItemApiService.put(action.payload).pipe(
+          map(() =>
+            healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
           ),
-        onError: this.exceptionHandler,
-      }),
-    ),
+        ),
+      onError: this.exceptionHandler,
+    })
   );
 
   deleteHealthItemEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(healthItemActionTypes.deleteHealthItemRequest),
-      fetch({
-        run: (action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>) =>
-          this.healthItemApiService.delete(action.payload).pipe(
-            withLatestFrom(this.store$),
-            map(([_, store]) =>
-              healthItemActionTypes.loadHealthItemsRequest(store[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
-            ),
+    this.dataPersistence.pessimisticUpdate(healthItemActionTypes.deleteHealthItemRequest, {
+      run: (action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>,
+        state: fromHealthItemsReducer.HealthItemsPartialState) =>
+        this.healthItemApiService.delete(action.payload).pipe(
+          map(() =>
+            healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
           ),
-        onError: this.exceptionHandler,
-      }),
-    ),
+        ),
+      onError: this.exceptionHandler,
+    })
   );
 
   // tslint:disable-next-line: typedef

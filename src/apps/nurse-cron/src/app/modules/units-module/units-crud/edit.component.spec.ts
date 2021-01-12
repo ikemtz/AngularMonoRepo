@@ -61,7 +61,7 @@ describe('UnitEditComponent', () => {
   });
 
   it('should not update', () => {
-    component.addEditForm = { valid: false } as any;
+    component.addEditForm = { valid: false } as never;
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);

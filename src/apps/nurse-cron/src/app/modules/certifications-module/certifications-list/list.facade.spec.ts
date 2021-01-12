@@ -12,7 +12,12 @@ import { environment } from '@env';
 
 import { CertificationEffects } from '../+state/certification.effects';
 import * as certificationActionTypes from '../+state/certification.actions';
-import { CertificationsPartialState, initialState, reducer as certificationReducer, CERTIFICATIONS_FEATURE_KEY } from '../+state/certification.reducer';
+import {
+  CertificationsPartialState,
+  initialState,
+  reducer as certificationReducer,
+  CERTIFICATIONS_FEATURE_KEY
+} from '../+state/certification.reducer';
 import { CertificationListFacade } from './list.facade';
 import { ICertification, CertificationProperties } from '../../../models/certifications-odata';
 
@@ -25,14 +30,12 @@ export const createCertification = () => <ICertification>{
   [CertificationProperties.NAME]: 'NAME',
   [CertificationProperties.IS_ENABLED]: true,
   [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
-    };
+};
 
 describe('CertificationListFacade', () => {
   let facade: CertificationListFacade;
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
-
-  beforeEach(() => {});
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -45,7 +48,7 @@ describe('CertificationListFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of({ value: [createCertification()], '@odata.count': 1 })) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -55,7 +58,7 @@ describe('CertificationListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -110,7 +113,9 @@ describe('CertificationListFacade', () => {
       try {
         let list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(0);
-        store.dispatch(certificationActionTypes.loadCertificationsSuccess({ data: [createCertification(), createCertification()], total: 0 }));
+        store.dispatch(certificationActionTypes.loadCertificationsSuccess({
+          data: [createCertification(), createCertification()], total: 0
+        }));
 
         list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(2);

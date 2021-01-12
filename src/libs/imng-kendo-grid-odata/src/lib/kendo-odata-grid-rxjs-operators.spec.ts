@@ -22,7 +22,7 @@ describe('Testing mapPagerSettings', () => {
       const mockState = of({
         gridODataState: { take: 10 },
         gridData: { total: 1000 }
-      } as any);
+      } as unknown);
       const result = await readFirst(mockState.pipe(mapPagerSettings())) as PagerSettings;
       expect(result).toBeTruthy();
       expect(result.buttonCount).toBe(10);
@@ -37,7 +37,7 @@ describe('Testing mapPagerSettings', () => {
       const mockState = of({
         gridODataState: { take: 10 },
         gridData: { total: 89 }
-      } as any);
+      } as unknown);
       const result = await readFirst(mockState.pipe(mapPagerSettings())) as PagerSettings;
       expect(result).toBeTruthy();
       expect(result.buttonCount).toBe(9);

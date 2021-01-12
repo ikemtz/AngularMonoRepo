@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HealthItemCrudFacade used in NgModule clearCurrentEntity() should set currentHealthItem to null 1`] = `
+Object {
+  "healthItems": Object {
+    "currentHealthItem": null,
+    "gridData": Object {
+      "data": Array [],
+      "total": 0,
+    },
+    "gridODataState": Object {},
+    "gridPagerSettings": false,
+    "loading": false,
+  },
+}
+`;
