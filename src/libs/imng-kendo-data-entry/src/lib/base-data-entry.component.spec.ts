@@ -1,5 +1,5 @@
 import { IDataEntryFacade } from './data-entry-facade';
-import { BaseDataEntryComponent } from './base-data-entry.component';
+import { BaseDataEntryDirective } from './base-data-entry.directive';
 import { of } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -47,7 +47,7 @@ describe('MockBaseComponent', () => {
   });
 });
 
-export class MockBaseComponent extends BaseDataEntryComponent<MockEntity, MockFacade> {
+export class MockBaseComponent extends BaseDataEntryDirective<MockFacade> {
   dialogTitle = '';
   props = {};
   save = jest.fn();

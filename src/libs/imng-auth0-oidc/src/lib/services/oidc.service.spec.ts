@@ -31,56 +31,56 @@ describe('OidcService', () => {
   });
 
   it('should handle signInPopup', () => {
-    service.getUserManager().signinPopup = jest.fn(() => new Promise(x => null));
+    service.getUserManager().signinPopup = jest.fn(() => new Promise(() => null));
     service.signInPopup();
     expect(service.getUserManager().signinPopup).toBeCalledTimes(1);
   });
 
   it('should handle signinPopupCallback', () => {
-    service.getUserManager().signinPopupCallback = jest.fn(() => new Promise(x => null));
+    service.getUserManager().signinPopupCallback = jest.fn(() => new Promise(() => null));
     service.signinPopupCallback();
     expect(service.getUserManager().signinPopupCallback).toBeCalledTimes(1);
   });
 
   it('should handle removeOidcEvents', () => {
     service.getUserManager().events.removeAccessTokenExpired = jest.fn();
-    service.removeOidcEvent(OidcEvent.AccessTokenExpired, () => { });
+    service.removeOidcEvent(OidcEvent.AccessTokenExpired, jest.fn());
     expect(service.getUserManager().events.removeAccessTokenExpired).toBeCalledTimes(1);
   });
 
   it('should handle AccessTokenExpiring', () => {
     service.getUserManager().events.removeAccessTokenExpiring = jest.fn();
-    service.removeOidcEvent(OidcEvent.AccessTokenExpiring, () => { });
+    service.removeOidcEvent(OidcEvent.AccessTokenExpiring, jest.fn());
     expect(service.getUserManager().events.removeAccessTokenExpiring).toBeCalledTimes(1);
   });
 
   it('should handle SilentRenewError', () => {
     service.getUserManager().events.removeSilentRenewError = jest.fn();
-    service.removeOidcEvent(OidcEvent.SilentRenewError, () => { });
+    service.removeOidcEvent(OidcEvent.SilentRenewError, jest.fn());
     expect(service.getUserManager().events.removeSilentRenewError).toBeCalledTimes(1);
   });
 
   it('should handle UserLoaded', () => {
     service.getUserManager().events.removeUserLoaded = jest.fn();
-    service.removeOidcEvent(OidcEvent.UserLoaded, () => { });
+    service.removeOidcEvent(OidcEvent.UserLoaded, jest.fn());
     expect(service.getUserManager().events.removeUserLoaded).toBeCalledTimes(1);
   });
 
   it('should handle UserSessionChanged', () => {
     service.getUserManager().events.removeUserSessionChanged = jest.fn();
-    service.removeOidcEvent(OidcEvent.UserSessionChanged, () => { });
+    service.removeOidcEvent(OidcEvent.UserSessionChanged, jest.fn());
     expect(service.getUserManager().events.removeUserSessionChanged).toBeCalledTimes(1);
   });
 
   it('should handle UserSignedOut', () => {
     service.getUserManager().events.removeUserSignedOut = jest.fn();
-    service.removeOidcEvent(OidcEvent.UserSignedOut, () => { });
+    service.removeOidcEvent(OidcEvent.UserSignedOut, jest.fn());
     expect(service.getUserManager().events.removeUserSignedOut).toBeCalledTimes(1);
   });
 
   it('should handle UserUnloaded', () => {
     service.getUserManager().events.removeUserUnloaded = jest.fn();
-    service.removeOidcEvent(OidcEvent.UserUnloaded, () => { });
+    service.removeOidcEvent(OidcEvent.UserUnloaded, jest.fn());
     expect(service.getUserManager().events.removeUserUnloaded).toBeCalledTimes(1);
   });
 });

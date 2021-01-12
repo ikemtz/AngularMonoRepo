@@ -5,7 +5,6 @@ import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
 import { readFirst } from '@nrwl/angular/testing';
 
-import { of } from 'rxjs';
 import { IdleState, IDLE_FEATURE_KEY, idleReducer, initialState } from './idle.reducer';
 import { IdleFacade } from './idle.facade';
 import { IdleEffects } from './idle.effects';
@@ -18,8 +17,6 @@ interface TestSchema {
 describe('IdleFacade', () => {
   let facade: IdleFacade;
   let store: Store<TestSchema>;
-
-  beforeEach(() => { });
 
   describe('used in NgModule', () => {
     beforeEach(() => {

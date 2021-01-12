@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { CertificationCrudFacade } from './crud.facade';
-import { CertificationBaseEntryComponent } from './base-entry.component';
+import { CertificationBaseEntryDirective } from './base-entry.component';
 import { ICertification } from '../../../models/certifications-odata';
 
 @Component({
@@ -10,7 +10,7 @@ import { ICertification } from '../../../models/certifications-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CertificationAddComponent extends CertificationBaseEntryComponent {
+export class CertificationAddComponent extends CertificationBaseEntryDirective {
   public dialogTitle = 'Add Certification';
   public active$ = this.facade.isNewActive$;
 

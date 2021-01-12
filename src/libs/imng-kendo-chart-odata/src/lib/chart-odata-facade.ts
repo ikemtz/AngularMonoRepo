@@ -4,5 +4,5 @@ import { ChartSeriesDataPoint } from './chart-series-data-point';
 
 export interface IChartODataFacade {
   seriesData$: Observable<ChartSeriesDataPoint[] | GroupResult[]>;
-  loadSeriesData(filter: any): void;
+  loadSeriesData(filter: unknown): void;
 }

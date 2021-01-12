@@ -86,10 +86,10 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
         .pipe(
           debounceTime(this.typeaheadWaitMs),
           tap(t => this._typeAheadFacade.loadMatches(t)),
-          switchMap(t => this._typeAheadFacade.matches$),
+          switchMap(() => this._typeAheadFacade.matches$),
         )
         .subscribe((matches: ImngTypeaheadMatch<T>[]) => {
-          this.finalizeAsyncCall(matches as any);
+          this.finalizeAsyncCall(matches);
         }),
     );
   }
