@@ -839,7 +839,6 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "exclude": ["libs/imng-ngrx-idle/src/assets/*"],
             "lintFilePatterns": ["libs/imng-ngrx-idle/src/**/*.ts", "libs/imng-ngrx-idle/src/**/*.html"]
           }
         },
