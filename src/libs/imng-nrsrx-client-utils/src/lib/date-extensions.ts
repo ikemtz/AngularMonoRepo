@@ -11,7 +11,7 @@ export const shortDateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric'
 };
 export const millisecsInDay = 86400000;
-if (!Date.prototype.toShortDateString) {
+if (!Date.prototype.toShortDateString) { //NOSONAR
   Date.prototype.toShortDateString = function (): string {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const dt: Date = this;
@@ -23,7 +23,7 @@ if (!Date.prototype.toShortDateString) {
   };
 }
 
-if (!Date.prototype.weekOfYear) {
+if (!Date.prototype.weekOfYear) { //NOSONAR
   // tslint:disable-next-line: space-before-function-paren
   Date.prototype.weekOfYear = function (): number {
     // eslint-disable-next-line @typescript-eslint/no-this-alias

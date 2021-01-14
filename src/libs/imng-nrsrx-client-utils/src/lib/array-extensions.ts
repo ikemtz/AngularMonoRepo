@@ -4,7 +4,7 @@ declare global {
   }
 }
 
-if (!Array.prototype.distinct) {
+if (!Array.prototype.distinct) { //NOSONAR
   Array.prototype.distinct = function <T>(this: T[]): T[] {
     return this.filter((value, index, array) => array.indexOf(value) === index);
   };
