@@ -1,4 +1,4 @@
-import './array-extensions';
+import './array.extensions';
 describe('distinct<T>', () => {
   it('to handle a,b,a,c', () => {
     const collection = ['a', 'b', 'a', 'c'];
