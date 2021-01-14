@@ -1,4 +1,4 @@
-import './date-extensions';
+import './date.extensions';
 import { DateHelper } from './date.helper';
 
 describe('toShortDateString', () => {
