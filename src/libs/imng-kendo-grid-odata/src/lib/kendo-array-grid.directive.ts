@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { GridComponent, PageChangeEvent } from '@progress/kendo-angular-grid';
+import { GridComponent, PageChangeEvent, PagerSettings } from '@progress/kendo-angular-grid';
 import { Subscription } from 'rxjs';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { KendoArrayBasedComponent } from './kendo-array-base-component';
@@ -12,6 +12,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   protected readonly subscriptions: Subscription[] = [];
   // eslint-disable-next-line @typescript-eslint/ban-types
   @Input('imngArrayGrid') public arrayComponent: KendoArrayBasedComponent<object, object>;
+  @Input() public pageable: boolean | PagerSettings;
   constructor(public readonly gridComponent: GridComponent) { }
 
 
@@ -24,11 +25,10 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       mode: 'multiple',
     };
     this.gridComponent.navigable = true;
-    this.gridComponent.pageable = {
+    this.gridComponent.pageable = this.pageable || {
       info: true,
       type: 'numeric',
       pageSizes: [5, 10, 20, 50, 100],
-
     };
     this.subscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
