@@ -125,7 +125,7 @@
     "@progress/kendo-angular-popup": "^3.0.7",
     "@progress/kendo-data-query": "^1.5.4",
     "@progress/kendo-drawing": "^1.13.7",
-    "@progress/kendo-theme-default": "^4.29.0",
+    "@progress/kendo-theme-default": "^4.32.0",
     "ang-jsoneditor": "^1.10.3",
     "bootstrap": "^4.5.3",
     "core-js": "^2.6.12",
