@@ -10,14 +10,14 @@ export function auth0Configurator(auth0Config: Auth0Config, document: Document):
       redirect_uri: `${document.location.origin}/callback.html`,
       response_type: auth0Config.response_type || 'id_token token',
       scope: auth0Config.scope || 'openid profile offline_access email',
-      post_logout_redirect_uri: `${
-        document.location.origin
+      post_logout_redirect_uri: `${document.location.origin
         }/signout-callback.html`,
       silent_redirect_uri: `${document.location.origin}/renew-callback.html`,
       automaticSilentRenew: auth0Config.automaticSilentRenew || true,
       metadataUrl: `${auth0Config.authority}/.well-known/openid-configuration`,
 
     },
-    getUserMetadata: auth0Config.getUserMetadata
+    getUserMetadata: auth0Config.getUserMetadata,
+    disableHttpExceptionHandling: auth0Config.disableHttpExceptionHandling,
   };
 }

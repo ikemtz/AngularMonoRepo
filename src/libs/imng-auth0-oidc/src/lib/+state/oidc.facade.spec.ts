@@ -73,6 +73,15 @@ describe('OidcFacade', () => {
       auth0Facade = TestBed.inject(Auth0Facade);
     });
 
+    beforeAll(() => {
+      const location = window.location;
+      delete window.location;
+      window.location = {
+        ...location,
+        reload: jest.fn()
+      };
+    });
+
     it('current state should match initial', async done => {
       try {
         expect(store).toBeTruthy();
@@ -198,6 +207,7 @@ describe('OidcFacade', () => {
         const result = await readFirst(facade.identity$);
         expect(result).toBeNull();
         expect(await readFirst(facade.expired$)).toBe(true);
+        expect(window.location.reload).toBeCalledTimes(0);
         done();
       } catch (err) {
         done.fail(err);
