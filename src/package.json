@@ -110,7 +110,7 @@
     "@ngrx/effects": "10.1.2",
     "@ngrx/router-store": "10.1.2",
     "@ngrx/store": "^10.1.2",
-    "@nrwl/angular": "11.1.2",
+    "@nrwl/angular": "11.1.5",
     "@progress/kendo-angular-buttons": "^5.5.2",
     "@progress/kendo-angular-common": "^1.2.4",
     "@progress/kendo-angular-dateinputs": "^4.4.0",
