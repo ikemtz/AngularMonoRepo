@@ -25,18 +25,18 @@ export class AppInsightsMonitoringService {
     this.appInsights.clearAuthenticatedUserContext();
   }
 
-  public logException(exception: Error, properties?: any, measurements?: any): void {
+  public logException(exception: Error, properties?: unknown, measurements?: { [key: string]: number; }): void {
     this.appInsights.trackException({ exception, properties, measurements });
   }
 
-  public logEvent(name: string, properties?: any, measurements?: any): void {
+  public logEvent(name: string, properties?: unknown, measurements?: { [key: string]: number; }): void {
     this.appInsights.trackEvent({ name, properties, measurements });
   }
 
   public trackEventsEffect(actions$: Actions, logPayload: boolean): Observable<Action> {
     return actions$.pipe(
       tap(x => {
-        this.logEvent(x.type, logPayload ? (x as any).payload : null);
+        this.logEvent(x.type, logPayload ? (x as unknown as { payload: string; }).payload : null);
       }),
     );
   }
@@ -48,7 +48,7 @@ export class AppInsightsMonitoringService {
         return type.endsWith('ERROR') || type.endsWith('FAILURE');
       }),
       tap(x => {
-        this.logException(x as any);
+        this.logException(x as never);
       }),
     );
   }

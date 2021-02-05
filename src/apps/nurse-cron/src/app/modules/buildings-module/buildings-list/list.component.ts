@@ -7,6 +7,7 @@ import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-
 import { BuildingListFacade } from './list.facade';
 import { BuildingCrudFacade } from '../buildings-crud';
 import { BuildingProperties, IBuilding } from '../../../models/units-odata';
+import { TypeOfExpression } from 'typescript';
 
 const initialGridState: ODataState = {
   take: 20,
