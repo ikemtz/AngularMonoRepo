@@ -1,10 +1,11 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { Input, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Input, ChangeDetectorRef, OnDestroy, Directive } from '@angular/core';
 import { process, State, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
-/** @dynamic */
+/** @dynamic */@Directive()
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy {
 
   public readonly subscriptions: Subscription[] = [];

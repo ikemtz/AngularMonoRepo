@@ -12,8 +12,8 @@ import { Config, OIDC_CONFIG } from '../models/config.model';
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
   constructor(
-    @Inject(OIDC_CONFIG) private readonly config: Config,
-    private readonly store: Store<OidcState>) { }
+    private readonly store: Store<OidcState>,
+    @Inject(OIDC_CONFIG) private readonly config: Config) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.store.select(oidcQuery.getAccessToken).pipe(
