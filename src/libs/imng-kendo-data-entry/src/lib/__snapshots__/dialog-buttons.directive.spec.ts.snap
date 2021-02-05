@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DialogButtonsDirective should create 1`] = `
+"<imng-data-entry-dialog ng-reflect-width=\\"700\\" ng-reflect-height=\\"550\\" ng-reflect-parent-component=\\"[object Object]\\"><kendo-dialog class=\\"ng-tns-c0-0 k-dialog-wrapper\\" ng-reflect-width=\\"700\\" ng-reflect-height=\\"550\\" dir=\\"ltr\\" tabindex=\\"0\\"><!--bindings={
+  \\"ng-reflect-close-title\\": \\"Close\\"
+}--><div class=\\"k-overlay ng-trigger ng-trigger-overlayAppear\\" style=\\"\\"></div><div class=\\"k-widget k-window k-dialog ng-trigger ng-trigger-dialogSlideInAppear\\" role=\\"dialog\\" style=\\"width:700px;height:550px;0:width;1:height;\\" ng-reflect-ng-style=\\"[object Object]\\" aria-labelledby=\\"kendo-dialog-title-131280\\"><!--bindings={}--><!--bindings={
+  \\"ng-reflect-ng-if\\": \\"true\\"
+}--><kendo-dialog-titlebar class=\\"bg-primary k-window-titlebar k-dialog-titlebar ng-star-inserted\\" id=\\"kendo-dialog-title-131280\\" style=\\"\\"><div class=\\"k-window-title k-dialog-title\\">MockDataEntryComponent</div><div class=\\"k-window-actions k-dialog-actions\\"><a class=\\"k-button k-bare k-button-icon k-window-action k-dialog-action k-dialog-close\\" href=\\"#\\" role=\\"button\\" title=\\"Close\\" aria-label=\\"Close\\"><span class=\\"k-icon k-i-x\\"></span></a></div></kendo-dialog-titlebar><!----><div class=\\"k-content k-window-content k-dialog-content\\"><!--bindings={
+  \\"ng-reflect-ng-if\\": \\"true\\"
+}--><!----><!----><!--bindings={}--></div><!--bindings={
+  \\"ng-reflect-ng-if\\": \\"true\\"
+}--><kendo-dialog-actions class=\\"k-dialog-buttongroup k-dialog-button-layout-stretched ng-star-inserted\\" style=\\"\\"><!--bindings={
+  \\"ng-reflect-ng-if\\": \\"true\\"
+}--><!--bindings={
+  \\"ng-reflect-ng-template-outlet-context\\": \\"[object Object]\\",
+  \\"ng-reflect-ng-template-outlet\\": \\"[object Object]\\"
+}--><button id=\\"y\\" class=\\"ng-star-inserted\\">😈</button><button id=\\"x\\" class=\\"ng-star-inserted\\">😇</button><!----><!--bindings={
+  \\"ng-reflect-ng-if\\": \\"true\\"
+}--><!----><!--bindings={}--><!----><!--bindings={
+  \\"ng-reflect-ng-if\\": \\"false\\"
+}--></kendo-dialog-actions><!----><!--bindings={}--></div></kendo-dialog><!----></imng-data-entry-dialog>"
+`;
+
+exports[`DialogButtonsDirective should handle cancel 1`] = `
+<button
+  id="y"
+>
+  😈
+</button>
+`;
+
+exports[`DialogButtonsDirective should handle submit 1`] = `
+<button
+  id="x"
+>
+  😇
+</button>
+`;

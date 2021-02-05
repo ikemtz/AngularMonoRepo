@@ -15,7 +15,7 @@ export class DataEntryDialogComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public parentComponent: BaseDataEntryComponent<any>;
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
-  public dialogBtnsTpl: TemplateRef<unknown>;
+  public dialogBtnsTemplate: TemplateRef<unknown>;
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;
   public submitted: boolean;
@@ -42,6 +42,6 @@ export class DataEntryDialogComponent implements OnInit {
     this.parentComponent.onSubmit();
   }
   get dialogActionBtnsCtx(): unknown {
-    return { cancel: () => this.cancel(), submit: () => this.submit() };
+    return { $implicit: { cancel: () => this.cancel(), submit: () => this.submit() } };
   }
 }
