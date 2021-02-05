@@ -1,20 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TokenInterceptorService should support disableHttpExceptionHandling = false 1`] = `
-HttpErrorResponse {
-  "error": "Validation",
-  "headers": HttpHeaders {
-    "headers": Map {},
-    "lazyUpdate": null,
-    "normalizedNames": Map {},
-  },
-  "message": "Http failure response for (unknown url): undefined undefined",
-  "name": "HttpErrorResponse",
-  "ok": false,
-  "status": 0,
-  "statusText": "Unknown Error",
-  "url": null,
-}
-`;
-
-exports[`TokenInterceptorService should support disableHttpExceptionHandling = true 1`] = `undefined`;
+exports[`TokenInterceptorService should support exceptionHandling = true 1`] = `undefined`;

@@ -28,7 +28,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
     this.gridComponent.pageable = this.pageable === undefined ? {
       info: true,
       type: 'numeric',
-      pageSizes: [5, 10, 20, 50, 100],
+      pageSizes: [5, 10, 20, 50, 100], //NOSONAR
     } : this.pageable;
     this.subscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
