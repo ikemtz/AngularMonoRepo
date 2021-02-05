@@ -24,7 +24,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> imp
    * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public abstract readonly props: any;
+  public abstract readonly props: any; //NOSONAR
   public state: State = {
     skip: 0,
     take: 10,
