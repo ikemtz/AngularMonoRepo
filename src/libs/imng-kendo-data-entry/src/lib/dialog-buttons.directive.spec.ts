@@ -31,8 +31,6 @@ describe('DialogButtonsDirective', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    const element: HTMLElement = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
   });
 
   it('should handle submit', () => {
