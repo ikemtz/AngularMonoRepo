@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DialogButtonsDirective should handle cancel 1`] = `
+<button
+  id="y"
+>
+  😈
+</button>
+`;
+
+exports[`DialogButtonsDirective should handle submit 1`] = `
+<button
+  id="x"
+>
+  😇
+</button>
+`;

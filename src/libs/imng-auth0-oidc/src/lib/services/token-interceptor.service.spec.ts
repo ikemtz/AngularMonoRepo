@@ -47,10 +47,8 @@ describe('TokenInterceptorService', () => {
     }
   });
 
-  it('should support disableHttpExceptionHandling = true', async done => {
+  it('should support exceptionHandling = true', async done => {
     try {
-      const config = TestBed.inject(OIDC_CONFIG);
-      config.disableHttpExceptionHandling = true;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const req: any = {
         clone: jest.fn()
@@ -64,10 +62,10 @@ describe('TokenInterceptorService', () => {
       try {
         result = await readFirst(tokenInterceptorService.intercept(req, next));
       } catch (err) {
-
-        expect(result).toMatchSnapshot();
+        expect(result).toBeUndefined();
+        expect(err).toMatchSnapshot();
         expect(next.handle).toBeCalledTimes(1);
-        expect(store.dispatch).toBeCalledTimes(0);
+        expect(store.dispatch).toBeCalledTimes(1);
         return done();
       }
       done.fail('The anticipated exception was not thrown');
@@ -76,31 +74,4 @@ describe('TokenInterceptorService', () => {
     }
   });
 
-  it('should support disableHttpExceptionHandling = false', async done => {
-    try {
-      const config = TestBed.inject(OIDC_CONFIG);
-      config.disableHttpExceptionHandling = null;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const req: any = {
-        clone: jest.fn()
-      };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const next: any = {
-        handle: jest.fn(() => throwError(new HttpErrorResponse({ error: 'Validation' })))
-      };
-      const result = await readFirst(tokenInterceptorService.intercept(req, next));
-      expect(result).toMatchSnapshot();
-      expect(next.handle).toBeCalledTimes(1);
-      expect(store.dispatch).toBeCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith({
-        payload: expect.objectContaining({
-          error: 'Validation'
-        }),
-        type: '[HTTP] Set Http Error'
-      });
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
-  });
 });
