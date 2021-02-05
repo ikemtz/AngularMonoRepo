@@ -39,7 +39,7 @@ import { LogoutSuccessComponent } from './components/logout-success.component';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
-      deps: [Store]
+      deps: [Store, OIDC_CONFIG]
     }
   ]
 })
@@ -48,7 +48,7 @@ export class Auth0OidcModule {
     return {
       ngModule: Auth0OidcModule,
       providers: [
-        { provide: AUTH0_CONFIG, useValue: auth00ptions },
+        { provide: AUTH0_CONFIG, useValue: auth00ptions }
       ]
     };
   }

@@ -1,10 +1,12 @@
 import { Observable, Subscription, isObservable } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
-import { OnInit, OnDestroy } from '@angular/core';
+import { OnInit, OnDestroy, Directive } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 
+/** @dynamic */@Directive()
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
   implements OnInit, OnDestroy {
   protected allSubscription: Subscription[] = [];

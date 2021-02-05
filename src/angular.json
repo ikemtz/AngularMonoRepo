@@ -874,5 +874,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "imng-inventory"
+  "defaultProject": "nurse-cron"
 }
