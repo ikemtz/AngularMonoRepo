@@ -18,6 +18,5 @@ export function auth0Configurator(auth0Config: Auth0Config, document: Document):
 
     },
     getUserMetadata: auth0Config.getUserMetadata,
-    disableHttpExceptionHandling: auth0Config.disableHttpExceptionHandling,
   };
 }
