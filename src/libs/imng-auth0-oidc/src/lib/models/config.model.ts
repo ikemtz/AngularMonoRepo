@@ -5,7 +5,6 @@ export interface Config {
   oidc_config: UserManagerSettings;
   useCallbackFlag?: boolean;
   getUserMetadata?: boolean;
-  disableHttpExceptionHandling?: boolean;
   log?: {
     logger: Logger;
     level: number;
