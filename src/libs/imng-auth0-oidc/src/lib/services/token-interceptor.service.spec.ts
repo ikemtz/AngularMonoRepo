@@ -62,8 +62,8 @@ describe('TokenInterceptorService', () => {
       try {
         result = await readFirst(tokenInterceptorService.intercept(req, next));
       } catch (err) {
-
-        expect(result).toMatchSnapshot();
+        expect(result).toBeUndefined();
+        expect(err).toMatchSnapshot();
         expect(next.handle).toBeCalledTimes(1);
         expect(store.dispatch).toBeCalledTimes(1);
         return done();
