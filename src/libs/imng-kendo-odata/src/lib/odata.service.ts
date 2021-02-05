@@ -56,7 +56,7 @@ export class ODataService {
     return queryString;
   }
   private processGuids(queryString: string): string {
-    const guidRegex = /'[\dA-F]{8}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{12}'/i;
+    const guidRegex = /'[\dA-F]{8}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{12}'/gi;
     let m: RegExpExecArray;
     const guidMatches: string[] = [];
     while ((m = guidRegex.exec(queryString)) !== null) {
