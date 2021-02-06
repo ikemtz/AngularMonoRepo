@@ -29,6 +29,5 @@ export interface Auth0Config {
   string;
   automaticSilentRenew?: boolean;
   getUserMetadata: boolean;
-  disableHttpExceptionHandling?: boolean;
 }
 export const AUTH0_CONFIG = new InjectionToken<Auth0Config>('auth0-config');

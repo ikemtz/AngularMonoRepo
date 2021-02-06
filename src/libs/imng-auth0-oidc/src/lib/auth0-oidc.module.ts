@@ -39,7 +39,7 @@ import { LogoutSuccessComponent } from './components/logout-success.component';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
-      deps: [Store, OIDC_CONFIG]
+      deps: [Store]
     }
   ]
 })
