@@ -11,7 +11,7 @@ export const APP_INSIGHTS_CONFIG = new InjectionToken('app-insights-config');
   providedIn: 'root',
 })
 export class AppInsightsMonitoringService {
-  private readonly appInsights: ApplicationInsights;
+  public readonly appInsights: ApplicationInsights;
   constructor(@Inject(APP_INSIGHTS_CONFIG) readonly appInsightsConfig: IConfiguration) {
     this.appInsights = new ApplicationInsights({ config: appInsightsConfig });
     this.appInsights.loadAppInsights();
