@@ -4,18 +4,12 @@
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^11.x",
-    "@angular/core": "^11.x",
     "@ngrx/store": ">=10.x",
     "@ngrx/effects": ">=10.x",
-    "imng-auth0-oidc": "^3.x",
-    "imng-ngrx-utils": "^3.x",
     "@progress/kendo-angular-dialog": ">=4.2.1",
-    "@progress/kendo-angular-buttons": ">=5.4.4"
-  },
-  "dependencies": {
-    "imng-auth0-oidc": "^3.x",
-    "imng-ngrx-utils": "^3.x"
+    "@progress/kendo-angular-buttons": ">=5.4.4",
+    "imng-auth0-oidc": "*",
+    "imng-ngrx-utils": "*"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
