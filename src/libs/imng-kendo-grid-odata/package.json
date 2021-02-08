@@ -11,10 +11,8 @@
     "Grid",
     "OData"
   ],
-  "dependencies": {
+  "peerDependencies": {
     "imng-kendo-odata": "*",
-    "@angular/common": "^11.x",
-    "@angular/core": "^11.x",
     "@ngrx/store": ">=9.x"
   },
   "ngPackage": {

@@ -3,10 +3,6 @@
   "version": "0.4.7",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
-  "devDependencies": {
-    "@angular/common": ">=11.x",
-    "@angular/core": ">=11.x"
-  },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
     "lib": {

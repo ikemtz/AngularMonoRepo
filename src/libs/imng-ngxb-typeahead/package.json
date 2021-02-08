@@ -4,8 +4,6 @@
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "dependencies": {
-    "@angular/common": ">=11.x",
-    "@angular/core": ">=11.x",
     "imng-kendo-odata": "*"
   },
   "ngPackage": {

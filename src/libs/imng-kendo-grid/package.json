@@ -9,10 +9,7 @@
     "NGRX",
     "Kendo"
   ],
-  "dependencies": {
-    "@angular/common": "^11.x",
-    "@angular/core": "^11.x"
-  },
+  "dependencies": {},
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
     "lib": {

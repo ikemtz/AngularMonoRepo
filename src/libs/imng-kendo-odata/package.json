@@ -10,10 +10,8 @@
     "Kendo",
     "OData"
   ],
-  "dependencies": {
-    "@angular/common": "^11.x",
-    "@angular/core": "^11.x",
-    "@progress/kendo-data-query": "^1.x"
+  "peerdependencies": {
+    "@progress/kendo-data-query": ">=1.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",

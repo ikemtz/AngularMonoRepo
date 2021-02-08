@@ -12,9 +12,7 @@
     "OData"
   ],
   "dependencies": {
-    "imng-kendo-odata": "*",
-    "@angular/common": "^11.x",
-    "@angular/core": "^11.x"
+    "imng-kendo-odata": "*"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
