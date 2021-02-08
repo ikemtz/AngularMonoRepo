@@ -3,17 +3,15 @@
   "version": "0.4.7",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
-  "peerDependencies": {
+  "devDependencies": {
     "@angular/common": ">=11.x",
     "@angular/core": ">=11.x"
   },
-  "devDependencies": {},
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
     "lib": {
       "entryFile": "src/index.ts"
     },
     "dest": "../../dist/libs/imng-kendo-data-entry"
-  },
-  "dependencies": {}
+  }
 }

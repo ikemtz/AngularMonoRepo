@@ -3,15 +3,14 @@
   "version": "0.1.0",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
-  "peerDependencies": {
+  "dependencies": {
     "@angular/common": ">=11.x",
     "@angular/core": ">=11.x",
     "@ngrx/store": ">=10.x",
     "@ngrx/effects": ">=10.x",
     "@microsoft/signalr": "^3.x",
     "imng-auth0-oidc": "*"
-  },
-  "devDependencies": {},
+  }, 
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
     "lib": {

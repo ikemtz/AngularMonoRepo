@@ -3,13 +3,12 @@
   "version": "0.0.5",
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
-  "peerDependencies": {
+  "dependencies": {
     "@angular/common": "^11.x",
     "@angular/core": "^11.x",
     "@progress/kendo-data-query": ">=1.x",
     "@ngrx/store": ">=10.x"
   },
-  "devDependencies": {},
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
     "lib": {

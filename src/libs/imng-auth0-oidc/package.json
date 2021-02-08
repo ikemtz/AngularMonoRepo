@@ -9,7 +9,7 @@
     "copyPackageJson": "cp package.json dist",
     "postinstall": "cp -v ../../node_modules/oidc-client/dist/* ./src/assets/"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@angular/common": "^11.x",
     "@angular/core": "^11.x",
     "oidc-client": "^1.x",

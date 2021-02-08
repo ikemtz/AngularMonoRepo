@@ -16,7 +16,7 @@
     },
     "dest": "../../dist/libs/imng-application-insights-ngrx"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@angular/common": ">=11.x",
     "@angular/core": ">=11.x",
     "@ngrx/store": ">=10.x",
