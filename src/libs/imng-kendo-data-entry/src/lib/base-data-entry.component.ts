@@ -1,8 +1,6 @@
-import { Inject, Input, OnDestroy } from '@angular/core';
+import { Inject, Input, OnDestroy, InjectionToken } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
-
-import { InjectionToken } from '@angular/core';
 
 const FACADE = new InjectionToken<{
   loading$: Observable<boolean>;
