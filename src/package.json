@@ -130,7 +130,7 @@
     "bootstrap": "^4.5.3",
     "core-js": "^2.6.12",
     "imng-kendo-theme-blue": "^3.12.12",
-    "jsoneditor": "^9.1.4",
+    "jsoneditor": "^9.1.8",
     "ngx-barcode-scanner": "0.0.7",
     "ngx-bootstrap": "^6.2.0",
     "oidc-client": "^1.10.1",
