@@ -97,6 +97,7 @@ jobs:
           organization: 'ikemtz'
 
       - task: SnykSecurityScan@0
+        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
         inputs:
           serviceConnectionEndpoint: 'synk'
           testType: 'app'
@@ -136,6 +137,17 @@ jobs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'debug-drop'
 
+      - task: CmdLine@2
+        displayName: 'Aqua/trivy Vuln SCAN'
+        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          script: |
+            docker build -f nurse-cron.local.Dockerfile -t nursecron:latest .
+            docker save nursecron:latest -o nursecron-latest.tar
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH --ignore-unfixed nursecron-latest.tar
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 1 --severity CRITICAL --ignore-unfixed nursecron-latest.tar
+          workingDirectory: 'src'
+
       - task: Npm@1
         displayName: 'npm run build [RELEASE BUILD]'
         inputs:
@@ -143,16 +155,6 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:nur-prod'
-
-      - task: CmdLine@2
-        displayName: 'Aqua/trivy Vuln SCAN'
-        inputs:
-          script: |
-            docker build -f nurse-cron.local.Dockerfile -t nursecron:latest .
-            docker save nursecron:latest -o nursecron-latest.tar
-            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
-            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 1 --severity CRITICAL --ignore-unfixed $(containerRegistry)/$(imageRepository):$(tag)
-          workingDirectory: 'src'
 
       - task: Npm@1
         displayName: 'npm run distribute nur-cicd-scripts [RELEASE BUILD]'
