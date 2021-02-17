@@ -14,13 +14,13 @@ jobs:
         persistCredentials: true
 
       - task: Cache@2
+        displayName: Cache NPM packages
         inputs:
           key: 'npm | "$(Agent.OS)" | src/package-lock.json'
           restoreKeys: |
             npm | "$(Agent.OS)"
             npm
           path: $(npm_config_cache)
-          displayName: Cache NPM packages
 
       - task: Npm@1
         displayName: 'npm install'
@@ -35,7 +35,7 @@ jobs:
           arguments: '$(Build.BuildNumber)'
           workingDirectory: '$(System.DefaultWorkingDirectory)/src/'
 
-      - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+      - task: SonarCloudPrepare@1
         displayName: 'Prepare analysis on SonarCloud'
         inputs:
           SonarCloud: 'SonarCloud IkeMtz'
@@ -69,7 +69,6 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:libs'
-          continueOnError: true
 
       - task: Npm@1
         displayName: 'npm run test:nur'
@@ -86,11 +85,10 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:nur'
-
-      - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+      - task: SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'
 
-      - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+      - task: SonarCloudPublish@1
         displayName: 'Publish Quality Gate Result'
 
       - task: sonarcloud-buildbreaker@2
@@ -99,6 +97,7 @@ jobs:
           organization: 'ikemtz'
 
       - task: SnykSecurityScan@0
+        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
         inputs:
           serviceConnectionEndpoint: 'synk'
           testType: 'app'
@@ -138,6 +137,17 @@ jobs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'debug-drop'
 
+      - task: CmdLine@2
+        displayName: 'Aqua/trivy Vuln SCAN'
+        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          script: |
+            docker build -f nurse-cron.local.Dockerfile -t nursecron:latest .
+            docker save nursecron:latest -o nursecron-latest.tar
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH --ignore-unfixed nursecron-latest.tar
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 1 --severity CRITICAL --ignore-unfixed nursecron-latest.tar
+          workingDirectory: 'src'
+
       - task: Npm@1
         displayName: 'npm run build [RELEASE BUILD]'
         inputs:
@@ -161,6 +171,7 @@ jobs:
           ArtifactName: 'release-drop'
 
       - task: GitTag@5
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
         inputs:
           workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
           tagUser: 'ikemtz'
@@ -168,7 +179,6 @@ jobs:
           tag: 'cron-$(Build.BuildNumber)'
           tagMessage: 'cron-$(Build.BuildNumber)'
           useLightweightTags: true
-          conditions: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 trigger:
   batch: true
   branches:
