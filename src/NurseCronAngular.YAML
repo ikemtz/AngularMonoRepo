@@ -144,8 +144,10 @@ jobs:
           script: |
             docker build -f nurse-cron.local.Dockerfile -t nursecron:latest .
             docker save nursecron:latest -o nursecron-latest.tar
-            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH --ignore-unfixed nursecron-latest.tar
-            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 1 --severity CRITICAL --ignore-unfixed nursecron-latest.tar
+            ls -la *.tar
+            echo $PWD
+            docker run --rm -v docker.sock:/var/run/docker.sock -v $PWD/:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH --ignore-unfixed nursecron-latest.tar
+            docker run --rm -v docker.sock:/var/run/docker.sock -v $PWD/:/root/.cache/ aquasec/trivy --exit-code 1 --severity CRITICAL --ignore-unfixed nursecron-latest.tar
           workingDirectory: 'src'
 
       - task: Npm@1
