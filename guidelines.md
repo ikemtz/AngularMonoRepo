@@ -16,21 +16,24 @@ IkeMtz's DB, EF and Microservices Best Practices
 - [Entity Framework Best Practices](#entity-framework-best-practices)
   - [Entity names should be singular and DbSets should be plural](#entity-names-should-be-singular-and-dbsets-should-be-plural)
   - [Entity models should have an Id property that reflects a unique value](#entity-models-should-have-an-id-property-that-reflects-a-unique-value)
-  - [Entity models should properly define nagivation properties](#entity-models-should-properly-define-nagivation-properties)
+  - [Entity models should properly define navigation properties](#entity-models-should-properly-define-navigation-properties)
+  - [Entity models representing volatile data should support audit fields](#entity-models-representing-volatile-data-should-support-audit-fields)
 - [Microservice Best Practices](#microservice-best-practices)
   - [Microservices should wrap a single business domain and all of it's logic](#microservices-should-wrap-a-single-business-domain-and-all-of-its-logic)
   - [Microservice naming](#microservice-naming)
   - [Microservices should have well documented APIs](#microservices-should-have-well-documented-apis)
-  - [Microservices should be built around the technology best suited to meet the needs of the business.](#microservices-should-be-built-around-the-technology-best-suited-to-meet-the-needs-of-the-business)
+  - [Microservices should be built around the technology best suited to meet business needs.](#microservices-should-be-built-around-the-technology-best-suited-to-meet-business-needs)
+  - [Eventing and inter-microservice dependencies](#eventing-and-inter-microservice-dependencies)
   - [Microservices should validate each piece of input data](#microservices-should-validate-each-piece-of-input-data)
   - [Each Microservice endpoint should require authentication](#each-microservice-endpoint-should-require-authentication)
+  - [Service and API Versionining](#service-and-api-versionining)
 
 # Database Best Practices
 ## Table names should be plural
 
 When applying this rule, it's important to <b>NOT</b> adhere to normal language rules.  As an English example, you should use Persons instead of People.
 
-**Dont**:
+**Don't**:
 
 ```SQL
 CREATE TABLE Person { ... }
@@ -43,10 +46,10 @@ CREATE TABLE Persons { ... }
 ```
 
 ## Table and column names should be in Pascal case
-**Dont**:
+**Don't**:
 
 ```SQL
-CREATE TABLE Persons {
+CREATE TABLE persons {
   [ID] UNIQUEIDENTIFIER NOT NULL,
   [name] NVARCHAR (50) NOT NULL,
   [birthDate] DATE NOT NULL }
@@ -66,7 +69,7 @@ The importance of this may not be obvious, but this practice allows for commonal
 
 It's also important to note, that in a many-to-many relationship table, separate unique indexes should be used as necessary.
 
-**Dont**:
+**Don't**:
 
 ```SQL
 CREATE TABLE Persons {
@@ -92,7 +95,7 @@ When considering data types for the primary key, the following factors must be t
 2. Some database technologies don't handle indexing of uniqueidentifiers well.
 3. Will the schema be deployed to multiple of environments?  Do you need to ensure that data from one environment doesn't cross into another?
 
-**Dont**:
+**Don't**:
 
 ```SQL
 --Person type is a list that will change infrequently
@@ -118,7 +121,7 @@ CREATE TABLE Persons {
 
 ## Foreign key column names should follow the {ParentKeyTableName}+'Id' naming convention
 
-**Dont**:
+**Don't**:
 
 ```SQL
 CREATE TABLE Orders {
@@ -160,7 +163,7 @@ CREATE TABLE OrderLineItems {
 
 ## Column names should not repeat table names
 
-**Dont**:
+**Don't**:
 
 ```SQL
 CREATE TABLE Persons {
@@ -180,7 +183,7 @@ CREATE TABLE Persons {
 
 ## Child column names should not repeat table names
 
-**Dont**:
+**Don't**:
 
 ```SQL
 CREATE TABLE Persons {
@@ -215,7 +218,7 @@ When applying this rule, it's absolutely important to avoid ambiguity.  People s
 | Last Name          | LName        |
 | Zip Code           | Zip          |
 
-**Dont**:
+**Don't**:
 
 ```SQL
 CREATE TABLE Orders {
@@ -234,7 +237,7 @@ CREATE TABLE Orders {
 ```
 
 ## DateTime values should be stored in UTC and the column name should be suffixed with '**Utc**'
-**Dont**:
+**Don't**:
 
 ```SQL
 CREATE TABLE Persons { ...,
@@ -253,7 +256,7 @@ CREATE TABLE Persons { ...,
 ## Date (NOT DateTime) columns should be suffixed with '**Date**'
 This is important because serialization languages such as XML and JSON make no distinction between Date and DateTime.  This will provide microservice consumers an indication as to what values to expect.
 
-**Dont**:
+**Don't**:
 
 ```SQL
 CREATE TABLE Persons { ...,
@@ -269,7 +272,7 @@ CREATE TABLE Persons { ...,
 
 ## Performance > Normalization
 Rather than calculating values over and over, it's best to persist the calculated values.  For obvious reasons we don't want store every possible calculation, however, we do want to persist the more commonly requested calculations.  Particularly calculations that are part of a report or user interface.
-**Dont**:
+**Don't**:
 ```SQL
 CREATE TABLE Orders {
   [Id] UNIQUEIDENTIFIER NOT NULL,
@@ -303,7 +306,7 @@ FROM Orders
 ## Entity names should be singular and DbSets should be plural
 it's important to <b>NOT</b> adhere to normal language rules.  As an English example, you should name the DbSet Persons instead of People.
 
-**Dont**:
+**Don't**:
 
 ```C#
 public class ApplicationEntities : DbContext
@@ -323,7 +326,7 @@ public class ApplicationEntities : DbContext
 ## Entity models should have an Id property that reflects a unique value 
 This allows the creation of an IIdentifiable.  This is also a requirement for OData services.  Additionally, this is also supported by out of the box EF conventions.
 
-**Dont**:
+**Don't**:
 
 ```C#
 public class Person
@@ -341,17 +344,20 @@ public class Person : IIdentifiable
 }
 ```
 
-## Entity models should properly define nagivation properties
-This plays a big part in the functionality provided by of OData services.  The only exception to this rule is self-referencing entity.
+## Entity models should properly define navigation properties
+This rule plays a significant role in the functionality provided by OData services.  The only exception to this rule is self-referencing entities, which are not supported by OData.
 
-**Dont**:
+**Don't**:
 
 ```C#
 public class Order : IIdentifiable
 {
     public Guid Id { get; set; }    
     public Guid ParentOrderId { get; set; }
-    public Order ParentOrder { get; set; } // No self-referencing entities
+    // No self-referencing entities
+    public virtual Order ParentOrder { get; set; } 
+    // No self-referencing entities
+    public virtual ICollection<Order> ChildOrders { get; set; } 
 }
 public class OrderLineItem : IIdentifiable
 {
@@ -376,6 +382,24 @@ public class OrderLineItem : IIdentifiable
 }
 ```
 
+## Entity models representing volatile data should support audit fields
+Depending on the environment and security requirements, auditable fields may be required to keep track of record changes.
+
+Much of this functionality is streamlined by the IAuditable interface in the NRSRx framework.
+
+**Do**:
+```C#
+public class Person : IIdentifiable, IIAuditable
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public string CreatedBy { get; set; }
+    public string CreatedOnUtc { get; set; }
+    public string UpdatedBy { get; set; }
+    public string UpdatedOnUtc { get; set; }
+} 
+```
+
 # Microservice Best Practices
 ## Microservices should wrap a single business domain and all of it's logic
 Microservices should focus on a single domain.  Encompassing all of the business logic for said domain.
@@ -392,11 +416,21 @@ Ensuring that these components are available to developers will be crucial to fa
 
 It's also important that the Swagger application be configured to support the same authentication mechanisms as the API.
 
-## Microservices should be built around the technology best suited to meet the needs of the business.
-If you need to share data, then OData is an excellent choice.  If you need to persist domain objects and state, then WebApi would be the desired direction.
+## Microservices should be built around the technology best suited to meet business needs.
+If you need to share data, then OData is an excellent choice.  If you need to persist domain objects and state, then WebApi would be the appropriate direction.
+
+## Eventing and inter-microservice dependencies
+At all costs, avoid having one microservice be dependent on another.  Each microservice should maintain a copy of any cross-domain data necessary in order to complete its work.  Updates to this cross-domain data should be communicated via an event bus.
 
 ## Microservices should validate each piece of input data
 Each property of input data should be validated, this includes validating string lengths, nullable fields, data types, etc.
 
+In many cases, validation of data requires cross-domain data.  As mentioned previously, each microservice should have enough data to complete its work.
+
 ## Each Microservice endpoint should require authentication
 In addition, varying levels of authorization should be implemented to match those specified by the data owner.
+
+## Service and API Versionining
+Each microservice should be able to handle breaking changes to it's model and endpoints via API versioning.  The different versions and the discrepancies between the models should be communicated to developers via the OpenAPI spec documentation at a minimum.
+
+The service should also give some indicator of which build number is currently running.  Microservice developers should be able to easily track down the source code for the running instance.
