@@ -272,6 +272,7 @@ CREATE TABLE Persons { ...,
 
 ## Performance > Normalization
 Rather than calculating values over and over, it's best to persist the calculated values.  For obvious reasons we don't want store every possible calculation, however, we do want to persist the more commonly requested calculations.  Particularly calculations that are part of a report or user interface.
+
 **Don't**:
 ```SQL
 CREATE TABLE Orders {
@@ -417,7 +418,7 @@ Ensuring that these components are available to developers will be crucial to fa
 It's also important that the Swagger application be configured to support the same authentication mechanisms as the API.
 
 ## Microservices should be built around the technology best suited to meet business needs.
-If you need to share data, then OData is an excellent choice.  If you need to persist domain objects and state, then WebApi would be the appropriate direction.
+If you need to serve data, then OData is an excellent choice.  If you need to persist domain objects and state, then WebApi would be the appropriate direction.
 
 ## Eventing and inter-microservice dependencies
 At all costs, avoid having one microservice be dependent on another.  Each microservice should maintain a copy of any cross-domain data necessary in order to complete its work.  Updates to this cross-domain data should be communicated via an event bus.
