@@ -133,7 +133,7 @@
     "jsoneditor": "^9.1.10",
     "ngx-barcode-scanner": "0.0.7",
     "ngx-bootstrap": "^6.2.0",
-    "oidc-client": "^1.10.1",
+    "oidc-client": "^1.11.1",
     "pluralize": "^8.0.0",
     "quagga": "^0.12.1",
     "rxjs": "^6.6.3",
