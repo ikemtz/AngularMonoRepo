@@ -23,7 +23,7 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^10.2.1",
+    "@angular-devkit/core": "^10.2.2",
     "@angular-devkit/schematics": "^10.2.1",
     "@nrwl/jest": "^11.1.5",
     "find-up": "^4.1.0",
