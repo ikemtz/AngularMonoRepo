@@ -137,6 +137,15 @@ jobs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'debug-drop'
 
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'Azure Container Registry'
+          repository: 'nurse-cron'
+          command: 'buildAndPush'
+          Dockerfile: 'src/nurse-cron.local.Dockerfile'
+          buildContext: 'src/'
+          tags: 'latest'
+
       - task: CmdLine@2
         displayName: 'Aqua/trivy Vuln SCAN'
         condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -146,8 +155,8 @@ jobs:
             docker save nursecron:latest -o nursecron-latest.tar
             ls -la *.tar
             echo $PWD
-            docker run --rm -v docker.sock:/var/run/docker.sock -v $PWD/:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH --ignore-unfixed nursecron-latest.tar
-            docker run --rm -v docker.sock:/var/run/docker.sock -v $PWD/:/root/.cache/ aquasec/trivy --exit-code 1 --severity CRITICAL --ignore-unfixed nursecron-latest.tar
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH --ignore-unfixed ikemtz.azurecr.io/nurse-cron:latest
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity CRITICAL --ignore-unfixed ikemtz.azurecr.io/nurse-cron:latest
           workingDirectory: 'src'
 
       - task: Npm@1
