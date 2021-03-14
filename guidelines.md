@@ -23,6 +23,8 @@ IkeMtz's DB, EF and Microservices Best Practices
   - [Use explicit enum values](#use-explicit-enum-values)
   - [Enums should also be stored in the database](#enums-should-also-be-stored-in-the-database)
   - [Enum properties should follow the {ParentKeyTableName[Singular]}+'Id' naming convention](#enum-properties-should-follow-the-parentkeytablenamesingularid-naming-convention)
+  - [Boolean properties should start with a verb](#boolean-properties-should-start-with-a-verb)
+  - [Consider Using DateTime values rather than boolean values](#consider-using-datetime-values-rather-than-boolean-values)
 - [Microservice Best Practices](#microservice-best-practices)
   - [Microservices should wrap a single business domain and all of it's logic](#microservices-should-wrap-a-single-business-domain-and-all-of-its-logic)
   - [Microservice naming](#microservice-naming)
@@ -522,6 +524,49 @@ public class Person : IIdentifiable, IIAuditable
 } 
 ```
 
+## Boolean properties should start with a verb
+
+Boolean properties should start with verbs such as Is, Has, Contains, etc.  This will quickly communicate that this is a boolean property.
+
+**Dont**:
+```csharp
+public class StudentCourse  
+{
+    public Guid Id { get; set; }
+    public bool Completed { get; set; }
+} 
+```
+**Do**:
+```csharp
+public class StudentCourse
+{
+    public Guid Id { get; set; }
+    public bool IsCompleted { get; set; }
+} 
+```
+
+## Consider Using DateTime values rather than boolean values
+
+Boolean properties are great for indicating some binary state and this may very well suffice for your business requirements today.  However, what if tomorrow your presented with the business demanding to know when that particular binary state changed?  If you use nullable DateTime values rather than boolean, you'll be able to do just that.
+
+If the field is null, then you can map it to false.  If the field has a valid value, you can map it true.  If you need to know when the value became true, you can leave the value in its native format.
+
+**Dont**:
+```csharp
+public class StudentCourse  
+{
+    public Guid Id { get; set; }
+    public bool Completed { get; set; }
+} 
+```
+**Do**:
+```csharp
+public class StudentCourse
+{
+    public Guid Id { get; set; }
+    public DateTime? CompletedUtc { get; set; }
+} 
+```
 # Microservice Best Practices
 ## Microservices should wrap a single business domain and all of it's logic
 Microservices should focus on a single domain.  Encompassing all of the business logic for said domain.
