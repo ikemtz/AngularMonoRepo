@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { toODataString } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ODataState } from './odata-state';
+import { ChildFilterDescriptor, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
 
@@ -10,6 +10,14 @@ import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
   providedIn: 'root',
 })
 export class ODataService {
+  readonly stringFilterOperators: string[] = [
+    `startswith`,
+    `endswith`,
+    `contains`,
+    `doesnotcontain`,
+    `isempty`,
+    `isnotempty`
+  ];
   constructor(private readonly http: HttpClient) { }
 
   public fetch<T>(
@@ -94,11 +102,22 @@ export class ODataService {
     return queryString;
   }
   private processChildFilterDescriptor(state: ODataState, queryString: string): string {
-    if (!state.childFilter) {
+    let childFilter: ChildFilterDescriptor;
+    let filteringString: string;
+    if (!(childFilter = state.childFilter)) {
       return queryString;
     }
+    if (-1 < this.stringFilterOperators.findIndex(x => x == childFilter.operator) && isNaN(childFilter.value)) {
+      filteringString = `${childFilter.operator}(o/${childFilter.field}, '${childFilter.value}')`;
+    }
+    else if (isNaN(childFilter.value)) {
+      filteringString = `o/${state.childFilter.field} ${state.childFilter.operator} '${state.childFilter.value}'`;
+    }
+    else {
+      filteringString = `o/${state.childFilter.field} ${state.childFilter.operator} ${state.childFilter.value}`;
+    }
     const childFilterString = `(${state.childFilter.childTableNavigationProperty}/${state.childFilter.linqOperation}` +
-      `(o: o/${state.childFilter.field} ${state.childFilter.operator} ${state.childFilter.value}))`;
+      `(o: ${filteringString}))`;
     if (queryString.match(/\$Filter=/gi)) {
       //Todo: handle additional filters
       return queryString;
