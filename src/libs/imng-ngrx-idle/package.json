@@ -4,10 +4,10 @@
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
-    "@ngrx/store": ">=10.x",
-    "@ngrx/effects": ">=10.x",
-    "@progress/kendo-angular-dialog": ">=4.2.1",
-    "@progress/kendo-angular-buttons": ">=5.4.4",
+    "@ngrx/store": ">=11.x",
+    "@ngrx/effects": ">=11.x",
+    "@progress/kendo-angular-dialog": ">=4.*",
+    "@progress/kendo-angular-buttons": ">=5.*",
     "imng-auth0-oidc": "*",
     "imng-ngrx-utils": "*"
   },
