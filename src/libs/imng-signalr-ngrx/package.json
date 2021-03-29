@@ -4,8 +4,8 @@
   "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "peerDependencies": {
-    "@ngrx/store": ">=10.x",
-    "@ngrx/effects": ">=10.x",
+    "@ngrx/store": ">=11.x",
+    "@ngrx/effects": ">=11.x",
     "@microsoft/signalr": ">=^3.x",
     "imng-auth0-oidc": "*"
   },

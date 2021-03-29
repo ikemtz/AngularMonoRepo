@@ -10,7 +10,6 @@ describe('NormalizeRequest', () => {
     expect(normalizeRequest({
       id: '598425a4-e5ed-4b8a-8911-0845e661fbea',
       name: '',
-      date: new Date(),
       number: 1,
       number2: 0
     }))
