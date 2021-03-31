@@ -25,7 +25,7 @@
   "dependencies": {
     "@angular-devkit/core": "^10.2.1",
     "@angular-devkit/schematics": "^10.2.1",
-    "@nrwl/jest": "^11.1.5",
+    "@nrwl/jest": "^11.4.0",
     "find-up": "^4.1.0",
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
