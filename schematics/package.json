@@ -24,7 +24,7 @@
   "schematics": "./src/collection.json",
   "dependencies": {
     "@angular-devkit/core": "^10.2.1",
-    "@angular-devkit/schematics": "^10.2.1",
+    "@angular-devkit/schematics": "^10.2.3",
     "@nrwl/jest": "^11.1.5",
     "find-up": "^4.1.0",
     "lodash": "^4.17.21",
