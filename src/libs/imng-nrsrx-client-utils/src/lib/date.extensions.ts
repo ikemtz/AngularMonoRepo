@@ -11,6 +11,7 @@ export const shortDateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric'
 };
 export const MILLI_SECS_PER_DAY = 86400000;
+export const MILLI_SECS_PER_SEC = 60000;
 export const DAYS_PER_WEEK = 7;
 if (!Date.prototype.toShortDateString) { //NOSONAR
   Date.prototype.toShortDateString = function (this: Date): string {

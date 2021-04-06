@@ -31,8 +31,9 @@ export class IdleEffects {
   }
 
   private getLoggedInActionPipe(): Observable<boolean> {
-    return this.loggedInActionPipe$ = this.actions$.pipe(
+    this.loggedInActionPipe$ = this.actions$.pipe(
       switchMap(() => this.state.pipe(map(s => s.oidc.loggedIn && !s[IDLE_FEATURE_KEY].isTimingOut))),
       filter(val => val));
+    return this.loggedInActionPipe$;
   }
 }

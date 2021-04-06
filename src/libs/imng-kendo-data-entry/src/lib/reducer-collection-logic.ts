@@ -1,4 +1,5 @@
-export function updateStateCollectionItem<Entity extends { id?: string | number | Date; }>(
+import { ValueType } from 'imng-nrsrx-client-utils';
+export function updateStateCollectionItem<Entity extends { id?: ValueType; }>(
   collection: Entity[],
   item: Entity,
 ): Entity[] {
@@ -8,7 +9,7 @@ export function updateStateCollectionItem<Entity extends { id?: string | number 
   return items;
 }
 
-export function removeStateCollectionItem<Entity extends { id?: string | number | Date; }>(
+export function removeStateCollectionItem<Entity extends { id?: ValueType; }>(
   collection: Entity[],
   item: Entity,
 ): Entity[] {
@@ -18,7 +19,7 @@ export function removeStateCollectionItem<Entity extends { id?: string | number 
   return items;
 }
 
-export function addStateCollectionItem<Entity extends { id?: string | number | Date; }>(collection: Entity[], item: Entity): Entity[] {
+export function addStateCollectionItem<Entity extends { id?: ValueType; }>(collection: Entity[], item: Entity): Entity[] {
   const items = [...collection];
   items.unshift(item);
   return items;

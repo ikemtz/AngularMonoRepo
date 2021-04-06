@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
+
 import { MemoizedSelector } from '@ngrx/store';
 import { GridDataResult, PagerSettings } from '@progress/kendo-angular-grid';
 import { ODataState } from 'imng-kendo-odata';
 
 export interface KendoODataSelector {
-  getLoading: MemoizedSelector<object, boolean>;
-  getError: MemoizedSelector<object, any>;
-  getGridData: MemoizedSelector<object, GridDataResult>;
-  getGridODataState: MemoizedSelector<object, ODataState>;
-  getPagerSettings: MemoizedSelector<object, false | PagerSettings>;
+  getLoading: MemoizedSelector<Record<string, unknown>, boolean>;
+  getError: MemoizedSelector<Record<string, unknown>, unknown>;
+  getGridData: MemoizedSelector<Record<string, unknown>, GridDataResult>;
+  getGridODataState: MemoizedSelector<Record<string, unknown>, ODataState>;
+  getPagerSettings: MemoizedSelector<Record<string, unknown>, false | PagerSettings>;
 }

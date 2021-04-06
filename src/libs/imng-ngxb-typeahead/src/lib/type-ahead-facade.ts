@@ -11,10 +11,10 @@ export function createTypeaheadFilters(fields: string[], filterCriteria: string)
   const filterSegments = filterCriteria.split(' ').filter(t => t !== '');
   const filters: FilterDescriptor[] = [];
   fields.forEach(field =>
-    filterSegments.forEach(segment => filters.push({ field: field, operator: 'contains', value: segment })),
+    filterSegments.forEach(segment => filters.push({ field, operator: 'contains', value: segment })),
   );
   return {
     logic: 'or',
-    filters: filters,
+    filters,
   };
 }

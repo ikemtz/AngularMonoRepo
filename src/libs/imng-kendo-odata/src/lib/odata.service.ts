@@ -59,7 +59,7 @@ export class ODataService {
   }
   private applyTransformations(state: ODataState, queryString): string {
     if (state.transformations) {
-      return queryString += `&$apply=${state.transformations}`;
+      queryString += `&$apply=${state.transformations}`;
     }
     return queryString;
   }
@@ -102,18 +102,16 @@ export class ODataService {
     return queryString;
   }
   private processChildFilterDescriptor(state: ODataState, queryString: string): string {
-    let childFilter: ChildFilterDescriptor;
-    let filteringString: string;
-    if (!(childFilter = state.childFilter)) {
+    const childFilter: ChildFilterDescriptor = state.childFilter;
+    if (!childFilter) {
       return queryString;
     }
-    if (-1 < this.stringFilterOperators.findIndex(x => x == childFilter.operator) && isNaN(childFilter.value)) {
+    let filteringString: string;
+    if (-1 < this.stringFilterOperators.findIndex(x => x === childFilter.operator) && isNaN(childFilter.value)) {
       filteringString = `${childFilter.operator}(o/${childFilter.field}, '${childFilter.value}')`;
-    }
-    else if (isNaN(childFilter.value)) {
+    } else if (isNaN(childFilter.value)) {
       filteringString = `o/${state.childFilter.field} ${state.childFilter.operator} '${state.childFilter.value}'`;
-    }
-    else {
+    } else {
       filteringString = `o/${state.childFilter.field} ${state.childFilter.operator} ${state.childFilter.value}`;
     }
     const childFilterString = `(${state.childFilter.childTableNavigationProperty}/${state.childFilter.linqOperation}` +

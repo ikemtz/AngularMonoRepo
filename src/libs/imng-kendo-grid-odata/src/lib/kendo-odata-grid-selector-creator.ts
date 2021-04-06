@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFeatureSelector, createSelector, MemoizedSelector, DefaultProjectorFn } from '@ngrx/store';
 import { KendoODataGridState } from './kendo-odata-grid-state';
 import { getODataPagerSettings } from './kendo-odata-grid-rxjs-operators';
@@ -9,7 +8,7 @@ export function createKendoODataGridSelector<TEntity, TPartialState, TState exte
   featureName: keyof TPartialState,
 ): {
   getLoading: MemoizedSelector<TPartialState, boolean, DefaultProjectorFn<boolean>>;
-  getError: MemoizedSelector<TPartialState, any, DefaultProjectorFn<any>>;
+  getError: MemoizedSelector<TPartialState, unknown, DefaultProjectorFn<unknown>>;
   getGridData: MemoizedSelector<TPartialState, ODataResult<TEntity>, DefaultProjectorFn<ODataResult<TEntity>>>;
   getGridODataState: MemoizedSelector<TPartialState, ODataState, DefaultProjectorFn<ODataState>>;
   getPagerSettings: MemoizedSelector<TPartialState, false | PagerSettings, DefaultProjectorFn<false | PagerSettings>>;
@@ -18,10 +17,10 @@ export function createKendoODataGridSelector<TEntity, TPartialState, TState exte
   const getGridData = createSelector(entireStateSelector, state => state.gridData);
   const getGridODataState = createSelector(entireStateSelector, state => state.gridODataState);
   return {
-    getLoading: createSelector(entireStateSelector, state => state.loading),
-    getError: createSelector(entireStateSelector, state => state.error),
     getGridData,
     getGridODataState,
+    getLoading: createSelector(entireStateSelector, state => state.loading),
+    getError: createSelector(entireStateSelector, state => state.error),
     getPagerSettings: createSelector(getGridData, getGridODataState, (result, state) =>
       getODataPagerSettings<TEntity>({ gridData: result, gridODataState: state }),
     ),
