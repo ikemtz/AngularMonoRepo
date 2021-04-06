@@ -11,10 +11,11 @@
     "target": "es2015",
     "module": "esnext",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "lib": ["es2018", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "fullTemplateTypeCheck": true,
     "paths": {
       "imng-application-insights-ngrx": [
         "dist/libs/imng-application-insights-ngrx",
