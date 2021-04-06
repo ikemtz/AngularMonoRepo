@@ -27,7 +27,7 @@ export class HubConnectionInjectorService implements OnDestroy {
           this.store$.dispatch(signalrActions.connect()));
         signalrConfiguration.clientMethods.forEach(clientMethod =>
           this.hubConnection.on(clientMethod,
-            data => this.store$.dispatch(signalrActions.receivedMessage({ methodName: clientMethod, data: data }))));
+            data => this.store$.dispatch(signalrActions.receivedMessage({ methodName: clientMethod, data }))));
       })).subscribe());
   }
 

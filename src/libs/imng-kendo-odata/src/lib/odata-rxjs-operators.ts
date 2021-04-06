@@ -2,7 +2,7 @@ import { ODataPayload } from './odata-payload';
 import { map, filter } from 'rxjs/operators';
 import { ODataResult } from './odata-result';
 import { Observable } from 'rxjs';
-
+import { MILLI_SECS_PER_SEC } from 'imng-nrsrx-client-utils';
 export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNullableProps: string[] = []) =>
   map((response: ODataPayload<T>) => {
     if (!response) {
@@ -52,7 +52,7 @@ export function parseDatesInCollection<T>(
 
 export function toLocalDate(date: string): Date {
   const dt = new Date(date);
-  return new Date(dt.getTime() + Math.abs(dt.getTimezoneOffset() * 60000));
+  return new Date(dt.getTime() + Math.abs(dt.getTimezoneOffset() * MILLI_SECS_PER_SEC));
 }
 
 export function getSubGridData<

@@ -1,4 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivateChild } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OidcFacade } from '../+state/oidc.facade';
 import { Injectable, Inject } from '@angular/core';
@@ -9,8 +9,7 @@ import { DOCUMENT } from '@angular/common';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(@Inject(DOCUMENT) private readonly document: any, private readonly oidcFacade: OidcFacade) { }
+  constructor(@Inject(DOCUMENT) private readonly document: Document, private readonly oidcFacade: OidcFacade) { }
 
   public readonly isLoggedInPipe$ = this.oidcFacade.waitForAuthenticationLoaded().pipe(
     switchMap(() => this.oidcFacade.loggedIn$),
@@ -24,13 +23,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.isLoggedInPipe$;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
-    : boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    : Observable<boolean> {
     return this.isLoggedInPipe$;
   }
 }
