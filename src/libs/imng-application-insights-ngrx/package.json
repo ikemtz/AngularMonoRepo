@@ -17,8 +17,8 @@
     "dest": "../../dist/libs/imng-application-insights-ngrx"
   },
   "peerDependencies": {
-    "@ngrx/store": ">=10.x",
-    "@ngrx/effects": ">=10.x"
+    "@ngrx/store": ">=11.x",
+    "@ngrx/effects": ">=11.x"
   },
   "devDependencies": {
     "ng-packagr": "^10.x"

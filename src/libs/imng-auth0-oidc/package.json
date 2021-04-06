@@ -11,8 +11,8 @@
   },
   "peerDependencies": {
     "oidc-client": ">=1.x",
-    "@ngrx/store": ">=10.x",
-    "@ngrx/effects": ">=10.x",
+    "@ngrx/store": ">=11.x",
+    "@ngrx/effects": ">=11.x",
     "imng-ngrx-utils": ">=3.x"
   },
   "ngPackage": {
