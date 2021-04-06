@@ -15,7 +15,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "fullTemplateTypeCheck": true,
     "paths": {
       "imng-application-insights-ngrx": [
         "dist/libs/imng-application-insights-ngrx",
@@ -42,6 +41,10 @@
       "imng-nrsrx-client-utils": ["dist/libs/imng-nrsrx-client-utils", "libs/imng-nrsrx-client-utils/src"],
       "imng-signalr-ngrx": ["dist/libs/imng-signalr-ngrx", "libs/imng-signalr-ngrx/src/index.ts"]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictTemplates": true
   },
   "exclude": ["node_modules", "tmp"]
 }
