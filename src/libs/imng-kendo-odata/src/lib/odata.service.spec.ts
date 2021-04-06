@@ -42,6 +42,58 @@ describe('ODataService', () => {
     }
   });
 
+  it('should support infilter with ANDS', async done => {
+    try {
+      httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+      const gridState: ODataState = {
+        selectors: ['id', 'name'],
+        inFilter: { field: 'field1', logic: 'and', values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'] },
+        expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+        filter: {
+          logic: 'and', filters: [
+            { field: 'fieldName', value: 'xyz', operator: 'eq' },
+            { field: 'fieldName2', value: 'xyz', operator: 'contains' },
+          ]
+        }
+      };
+      const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        // eslint-disable-next-line max-len
+        `//idunno.com?$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) and (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$count=true`);
+      expect(result).toMatchSnapshot(jestPropertyMatcher);
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
+  it('should support infilter with ORS', async done => {
+    try {
+      httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+      const gridState: ODataState = {
+        selectors: ['id', 'name'],
+        inFilter: { field: 'field1', logic: 'or', values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'] },
+        expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+        filter: {
+          logic: 'and', filters: [
+            { field: 'fieldName', value: 'xyz', operator: 'eq' },
+            { field: 'fieldName2', value: 'xyz', operator: 'contains' },
+          ]
+        }
+      };
+      const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        // eslint-disable-next-line max-len
+        `//idunno.com?$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) or (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$count=true`);
+      expect(result).toMatchSnapshot(jestPropertyMatcher);
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
   it('should support childFilter operations with strings', async done => {
     try {
       httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
@@ -77,8 +129,6 @@ describe('ODataService', () => {
       const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith(
-        // eslint-disable-next-line max-len
-        //(employeeCertifications/any(o: contains(o/certificationName,'sdfs')))
         `//idunno.com?&$filter=(employeeCertifications/any(o: contains(o/certificationName, '😎🐱‍👤')))&$count=true`);
       expect(result).toMatchSnapshot(jestPropertyMatcher);
       done();
@@ -86,6 +136,69 @@ describe('ODataService', () => {
       done.fail(err);
     }
   });
+
+  it('should support childFilter ANDS', async done => {
+    try {
+      httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+      const gridState: ODataState = {
+        childFilter: {
+          logic: 'and',
+          field: 'certificationName',
+          value: '😎🐱‍👤',
+          linqOperation: 'any',
+          childTableNavigationProperty: 'employeeCertifications',
+          operator: 'contains'
+        },
+        filter: {
+          logic: 'and', filters: [
+            { field: 'fieldName', value: 'xyz', operator: 'eq' },
+            { field: 'fieldName2', value: 'xyz', operator: 'contains' },
+          ]
+        }
+      };
+      const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        `//idunno.com?$filter=(employeeCertifications/any(o: contains(o/certificationName, '😎🐱‍👤'))) and (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$count=true`);
+      expect(result).toMatchSnapshot(jestPropertyMatcher);
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
+
+
+  it('should support childFilter ORS', async done => {
+    try {
+      httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+      const gridState: ODataState = {
+        childFilter: {
+          logic: 'or',
+          field: 'certificationName',
+          value: '😎🐱‍👤',
+          linqOperation: 'any',
+          childTableNavigationProperty: 'employeeCertifications',
+          operator: 'contains'
+        },
+        filter: {
+          logic: 'and', filters: [
+            { field: 'fieldName', value: 'xyz', operator: 'eq' },
+            { field: 'fieldName2', value: 'xyz', operator: 'contains' },
+          ]
+        }
+      };
+      const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        `//idunno.com?$filter=(employeeCertifications/any(o: contains(o/certificationName, '😎🐱‍👤'))) or (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$count=true`);
+      expect(result).toMatchSnapshot(jestPropertyMatcher);
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
   it('should support childFilter contains operations with numbers', async done => {
     try {
       httpClient.get = jest.fn(() => of(mockDataFactory())) as never;

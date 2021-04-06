@@ -118,9 +118,8 @@ export class ODataService {
     }
     const childFilterString = `(${state.childFilter.childTableNavigationProperty}/${state.childFilter.linqOperation}` +
       `(o: ${filteringString}))`;
-    if (queryString.match(/\$Filter=/gi)) {
-      //Todo: handle additional filters
-      return queryString;
+    if (queryString.match(/\$filter=/)) {
+      return queryString.replace(/\$filter=/, `$filter=${childFilterString} ${childFilter.logic || 'and'} `);
     } else {
       return `${queryString}&$filter=${childFilterString}`;
     }
@@ -136,9 +135,8 @@ export class ODataService {
     if (!queryString || queryString.trim().length === 0) {
       return `$filter=${inFilterString}`;
     }
-    if (queryString.match(/\$Filter=/gi)) {
-      //Todo: handle additional filters
-      return queryString;
+    if (queryString.match(/\$filter=/)) {
+      return queryString.replace(/\$filter=/, `$filter=${inFilterString} ${state.inFilter.logic || 'and'} `);
     } else {
       return `${queryString}&$filter=${inFilterString}`;
     }

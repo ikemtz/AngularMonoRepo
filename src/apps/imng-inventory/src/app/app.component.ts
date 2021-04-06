@@ -20,7 +20,8 @@ export class AppComponent implements AfterViewInit {
     this.barecodeScanner.start();
   }
 
-  onValueChanges(result: { codeResult: { code: string; }; }): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onValueChanges(result: { codeResult: { code: string; }; } | any): void {
     this.barcodeValue = result.codeResult.code;
     console.log(JSON.stringify(result));
   }

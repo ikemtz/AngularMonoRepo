@@ -11,7 +11,7 @@
     "target": "es2015",
     "module": "esnext",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "lib": ["es2018", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -41,6 +41,10 @@
       "imng-nrsrx-client-utils": ["dist/libs/imng-nrsrx-client-utils", "libs/imng-nrsrx-client-utils/src"],
       "imng-signalr-ngrx": ["dist/libs/imng-signalr-ngrx", "libs/imng-signalr-ngrx/src/index.ts"]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictTemplates": true
   },
   "exclude": ["node_modules", "tmp"]
 }
