@@ -30,7 +30,7 @@
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
     "pluralize": "^8.0.0",
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.6"
   },
   "devDependencies": {
     "@angular-devkit/schematics-cli": "^0.1000.8",
