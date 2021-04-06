@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Observable, throwError } from 'rxjs';
 import { first, catchError, mergeMap } from 'rxjs/operators';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
@@ -12,7 +11,7 @@ import * as oidcActions from '../+state/oidc.actions';
 export class TokenInterceptorService implements HttpInterceptor {
   constructor(private readonly store: Store<OidcState>) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return this.store.select(oidcQuery.getAccessToken).pipe(
       first(),
       mergeMap(accessToken => {
@@ -22,7 +21,7 @@ export class TokenInterceptorService implements HttpInterceptor {
           });
         }
         return next.handle(req).pipe(
-          catchError((err: any) => {
+          catchError((err: Error) => {
             if (err instanceof HttpErrorResponse) {
               this.store.dispatch(oidcActions.setHttpError(err));
             }
