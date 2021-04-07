@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChildFilterDescriptor, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
+import { isaNumber } from 'imng-nrsrx-client-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -107,9 +108,9 @@ export class ODataService {
       return queryString;
     }
     let filteringString: string;
-    if (-1 < this.stringFilterOperators.findIndex(x => x === childFilter.operator) && isNaN(childFilter.value)) {
+    if (-1 < this.stringFilterOperators.findIndex(x => x === childFilter.operator) && !isaNumber(childFilter.value)) {
       filteringString = `${childFilter.operator}(o/${childFilter.field}, '${childFilter.value}')`;
-    } else if (isNaN(childFilter.value)) {
+    } else if (!isaNumber(childFilter.value)) {
       filteringString = `o/${state.childFilter.field} ${state.childFilter.operator} '${state.childFilter.value}'`;
     } else {
       filteringString = `o/${state.childFilter.field} ${state.childFilter.operator} ${state.childFilter.value}`;
@@ -128,7 +129,7 @@ export class ODataService {
       return queryString;
     }
     const deDupedVals = Array.from(new Set(state.inFilter.values.filter(f => f)));
-    const inVals = deDupedVals.map(m => `'${m}'`).join(',');
+    const inVals = deDupedVals.map(m => isaNumber(m) ? `${m}` : `'${m}'`).join(',');
     const inFilterString = `(${state.inFilter.field} in (${inVals}))`;
     if (!queryString || queryString.trim().length === 0) {
       return `$filter=${inFilterString}`;
