@@ -42,6 +42,26 @@ describe('ODataService', () => {
     }
   });
 
+  it('should support infilter with numeric values', async done => {
+    try {
+      httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+      const gridState: ODataState = {
+        selectors: ['id', 'name'],
+        inFilter: { field: 'field1', values: [1, 2, 6, 4] },
+        expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }]
+      };
+      const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        // eslint-disable-next-line max-len
+        `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in (1,2,6,4))&$count=true`);
+      expect(result).toMatchSnapshot(jestPropertyMatcher);
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
   it('should support infilter with ANDS', async done => {
     try {
       httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
@@ -136,6 +156,30 @@ describe('ODataService', () => {
       done.fail(err);
     }
   });
+
+  it('should support childFilter equals operations with numbers', async done => {
+    try {
+      httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+      const gridState: ODataState = {
+        childFilter: {
+          field: 'certificationName',
+          value: 353,
+          linqOperation: 'any',
+          childTableNavigationProperty: 'employeeCertifications',
+          operator: 'eq'
+        },
+      };
+      const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        `//idunno.com?&$filter=(employeeCertifications/any(o: o/certificationName eq 353))&$count=true`);
+      expect(result).toMatchSnapshot(jestPropertyMatcher);
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
 
   it('should support childFilter ANDS', async done => {
     try {
