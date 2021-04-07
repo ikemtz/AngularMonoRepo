@@ -47,7 +47,7 @@
     "distribute:azc-cicd-scripts": "cp -v ./CiCd/azc/* ./dist",
     "distribute:ivtr-cicd-scripts": "cp -v ./CiCd/ivtr/* ./dist",
     "distribute:nur-cicd-scripts": "cp -v ./CiCd/nur/* ./dist",
-    "build:libs": "npm run build:odata && npm run build:ngrx-utils && npm run build:data-entry && npm run build:app-insight && npm run build:auth0-oidc && npm run build:nrsrx-utils && npm run build:grid && npm run build:grid-odata && npm run build:type-ahead && npm run build:chart-odata && npm run build:signalr && npm run build:ngrx-idle && npm run build:theme-blue",
+    "build:libs": "npm run build:nrsrx-utils && npm run build:odata && npm run build:ngrx-utils && npm run build:data-entry && npm run build:app-insight && npm run build:auth0-oidc && npm run build:grid && npm run build:grid-odata && npm run build:type-ahead && npm run build:chart-odata && npm run build:signalr && npm run build:ngrx-idle && npm run build:theme-blue",
     "build:nur": "nx build nurse-cron --sourceMap=true --statsJson",
     "build:nur-prod": "nx build nurse-cron --prod --sourceMap=true --configuration=production",
     "build:azc": "nx build imng-az-func-configr --sourceMap=true --statsJson",
