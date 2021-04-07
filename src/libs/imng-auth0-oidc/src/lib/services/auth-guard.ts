@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.isLoggedInPipe$;
-  }
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
