@@ -5,6 +5,6 @@ RUN npm install
 COPY . .
 RUN npm run build:azc-prod --prod
 
-FROM nginx:latest
+FROM bitnami/nginx:latest
 COPY --from=node /usr/src/app/dist/apps/imng-inventory/ /usr/share/nginx/html/
 
