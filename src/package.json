@@ -176,6 +176,6 @@
     "ts-jest": "26.4.0",
     "ts-node": "~7.0.0",
     "tsickle": "^0.39.1",
-    "typescript": "^4.0.5"
+    "typescript": "^4.1.3"
   }
 }
