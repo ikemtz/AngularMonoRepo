@@ -20,9 +20,7 @@ jobs:
             npm | "$(Agent.OS)"
             npm
           path: $(npm_config_cache)
-          displayName: Cache NPM packages
-
-      - script: cd schematics/ && npm ci
+        displayName: Cache NPM packages
 
       - task: Npm@1
         displayName: 'npm install'
@@ -37,7 +35,7 @@ jobs:
           arguments: '$(Build.BuildNumber)'
           workingDirectory: '$(System.DefaultWorkingDirectory)/schematics/'
 
-      - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+      - task: SonarCloudPrepare@1
         displayName: 'Prepare analysis on SonarCloud'
         inputs:
           SonarCloud: 'SonarCloud IkeMtz'
@@ -79,10 +77,10 @@ jobs:
           verbose: false
           customCommand: 'run test'
 
-      - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+      - task: SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'
 
-      - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+      - task: SonarCloudPublish@1
         displayName: 'Publish Quality Gate Result'
 
       - task: sonarcloud-buildbreaker@2
@@ -130,7 +128,7 @@ jobs:
           tag: 'schm-$(Build.BuildNumber)'
           tagMessage: 'schm-$(Build.BuildNumber)'
           useLightweightTags: true
-          conditions: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 trigger:
   batch: true
   branches:
