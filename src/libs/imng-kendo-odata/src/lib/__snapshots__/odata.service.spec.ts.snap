@@ -142,7 +142,7 @@ Object {
 }
 `;
 
-exports[`ODataService should support childFilter contains operations with numbers 2`] = `
+exports[`ODataService should support childFilter contains operations with strings 1`] = `
 Object {
   "data": Array [
     Object {
@@ -183,7 +183,7 @@ Object {
 }
 `;
 
-exports[`ODataService should support childFilter contains operations with strings 1`] = `
+exports[`ODataService should support childFilter equals operations with numbers 1`] = `
 Object {
   "data": Array [
     Object {
