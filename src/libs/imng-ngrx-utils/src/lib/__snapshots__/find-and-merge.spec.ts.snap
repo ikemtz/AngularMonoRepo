@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`findAndMerge should work 1`] = `
+Object {
+  "collection": Array [
+    "😎",
+    "🐱‍👤",
+  ],
+  "id": 123,
+  "singleValue": "😎😎😉",
+}
+`;
