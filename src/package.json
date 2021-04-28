@@ -107,7 +107,7 @@
     "@microsoft/applicationinsights-web": "^2.5.11",
     "@microsoft/signalr": "^3.1.11",
     "@ng-bootstrap/ng-bootstrap": "^8.0.4",
-    "@ngrx/effects": "11.0.1",
+    "@ngrx/effects": "11.1.0",
     "@ngrx/router-store": "11.1.0",
     "@ngrx/store": "^11.0.1",
     "@nrwl/angular": "11.6.1",
