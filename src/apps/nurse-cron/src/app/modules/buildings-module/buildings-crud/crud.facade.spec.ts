@@ -12,7 +12,7 @@ import {
 } from 'imng-kendo-data-entry/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { environment } from '@env-nurse-cron';
+import { environment } from '@env/nurse-cron';
 
 import { BuildingEffects } from '../+state/building.effects';
 import {

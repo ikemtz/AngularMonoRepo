@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { environment } from '@env-nurse-cron';
+import { environment } from '@env/nurse-cron';
 
 @Component({
   selector: 'nrcrn-root',

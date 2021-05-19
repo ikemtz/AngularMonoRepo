@@ -3,7 +3,7 @@ import { createEffect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
 import { map } from 'rxjs/operators';
-import { environment } from '@env-nurse-cron';
+import { environment } from '@env/nurse-cron';
 
 import * as fromBuildingsReducer from './building.reducer';
 import * as buildingActionTypes from './building.actions';
