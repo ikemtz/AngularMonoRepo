@@ -25,7 +25,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-kendo-odata/src/**/*.ts", "libs/imng-kendo-odata/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-kendo-odata/src/**/*.ts",
+              "libs/imng-kendo-odata/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -59,7 +62,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-auth0-oidc/src/**/*.ts", "libs/imng-auth0-oidc/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-auth0-oidc/src/**/*.ts",
+              "libs/imng-auth0-oidc/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -97,7 +103,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-kendo-grid-odata/src/**/*.ts", "libs/imng-kendo-grid-odata/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-kendo-grid-odata/src/**/*.ts",
+              "libs/imng-kendo-grid-odata/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -176,7 +185,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-kendo-data-entry/src/**/*.ts", "libs/imng-kendo-data-entry/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-kendo-data-entry/src/**/*.ts",
+              "libs/imng-kendo-data-entry/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -215,7 +227,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-ngrx-utils/src/**/*.ts", "libs/imng-ngrx-utils/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-ngrx-utils/src/**/*.ts",
+              "libs/imng-ngrx-utils/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -295,7 +310,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-ngxb-typeahead/src/**/*.ts", "libs/imng-ngxb-typeahead/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-ngxb-typeahead/src/**/*.ts",
+              "libs/imng-ngxb-typeahead/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -333,7 +351,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-kendo-chart-odata/src/**/*.ts", "libs/imng-kendo-chart-odata/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-kendo-chart-odata/src/**/*.ts",
+              "libs/imng-kendo-chart-odata/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -369,7 +390,6 @@
             "main": "apps/imng-az-func-configr/src/main.ts",
             "polyfills": "apps/imng-az-func-configr/src/polyfills.ts",
             "tsConfig": "apps/imng-az-func-configr/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/imng-az-func-configr/src/favicon.ico",
               "apps/imng-az-func-configr/src/assets",
@@ -380,7 +400,13 @@
               "./node_modules/jsoneditor/dist/jsoneditor.min.css",
               "apps/imng-az-func-configr/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -435,7 +461,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/imng-az-func-configr/src/**/*.ts", "apps/imng-az-func-configr/src/**/*.html"]
+            "lintFilePatterns": [
+              "apps/imng-az-func-configr/src/**/*.ts",
+              "apps/imng-az-func-configr/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -485,7 +514,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-snippets/src/**/*.ts", "libs/imng-snippets/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-snippets/src/**/*.ts",
+              "libs/imng-snippets/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -520,7 +552,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-kendo-grid/src/**/*.ts", "libs/imng-kendo-grid/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-kendo-grid/src/**/*.ts",
+              "libs/imng-kendo-grid/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -556,7 +591,6 @@
             "main": "apps/nurse-cron/src/main.ts",
             "polyfills": "apps/nurse-cron/src/polyfills.ts",
             "tsConfig": "apps/nurse-cron/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/nurse-cron/src/favicon.ico",
               "apps/nurse-cron/src/assets",
@@ -572,7 +606,13 @@
               },
               "apps/nurse-cron/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -627,7 +667,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/nurse-cron/src/**/*.ts", "apps/nurse-cron/src/**/*.html"]
+            "lintFilePatterns": [
+              "apps/nurse-cron/src/**/*.ts",
+              "apps/nurse-cron/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -660,7 +703,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/nurse-cron-e2e/src/**/*.ts", "apps/nurse-cron/src/**/*.html"]
+            "lintFilePatterns": [
+              "apps/nurse-cron-e2e/src/**/*.ts",
+              "apps/nurse-cron/src/**/*.html"
+            ]
           }
         }
       }
@@ -687,7 +733,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-signalr-ngrx//src/**/*.ts", "libs/imng-signalr-ngrx//src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-signalr-ngrx//src/**/*.ts",
+              "libs/imng-signalr-ngrx//src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -723,10 +772,20 @@
             "main": "apps/imng-inventory/src/main.ts",
             "polyfills": "apps/imng-inventory/src/polyfills.ts",
             "tsConfig": "apps/imng-inventory/tsconfig.app.json",
-            "aot": true,
-            "assets": ["apps/imng-inventory/src/favicon.ico", "apps/imng-inventory/src/assets"],
-            "styles": ["apps/imng-inventory/src/styles.scss"],
-            "scripts": []
+            "assets": [
+              "apps/imng-inventory/src/favicon.ico",
+              "apps/imng-inventory/src/assets"
+            ],
+            "styles": [
+              "apps/imng-inventory/src/styles.scss"
+            ],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -779,7 +838,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/imng-inventory/src/**/*.ts", "apps/imng-inventory/src/**/*.html"]
+            "lintFilePatterns": [
+              "apps/imng-inventory/src/**/*.ts",
+              "apps/imng-inventory/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -812,7 +874,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/imng-inventory-e2e/src/**/*.ts", "apps/imng-inventory-e2e/src/**/*.html"]
+            "lintFilePatterns": [
+              "apps/imng-inventory-e2e/src/**/*.ts",
+              "apps/imng-inventory-e2e/src/**/*.html"
+            ]
           }
         }
       }
@@ -839,7 +904,10 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-ngrx-idle/src/**/*.ts", "libs/imng-ngrx-idle/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/imng-ngrx-idle/src/**/*.ts",
+              "libs/imng-ngrx-idle/src/**/*.html"
+            ]
           }
         },
         "test": {

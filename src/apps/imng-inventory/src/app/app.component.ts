@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { BarecodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
+import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 
 @Component({
   selector: 'imng-root',
@@ -9,8 +9,8 @@ import { BarecodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 })
 export class AppComponent implements AfterViewInit {
 
-  @ViewChild(BarecodeScannerLivestreamComponent)
-  barecodeScanner: BarecodeScannerLivestreamComponent;
+  @ViewChild(BarcodeScannerLivestreamComponent)
+  barecodeScanner: BarcodeScannerLivestreamComponent;
   barcodeValue;
   barcodeTypes = ['upc'];
 

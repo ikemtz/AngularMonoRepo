@@ -1,4 +1,4 @@
-import { Inject, Input, OnDestroy, InjectionToken } from '@angular/core';
+import { Inject, Input, OnDestroy, InjectionToken, Component } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 
@@ -20,7 +20,9 @@ const FACADE = new InjectionToken<{
  *
  * @class BaseDataEntryComponent>
  */
-/** @dynamic */
+@Component({
+  template: ''
+})
 export abstract class BaseDataEntryComponent<FACADE extends {
   loading$: Observable<boolean>;
   clearCurrentEntity(): void;
