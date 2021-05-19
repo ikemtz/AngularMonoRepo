@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema",
-    "id": "imng-module",
+    "$id": "imng-module",
     "type": "object",
     "properties": {
       "name": {
