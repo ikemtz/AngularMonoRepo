@@ -23,7 +23,7 @@
     "dest": "../../dist/libs/imng-auth0-oidc"
   },
   "devDependencies": {
-    "ng-packagr": ">=11"
+    "ng-packagr": ">=12"
   },
   "repository": {
     "type": "git",
