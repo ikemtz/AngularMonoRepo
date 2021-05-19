@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CertificationListComponent } from './list.component';
-import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 import { createCertification } from './list.facade.spec';
 import { CertificationListFacade } from './list.facade';
@@ -19,7 +17,6 @@ describe('CertificationListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CertificationListComponent],
-      imports: [GridModule],
       providers: [
         { provide: CertificationListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: CertificationCrudFacade, useValue: createDataEntryMockFacade() },
@@ -38,13 +35,6 @@ describe('CertificationListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should handle DetailExpanded', () => {
-    const grid = fixture.debugElement.query(By.directive(GridComponent));
-    const item = createCertification();
-    grid.triggerEventHandler('detailExpand', { dataItem: item } as DetailExpandEvent);
-    expect(component.currentItem).toEqual(item);
   });
 
   it('should handle AddItem', () => {

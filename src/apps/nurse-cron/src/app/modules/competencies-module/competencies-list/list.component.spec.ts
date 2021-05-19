@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CompetencyListComponent } from './list.component';
-import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 import { createCompetency } from './list.facade.spec';
 import { CompetencyListFacade } from './list.facade';
@@ -19,7 +17,6 @@ describe('CompetencyListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CompetencyListComponent],
-      imports: [GridModule],
       providers: [
         { provide: CompetencyListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: CompetencyCrudFacade, useValue: createDataEntryMockFacade() },
@@ -38,13 +35,6 @@ describe('CompetencyListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should handle DetailExpanded', () => {
-    const grid = fixture.debugElement.query(By.directive(GridComponent));
-    const item = createCompetency();
-    grid.triggerEventHandler('detailExpand', { dataItem: item } as DetailExpandEvent);
-    expect(component.currentItem).toEqual(item);
   });
 
   it('should handle AddItem', () => {

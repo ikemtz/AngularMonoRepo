@@ -16,9 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@env/nurse-cron": ["./apps/nurse-cron/src/environments/environment.ts"],
       "imng-application-insights-ngrx": [
-        "dist/libs/imng-application-insights-ngrx",
-        "libs/imng-application-insights-ngrx/src"
+        "libs/imng-application-insights-ngrx/src",
+        "dist/libs/imng-application-insights-ngrx"
       ],
       "imng-auth0-oidc": ["dist/libs/imng-auth0-oidc", "libs/imng-auth0-oidc/src"],
       "imng-kendo-chart-odata": ["dist/libs/imng-kendo-chart-odata", "libs/imng-kendo-chart-odata/src"],
@@ -29,10 +30,10 @@
       ],
       "imng-kendo-grid": ["dist/libs/imng-kendo-grid", "libs/imng-kendo-grid/src"],
       "imng-kendo-grid/testing": ["dist/libs/imng-kendo-grid/testing", "libs/imng-kendo-grid/testing/src"],
-      "imng-kendo-grid-odata": ["dist/libs/imng-kendo-grid-odata", "libs/imng-kendo-grid-odata/src"],
+      "imng-kendo-grid-odata": ["libs/imng-kendo-grid-odata/src", "dist/libs/imng-kendo-grid-odata"],
       "imng-kendo-grid-odata/testing": [
-        "dist/libs/imng-kendo-grid-odata/testing",
-        "libs/imng-kendo-grid-odata/testing/src"
+        "libs/imng-kendo-grid-odata/testing/src",
+        "dist/libs/imng-kendo-grid-odata/testing"
       ],
       "imng-kendo-odata": ["dist/libs/imng-kendo-odata", "libs/imng-kendo-odata/src"],
       "imng-ngrx-idle": ["dist/libs/imng-ngrx-idle", "libs/imng-ngrx-idle/src/index.ts"],

@@ -3,7 +3,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { DataPersistence, fetch } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
 import { map } from 'rxjs/operators';
-import { environment } from '@env';
+import { environment } from '@env/nurse-cron';
 
 import * as fromHealthItemsReducer from './health-item.reducer';
 import * as healthItemActionTypes from './health-item.actions';
