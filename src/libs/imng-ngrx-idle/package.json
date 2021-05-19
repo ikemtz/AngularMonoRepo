@@ -17,7 +17,7 @@
       "entryFile": "src/index.ts"
     },
     "dest": "../../dist/libs/imng-ngrx-idle",
-    "whitelistedNonPeerDependencies": [
+    "allowedNonPeerDependencies": [
       "imng-auth0-oidc",
       "imng-ngrx-utils"
     ]

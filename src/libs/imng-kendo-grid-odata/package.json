@@ -21,7 +21,7 @@
       "entryFile": "src/index.ts"
     },
     "dest": "../../dist/libs/imng-kendo-grid-odata",
-    "whitelistedNonPeerDependencies": [
+    "allowedNonPeerDependencies": [
       "imng-kendo-odata"
     ]
   }
