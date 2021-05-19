@@ -26,4 +26,6 @@ export interface ChildFilterDescriptor extends FilterDescriptor {
 export interface Expander {
   tableName: string;
   selectors?: string[];
+  expander?: string;
+  filter?: string;
 }
