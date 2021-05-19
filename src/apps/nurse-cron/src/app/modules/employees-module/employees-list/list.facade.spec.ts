@@ -8,13 +8,13 @@ import { NxModule } from '@nrwl/angular';
 import { ODataState } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { of } from 'rxjs';
-import { environment } from '@env';
 
 import { EmployeeEffects } from '../+state/employee.effects';
 import * as employeeActionTypes from '../+state/employee.actions';
 import { EmployeesPartialState, initialState, reducer as employeeReducer, EMPLOYEES_FEATURE_KEY } from '../+state/employee.reducer';
 import { EmployeeListFacade } from './list.facade';
 import { IEmployee, EmployeeProperties } from '../../../models/employees-odata';
+import { environment } from '@env-nurse-cron';
 
 interface TestSchema {
   [EMPLOYEES_FEATURE_KEY]: EmployeesPartialState;

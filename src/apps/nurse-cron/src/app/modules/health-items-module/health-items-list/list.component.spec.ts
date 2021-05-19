@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HealthItemListComponent } from './list.component';
-import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 import { createHealthItem } from './list.facade.spec';
 import { HealthItemListFacade } from './list.facade';
@@ -19,7 +17,6 @@ describe('HealthItemListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HealthItemListComponent],
-      imports: [GridModule],
       providers: [
         { provide: HealthItemListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: HealthItemCrudFacade, useValue: createDataEntryMockFacade() },
@@ -38,13 +35,6 @@ describe('HealthItemListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should handle DetailExpanded', () => {
-    const grid = fixture.debugElement.query(By.directive(GridComponent));
-    const item = createHealthItem();
-    grid.triggerEventHandler('detailExpand', { dataItem: item } as DetailExpandEvent);
-    expect(component.currentItem).toEqual(item);
   });
 
   it('should handle AddItem', () => {

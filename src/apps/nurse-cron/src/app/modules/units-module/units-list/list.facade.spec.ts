@@ -8,7 +8,7 @@ import { NxModule } from '@nrwl/angular';
 import { ODataState } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { of } from 'rxjs';
-import { environment } from '@env';
+import { environment } from '@env-nurse-cron';
 
 import { UnitEffects } from '../+state/unit.effects';
 import * as unitActionTypes from '../+state/unit.actions';
