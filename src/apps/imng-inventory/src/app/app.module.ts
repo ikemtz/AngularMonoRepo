@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 
-import { BarecodeScannerLivestreamModule } from 'ngx-barcode-scanner';
+import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,7 +12,7 @@ import { BarecodeScannerLivestreamModule } from 'ngx-barcode-scanner';
     initialNavigation: 'enabled',
     relativeLinkResolution: 'corrected'
   }
-  ), BarecodeScannerLivestreamModule],
+  ), BarcodeScannerLivestreamComponent],
   providers: [],
   bootstrap: [AppComponent],
 })
