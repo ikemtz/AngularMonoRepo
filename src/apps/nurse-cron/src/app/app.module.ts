@@ -8,7 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { ODataService } from 'imng-kendo-odata';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { environment } from '@env';
+import { environment } from '@env/nurse-cron';
 import { AppRoutingModule } from './app.routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Auth0OidcModule } from 'imng-auth0-oidc';

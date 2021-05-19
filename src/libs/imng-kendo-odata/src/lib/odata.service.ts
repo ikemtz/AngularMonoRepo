@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { toODataString } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ChildFilterDescriptor, ODataState } from './odata-state';
+import { ChildFilterDescriptor, Expander, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
 import { isaNumber } from 'imng-nrsrx-client-utils';
@@ -90,17 +90,36 @@ export class ODataService {
   private processExpanders(state: ODataState, queryString: string): string {
     if (state.expanders && state.expanders.length > 0) {
       queryString += `&$expand=`;
-      state.expanders.forEach(element => {
-        if (typeof element === 'string' || !element.selectors || element.selectors.length === 0) {
-          queryString += `${element},`;
-        } else {
-          queryString += `${element.tableName}($select=${element.selectors.join()}),`;
-        }
-      });
+      state.expanders.forEach(element =>
+        queryString += this.getExpansionString(element));
       //Removes trailing comma
       queryString = queryString.replace(/,$/, '');
     }
     return queryString;
+  }
+  public getExpansionString(element: string | Expander): string {
+    let result = '';
+    if (!element) {
+      return result;
+    }
+    if (typeof element === 'string') {
+      result += element;
+    } else {
+      result += `${element.tableName}(`;
+      if (element.selectors && element.selectors.length > 0) {
+        result += `$select=${element.selectors.join()};`;
+      }
+      if (element.expander) {
+        result += `$expand=${element.expander};`;
+      }
+      if (element.filter) {
+        result += `$filter=${element.filter};`;
+      }
+      result += ')';
+      result = result.replace(/\(\)/, '').replace(/;\)/, ')');
+      ;
+    }
+    return `${result},`;
   }
   private processChildFilterDescriptor(state: ODataState, queryString: string): string {
     const childFilter: ChildFilterDescriptor = state.childFilter;
