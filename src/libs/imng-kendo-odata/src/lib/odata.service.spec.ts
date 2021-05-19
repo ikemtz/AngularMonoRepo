@@ -114,6 +114,55 @@ describe('ODataService', () => {
     }
   });
 
+  it('should support multi-level expands', async done => {
+    try {
+      httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+      const gridState: ODataState = {
+        selectors: ['id', 'name'],
+        expanders: [{ tableName: 'parentTable', expander: 'grandParentTable', filter: `id eq '😉'`, selectors: ['id', 'field2'] }],
+        filter: {
+          logic: 'and', filters: [
+            { field: 'fieldName', value: 'xyz', operator: 'eq' },
+            { field: 'fieldName2', value: 'xyz', operator: 'contains' },
+          ]
+        }
+      };
+      const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        // eslint-disable-next-line max-len
+        `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$expand=grandParentTable;$filter=id eq '😉')&$select=id,name&$count=true`);
+      expect(result).toMatchSnapshot(jestPropertyMatcher);
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
+  it('should support no-option expands', async done => {
+    try {
+      httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+      const gridState: ODataState = {
+        selectors: ['id', 'name'],
+        expanders: [{ tableName: 'parentTable' }],
+        filter: {
+          logic: 'and', filters: [
+            { field: 'fieldName', value: 'xyz', operator: 'eq' },
+            { field: 'fieldName2', value: 'xyz', operator: 'contains' },
+          ]
+        }
+      };
+      const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        // eslint-disable-next-line max-len
+        `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable&$select=id,name&$count=true`);
+      expect(result).toMatchSnapshot(jestPropertyMatcher);
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
   it('should support childFilter operations with strings', async done => {
     try {
       httpClient.get = jest.fn(() => of(mockDataFactory())) as never;

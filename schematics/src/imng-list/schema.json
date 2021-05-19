@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema",
-    "id": "imng-list",
+    "$id": "imng-list",
     "type": "object",
     "properties": {
       "name": {
