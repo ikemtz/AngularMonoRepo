@@ -20,7 +20,7 @@
       "entryFile": "src/index.ts"
     },
     "dest": "../../dist/libs/imng-kendo-chart-odata",
-    "whitelistedNonPeerDependencies": [
+    "allowedNonPeerDependencies": [
       "imng-kendo-odata"
     ]
   }

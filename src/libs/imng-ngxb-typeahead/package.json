@@ -12,7 +12,7 @@
       "entryFile": "src/index.ts"
     },
     "dest": "../../dist/libs/imng-ngxb-typeahead",
-    "whitelistedNonPeerDependencies": [
+    "allowedNonPeerDependencies": [
       "imng-kendo-odata"
     ]
   }

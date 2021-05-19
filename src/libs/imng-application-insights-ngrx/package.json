@@ -21,7 +21,7 @@
     "@ngrx/effects": ">=11.x"
   },
   "devDependencies": {
-    "ng-packagr": "^10.x"
+    "ng-packagr": ">=12.x"
   },
   "repository": {
     "type": "git",

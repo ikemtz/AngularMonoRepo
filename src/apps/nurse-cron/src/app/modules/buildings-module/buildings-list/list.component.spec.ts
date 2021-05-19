@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BuildingListComponent } from './list.component';
-import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 import { createBuilding } from './list.facade.spec';
 import { BuildingListFacade } from './list.facade';
@@ -19,7 +17,6 @@ describe('BuildingListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [BuildingListComponent],
-      imports: [GridModule],
       providers: [
         { provide: BuildingListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: BuildingCrudFacade, useValue: createDataEntryMockFacade() },
@@ -38,13 +35,6 @@ describe('BuildingListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should handle DetailExpanded', () => {
-    const grid = fixture.debugElement.query(By.directive(GridComponent));
-    const item = createBuilding();
-    grid.triggerEventHandler('detailExpand', { dataItem: item } as DetailExpandEvent);
-    expect(component.currentItem).toEqual(item);
   });
 
   it('should handle AddItem', () => {
