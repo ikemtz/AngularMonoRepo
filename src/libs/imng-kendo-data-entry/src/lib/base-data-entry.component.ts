@@ -45,7 +45,8 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
     return this.addEditForm.controls[controlName].errors;
   }
 
-  constructor(@Inject(FACADE) protected facade: FACADE) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  constructor(@Inject(FACADE) protected facade: any) {
     this.loading$ = this.facade.loading$;
     this.initForm();
   }
