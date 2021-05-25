@@ -1,12 +1,15 @@
 import { Observable } from 'rxjs';
 
-export interface IDataEntryFacade<Entity> {
-  loading$: Observable<boolean>;
+export interface IDataEntryFacade<Entity> extends IDataEntryComponentFacade { 
   currentEntity$: Observable<Entity>;
-  isEditActive$: Observable<boolean>;
-  isNewActive$: Observable<boolean>;
   setCurrentEntity(entity: Entity, parentEntity?: unknown): void;
-  clearCurrentEntity(): void;
   saveNewEntity(entity: Entity): void;
   updateExistingEntity(entity: Entity): void;
+}
+
+export interface IDataEntryComponentFacade  {
+  loading$: Observable<boolean>; 
+  isEditActive$: Observable<boolean>;
+  isNewActive$: Observable<boolean>; 
+  clearCurrentEntity(): void; 
 }
