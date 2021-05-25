@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defaultProxyDebugSettings should return expected value 1`] = `
+Object {
+  "changeOrigin": true,
+  "logLevel": "debug",
+  "onProxyRes": [Function],
+  "secure": true,
+}
+`;
+
+exports[`defaultProxySettings should return expected value 1`] = `
+Object {
+  "changeOrigin": true,
+  "onProxyRes": [Function],
+  "secure": true,
+}
+`;
