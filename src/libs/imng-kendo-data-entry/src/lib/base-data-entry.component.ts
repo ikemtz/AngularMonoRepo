@@ -25,6 +25,9 @@ const FACADE = new InjectionToken<{
 export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade> implements OnDestroy {
   @Input() public width: string | number;
   @Input() public height: string | number;
+  protected get facade(): FACADE {
+    return this.injectedFacade;
+  }
 
   public allSubscriptions: Subscription[] = [];
   public abstract dialogTitle: string;
@@ -45,7 +48,8 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
     return this.addEditForm.controls[controlName].errors;
   }
 
-  constructor(@Inject(FACADE) protected facade: FACADE) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  constructor(@Inject(FACADE) private readonly injectedFacade: any) { //NOSONAR
     this.loading$ = this.facade.loading$;
     this.initForm();
   }
