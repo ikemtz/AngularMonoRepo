@@ -54,7 +54,7 @@
     "build:azc-prod": "nx build imng-az-func-configr --prod --sourceMap=true --configuration=production",
     "build:ivtr": "nx build imng-inventory --sourceMap=true --statsJson",
     "build:ivtr-prod": "nx build imng-inventory --prod --sourceMap=true --configuration=production",
-    "build:data-entry": "rm -dr ./dist/libs/imng-kendo-data-entry & nx build imng-kendo-data-entry --with-deps",
+    "build:data-entry": "rm -dr ./dist/libs/imng-kendo-data-entry & nx build imng-kendo-data-entry --prod --with-deps",
     "build:odata": "rm -dr ./dist/libs/imng-kendo-odata & nx build imng-kendo-odata --prod",
     "build:grid": "rm -dr ./dist/libs/imng-kendo-grid & nx build imng-kendo-grid --prod",
     "build:chart-odata": "rm -dr ./dist/libs/imng-kendo-chart-odata & nx build imng-kendo-chart-odata --prod",
