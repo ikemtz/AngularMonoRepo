@@ -9,6 +9,8 @@ Object {
 }
 `;
 
+exports[`defaultProxySettings should cache headers 1`] = `"max-age=2590000, public"`;
+
 exports[`defaultProxySettings should return expected value 1`] = `
 Object {
   "changeOrigin": true,
