@@ -1,7 +1,7 @@
 import { Inject, Input, OnDestroy, InjectionToken, Directive } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
-import { IDataEntryComponentFacade } from './data-entry-facade';
+import { IBaseDataEntryFacade } from './data-entry-facade';
 
 const FACADE = new InjectionToken<{
   loading$: Observable<boolean>;
@@ -22,7 +22,7 @@ const FACADE = new InjectionToken<{
  * @class BaseDataEntryComponent>
  */
 @Directive()
-export abstract class BaseDataEntryComponent implements OnDestroy {
+export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade> implements OnDestroy {
   @Input() public width: string | number;
   @Input() public height: string | number;
 
@@ -45,7 +45,7 @@ export abstract class BaseDataEntryComponent implements OnDestroy {
     return this.addEditForm.controls[controlName].errors;
   }
 
-  constructor(@Inject(FACADE) protected facade: IDataEntryComponentFacade) {
+  constructor(@Inject(FACADE) protected facade: FACADE) {
     this.loading$ = this.facade.loading$;
     this.initForm();
   }
