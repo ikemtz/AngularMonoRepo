@@ -1,4 +1,4 @@
-import { Inject, Input, OnDestroy, InjectionToken, Component, Directive } from '@angular/core';
+import { Inject, Input, OnDestroy, InjectionToken, Directive } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 import { IDataEntryComponentFacade } from './data-entry-facade';
