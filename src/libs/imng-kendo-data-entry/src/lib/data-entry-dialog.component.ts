@@ -12,7 +12,8 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
 export class DataEntryDialogComponent implements OnInit {
   @Input() public width: string | number;
   @Input() public height: string | number;
-  @Input() public parentComponent: BaseDataEntryComponent; 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() public parentComponent: BaseDataEntryComponent<any>;//NOSONAR
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
   public dialogBtnsTemplate: TemplateRef<unknown>;
   public loading$: Observable<boolean>;
