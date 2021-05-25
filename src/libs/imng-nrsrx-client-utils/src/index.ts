@@ -6,3 +6,4 @@ export * from './lib/array.extensions';
 export * from './lib/normalize-request';
 export * from './lib/value-type';
 export * from './lib/is-a';
+export * from './lib/default-proxy-settings';
