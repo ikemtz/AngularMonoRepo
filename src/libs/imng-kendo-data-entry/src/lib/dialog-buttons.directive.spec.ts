@@ -61,7 +61,7 @@ describe('DialogButtonsDirective', () => {
   </imng-data-entry-dialog>`,
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class TestHostComponent extends BaseDataEntryComponent {
+export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacade> {
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   public saved = false;
