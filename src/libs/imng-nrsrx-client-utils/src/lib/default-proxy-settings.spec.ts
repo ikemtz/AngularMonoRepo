@@ -2,14 +2,12 @@ import { defaultProxySettings, defaultProxyDebugSettings } from './default-proxy
 
 describe('defaultProxyDebugSettings', () => {
   it('should return expected value', () => {
-    const result = defaultProxyDebugSettings();
-    expect(result).toMatchSnapshot(result);
+    expect(defaultProxyDebugSettings).toMatchSnapshot();
   });
 });
 
 describe('defaultProxySettings', () => {
   it('should return expected value', () => {
-    const result = defaultProxySettings();
-    expect(result).toMatchSnapshot(result);
+    expect(defaultProxySettings).toMatchSnapshot();
   });
 });
