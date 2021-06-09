@@ -26,7 +26,8 @@ export const AzFunc: ITransformer = {
 };
 
 export const AzWebApp: ITransformer = {
-    icon: '//symbols.getvecta.com/stencil_28/5_app-service-web-app.b546381f60.png',
+
+    icon: '//4.bp.blogspot.com/-BmgLupDPg-s/V-cGGu3UiwI/AAAAAAAAL70/m4SD_XfwO-Y4Z4n_55ZqrsXfFLa2slzTwCEw/s1600/Azure%2BApp%2BService%2B-%2BWeb%2BApp%2B%2528was%2BWebsites%2529.png',
     name: 'AZ WebApp',
     id: 2,
     convert: data => {
