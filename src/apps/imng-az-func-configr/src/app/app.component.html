@@ -7,20 +7,18 @@
   <div class="row">
     <div class="col col-md-2 text-right pt-2 pr-0">Desired Output:</div>
     <div class="col col-md-6 pb-1">
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+      <div dropdown class="d-inline-block">
+        <button class="btn btn-outline-primary dropdown-toggle" id="dropdownBasic1" type="button" dropdownToggle>
           <img [src]="currentTransformer.icon" alt="Transfomer Icon" /> - {{ currentTransformer.name }}
+          <span class="caret"></span>
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button
-            class="py-4"
-            *ngFor="let transformer of transformers"
-            ngbDropdownItem
-            (click)="setTransformer(transformer)"
-          >
-            <img [src]="transformer.icon" alt="Transfomer Icon" /> - {{ transformer.name }}
-          </button>
-        </div>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem" class="py-4" *ngFor="let transformer of transformers">
+            <a class="dropdown-item" (click)="setTransformer(transformer)">
+              <img [src]="transformer.icon" alt="Transfomer Icon" /> - {{ transformer.name }}
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
