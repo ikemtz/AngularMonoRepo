@@ -5,7 +5,11 @@
   "license": "MIT",
   "peerDependencies": {
     "@progress/kendo-data-query": ">=1.x",
-    "@ngrx/store": ">=11.x"
+    "@ngrx/store": ">=11.x",
+    "tslib": ">=2.x"
+  },
+  "devDependencies": {
+    "tslib": ">=2.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",

@@ -3,5 +3,6 @@
   "dest": "../dist/imng-kendo-odata",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "deleteDestPath": true
 }
