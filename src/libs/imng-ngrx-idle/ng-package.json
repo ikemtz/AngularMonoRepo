@@ -3,5 +3,6 @@
   "dest": "../dist/imng-ngrx-idle",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "deleteDestPath": true
 }

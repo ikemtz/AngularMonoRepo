@@ -9,5 +9,10 @@
       "entryFile": "src/index.ts"
     },
     "dest": "../../dist/libs/imng-nrsrx-client-utils"
+  },
+  "peerDependencies": {
+    "tslib": ">=2.x",
+    "@angular/common": ">=11.x",
+    "rxjs": ">=6.x"
   }
 }

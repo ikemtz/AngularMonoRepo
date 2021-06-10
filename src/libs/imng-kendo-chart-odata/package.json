@@ -11,8 +11,17 @@
     "Charts",
     "OData"
   ],
-  "dependencies": {
-    "imng-kendo-odata": "*"
+  "peerDependencies": {
+    "@angular/common": ">=11.x",
+    "@progress/kendo-data-query": ">=1.x",
+    "@angular/core": ">=11.x",
+    "rxjs": ">=6.x",
+    "tslib": ">=2.x",
+    "@nrwl/angular": ">=11.x"
+  },
+  "dependencies": { 
+    "imng-kendo-odata": "*",
+    "imng-nrsrx-client-utils": "*"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
@@ -21,7 +30,11 @@
     },
     "dest": "../../dist/libs/imng-kendo-chart-odata",
     "allowedNonPeerDependencies": [
-      "imng-kendo-odata"
+      "imng-kendo-odata",
+      "imng-nrsrx-client-utils"
     ]
+  },
+  "devDependencies": {
+    "ng-packagr": ">=12.x"
   }
 }

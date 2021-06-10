@@ -24,7 +24,7 @@
     "build": "node-sass ./src/styles.scss --source-map true --output dist --source-map-content scss --output-style compressed"
   },
   "devDependencies": {
-    "@progress/kendo-theme-default": "^4.22.0",
-    "node-sass": "^4.14.1"
+    "@progress/kendo-theme-default": ">=4.x",
+    "node-sass": ">=4.x"
   }
 }
