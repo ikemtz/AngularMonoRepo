@@ -4,11 +4,14 @@ import { ODataResult } from './odata-result';
 import { Observable } from 'rxjs';
 import { MILLI_SECS_PER_SEC } from 'imng-nrsrx-client-utils';
 export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNullableProps: string[] = []) =>
-  map((response: ODataPayload<T>) => {
+  map((response: ODataPayload<T> | T[]) => {
     if (!response) {
       return { data: [], total: 0 };
     }
-    const result = {
+    const result = Array.isArray(response) ? {
+      data: response,
+      total: response.length
+    } : {
       data: response.value,
       total: response['@odata.count'],
     } as ODataResult<T>;

@@ -29,6 +29,18 @@ describe('RxJs Operators', () => {
     }
   });
 
+  it('mapToExtDataResult should handle Arrays', async done => {
+    try {
+      const result = await readFirst(gridData$.pipe(
+        map(t => t.data),
+        mapToExtDataResult()));
+      expect(result).toMatchSnapshot();
+      done();
+    } catch (err) {
+      done.fail(err);
+    }
+  });
+
   it('mapToExtDataResult should handle null', async done => {
     try {
       const result = await readFirst(of(null).pipe(mapToExtDataResult()));
