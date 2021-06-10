@@ -18,28 +18,15 @@
     "pluralize": "^8.x"
   },
   "dependencies": {
-    "@angular-devkit/core": ">=10.x",
-    "@angular-devkit/schematics": ">=10.x",
-    "@angular/compiler": ">=11.x",
-    "@angular/core": ">=11.x",
-    "@nrwl/angular": ">=11.x",
+    "@angular-devkit/core": ">=12.x",
+    "@angular-devkit/schematics": ">=12.x",
+    "@angular/compiler": ">=12.x",
+    "@angular/core": ">=12.x",
+    "@nrwl/angular": ">=12.x",
     "@nrwl/jest": ">=26.x",
-    "@nrwl/workspace": ">=11.x",
-    "jest": "^26.0.1",
+    "@nrwl/workspace": ">=12.x",
+    "jest": ">=26.x",
     "jest-junit": ">=10.x",
     "typescript": ">=4.x"
-  },
-  "devDependencies": {
-    "@angular-devkit/schematics-cli": ">=0.x",
-    "@types/lodash": "^4.14.167",
-    "@types/node": "^12.19.12",
-    "@types/node-fetch": "^2.5.7",
-    "@types/pluralize": "0.0.29",
-    "codelyzer": ">=6.x",
-    "lodash": ">=4.x",
-    "node-fetch": "^2.6.1",
-    "pluralize": "^8.0.0",
-    "ts-jest": ">=26.x",
-    "tslint": "^6.1.3"
   }
 }
