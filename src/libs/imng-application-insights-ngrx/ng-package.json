@@ -4,5 +4,8 @@
   "lib": {
     "entryFile": "src/index.ts"
   },
-  "allowedNonPeerDependencies": ["@microsoft/applicationinsights-web"]
+  "deleteDestPath": true,
+  "allowedNonPeerDependencies": [
+    "@microsoft/applicationinsights-web"
+  ] 
 }

@@ -9,7 +9,11 @@
     "@progress/kendo-angular-dialog": ">=4.*",
     "@progress/kendo-angular-buttons": ">=5.*",
     "imng-auth0-oidc": "*",
-    "imng-ngrx-utils": "*"
+    "imng-ngrx-utils": "*",
+    "tslib": ">=2.x"
+  },
+  "devDependencies": {
+    "tslib": ">=2.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
