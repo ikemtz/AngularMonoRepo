@@ -4,12 +4,14 @@ import { OnInit, OnDestroy, Directive } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
+import { RouterState } from '@angular/router';
 
 /** @dynamic */@Directive()
-// eslint-disable-next-line @angular-eslint/directive-class-suffix
+// eslint-disable-next-line @angular-eslint/component-class-suffix
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
   implements OnInit, OnDestroy {
   protected allSubscription: Subscription[] = [];
+  public gridStateQueryKey = 'odataState';
   public gridDataState: ODataState;
   public readonly gridDataResult$: Observable<ODataResult<ENTITY>>;
   public loading$: Observable<boolean>;
@@ -27,10 +29,14 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     public readonly facade: FACADE,
     protected readonly state: ODataState | Observable<ODataState>,
     protected readonly gridRefresh$: Observable<unknown> = null,
+    public readonly router: RouterState = null,
   ) {
     this.loading$ = this.facade.loading$;
     this.gridDataResult$ = this.facade.gridData$;
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
+    if (this.router?.snapshot?.root.queryParams[this.gridStateQueryKey]) {
+      this.state = JSON.parse(this.router?.snapshot?.root?.queryParams[this.gridStateQueryKey]);
+    }
     if (isObservable(state)) {
       this.allSubscription.push(
         state.subscribe(t => {
@@ -45,13 +51,13 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
       this.transformations = state.transformations;
     }
     if (gridRefresh$) {
-      this.allSubscription.push(gridRefresh$.subscribe(() => this.facade.loadEntities(this.gridDataState)));
+      this.allSubscription.push(gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState)));
     }
   }
 
   ngOnInit(): void {
     if (!this.gridRefresh$) {
-      this.facade.loadEntities(this.gridDataState);
+      this.loadEntities(this.gridDataState);
     }
   }
 
@@ -71,5 +77,14 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     };
     this.facade.loadEntities(this.gridDataState);
   }
+
   public excelData = (): Observable<ODataResult<ENTITY>> => this.gridDataResult$;
+
+  public loadEntities(state: ODataState): void {
+    this.gridDataState = state;
+    this.expanders = state.expanders;
+    this.transformations = state.transformations;
+    this.facade.loadEntities(this.gridDataState);
+    this.router.snapshot.root.queryParams[this.gridStateQueryKey] = JSON.stringify(this.state);
+  }
 }

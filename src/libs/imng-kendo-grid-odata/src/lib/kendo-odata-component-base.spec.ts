@@ -4,6 +4,7 @@ import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { ODataGridMockFacade, createODataGridMockFacade } from '../../testing/src';
 import { readFirst } from '@nrwl/angular/testing';
 import { ODataResultEmpty } from 'imng-kendo-odata';
+import { RouterState } from '@angular/router';
 
 describe('KendoODataComponentBase', () => {
   let component: KendoODataGridTestComponent;
@@ -12,7 +13,7 @@ describe('KendoODataComponentBase', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [KendoODataGridTestComponent],
-      providers: [],
+      providers: [{ provide: RouterState, useValue: { snapshot: { root: { queryParams: { odataState: '' } } } } }],
     }).compileComponents();
   });
 
@@ -46,7 +47,7 @@ describe('KendoODataComponentBase', () => {
 export class KendoODataGridTestComponent extends KendoODataComponentBase<object, ODataGridMockFacade> {
   state = {};
   props = {};
-  constructor() {
-    super(createODataGridMockFacade(), {});
+  constructor(readonly router: RouterState) {
+    super(createODataGridMockFacade(), {}, null, router);
   }
 }
