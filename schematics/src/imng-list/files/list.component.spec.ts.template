@@ -1,4 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
 import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
@@ -18,8 +19,8 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [<%= classify(singularizedName) %>ListComponent],
-      imports: [GridModule],
+      declarations: [ <%= classify(singularizedName) %>ListComponent ],
+      imports: [ GridModule, RouterTestingModule ],
       providers: [
         { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: <%= classify(singularizedName) %>CrudFacade, useValue: createDataEntryMockFacade() },
