@@ -7,6 +7,7 @@ import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-
 import { CertificationListFacade } from './list.facade';
 import { CertificationCrudFacade } from '../certifications-crud';
 import { CertificationProperties, ICertification } from '../../../models/certifications-odata';
+import { Router } from '@angular/router';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -36,8 +37,8 @@ export class CertificationListComponent extends KendoODataComponentBase<ICertifi
   public readonly faEdit = faEdit;
   public readonly faTrash = faTrash;
 
-  constructor(facade: CertificationListFacade, public readonly crudFacade: CertificationCrudFacade) {
-    super(facade, initialGridState);
+  constructor(facade: CertificationListFacade, public readonly crudFacade: CertificationCrudFacade, router: Router) {
+    super(facade, initialGridState, router);
   }
 
   public addItem(): void {
