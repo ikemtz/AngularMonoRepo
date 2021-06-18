@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { createCertification } from './list.facade.spec';
 import { CertificationListFacade } from './list.facade';
 import { CertificationCrudFacade } from '../certifications-crud';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CertificationListComponent', () => {
   let component: CertificationListComponent;
@@ -17,6 +18,7 @@ describe('CertificationListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CertificationListComponent],
+      imports: [RouterTestingModule],
       providers: [
         { provide: CertificationListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: CertificationCrudFacade, useValue: createDataEntryMockFacade() },
