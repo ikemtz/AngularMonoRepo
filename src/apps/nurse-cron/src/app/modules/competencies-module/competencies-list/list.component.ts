@@ -7,6 +7,7 @@ import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-
 import { CompetencyListFacade } from './list.facade';
 import { CompetencyCrudFacade } from '../competencies-crud';
 import { CompetencyProperties, ICompetency } from '../../../models/competencies-odata';
+import { Router } from '@angular/router';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -35,8 +36,8 @@ export class CompetencyListComponent extends KendoODataComponentBase<ICompetency
   public readonly faEdit = faEdit;
   public readonly faTrash = faTrash;
 
-  constructor(facade: CompetencyListFacade, public readonly crudFacade: CompetencyCrudFacade) {
-    super(facade, initialGridState);
+  constructor(facade: CompetencyListFacade, public readonly crudFacade: CompetencyCrudFacade, router: Router) {
+    super(facade, initialGridState, router);
   }
 
   public addItem(): void {

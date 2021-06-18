@@ -15,18 +15,13 @@
   "license": "MIT",
   "schematics": "./schematics/collection.json",
   "peerDependencies": {
-    "pluralize": "^8.x"
+    "pluralize": ">=8.x"
   },
   "dependencies": {
-    "@angular-devkit/core": ">=12.x",
-    "@angular-devkit/schematics": ">=12.x",
-    "@angular/compiler": ">=12.x",
-    "@angular/core": ">=12.x",
-    "@nrwl/angular": ">=12.x",
-    "@nrwl/jest": ">=26.x",
-    "@nrwl/workspace": ">=12.x",
-    "jest": ">=26.x",
-    "jest-junit": ">=10.x",
+    "@angular-devkit/core": ">=11.x",
+    "@angular-devkit/schematics": ">=11.x",
+    "@angular/compiler": ">=11.x",
+    "@angular/core": ">=11.x",
     "typescript": ">=4.x"
   }
 }
