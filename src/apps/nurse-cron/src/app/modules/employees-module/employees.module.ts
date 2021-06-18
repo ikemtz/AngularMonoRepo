@@ -15,6 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { EmployeeListComponent, EmployeeListFacade } from './employees-list';
 import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, EmployeeCrudFacade } from './employees-crud';
+import { DataPersistence } from '@nrwl/angular';
 
 
 @NgModule({
@@ -32,6 +33,6 @@ import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, Employ
     StoreModule.forFeature(fromEmployeesReducer.EMPLOYEES_FEATURE_KEY, fromEmployeesReducer.reducer),
     EffectsModule.forFeature([EmployeeEffects]),
   ],
-  providers: [EmployeeApiService, EmployeeListFacade, EmployeeCrudFacade]
+  providers: [EmployeeApiService, EmployeeListFacade, EmployeeCrudFacade, DataPersistence]
 })
 export class EmployeesModule { }

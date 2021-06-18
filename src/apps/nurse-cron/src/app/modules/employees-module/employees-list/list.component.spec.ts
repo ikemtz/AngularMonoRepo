@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { createEmployee } from './list.facade.spec';
 import { EmployeeListFacade } from './list.facade';
 import { EmployeeCrudFacade } from '../employees-crud';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EmployeeListComponent', () => {
   let component: EmployeeListComponent;
@@ -17,6 +18,7 @@ describe('EmployeeListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [EmployeeListComponent],
+      imports: [RouterTestingModule],
       providers: [
         { provide: EmployeeListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: EmployeeCrudFacade, useValue: createDataEntryMockFacade() },

@@ -7,6 +7,7 @@ import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-
 import { EmployeeListFacade } from './list.facade';
 import { EmployeeCrudFacade } from '../employees-crud';
 import { EmployeeProperties, IEmployee } from '../../../models/employees-odata';
+import { Router } from '@angular/router';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -52,8 +53,8 @@ export class EmployeeListComponent extends KendoODataComponentBase<IEmployee, Em
   public readonly faEdit = faEdit;
   public readonly faTrash = faTrash;
 
-  constructor(facade: EmployeeListFacade, public readonly crudFacade: EmployeeCrudFacade) {
-    super(facade, initialGridState);
+  constructor(facade: EmployeeListFacade, public readonly crudFacade: EmployeeCrudFacade, router: Router) {
+    super(facade, initialGridState, router);
   }
 
   public addItem(): void {
