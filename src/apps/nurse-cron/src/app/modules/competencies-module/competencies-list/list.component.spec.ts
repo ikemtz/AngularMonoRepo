@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { createCompetency } from './list.facade.spec';
 import { CompetencyListFacade } from './list.facade';
 import { CompetencyCrudFacade } from '../competencies-crud';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CompetencyListComponent', () => {
   let component: CompetencyListComponent;
@@ -17,6 +18,7 @@ describe('CompetencyListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CompetencyListComponent],
+      imports: [RouterTestingModule],
       providers: [
         { provide: CompetencyListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: CompetencyCrudFacade, useValue: createDataEntryMockFacade() },

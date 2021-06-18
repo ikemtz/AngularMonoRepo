@@ -16,7 +16,7 @@ describe('KendoODataComponentBaseRouted', () => {
       declarations: [KendoODataGridTestComponent],
       providers: [{
         provide: Router, useValue: {
-          routerState: { snapshot: { root: { queryParams: { odataState: '' } } } },
+          routerState: { snapshot: { root: { queryParams: { odataState: 'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=' } } } },
           navigate: jest.fn(),
         }
       }],
@@ -35,7 +35,7 @@ describe('KendoODataComponentBaseRouted', () => {
     expect(router.navigate).toBeCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
-        odataState: 'eyJzb3J0IjpbeyJmaWVsZCI6IngiLCJkaXIiOiJkZXNjIn1dLCJza2lwIjoyMH0='
+        odataState: 'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0='
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
