@@ -15,13 +15,15 @@
   "license": "MIT",
   "schematics": "./schematics/collection.json",
   "peerDependencies": {
-    "pluralize": ">=8.x"
+    "pluralize": "^8.x",
+    "@nrwl/angular": ">=11.x",
+    "@angular/core": ">=11.x",
+    "jest": ">=26.x"
   },
   "dependencies": {
     "@angular-devkit/core": ">=11.x",
     "@angular-devkit/schematics": ">=11.x",
     "@angular/compiler": ">=11.x",
-    "@angular/core": ">=11.x",
     "typescript": ">=4.x"
   }
 }
