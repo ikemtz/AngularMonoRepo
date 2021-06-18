@@ -29,12 +29,12 @@
         "libs/imng-kendo-data-entry/testing/src"
       ],
       "imng-kendo-grid": ["dist/libs/imng-kendo-grid", "libs/imng-kendo-grid/src"],
-      "imng-kendo-grid/testing": ["dist/libs/imng-kendo-grid/testing", "libs/imng-kendo-grid/testing/src"],
       "imng-kendo-grid-odata": ["dist/libs/imng-kendo-grid-odata", "libs/imng-kendo-grid-odata/src"],
       "imng-kendo-grid-odata/testing": [
         "dist/libs/imng-kendo-grid-odata/testing",
         "libs/imng-kendo-grid-odata/testing/src"
       ],
+      "imng-kendo-grid/testing": ["dist/libs/imng-kendo-grid/testing", "libs/imng-kendo-grid/testing/src"],
       "imng-kendo-odata": ["dist/libs/imng-kendo-odata", "libs/imng-kendo-odata/src"],
       "imng-ngrx-idle": ["dist/libs/imng-ngrx-idle", "libs/imng-ngrx-idle/src/index.ts"],
       "imng-ngrx-utils": ["dist/libs/imng-ngrx-utils", "libs/imng-ngrx-utils/src"],
