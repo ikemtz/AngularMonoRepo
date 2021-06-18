@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
-import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
@@ -27,8 +28,10 @@ export class <%= classify(singularizedName) %>ListComponent extends KendoODataCo
   public readonly props = <%= classify(singularizedName) %>Properties;
   public currentItem: I<%= classify(singularizedName) %>;
 
-  constructor(facade: <%= classify(singularizedName) %>ListFacade, public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade) {
-    super(facade, initialGridState);
+  constructor(facade: <%= classify(singularizedName) %>ListFacade, 
+    public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade,
+    router: Router) {
+    super(facade, initialGridState, router);
   }
 
   public addItem(): void {
