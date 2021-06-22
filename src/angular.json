@@ -969,10 +969,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "adventure-works:build:production"
+              "browserTarget": "adventure-works:build:production",
+              "proxyConfig": "apps/adventure-works/proxy.conf.js"
             },
             "development": {
-              "browserTarget": "adventure-works:build:development"
+              "browserTarget": "adventure-works:build:development",
+              "proxyConfig": "apps/adventure-works/proxy.conf.js"
             }
           },
           "defaultConfiguration": "development"

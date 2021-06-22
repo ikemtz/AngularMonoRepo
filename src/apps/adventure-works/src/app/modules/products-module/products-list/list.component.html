@@ -18,7 +18,7 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.id | slice:0:5 }}
+      {{ dataItem.id | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
@@ -61,7 +61,7 @@
   </kendo-grid-column>
   <kendo-grid-column [field]="props.PRODUCT_CATEGORY_ID" [width]="100" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.product_category_id | slice:0:5 }}
+      {{ dataItem.product_category_id | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Category ID</span>
@@ -69,7 +69,7 @@
   </kendo-grid-column>
   <kendo-grid-column [field]="props.PRODUCT_MODEL_ID" [width]="100" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.product_model_id | slice:0:5 }}
+      {{ dataItem.product_model_id | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Model ID</span>
@@ -90,14 +90,12 @@
       <span class="h6">Discontinued Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.THUMB_NAIL_PHOTO" [width]="100" filter="text">
+  <kendo-grid-column [field]="props.THUMB_NAIL_PHOTO" [width]="100" [filterable]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Thumb Nail Photo</span>
     </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.THUMBNAIL_PHOTO_FILE_NAME" [width]="100" filter="text">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Thumbnail Photo File Name</span>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <img src="data:image/jpg;base64,{{ dataItem[props.THUMB_NAIL_PHOTO] }}" />
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.PRODUCT_CATEGORY" [width]="100" filter="text">
