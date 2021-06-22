@@ -12,7 +12,7 @@ import { environment } from '@env';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
-import { <%= classify(pluralizedStoreName) %>PartialState, initialState, reducer as <%= camelize(singularizedStoreName) %>Reducer, <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= classify(pluralizedStoreName) %>PartialState, initialState, reducer as <%= camelize(storeName) %>Reducer, <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 
 interface TestSchema {
@@ -29,6 +29,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach(() => {});
 
   describe('used in NgModule', () => {
@@ -111,7 +112,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       try {
         let list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(0);
-        store.dispatch(<%= camelize(storeName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(createODataResult([create<%= classify(name) %>(), create<%= classify(name) %>()])));
+        store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(createODataResult([create<%= classify(name) %>(), create<%= classify(name) %>()])));
 
         list = await readFirst(facade.gridData$);
         expect(list.data.length).toBe(2);

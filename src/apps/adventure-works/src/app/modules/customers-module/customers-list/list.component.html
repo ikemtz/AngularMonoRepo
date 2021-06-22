@@ -1,0 +1,101 @@
+<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+  <ng-template kendoGridToolbarTemplate>
+    <div class="d-flex justify-content-between">
+      <h3>Customers</h3>
+      <div>
+        <button type="button" title="Add Customer" primary="true" (click)="addItem()" class="btn btn-primary mx-2">
+          <span class="k-icon k-i-plus-circle"></span> Add Customer
+        </button>
+        <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="mx-2">
+          Export to PDF
+        </button>
+        <button type="button" title="Export To Excel" kendoGridExcelCommand icon="file-excel" class="mx-2">
+          Export To Excel
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <kendo-grid-column [field]="props.ID" [width]="100" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.id | slice:0:5 }}
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NAME_STYLE" [width]="100" filter="boolean">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <div *ngIf="dataItem.name_style">
+        <span class="text-success font-weight-bolder h2" placement="left" tooltip="Active">
+          <span class="k-icon k-i-check-circle"></span>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Name Style</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.TITLE" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Title</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.FIRST_NAME" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">First Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.MIDDLE_NAME" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Middle Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.LAST_NAME" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Last Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SUFFIX" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Suffix</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.COMPANY_NAME" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Company Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SALES_PERSON" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Sales Person</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.EMAIL_ADDRESS" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Email Address</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.PHONE" [width]="100" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Phone</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [width]="50">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
+        <span class="k-icon k-i-edit"></span>
+      </button>
+      <button type="button" class="btn btn-sm mr-1" (click)="deleteItem(dataItem)" placement="left" tooltip="Delete">
+        <span class="k-icon k-i-delete"></span>
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf fileName="Customers.pdf" [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+  <kendo-grid-excel fileName="Customers.xlsx" [fetchData]="excelData"></kendo-grid-excel>
+</kendo-grid>
+<aw-customer-add *ngIf="crudFacade.isNewActive$ | async"></aw-customer-add>
+<aw-customer-edit *ngIf="crudFacade.isEditActive$ | async"></aw-customer-edit>

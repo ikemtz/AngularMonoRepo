@@ -45,7 +45,7 @@ describe(`imng-module`, () => {
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/add.component.spec.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/add.component.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/api.service.ts`,
-        `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/base-entry.directive.ts`,
+        `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/base-entry.component.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/crud.facade.spec.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/crud.facade.ts`,
         `/test/${pluralize(dasherize(options.name))}-module/${dasherize(pluralize(options.name))}-crud/edit.component.spec.ts`,
