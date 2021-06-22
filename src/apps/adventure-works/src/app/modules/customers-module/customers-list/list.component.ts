@@ -6,6 +6,7 @@ import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { CustomerListFacade } from './list.facade';
 import { CustomerCrudFacade } from '../customers-crud';
 import { CustomerProperties, ICustomer } from '../../../models';
+import { Router } from '@angular/router';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -23,9 +24,7 @@ const initialGridState: ODataState = {
     CustomerProperties.EMAIL_ADDRESS,
     CustomerProperties.PHONE,
   ],
-  sort: [
-    { field: CustomerProperties.ID, dir: 'asc' },
-  ],
+  sort: [{ field: CustomerProperties.ID, dir: 'asc' }],
 };
 
 @Component({
@@ -38,8 +37,8 @@ export class CustomerListComponent extends KendoODataComponentBase<ICustomer, Cu
   public readonly props = CustomerProperties;
   public currentItem: ICustomer | undefined;
 
-  constructor(facade: CustomerListFacade, public readonly crudFacade: CustomerCrudFacade) {
-    super(facade, initialGridState);
+  constructor(facade: CustomerListFacade, public readonly crudFacade: CustomerCrudFacade, router: Router) {
+    super(facade, initialGridState, router);
   }
 
   public addItem(): void {
