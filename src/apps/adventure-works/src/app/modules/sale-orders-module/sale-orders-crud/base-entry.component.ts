@@ -1,10 +1,10 @@
-import { OnInit, Directive } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { SaleOrderCrudFacade } from './crud.facade';
 import { SaleOrderFormGroupFac, SaleOrderProperties } from '../../../models';
 
-@Directive()
+@Component({ template: '' })
 export abstract class SaleOrderBaseEntryComponent extends BaseDataEntryComponent<SaleOrderCrudFacade>
   implements OnInit {
   public readonly props = SaleOrderProperties;

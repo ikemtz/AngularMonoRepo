@@ -4,8 +4,7 @@ import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { CustomerCrudFacade } from './crud.facade';
 
-
-@Directive()
+@Component({ template: '' })
 export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<CustomerCrudFacade>
   implements OnInit {
   public readonly props = CustomerProperties;
