@@ -1,10 +1,10 @@
-import { OnInit, Directive } from '@angular/core';
-import { BaseDataEntryDirective } from 'imng-kendo-data-entry';
+import { OnInit, Component } from '@angular/core';
+import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
-@Directive()
-export abstract class <%= classify(name) %>BaseEntryDirective extends BaseDataEntryDirective<<%= classify(name) %>CrudFacade>
+@Component({ template: '' })
+export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEntryComponent<<%= classify(name) %>CrudFacade>
   implements OnInit {
   public readonly props = <%= classify(name) %>Properties;
 
