@@ -1,11 +1,22 @@
 {
-  "npmScope": "imng",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
     "tslint.json": "*",
     "nx.json": "*",
     "tsconfig.base.json": "*"
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "imng",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
   },
   "projects": {
     "imng-application-insights-ngrx": {
@@ -69,17 +80,13 @@
     "nurse-cron-e2e": {
       "tags": [],
       "implicitDependencies": ["nurse-cron"]
+    },
+    "adventure-works": {
+      "tags": []
+    },
+    "adventure-works-e2e": {
+      "tags": [],
+      "implicitDependencies": ["adventure-works"]
     }
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
-    }
-  },
-  "affected": {
-    "defaultBase": "master"
   }
 }

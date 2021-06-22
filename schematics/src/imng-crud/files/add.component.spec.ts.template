@@ -40,7 +40,7 @@ describe('<%= classify(name) %>AddComponent', () => {
  {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
 <% }) %>    });
 
-    let item: I<%= classify(name) %>;
+    let item: I<%= classify(name) %> | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
     facade.updateExistingEntity = jest.fn();
     component.save();
