@@ -1,7 +1,30 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "",
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "f4c251a3-a9e0-433e-b1f3-2c10661975ea"
+  },
+  "defaultProject": "nurse-cron",
+  "schematics": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
   "projects": {
     "imng-kendo-odata": {
       "projectType": "library",
@@ -875,24 +898,132 @@
           "style": "scss"
         }
       }
-    }
-  },
-  "cli": {
-    "warnings": {
-      "typescriptMismatch": false,
-      "versionMismatch": false
     },
-    "defaultCollection": "@nrwl/angular",
-    "analytics": "f4c251a3-a9e0-433e-b1f3-2c10661975ea"
-  },
-  "schematics": {
-    "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+    "adventure-works": {
+      "projectType": "application",
+      "root": "apps/adventure-works",
+      "sourceRoot": "apps/adventure-works/src",
+      "prefix": "aw",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/adventure-works",
+            "index": "apps/adventure-works/src/index.html",
+            "main": "apps/adventure-works/src/main.ts",
+            "polyfills": "apps/adventure-works/src/polyfills.ts",
+            "tsConfig": "apps/adventure-works/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/adventure-works/src/favicon.ico",
+              "apps/adventure-works/src/assets",
+              {
+                "glob": "*",
+                "input": "libs/imng-auth0-oidc/src/assets",
+                "output": "/"
+              }
+            ],
+            "scripts": [],
+            "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "apps/adventure-works/src/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/adventure-works/src/environments/environment.ts",
+                  "with": "apps/adventure-works/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "adventure-works:build:production"
+            },
+            "development": {
+              "browserTarget": "adventure-works:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "adventure-works:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/adventure-works/src/**/*.ts", "apps/adventure-works/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/adventure-works"],
+          "options": {
+            "jestConfig": "apps/adventure-works/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
+    "adventure-works-e2e": {
+      "root": "apps/adventure-works-e2e",
+      "sourceRoot": "apps/adventure-works-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/adventure-works-e2e/cypress.json",
+            "tsConfig": "apps/adventure-works-e2e/tsconfig.e2e.json",
+            "devServerTarget": "adventure-works:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "adventure-works:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/adventure-works-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
     }
-  },
-  "defaultProject": "nurse-cron"
+  }
 }

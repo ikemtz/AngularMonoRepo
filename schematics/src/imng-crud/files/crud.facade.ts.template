@@ -14,21 +14,22 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
   isNewActive$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getIsNew<%= classify(name) %>Active));
 
   constructor(private readonly store: Store<<%= classify(pluralizedStoreName) %>PartialState>) {}
-  public loadEntities(state: ODataState): void {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  public loadEntities(state: ODataState): void { }
   
   public setCurrentEntity(item: I<%= classify(name) %>): void {
-    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.setCurrent<%= classify(name) %>(item));
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.setCurrent<%= classify(name) %>(item));
   }
 
   public clearCurrentEntity(): void {
-    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.clearCurrent<%= classify(name) %>());
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.clearCurrent<%= classify(name) %>());
   }
 
   public saveNewEntity(item: I<%= classify(name) %>): void {
-    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.save<%= classify(name) %>Request(item));
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.save<%= classify(name) %>Request(item));
   }
 
   public updateExistingEntity(item: I<%= classify(name) %>): void {
-    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.update<%= classify(name) %>Request(item));
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.update<%= classify(name) %>Request(item));
   }
 }

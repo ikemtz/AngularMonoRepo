@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
-import { <%= classify(name) %>BaseEntryDirective } from './base-entry.directive';
+import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
 
 @Component({
   selector: '<%= appPrefix %>-<%= dasherize(name) %>-add',
@@ -9,7 +9,7 @@ import { <%= classify(name) %>BaseEntryDirective } from './base-entry.directive'
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class <%= classify(name) %>AddComponent extends <%= classify(name) %>BaseEntryDirective implements OnInit, OnDestroy {
+export class <%= classify(name) %>AddComponent extends <%= classify(name) %>BaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add <%= classify(name) %>';
   public active$ = this.facade.isNewActive$;
 
@@ -24,7 +24,7 @@ export class <%= classify(name) %>AddComponent extends <%= classify(name) %>Base
   public save(): void {
     if (this.addEditForm.valid) {
       const val: I<%= classify(name) %> = this.addEditForm.value;
-      val.id = null;
+      val.id = undefined;
       this.facade.saveNewEntity(val);
     }
   }
