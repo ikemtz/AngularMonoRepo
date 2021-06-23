@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductAddComponent should save 1`] = `
+Object {
+  "color": "COLOR",
+  "discontinuedDate": Any<Date>,
+  "id": undefined,
+  "listPrice": 0,
+  "name": "NAME",
+  "productCategory": "PRODUCT_CATEGORY",
+  "productCategoryID": "PRODUCT_CATEGORY_ID",
+  "productModel": "PRODUCT_MODEL",
+  "productModelID": "PRODUCT_MODEL_ID",
+  "productNumber": "PRODUCT_NUMBER",
+  "saleOrderDetails": Array [],
+  "sellEndDate": Any<Date>,
+  "sellStartDate": Any<Date>,
+  "size": "SIZE",
+  "standardCost": 0,
+  "thumbNailPhoto": "THUMB_NAIL_PHOTO",
+  "thumbnailPhotoFileName": "THUMBNAIL_PHOTO_FILE_NAME",
+  "weight": 0,
+}
+`;

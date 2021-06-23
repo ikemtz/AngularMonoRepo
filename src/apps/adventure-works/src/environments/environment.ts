@@ -16,7 +16,7 @@ export const environment = {
   auth0_options: {
     authority: 'https://nrsrx-demo.auth0.com',
     client_id: 'em42lcjfm0WbbPwhooEbYAqvAjburTPW',
-    audience: 'IM-NurseCron',
+    audience: 'AdventureWorks',
     response_type: 'code',
     getUserMetadata: true,
   },
