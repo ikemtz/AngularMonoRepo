@@ -1,0 +1,98 @@
+<imng-data-entry-dialog width="700" height="550" [parentComponent]="this">
+  <form novalidate [formGroup]="addEditForm" autocomplete="false">  
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id" class="control-label mr-4">Id:</label>
+          <input type="text" class="form-control" [formControlName]="props.ID"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.ID).required">Product id is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="name" class="control-label mr-4">Name:</label>
+          <input type="text" maxlength="50" class="form-control" [formControlName]="props.NAME"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NAME) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.NAME)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.NAME).required">Product name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="product_number" class="control-label mr-4">Product Number:</label>
+          <input type="text" maxlength="25" class="form-control" [formControlName]="props.PRODUCT_NUMBER"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.PRODUCT_NUMBER) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.PRODUCT_NUMBER)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.PRODUCT_NUMBER).required">Product product number is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="color" class="control-label mr-4">Color:</label>
+          <input type="text" maxlength="15" class="form-control" [formControlName]="props.COLOR" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="standard_cost" class="control-label mr-4">Standard Cost:</label>
+          <input type="number" class="form-control" [formControlName]="props.STANDARD_COST"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STANDARD_COST) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.STANDARD_COST)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.STANDARD_COST).required">Product standard cost is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="list_price" class="control-label mr-4">List Price:</label>
+          <input type="number" class="form-control" [formControlName]="props.LIST_PRICE"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.LIST_PRICE) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.LIST_PRICE)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.LIST_PRICE).required">Product list price is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="size" class="control-label mr-4">Size:</label>
+          <input type="text" maxlength="5" class="form-control" [formControlName]="props.SIZE" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="weight" class="control-label mr-4">Weight:</label>
+          <input type="number" class="form-control" [formControlName]="props.WEIGHT" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="product_category_id" class="control-label mr-4">Product Category ID:</label>
+          <input type="text" class="form-control" [formControlName]="props.PRODUCT_CATEGORY_ID" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="product_model_id" class="control-label mr-4">Product Model ID:</label>
+          <input type="text" class="form-control" [formControlName]="props.PRODUCT_MODEL_ID" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="sell_start_date" class="control-label mr-4">Sell Start Date:</label>
+          <input type="date" class="form-control" [formControlName]="props.SELL_START_DATE"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SELL_START_DATE) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.SELL_START_DATE)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.SELL_START_DATE).required">Product sell start date is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="sell_end_date" class="control-label mr-4">Sell End Date:</label>
+          <input type="date" class="form-control" [formControlName]="props.SELL_END_DATE" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="discontinued_date" class="control-label mr-4">Discontinued Date:</label>
+          <input type="date" class="form-control" [formControlName]="props.DISCONTINUED_DATE" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="thumb_nail_photo" class="control-label mr-4">Thumb Nail Photo:</label>
+          <input type="text" class="form-control" [formControlName]="props.THUMB_NAIL_PHOTO" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="thumbnail_photo_file_name" class="control-label mr-4">Thumbnail Photo File Name:</label>
+          <input type="text" maxlength="50" class="form-control" [formControlName]="props.THUMBNAIL_PHOTO_FILE_NAME" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="product_category" class="control-label mr-4">Product Category:</label>
+          <input type="text" class="form-control" [formControlName]="props.PRODUCT_CATEGORY" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="product_model" class="control-label mr-4">Product Model:</label>
+          <input type="text" class="form-control" [formControlName]="props.PRODUCT_MODEL" />
+        </div>
+    </div>
+  </form>
+</imng-data-entry-dialog>

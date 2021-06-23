@@ -16,5 +16,6 @@ module.exports = {
     '<rootDir>/libs/imng-signalr-ngrx',
     '<rootDir>/apps/imng-inventory',
     '<rootDir>/libs/imng-ngrx-idle',
+    '<rootDir>/apps/adventure-works',
   ],
 };

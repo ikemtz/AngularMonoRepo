@@ -26,7 +26,7 @@ const initialGridState: ODataState = {
 })
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataComponentBase<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
   public readonly props = <%= classify(singularizedName) %>Properties;
-  public currentItem: I<%= classify(singularizedName) %>;
+  public currentItem: I<%= classify(singularizedName) %> | undefined;
 
   constructor(facade: <%= classify(singularizedName) %>ListFacade, 
     public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade,

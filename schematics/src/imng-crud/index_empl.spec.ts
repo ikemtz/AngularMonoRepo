@@ -29,7 +29,7 @@ describe('imng-crud', () => {
         '/test/employees-crud/add.component.spec.ts',
         '/test/employees-crud/add.component.ts',
         '/test/employees-crud/api.service.ts',
-        '/test/employees-crud/base-entry.directive.ts',
+        '/test/employees-crud/base-entry.component.ts',
         '/test/employees-crud/crud.facade.spec.ts',
         '/test/employees-crud/crud.facade.ts',
         '/test/employees-crud/edit.component.spec.ts',

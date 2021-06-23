@@ -23,11 +23,11 @@ const getCurrent<%= classify(name) %> = createSelector(
 );
 const getIsEdit<%= classify(name) %>Active = createSelector(
   getCurrent<%= classify(name) %>,
-  entity => isTruthy(entity) && isTruthy(entity.id),
+  entity => isTruthy(entity) && isTruthy(entity?.id),
 );
 const getIsNew<%= classify(name) %>Active = createSelector(
   getCurrent<%= classify(name) %>,
-  entity => isTruthy(entity) && !isTruthy(entity.id),
+  entity => isTruthy(entity) && !isTruthy(entity?.id),
 );
 export const dataEntry<%= classify(name) %>Queries = {
   getCurrent<%= classify(name) %>,
