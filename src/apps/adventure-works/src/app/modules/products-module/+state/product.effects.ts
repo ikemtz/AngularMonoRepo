@@ -8,7 +8,7 @@ import * as fromProductsReducer from './product.reducer';
 import * as productActionTypes from './product.actions';
 
 import { ProductApiService } from '../products-crud';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { IProduct } from '../../../models';
 
 @Injectable()

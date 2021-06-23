@@ -9,7 +9,7 @@ import * as fromSaleOrdersReducer from './sale-order.reducer';
 import * as saleOrderActionTypes from './sale-order.actions';
 
 import { SaleOrderApiService } from '../sale-orders-crud';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class SaleOrderEffects {

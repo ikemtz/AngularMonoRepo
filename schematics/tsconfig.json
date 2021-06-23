@@ -18,7 +18,12 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "paths": {
+      "imng-ngrx-utils/testing": [
+        "../src/dist/libs/imng-ngrx-utils/testing",
+         "../src/libs/imng-ngrx-utils/testing/src"],
+        }
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.spec.ts"]

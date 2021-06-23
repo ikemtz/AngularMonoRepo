@@ -8,7 +8,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CustomerAddComponent } from './add.component';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerProperties, ICustomer } from '../../../models';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 describe('CustomerAddComponent', () => {
   let component: CustomerAddComponent;

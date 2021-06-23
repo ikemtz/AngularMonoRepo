@@ -1,4 +1,4 @@
-import { OnInit, Directive } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { CustomerProperties, CustomerFormGroupFac } from '../../../models';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { ODataGridMockFacade, createODataGridMockFacade } from '../../testing/src';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { ODataResultEmpty, ODataState } from 'imng-kendo-odata';
 
 describe('KendoODataComponentBase', () => {
@@ -26,15 +26,9 @@ describe('KendoODataComponentBase', () => {
     expect(component.router).toBeFalsy();
   });
 
-  it('should export to Excel', async done => {
-    try {
-      const data = await readFirst(component.excelData());
-      expect(data).toStrictEqual(ODataResultEmpty);
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should export to Excel', async () => {
+    const data = await readFirst(component.excelData());
+    expect(data).toStrictEqual(ODataResultEmpty);
   });
 });
 
