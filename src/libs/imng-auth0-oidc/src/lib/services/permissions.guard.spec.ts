@@ -6,7 +6,7 @@ import { Auth0Facade } from '../+state/auth0.facade';
 import { Router } from '@angular/router';
 import { of, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 describe('PermissionsGuard', () => {
   let guard: PermissionsGuard;
@@ -29,16 +29,11 @@ describe('PermissionsGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should support canActivate', async done => {
-    try {
-      const result = await readFirst(guard.canActivate(null, null) as Observable<boolean>);
-      expect(result).toBe(false);
-      expect(router.navigate).toBeCalledTimes(1);
-      expect(router.navigate).toBeCalledWith(['oidc/access-denied'], { relativeTo: '🌳🌳🌳' });
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should support canActivate', async () => {
+    const result = await readFirst(guard.canActivate(null, null) as Observable<boolean>);
+    expect(result).toBe(false);
+    expect(router.navigate).toBeCalledTimes(1);
+    expect(router.navigate).toBeCalledWith(['oidc/access-denied'], { relativeTo: '🌳🌳🌳' });
   });
 });
 

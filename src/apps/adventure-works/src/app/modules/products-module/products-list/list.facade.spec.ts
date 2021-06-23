@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { NxModule, DataPersistence } from '@nrwl/angular';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult } from 'imng-kendo-odata';
@@ -14,7 +14,7 @@ import * as productActionTypes from '../+state/product.actions';
 import { ProductsPartialState, initialState, reducer as productsReducer, PRODUCTS_FEATURE_KEY } from '../+state/product.reducer';
 import { ProductListFacade } from './list.facade';
 import { IProduct, ProductProperties } from '../../../models';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 interface TestSchema {
   [PRODUCTS_FEATURE_KEY]: ProductsPartialState;
@@ -82,64 +82,52 @@ describe('ProductListFacade', () => {
     /**
      * The initially generated facade::loadEntities() returns an array of (1)
      */
-    it('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async done => {
-      try {
-        let list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(0);
-        facade.loadEntities({});
+    it('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      facade.loadEntities({});
 
-        list = await readFirst(facade.gridData$);
-        const loading = await readFirst(facade.loading$);
-        expect(list.data.length).toBe(1);
-        expect(loading).toBe(false);
-        expect(httpClient.get).toBeCalledTimes(1);
-        expect(httpClient.get).toBeCalledWith('products-odata/odata/v1/Products?&$count=true');
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      list = await readFirst(facade.gridData$);
+      const loading = await readFirst(facade.loading$);
+      expect(list.data.length).toBe(1);
+      expect(loading).toBe(false);
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/Products?&$count=true');
+
     });
 
-    it('should get the grid state', async done => {
-      try {
-        const filteringState: ODataState = {
-          filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
-        };
-        let state = await readFirst(facade.gridODataState$);
-        expect(state.count).toBeUndefined();
-        facade.loadEntities(filteringState);
+    it('should get the grid state', async () => {
+      const filteringState: ODataState = {
+        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+      };
+      let state = await readFirst(facade.gridODataState$);
+      expect(state?.count).toBeUndefined();
+      facade.loadEntities(filteringState);
 
-        state = await readFirst(facade.gridODataState$);
-        expect(state).toStrictEqual(filteringState);
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual(filteringState);
 
-        facade.loadEntities({});
-        state = await readFirst(facade.gridODataState$);
-        expect(state).toStrictEqual({});
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      facade.loadEntities({});
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual({});
+
     });
 
     /**
      * Use `productsLoaded` to manually submit list for state management
      */
-    it('gridData$ should return the loaded list; and loaded flag == true', async done => {
-      try {
-        let list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(0);
-        store.dispatch(productActionTypes.loadProductsSuccess(createODataResult([createProduct(), createProduct()])));
+    it('gridData$ should return the loaded list; and loaded flag == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      store.dispatch(productActionTypes.loadProductsSuccess(createODataResult([createProduct(), createProduct()])));
 
-        list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(2);
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(2);
+
     });
 
-    it('should handle DeleteItem', done => {
-      testDeleteCurrentEntity(done, facade, httpClient);
+    it('should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
     });
   });
 });

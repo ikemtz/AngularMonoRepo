@@ -9,7 +9,7 @@ import * as customerActionTypes from './customer.actions';
 
 import { CustomerApiService } from '../customers-crud';
 import { ICustomer } from '../../../models';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class CustomerEffects {
