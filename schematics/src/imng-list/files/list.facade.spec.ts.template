@@ -84,7 +84,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
         filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
       };
       let state = await readFirst(facade.gridODataState$);
-      expect(state.count).toBeUndefined();
+      expect(state?.count).toBeUndefined();
       facade.loadEntities(filteringState);
 
       state = await readFirst(facade.gridODataState$);
