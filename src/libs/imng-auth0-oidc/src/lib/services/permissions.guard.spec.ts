@@ -6,7 +6,7 @@ import { Auth0Facade } from '../+state/auth0.facade';
 import { Router } from '@angular/router';
 import { of, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 describe('PermissionsGuard', () => {
   let guard: PermissionsGuard;

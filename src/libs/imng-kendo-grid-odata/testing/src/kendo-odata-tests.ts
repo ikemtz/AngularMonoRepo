@@ -1,5 +1,5 @@
 import { ODataState } from 'imng-kendo-odata';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 
 export async function testGridODataState<TFacade extends IKendoODataGridFacade<unknown>>(

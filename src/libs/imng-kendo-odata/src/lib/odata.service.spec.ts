@@ -3,7 +3,7 @@ import { ODataService } from './odata.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { ODataState } from './odata-state';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 describe('ODataService', () => {
   let service: ODataService;

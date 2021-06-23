@@ -2,7 +2,7 @@
 import { TestBed } from '@angular/core/testing';
 import { StateService } from './state.service';
 import { AzFunc, AzWebApp, DockerEnv } from './transformers';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { IAzSetting } from './az-setting.model';
 
 describe('StateService', () => {

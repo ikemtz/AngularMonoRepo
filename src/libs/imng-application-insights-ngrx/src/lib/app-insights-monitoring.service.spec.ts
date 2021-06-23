@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { createAction } from '@ngrx/store';
 import { of } from 'rxjs';
 import { AppInsightsMonitoringService, APP_INSIGHTS_CONFIG } from './app-insights-monitoring.service';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 describe('AppInsightsMonitoringService', () => {
   let service: AppInsightsMonitoringService;

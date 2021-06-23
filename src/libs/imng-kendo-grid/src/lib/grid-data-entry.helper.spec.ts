@@ -1,6 +1,6 @@
 import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { formGroupFac } from './editable-data-grid.directive.spec';
 import { AddEvent, GridComponent } from '@progress/kendo-angular-grid';
 

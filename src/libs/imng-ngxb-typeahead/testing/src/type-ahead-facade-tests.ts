@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ImngTypeAheadFacade } from 'imng-ngxb-typeahead';
 import { ODataService } from 'imng-kendo-odata';
 import { of } from 'rxjs';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 export function testLoadMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
   done: jest.DoneCallback,

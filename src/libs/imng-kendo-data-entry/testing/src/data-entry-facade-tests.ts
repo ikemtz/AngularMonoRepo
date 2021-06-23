@@ -1,4 +1,4 @@
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { Observable } from 'rxjs';
 
 export async function testAddSetAndClearCurrentEntity

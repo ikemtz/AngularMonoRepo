@@ -3,7 +3,7 @@ import { IdleWarningComponent } from './idle-warning.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { IdleFacade } from '../+state/idle.facade';
 import { of } from 'rxjs';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 describe('IdleWarningComponent', () => {
   let component: IdleWarningComponent;

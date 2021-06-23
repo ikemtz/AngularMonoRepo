@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { of, throwError } from 'rxjs';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { Store } from '@ngrx/store';
 import { OIDC_CONFIG } from '../models/config.model';
