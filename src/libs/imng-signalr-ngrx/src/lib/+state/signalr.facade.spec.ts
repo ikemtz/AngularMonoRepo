@@ -73,19 +73,14 @@ describe('SignalrFacade', () => {
     });
 
 
-    it('should handle reconnect', async done => {
-      try {
-        facade.dispatchAction(connect());
-        expect(service.hubConnection.start).toBeCalledTimes(1);
-        const result = await readFirst(store);
-        expect(result).toMatchSnapshot();
-        const isConnected = await readFirst(facade.isConnected$);
-        expect(isConnected).toBe(true);
-        done();
-      }
-      catch (err) {
-        done.fail(err);
-      }
+    it('should handle reconnect', async () => {
+      facade.dispatchAction(connect());
+      expect(service.hubConnection.start).toBeCalledTimes(1);
+      const result = await readFirst(store);
+      expect(result).toMatchSnapshot();
+      const isConnected = await readFirst(facade.isConnected$);
+      expect(isConnected).toBe(true);
+
     });
 
     it('should handle send', () => {
@@ -94,28 +89,22 @@ describe('SignalrFacade', () => {
       expect(service.hubConnection.send).toBeCalledWith('helloWorld', '😎');
     });
 
-    it('should handle received messages', async done => {
-      try {
-        facade.dispatchAction(receivedMessage({ methodName: 'helloWorld', data: '😎' }));
+    it('should handle received messages', async () => {
+      facade.dispatchAction(receivedMessage({ methodName: 'helloWorld', data: '😎' }));
 
-        let result = await readFirst(store);
-        expect(result).toMatchSnapshot('pre-clear');
+      let result = await readFirst(store);
+      expect(result).toMatchSnapshot('pre-clear');
 
-        const message = await readFirst(facade.lastReceivedMessage$);
-        expect(message).toStrictEqual({ methodName: 'helloWorld', data: '😎' });
+      const message = await readFirst(facade.lastReceivedMessage$);
+      expect(message).toStrictEqual({ methodName: 'helloWorld', data: '😎' });
 
-        const messages = await readFirst(facade.receivedMessages$);
-        expect(messages).toStrictEqual([
-          { methodName: 'helloWorld', data: '😎' }]);
+      const messages = await readFirst(facade.receivedMessages$);
+      expect(messages).toStrictEqual([
+        { methodName: 'helloWorld', data: '😎' }]);
 
-        facade.dispatchAction(clearMessages());
-        result = await readFirst(store);
-        expect(result).toMatchSnapshot('post-cleared');
-        done();
-      }
-      catch (err) {
-        done.fail(err);
-      }
+      facade.dispatchAction(clearMessages());
+      result = await readFirst(store);
+      expect(result).toMatchSnapshot('post-cleared');
     });
   });
 });

@@ -5,13 +5,13 @@ import { isTruthy } from 'imng-ngrx-utils';
 import { testEditSetAndClearCurrentEntity } from './data-entry-facade-tests';
 
 describe('TestAddSetAndClearCurrentEntity', () => {
-    it('New Entity Set And Clear CurrentEntity', async done =>
-        testAddSetAndClearCurrentEntity<TestFacade>(done, new TestFacade()));
+    it('New Entity Set And Clear CurrentEntity', async () =>
+        await testAddSetAndClearCurrentEntity<TestFacade>(new TestFacade()));
 });
 
 describe('TestEditSetAndClearCurrentEntity', () => {
-    it('Existing Entity Set And Clear CurrentEntity', async done =>
-        testEditSetAndClearCurrentEntity<TestFacade>(done, new TestFacade()));
+    it('Existing Entity Set And Clear CurrentEntity', async () =>
+        await testEditSetAndClearCurrentEntity<TestFacade>(new TestFacade()));
 });
 
 class TestFacade {
@@ -19,7 +19,7 @@ class TestFacade {
     currentEntity$ = this.entity$.asObservable();
     isEditActive$ = this.currentEntity$.pipe(map(m => m && isTruthy(m.id)));
     isNewActive$ = this.entity$.pipe(map(m => m && !isTruthy(m.id)));
-    setCurrentEntity(entity: { id: string, name: string; }, parentEntity?: unknown): void {
+    setCurrentEntity(entity: { id: string, name: string; }): void {
         this.entity$.next(entity);
     }
     clearCurrentEntity(): void {

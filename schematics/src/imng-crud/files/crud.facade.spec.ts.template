@@ -71,29 +71,23 @@ describe('<%= classify(name) %>CrudFacade', () => {
       facade = TestBed.inject(<%= classify(name) %>CrudFacade);
     });
 
-    test('clearCurrentEntity() should set current<%= classify(name) %> to null', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
+    test('clearCurrentEntity() should set current<%= classify(name) %> to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
 
-        facade.clearCurrentEntity();
-        isNewActive = await readFirst(facade.isNewActive$);
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(isNewActive).toBeFalsy();
     });
 
-    test('New Entity Set And Clear CurrentEntity', async done =>
-      testAddSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(done, facade));
-    test('Existing Entity Set And Clear CurrentEntity', async done =>
-      testEditSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(done, facade));
-    test('Save CurrentEntity', async done =>
-      testSaveCurrentEntity<<%= classify(name) %>CrudFacade>(done, facade, TestBed.inject(HttpClient)));
-    test('Update CurrentEntity', async done =>
-      testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(done, facade, TestBed.inject(HttpClient)));
+    test('New Entity Set And Clear CurrentEntity', async () =>
+     await testAddSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
+    test('Existing Entity Set And Clear CurrentEntity', async () =>
+     await testEditSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
+    test('Save CurrentEntity', async () =>
+     await testSaveCurrentEntity<<%= classify(name) %>CrudFacade>(facade, TestBed.inject(HttpClient)));
+    test('Update CurrentEntity', async () =>
+     await testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(facade, TestBed.inject(HttpClient)));
   });
 });

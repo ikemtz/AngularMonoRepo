@@ -51,14 +51,9 @@ describe('IdleFacade', () => {
       facade = TestBed.inject(IdleFacade);
     });
 
-    it('current state should match initial', async done => {
-      try {
-        expect(store).toBeTruthy();
-        expect(await readFirst(facade.isTimingOut$)).toBe(false);
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+    it('current state should match initial', async () => {
+      expect(store).toBeTruthy();
+      expect(await readFirst(facade.isTimingOut$)).toBe(false);
     });
   });
 });

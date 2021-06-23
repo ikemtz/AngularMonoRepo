@@ -7,6 +7,7 @@
     "start": "nx serve",
     "build": "nx build",
     "build:prod": "nx build --prod",
+    "test:aw": "nx test adventure-works --code-coverage",
     "test:nur": "nx test nurse-cron --code-coverage",
     "test:azc": "nx test imng-az-func-configr --code-coverage",
     "test:ivtr": "nx test imng-inventory --code-coverage",

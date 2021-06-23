@@ -27,51 +27,44 @@ describe('TokenInterceptorService', () => {
     expect(tokenInterceptorService).toBeTruthy();
   });
 
-  it('should support canActivate', async done => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const req: any = {
-        clone: jest.fn()
-      };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const next: any = {
-        handle: jest.fn(() => of('😎'))
-      };
-      const result = await readFirst(tokenInterceptorService.intercept(req, next));
-      expect(result).toBe('😎');
-      expect(next.handle).toBeCalledTimes(1);
-      expect(store.dispatch).toBeCalledTimes(0);
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should support canActivate', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const req: any = {
+      clone: jest.fn()
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const next: any = {
+      handle: jest.fn(() => of('😎'))
+    };
+    const result = await readFirst(tokenInterceptorService.intercept(req, next));
+    expect(result).toBe('😎');
+    expect(next.handle).toBeCalledTimes(1);
+    expect(store.dispatch).toBeCalledTimes(0);
+
   });
 
-  it('should support exceptionHandling = true', async done => {
+  it('should support exceptionHandling = true', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const req: any = {
+      clone: jest.fn()
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const next: any = {
+      handle: jest.fn(() => throwError(new HttpErrorResponse({ error: 'Validation' })))
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let result: HttpEvent<any>;
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const req: any = {
-        clone: jest.fn()
-      };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const next: any = {
-        handle: jest.fn(() => throwError(new HttpErrorResponse({ error: 'Validation' })))
-      };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let result: HttpEvent<any>;
-      try {
-        result = await readFirst(tokenInterceptorService.intercept(req, next));
-      } catch (err) {
-        expect(result).toBeUndefined();
-        expect(err).toMatchSnapshot();
-        expect(next.handle).toBeCalledTimes(1);
-        expect(store.dispatch).toBeCalledTimes(1);
-        return done();
-      }
-      done.fail('The anticipated exception was not thrown');
+      result = await readFirst(tokenInterceptorService.intercept(req, next));
     } catch (err) {
-      done.fail(err);
+      expect(result).toBeUndefined();
+      expect(err).toMatchSnapshot();
+      expect(next.handle).toBeCalledTimes(1);
+      expect(store.dispatch).toBeCalledTimes(1);
+      return;
     }
+    throwError('The anticipated exception was not thrown');
+
   });
 
 });

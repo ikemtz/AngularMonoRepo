@@ -28,15 +28,9 @@ describe('IdleWarningComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should close', async done => {
-    try {
-      component.isSessionTimingOut$.next(true);
-      component.close();
-      expect(await readFirst(component.isSessionTimingOut$)).toBe(false);
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should close', async () => {
+    component.isSessionTimingOut$.next(true);
+    component.close();
+    expect(await readFirst(component.isSessionTimingOut$)).toBe(false);
   });
 });

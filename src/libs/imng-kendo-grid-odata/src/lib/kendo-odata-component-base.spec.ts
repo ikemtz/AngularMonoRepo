@@ -26,15 +26,9 @@ describe('KendoODataComponentBase', () => {
     expect(component.router).toBeFalsy();
   });
 
-  it('should export to Excel', async done => {
-    try {
-      const data = await readFirst(component.excelData());
-      expect(data).toStrictEqual(ODataResultEmpty);
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should export to Excel', async () => {
+    const data = await readFirst(component.excelData());
+    expect(data).toStrictEqual(ODataResultEmpty);
   });
 });
 

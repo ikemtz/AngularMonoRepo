@@ -9,7 +9,7 @@ import { dasherize, classify } from '@angular-devkit/core/src/utils/strings';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('imng-module', () => {
-  it('works - Competencies', async done => {
+  it('works - Competencies', async () => {
     try {
       const runner = new SchematicTestRunner('schematics', collectionPath);
       const options: IOptions = {

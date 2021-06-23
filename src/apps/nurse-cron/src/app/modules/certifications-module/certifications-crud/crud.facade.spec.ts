@@ -70,30 +70,26 @@ describe('CertificationCrudFacade', () => {
       facade = TestBed.inject(CertificationCrudFacade);
     });
 
-    it('clearCurrentEntity() should set currentCertification to null', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
-        expect(store).toBeTruthy();
+    it('clearCurrentEntity() should set currentCertification to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
+      expect(store).toBeTruthy();
 
-        facade.clearCurrentEntity();
-        isNewActive = await readFirst(facade.isNewActive$);
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
+      expect(isNewActive).toBeFalsy();
 
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+
     });
 
-    it('New Entity Set And Clear CurrentEntity', async done =>
-      testAddSetAndClearCurrentEntity<CertificationCrudFacade>(done, facade));
-    it('Existing Entity Set And Clear CurrentEntity', async done =>
-      testEditSetAndClearCurrentEntity<CertificationCrudFacade>(done, facade));
-    it('Save CurrentEntity', async done =>
-      testSaveCurrentEntity<CertificationCrudFacade>(done, facade, TestBed.inject(HttpClient)));
-    it('Update CurrentEntity', async done =>
-      testUpdateCurrentEntity<CertificationCrudFacade>(done, facade, TestBed.inject(HttpClient)));
+    it('New Entity Set And Clear CurrentEntity', async () =>
+      await testAddSetAndClearCurrentEntity<CertificationCrudFacade>(facade));
+    it('Existing Entity Set And Clear CurrentEntity', async () =>
+      await testEditSetAndClearCurrentEntity<CertificationCrudFacade>(facade));
+    it('Save CurrentEntity', async () =>
+      await testSaveCurrentEntity<CertificationCrudFacade>(facade, TestBed.inject(HttpClient)));
+    it('Update CurrentEntity', async () =>
+      await testUpdateCurrentEntity<CertificationCrudFacade>(facade, TestBed.inject(HttpClient)));
   });
 });

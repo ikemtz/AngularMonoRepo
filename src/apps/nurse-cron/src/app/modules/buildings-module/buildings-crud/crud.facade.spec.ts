@@ -78,30 +78,26 @@ describe('BuildingCrudFacade', () => {
       facade = TestBed.inject(BuildingCrudFacade);
     });
 
-    it('clearCurrentEntity() should set currentBuilding to null', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
+    it('clearCurrentEntity() should set currentBuilding to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
 
-        facade.clearCurrentEntity();
-        isNewActive = await readFirst(facade.isNewActive$);
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
+      expect(isNewActive).toBeFalsy();
 
-        expect(await readFirst(store)).toMatchSnapshot();
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(await readFirst(store)).toMatchSnapshot();
+
     });
 
-    it('New Entity Set And Clear CurrentEntity', async done =>
-      testAddSetAndClearCurrentEntity<BuildingCrudFacade>(done, facade));
-    it('Existing Entity Set And Clear CurrentEntity', async done =>
-      testEditSetAndClearCurrentEntity<BuildingCrudFacade>(done, facade));
-    it('Save CurrentEntity', async done =>
-      testSaveCurrentEntity<BuildingCrudFacade>(done, facade, TestBed.inject(HttpClient)));
-    it('Update CurrentEntity', async done =>
-      testUpdateCurrentEntity<BuildingCrudFacade>(done, facade, TestBed.inject(HttpClient)));
+    it('New Entity Set And Clear CurrentEntity', async () =>
+      await testAddSetAndClearCurrentEntity<BuildingCrudFacade>(facade));
+    it('Existing Entity Set And Clear CurrentEntity', async () =>
+      await testEditSetAndClearCurrentEntity<BuildingCrudFacade>(facade));
+    it('Save CurrentEntity', async () =>
+      await testSaveCurrentEntity<BuildingCrudFacade>(facade, TestBed.inject(HttpClient)));
+    it('Update CurrentEntity', async () =>
+      await testUpdateCurrentEntity<BuildingCrudFacade>(facade, TestBed.inject(HttpClient)));
   });
 });

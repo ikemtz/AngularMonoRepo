@@ -38,24 +38,19 @@ describe('ImngEditableDataGridDirective', () => {
     directive.ngOnDestroy();
   });
 
-  it('should set sorting properly', async done => {
-    try {
-      const changeDetectorRef = {} as ChangeDetectorRef;
-      const directive = new ImngEditableDataGridDirective(gridComponent, changeDetectorRef);
-      expect(directive).toBeTruthy();
-      expect(directive.gridDataEntryHelper).toBeFalsy();
-      directive.ngOnInit();
-      directive.gridDataEntryHelper = new GridDataEntryHelper(formGroupFac, [
-        { id: 'A💩' },
-        { id: 'B🐂' },
-        { id: 'C🥜' },
-      ]);
-      expect(await readFirst(directive.gridDataEntryHelper.sortDescriptors$)).toBeTruthy();
-      expect(directive.gridComponent.sort).toBeTruthy();
-      directive.ngOnDestroy();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should set sorting properly', async () => {
+    const changeDetectorRef = {} as ChangeDetectorRef;
+    const directive = new ImngEditableDataGridDirective(gridComponent, changeDetectorRef);
+    expect(directive).toBeTruthy();
+    expect(directive.gridDataEntryHelper).toBeFalsy();
+    directive.ngOnInit();
+    directive.gridDataEntryHelper = new GridDataEntryHelper(formGroupFac, [
+      { id: 'A💩' },
+      { id: 'B🐂' },
+      { id: 'C🥜' },
+    ]);
+    expect(await readFirst(directive.gridDataEntryHelper.sortDescriptors$)).toBeTruthy();
+    expect(directive.gridComponent.sort).toBeTruthy();
+    directive.ngOnDestroy();
   });
 });

@@ -71,29 +71,25 @@ describe('UnitCrudFacade', () => {
       facade = TestBed.inject(UnitCrudFacade);
     });
 
-    it('clearCurrentEntity() should set currentUnit to null', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
+    it('clearCurrentEntity() should set currentUnit to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
 
-        facade.clearCurrentEntity();
-        isNewActive = await readFirst(facade.isNewActive$);
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
-        expect(await readFirst(store)).toMatchSnapshot();
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(isNewActive).toBeFalsy();
+      expect(await readFirst(store)).toMatchSnapshot();
+
     });
 
-    it('New Entity Set And Clear CurrentEntity', async done =>
-      testAddSetAndClearCurrentEntity<UnitCrudFacade>(done, facade));
-    it('Existing Entity Set And Clear CurrentEntity', async done =>
-      testEditSetAndClearCurrentEntity<UnitCrudFacade>(done, facade));
-    it('Save CurrentEntity', async done =>
-      testSaveCurrentEntity<UnitCrudFacade>(done, facade, TestBed.inject(HttpClient)));
-    it('Update CurrentEntity', async done =>
-      testUpdateCurrentEntity<UnitCrudFacade>(done, facade, TestBed.inject(HttpClient)));
+    it('New Entity Set And Clear CurrentEntity', async () =>
+      await testAddSetAndClearCurrentEntity<UnitCrudFacade>(facade));
+    it('Existing Entity Set And Clear CurrentEntity', async () =>
+      await testEditSetAndClearCurrentEntity<UnitCrudFacade>(facade));
+    it('Save CurrentEntity', async () =>
+      await testSaveCurrentEntity<UnitCrudFacade>(facade, TestBed.inject(HttpClient)));
+    it('Update CurrentEntity', async () =>
+      await testUpdateCurrentEntity<UnitCrudFacade>(facade, TestBed.inject(HttpClient)));
   });
 });

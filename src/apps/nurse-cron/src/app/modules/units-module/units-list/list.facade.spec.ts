@@ -67,62 +67,50 @@ describe('UnitListFacade', () => {
     /**
      * The initially generated facade::loadAll() returns empty array
      */
-    it('loadAll() should return empty list with loaded == true', async done => {
-      try {
-        let list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(0);
-        facade.loadEntities({});
+    it('loadAll() should return empty list with loaded == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      facade.loadEntities({});
 
-        list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(1);
-        expect(httpClient.get).toBeCalledTimes(1);
-        expect(httpClient.get).toBeCalledWith('units-odata/odata/v1/Units?&$count=true');
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(1);
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith('units-odata/odata/v1/Units?&$count=true');
+
     });
 
-    it('should get the grid state', async done => {
-      try {
-        const filteringState: ODataState = {
-          filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
-        };
-        let state = await readFirst(facade.gridODataState$);
-        expect(state.count).toBeUndefined();
-        facade.loadEntities(filteringState);
+    it('should get the grid state', async () => {
+      const filteringState: ODataState = {
+        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+      };
+      let state = await readFirst(facade.gridODataState$);
+      expect(state.count).toBeUndefined();
+      facade.loadEntities(filteringState);
 
-        state = await readFirst(facade.gridODataState$);
-        expect(state).toStrictEqual(filteringState);
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual(filteringState);
 
-        facade.loadEntities({});
-        state = await readFirst(facade.gridODataState$);
-        expect(state).toStrictEqual({});
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      facade.loadEntities({});
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual({});
+
     });
 
     /**
      * Use `unitsLoaded` to manually submit list for state management
      */
-    it('gridData$ should return the loaded list; and loaded flag == true', async done => {
-      try {
-        let list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(0);
-        store.dispatch(unitActionTypes.loadUnitsSuccess({ data: [createUnit(), createUnit()], total: 0 }));
+    it('gridData$ should return the loaded list; and loaded flag == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      store.dispatch(unitActionTypes.loadUnitsSuccess({ data: [createUnit(), createUnit()], total: 0 }));
 
-        list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(2);
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(2);
+
     });
 
-    it('should handle DeleteItem', done => {
-      testDeleteCurrentEntity(done, facade, httpClient);
+    it('should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
     });
   });
 });

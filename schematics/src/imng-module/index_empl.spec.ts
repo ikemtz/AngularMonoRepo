@@ -11,7 +11,7 @@ const collectionPath = path.join(__dirname, `../collection.json`);
 
 
 describe(`imng-module`, () => {
-  it(`works - employees`, async done => {
+  it(`works - employees`, async () => {
     try {
       const runner = new SchematicTestRunner(`schematics`, collectionPath);
       const options: IOptions = {

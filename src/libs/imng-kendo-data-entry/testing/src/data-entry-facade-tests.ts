@@ -2,53 +2,40 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { Observable } from 'rxjs';
 
 export async function testAddSetAndClearCurrentEntity
-  <TFacade extends TestableFacade>(done: jest.DoneCallback, facade: TFacade): Promise<void> {
-  try {
-    const entity = { name: '🆕' };
-    await validateInitialState(facade);
+  <TFacade extends TestableFacade>(facade: TFacade): Promise<void> {
+  const entity = { name: '🆕' };
+  await validateInitialState(facade);
 
-    facade.setCurrentEntity(entity, { name: 'parentEntity' });
-    let status = await getEntityStatus(facade);
-    expect(status.currentEntity).toStrictEqual(entity);
-    expect(status.isEditActive).toBeFalsy();
-    expect(status.isNewActive).toBeTruthy();
+  facade.setCurrentEntity(entity, { name: 'parentEntity' });
+  let status = await getEntityStatus(facade);
+  expect(status.currentEntity).toStrictEqual(entity);
+  expect(status.isEditActive).toBeFalsy();
+  expect(status.isNewActive).toBeTruthy();
 
-    facade.clearCurrentEntity();
-    status = await getEntityStatus(facade);
-    expect(status.currentEntity).toBeFalsy();
-    expect(status.isEditActive).toBeFalsy();
-    expect(status.isNewActive).toBeFalsy();
-
-    done();
-  } catch (err) {
-    done.fail(err);
-  }
+  facade.clearCurrentEntity();
+  status = await getEntityStatus(facade);
+  expect(status.currentEntity).toBeFalsy();
+  expect(status.isEditActive).toBeFalsy();
+  expect(status.isNewActive).toBeFalsy();
 }
 
 export async function testEditSetAndClearCurrentEntity<TFacade extends TestableFacade>(
-  done: jest.DoneCallback,
   facade: TFacade,
 ): Promise<void> {
-  try {
-    const entity = { id: '💃', name: '🧓👴👵' };
-    await validateInitialState(facade);
+  const entity = { id: '💃', name: '🧓👴👵' };
+  await validateInitialState(facade);
 
-    facade.setCurrentEntity(entity, { name: 'parentEntity' });
-    let status = await getEntityStatus(facade);
-    expect(status.currentEntity).toStrictEqual(entity);
-    expect(status.isEditActive).toBeTruthy();
-    expect(status.isNewActive).toBeFalsy();
+  facade.setCurrentEntity(entity, { name: 'parentEntity' });
+  let status = await getEntityStatus(facade);
+  expect(status.currentEntity).toStrictEqual(entity);
+  expect(status.isEditActive).toBeTruthy();
+  expect(status.isNewActive).toBeFalsy();
 
-    facade.clearCurrentEntity();
-    status = await getEntityStatus(facade);
-    expect(status.currentEntity).toBeFalsy();
-    expect(status.isEditActive).toBeFalsy();
-    expect(status.isNewActive).toBeFalsy();
-
-    done();
-  } catch (err) {
-    done.fail(err);
-  }
+  facade.clearCurrentEntity();
+  status = await getEntityStatus(facade);
+  expect(status.currentEntity).toBeFalsy();
+  expect(status.isEditActive).toBeFalsy();
+  expect(status.isNewActive).toBeFalsy();
 }
 async function validateInitialState(facade: TestableFacade): Promise<void> {
   const status = await getEntityStatus(facade);

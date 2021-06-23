@@ -14,114 +14,64 @@ describe('RxJs Operators', () => {
     data: [], total: 0
   });
 
-  it('mapToExtDataResult should function', async done => {
-    try {
-      const result = await readFirst(gridData$.pipe(
-        map(t => ({
-          value: t.data,
-          '@odata.count': t.data.length
-        })),
-        mapToExtDataResult()));
-      expect(result).toMatchSnapshot();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('mapToExtDataResult should function', async () => {
+    const result = await readFirst(gridData$.pipe(
+      map(t => ({
+        value: t.data,
+        '@odata.count': t.data.length
+      })),
+      mapToExtDataResult()));
+    expect(result).toMatchSnapshot();
   });
 
-  it('mapToExtDataResult should handle Arrays', async done => {
-    try {
-      const result = await readFirst(gridData$.pipe(
-        map(t => t.data),
-        mapToExtDataResult()));
-      expect(result).toMatchSnapshot();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('mapToExtDataResult should handle Arrays', async () => {
+    const result = await readFirst(gridData$.pipe(
+      map(t => t.data),
+      mapToExtDataResult()));
+    expect(result).toMatchSnapshot();
   });
 
-  it('mapToExtDataResult should handle null', async done => {
-    try {
-      const result = await readFirst(of(null).pipe(mapToExtDataResult()));
-      expect(result).toMatchSnapshot();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('mapToExtDataResult should handle null', async () => {
+    const result = await readFirst(of(null).pipe(mapToExtDataResult()));
+    expect(result).toMatchSnapshot();
   });
 
 
-  it('getSubGridData should function', async done => {
-    try {
-      const result = await readFirst(gridData$.pipe(getSubGridData(2, x => x.subData)));
-      expect(result).toMatchSnapshot();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('getSubGridData should function', async () => {
+    const result = await readFirst(gridData$.pipe(getSubGridData(2, x => x.subData)));
+    expect(result).toMatchSnapshot();
   });
 
-  it('getSubData should function', async done => {
-    try {
-      const result = await readFirst(gridData$.pipe(
-        map(t => t.data),
-        getSubData(2, x => x.subData)));
-      expect(result).toMatchSnapshot();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('getSubData should function', async () => {
+    const result = await readFirst(gridData$.pipe(
+      map(t => t.data),
+      getSubData(2, x => x.subData)));
+    expect(result).toMatchSnapshot();
   });
 
 
-  it('should be created', async done => {
-    try {
-      const result = await readFirst(gridData$.pipe(getSubGridData(2, x => x.subData)));
-      expect(result).toMatchSnapshot();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should be created', async () => {
+    const result = await readFirst(gridData$.pipe(getSubGridData(2, x => x.subData)));
+    expect(result).toMatchSnapshot();
   });
 
-  it('should findById', async done => {
-    try {
-      const result = await readFirst(gridData$.pipe(findById(2)));
-      expect(result).toMatchSnapshot();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should findById', async () => {
+    const result = await readFirst(gridData$.pipe(findById(2)));
+    expect(result).toMatchSnapshot();
   });
 
-  it('should not findById', async done => {
-    try {
-      const result = await readFirst(gridData$.pipe(findById(3)));
-      expect(result).toStrictEqual({});
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should not findById', async () => {
+    const result = await readFirst(gridData$.pipe(findById(3)));
+    expect(result).toStrictEqual({});
   });
 
-  it('should match firstRecord', async done => {
-    try {
-      const result = await readFirst(gridData$.pipe(firstRecord()));
-      expect(result).toMatchSnapshot();
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should match firstRecord', async () => {
+    const result = await readFirst(gridData$.pipe(firstRecord()));
+    expect(result).toMatchSnapshot();
   });
 
-  it('should empty firstRecord', async done => {
-    try {
-      const result = await readFirst(emptyGridData$.pipe(firstRecord()));
-      expect(result).toStrictEqual({});
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should empty firstRecord', async () => {
+    const result = await readFirst(emptyGridData$.pipe(firstRecord()));
+    expect(result).toStrictEqual({});
   });
 });

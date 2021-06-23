@@ -1,26 +1,24 @@
 import { testLoadSeriesData, } from '.';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ODataService } from 'imng-kendo-odata';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { ChartSeriesDataPoint } from 'imng-kendo-chart-odata';
 import { GroupResult } from '@progress/kendo-data-query';
 
 describe('Testing testLoadSeriesData', () => {
-  it('should validate', async done => {
-    try {
-      const odataService: any = {};
-      const facade = new ChartODataMockFacade(odataService);
-      await testLoadSeriesData(done, facade, odataService);
-      done();
-    } catch (err) {
-      done.fail(err);
-    }
+  it('should validate', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const odataService: any = {};
+    const facade = new ChartODataMockFacade(odataService);
+    await testLoadSeriesData(facade, odataService);
   });
 });
 
 class ChartODataMockFacade {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(private readonly service: any) { }
   private _seriesData = new BehaviorSubject<ChartSeriesDataPoint[] | GroupResult[]>(null);
   public seriesData$: Observable<ChartSeriesDataPoint[] | GroupResult[]> = this._seriesData.asObservable();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-explicit-any
   public loadSeriesData(filter: any): void {
     this._seriesData.next([
       { seriesName: '🔷integration Tests🔷', metric: 5, interval: '💩AF' },

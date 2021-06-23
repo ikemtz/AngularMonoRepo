@@ -69,30 +69,26 @@ describe('HealthItemCrudFacade', () => {
       facade = TestBed.inject(HealthItemCrudFacade);
     });
 
-    it('clearCurrentEntity() should set currentHealthItem to null', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
+    it('clearCurrentEntity() should set currentHealthItem to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
 
-        facade.clearCurrentEntity();
-        isNewActive = await readFirst(facade.isNewActive$);
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
+      expect(isNewActive).toBeFalsy();
 
-        expect(await readFirst(store)).toMatchSnapshot();
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(await readFirst(store)).toMatchSnapshot();
+
     });
 
-    it('New Entity Set And Clear CurrentEntity', async done =>
-      testAddSetAndClearCurrentEntity<HealthItemCrudFacade>(done, facade));
-    it('Existing Entity Set And Clear CurrentEntity', async done =>
-      testEditSetAndClearCurrentEntity<HealthItemCrudFacade>(done, facade));
-    it('Save CurrentEntity', async done =>
-      testSaveCurrentEntity<HealthItemCrudFacade>(done, facade, TestBed.inject(HttpClient)));
-    it('Update CurrentEntity', async done =>
-      testUpdateCurrentEntity<HealthItemCrudFacade>(done, facade, TestBed.inject(HttpClient)));
+    it('New Entity Set And Clear CurrentEntity', async () =>
+      await testAddSetAndClearCurrentEntity<HealthItemCrudFacade>(facade));
+    it('Existing Entity Set And Clear CurrentEntity', async () =>
+      await testEditSetAndClearCurrentEntity<HealthItemCrudFacade>(facade));
+    it('Save CurrentEntity', async () =>
+      await testSaveCurrentEntity<HealthItemCrudFacade>(facade, TestBed.inject(HttpClient)));
+    it('Update CurrentEntity', async () =>
+      await testUpdateCurrentEntity<HealthItemCrudFacade>(facade, TestBed.inject(HttpClient)));
   });
 });

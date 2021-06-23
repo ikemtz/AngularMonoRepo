@@ -10,7 +10,7 @@ const collectionPath = path.join(__dirname, `../collection.json`);
 
 
 describe(`imng-crud`, () => {
-  it(`works`, async done => {
+  it(`works`, async () => {
     try {
       const runner = new SchematicTestRunner(`schematics`, collectionPath);
       const options: IOptions = {

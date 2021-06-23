@@ -20,101 +20,65 @@ describe('StateService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should setTransformer AzFunc', async done => {
-    try {
-      const transformer = AzFunc;
-      service.setTransformer(transformer);
-      service.setAzConfiguration(azConfigFactory());
-      const result = await readFirst(service.currentTransformer$);
-      const data = await readFirst(service.output$);
-      expect(result).toEqual(transformer);
-      expect(data).toMatchSnapshot();
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should setTransformer AzFunc', async () => {
+    const transformer = AzFunc;
+    service.setTransformer(transformer);
+    service.setAzConfiguration(azConfigFactory());
+    const result = await readFirst(service.currentTransformer$);
+    const data = await readFirst(service.output$);
+    expect(result).toEqual(transformer);
+    expect(data).toMatchSnapshot();
   });
 
-  it('should setTransformer AzWebApp', async done => {
-    try {
-      const transformer = AzWebApp;
-      service.setTransformer(transformer);
-      service.setAzConfiguration(azConfigFactory());
-      const result = await readFirst(service.currentTransformer$);
-      const data = await readFirst(service.output$);
-      expect(result).toEqual(transformer);
-      expect(data).toMatchSnapshot();
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should setTransformer AzWebApp', async () => {
+    const transformer = AzWebApp;
+    service.setTransformer(transformer);
+    service.setAzConfiguration(azConfigFactory());
+    const result = await readFirst(service.currentTransformer$);
+    const data = await readFirst(service.output$);
+    expect(result).toEqual(transformer);
+    expect(data).toMatchSnapshot();
   });
 
-  it('should setTransformer DockerEnv', async done => {
-    try {
-      const transformer = DockerEnv;
-      service.setTransformer(transformer);
-      service.setAzConfiguration(azConfigFactory());
-      const result = await readFirst(service.currentTransformer$);
-      const data = await readFirst(service.output$);
-      expect(result).toEqual(transformer);
-      expect(data).toMatchSnapshot();
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should setTransformer DockerEnv', async () => {
+    const transformer = DockerEnv;
+    service.setTransformer(transformer);
+    service.setAzConfiguration(azConfigFactory());
+    const result = await readFirst(service.currentTransformer$);
+    const data = await readFirst(service.output$);
+    expect(result).toEqual(transformer);
+    expect(data).toMatchSnapshot();
   });
 
 
-  it('should setTransformer AzFunc Empty', async done => {
-    try {
-      const transformer = AzFunc;
-      service.setAzConfiguration('null' as any);
-      service.setAzConfiguration('null' as any);
-      service.setAzConfiguration('null' as any);
-      const result = await readFirst(service.currentTransformer$);
-      const data = await readFirst(service.output$);
-      expect(result).toEqual(transformer);
-      expect(data).toMatchSnapshot();
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should setTransformer AzFunc Empty', async () => {
+    const transformer = AzFunc;
+    service.setAzConfiguration('null' as any);
+    service.setAzConfiguration('null' as any);
+    service.setAzConfiguration('null' as any);
+    const result = await readFirst(service.currentTransformer$);
+    const data = await readFirst(service.output$);
+    expect(result).toEqual(transformer);
+    expect(data).toMatchSnapshot();
   });
 
-  it('should setTransformer AzWebApp Empy', async done => {
-    try {
-      const transformer = AzWebApp;
-      service.setTransformer(transformer);
-      service.setAzConfiguration('' as any);
-      const result = await readFirst(service.currentTransformer$);
-      const data = await readFirst(service.output$);
-      expect(result).toEqual(transformer);
-      expect(data).toMatchSnapshot();
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should setTransformer AzWebApp Empy', async () => {
+    const transformer = AzWebApp;
+    service.setTransformer(transformer);
+    service.setAzConfiguration('' as any);
+    const result = await readFirst(service.currentTransformer$);
+    const data = await readFirst(service.output$);
+    expect(result).toEqual(transformer);
+    expect(data).toMatchSnapshot();
   });
 
-  it('should setTransformer DockerEnv Empty', async done => {
-    try {
-      const transformer = DockerEnv;
-      service.setTransformer(transformer);
-      service.setAzConfiguration('' as any);
-      const result = await readFirst(service.currentTransformer$);
-      const data = await readFirst(service.output$);
-      expect(result).toEqual(transformer);
-      expect(data).toMatchSnapshot();
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should setTransformer DockerEnv Empty', async () => {
+    const transformer = DockerEnv;
+    service.setTransformer(transformer);
+    service.setAzConfiguration('' as any);
+    const result = await readFirst(service.currentTransformer$);
+    const data = await readFirst(service.output$);
+    expect(result).toEqual(transformer);
+    expect(data).toMatchSnapshot();
   });
 });
