@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomerEditComponent should update 1`] = `
+Object {
+  "companyName": "COMPANY_NAME",
+  "customerAddresses": Array [],
+  "emailAddress": "EMAIL_ADDRESS",
+  "firstName": "FIRST_NAME",
+  "id": "ID",
+  "lastName": "LAST_NAME",
+  "middleName": "MIDDLE_NAME",
+  "nameStyle": true,
+  "phone": "PHONE",
+  "saleOrders": Array [],
+  "salesPerson": "SALES_PERSON",
+  "suffix": "SUFFIX",
+  "title": "TITLE",
+}
+`;

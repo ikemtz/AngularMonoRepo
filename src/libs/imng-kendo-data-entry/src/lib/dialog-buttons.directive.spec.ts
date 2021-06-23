@@ -75,20 +75,3 @@ export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacad
     this.saved = true;
   }
 }
-
-describe('DataEntryDialog', () => {
-  let component: DataEntryDialogComponent;
-  const parentComponent = {
-    dialogTitle: '🔥',
-    loading$: '💩',
-    addEditForm: '🐎',
-    closeForm: jest.fn(),
-    onCancel: jest.fn(),
-    onSubmit: jest.fn(),
-  };
-
-  beforeEach(() => {
-    component = new DataEntryDialogComponent();
-    component.parentComponent = parentComponent as never;
-  });
-});

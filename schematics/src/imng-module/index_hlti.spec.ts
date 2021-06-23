@@ -2,14 +2,14 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import * as pluralize from 'pluralize';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('imng-module', () => {
-  it('works - Health Items', async done => {
+  it('works - Health Items', async () => {
     try {
       const runner = new SchematicTestRunner('schematics', collectionPath);
       const options: IOptions = {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { NxModule, DataPersistence } from '@nrwl/angular';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult } from 'imng-kendo-odata';
@@ -14,7 +14,7 @@ import * as saleOrderActionTypes from '../+state/sale-order.actions';
 import { SaleOrdersPartialState, initialState, reducer as saleOrdersReducer, SALE_ORDERS_FEATURE_KEY } from '../+state/sale-order.reducer';
 import { SaleOrderListFacade } from './list.facade';
 import { ISaleOrder, SaleOrderProperties } from '../../../models';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 interface TestSchema {
   [SALE_ORDERS_FEATURE_KEY]: SaleOrdersPartialState;
@@ -89,64 +89,52 @@ describe('SaleOrderListFacade', () => {
     /**
      * The initially generated facade::loadEntities() returns an array of (1)
      */
-    it('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async done => {
-      try {
-        let list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(0);
-        facade.loadEntities({});
+    it('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      facade.loadEntities({});
 
-        list = await readFirst(facade.gridData$);
-        const loading = await readFirst(facade.loading$);
-        expect(list.data.length).toBe(1);
-        expect(loading).toBe(false);
-        expect(httpClient.get).toBeCalledTimes(1);
-        expect(httpClient.get).toBeCalledWith('sale-orders-odata/odata/v1/SaleOrders?&$count=true');
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      list = await readFirst(facade.gridData$);
+      const loading = await readFirst(facade.loading$);
+      expect(list.data.length).toBe(1);
+      expect(loading).toBe(false);
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/SaleOrders?&$count=true');
+
     });
 
-    it('should get the grid state', async done => {
-      try {
-        const filteringState: ODataState = {
-          filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
-        };
-        let state = await readFirst(facade.gridODataState$);
-        expect(state.count).toBeUndefined();
-        facade.loadEntities(filteringState);
+    it('should get the grid state', async () => {
+      const filteringState: ODataState = {
+        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+      };
+      let state = await readFirst(facade.gridODataState$);
+      expect(state?.count).toBeUndefined();
+      facade.loadEntities(filteringState);
 
-        state = await readFirst(facade.gridODataState$);
-        expect(state).toStrictEqual(filteringState);
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual(filteringState);
 
-        facade.loadEntities({});
-        state = await readFirst(facade.gridODataState$);
-        expect(state).toStrictEqual({});
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      facade.loadEntities({});
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual({});
+
     });
 
     /**
      * Use `saleOrdersLoaded` to manually submit list for state management
      */
-    it('gridData$ should return the loaded list; and loaded flag == true', async done => {
-      try {
-        let list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(0);
-        store.dispatch(saleOrderActionTypes.loadSaleOrdersSuccess(createODataResult([createSaleOrder(), createSaleOrder()])));
+    it('gridData$ should return the loaded list; and loaded flag == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      store.dispatch(saleOrderActionTypes.loadSaleOrdersSuccess(createODataResult([createSaleOrder(), createSaleOrder()])));
 
-        list = await readFirst(facade.gridData$);
-        expect(list.data.length).toBe(2);
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(2);
+
     });
 
-    it('should handle DeleteItem', done => {
-      testDeleteCurrentEntity(done, facade, httpClient);
+    it('should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
     });
   });
 });

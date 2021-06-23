@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -86,30 +86,26 @@ describe('EmployeeCrudFacade', () => {
       facade = TestBed.inject(EmployeeCrudFacade);
     });
 
-    it('clearCurrentEntity() should set currentEmployee to null', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
+    it('clearCurrentEntity() should set currentEmployee to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
 
-        facade.clearCurrentEntity();
-        isNewActive = await readFirst(facade.isNewActive$);
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
+      expect(isNewActive).toBeFalsy();
 
-        expect(await readFirst(store)).toMatchSnapshot();
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(await readFirst(store)).toMatchSnapshot();
+
     });
 
-    it('New Entity Set And Clear CurrentEntity', async done =>
-      testAddSetAndClearCurrentEntity<EmployeeCrudFacade>(done, facade));
-    it('Existing Entity Set And Clear CurrentEntity', async done =>
-      testEditSetAndClearCurrentEntity<EmployeeCrudFacade>(done, facade));
-    it('Save CurrentEntity', async done =>
-      testSaveCurrentEntity<EmployeeCrudFacade>(done, facade, TestBed.inject(HttpClient)));
-    it('Update CurrentEntity', async done =>
-      testUpdateCurrentEntity<EmployeeCrudFacade>(done, facade, TestBed.inject(HttpClient)));
+    it('New Entity Set And Clear CurrentEntity', async () =>
+      await testAddSetAndClearCurrentEntity<EmployeeCrudFacade>(facade));
+    it('Existing Entity Set And Clear CurrentEntity', async () =>
+      await testEditSetAndClearCurrentEntity<EmployeeCrudFacade>(facade));
+    it('Save CurrentEntity', async () =>
+      await testSaveCurrentEntity<EmployeeCrudFacade>(facade, TestBed.inject(HttpClient)));
+    it('Update CurrentEntity', async () =>
+      await testUpdateCurrentEntity<EmployeeCrudFacade>(facade, TestBed.inject(HttpClient)));
   });
 });
