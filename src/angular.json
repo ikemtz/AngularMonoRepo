@@ -26,117 +26,6 @@
     }
   },
   "projects": {
-    "imng-kendo-odata": {
-      "projectType": "library",
-      "root": "libs/imng-kendo-odata",
-      "sourceRoot": "libs/imng-kendo-odata/src",
-      "prefix": "imng",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-kendo-odata/tsconfig.lib.json",
-            "project": "libs/imng-kendo-odata/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-kendo-odata/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-kendo-odata/src/**/*.ts", "libs/imng-kendo-odata/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-kendo-odata/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
-    },
-    "imng-auth0-oidc": {
-      "projectType": "library",
-      "root": "libs/imng-auth0-oidc",
-      "sourceRoot": "libs/imng-auth0-oidc/src",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-auth0-oidc/tsconfig.lib.json",
-            "project": "libs/imng-auth0-oidc/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-auth0-oidc/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-auth0-oidc/src/**/*.ts", "libs/imng-auth0-oidc/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-auth0-oidc/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "imng-kendo-grid-odata": {
-      "projectType": "library",
-      "root": "libs/imng-kendo-grid-odata",
-      "sourceRoot": "libs/imng-kendo-grid-odata/src",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.lib.json",
-            "project": "libs/imng-kendo-grid-odata/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-kendo-grid-odata/src/**/*.ts", "libs/imng-kendo-grid-odata/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-kendo-grid-odata/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
     "imng-application-insights-ngrx": {
       "projectType": "library",
       "root": "libs/imng-application-insights-ngrx",
@@ -178,191 +67,34 @@
         }
       }
     },
-    "imng-kendo-data-entry": {
+    "imng-auth0-oidc": {
       "projectType": "library",
-      "root": "libs/imng-kendo-data-entry",
-      "sourceRoot": "libs/imng-kendo-data-entry/src",
+      "root": "libs/imng-auth0-oidc",
+      "sourceRoot": "libs/imng-auth0-oidc/src",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json",
-            "project": "libs/imng-kendo-data-entry/ng-package.json",
+            "tsConfig": "libs/imng-auth0-oidc/tsconfig.lib.json",
+            "project": "libs/imng-auth0-oidc/ng-package.json",
             "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.prod.json"
+              "tsConfig": "libs/imng-auth0-oidc/tsconfig.lib.prod.json"
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-kendo-data-entry/src/**/*.ts", "libs/imng-kendo-data-entry/src/**/*.html"]
+            "lintFilePatterns": ["libs/imng-auth0-oidc/src/**/*.ts", "libs/imng-auth0-oidc/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/imng-kendo-data-entry/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "imng-ngrx-utils": {
-      "projectType": "library",
-      "root": "libs/imng-ngrx-utils",
-      "sourceRoot": "libs/imng-ngrx-utils/src",
-      "prefix": "imng",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.json",
-            "project": "libs/imng-ngrx-utils/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-ngrx-utils/src/**/*.ts", "libs/imng-ngrx-utils/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-ngrx-utils/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "imng-nrsrx-client-utils": {
-      "projectType": "library",
-      "root": "libs/imng-nrsrx-client-utils",
-      "sourceRoot": "libs/imng-nrsrx-client-utils/src",
-      "prefix": "imng",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.json",
-            "project": "libs/imng-nrsrx-client-utils/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/imng-nrsrx-client-utils/src/**/*.ts",
-              "libs/imng-nrsrx-client-utils/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "imng-ngxb-typeahead": {
-      "projectType": "library",
-      "root": "libs/imng-ngxb-typeahead",
-      "sourceRoot": "libs/imng-ngxb-typeahead/src",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.json",
-            "project": "libs/imng-ngxb-typeahead/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-ngxb-typeahead/src/**/*.ts", "libs/imng-ngxb-typeahead/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-ngxb-typeahead/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
-        }
-      }
-    },
-    "imng-kendo-chart-odata": {
-      "projectType": "library",
-      "root": "libs/imng-kendo-chart-odata",
-      "sourceRoot": "libs/imng-kendo-chart-odata/src",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.json",
-            "project": "libs/imng-kendo-chart-odata/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-kendo-chart-odata/src/**/*.ts", "libs/imng-kendo-chart-odata/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-kendo-chart-odata/jest.config.js",
+            "jestConfig": "libs/imng-auth0-oidc/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -506,27 +238,200 @@
         }
       }
     },
-    "imng-snippets": {
-      "projectType": "library",
-      "root": "libs/imng-snippets",
-      "sourceRoot": "libs/imng-snippets/src",
+    "imng-inventory": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/imng-inventory",
+      "sourceRoot": "apps/imng-inventory/src",
       "prefix": "imng",
       "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/imng-inventory",
+            "index": "apps/imng-inventory/src/index.html",
+            "main": "apps/imng-inventory/src/main.ts",
+            "polyfills": "apps/imng-inventory/src/polyfills.ts",
+            "tsConfig": "apps/imng-inventory/tsconfig.app.json",
+            "assets": ["apps/imng-inventory/src/favicon.ico", "apps/imng-inventory/src/assets"],
+            "styles": ["apps/imng-inventory/src/styles.scss"],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true,
+            "aot": false
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/imng-inventory/src/environments/environment.ts",
+                  "with": "apps/imng-inventory/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "imng-inventory:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "imng-inventory:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "imng-inventory:build"
+          }
+        },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-snippets/src/**/*.ts", "libs/imng-snippets/src/**/*.html"]
+            "lintFilePatterns": ["apps/imng-inventory/src/**/*.ts", "apps/imng-inventory/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/imng-snippets/jest.config.js",
+            "jestConfig": "apps/imng-inventory/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "imng-inventory-e2e": {
+      "root": "apps/imng-inventory-e2e",
+      "sourceRoot": "apps/imng-inventory-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/imng-inventory-e2e/cypress.json",
+            "tsConfig": "apps/imng-inventory-e2e/tsconfig.e2e.json",
+            "devServerTarget": "imng-inventory:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "imng-inventory:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/imng-inventory-e2e/src/**/*.ts", "apps/imng-inventory-e2e/src/**/*.html"]
+          }
+        }
+      }
+    },
+    "imng-kendo-chart-odata": {
+      "projectType": "library",
+      "root": "libs/imng-kendo-chart-odata",
+      "sourceRoot": "libs/imng-kendo-chart-odata/src",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.json",
+            "project": "libs/imng-kendo-chart-odata/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-kendo-chart-odata/src/**/*.ts", "libs/imng-kendo-chart-odata/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-kendo-chart-odata/jest.config.js",
             "passWithNoTests": true
           }
         }
       },
-      "schematics": {}
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "imng-kendo-data-entry": {
+      "projectType": "library",
+      "root": "libs/imng-kendo-data-entry",
+      "sourceRoot": "libs/imng-kendo-data-entry/src",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json",
+            "project": "libs/imng-kendo-data-entry/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-kendo-data-entry/src/**/*.ts", "libs/imng-kendo-data-entry/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-kendo-data-entry/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     },
     "imng-kendo-grid": {
       "projectType": "library",
@@ -566,6 +471,298 @@
           "styleext": "scss"
         }
       }
+    },
+    "imng-kendo-grid-odata": {
+      "projectType": "library",
+      "root": "libs/imng-kendo-grid-odata",
+      "sourceRoot": "libs/imng-kendo-grid-odata/src",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.lib.json",
+            "project": "libs/imng-kendo-grid-odata/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-grid-odata/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-kendo-grid-odata/src/**/*.ts", "libs/imng-kendo-grid-odata/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-kendo-grid-odata/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "imng-kendo-odata": {
+      "projectType": "library",
+      "root": "libs/imng-kendo-odata",
+      "sourceRoot": "libs/imng-kendo-odata/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-kendo-odata/tsconfig.lib.json",
+            "project": "libs/imng-kendo-odata/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-odata/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-kendo-odata/src/**/*.ts", "libs/imng-kendo-odata/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-kendo-odata/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "imng-ngrx-idle": {
+      "projectType": "library",
+      "root": "libs/imng-ngrx-idle",
+      "sourceRoot": "libs/imng-ngrx-idle/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-ngrx-idle/tsconfig.lib.json",
+            "project": "libs/imng-ngrx-idle/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-ngrx-idle/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-ngrx-idle/src/**/*.ts", "libs/imng-ngrx-idle/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-ngrx-idle/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "imng-ngrx-utils": {
+      "projectType": "library",
+      "root": "libs/imng-ngrx-utils",
+      "sourceRoot": "libs/imng-ngrx-utils/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.json",
+            "project": "libs/imng-ngrx-utils/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-ngrx-utils/src/**/*.ts", "libs/imng-ngrx-utils/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-ngrx-utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "imng-ngxb-typeahead": {
+      "projectType": "library",
+      "root": "libs/imng-ngxb-typeahead",
+      "sourceRoot": "libs/imng-ngxb-typeahead/src",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.json",
+            "project": "libs/imng-ngxb-typeahead/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-ngxb-typeahead/src/**/*.ts", "libs/imng-ngxb-typeahead/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-ngxb-typeahead/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "imng-nrsrx-client-utils": {
+      "projectType": "library",
+      "root": "libs/imng-nrsrx-client-utils",
+      "sourceRoot": "libs/imng-nrsrx-client-utils/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.json",
+            "project": "libs/imng-nrsrx-client-utils/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/imng-nrsrx-client-utils/src/**/*.ts",
+              "libs/imng-nrsrx-client-utils/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "imng-signalr-ngrx": {
+      "projectType": "library",
+      "root": "libs/imng-signalr-ngrx",
+      "sourceRoot": "libs/imng-signalr-ngrx/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.json",
+            "project": "libs/imng-signalr-ngrx/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-signalr-ngrx//src/**/*.ts", "libs/imng-signalr-ngrx//src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-signalr-ngrx/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "imng-snippets": {
+      "projectType": "library",
+      "root": "libs/imng-snippets",
+      "sourceRoot": "libs/imng-snippets/src",
+      "prefix": "imng",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-snippets/src/**/*.ts", "libs/imng-snippets/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/imng-snippets/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
     },
     "nurse-cron": {
       "projectType": "application",
@@ -702,203 +899,6 @@
         }
       }
     },
-    "imng-signalr-ngrx": {
-      "projectType": "library",
-      "root": "libs/imng-signalr-ngrx",
-      "sourceRoot": "libs/imng-signalr-ngrx/src",
-      "prefix": "imng",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.json",
-            "project": "libs/imng-signalr-ngrx/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-signalr-ngrx//src/**/*.ts", "libs/imng-signalr-ngrx//src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-signalr-ngrx/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
-    "imng-inventory": {
-      "projectType": "application",
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "apps/imng-inventory",
-      "sourceRoot": "apps/imng-inventory/src",
-      "prefix": "imng",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/imng-inventory",
-            "index": "apps/imng-inventory/src/index.html",
-            "main": "apps/imng-inventory/src/main.ts",
-            "polyfills": "apps/imng-inventory/src/polyfills.ts",
-            "tsConfig": "apps/imng-inventory/tsconfig.app.json",
-            "assets": ["apps/imng-inventory/src/favicon.ico", "apps/imng-inventory/src/assets"],
-            "styles": ["apps/imng-inventory/src/styles.scss"],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
-            "aot": false
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/imng-inventory/src/environments/environment.ts",
-                  "with": "apps/imng-inventory/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "imng-inventory:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "imng-inventory:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "imng-inventory:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/imng-inventory/src/**/*.ts", "apps/imng-inventory/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/imng-inventory/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "imng-inventory-e2e": {
-      "root": "apps/imng-inventory-e2e",
-      "sourceRoot": "apps/imng-inventory-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/imng-inventory-e2e/cypress.json",
-            "tsConfig": "apps/imng-inventory-e2e/tsconfig.e2e.json",
-            "devServerTarget": "imng-inventory:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "imng-inventory:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/imng-inventory-e2e/src/**/*.ts", "apps/imng-inventory-e2e/src/**/*.html"]
-          }
-        }
-      }
-    },
-    "imng-ngrx-idle": {
-      "projectType": "library",
-      "root": "libs/imng-ngrx-idle",
-      "sourceRoot": "libs/imng-ngrx-idle/src",
-      "prefix": "imng",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/imng-ngrx-idle/tsconfig.lib.json",
-            "project": "libs/imng-ngrx-idle/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-ngrx-idle/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-ngrx-idle/src/**/*.ts", "libs/imng-ngrx-idle/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/imng-ngrx-idle/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
     "adventure-works": {
       "projectType": "application",
       "root": "apps/adventure-works",
@@ -969,12 +969,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "adventure-works:build:production",
-              "proxyConfig": "apps/adventure-works/proxy.conf.js"
+              "browserTarget": "adventure-works:build:production"
             },
             "development": {
-              "browserTarget": "adventure-works:build:development",
-              "proxyConfig": "apps/adventure-works/proxy.conf.js"
+              "browserTarget": "adventure-works:build:development"
             }
           },
           "defaultConfiguration": "development"

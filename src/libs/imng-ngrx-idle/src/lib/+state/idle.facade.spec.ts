@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 import { IdleState, IDLE_FEATURE_KEY, idleReducer, initialState } from './idle.reducer';
 import { IdleFacade } from './idle.facade';
@@ -51,14 +51,9 @@ describe('IdleFacade', () => {
       facade = TestBed.inject(IdleFacade);
     });
 
-    it('current state should match initial', async done => {
-      try {
-        expect(store).toBeTruthy();
-        expect(await readFirst(facade.isTimingOut$)).toBe(false);
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+    it('current state should match initial', async () => {
+      expect(store).toBeTruthy();
+      expect(await readFirst(facade.isTimingOut$)).toBe(false);
     });
   });
 });

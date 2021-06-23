@@ -6,7 +6,6 @@ import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
 import { IProduct, ProductProperties } from '../../../models';
-import { Router } from '@angular/router';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -30,7 +29,9 @@ const initialGridState: ODataState = {
     ProductProperties.PRODUCT_CATEGORY,
     ProductProperties.PRODUCT_MODEL,
   ],
-  sort: [{ field: ProductProperties.ID, dir: 'asc' }],
+  sort: [
+    { field: ProductProperties.ID, dir: 'asc' },
+  ],
 };
 
 @Component({
@@ -43,8 +44,8 @@ export class ProductListComponent extends KendoODataComponentBase<IProduct, Prod
   public readonly props = ProductProperties;
   public currentItem: IProduct | undefined;
 
-  constructor(facade: ProductListFacade, public readonly crudFacade: ProductCrudFacade, router: Router) {
-    super(facade, initialGridState, router);
+  constructor(facade: ProductListFacade, public readonly crudFacade: ProductCrudFacade) {
+    super(facade, initialGridState);
   }
 
   public addItem(): void {

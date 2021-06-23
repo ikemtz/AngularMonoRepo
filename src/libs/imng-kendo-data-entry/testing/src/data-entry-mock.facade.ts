@@ -1,8 +1,11 @@
 import { Observable, of } from 'rxjs';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export class DataEntryMockFacade implements IDataEntryFacade<object> {
   public loading$: Observable<boolean> = of(false);
+  // eslint-disable-next-line @typescript-eslint/ban-types
   public currentEntity$: Observable<object> = of(null);
   public isEditActive$: Observable<boolean> = of(false);
   public isNewActive$: Observable<boolean> = of(false);
@@ -12,6 +15,7 @@ export class DataEntryMockFacade implements IDataEntryFacade<object> {
   public updateExistingEntity = jest.fn();
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types,@typescript-eslint/no-explicit-any
 export function createDataEntryMockFacade(mockFacade?: IDataEntryFacade<object> | any): IDataEntryFacade<object> {
   const localFacade = new DataEntryMockFacade();
   if (!mockFacade) {

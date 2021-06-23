@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaleOrderAddComponent should save 1`] = `
+Object {
+  "accountNum": "ACCOUNT_NUM",
+  "billToAddress": "BILL_TO_ADDRESS",
+  "billToAddressID": "BILL_TO_ADDRESS_ID",
+  "comment": "",
+  "creditCardApprovalCode": "CREDIT_CARD_APP",
+  "customer": "CUSTOMER",
+  "customerID": "CUSTOMER_ID",
+  "date": Any<Date>,
+  "dueDate": Any<Date>,
+  "freight": 0,
+  "id": undefined,
+  "isOnlineOrder": true,
+  "num": "NUM",
+  "purchaseOrderNum": "PURCHASE_ORDER_NUM",
+  "revisionNum": 0,
+  "saleOrderDetails": Array [],
+  "salesOrderId": 0,
+  "shipDate": Any<Date>,
+  "shipMethod": "SHIP_METHOD",
+  "shipToAddress": "SHIP_TO_ADDRESS",
+  "shipToAddressID": "SHIP_TO_ADDRESS_ID",
+  "status": 0,
+  "subTotal": 0,
+  "taxAmt": 0,
+  "totalDue": 0,
+}
+`;

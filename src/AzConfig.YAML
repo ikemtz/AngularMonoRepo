@@ -29,6 +29,15 @@ jobs:
           workingDir: 'src'
           verbose: false
 
+      - task: Npm@1
+        displayName: 'npm run build:ngrx-utils'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:ngrx-utils'
+
       - task: SonarCloudPrepare@1
         displayName: 'Prepare analysis on SonarCloud'
         inputs:

@@ -22,8 +22,8 @@ export const environment = {
   },
   idleConfig: {
     timeoutWarningInMs: 540000, //9 minutes
-    autoLogoutInMs: 600000, //10 minutes
-  },
+    autoLogoutInMs: 600000 //10 minutes
+  }
 };
 
 /*

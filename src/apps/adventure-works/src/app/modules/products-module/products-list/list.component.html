@@ -18,7 +18,7 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.id | slice: 0:5 }}
+      {{ dataItem.id | slice:0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
@@ -61,7 +61,7 @@
   </kendo-grid-column>
   <kendo-grid-column [field]="props.PRODUCT_CATEGORY_ID" [width]="100" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.product_category_id | slice: 0:5 }}
+      {{ dataItem.product_category_id | slice:0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Category ID</span>
@@ -69,7 +69,7 @@
   </kendo-grid-column>
   <kendo-grid-column [field]="props.PRODUCT_MODEL_ID" [width]="100" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.product_model_id | slice: 0:5 }}
+      {{ dataItem.product_model_id | slice:0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Model ID</span>

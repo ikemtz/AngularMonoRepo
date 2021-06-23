@@ -3,7 +3,7 @@ import { IdleWarningComponent } from './idle-warning.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { IdleFacade } from '../+state/idle.facade';
 import { of } from 'rxjs';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 describe('IdleWarningComponent', () => {
   let component: IdleWarningComponent;
@@ -28,15 +28,9 @@ describe('IdleWarningComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should close', async done => {
-    try {
-      component.isSessionTimingOut$.next(true);
-      component.close();
-      expect(await readFirst(component.isSessionTimingOut$)).toBe(false);
-      done();
-    }
-    catch (err) {
-      done.fail(err);
-    }
+  it('should close', async () => {
+    component.isSessionTimingOut$.next(true);
+    component.close();
+    expect(await readFirst(component.isSessionTimingOut$)).toBe(false);
   });
 });

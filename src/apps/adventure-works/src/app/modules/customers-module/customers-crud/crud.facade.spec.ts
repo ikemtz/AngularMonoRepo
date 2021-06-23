@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule, DataPersistence } from '@nrwl/angular';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -22,7 +22,7 @@ import {
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerApiService } from './api.service';
 import { CustomerProperties, ICustomer } from '../../../models';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 interface TestSchema {
   [CUSTOMERS_FEATURE_KEY]: CustomersPartialState;
@@ -82,29 +82,23 @@ describe('CustomerCrudFacade', () => {
       facade = TestBed.inject(CustomerCrudFacade);
     });
 
-    test('clearCurrentEntity() should set currentCustomer to null', async done => {
-      try {
-        let isNewActive = await readFirst(facade.isNewActive$);
-        expect(isNewActive).toBeFalsy();
+    test('clearCurrentEntity() should set currentCustomer to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
 
-        facade.clearCurrentEntity();
-        isNewActive = await readFirst(facade.isNewActive$);
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
 
-        expect(isNewActive).toBeFalsy();
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(isNewActive).toBeFalsy();
     });
 
-    test('New Entity Set And Clear CurrentEntity', async done =>
-      testAddSetAndClearCurrentEntity<CustomerCrudFacade>(done, facade));
-    test('Existing Entity Set And Clear CurrentEntity', async done =>
-      testEditSetAndClearCurrentEntity<CustomerCrudFacade>(done, facade));
-    test('Save CurrentEntity', async done =>
-      testSaveCurrentEntity<CustomerCrudFacade>(done, facade, TestBed.inject(HttpClient)));
-    test('Update CurrentEntity', async done =>
-      testUpdateCurrentEntity<CustomerCrudFacade>(done, facade, TestBed.inject(HttpClient)));
+    test('New Entity Set And Clear CurrentEntity', async () =>
+      await testAddSetAndClearCurrentEntity<CustomerCrudFacade>(facade));
+    test('Existing Entity Set And Clear CurrentEntity', async () =>
+      await testEditSetAndClearCurrentEntity<CustomerCrudFacade>(facade));
+    test('Save CurrentEntity', async () =>
+      await testSaveCurrentEntity<CustomerCrudFacade>(facade, TestBed.inject(HttpClient)));
+    test('Update CurrentEntity', async () =>
+      await testUpdateCurrentEntity<CustomerCrudFacade>(facade, TestBed.inject(HttpClient)));
   });
 });

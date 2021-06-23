@@ -6,7 +6,6 @@ import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { SaleOrderListFacade } from './list.facade';
 import { SaleOrderCrudFacade } from '../sale-orders-crud';
 import { ISaleOrder, SaleOrderProperties } from '../../../models';
-import { Router } from '@angular/router';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -37,7 +36,9 @@ const initialGridState: ODataState = {
     SaleOrderProperties.BILL_TO_ADDRESS,
     SaleOrderProperties.CUSTOMER,
   ],
-  sort: [{ field: SaleOrderProperties.ID, dir: 'asc' }],
+  sort: [
+    { field: SaleOrderProperties.ID, dir: 'asc' },
+  ],
 };
 
 @Component({
@@ -50,8 +51,8 @@ export class SaleOrderListComponent extends KendoODataComponentBase<ISaleOrder, 
   public readonly props = SaleOrderProperties;
   public currentItem: ISaleOrder | undefined;
 
-  constructor(facade: SaleOrderListFacade, public readonly crudFacade: SaleOrderCrudFacade, router: Router) {
-    super(facade, initialGridState, router);
+  constructor(facade: SaleOrderListFacade, public readonly crudFacade: SaleOrderCrudFacade) {
+    super(facade, initialGridState);
   }
 
   public addItem(): void {

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 
 export interface IDataEntryFacade<Entity> extends IBaseDataEntryFacade {
-  currentEntity$: Observable<Entity>;
+  currentEntity$: Observable<Entity | undefined>;
   setCurrentEntity(entity: Entity, parentEntity?: unknown): void;
   saveNewEntity(entity: Entity): void;
   updateExistingEntity(entity: Entity): void;
