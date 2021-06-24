@@ -1,0 +1,45 @@
+{
+  "name": "@imng/imng-core",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": ">=11.x",
+    "@angular/core": ">=11.x",
+    "@angular/forms": ">=11.x",
+    "@angular/router": ">=11.x",
+    "@angular/platform-browser": ">=11.x",
+    "@ngrx/effects": ">=11.x",
+    "@ngrx/store": ">=11.x",
+    "@nrwl/angular": ">=11.x",
+    "@progress/kendo-angular-buttons": ">=6.x",
+    "@progress/kendo-angular-dialog": ">=5.x",
+    "@progress/kendo-angular-grid": ">=5.x",
+    "@progress/kendo-data-query": ">=1.x",
+    "@microsoft/applicationinsights-web": ">=2.x",
+    "@microsoft/signalr": ">=5.x",
+    "ngx-bootstrap": ">=6.x",
+    "oidc-client": ">=1.x",
+    "rxjs": ">=6.x",
+    "tslib": ">=2.x"
+  },
+  "keywords": [
+    "imng",
+    "Angular",
+    "NGRX",
+    "Kendo"
+  ],
+  "dependencies": {
+    "tslib": "^2.1.0",
+    "imng-application-insights-ngrx": "latest",
+    "imng-auth0-oidc": "latest",
+    "imng-kendo-chart-odata": "latest",
+    "imng-kendo-grid": "latest",
+    "imng-kendo-grid-odata": "latest",
+    "imng-kendo-odata": "latest",
+    "imng-kendo-theme-blue": "latest",
+    "imng-ngrx-idle": "latest",
+    "imng-ngrx-utils": "latest",
+    "imng-ngxb-typeahead": "latest",
+    "imng-nrsrx-client-utils": "latest",
+    "imng-signalr-ngrx": "latest"
+  }
+}
