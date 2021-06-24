@@ -90,14 +90,12 @@
       <span class="h6">Discontinued Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.THUMB_NAIL_PHOTO" [width]="100" filter="text">
+  <kendo-grid-column [field]="props.THUMB_NAIL_PHOTO" [width]="100" [filterable]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Thumb Nail Photo</span>
     </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [field]="props.THUMBNAIL_PHOTO_FILE_NAME" [width]="100" filter="text">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Thumbnail Photo File Name</span>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <img src="data:image/jpg;base64,{{ dataItem[props.THUMB_NAIL_PHOTO] }}" />
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]="props.PRODUCT_CATEGORY" [width]="100" filter="text">

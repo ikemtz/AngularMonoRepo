@@ -1,4 +1,5 @@
 const generator = require('openapi-ts-generator');
+const diagramGenerator = require('openapi-mermaid');
 
 async function generateTsModels() {
   //Adventure Works
@@ -11,6 +12,11 @@ async function generateTsModels() {
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
       !val.name.startsWith('created') && !val.name.startsWith('updated'),
     pathUrlFormattingCallBack: (val) => 'aw-odata' + val,
+  });
+
+  diagramGenerator.generateDiagrams({
+    openApiJsonUrl: 'https://awod.ikemtz.com/swagger/v1/swagger.json',
+    outputPath: '../docs',
   });
 }
 

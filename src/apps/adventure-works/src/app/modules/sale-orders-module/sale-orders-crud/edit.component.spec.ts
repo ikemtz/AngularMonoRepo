@@ -67,6 +67,8 @@ describe('SaleOrderEditComponent', () => {
     });
     let item: ISaleOrder | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    component.addEditForm = { ...component.addEditForm, valid: true } as any;
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
