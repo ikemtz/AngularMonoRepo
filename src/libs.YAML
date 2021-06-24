@@ -306,19 +306,6 @@ jobs:
           SonarCloud: 'SonarCloud IkeMtz'
           organization: 'ikemtz'
 
-      - task: SnykSecurityScan@0
-        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
-        inputs:
-          serviceConnectionEndpoint: 'synk'
-          testType: 'app'
-          severityThreshold: 'medium'
-          monitorOnBuild: false
-          failOnIssues: true
-          projectName: 'imng-packages'
-          organization: 'ikemtz'
-          testDirectory: '$(Build.SourcesDirectory)/src/libs'
-          additionalArguments: '--detection-depth=2'
-
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/src/coverage/**/cobertura-coverage.xml'
         inputs:

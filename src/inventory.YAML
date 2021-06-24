@@ -82,18 +82,6 @@ jobs:
           SonarCloud: 'SonarCloud IkeMtz'
           organization: 'ikemtz'
 
-      - task: SnykSecurityScan@0
-        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
-        inputs:
-          serviceConnectionEndpoint: 'synk'
-          testType: 'app'
-          severityThreshold: 'medium'
-          monitorOnBuild: false
-          failOnIssues: false
-          projectName: 'AngularMonoRepo'
-          organization: 'ikemtz'
-          testDirectory: '$(Build.SourcesDirectory)/src'
-
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/src/coverage/**/cobertura-coverage.xml'
         inputs:
@@ -140,7 +128,6 @@ jobs:
             docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity LOW,MEDIUM --ignore-unfixed ikemtz.azurecr.io/inventory:latest
             docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed ikemtz.azurecr.io/inventory:latest
           workingDirectory: 'src'
-
 
       - task: Npm@1
         displayName: 'npm run build [RELEASE BUILD]'
