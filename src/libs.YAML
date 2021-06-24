@@ -176,6 +176,16 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:ngrx-idle'
+
+      - task: Npm@1
+        displayName: 'npm run build:core'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:core'
+
       #Tests
       - task: Npm@1
         displayName: 'npm run test:data-entry'
