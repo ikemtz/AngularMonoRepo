@@ -19,6 +19,13 @@
     }
   },
   "projects": {
+    "adventure-works": {
+      "tags": []
+    },
+    "adventure-works-e2e": {
+      "tags": [],
+      "implicitDependencies": ["adventure-works"]
+    },
     "imng-application-insights-ngrx": {
       "tags": []
     },
@@ -31,6 +38,9 @@
     "imng-az-func-configr-e2e": {
       "tags": [],
       "implicitDependencies": ["imng-az-func-configr"]
+    },
+    "imng-core": {
+      "tags": ["core"]
     },
     "imng-inventory": {
       "tags": []
@@ -80,13 +90,6 @@
     "nurse-cron-e2e": {
       "tags": [],
       "implicitDependencies": ["nurse-cron"]
-    },
-    "adventure-works": {
-      "tags": []
-    },
-    "adventure-works-e2e": {
-      "tags": [],
-      "implicitDependencies": ["adventure-works"]
     }
   }
 }
