@@ -1,5 +1,6 @@
 name: 3.$(Year:yy).$(DayOfYear)$(Rev:.rr)
 variables:
+  AZP_BASHV3_OLD_SOURCE_BEHAVIOR: true
   npm_config_cache: $(Pipeline.Workspace)/.npm
 
 resources:
@@ -21,22 +22,18 @@ jobs:
             npm
           path: $(npm_config_cache)
 
-      - script: cd src/ && npm ci
-
       - task: Npm@1
         displayName: 'npm install'
         inputs:
           workingDir: 'src'
           verbose: false
 
-      - task: Npm@1
-        displayName: 'npm run build:ngrx-utils'
-        continueOnError: true
+      - task: Bash@3
+        displayName: 'running versioneer'
         inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run build:ngrx-utils'
+          filePath: '$(System.DefaultWorkingDirectory)/src/versioneer.sh'
+          arguments: '$(Build.BuildNumber)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/src/'
 
       - task: SonarCloudPrepare@1
         displayName: 'Prepare analysis on SonarCloud'
@@ -44,33 +41,26 @@ jobs:
           SonarCloud: 'SonarCloud IkeMtz'
           organization: ikemtz
           scannerMode: CLI
-          cliProjectKey: AzConfig
-          cliProjectName: AzConfig
+          cliProjectKey: Adventure-Works-Angular
+          cliProjectName: Adventure-Works-Angular
           extraProperties: |
-            sonar.projectKey=AzConfig
+            sonar.projectKey=Adventure-Works-Angular
             sonar.sourceEncoding=UTF-8
-            sonar.sources=src/apps/imng-az-func-configr/src,src/libs
-            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/imng-az-func-configr/src/app/models/**,**/main.ts,**/environment.prod.ts,src/libs/**,src/apps/nurse-cron/**
-            sonar.tests=src/apps/imng-az-func-configr/src,src/libs
+            sonar.sources=src/apps/adventure-works/src
+            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/adventure-works/src/app/models/**,**/main.ts,**/environment*.ts,src/libs/**
+            sonar.tests=src/apps/adventure-works/src
             sonar.test.inclusions=**/*.spec.ts
-            sonar.javascript.lcov.reportPaths=src/coverage/apps/imng-az-func-configr/lcov.info
+            sonar.javascript.lcov.reportPaths=src/coverage/apps/adventure-works/lcov.info
             sonar.coverage.exclusions=src/libs/**
+            sonar.cpd.exclusions=**/*.html
 
       - task: Npm@1
-        displayName: 'npm run lint:azc'
+        displayName: 'npm run lint:aw'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run lint:azc'
-
-      - task: Npm@1
-        displayName: 'npm run test:azc'
-        inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run test:azc'
+          customCommand: 'run lint:aw'
 
       - task: Npm@1
         displayName: 'npm run build [DEVELOPMENT BUILD]'
@@ -78,8 +68,23 @@ jobs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run build:azc'
+          customCommand: 'run build:libs'
 
+      - task: Npm@1
+        displayName: 'npm run test:aw'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:aw'
+
+      - task: Npm@1
+        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:aw'
       - task: SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'
 
@@ -107,12 +112,12 @@ jobs:
           failTaskOnFailedTests: true
 
       - task: Npm@1
-        displayName: 'npm run distribute azc-cicd-scripts [DEVELOPMENT BUILD]'
+        displayName: 'npm run distribute aw-cicd-scripts [DEVELOPMENT BUILD]'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run distribute:azc-cicd-scripts'
+          customCommand: 'run distribute:aw-cicd-scripts'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact: dev-drop [DEVELOPMENT BUILD]'
@@ -123,9 +128,9 @@ jobs:
       - task: Docker@2
         inputs:
           containerRegistry: 'Azure Container Registry'
-          repository: 'azconfig'
+          repository: 'adventure-works'
           command: 'buildAndPush'
-          Dockerfile: 'src/azconfig.local.Dockerfile'
+          Dockerfile: 'src/adventure-works.local.Dockerfile'
           buildContext: 'src/'
           tags: 'latest'
 
@@ -134,8 +139,8 @@ jobs:
         condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
         inputs:
           script: |
-            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity LOW,MEDIUM --ignore-unfixed ikemtz.azurecr.io/azconfig:latest
-            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed ikemtz.azurecr.io/azconfig:latest
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity LOW,MEDIUM --ignore-unfixed ikemtz.azurecr.io/adventure-works:latest
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed ikemtz.azurecr.io/adventure-works:latest
           workingDirectory: 'src'
 
       - task: Npm@1
@@ -144,15 +149,15 @@ jobs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run build:azc-prod'
+          customCommand: 'run build:aw-prod'
 
       - task: Npm@1
-        displayName: 'npm run distribute azc-cicd-scripts [RELEASE BUILD]'
+        displayName: 'npm run distribute aw-cicd-scripts [RELEASE BUILD]'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run distribute:azc-cicd-scripts'
+          customCommand: 'run distribute:aw-cicd-scripts'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact: prod-drop [RELEASE BUILD]'
@@ -166,8 +171,8 @@ jobs:
           workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
           tagUser: 'ikemtz'
           tagEmail: 'ikemtz@outlook.com'
-          tag: 'azcf-$(Build.BuildNumber)'
-          tagMessage: 'azcf-$(Build.BuildNumber)'
+          tag: 'aw-$(Build.BuildNumber)'
+          tagMessage: 'aw-$(Build.BuildNumber)'
           useLightweightTags: true
 trigger:
   batch: true
@@ -176,15 +181,17 @@ trigger:
       - master
   paths:
     include:
-      - src/apps/imng-az-func-configr/*
+      - src/apps/adventure-works/*
+      - libs/*
       - src/package.json
-      - src/AzConfig.YAML
+      - src/adventure-works.azci.YAML
 pr:
   branches:
     include:
       - master
   paths:
     include:
-      - src/apps/imng-az-func-configr/*
+      - src/apps/adventure-works/*
+      - libs/*
       - src/package.json
-      - src/AzConfig.YAML
+      - src/adventure-works.azci.YAML
