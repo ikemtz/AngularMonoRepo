@@ -1,8 +1,6 @@
 {
   "name": "imng-nrsrx-client-utils",
   "version": "0.1.0",
-  "author": "Isaac Martinez <@ikemtz>",
-  "license": "MIT",
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
     "lib": {
@@ -14,5 +12,16 @@
     "tslib": ">=2.x",
     "@angular/common": ">=11.x",
     "rxjs": ">=6.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+  },
+  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
   }
 }

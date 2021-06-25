@@ -63,12 +63,20 @@ jobs:
           customCommand: 'run lint:aw'
 
       - task: Npm@1
-        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        displayName: 'npm run build:libs'
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:libs'
+
+      - task: Npm@1
+        displayName: 'npm run build:aw [DEVELOPMENT BUILD]'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:aw'
 
       - task: Npm@1
         displayName: 'npm run test:aw'
@@ -85,6 +93,7 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:aw'
+
       - task: SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'
 

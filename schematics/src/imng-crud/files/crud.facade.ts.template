@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ODataState } from 'imng-kendo-odata';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { <%= classify(pluralizedStoreName) %>PartialState } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= camelize(singularizedStoreName) %>Queries } from '../+state/<%= dasherize(singularizedStoreName) %>.selectors';
@@ -14,8 +13,6 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
   isNewActive$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getIsNew<%= classify(name) %>Active));
 
   constructor(private readonly store: Store<<%= classify(pluralizedStoreName) %>PartialState>) {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
-  public loadEntities(state: ODataState): void { }
   
   public setCurrentEntity(item: I<%= classify(name) %>): void {
     this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.setCurrent<%= classify(name) %>(item));
