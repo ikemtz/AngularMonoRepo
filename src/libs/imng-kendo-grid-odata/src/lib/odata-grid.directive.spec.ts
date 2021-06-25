@@ -1,5 +1,5 @@
 import { ImngODataGridDirective } from './kendo-odata-grid.directive';
-import { of, Subscription } from 'rxjs';
+import { of } from 'rxjs';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -49,7 +49,7 @@ describe('ImngODataGridDirective', () => {
     expect(gridComponent).toMatchSnapshot();
     expect(directive).toBeTruthy();
     expect(odataComponent.dataStateChange).toBeCalledTimes(1);
-    expect((directive as unknown as { subscriptions: []; }).subscriptions.length).toBe(5);
+    expect((directive as unknown as { allSubscriptions: []; }).allSubscriptions.length).toBe(5);
   });
 
   it('should fire AfterViewInit', () => {
@@ -69,9 +69,5 @@ describe('ImngODataGridDirective', () => {
     directive.ngOnInit();
     directive.ngAfterViewInit();
     directive.ngOnDestroy();
-    const subscriptions = (directive as unknown as { subscriptions: Subscription[]; }).subscriptions;
-    subscriptions.forEach(subs => {
-      expect(subs.closed).toBe(true);
-    });
   });
 });

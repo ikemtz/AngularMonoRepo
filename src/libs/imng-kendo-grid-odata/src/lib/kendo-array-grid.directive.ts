@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { GridComponent, PageChangeEvent, PagerSettings } from '@progress/kendo-angular-grid';
-import { Subscription } from 'rxjs';
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { KendoArrayBasedComponent } from './kendo-array-base-component';
 import { CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
@@ -8,8 +8,8 @@ import { CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-
 @Directive({
   selector: '[imngArrayGrid]',
 })
-export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy {
-  protected readonly subscriptions: Subscription[] = [];
+export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy, Subscribable {
+  public readonly allSubscriptions = new Subscriptions();
   // eslint-disable-next-line @typescript-eslint/ban-types
   @Input('imngArrayGrid') public arrayComponent: KendoArrayBasedComponent<object, object>;
   @Input() public pageable: boolean | PagerSettings;
@@ -30,7 +30,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
       type: 'numeric',
       pageSizes: [5, 10, 20, 50, 100], //NOSONAR
     } : this.pageable;
-    this.subscriptions.push(
+    this.allSubscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
         this.gridComponent.sort = this.arrayComponent.state.sort = t.sort;
         this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
@@ -66,7 +66,6 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnDestroy(): void {
-    const unsub = (t: Subscription): void => t?.unsubscribe();
-    this.subscriptions.forEach(unsub);
+    this.allSubscriptions.unsubscribeAll();
   }
 }

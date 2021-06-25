@@ -13,7 +13,7 @@ import {
 import { TypeaheadDirective, TypeaheadConfig } from 'ngx-bootstrap/typeahead';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { ImngTypeAheadFacade } from './type-ahead-facade';
-import { Subscription } from 'rxjs';
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { NgControl } from '@angular/forms';
 import { ImngTypeaheadMatch, ImngMatchSelectedEvent } from './type-ahead-match';
@@ -30,9 +30,9 @@ import { ImngTypeaheadMatch, ImngMatchSelectedEvent } from './type-ahead-match';
 @Directive({
   selector: '[imngTypeahead]',
 })
-export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnInit, OnDestroy {
+export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnInit, OnDestroy, Subscribable {
   private _typeAheadFacade: ImngTypeAheadFacade<T>;
-  private readonly subscriptions: Subscription[];
+  public readonly allSubscriptions = new Subscriptions();
 
   constructor(
     cis: ComponentLoaderFactory,
@@ -56,7 +56,6 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
       viewContainerRef,
     );
     this.typeaheadAsync = true;
-    this.subscriptions = [];
 
     //These are default values to avoid overtaxing the data endpoint
     this.typeaheadMinLength = 1;
@@ -73,15 +72,11 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
 
   public ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.subscriptions.forEach(t => {
-      if (t) {
-        t.unsubscribe();
-      }
-    });
+    this.allSubscriptions.unsubscribeAll();
   }
 
   protected asyncActions(): void {
-    this.subscriptions.push(
+    this.allSubscriptions.push(
       this.keyUpEventEmitter
         .pipe(
           debounceTime(this.typeaheadWaitMs),

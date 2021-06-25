@@ -7,8 +7,10 @@ import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
 import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock.facade';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
+const template = '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>';
 describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
@@ -34,7 +36,7 @@ describe('DataEntryDialogComponent', () => {
 
   it('should handle close()', () => {
     const comp = component as unknown as {
-      allSubscriptions: Subscription[],
+      allSubscriptions: Subscriptions,
       submitted$: Observable<boolean>;
       closeForm: () => void;
       onCancel: () => void;
@@ -54,10 +56,13 @@ describe('DataEntryDialogComponent', () => {
 
 @Component({
   selector: 'imng-thc',
-  template: '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>',
+  template: template
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacade> {
+export class TestHostComponent
+  extends BaseDataEntryComponent<DataEntryMockFacade>
+  implements Subscribable {
+
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   public saved = false;

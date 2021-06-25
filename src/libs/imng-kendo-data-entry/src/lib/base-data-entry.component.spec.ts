@@ -2,6 +2,7 @@ import { IDataEntryFacade } from './data-entry-facade';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 import { of } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Subscribable } from 'imng-ngrx-utils';
 
 describe('MockBaseComponent', () => {
   let component: MockBaseComponent;
@@ -17,10 +18,10 @@ describe('MockBaseComponent', () => {
   });
 
   it('should destroy', () => {
-    const baseComponent = new MockBaseComponent(new MockFacade());
     component.allSubscriptions.push(component.submitted$.subscribe());
-    baseComponent.ngOnDestroy();
-    expect(baseComponent.allSubscriptions).toEqual([]);
+    expect(component.allSubscriptions.length).toEqual(1);
+    component.ngOnDestroy();
+    expect(component.allSubscriptions.length).toEqual(0);
   });
 
   it('handle onSubmit', () => {
@@ -47,7 +48,9 @@ describe('MockBaseComponent', () => {
   });
 });
 
-export class MockBaseComponent extends BaseDataEntryComponent<MockFacade> {
+export class MockBaseComponent
+  extends BaseDataEntryComponent<MockFacade>
+  implements Subscribable {
   dialogTitle = '';
   props = {};
   save = jest.fn();

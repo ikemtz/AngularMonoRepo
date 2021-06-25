@@ -1,7 +1,8 @@
 import { Injectable, Inject, OnDestroy } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ISignalrConfiguration, SIGNALR_CONFIG } from '../models/signalr.configuration';
-import { Subscription } from 'rxjs';
+
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { tap, filter } from 'rxjs/operators';
 import { signalrActions } from '../+state/signalr.actions';
 import { Store } from '@ngrx/store';
@@ -11,15 +12,15 @@ import { OidcFacade } from 'imng-auth0-oidc';
 @Injectable({
   providedIn: 'root'
 })
-export class HubConnectionInjectorService implements OnDestroy {
-  private readonly subscriptions: Subscription[] = [];
+export class HubConnectionInjectorService implements OnDestroy, Subscribable {
+  public readonly allSubscriptions = new Subscriptions();
   public hubConnection: HubConnection;
 
   constructor(
     @Inject(SIGNALR_CONFIG) private readonly signalrConfiguration: ISignalrConfiguration,
     private readonly store$: Store<fromSignalr.SignalrPartialState>,
     oidcFacade: OidcFacade) {
-    this.subscriptions.push(oidcFacade.accessToken$.pipe(
+    this.allSubscriptions.push(oidcFacade.accessToken$.pipe(
       filter(accessToken => !!accessToken),
       tap(accessToken => {
         this.hubConnection = this.getNewHubConnection(accessToken);
@@ -40,6 +41,6 @@ export class HubConnectionInjectorService implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.subscriptions.filter(t => t).forEach(t => t.unsubscribe());
+    this.allSubscriptions.unsubscribeAll();
   }
 }
