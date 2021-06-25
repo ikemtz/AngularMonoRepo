@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ODataState } from 'imng-kendo-odata';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { SaleOrdersPartialState } from '../+state/sale-order.reducer';
 import { saleOrderQueries } from '../+state/sale-order.selectors';
@@ -15,8 +14,6 @@ export class SaleOrderCrudFacade implements IDataEntryFacade<ISaleOrder> {
   isNewActive$ = this.store.pipe(select(saleOrderQueries.getIsNewSaleOrderActive));
 
   constructor(private readonly store: Store<SaleOrdersPartialState>) { }
-  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
-  public loadEntities(state: ODataState): void { }
 
   public setCurrentEntity(item: ISaleOrder): void {
     this.store.dispatch(saleOrderActionTypes.setCurrentSaleOrder(item));

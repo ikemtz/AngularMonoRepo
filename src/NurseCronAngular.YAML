@@ -63,7 +63,7 @@ jobs:
           customCommand: 'run lint:nur'
 
       - task: Npm@1
-        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        displayName: 'npm run build:libs'
         inputs:
           command: custom
           workingDir: 'src'
@@ -79,7 +79,7 @@ jobs:
           customCommand: 'run test:nur'
 
       - task: Npm@1
-        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        displayName: 'npm run build:nur [DEVELOPMENT BUILD]'
         inputs:
           command: custom
           workingDir: 'src'

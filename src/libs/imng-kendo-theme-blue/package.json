@@ -4,7 +4,6 @@
   "description": "A Blue Kendo UI Theme by @ikemtz",
   "icon": "assets/imng-kendo-theme-blue.png",
   "version": "0.0.1",
-  "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,5 +25,10 @@
   "devDependencies": {
     "@progress/kendo-theme-default": ">=4.x",
     "node-sass": ">=4.x"
+  },
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
   }
 }

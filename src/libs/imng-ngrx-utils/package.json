@@ -1,8 +1,6 @@
 {
   "name": "imng-ngrx-utils",
   "version": "0.0.5",
-  "author": "Isaac Martinez <@ikemtz>",
-  "license": "MIT",
   "peerDependencies": {
     "@progress/kendo-data-query": ">=1.x",
     "@ngrx/store": ">=11.x",
@@ -17,5 +15,16 @@
       "entryFile": "src/index.ts"
     },
     "dest": "../../dist/libs/imng-ngrx-utils"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+  },
+  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
   }
 }
