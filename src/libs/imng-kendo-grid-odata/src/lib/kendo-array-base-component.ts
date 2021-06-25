@@ -1,14 +1,15 @@
 import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { Input, ChangeDetectorRef, OnDestroy, Directive } from '@angular/core';
+import { Input, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { process, State, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
-/** @dynamic */@Directive()
+/** @dynamic */
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy {
+export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy, Subscribable {
 
-  public readonly subscriptions: Subscription[] = [];
+  public readonly allSubscriptions = new Subscriptions();
 
   @Input() public item?: PARENT_ENTITY;
 
@@ -66,7 +67,6 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> imp
   public sortChange(t: SortDescriptor[]): void { }
 
   public ngOnDestroy(): void {
-    const unsub = (t: Subscription): void => t?.unsubscribe();
-    this.subscriptions.forEach(unsub);
+    this.allSubscriptions.unsubscribeAll();
   }
 }

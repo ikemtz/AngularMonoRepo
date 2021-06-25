@@ -1,6 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -17,7 +16,7 @@ describe('SaleOrderAddComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SaleOrderAddComponent],
-      imports: [ReactiveFormsModule, ImngDataEntryDialogModule, NoopAnimationsModule],
+      imports: [ReactiveFormsModule, NoopAnimationsModule],
       providers: [{ provide: SaleOrderCrudFacade, useValue: createDataEntryMockFacade() }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();

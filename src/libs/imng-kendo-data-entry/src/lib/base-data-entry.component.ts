@@ -1,7 +1,8 @@
 import { Inject, Input, OnDestroy, InjectionToken, Directive } from '@angular/core';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
 const FACADE = new InjectionToken<{
   loading$: Observable<boolean>;
@@ -21,15 +22,14 @@ const FACADE = new InjectionToken<{
  *
  * @class BaseDataEntryComponent>
  */
-@Directive()
-export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade> implements OnDestroy {
+export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade> implements OnDestroy, Subscribable {
   @Input() public width: string | number;
   @Input() public height: string | number;
   protected get facade(): FACADE {
     return this.injectedFacade;
   }
 
-  public allSubscriptions: Subscription[] = [];
+  public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract props: any;
@@ -55,12 +55,7 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
   }
 
   public ngOnDestroy(): void {
-    this.allSubscriptions.forEach(val => {
-      if (val !== null) {
-        val.unsubscribe();
-      }
-    });
-    this.allSubscriptions = [];
+    this.allSubscriptions.unsubscribeAll();
   }
 
   public closeForm(): void {

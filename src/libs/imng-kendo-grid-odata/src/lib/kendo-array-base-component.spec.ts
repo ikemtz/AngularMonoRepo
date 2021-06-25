@@ -4,8 +4,10 @@ import { KendoArrayBasedComponent } from './kendo-array-base-component';
 import { GridModule, GridComponent } from '@progress/kendo-angular-grid';
 import { ImngArrayGridDirective } from './kendo-array-grid.directive';
 import { By } from '@angular/platform-browser';
-import { Subscription, of } from 'rxjs';
+import { of } from 'rxjs';
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
+const template = '<kendo-grid [imngArrayGrid]="this"><kendo-grid-column field="id"></kendo-grid-column></kendo-grid>';
 describe('KendoODataComponentBase', () => {
   let component: KendoArrayGridTestComponent;
   let fixture: ComponentFixture<KendoArrayGridTestComponent>;
@@ -73,16 +75,18 @@ describe('KendoODataComponentBase', () => {
   it('should destroy', () => {
     const imngDirective = fixture.debugElement.query(By.directive(ImngArrayGridDirective)).injector.get(ImngArrayGridDirective);
     fixture.destroy();
-    (imngDirective as unknown as { subscriptions: []; }).subscriptions.forEach((t: Subscription) => expect(t.closed).toBeTruthy());
+    (imngDirective as unknown as { allSubscriptions: Subscriptions; }).allSubscriptions.forEach((t) => expect(t.closed).toBeTruthy());
   });
 });
 
 @Component({
   selector: 'imng-test-component',
-  template: '<kendo-grid [imngArrayGrid]="this"><kendo-grid-column field="id"></kendo-grid-column></kendo-grid>',
+  template: template,
 })
-// eslint-disable-next-line @typescript-eslint/ban-types
-export class KendoArrayGridTestComponent extends KendoArrayBasedComponent<object, object> {
+export class KendoArrayGridTestComponent
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  extends KendoArrayBasedComponent<object, object>
+  implements Subscribable {
   state = {};
   props = {};
   constructor() {
@@ -91,6 +95,6 @@ export class KendoArrayGridTestComponent extends KendoArrayBasedComponent<object
     { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 7 }, { id: 8 },
     { id: 11 }, { id: 12 }, { id: 13 }, { id: 14 }, { id: 15 }, { id: 16 },
     { id: 17 }, { id: 18 }, { id: 19 }];
-    this.subscriptions.push(of(123).subscribe());
+    this.allSubscriptions.push(of(123).subscribe());
   }
 }

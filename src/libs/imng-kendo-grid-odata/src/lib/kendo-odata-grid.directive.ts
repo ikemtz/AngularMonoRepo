@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
-import { Subscription } from 'rxjs';
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
@@ -9,13 +9,12 @@ import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event
 @Directive({
   selector: '[imngODataGrid]',
 })
-export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy {
-  private readonly subscriptions: Subscription[] = [];
+export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy, Subscribable {
+  public readonly allSubscriptions = new Subscriptions();
   private facade: IKendoODataGridFacade<object>;
 
   @Input('imngODataGrid') public odataComponent: KendoODataComponentBase<object, IKendoODataGridFacade<object>>;
   constructor(private readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {
-
   }
 
   ngOnInit(): void {
@@ -28,14 +27,14 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy 
       mode: 'multiple',
     };
     this.gridComponent.navigable = true;
-    this.subscriptions.push(this.facade.loading$.subscribe((t: boolean) => {
+    this.allSubscriptions.push(this.facade.loading$.subscribe((t: boolean) => {
       this.gridComponent.loading = t;
       this.changeDetectorRef.markForCheck();
     }));
   }
 
   ngAfterViewInit(): void {
-    this.subscriptions.push(
+    this.allSubscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) =>
         this.odataComponent.dataStateChange(t),
       ),
@@ -54,10 +53,6 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(t => {
-      if (t) {
-        t.unsubscribe();
-      }
-    });
+    this.allSubscriptions.unsubscribeAll();
   }
 }

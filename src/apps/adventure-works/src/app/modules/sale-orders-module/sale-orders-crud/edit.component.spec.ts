@@ -1,6 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { of } from 'rxjs';
@@ -19,7 +18,7 @@ describe('SaleOrderEditComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SaleOrderEditComponent],
-      imports: [ReactiveFormsModule, ImngDataEntryDialogModule, NoopAnimationsModule, DatePickerModule],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
       providers: [
         {
           provide: SaleOrderCrudFacade,
