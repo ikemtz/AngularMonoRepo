@@ -19,7 +19,7 @@ describe('CustomerEditComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CustomerEditComponent],
-      imports: [ReactiveFormsModule, ImngDataEntryDialogModule, NoopAnimationsModule, DatePickerModule],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
       providers: [
         {
           provide: CustomerCrudFacade,

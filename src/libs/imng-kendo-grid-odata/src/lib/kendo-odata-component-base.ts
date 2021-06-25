@@ -1,20 +1,20 @@
-import { Observable, Subscription, isObservable } from 'rxjs';
+import { Observable, isObservable } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy, Directive } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';
-
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 /** @dynamic */@Directive()
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
-  implements OnInit, OnDestroy {
-  protected allSubscription: Subscription[] = [];
+  implements OnInit, OnDestroy, Subscribable {
+  public readonly allSubscriptions = new Subscriptions();
   public gridStateQueryKey = 'odataState';
   public gridDataState: ODataState;
   public readonly gridDataResult$: Observable<ODataResult<ENTITY>>;
-  public loading$: Observable<boolean>;
+  public readonly loading$: Observable<boolean>;
   public readonly gridPagerSettings$: Observable<false | PagerSettings>;
   /**
    * A properties enum to make kendo grid columns definitions type safe
@@ -40,7 +40,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
       } catch (e) { console.error(`Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`); }
     }
     if (isObservable(state)) {
-      this.allSubscription.push(
+      this.allSubscriptions.push(
         state.subscribe(t => {
           this.gridDataState = t;
           this.expanders = t.expanders;
@@ -53,7 +53,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
       this.transformations = state.transformations;
     }
     if (gridRefresh$) {
-      this.allSubscription.push(gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState)));
+      this.allSubscriptions.push(gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState)));
     }
   }
 
@@ -64,11 +64,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   }
 
   ngOnDestroy(): void {
-    this.allSubscription.forEach(element => {
-      if (element) {
-        element.unsubscribe();
-      }
-    });
+    this.allSubscriptions.unsubscribeAll();
   }
 
   public dataStateChange(state: ODataGridStateChangeEvent): void {

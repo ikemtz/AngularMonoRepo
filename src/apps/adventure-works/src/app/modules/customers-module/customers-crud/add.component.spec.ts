@@ -18,7 +18,7 @@ describe('CustomerAddComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CustomerAddComponent],
-      imports: [ReactiveFormsModule, ImngDataEntryDialogModule, NoopAnimationsModule],
+      imports: [ReactiveFormsModule, NoopAnimationsModule],
       providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();

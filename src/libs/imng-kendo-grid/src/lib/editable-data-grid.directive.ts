@@ -1,7 +1,7 @@
 import { Directive, ChangeDetectorRef, OnInit, Input, OnDestroy } from '@angular/core';
 import { GridComponent, EditEvent, CancelEvent, SaveEvent, RemoveEvent, AddEvent } from '@progress/kendo-angular-grid';
 import { GridDataEntryHelper } from './grid-data-entry.helper';
-import { Subscription } from 'rxjs';
+import { Subscriptions, Subscribable } from 'imng-ngrx-utils';
 import { SortDescriptor } from '@progress/kendo-data-query';
 import { tap } from 'rxjs/operators';
 
@@ -17,8 +17,8 @@ import { tap } from 'rxjs/operators';
 @Directive({
   selector: '[imngEditableDataGrid]',
 })
-export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
-  private readonly subscriptions: Subscription[] = [];
+export class ImngEditableDataGridDirective implements OnInit, OnDestroy, Subscribable {
+  public readonly allSubscriptions = new Subscriptions();
   // eslint-disable-next-line @typescript-eslint/ban-types
   _gridDataEntryHelper: GridDataEntryHelper<object>;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -29,7 +29,7 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
   // eslint-disable-next-line @typescript-eslint/ban-types
   set gridDataEntryHelper(value: GridDataEntryHelper<object>) {
     this._gridDataEntryHelper = value;
-    this.subscriptions.push(
+    this.allSubscriptions.push(
       this.gridDataEntryHelper.sortDescriptors$
         .pipe(tap(sortDescriptor => (this.gridComponent.sort = sortDescriptor)))
         .subscribe(),
@@ -38,7 +38,7 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
   constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.subscriptions.push(
+    this.allSubscriptions.push(
       this.gridComponent.edit.subscribe((t: EditEvent) => this.gridDataEntryHelper.editHandler(t)),
       this.gridComponent.cancel.subscribe((t: CancelEvent) => this.gridDataEntryHelper.cancelHandler(t)),
       this.gridComponent.save.subscribe((t: SaveEvent) => this.gridDataEntryHelper.saveHandler(t)),
@@ -57,10 +57,6 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(t => {
-      if (t) {
-        t.unsubscribe();
-      }
-    });
+    this.allSubscriptions.unsubscribeAll();
   }
 }
