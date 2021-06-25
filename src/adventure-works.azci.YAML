@@ -130,7 +130,7 @@ jobs:
           containerRegistry: 'Azure Container Registry'
           repository: 'adventure-works'
           command: 'buildAndPush'
-          Dockerfile: 'src/adventure-works.local.Dockerfile'
+          Dockerfile: 'src/adventure-works.lcl.Dockerfile'
           buildContext: 'src/'
           tags: 'latest'
 
