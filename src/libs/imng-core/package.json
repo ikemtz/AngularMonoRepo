@@ -1,5 +1,5 @@
 {
-  "name": "@imng/imng-core",
+  "name": "imng-core",
   "version": "0.0.1",
   "description": "A collection packages used expedite angular, ngrx, and kendo based projects",
   "peerDependencies": {
