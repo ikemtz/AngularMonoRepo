@@ -1,7 +1,6 @@
 {
   "name": "imng-kendo-chart-odata",
   "version": "0.1.4",
-  "author": "Isaac Martinez <@ikemtz>",
   "license": "MIT",
   "description": "A library to make integrating Angular Kendo Charts and NGRX a bit simpler.",
   "keywords": [
@@ -19,7 +18,7 @@
     "tslib": ">=2.x",
     "@nrwl/angular": ">=11.x"
   },
-  "dependencies": { 
+  "dependencies": {
     "imng-kendo-odata": "*",
     "imng-nrsrx-client-utils": "*"
   },
@@ -36,5 +35,15 @@
   },
   "devDependencies": {
     "ng-packagr": ">=12.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+  },
+  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
   }
 }

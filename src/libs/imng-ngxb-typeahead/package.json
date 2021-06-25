@@ -1,8 +1,6 @@
 {
   "name": "imng-ngxb-typeahead",
   "version": "0.1.9",
-  "author": "Isaac Martinez <@ikemtz>",
-  "license": "MIT",
   "dependencies": {
     "tslib": ">=2.x"
   },
@@ -32,5 +30,16 @@
       "imng-kendo-odata",
       "imng-nrsrx-client-utils"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+  },
+  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
   }
 }

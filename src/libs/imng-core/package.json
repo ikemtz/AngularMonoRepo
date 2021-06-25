@@ -1,6 +1,7 @@
 {
   "name": "@imng/imng-core",
   "version": "0.0.1",
+  "description": "A collection packages used expedite angular, ngrx, and kendo based projects",
   "peerDependencies": {
     "@angular/common": ">=11.x",
     "@angular/core": ">=11.x",
@@ -41,5 +42,16 @@
     "imng-ngxb-typeahead": "latest",
     "imng-nrsrx-client-utils": "latest",
     "imng-signalr-ngrx": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+  },
+  "license": "MIT",
+  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
   }
 }
