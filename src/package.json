@@ -80,6 +80,7 @@
     "publish:odata": "npm run build:odata && npm publish ./dist/libs/imng-kendo-odata",
     "publish:chart-odata": "npm run build:chart-odata && npm publish ./dist/libs/imng-kendo-chart-odata",
     "publish:grid": "npm run build:grid && npm publish ./dist/libs/imng-kendo-grid",
+    "publish:core": "npm run build:core && npm publish ./dist/libs/imng-core",
     "publish:grid-odata": "npm run build:grid-odata && npm publish ./dist/libs/imng-kendo-grid-odata",
     "publish:type-ahead": "npm run build:type-ahead && npm publish ./dist/libs/imng-ngxb-typeahead",
     "publish:auth0-oidc": "npm run build:auth0-oidc && npm run copyfiles:auth0-oidc && npm publish ./dist/libs/imng-auth0-oidc",
