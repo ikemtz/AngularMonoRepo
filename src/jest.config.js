@@ -17,6 +17,6 @@ module.exports = {
     '<rootDir>/apps/imng-inventory',
     '<rootDir>/libs/imng-ngrx-idle',
     '<rootDir>/apps/adventure-works',
-    '<rootDir>/libs/imng-core',
+    '<rootDir>/libs/imng-angular-core',
   ],
 };

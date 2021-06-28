@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@env/nurse-cron": ["./apps/nurse-cron/src/environments/environment.ts"],
-      "@imng/imng-core": ["libs/imng-core/src/index.ts"],
+      "@imng/imng-angular-core": ["libs/imng-angular-core/src/index.ts"],
       "imng-application-insights-ngrx": [
         "dist/libs/imng-application-insights-ngrx",
         "libs/imng-application-insights-ngrx/src"
