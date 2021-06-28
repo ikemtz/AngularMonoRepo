@@ -13,4 +13,4 @@ $(sed -i "$value" ./libs/imng-*/package.json)
 $(sed -i "$value" ./apps/*/src/environments/environment*ts)
 
 latestValue="s/latest/${buildNumber}/g"
-$(sed -i "$latestValue" ./libs/imng-core/package.json)
+$(sed -i "$latestValue" ./libs/imng-angular-core/package.json)

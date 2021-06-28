@@ -39,7 +39,7 @@
       "tags": [],
       "implicitDependencies": ["imng-az-func-configr"]
     },
-    "imng-core": {
+    "imng-angular-core": {
       "tags": ["core"]
     },
     "imng-inventory": {
