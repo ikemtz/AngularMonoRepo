@@ -1,7 +1,7 @@
-# imng-core
+# imng-angular-core
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Running unit tests
 
-Run `nx test imng-core` to execute the unit tests.
+Run `nx test imng-angular-core` to execute the unit tests.

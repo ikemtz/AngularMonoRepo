@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'imng-core',
+  displayName: 'imng-angular-core',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-core',
+  coverageDirectory: '../../coverage/libs/imng-angular-core',
   transform: {
     '^.+\\.(ts|js|html)$': 'jest-preset-angular',
   },

@@ -364,40 +364,40 @@
         }
       }
     },
-    "imng-core": {
+    "imng-angular-core": {
       "projectType": "library",
-      "root": "libs/imng-core",
-      "sourceRoot": "libs/imng-core/src",
+      "root": "libs/imng-angular-core",
+      "sourceRoot": "libs/imng-angular-core/src",
       "prefix": "imng",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
-          "outputs": ["dist/libs/imng-core"],
+          "outputs": ["dist/libs/imng-angular-core"],
           "options": {
-            "project": "libs/imng-core/ng-package.json"
+            "project": "libs/imng-angular-core/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/imng-core/tsconfig.lib.prod.json"
+              "tsConfig": "libs/imng-angular-core/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "libs/imng-core/tsconfig.lib.json"
+              "tsConfig": "libs/imng-angular-core/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/imng-core"],
+          "outputs": ["coverage/libs/imng-angular-core"],
           "options": {
-            "jestConfig": "libs/imng-core/jest.config.js",
+            "jestConfig": "libs/imng-angular-core/jest.config.js",
             "passWithNoTests": true
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/imng-core/src/**/*.ts", "libs/imng-core/src/**/*.html"]
+            "lintFilePatterns": ["libs/imng-angular-core/src/**/*.ts", "libs/imng-angular-core/src/**/*.html"]
           }
         }
       }
