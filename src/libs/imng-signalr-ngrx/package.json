@@ -4,7 +4,7 @@
   "peerDependencies": {
     "@ngrx/store": ">=11.x",
     "@ngrx/effects": ">=11.x",
-    "@microsoft/signalr": ">=^3.x",
+    "@microsoft/signalr": ">=3.x",
     "imng-auth0-oidc": "*",
     "tslib": ">=2.x",
     "imng-ngrx-utils": "*",
