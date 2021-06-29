@@ -324,7 +324,7 @@ jobs:
       - task: Bash@3
         displayName: 'running sanitize-dist-libs'
         inputs:
-          filePath: '$(System.DefaultWorkingDirectory)/src/libs/sanitize-dist-libs.sh'
+          filePath: '$(System.DefaultWorkingDirectory)/src/sanitize-dist-libs.sh'
           workingDirectory: '$(System.DefaultWorkingDirectory)/src/'
 
       - task: PublishBuildArtifacts@1
