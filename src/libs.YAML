@@ -321,6 +321,12 @@ jobs:
           mergeTestResults: true
           failTaskOnFailedTests: true
 
+      - task: Bash@3
+        displayName: 'running sanitize-dist-libs'
+        inputs:
+          filePath: '$(System.DefaultWorkingDirectory)/src/libs/sanitize-dist-libs.sh'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/src/'
+
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact: dev-drop [BUILD Packages]'
         inputs:
