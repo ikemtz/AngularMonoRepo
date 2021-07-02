@@ -94,9 +94,14 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nurse-cron:build",
+            "proxyConfig": "apps/adventure-works/proxy.conf.js"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "adventure-works:build:production"
+              "browserTarget": "adventure-works:build:production",
+              "proxyConfig": "apps/adventure-works/proxy.conf.js"
             },
             "development": {
               "browserTarget": "adventure-works:build:development"
