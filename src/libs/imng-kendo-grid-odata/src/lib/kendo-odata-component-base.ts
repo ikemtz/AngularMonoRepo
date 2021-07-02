@@ -86,6 +86,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     if (this.router) {
       const tempState = { ...odataState };
       delete tempState.selectors;
+      delete tempState.expanders;
       this.router.navigate([], {
         relativeTo: this.router.routerState.root,
         queryParams: {
