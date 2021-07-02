@@ -26,6 +26,9 @@
       "tags": [],
       "implicitDependencies": ["adventure-works"]
     },
+    "imng-angular-core": {
+      "tags": ["core"]
+    },
     "imng-application-insights-ngrx": {
       "tags": []
     },
@@ -38,9 +41,6 @@
     "imng-az-func-configr-e2e": {
       "tags": [],
       "implicitDependencies": ["imng-az-func-configr"]
-    },
-    "imng-angular-core": {
-      "tags": ["core"]
     },
     "imng-inventory": {
       "tags": []
@@ -91,5 +91,13 @@
       "tags": [],
       "implicitDependencies": ["nurse-cron"]
     }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
