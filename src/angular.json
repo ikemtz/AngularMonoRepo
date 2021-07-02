@@ -94,9 +94,14 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nurse-cron:build",
+            "proxyConfig": "apps/adventure-works/proxy.conf.js"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "adventure-works:build:production"
+              "browserTarget": "adventure-works:build:production",
+              "proxyConfig": "apps/adventure-works/proxy.conf.js"
             },
             "development": {
               "browserTarget": "adventure-works:build:development"
@@ -148,6 +153,44 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/adventure-works-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "imng-angular-core": {
+      "projectType": "library",
+      "root": "libs/imng-angular-core",
+      "sourceRoot": "libs/imng-angular-core/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/imng-angular-core"],
+          "options": {
+            "project": "libs/imng-angular-core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-angular-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/imng-angular-core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/imng-angular-core"],
+          "options": {
+            "jestConfig": "libs/imng-angular-core/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/imng-angular-core/src/**/*.ts", "libs/imng-angular-core/src/**/*.html"]
           }
         }
       }
@@ -360,44 +403,6 @@
               "apps/imng-az-func-configr-e2e/src/**/*.ts",
               "apps/imng-az-func-configr-e2e/src/**/*.html"
             ]
-          }
-        }
-      }
-    },
-    "imng-angular-core": {
-      "projectType": "library",
-      "root": "libs/imng-angular-core",
-      "sourceRoot": "libs/imng-angular-core/src",
-      "prefix": "imng",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "outputs": ["dist/libs/imng-angular-core"],
-          "options": {
-            "project": "libs/imng-angular-core/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/imng-angular-core/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/imng-angular-core/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/imng-angular-core"],
-          "options": {
-            "jestConfig": "libs/imng-angular-core/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/imng-angular-core/src/**/*.ts", "libs/imng-angular-core/src/**/*.html"]
           }
         }
       }
