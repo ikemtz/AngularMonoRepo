@@ -20,7 +20,15 @@ export class ODataService {
     `isnotempty`
   ];
   constructor(private readonly http: HttpClient) { }
-
+  /**
+   * Executes an OData query formatting the request and parsing the results
+   * @param odataEndpoint The url of the OData endpoint
+   * @param state The ODataState object that will be used to generate the query string parameters
+   * @param utcNullableProps Collection of property names that are of type: nullable DateTime 
+   *    Note: these properties will be converted to local date time
+   * @param dateNullableProps Collection of property names that are of type: nullable Date
+   * @returns 
+   */
   public fetch<T>(
     odataEndpoint: string,
     state: ODataState,
