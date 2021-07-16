@@ -18,7 +18,7 @@
     <div class="col-md-3">Expires</div>
     <div class="col-md-8">{{ facade.expiresAt$ | async }}</div>
   </div>
-  <div class="row" *ngFor="let item of auth0Facade.profile$ | async">
+  <div class="row" *ngFor="let item of profileValue$ | async">
     <div class="col-md-3">{{ item.key }}</div>
     <div class="col-md-8">{{ item.value }}</div>
   </div>
