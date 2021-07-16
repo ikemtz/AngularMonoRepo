@@ -82,7 +82,7 @@
     "publish:core": "npm run build:core && npm publish ./dist/libs/imng-angular-core",
     "publish:grid-odata": "npm run build:grid-odata && npm publish ./dist/libs/imng-kendo-grid-odata",
     "publish:type-ahead": "npm run build:type-ahead && npm publish ./dist/libs/imng-ngxb-typeahead",
-    "publish:auth0-oidc": "npm run build:auth0-oidc && npm run copyfiles:auth0-oidc && npm publish ./dist/libs/imng-auth0-oidc",
+    "publish:auth0-oidc": "npm run build:auth0-oidc && npm publish ./dist/libs/imng-auth0-oidc",
     "publish:app-insight": "npm run build:app-insight && npm publish ./dist/libs/imng-application-insights-ngrx",
     "publish:ngrx-utils": "npm run build:ngrx-utils && npm publish ./dist/libs/imng-ngrx-utils",
     "publish:ngrx-idle": "npm run build:ngrx-idle && npm publish ./dist/libs/imng-ngrx-idle",

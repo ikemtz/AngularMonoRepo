@@ -42,7 +42,7 @@ Open up your angular.json and navigate to the node for your project. Let's assum
               // THIS IS WHAT YOU'LL NEED TO ADD (START)
               {
                 "glob": "*",
-                "input": "node_modules/imng-auth0-oidc/assets",
+                "input": "node_modules/imng-auth0-oidc/src/assets",
                 "output": "/"
               }
               // THIS IS WHAT YOU'LL NEED TO ADD (END)
