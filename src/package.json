@@ -74,7 +74,7 @@
     "build:theme-blue": "cd ./libs/imng-kendo-theme-blue && npm i && npm run build && find . -type d -name \"node_modules\" -exec rm -rf {} + && cp -r . ../../dist/libs/imng-kendo-theme-blue/ ",
     "build:signalr": "rm -dr ./dist/libs/imng-signalr-ngrx & nx build imng-signalr-ngrx --prod --with-deps",
     "build:core": "rm -dr ./dist/libs/imng-angular-core & nx build imng-angular-core --with-deps --prod",
-    "copyfiles:auth0-oidc": "mkdir -p ./dist/libs/imng-auth0-oidc/assets && cp -vf ./node_modules/oidc-client/dist/* ./libs/imng-auth0-oidc/src/assets/*.html ./dist/libs/imng-auth0-oidc/assets",
+    "copyfiles:auth0-oidc": "mkdir -pv ./dist/libs/imng-auth0-oidc/assets & cp -v ./node_modules/oidc-client/dist/* ./dist/libs/imng-auth0-oidc/assets && cp -v ./libs/imng-auth0-oidc/src/assets/*.html ./dist/libs/imng-auth0-oidc/assets",
     "publish:libs": "npm run publish:data-entry && npm run publish:odata && npm run publish:chart-odata && npm run publish:grid && npm run publish:grid-odata && npm run publish:type-ahead && npm run publish:auth0-oidc && npm run publish:app-insight && npm run publish:ngrx-utils && npm run publish:nrsrx-utils && npm run publish:signalr && npm run publish:ngrx-idle && npm run publish:theme-blue",
     "publish:data-entry": "npm run build:data-entry && npm publish ./dist/libs/imng-kendo-data-entry",
     "publish:odata": "npm run build:odata && npm publish ./dist/libs/imng-kendo-odata",
