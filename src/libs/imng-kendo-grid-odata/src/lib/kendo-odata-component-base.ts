@@ -48,7 +48,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
         }),
       );
     } else {
-      this.gridDataState = this.gridDataState ? { ...this.gridDataState, selectors: state.selectors } : state;
+      this.gridDataState = this.gridDataState ? { ...this.gridDataState, selectors: state.selectors, expanders: state.expanders } : state;
       this.expanders = state.expanders;
       this.transformations = state.transformations;
     }
