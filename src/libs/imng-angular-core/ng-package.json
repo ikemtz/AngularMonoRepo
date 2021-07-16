@@ -8,6 +8,7 @@
     "imng-application-insights-ngrx",
     "imng-auth0-oidc",
     "imng-kendo-chart-odata",
+    "imng-kendo-data-entry",
     "imng-kendo-grid",
     "imng-kendo-odata",
     "imng-kendo-theme-blue",
