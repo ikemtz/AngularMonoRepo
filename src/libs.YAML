@@ -321,6 +321,15 @@ jobs:
           mergeTestResults: true
           failTaskOnFailedTests: true
 
+      - task: Npm@1
+        displayName: 'npm run build:auth0-oidc'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:auth0-oidc'
+
       - task: Bash@3
         displayName: 'running sanitize-dist-libs'
         inputs:
