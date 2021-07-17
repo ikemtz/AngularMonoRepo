@@ -2,7 +2,6 @@ import {
   apply,
   applyTemplates,
   chain,
-  DirEntry,
   mergeWith,
   move,
   Rule,
@@ -18,7 +17,6 @@ import { Observable, from, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IOptions } from './options';
 import _ = require('lodash');
-import { TslintFixTask } from '@angular-devkit/schematics/tasks';
 import * as fs from 'fs';
 import * as findUp from 'find-up';
 import * as https from 'https';
@@ -138,24 +136,4 @@ export function generateFiles(schema: IOptions, templateType: 'list' | 'crud' | 
     return chain([mergeWith(templateSource)])(tree, context);
   };
 }
-
-export function runLint(schema: IOptions): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-    const dir: DirEntry | null = tree.getDir(schema.path.substr(0, schema.path.lastIndexOf('/')));
-    const files = tree.actions.reduce((acc: Set<string>, action) => {
-      const path = action.path.substr(1); // Remove the starting '/'.
-      if (path.endsWith('.ts') && dir && action.path.startsWith(dir.path)) {
-        acc.add(path);
-      }
-      return acc;
-    }, new Set<string>());
-    context.addTask(
-      new TslintFixTask({
-        ignoreErrors: false,
-        tsConfigPath: 'tsconfig.json',
-        files: Array.from(files),
-      }),
-    );
-    return tree;
-  };
-}
+ 

@@ -33,6 +33,7 @@
     "imng-application-insights-ngrx": "latest",
     "imng-auth0-oidc": "latest",
     "imng-kendo-chart-odata": "latest",
+    "imng-kendo-data-entry": "latest",
     "imng-kendo-grid": "latest",
     "imng-kendo-grid-odata": "latest",
     "imng-kendo-odata": "latest",
