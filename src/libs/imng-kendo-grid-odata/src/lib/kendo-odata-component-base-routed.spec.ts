@@ -47,11 +47,27 @@ describe('KendoODataComponentBaseRouted', () => {
     const data = await readFirst(component.excelData());
     expect(data).toStrictEqual(ODataResultEmpty);
   });
+
+  it('should reset', async () => {
+    component.gridDataState = { ...component.gridDataState, filter: { logic: 'and', filters: [{ field: 'y', operator: 'contains', value: 56 }] } };
+    component.resetFilters();
+    expect(component.gridDataState).toMatchSnapshot();
+    expect(router.navigate).toBeCalledTimes(2);
+    expect(router.navigate).toHaveBeenNthCalledWith(2, [], {
+      queryParams: {
+        odataState: 'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwiZmlsdGVyIjp7ImxvZ2ljIjoiYW5kIiwiZmlsdGVycyI6W3siZmllbGQiOiJ4Iiwib3BlcmF0b3IiOiJlcSIsInZhbHVlIjoxfV19fQ=='
+      },
+      queryParamsHandling: 'merge',
+      relativeTo: undefined,
+      skipLocationChange: false,
+    });
+  });
 });
 const initialGridState: ODataState = {
   selectors: ['x', 'y', 'z'],
   sort: [{ field: 'x', dir: 'desc' }],
   skip: 20,
+  filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] }
 };
 @Component({
   selector: 'imng-test-component',

@@ -30,11 +30,18 @@ describe('KendoODataComponentBase', () => {
     const data = await readFirst(component.excelData());
     expect(data).toStrictEqual(ODataResultEmpty);
   });
+
+  it('should reset', async () => {
+    component.gridDataState = { ...component.gridDataState, filter: { logic: 'and', filters: [{ field: 'y', operator: 'contains', value: 56 }] } };
+    component.resetFilters();
+    expect(component.gridDataState).toMatchSnapshot();
+  });
 });
 
 const initialGridState: ODataState = {
   selectors: ['x', 'y', 'z'],
-  sort: [{ field: 'x', dir: 'desc' }]
+  sort: [{ field: 'x', dir: 'desc' }],
+  filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] }
 };
 @Component({
   selector: 'imng-test-component',
