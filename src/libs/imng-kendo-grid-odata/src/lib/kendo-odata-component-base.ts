@@ -57,14 +57,23 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     }
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (!this.gridRefresh$) {
       this.loadEntities(this.gridDataState);
     }
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
+  }
+  /**
+   * Will reset filters to initialGrid state passed into the constructor
+   */
+  public resetFilters(): void {
+    if (!isObservable(this.state)) {
+      this.gridDataState = { ...this.gridDataState, filter: this.state.filter };
+      this.loadEntities(this.gridDataState);
+    }
   }
 
   public dataStateChange(state: ODataGridStateChangeEvent): void {
