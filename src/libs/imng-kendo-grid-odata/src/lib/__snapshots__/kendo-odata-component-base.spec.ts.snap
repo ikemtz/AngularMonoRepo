@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KendoODataComponentBase should reset 1`] = `
+Object {
+  "filter": Object {
+    "filters": Array [
+      Object {
+        "field": "x",
+        "operator": "eq",
+        "value": 1,
+      },
+    ],
+    "logic": "and",
+  },
+  "selectors": Array [
+    "x",
+    "y",
+    "z",
+  ],
+  "sort": Array [
+    Object {
+      "dir": "desc",
+      "field": "x",
+    },
+  ],
+}
+`;
