@@ -2,7 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { classify } from '@angular-devkit/core/src/utils/strings';
 import * as pluralize from 'pluralize';
 
