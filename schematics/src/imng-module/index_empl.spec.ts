@@ -3,7 +3,7 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import * as path from 'path';
 import { IOptions } from '../shared';
 import * as pluralize from 'pluralize';
-import { readFirst } from '@nrwl/angular/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
