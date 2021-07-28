@@ -130,41 +130,47 @@ export class ODataService {
     return `${result},`;
   }
   private processChildFilterDescriptor(state: ODataState, queryString: string): string {
-    const childFilter: ChildFilterDescriptor = state.childFilter;
-    if (!childFilter) {
+    const childFilters: ChildFilterDescriptor[] = state.childFilters;
+    if (!childFilters) {
       return queryString;
     }
     let filteringString: string;
-    if (-1 < this.stringFilterOperators.findIndex(x => x === childFilter.operator) && !isaNumber(childFilter.value)) {
-      filteringString = `${childFilter.operator}(o/${childFilter.field}, '${childFilter.value}')`;
-    } else if (!isaNumber(childFilter.value)) {
-      filteringString = `o/${state.childFilter.field} ${state.childFilter.operator} '${state.childFilter.value}'`;
-    } else {
-      filteringString = `o/${state.childFilter.field} ${state.childFilter.operator} ${state.childFilter.value}`;
-    }
-    const childFilterString = `(${state.childFilter.childTableNavigationProperty}/${state.childFilter.linqOperation}` +
-      `(o: ${filteringString}))`;
-    if (queryString.match(/\$filter=/)) {
-      return queryString.replace(/\$filter=/, `$filter=${childFilterString} ${childFilter.logic || 'and'} `);
-    } else {
-      return `${queryString}&$filter=${childFilterString}`;
-    }
+    childFilters.forEach(childFilter => {
+      if (-1 < this.stringFilterOperators.findIndex(x => x === childFilter.operator) && !isaNumber(childFilter.value)) {
+        filteringString = `${childFilter.operator}(o/${childFilter.field}, '${childFilter.value}')`;
+      } else if (!isaNumber(childFilter.value)) {
+        filteringString = `o/${childFilter.field} ${childFilter.operator} '${childFilter.value}'`;
+      } else {
+        filteringString = `o/${childFilter.field} ${childFilter.operator} ${childFilter.value}`;
+      }
+      const childFilterString = `(${childFilter.childTableNavigationProperty}/${childFilter.linqOperation}` +
+        `(o: ${filteringString}))`;
+      if (queryString.match(/\$filter=/)) {
+        queryString = queryString.replace(/\$filter=/, `$filter=${childFilterString} ${childFilter.logic || 'and'} `);
+      } else {
+        queryString = `${queryString}&$filter=${childFilterString}`;
+      }
+    });
+    return queryString;
   }
 
   private processInFilter(state: ODataState, queryString: string): string {
-    if (!state.inFilter) {
+    if (!state.inFilters) {
       return queryString;
     }
-    const deDupedVals = Array.from(new Set(state.inFilter.values.filter(f => f)));
-    const inVals = deDupedVals.map(m => isaNumber(m) ? `${m}` : `'${m}'`).join(',');
-    const inFilterString = `(${state.inFilter.field} in (${inVals}))`;
-    if (!queryString || queryString.trim().length === 0) {
-      return `$filter=${inFilterString}`;
-    }
-    if (queryString.match(/\$filter=/)) {
-      return queryString.replace(/\$filter=/, `$filter=${inFilterString} ${state.inFilter.logic || 'and'} `);
-    } else {
-      return `${queryString}&$filter=${inFilterString}`;
-    }
+    state.inFilters.forEach(inFilter => {
+      const deDupedVals = Array.from(new Set(inFilter.values.filter(f => f)));
+      const inVals = deDupedVals.map(m => isaNumber(m) ? `${m}` : `'${m}'`).join(',');
+      const inFilterString = `(${inFilter.field} in (${inVals}))`;
+      if (!queryString || queryString.trim().length === 0) {
+        return `$filter=${inFilterString}`;
+      }
+      if (queryString.match(/\$filter=/)) {
+        queryString = queryString.replace(/\$filter=/, `$filter=${inFilterString} ${inFilter.logic || 'and'} `);
+      } else {
+        queryString = `${queryString}&$filter=${inFilterString}`;
+      }
+    });
+    return queryString;
   }
 }

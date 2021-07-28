@@ -3,8 +3,8 @@ import { State, FilterDescriptor } from '@progress/kendo-data-query';
 export interface ODataState extends State {
   expanders?: Array<Expander | string>;
   selectors?: string[];
-  inFilter?: InFilter;
-  childFilter?: ChildFilterDescriptor;
+  inFilters?: InFilter[];
+  childFilters?: ChildFilterDescriptor[];
   count?: boolean;
   transformations?: string;
 }
