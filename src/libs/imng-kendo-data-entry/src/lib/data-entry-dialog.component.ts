@@ -19,6 +19,7 @@ export class DataEntryDialogComponent implements OnInit {
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;
   public submitted: boolean;
+  public saveButtonText = "Save";
   public dialogTitle: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
   public component: {};
