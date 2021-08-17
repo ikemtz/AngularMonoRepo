@@ -10,6 +10,7 @@ DataEntryDialogComponent {
     "onCancel": [MockFunction],
     "onSubmit": [MockFunction],
   },
+  "saveButtonText": "Save",
 }
 `;
 
