@@ -1,5 +1,8 @@
+const { getJestProjects } = require('@nrwl/jest');
+
 module.exports = {
   projects: [
+    ...getJestProjects(),
     '<rootDir>/libs/imng-kendo-odata',
     '<rootDir>/libs/imng-auth0-oidc',
     '<rootDir>/libs/imng-kendo-grid-odata',
