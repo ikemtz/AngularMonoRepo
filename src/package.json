@@ -54,7 +54,7 @@
     "build:aw": "nx build adventure-works --sourceMap=true --statsJson",
     "build:aw-prod": "nx build adventure-works --sourceMap=true --configuration=production",
     "build:nur": "nx build nurse-cron --sourceMap=true --statsJson",
-    "build:nur-prod": "nx build nurse-cro --sourceMap=true --configuration=production",
+    "build:nur-prod": "nx build nurse-cron --sourceMap=true --configuration=production",
     "build:azc": "nx build imng-az-func-configr --sourceMap=true --statsJson",
     "build:azc-prod": "nx build imng-az-func-configr --sourceMap=true --configuration=production",
     "build:ivtr": "nx build imng-inventory --sourceMap=true --statsJson",
