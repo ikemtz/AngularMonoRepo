@@ -14,12 +14,12 @@ export class DataEntryDialogComponent implements OnInit {
   @Input() public height: string | number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public parentComponent: BaseDataEntryComponent<any>;//NOSONAR
+  @Input() public saveButtonText = "Save";
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
   public dialogBtnsTemplate: TemplateRef<unknown>;
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;
   public submitted: boolean;
-  public saveButtonText = "Save";
   public dialogTitle: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
   public component: {};
