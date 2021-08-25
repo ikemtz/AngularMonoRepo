@@ -2,6 +2,7 @@
 import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
+import { filter } from 'rxjs/operators';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
@@ -43,12 +44,14 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
         this.changeDetectorRef.markForCheck();
       }),
       this.facade.gridPagerSettings$.subscribe(t => (this.gridComponent.pageable = t)),
-      this.facade.gridODataState$.subscribe(t => {
-        this.gridComponent.pageSize = t.take;
-        this.gridComponent.filter = t.filter;
-        this.gridComponent.skip = t.skip;
-        this.gridComponent.sort = t.sort;
-      }),
+      this.facade.gridODataState$
+        .pipe(filter(t => !!t))
+        .subscribe(t => {
+          this.gridComponent.pageSize = t.take;
+          this.gridComponent.filter = t.filter;
+          this.gridComponent.skip = t.skip;
+          this.gridComponent.sort = t.sort;
+        }),
     );
   }
 
