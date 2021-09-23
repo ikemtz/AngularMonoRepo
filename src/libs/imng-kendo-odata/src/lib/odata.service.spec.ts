@@ -29,7 +29,7 @@ describe('ODataService', () => {
       inFilters: [{ field: 'field1', values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'] }],
       expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }]
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -44,7 +44,7 @@ describe('ODataService', () => {
       inFilters: [{ field: 'field1', values: [1, 2, 6, 4] }],
       expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }]
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -65,7 +65,7 @@ describe('ODataService', () => {
         ]
       }
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -86,7 +86,7 @@ describe('ODataService', () => {
         ]
       }
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -109,7 +109,7 @@ describe('ODataService', () => {
         ]
       }
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -129,7 +129,7 @@ describe('ODataService', () => {
         ]
       }
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -149,7 +149,7 @@ describe('ODataService', () => {
         ]
       }
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -163,7 +163,7 @@ describe('ODataService', () => {
       childFilters: [{ field: 'name', value: '😎🐱‍👤', linqOperation: 'any', childTableNavigationProperty: 'childTable1', operator: 'eq' }],
       expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }]
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -180,7 +180,7 @@ describe('ODataService', () => {
         { field: 'name2', value: '🐱', linqOperation: 'any', childTableNavigationProperty: 'childTable4', operator: 'eq' }],
       expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }]
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
@@ -199,7 +199,7 @@ describe('ODataService', () => {
         operator: 'contains'
       }],
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       `//idunno.com?&$filter=(employeeCertifications/any(o: contains(o/certificationName, '😎🐱‍👤')))&$count=true`);
@@ -217,7 +217,7 @@ describe('ODataService', () => {
         operator: 'eq'
       }],
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       `//idunno.com?&$filter=(employeeCertifications/any(o: o/certificationName eq 353))&$count=true`);
@@ -243,7 +243,7 @@ describe('ODataService', () => {
         ]
       }
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       `//idunno.com?$filter=(employeeCertifications/any(o: contains(o/certificationName, '😎🐱‍👤'))) and (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$count=true`);
@@ -270,7 +270,7 @@ describe('ODataService', () => {
         ]
       }
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       `//idunno.com?$filter=(employeeCertifications/any(o: contains(o/certificationName, '😎🐱‍👤'))) or (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$count=true`);
@@ -288,7 +288,7 @@ describe('ODataService', () => {
         operator: 'eq'
       }],
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       `//idunno.com?&$filter=(employeeCertifications/any(o: o/certificationName eq 69.99))&$count=true`);
@@ -300,7 +300,7 @@ describe('ODataService', () => {
     const gridState: ODataState = {
       transformations: 'groupby((columnName),aggregate(id with countdistinct as rowCount))'
     };
-    const result = await readFirst(service.fetch('//idunno.com', gridState, ['fireDate'], ['fireDate']));
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       `//idunno.com?&$apply=groupby((columnName),aggregate(id with countdistinct as rowCount))&$count=true`);

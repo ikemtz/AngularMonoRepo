@@ -6,6 +6,7 @@ import { ChildFilterDescriptor, Expander, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
 import { isaNumber } from 'imng-nrsrx-client-utils';
+import { FetchOptions } from './fetch-options';
 
 @Injectable({
   providedIn: 'root',
@@ -20,26 +21,18 @@ export class ODataService {
     `isnotempty`
   ];
   constructor(private readonly http: HttpClient) { }
-  /**
-   * Executes an OData query formatting the request and parsing the results
-   * @param odataEndpoint The url of the OData endpoint
-   * @param state The ODataState object that will be used to generate the query string parameters
-   * @param utcNullableProps Collection of property names that are of type: nullable DateTime 
-   *    Note: these properties will be converted to local date time
-   * @param dateNullableProps Collection of property names that are of type: nullable Date
-   * @returns 
-   */
+
   public fetch<T>(
     odataEndpoint: string,
     state: ODataState,
-    utcNullableProps: string[] = [],
-    dateNullableProps: string[] = [],
+    options: FetchOptions = {},
   ): Observable<ODataResult<T>> {
     const countClause = state.count === false ? '' : '&$count=true';
-    const queryStr = `${this.getODataString(state)}${countClause}`;
+    const cacheBustClause = options.bustCache === true ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}` : '';
+    const queryStr = `${this.getODataString(state)}${countClause}${cacheBustClause}`;
     return this.http
       .get(`${odataEndpoint}?${queryStr}`)
-      .pipe(mapToExtDataResult<T>(utcNullableProps, dateNullableProps));
+      .pipe(mapToExtDataResult<T>(options.utcNullableProps || [], options.dateNullableProps || []));
   }
 
   public fetchByPrimaryKey<T>(odataEndpoint: string, id: string, state?: ODataState): Observable<T> {
