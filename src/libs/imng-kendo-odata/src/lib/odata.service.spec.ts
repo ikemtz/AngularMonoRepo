@@ -224,6 +224,14 @@ describe('ODataService', () => {
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
 
+  it('should do cache busting', async () => {
+    let requestUrl = "";
+    httpClient.get = jest.fn(x => { requestUrl = x; return of(mockDataFactory()) as never; });
+    const gridState: ODataState = {};
+    const result = await readFirst(service.fetch('//idunno.com', gridState, { bustCache: true }));
+    expect(httpClient.get).toBeCalledTimes(1);
+    expect(requestUrl).toContain('&timestamp=');
+  });
 
   it('should support childFilter ANDS', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
