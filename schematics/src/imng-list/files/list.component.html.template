@@ -19,8 +19,10 @@
       </div>
     </div>
   </ng-template>
-<% swaggerProperties.forEach(function(swaggerProperty) {%><% if (swaggerProperty.format === 'date-time') { %>
-  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yyyy}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
+<% swaggerProperties.forEach(function(swaggerProperty) {%><% if (swaggerProperty.format === 'date-time' && swaggerProperty.name.toLowerCase().endsWith('utc') ) { %>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy hh:mm}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
+<%} else if (swaggerProperty.format === 'date-time') { %>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
 <%} else if (swaggerProperty.type === 'boolean') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
     <ng-template kendoGridCellTemplate let-dataItem>
