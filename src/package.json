@@ -133,7 +133,7 @@
     "@progress/kendo-angular-treeview": "^5.3.1",
     "@progress/kendo-data-query": "^1.5.5",
     "@progress/kendo-drawing": "^1.10.0",
-    "@progress/kendo-theme-default": "^4.38.1",
+    "@progress/kendo-theme-default": "^4.41.2",
     "ang-jsoneditor": "^1.10.3",
     "bootstrap": "^4.6.0",
     "core-js": "^2.6.12",
