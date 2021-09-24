@@ -7,8 +7,11 @@ export const <%= camelize(pluralizedName) %>Failure = createPayloadAction<{ erro
 export const load<%= classify(pluralizedName) %>Request = createPayloadAction<ODataState>(
     '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Request');
 export const load<%= classify(pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(name) %>>>(
-    '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Success',
-);
+    '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Success');
+export const reload<%= classify(pluralizedName) %>Request = createAction(
+    '[<%= classify(pluralizedName) %>] ReLoad <%= classify(pluralizedName) %> Request');
+export const reload<%= classify(pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(name) %>>>(
+    '[<%= classify(pluralizedName) %>] ReLoad <%= classify(pluralizedName) %> Success');
 
 export const clearCurrent<%= classify(name) %> = createAction('[<%= classify(pluralizedName) %>] Clear Current <%= classify(name) %>');
 export const setCurrent<%= classify(name) %> = createPayloadAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Set Current <%= classify(name) %>');
