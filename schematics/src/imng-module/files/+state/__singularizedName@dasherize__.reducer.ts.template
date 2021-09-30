@@ -30,7 +30,8 @@ const <%= camelize(pluralizedName) %>Reducer = createReducer(
     loading: true,
     error: null,
   })),
-  on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success, (state, { payload }) => ({
+  on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success,
+     <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success, (state, { payload }) => ({
     ...state,
     loading: false,
     gridPagerSettings: getODataPagerSettings({
