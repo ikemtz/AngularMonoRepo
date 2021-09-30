@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { ODataState, ODataResult } from 'imng-kendo-odata';
-import { IKendoODataGridFacade } from '../../src';
+import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 
 export class ODataGridMockFacade implements IKendoODataGridFacade<object> {
   public loading$: Observable<boolean> = of(false);
