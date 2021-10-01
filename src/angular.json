@@ -634,6 +634,45 @@
         }
       }
     },
+    "imng-kendo-grid-filtering": {
+      "projectType": "library",
+      "root": "libs/imng-kendo-grid-filtering",
+      "sourceRoot": "libs/imng-kendo-grid-filtering/src",
+      "prefix": "imng",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/imng-kendo-grid-filtering"],
+          "options": {
+            "tsConfig": "libs/imng-kendo-grid-filtering/tsconfig.lib.json",
+            "project": "libs/imng-kendo-grid-filtering/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/imng-kendo-grid-filtering/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/imng-kendo-grid-filtering"],
+          "options": {
+            "jestConfig": "libs/imng-kendo-grid-filtering/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/imng-kendo-grid-filtering/src/**/*.ts",
+              "libs/imng-kendo-grid-filtering/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "imng-kendo-grid-odata": {
       "projectType": "library",
       "root": "libs/imng-kendo-grid-odata",
