@@ -17,6 +17,7 @@
     "test:chart-odata": "nx test imng-kendo-chart-odata --code-coverage",
     "test:grid": "nx test imng-kendo-grid --code-coverage",
     "test:grid-odata": "nx test imng-kendo-grid-odata --code-coverage",
+    "test:grid-filt": "nx test imng-kendo-grid-filtering --code-coverage",
     "test:type-ahead": "nx test imng-ngxb-typeahead --code-coverage",
     "test:auth0-oidc": "nx test imng-auth0-oidc --code-coverage",
     "test:app-insight": "nx test imng-application-insights-ngrx --code-coverage",
@@ -64,6 +65,7 @@
     "build:odata": "rm -dr ./dist/libs/imng-kendo-odata & nx build imng-kendo-odata --configuration=production --with-deps",
     "build:grid": "rm -dr ./dist/libs/imng-kendo-grid & nx build imng-kendo-grid --configuration=production --with-deps",
     "build:chart-odata": "rm -dr ./dist/libs/imng-kendo-chart-odata & nx build imng-kendo-chart-odata --configuration=production --with-deps",
+    "build:grid-filt": "rm -dr ./dist/libs/imng-kendo-grid-filtering & nx build imng-kendo-grid-filtering --configuration=production --with-deps",
     "build:grid-odata": "rm -dr ./dist/libs/imng-kendo-grid-odata & nx build imng-kendo-grid-odata --configuration=production --with-deps",
     "build:type-ahead": "rm -dr ./dist/libs/imng-ngxb-typeahead & nx build imng-ngxb-typeahead --configuration=production --with-deps",
     "build:auth0-oidc": "rm -dr ./dist/libs/imng-auth0-oidc & nx build imng-auth0-oidc --configuration=production --with-deps",
@@ -188,4 +190,3 @@
     "typescript": "4.3.5"
   }
 }
-
