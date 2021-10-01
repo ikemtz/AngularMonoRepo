@@ -77,6 +77,9 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
+
+      facade.reloadEntities();
+      expect(httpClient.get).toBeCalledTimes(2);
     });
 
     it('should get the grid state', async () => {

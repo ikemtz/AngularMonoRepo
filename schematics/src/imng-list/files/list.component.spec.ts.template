@@ -48,6 +48,11 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
     expect(component.currentItem).toEqual(item);
   });
 
+  it('should handle reload', () => {
+    component.reload();
+    expect(crudFacade.reloadEntities).toBeCalledTimes(1); 
+  });
+
   it('should handle AddItem', () => {
     component.addItem();
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
