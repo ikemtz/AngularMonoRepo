@@ -3,17 +3,20 @@ import { ChildFilterDescriptor, ODataState } from './odata-state';
 
 export function translateChildFilterExpression(odataState: ODataState, childField: string): ODataState {
   if (odataState.filter) {
-    const [table, field] = childField.split('/');
+    const [tableName, fieldName] = childField.split('.');
     const childTableFilter = odataState.filter.filters.find((t: CompositeFilterDescriptor) =>
-      t.filters.filter((filter: FilterDescriptor) => filter.field === childField)) as CompositeFilterDescriptor;
-    odataState.filter.filters = odataState.filter.filters.filter((t: CompositeFilterDescriptor) =>
-      !t.filters.some((filter: FilterDescriptor) => filter.field === childField));
+      t.filters.some((filter: FilterDescriptor) => filter.field === childField)) as CompositeFilterDescriptor;
+    odataState.filter = {
+      ...odataState.filter,
+      filters: [...odataState.filter.filters.filter((t: CompositeFilterDescriptor) =>
+        !t.filters.some((filter: FilterDescriptor) => filter.field === childField))],
+    };
 
     odataState.childFilters = (odataState.childFilters || [])
       .filter((childFilterDescriptor: ChildFilterDescriptor) =>
-        childFilterDescriptor.childTableNavigationProperty !== table && childFilterDescriptor.field !== field);
-    childTableFilter.filters.forEach((filter: FilterDescriptor) => {
-      const [tableName, fieldName] = (filter.field as string).split('/');
+        !childFilterDescriptor.field ||
+        (childFilterDescriptor.childTableNavigationProperty !== tableName && childFilterDescriptor.field !== fieldName));
+    childTableFilter?.filters?.forEach((filter: FilterDescriptor) => {
       odataState.childFilters.push({
         ...filter,
         linqOperation: 'any',
@@ -22,6 +25,9 @@ export function translateChildFilterExpression(odataState: ODataState, childFiel
         logic: childTableFilter.logic,
       });
     });
+  }
+  if (odataState.sort) {
+    odataState.sort = odataState.sort.filter(t => t.field !== childField);
   }
   return odataState;
 }
