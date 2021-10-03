@@ -14,20 +14,16 @@ export function translateChildFilterExpression(odataState: ODataState, childFiel
 
     odataState.childFilters = (odataState.childFilters || [])
       .filter((childFilterDescriptor: ChildFilterDescriptor) =>
-        !childFilterDescriptor.field ||
-        (childFilterDescriptor.childTableNavigationProperty !== tableName && childFilterDescriptor.field !== fieldName));
-    childTableFilter?.filters?.forEach((filter: FilterDescriptor) => {
+        childFilterDescriptor.childTableNavigationProperty !== tableName && childFilterDescriptor.field !== fieldName);
+    childTableFilter?.filters?.forEach((filter: FilterDescriptor) =>
       odataState.childFilters.push({
         ...filter,
         linqOperation: 'any',
         childTableNavigationProperty: tableName,
         field: fieldName,
         logic: childTableFilter.logic,
-      });
-    });
+      }));
   }
-  if (odataState.sort) {
-    odataState.sort = odataState.sort.filter(t => t.field !== childField);
-  }
+  odataState.sort = odataState.sort?.filter(t => t.field !== childField);
   return odataState;
 }
