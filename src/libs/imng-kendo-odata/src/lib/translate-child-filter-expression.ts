@@ -2,28 +2,32 @@ import { CompositeFilterDescriptor, FilterDescriptor } from '@progress/kendo-dat
 import { ChildFilterDescriptor, ODataState } from './odata-state';
 
 export function translateChildFilterExpression(odataState: ODataState, childField: string): ODataState {
-  if (odataState.filter) {
+  const childTableFilter: CompositeFilterDescriptor = odataState.filter?.filters.find((t: CompositeFilterDescriptor) =>
+    t.filters.some((filter: FilterDescriptor) => filter.field === childField)) as CompositeFilterDescriptor;
+  if (childTableFilter) {
     const [tableName, fieldName] = childField.split('.');
-    const childTableFilter = odataState.filter.filters.find((t: CompositeFilterDescriptor) =>
-      t.filters.some((filter: FilterDescriptor) => filter.field === childField)) as CompositeFilterDescriptor;
     odataState.filter = {
       ...odataState.filter,
       filters: [...odataState.filter.filters.filter((t: CompositeFilterDescriptor) =>
         !t.filters.some((filter: FilterDescriptor) => filter.field === childField))],
     };
-
-    odataState.childFilters = (odataState.childFilters || [])
-      .filter((childFilterDescriptor: ChildFilterDescriptor) =>
-        childFilterDescriptor.childTableNavigationProperty !== tableName && childFilterDescriptor.field !== fieldName);
-    childTableFilter?.filters?.forEach((filter: FilterDescriptor) =>
-      odataState.childFilters.push({
+    odataState.childFilters = {
+      logic: odataState.childFilters?.logic || 'and',
+      filters: odataState.childFilters?.filters.filter((childFilterDescriptor: ChildFilterDescriptor) =>
+        childFilterDescriptor.childTableNavigationProperty !== tableName && childFilterDescriptor.field !== fieldName) || []
+    };
+    odataState.childFilters.filters.push({
+      logic: childTableFilter.logic,
+      filters: childTableFilter?.filters?.map((filter: FilterDescriptor) =>
+      ({
         ...filter,
         linqOperation: 'any',
         childTableNavigationProperty: tableName,
         field: fieldName,
-        logic: childTableFilter.logic,
-      }));
+      }))
+    });
   }
+
   odataState.sort = odataState.sort?.filter(t => t.field !== childField);
   return odataState;
 }
