@@ -7,6 +7,7 @@ import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
 import { isaNumber } from 'imng-nrsrx-client-utils';
 import { FetchOptions } from './fetch-options';
+import { translateChildFilterExpression } from './translate-child-filter-expression';
 
 @Injectable({
   providedIn: 'root',
@@ -27,9 +28,11 @@ export class ODataService {
     state: ODataState,
     options: FetchOptions = {},
   ): Observable<ODataResult<T>> {
-    const countClause = state.count === false ? '' : '&$count=true';
+    let tempState = { ...state };
+    options.boundChildTableProperties?.forEach(prop => tempState = translateChildFilterExpression(tempState, prop));
+    const countClause = tempState.count === false ? '' : '&$count=true';
     const cacheBustClause = options.bustCache === true ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}` : '';
-    const queryStr = `${this.getODataString(state)}${countClause}${cacheBustClause}`;
+    const queryStr = `${this.getODataString(tempState)}${countClause}${cacheBustClause}`;
     return this.http
       .get(`${odataEndpoint}?${queryStr}`)
       .pipe(mapToExtDataResult<T>(options.utcNullableProps || [], options.dateNullableProps || []));

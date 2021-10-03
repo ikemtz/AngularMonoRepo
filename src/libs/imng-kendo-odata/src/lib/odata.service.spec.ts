@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { ODataState } from './odata-state';
 import { readFirst } from 'imng-ngrx-utils/testing';
+import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 describe('ODataService', () => {
   let service: ODataService;
@@ -313,7 +314,21 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledWith(
       `//idunno.com?&$apply=groupby((columnName),aggregate(id with countdistinct as rowCount))&$count=true`);
     expect(result).toMatchSnapshot(jestPropertyMatcher);
+  });
 
+  it('should support child table filtering', async () => {
+    httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+    const compositeFilter = [{ logic: 'and', filters: [{ field: 'a.b', operator: 'eq', value: '123' }] }] as any;
+    const gridState: ODataState = {
+      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      selectors: ['id', 'name'],
+      sort: [{ field: 'a.b', dir: 'asc' }],
+      filter: { logic: 'or', filters: compositeFilter },
+    };
+    await readFirst(service.fetch('//idunno.com', gridState, { boundChildTableProperties: ['a.b'] }));
+    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toBeCalledWith(
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(a/any(o: o/b eq '123'))&$count=true`);
   });
 
   it('should support byPrimaryKey operations', async () => {
