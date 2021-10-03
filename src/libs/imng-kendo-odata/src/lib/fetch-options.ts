@@ -1,4 +1,5 @@
 export interface FetchOptions {
+  boundChildTableProperties?: string[];
   /**
    * Collection of property names that are of type: nullable Date
    */
