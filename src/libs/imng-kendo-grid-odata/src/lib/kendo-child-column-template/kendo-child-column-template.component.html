@@ -5,7 +5,7 @@
   type="button"
   *ngIf="showMore && currentData?.length > visibleRecCount"
   class="btn btn-sm btn-primary"
-  title="formatTooltip()"
+  [title]="formatToolTip()"
   (click)="moreClicked()"
 >
   More ...
