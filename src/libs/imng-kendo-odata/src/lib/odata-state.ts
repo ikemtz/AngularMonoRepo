@@ -1,10 +1,10 @@
-import { State, FilterDescriptor } from '@progress/kendo-data-query';
+import { State, FilterDescriptor, CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 export interface ODataState extends State {
   expanders?: Array<Expander | string>;
   selectors?: string[];
   inFilters?: InFilter[];
-  childFilters?: ChildFilterDescriptor[];
+  childFilters?: CompositeChildFilterDescriptor;
   count?: boolean;
   transformations?: string;
 }
@@ -16,9 +16,12 @@ export interface InFilter {
   values: (string | number)[];
 }
 
+export interface CompositeChildFilterDescriptor extends CompositeFilterDescriptor {
+  filters: Array<CompositeChildFilterDescriptor | ChildFilterDescriptor>;
+}
+
 export interface ChildFilterDescriptor extends FilterDescriptor {
   /**  This value will default to 'and' in cases where there are additional filters specified. */
-  logic?: 'or' | 'and';
   childTableNavigationProperty: string;
   linqOperation: 'all' | 'any';
 }
@@ -28,4 +31,8 @@ export interface Expander {
   selectors?: string[];
   expander?: string;
   filter?: string;
+}
+
+export function isCompositeChildFilterDescriptor(source: CompositeChildFilterDescriptor | ChildFilterDescriptor): source is CompositeChildFilterDescriptor {
+  return !!(source as CompositeChildFilterDescriptor).filters;
 }
