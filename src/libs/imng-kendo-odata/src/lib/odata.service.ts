@@ -2,25 +2,19 @@ import { Injectable } from '@angular/core';
 import { toODataString } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ChildFilterDescriptor, Expander, ODataState } from './odata-state';
+import { Expander, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
 import { isaNumber } from 'imng-nrsrx-client-utils';
 import { FetchOptions } from './fetch-options';
 import { translateChildFilterExpression } from './translate-child-filter-expression';
+import { processChildFilterDescriptors } from './transform-child-filters';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ODataService {
-  readonly stringFilterOperators: string[] = [
-    `startswith`,
-    `endswith`,
-    `contains`,
-    `doesnotcontain`,
-    `isempty`,
-    `isnotempty`
-  ];
+
   constructor(private readonly http: HttpClient) { }
 
   public fetch<T>(
@@ -56,7 +50,7 @@ export class ODataService {
     let queryString = toODataString(state);
     queryString = this.processExpanders(state, queryString);
     queryString = this.processSelectors(state, queryString);
-    queryString = this.processChildFilterDescriptor(state, queryString);
+    queryString = processChildFilterDescriptors(state, queryString);
     queryString = this.processInFilter(state, queryString);
     queryString = this.processGuids(queryString);
     queryString = this.applyTransformations(state, queryString);
@@ -124,30 +118,6 @@ export class ODataService {
       ;
     }
     return `${result},`;
-  }
-  private processChildFilterDescriptor(state: ODataState, queryString: string): string {
-    const childFilters: ChildFilterDescriptor[] = state.childFilters;
-    if (!childFilters) {
-      return queryString;
-    }
-    let filteringString: string;
-    childFilters.forEach(childFilter => {
-      if (-1 < this.stringFilterOperators.findIndex(x => x === childFilter.operator) && !isaNumber(childFilter.value)) {
-        filteringString = `${childFilter.operator}(o/${childFilter.field}, '${childFilter.value}')`;
-      } else if (!isaNumber(childFilter.value)) {
-        filteringString = `o/${childFilter.field} ${childFilter.operator} '${childFilter.value}'`;
-      } else {
-        filteringString = `o/${childFilter.field} ${childFilter.operator} ${childFilter.value}`;
-      }
-      const childFilterString = `(${childFilter.childTableNavigationProperty}/${childFilter.linqOperation}` +
-        `(o: ${filteringString}))`;
-      if (queryString.match(/\$filter=/)) {
-        queryString = queryString.replace(/\$filter=/, `$filter=${childFilterString} ${childFilter.logic || 'and'} `);
-      } else {
-        queryString = `${queryString}&$filter=${childFilterString}`;
-      }
-    });
-    return queryString;
   }
 
   private processInFilter(state: ODataState, queryString: string): string {
