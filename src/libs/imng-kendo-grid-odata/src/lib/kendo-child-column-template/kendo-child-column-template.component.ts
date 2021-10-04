@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 @Component({
-  selector: 'imng-kendo-grid-child-colum-template',
-  templateUrl: './kendo-child-colum-template.component.html',
-  styleUrls: ['./kendo-child-colum-template.component.scss'],
+  selector: 'imng-kendo-grid-child-column-template',
+  templateUrl: './kendo-child-column-template.component.html',
+  styleUrls: ['./kendo-child-column-template.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImngGridChildColumTemplateComponent implements AfterViewInit {
+export class ImngGridChildColumnTemplateComponent implements AfterViewInit {
   @Input() public data: unknown[];
   @Input() public field: string;
   @Input() public visibleRecCount = 5;
