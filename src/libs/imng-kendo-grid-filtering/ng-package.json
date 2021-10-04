@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../dist/libs/imng-kendo-grid-filtering",
+  "dest": "../../dist/libs/imng-kendo-grid-filtering",
   "lib": {
     "entryFile": "src/index.ts"
   }

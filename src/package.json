@@ -83,6 +83,7 @@
     "publish:grid": "npm run build:grid && npm publish ./dist/libs/imng-kendo-grid",
     "publish:core": "npm run build:core && npm publish ./dist/libs/imng-angular-core",
     "publish:grid-odata": "npm run build:grid-odata && npm publish ./dist/libs/imng-kendo-grid-odata",
+    "publish:grid-filt": "npm run build:grid-filt && npm publish ./dist/libs/imng-kendo-grid-filtering",
     "publish:type-ahead": "npm run build:type-ahead && npm publish ./dist/libs/imng-ngxb-typeahead",
     "publish:auth0-oidc": "npm run build:auth0-oidc && npm publish ./dist/libs/imng-auth0-oidc",
     "publish:app-insight": "npm run build:app-insight && npm publish ./dist/libs/imng-application-insights-ngrx",
