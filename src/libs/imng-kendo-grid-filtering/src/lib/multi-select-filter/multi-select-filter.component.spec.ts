@@ -35,6 +35,14 @@ describe('CheckboxFilterComponent', () => {
     expect(component).toBeTruthy();
     expect(component.value).toStrictEqual(['💩']);
   });
+
+  it('should handle empty filter scenarios', () => {
+    component.odataState = {};
+    component.ngAfterViewInit();
+    expect(component).toBeTruthy();
+    expect(component.value).toStrictEqual([]);
+  });
+
   it('isItemSelected should work', () => {
     expect(component.isItemSelected('💩')).toBeTruthy();
   });

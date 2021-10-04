@@ -75,7 +75,6 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   constructor(private readonly filterService: FilterService, private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 
-
   public ngAfterViewInit() {
     this.currentData = this.data;
     const tempValue = this.odataState.filter?.filters.map(
@@ -83,7 +82,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
         .filter((x: FilterDescriptor) => x.field === this.field)
         .map((x: FilterDescriptor) => x.value)
     );
-    this.value = tempValue.length <= 0 ? [] : tempValue.reduce((previousArray: [], currentArray: []) => previousArray.concat(...currentArray)) ?? [];
+    this.value = tempValue?.length >= 0 ? tempValue.reduce((previousArray: [], currentArray: []) => previousArray.concat(...currentArray)) : [];
 
     this.showFilter =
       typeof this.textAccessor(this.currentData[0]) === "string";
