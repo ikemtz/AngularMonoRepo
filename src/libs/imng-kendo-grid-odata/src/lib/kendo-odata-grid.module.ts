@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImngODataGridDirective } from './kendo-odata-grid.directive';
+import { ImngGridChildColumTemplateComponent } from './kendo-child-colum-template/kendo-child-colum-template.component';
 
 @NgModule({
-  declarations: [ImngODataGridDirective],
+  declarations: [ImngODataGridDirective, ImngGridChildColumTemplateComponent],
   imports: [CommonModule],
-  exports: [ImngODataGridDirective],
+  exports: [ImngODataGridDirective, ImngGridChildColumTemplateComponent],
 })
-export class ImngKendoGridODataModule {}
+export class ImngKendoGridODataModule { }
