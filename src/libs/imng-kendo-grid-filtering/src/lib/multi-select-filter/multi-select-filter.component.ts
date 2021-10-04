@@ -65,7 +65,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
 
   public currentData: unknown[];
   public showFilter = true;
-  private value: unknown[] = [];
+  public value: unknown[] = [];
 
   public textAccessor = (dataItem: unknown) =>
     this.isPrimitive ? dataItem : dataItem[this.textField];
