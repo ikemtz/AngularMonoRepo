@@ -1,12 +1,57 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, Input } from '@angular/core';
 import { FilterService } from "@progress/kendo-angular-grid";
 import { CompositeFilterDescriptor, distinct, filterBy, FilterDescriptor } from '@progress/kendo-data-query';
 import { ODataState } from 'imng-kendo-odata';
 
 @Component({
   selector: 'imng-multi-select-filter',
-  templateUrl: './multi-select-filter.component.html',
-  styleUrls: ['./multi-select-filter.component.scss'],
+  template: `
+<ul>
+  <li *ngIf="showFilter">
+    <input class="k-textbox" (input)="onInput($event)" />
+  </li>
+  <li
+    #itemElement
+    *ngFor="let item of currentData; let i = index"
+    (click)="onSelectionChange(valueAccessor(item), itemElement)"
+    [ngClass]="{ 'k-state-selected': isItemSelected(item) }"
+  >
+    <input
+      type="checkbox"
+      id="chk-{{ valueAccessor(item) }}"
+      (focus)="onFocus(itemElement)"
+      class="k-checkbox"
+      [checked]="isItemSelected(item)"
+    />
+    <label class="k-multiselect-checkbox k-checkbox-label" for="chk-{{ valueAccessor(item) }}">
+      {{ textAccessor(item) }}
+    </label>
+  </li>
+</ul>
+`,
+  styles: [`
+ul {
+  list-style-type: none;
+  height: 200px;
+  overflow-y: scroll;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+ul > li {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: none;
+}
+
+ul > li:last-of-type {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.k-multiselect-checkbox {
+  pointer-events: none;
+}
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiSelectFilterComponent implements AfterViewInit {
