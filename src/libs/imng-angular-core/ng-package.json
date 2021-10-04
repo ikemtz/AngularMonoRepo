@@ -10,6 +10,7 @@
     "imng-kendo-chart-odata",
     "imng-kendo-data-entry",
     "imng-kendo-grid",
+    "imng-kendo-grid-filtering",
     "imng-kendo-odata",
     "imng-kendo-theme-blue",
     "imng-ngrx-idle",

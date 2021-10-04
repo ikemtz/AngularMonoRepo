@@ -17,7 +17,6 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   @Input() public textField: string = undefined;
   @Input() public valueField: string = undefined;
   @Input() public field: string = null;
-  @Output() public valueChange = new EventEmitter<number[]>();
 
   public currentData: any;
   public showFilter = true;
