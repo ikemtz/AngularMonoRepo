@@ -33,7 +33,7 @@ describe('CheckboxFilterComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect((component as any).value).toStrictEqual(['💩']);
+    expect(component.value).toStrictEqual(['💩']);
   });
   it('isItemSelected should work', () => {
     expect(component.isItemSelected('💩')).toBeTruthy();
@@ -44,7 +44,7 @@ describe('CheckboxFilterComponent', () => {
   });
   it('onSelectionChange should work', () => {
     component.onSelectionChange('🎂', { parentNode: {} });
-    expect((component as any).value).toStrictEqual(['💩', '🎂']);
+    expect(component.value).toStrictEqual(['💩', '🎂']);
     expect(filterService.filter).toBeCalledTimes(1);
     expect(filterService.filter).toBeCalledWith({
       filters: [
@@ -61,7 +61,7 @@ describe('CheckboxFilterComponent', () => {
   });
   it('onSelectionChange should clear filter', () => {
     component.onSelectionChange('💩', { parentNode: {} });
-    expect((component as any).value).toStrictEqual([]);
+    expect(component.value).toStrictEqual([]);
     expect(filterService.filter).toBeCalledTimes(1);
     expect(filterService.filter).toBeCalledWith({
       filters: [],
