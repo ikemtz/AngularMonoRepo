@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit, Input } from '@angular/core';
+import { Component, AfterViewInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FilterService } from "@progress/kendo-angular-grid";
 import { CompositeFilterDescriptor, distinct, filterBy, FilterDescriptor } from '@progress/kendo-data-query';
 import { ODataState } from 'imng-kendo-odata';
@@ -52,7 +52,7 @@ ul > li:last-of-type {
   pointer-events: none;
 }
   `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiSelectFilterComponent implements AfterViewInit {
 
@@ -61,9 +61,9 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   @Input() public data: unknown[];
   @Input() public textField: string = undefined;
   @Input() public valueField: string = undefined;
-  @Input() public field: string = null;
+  @Input() public field = "";
 
-  public currentData: any;
+  public currentData: unknown[];
   public showFilter = true;
   private value: unknown[] = [];
 
@@ -72,20 +72,22 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   public valueAccessor = (dataItem: unknown) =>
     this.isPrimitive ? dataItem : dataItem[this.valueField];
 
-  constructor(private readonly filterService: FilterService) {
+  constructor(private readonly filterService: FilterService, private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 
 
   public ngAfterViewInit() {
     this.currentData = this.data;
-    this.value = this.odataState.filter?.filters.map(
+    const tempValue = this.odataState.filter?.filters.map(
       (f: CompositeFilterDescriptor) => f.filters
         .filter((x: FilterDescriptor) => x.field === this.field)
         .map((x: FilterDescriptor) => x.value)
-    ).reduce((previousArray: [], currentArray: []) => previousArray.concat(...currentArray)) ?? [];
+    );
+    this.value = tempValue.length <= 0 ? [] : tempValue.reduce((previousArray: [], currentArray: []) => previousArray.concat(...currentArray)) ?? [];
 
     this.showFilter =
       typeof this.textAccessor(this.currentData[0]) === "string";
+    this.changeDetectorRef.markForCheck();
   }
 
   public isItemSelected(item: unknown) {
@@ -133,6 +135,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
       ],
       this.textField
     );
+    this.changeDetectorRef.markForCheck();
   }
 
   public onFocus(li: any): void {
@@ -145,5 +148,6 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     if (below || above) {
       ul.scrollTop = li.offsetTop;
     }
+    this.changeDetectorRef.markForCheck();
   }
 }
