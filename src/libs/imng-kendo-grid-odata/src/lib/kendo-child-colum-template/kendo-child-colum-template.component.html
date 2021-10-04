@@ -1,0 +1,13 @@
+<div *ngFor="let item of data | slice: 0:visibleRecCount">
+  {{ item[field] }}
+</div>
+<button
+  type="button"
+  *ngIf="showMore && data?.length > visibleRecCount"
+  class="btn btn-sm btn-primary"
+  title="formatTooltip()"
+  (click)="moreClicked()"
+>
+  More ...
+  <span class="badge bg-secondary">{{ data.length - visibleRecCount }}</span>
+</button>
