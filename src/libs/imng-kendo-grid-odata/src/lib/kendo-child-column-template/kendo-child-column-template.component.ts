@@ -11,15 +11,13 @@ export class ImngGridChildColumnTemplateComponent implements AfterViewInit {
   @Input() public field: string;
   @Input() public visibleRecCount = 5;
   @Input() public showMore = true;
-  @Output() showMoreClicked = new EventEmitter<unknown[]>();
+  @Output() showMoreClicked = new EventEmitter();
 
   public currentData: unknown[];
-  constructor(private readonly changeDetector: ChangeDetectorRef) { }
 
   public ngAfterViewInit(): void {
     this.currentData = [...(this.data || [])
       .filter(val => (val[this.field] || '').length > 0)];
-    this.changeDetector.markForCheck();
   }
 
   public formatToolTip(): string {
@@ -30,6 +28,6 @@ export class ImngGridChildColumnTemplateComponent implements AfterViewInit {
   }
 
   public moreClicked(): void {
-    this.showMoreClicked.emit(this.currentData);
+    this.showMoreClicked.emit();
   }
 }

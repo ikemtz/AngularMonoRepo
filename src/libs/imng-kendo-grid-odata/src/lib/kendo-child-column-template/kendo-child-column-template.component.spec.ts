@@ -14,11 +14,11 @@ describe('ImngGridChildColumnTemplateComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ImngGridChildColumnTemplateComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    component.ngAfterViewInit();
     expect(component.currentData).toStrictEqual([]);
   });
 
@@ -38,6 +38,7 @@ describe('ImngGridChildColumnTemplateComponent', () => {
     component.visibleRecCount = 1;
     component.ngAfterViewInit();
     component.moreClicked();
-    expect(component.showMoreClicked.emit).toHaveBeenCalledWith([{ id: 'x' }, { id: 'y' }, { id: 'z' }]);
+    expect(component.showMoreClicked.emit).toBeCalledTimes(1);
+    expect(component.showMoreClicked.emit).toHaveBeenCalledWith();
   });
 });
