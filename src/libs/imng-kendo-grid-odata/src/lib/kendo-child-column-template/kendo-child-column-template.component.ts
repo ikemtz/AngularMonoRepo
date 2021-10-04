@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'imng-kendo-grid-child-column-template',
@@ -14,10 +14,12 @@ export class ImngGridChildColumnTemplateComponent implements AfterViewInit {
   @Output() showMoreClicked = new EventEmitter<unknown[]>();
 
   public currentData: unknown[];
+  constructor(private readonly changeDetector: ChangeDetectorRef) { }
 
   public ngAfterViewInit(): void {
     this.currentData = [...(this.data || [])
       .filter(val => (val[this.field] || '').length > 0)];
+    this.changeDetector.markForCheck();
   }
 
   public formatToolTip(): string {
@@ -30,5 +32,4 @@ export class ImngGridChildColumnTemplateComponent implements AfterViewInit {
   public moreClicked(): void {
     this.showMoreClicked.emit(this.currentData);
   }
-
 }

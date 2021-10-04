@@ -14,11 +14,11 @@ describe('ImngGridChildColumnTemplateComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ImngGridChildColumnTemplateComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    component.ngAfterViewInit();
     expect(component.currentData).toStrictEqual([]);
   });
 
