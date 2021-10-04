@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { EmployeesRoutingModule } from './employees.routing.module';
@@ -26,6 +27,7 @@ import { DataPersistence } from '@nrwl/angular';
     ExcelModule,
     PDFModule,
     ImngKendoGridODataModule,
+    ImngKendoGridFilteringModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
     FontAwesomeModule,
