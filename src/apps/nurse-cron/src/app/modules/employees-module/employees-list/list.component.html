@@ -32,6 +32,15 @@
       <img *ngIf="dataItem[props.PHOTO]" [src]="dataItem[props.PHOTO]" alt="Nurse Picture" />
     </ng-template>
   </kendo-grid-column>
+  <kendo-grid-column [width]="100">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">SubTable</span>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-grid-child-column-template [data]="dataItem.subTable" field="id" visibleRecCount="1">
+      </imng-kendo-grid-child-column-template>
+    </ng-template>
+  </kendo-grid-column>
   <kendo-grid-column [field]="props.LAST_NAME" [width]="100">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Last Name</span>
