@@ -28,7 +28,7 @@ describe('CheckboxFilterComponent', () => {
         filters: [{ logic: 'or', filters: [{ field: component.field, operator: 'contains', value: '💩' }] }],
       },
     };
-    fixture.detectChanges();
+    component.ngAfterViewInit();
   });
 
   it('should create', () => {
