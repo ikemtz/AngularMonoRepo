@@ -9,7 +9,7 @@ export interface RequestArugments {
   authority?: string;
   // optional
   data?: any;
-  state?: any;
+  state?: string;
   prompt?: string;
   display?: string;
   max_age?: number;

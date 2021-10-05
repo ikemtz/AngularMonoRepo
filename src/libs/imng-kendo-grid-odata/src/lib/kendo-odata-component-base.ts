@@ -6,10 +6,11 @@ import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-/** @dynamic */@Directive()
+/** @dynamic */ @Directive()
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
-  implements OnInit, OnDestroy, Subscribable {
+  implements OnInit, OnDestroy, Subscribable
+{
   public readonly allSubscriptions = new Subscriptions();
   public gridStateQueryKey = 'odataState';
   public gridDataState: ODataState;
@@ -21,7 +22,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
    * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public abstract readonly props: any;  //NOSONAR
+  public abstract readonly props: any; //NOSONAR
   protected expanders: (string | Expander)[];
   protected transformations: string;
 
@@ -36,19 +37,25 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
     if (this.router?.routerState?.snapshot?.root.queryParams[this.gridStateQueryKey]) {
       try {
-        this.gridDataState = JSON.parse(atob(this.router?.routerState?.snapshot?.root?.queryParams[this.gridStateQueryKey]));
-      } catch (e) { console.error(`Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`); }
+        this.gridDataState = JSON.parse(
+          atob(this.router?.routerState?.snapshot?.root?.queryParams[this.gridStateQueryKey]),
+        );
+      } catch (e) {
+        console.error(`Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`);
+      }
     }
     if (isObservable(state)) {
       this.allSubscriptions.push(
-        state.subscribe(t => {
+        state.subscribe((t) => {
           this.gridDataState = t;
           this.expanders = t.expanders;
           this.transformations = t.transformations;
         }),
       );
     } else {
-      this.gridDataState = this.gridDataState ? { ...this.gridDataState, selectors: state.selectors, expanders: state.expanders } : state;
+      this.gridDataState = this.gridDataState
+        ? { ...this.gridDataState, selectors: state.selectors, expanders: state.expanders }
+        : state;
       this.expanders = state.expanders;
       this.transformations = state.transformations;
     }
@@ -99,11 +106,15 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
       this.router.navigate([], {
         relativeTo: this.router.routerState.root,
         queryParams: {
-          [this.gridStateQueryKey]: btoa(JSON.stringify(tempState))
+          [this.gridStateQueryKey]: btoa(JSON.stringify(tempState)),
         },
         skipLocationChange: false,
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     }
+  }
+
+  public reloadEntities(): void {
+    this.facade.reloadEntities();
   }
 }

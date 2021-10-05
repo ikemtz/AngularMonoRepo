@@ -28,8 +28,8 @@ export class OidcFacade {
   identity$: Observable<IOidcUser> = this.store.select(oidcQuery.getOidcIdentity);
   accessToken$: Observable<string> = this.store.select(oidcQuery.getAccessToken);
   httpError$: Observable<HttpErrorResponse> = this.store.select(oidcQuery.getHttpError);
-  signInError$: Observable<any> = this.store.select(oidcQuery.getSignInError);
-  silentRenewError$: Observable<any> = this.store.select(oidcQuery.getSilentRenewError);
+  signInError$: Observable<unknown> = this.store.select(oidcQuery.getSignInError);
+  silentRenewError$: Observable<unknown> = this.store.select(oidcQuery.getSilentRenewError);
   hasErrors$: Observable<boolean> = this.store.select(oidcQuery.hasErrors);
   permissions$: Observable<string[]> = this.store.select(oidcQuery.getPermissions);
   audiences$: Observable<string[]> = this.store.select(oidcQuery.getAudiences);
@@ -106,9 +106,9 @@ export class OidcFacade {
    */
   public waitForAuthenticationLoaded(): Observable<boolean> {
     return this.loading$.pipe(
-      filter(loading => loading === false),
+      filter((loading) => loading === false),
       take(1),
-      map(() => true)
+      map(() => true),
     );
   }
 
@@ -141,7 +141,7 @@ export class OidcFacade {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
+  registerEvent(event: OidcEvent, callback: (...ev: unknown[]) => void): void {
     this.oidcService.registerOidcEvent(event, callback);
   }
 

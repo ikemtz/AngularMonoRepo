@@ -8,7 +8,7 @@ export interface IOidcUser {
   scope: string;
   profile: any;
   expires_at: number;
-  state?: any;
+  state?: string;
   toStorageString?: () => string;
   readonly expires_in?: number;
   readonly expired?: boolean;
