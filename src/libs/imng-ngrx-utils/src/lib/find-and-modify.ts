@@ -1,7 +1,8 @@
+import { idType } from './id-type';
 
-export function findAndModify<ENTITY extends { id?: number | string | Date; }>(
+export function findAndModify<ENTITY extends { id?: idType; }>(
   data: ENTITY[],
-  lookupId: number | string | Date,
+  lookupId: idType,
   modificationLogic: (matchingRecord: ENTITY) => void): ENTITY[] {
   return [...data.map(m => m.id === lookupId ?
     applyChanges(m, modificationLogic)
