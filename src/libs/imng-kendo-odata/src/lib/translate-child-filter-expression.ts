@@ -3,13 +3,13 @@ import { ChildFilterDescriptor, ODataState } from './odata-state';
 
 export function translateChildFilterExpression(odataState: ODataState, childField: string): ODataState {
   const childTableFilter: CompositeFilterDescriptor = odataState.filter?.filters.find((t: CompositeFilterDescriptor) =>
-    t.filters.some((filter: FilterDescriptor) => filter.field === childField)) as CompositeFilterDescriptor;
+    t.filters?.some((filter: FilterDescriptor) => filter.field === childField)) as CompositeFilterDescriptor;
   if (childTableFilter) {
     const [tableName, fieldName] = childField.split('.');
     odataState.filter = {
       ...odataState.filter,
       filters: [...odataState.filter.filters.filter((t: CompositeFilterDescriptor) =>
-        !t.filters.some((filter: FilterDescriptor) => filter.field === childField))],
+        !t.filters?.some((filter: FilterDescriptor) => filter.field === childField))],
     };
     odataState.childFilters = {
       logic: odataState.childFilters?.logic || 'and',
