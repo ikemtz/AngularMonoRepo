@@ -32,16 +32,24 @@ describe('KendoODataComponentBase', () => {
   });
 
   it('should reset', async () => {
-    component.gridDataState = { ...component.gridDataState, filter: { logic: 'and', filters: [{ field: 'y', operator: 'contains', value: 56 }] } };
+    component.gridDataState = {
+      ...component.gridDataState,
+      filter: { logic: 'and', filters: [{ field: 'y', operator: 'contains', value: 56 }] },
+    };
     component.resetFilters();
     expect(component.gridDataState).toMatchSnapshot();
+  });
+
+  it('should reload', async () => {
+    component.reloadEntities();
+    expect(component.facade.reloadEntities).toBeCalledTimes(1);
   });
 });
 
 const initialGridState: ODataState = {
   selectors: ['x', 'y', 'z'],
   sort: [{ field: 'x', dir: 'desc' }],
-  filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] }
+  filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] },
 };
 @Component({
   selector: 'imng-test-component',
@@ -49,7 +57,6 @@ const initialGridState: ODataState = {
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class KendoODataGridTestComponent extends KendoODataComponentBase<object, ODataGridMockFacade> {
-
   props = {};
   constructor() {
     super(createODataGridMockFacade(), initialGridState);
