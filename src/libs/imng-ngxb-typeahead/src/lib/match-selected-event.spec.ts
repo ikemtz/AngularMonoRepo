@@ -10,5 +10,6 @@ describe('ImngMatchSelectedEvent', () => {
     );
     expect(selectedEvent).toBeTruthy();
     expect(selectedEvent.toString()).toBe('💩');
+    expect(selectedEvent.isHeader()).toBe(false);
   });
 });

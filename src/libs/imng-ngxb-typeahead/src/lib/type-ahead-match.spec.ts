@@ -5,6 +5,7 @@ describe('ImngTypeaheadMatch', () => {
     const typeAheadMatch = new ImngTypeaheadMatch<testObject>({ id: '💩🩲' }, '💩');
     expect(typeAheadMatch).toBeTruthy();
     expect(typeAheadMatch.toString()).toBe('💩');
+    expect(typeAheadMatch.isHeader()).toBe(false);
   });
 });
 

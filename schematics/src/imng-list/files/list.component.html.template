@@ -9,8 +9,8 @@
         <button type="button" title="Clear Filters" (click)="resetFilters()" class="btn btn-secondary mx-2">
           <span class="k-icon k-i-filter-clear"></span> Clear Filters
         </button>
-        <button type="button" title="Clear Cache And Reload Data" (click)="reload()" class="btn btn-secondary mx-2">
-          <span class="k-icon k-i-reset"></span> Reload
+        <button type="button" title="Clear Cache And Reload Data" (click)="reloadEntities()" class="btn btn-secondary mx-2">
+          <span class="k-icon k-i-reset"></span> Reload Data
         </button>
         <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="mx-2">
           Export to PDF
