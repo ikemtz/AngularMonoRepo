@@ -1,4 +1,4 @@
-import { findAndMerge } from "./find-and-merge";
+import { findAndMerge } from './find-and-merge';
 import { idType } from './id-type';
 /**
  * Spreads the objects in the dataset1, with a matching id object from the dataset2.
@@ -6,8 +6,9 @@ import { idType } from './id-type';
  * @param dataset2 This dataset will be used to augment the individuals records in dataSet1, records will be matched based on 'id'.
  * @returns dataset1
  */
-export function matchAndSpread<ENTITY1 extends { id?: idType; }, ENTITY2 extends { id?: idType; }>(
+export function matchAndSpread<ENTITY1 extends { id?: idType }, ENTITY2 extends { id?: idType }>(
   dataset1: ENTITY1[],
-  dataset2: ENTITY2[]): ENTITY1[] {
-  return dataset1.map(d1 => findAndMerge(d1, dataset2));
+  dataset2: ENTITY2[],
+): ENTITY1[] {
+  return dataset1.map((d1) => findAndMerge(d1, dataset2));
 }
