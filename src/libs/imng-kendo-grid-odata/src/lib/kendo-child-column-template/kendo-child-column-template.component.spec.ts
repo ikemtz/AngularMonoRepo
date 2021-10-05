@@ -23,10 +23,9 @@ describe('ImngGridChildColumnTemplateComponent', () => {
   });
 
   it('should formatToolTip', () => {
-    component.data = [{ id: 'x' }, { id: 'y' }, { id: 'z' }];
     component.field = 'id';
     component.visibleRecCount = 1;
-    component.ngOnInit();
+    component.data = [{ id: 'x' }, { id: 'y' }, { id: 'z' }];
     expect(component.formatToolTip()).toBe('y; z');
     expect(component.currentData).toStrictEqual(['x', 'y', 'z']);
   });
