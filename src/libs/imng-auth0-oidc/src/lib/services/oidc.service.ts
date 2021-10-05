@@ -23,7 +23,8 @@ export class OidcService {
     @Inject(OIDC_CONFIG) private readonly config: Config,
     // eslint-disable-next-line @typescript-eslint/ban-types
     @Inject(PLATFORM_ID) private readonly platformId: Object,
-    private readonly httpClient: HttpClient) {
+    private readonly httpClient: HttpClient,
+  ) {
     const logSettings = this.config.log;
     let clientSettings = this.config.oidc_config;
 
@@ -46,9 +47,9 @@ export class OidcService {
   }
 
   public getUserMetadata(): Observable<unknown> {
-    return this.httpClient.get<{ userinfo_endpoint: string; }>(this.config.oidc_config.metadataUrl).pipe(switchMap(openidConfig =>
-      this.httpClient.get<unknown>(openidConfig.userinfo_endpoint)
-    ));
+    return this.httpClient
+      .get<{ userinfo_endpoint: string }>(this.config.oidc_config.metadataUrl)
+      .pipe(switchMap((openidConfig) => this.httpClient.get<unknown>(openidConfig.userinfo_endpoint)));
   }
 
   getUserManager(): UserManager {
@@ -67,7 +68,7 @@ export class OidcService {
     return from(this._oidcUserManager.removeUser());
   }
 
-  registerOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
+  registerOidcEvent(event: OidcEvent, callback: (...ev: unknown[]) => void): void {
     switch (event) {
       case OidcEvent.AccessTokenExpired:
         this._oidcUserManager.events.addAccessTokenExpired(callback);
@@ -95,7 +96,7 @@ export class OidcService {
     }
   }
 
-  removeOidcEvent(event: OidcEvent, callback: (...ev: any[]) => void): void {
+  removeOidcEvent(event: OidcEvent, callback: (...ev: unknown[]) => void): void {
     switch (event) {
       case OidcEvent.AccessTokenExpired:
         this._oidcUserManager.events.removeAccessTokenExpired(callback);

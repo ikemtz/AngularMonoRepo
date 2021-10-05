@@ -16,7 +16,8 @@ import { ImngTypeAheadFacade } from './type-ahead-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { NgControl } from '@angular/forms';
-import { ImngTypeaheadMatch, ImngMatchSelectedEvent } from './type-ahead-match';
+import { ImngTypeaheadMatch } from './type-ahead-match';
+import { ImngMatchSelectedEvent } from './match-selected-event';
 
 /*
  * ### Example markup
@@ -80,7 +81,7 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
       this.keyUpEventEmitter
         .pipe(
           debounceTime(this.typeaheadWaitMs),
-          tap(t => this._typeAheadFacade.loadMatches(t)),
+          tap((t) => this._typeAheadFacade.loadMatches(t)),
           switchMap(() => this._typeAheadFacade.matches$),
         )
         .subscribe((matches: ImngTypeaheadMatch<T>[]) => {

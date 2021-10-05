@@ -16,11 +16,12 @@ export async function testGridODataState<TFacade extends IKendoODataGridFacade<u
 
   state = await readFirst(facade.gridODataState$);
   expect(state).toStrictEqual(filteringState);
+  facade.reloadEntities();
+  expect(state).toStrictEqual(filteringState);
 
   facade.loadEntities({});
   state = await readFirst(facade.gridODataState$);
   expect(state).toStrictEqual({});
-
 }
 
 export async function testGridPagerSettings<TFacade extends IKendoODataGridFacade<unknown>>(
@@ -28,5 +29,4 @@ export async function testGridPagerSettings<TFacade extends IKendoODataGridFacad
 ): Promise<void> {
   const pagerSettings = await readFirst(facade.gridPagerSettings$);
   expect(pagerSettings).toEqual(false);
-
 }

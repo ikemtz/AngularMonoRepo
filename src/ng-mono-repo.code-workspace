@@ -19,10 +19,10 @@
     "html.format.preserveNewLines": false,
     "html.format.extraLiners": null,
     "prettier.singleQuote": true,
-    "[sql]": {
-      "editor.defaultFormatter": "ms-mssql.mssql"
-    },
     "debug.node.autoAttach": "on",
     "editor.renderWhitespace": "trailing"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

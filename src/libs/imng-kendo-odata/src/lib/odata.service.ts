@@ -115,7 +115,6 @@ export class ODataService {
       }
       result += ')';
       result = result.replace(/\(\)/, '').replace(/;\)/, ')');
-      ;
     }
     return `${result},`;
   }
