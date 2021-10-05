@@ -34,10 +34,6 @@ export class <%= classify(singularizedName) %>ListComponent extends KendoODataCo
     super(facade, initialGridState, router);
   }
 
-  public reload(): void {
-    this.facade.reloadEntities();
-  }
-
   public addItem(): void {
     this.crudFacade.setCurrentEntity({});
   }
