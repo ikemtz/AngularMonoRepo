@@ -3,6 +3,8 @@ import { map, filter } from 'rxjs/operators';
 import { ODataResult } from './odata-result';
 import { Observable } from 'rxjs';
 import { MILLI_SECS_PER_SEC } from 'imng-nrsrx-client-utils';
+import { idType } from 'imng-ngrx-utils';
+
 export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNullableProps: string[] = []) =>
   map((response: ODataPayload<T> | T[]) => {
     if (!response) {
@@ -59,9 +61,9 @@ export function toLocalDate(date: string): Date {
 }
 
 export function getSubGridData<
-  PARENT_ENTITY extends { id?: number | string | Date; },
+  PARENT_ENTITY extends { id?: idType; },
   SUB_ENTITY>(
-    id: number | string | Date,
+    id: idType,
     mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[]):
   (source: Observable<ODataResult<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
   // tslint:disable-next-line: space-before-function-paren
@@ -75,9 +77,9 @@ export function getSubGridData<
 }
 
 export function getSubData<
-  PARENT_ENTITY extends { id?: number | string | Date; },
+  PARENT_ENTITY extends { id?: idType; },
   SUB_ENTITY>(
-    id: number | string | Date,
+    id: idType,
     mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[]):
   (source: Observable<Array<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
   // tslint:disable-next-line: space-before-function-paren
@@ -89,4 +91,3 @@ export function getSubData<
     );
   };
 }
-

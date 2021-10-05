@@ -5,3 +5,4 @@ export { findAndMerge } from './lib/find-and-merge';
 export { matchAndSpread } from './lib/match-and-spread';
 export { Subscriptions } from './lib/subscriptions';
 export { Subscribable } from './lib/subscribable';
+export { idType } from './lib/id-type';
