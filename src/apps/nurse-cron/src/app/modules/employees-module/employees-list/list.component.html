@@ -37,7 +37,16 @@
       <span class="h6">SubTable</span>
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-grid-child-column-template [data]="dataItem.subTable" field="id" visibleRecCount="1">
+      <imng-kendo-grid-child-column-template [data]="dataItem.subTable" field="id" [visibleRecCount]="5">
+      </imng-kendo-grid-child-column-template>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [width]="100">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">SubTable</span>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-grid-child-column-template [data]="dataItem.subTable" field="id" [visibleRecCount]="1">
       </imng-kendo-grid-child-column-template>
     </ng-template>
   </kendo-grid-column>

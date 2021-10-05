@@ -12,10 +12,12 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class EmployeeListFacade implements IKendoODataGridFacade<IEmployee>, IDataDeleteFacade<IEmployee> {
+  names = "Isaac,Sam,Ash,B,Cardi,Mofo,Peter,Paul,Matt,Jojo".split(',').map(t => ({ id: t }));
   loading$ = this.store.pipe(select(employeeQueries.getLoading));
   gridODataState$ = this.store.pipe(select(employeeQueries.getGridODataState));
   gridData$ = this.store.pipe(select(employeeQueries.getEmployees),
-    map(t => ({ ...t, data: t.data.map(m => ({ ...m, subTable: [{ id: "Isaac2" }, { id: "Sam" }] })) })));
+    map(t => ({ ...t, data: t.data.map(m => ({ ...m, subTable: [...this.names, ...this.names, ...this.names, ...this.names, ...this.names, ...this.names, ...this.names] })) })),
+    map(t => ({ ...t, data: [...t.data, ...t.data, ...t.data, ...t.data, ...t.data] })));
   gridPagerSettings$ = this.store.pipe(select(employeeQueries.getPagerSettings));
 
   constructor(private readonly store: Store<EmployeesPartialState>) { }
