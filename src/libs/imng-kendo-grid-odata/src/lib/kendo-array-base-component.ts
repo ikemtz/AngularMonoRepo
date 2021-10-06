@@ -8,7 +8,6 @@ import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 /** @dynamic */
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy, Subscribable {
-
   public readonly allSubscriptions = new Subscriptions();
 
   @Input() public item?: PARENT_ENTITY;
@@ -18,6 +17,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> imp
   public set detail(value: LISTED_ENTITY[]) {
     this._detail = value || [];
     this.gridData = process(this._detail, this.state);
+    this.changeDetectorRef?.markForCheck();
   }
 
   /**
@@ -47,7 +47,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> imp
     this.markForCheck();
   }
 
-  constructor(public readonly changeDetectorRef: ChangeDetectorRef = null) { }
+  constructor(public readonly changeDetectorRef: ChangeDetectorRef = null) {}
 
   public readonly markForCheck = (): void => this.changeDetectorRef?.markForCheck();
 
@@ -57,14 +57,13 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> imp
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  public pageChange(t: PageChangeEvent): void { }
+  public pageChange(t: PageChangeEvent): void {}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  public filterChange(t: CompositeFilterDescriptor): void {
-  }
+  public filterChange(t: CompositeFilterDescriptor): void {}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  public sortChange(t: SortDescriptor[]): void { }
+  public sortChange(t: SortDescriptor[]): void {}
 
   public ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
