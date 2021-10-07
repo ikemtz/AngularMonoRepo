@@ -28,9 +28,9 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
 
   constructor(
     public readonly facade: FACADE,
-    protected readonly state: ODataState | Observable<ODataState>,
+    public readonly state: ODataState | Observable<ODataState>,
     public readonly router: Router = null,
-    protected readonly gridRefresh$: Observable<unknown> = null,
+    public readonly gridRefresh$: Observable<unknown> = null,
   ) {
     this.loading$ = this.facade.loading$;
     this.gridDataResult$ = this.facade.gridData$;
