@@ -1,14 +1,8 @@
-import { Inject, Input, OnDestroy, InjectionToken } from '@angular/core';
+import { Input, OnDestroy, Component, Directive } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-
-const FACADE = new InjectionToken<{
-  loading$: Observable<boolean>;
-  clearCurrentEntity(): void;
-}>('facade');
-
 
 /**
  * The extending class has to implement the following properties on ngInit
@@ -22,12 +16,10 @@ const FACADE = new InjectionToken<{
  *
  * @class BaseDataEntryComponent>
  */
+/** @dynamic */ @Directive()
 export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade> implements OnDestroy, Subscribable {
   @Input() public width: string | number;
   @Input() public height: string | number;
-  protected get facade(): FACADE {
-    return this.injectedFacade;
-  }
 
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
@@ -49,7 +41,7 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(@Inject(FACADE) private readonly injectedFacade: any) { //NOSONAR
+  constructor(public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
     this.initForm();
   }
