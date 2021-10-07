@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 
 @Component({
   selector: 'imng-kendo-grid-child-column-template',
@@ -27,12 +35,10 @@ export class ImngGridChildColumnTemplateComponent implements OnInit {
     return this._data;
   }
 
-  constructor(private readonly changeDetectorRef: ChangeDetectorRef) { }
+  constructor(public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
-    this.currentData = (this.data || [])
-      .filter(val => (val[this.field] || '').length > 0)
-      .map(t => t[this.field]);
+    this.currentData = (this.data || []).filter((val) => (val[this.field] || '').length > 0).map((t) => t[this.field]);
     this.initialized = true;
   }
   public formatToolTip(): string {

@@ -7,22 +7,17 @@
     "lib": {
       "entryFile": "src/index.ts"
     },
-    "dest": "../../dist/libs/imng-kendo-data-entry"
+    "dest": "../../dist/libs/imng-kendo-data-entry",
+    "allowedNonPeerDependencies": [
+      "@progress/kendo-angular-dialog"
+    ]
   },
   "dependencies": {
     "tslib": ">=2.x"
   },
   "peerDependencies": {
-    "@angular/common": ">=11.x",
-    "@angular/core": ">=11.x",
-    "@angular/forms": ">=11.x",
-    "@angular/platform-browser": ">=11.x",
-    "@ngrx/store": ">=11.x",
-    "@nrwl/angular": ">=11.x",
-    "@progress/kendo-angular-dialog": ">=4.x",
-    "imng-nrsrx-client-utils": "*",
-    "imng-ngrx-utils": "*",
-    "rxjs": ">=6.x"
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0"
   },
   "repository": {
     "type": "git",

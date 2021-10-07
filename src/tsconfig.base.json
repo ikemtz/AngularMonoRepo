@@ -30,8 +30,8 @@
         "libs/imng-kendo-data-entry/testing/src"
       ],
       "imng-kendo-grid": ["dist/libs/imng-kendo-grid", "libs/imng-kendo-grid/src"],
-      "imng-kendo-grid-filtering": ["libs/imng-kendo-grid-filtering/src/index.ts"],
-      "imng-kendo-grid-odata": ["libs/imng-kendo-grid-odata/src"],
+      "imng-kendo-grid-filtering": ["dist/libs/imng-kendo-grid-filtering", "libs/imng-kendo-grid-filtering/src"],
+      "imng-kendo-grid-odata": ["dist/libs/imng-kendo-grid-odata", "libs/imng-kendo-grid-odata/src"],
       "imng-kendo-grid-odata/testing": [
         "dist/libs/imng-kendo-grid-odata/testing",
         "libs/imng-kendo-grid-odata/testing/src"

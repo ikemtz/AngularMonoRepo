@@ -71,7 +71,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   public textAccessor = (dataItem: unknown) => (this.isPrimitive ? dataItem : dataItem[this.textField]);
   public valueAccessor = (dataItem: unknown) => (this.isPrimitive ? dataItem : dataItem[this.valueField]);
 
-  constructor(private readonly filterService: FilterService, private readonly changeDetectorRef: ChangeDetectorRef) { }
+  constructor(public readonly filterService: FilterService, public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngAfterViewInit() {
     this.currentData = this.data;
@@ -129,7 +129,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onInput(e: { target: { value: string | number | Date; }; } | any) {
+  public onInput(e: { target: { value: string | number | Date } } | any) {
     this.currentData = distinct(
       [
         ...this.currentData.filter((dataItem: unknown) =>

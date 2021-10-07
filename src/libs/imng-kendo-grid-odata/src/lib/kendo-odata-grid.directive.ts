@@ -15,8 +15,7 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
   private facade: IKendoODataGridFacade<object>;
 
   @Input('imngODataGrid') public odataComponent: KendoODataComponentBase<object, IKendoODataGridFacade<object>>;
-  constructor(private readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {
-  }
+  constructor(public readonly gridComponent: GridComponent, public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.facade = this.odataComponent.facade;
@@ -28,10 +27,12 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
       mode: 'multiple',
     };
     this.gridComponent.navigable = true;
-    this.allSubscriptions.push(this.facade.loading$.subscribe((t: boolean) => {
-      this.gridComponent.loading = t;
-      this.changeDetectorRef.markForCheck();
-    }));
+    this.allSubscriptions.push(
+      this.facade.loading$.subscribe((t: boolean) => {
+        this.gridComponent.loading = t;
+        this.changeDetectorRef.markForCheck();
+      }),
+    );
   }
 
   ngAfterViewInit(): void {
@@ -39,19 +40,17 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) =>
         this.odataComponent.dataStateChange(t),
       ),
-      this.facade.gridData$.subscribe(t => {
+      this.facade.gridData$.subscribe((t) => {
         this.gridComponent.data = t;
         this.changeDetectorRef.markForCheck();
       }),
-      this.facade.gridPagerSettings$.subscribe(t => (this.gridComponent.pageable = t)),
-      this.facade.gridODataState$
-        .pipe(filter(t => !!t))
-        .subscribe(t => {
-          this.gridComponent.pageSize = t.take;
-          this.gridComponent.filter = t.filter;
-          this.gridComponent.skip = t.skip;
-          this.gridComponent.sort = t.sort;
-        }),
+      this.facade.gridPagerSettings$.subscribe((t) => (this.gridComponent.pageable = t)),
+      this.facade.gridODataState$.pipe(filter((t) => !!t)).subscribe((t) => {
+        this.gridComponent.pageSize = t.take;
+        this.gridComponent.filter = t.filter;
+        this.gridComponent.skip = t.skip;
+        this.gridComponent.sort = t.sort;
+      }),
     );
   }
 
