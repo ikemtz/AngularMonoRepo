@@ -8,7 +8,7 @@ import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 @Component({ template: '' })
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy, Subscribable {
-  public readonly allSubscriptions = new Subscriptions();
+  public readonly allSubscriptions = Subscriptions.instance;
 
   @Input() public item?: PARENT_ENTITY;
 

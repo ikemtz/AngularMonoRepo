@@ -4,7 +4,7 @@
   "peerDependencies": {
     "@ngrx/store": ">=11.x",
     "@ngrx/effects": ">=11.x",
-    "@progress/kendo-angular-dialog": ">=4.*",
+    "@progress/kendo-angular-dialog": ">=5.*",
     "@progress/kendo-angular-buttons": ">=5.*",
     "imng-auth0-oidc": "*",
     "imng-ngrx-utils": "*",

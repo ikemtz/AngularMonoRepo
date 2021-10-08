@@ -1,10 +1,19 @@
 import { Subscription } from 'rxjs';
 
 export class Subscriptions {
+  private static _instance: Subscriptions;
   private readonly _subscriptions: Subscription[];
 
-  constructor(...items: Subscription[]) {
-    this._subscriptions = items;
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private constructor() {
+    this._subscriptions = [];
+  }
+
+  public static get instance(): Subscriptions {
+    if (!Subscriptions._instance) {
+      Subscriptions._instance = new Subscriptions();
+    }
+    return Subscriptions._instance;
   }
   public get length(): number {
     return this._subscriptions.length;
@@ -13,7 +22,10 @@ export class Subscriptions {
   public push(...items: Subscription[]): void {
     this._subscriptions.push(...items);
   }
-  public forEach(callbackfn: (value: Subscription, index: number, array: Subscription[]) => void, thisArg?: unknown): void {
+  public forEach(
+    callbackfn: (value: Subscription, index: number, array: Subscription[]) => void,
+    thisArg?: unknown,
+  ): void {
     this._subscriptions.forEach(callbackfn, thisArg);
   }
 
