@@ -9,7 +9,7 @@ const FACADE = new InjectionToken<IChartODataFacade>('imng-chart-facade');
 
 @Directive()
 export abstract class ChartODataBaseComponent<FACADE extends IChartODataFacade> implements OnDestroy, Subscribable {
-  public allSubscriptions = new Subscriptions();
+  public allSubscriptions = Subscriptions.instance;
   public readonly seriesData$: Observable<ChartSeriesDataPoint[] | GroupResult[]>;
   public readonly isDataLoadPending$: Observable<boolean>;
   @Input() public height: string | number;

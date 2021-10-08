@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
-import { DialogModule } from '@progress/kendo-angular-dialog';
 import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
@@ -10,7 +9,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
-const template = '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>';
+const template =
+  '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>';
 describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
@@ -18,7 +18,7 @@ describe('DataEntryDialogComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DataEntryDialogComponent, TestHostComponent],
-      imports: [DialogModule, NoopAnimationsModule],
+      imports: [NoopAnimationsModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [{ provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() }],
     }).compileComponents();
@@ -36,7 +36,7 @@ describe('DataEntryDialogComponent', () => {
 
   it('should handle close()', () => {
     const comp = component as unknown as {
-      allSubscriptions: Subscriptions,
+      allSubscriptions: Subscriptions;
       submitted$: Observable<boolean>;
       closeForm: () => void;
       onCancel: () => void;
@@ -56,13 +56,10 @@ describe('DataEntryDialogComponent', () => {
 
 @Component({
   selector: 'imng-thc',
-  template: template
+  template: template,
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class TestHostComponent
-  extends BaseDataEntryComponent<DataEntryMockFacade>
-  implements Subscribable {
-
+export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacade> implements Subscribable {
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   public saved = false;
@@ -112,7 +109,7 @@ describe('DataEntryDialog', () => {
     expect(parentComponent.onSubmit).toBeCalledTimes(1);
   });
 
-  it('should handle null parent', done => {
+  it('should handle null parent', (done) => {
     try {
       component.parentComponent = null;
       component.ngOnInit();

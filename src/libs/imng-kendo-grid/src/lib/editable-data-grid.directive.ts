@@ -5,7 +5,6 @@ import { Subscriptions, Subscribable } from 'imng-ngrx-utils';
 import { SortDescriptor } from '@progress/kendo-data-query';
 import { tap } from 'rxjs/operators';
 
-
 /*
  * ### Example markup
  * <kendo-grid [imngEditableDataGrid]="gridDataEntryHelper" .... />
@@ -18,7 +17,7 @@ import { tap } from 'rxjs/operators';
   selector: '[imngEditableDataGrid]',
 })
 export class ImngEditableDataGridDirective implements OnInit, OnDestroy, Subscribable {
-  public readonly allSubscriptions = new Subscriptions();
+  public readonly allSubscriptions = Subscriptions.instance;
   // eslint-disable-next-line @typescript-eslint/ban-types
   _gridDataEntryHelper: GridDataEntryHelper<object>;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -31,11 +30,11 @@ export class ImngEditableDataGridDirective implements OnInit, OnDestroy, Subscri
     this._gridDataEntryHelper = value;
     this.allSubscriptions.push(
       this.gridDataEntryHelper.sortDescriptors$
-        .pipe(tap(sortDescriptor => (this.gridComponent.sort = sortDescriptor)))
+        .pipe(tap((sortDescriptor) => (this.gridComponent.sort = sortDescriptor)))
         .subscribe(),
     );
   }
-  constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) { }
+  constructor(public readonly gridComponent: GridComponent, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.allSubscriptions.push(

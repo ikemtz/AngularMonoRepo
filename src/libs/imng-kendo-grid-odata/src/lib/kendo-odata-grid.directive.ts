@@ -11,7 +11,7 @@ import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event
   selector: '[imngODataGrid]',
 })
 export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy, Subscribable {
-  public readonly allSubscriptions = new Subscriptions();
+  public readonly allSubscriptions = Subscriptions.instance;
   private facade: IKendoODataGridFacade<object>;
 
   @Input('imngODataGrid') public odataComponent: KendoODataComponentBase<object, IKendoODataGridFacade<object>>;

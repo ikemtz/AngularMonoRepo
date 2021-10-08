@@ -23,7 +23,7 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
   @Input() public width: string | number;
   @Input() public height: string | number;
 
-  public allSubscriptions = new Subscriptions();
+  public allSubscriptions = Subscriptions.instance;
   public abstract dialogTitle: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract props: any;

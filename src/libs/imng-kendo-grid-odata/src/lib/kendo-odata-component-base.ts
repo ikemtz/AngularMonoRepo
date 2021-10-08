@@ -15,7 +15,7 @@ const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
   implements OnInit, OnDestroy, Subscribable
 {
-  public readonly allSubscriptions = new Subscriptions();
+  public readonly allSubscriptions = Subscriptions.instance;
   public gridStateQueryKey = 'odataState';
   public gridDataState: ODataState;
   public readonly gridDataResult$: Observable<ODataResult<ENTITY>>;
