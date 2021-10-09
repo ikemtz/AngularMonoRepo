@@ -7,7 +7,10 @@ describe('ImngODataGridDirective', () => {
   it('should create an instance', () => {
     const gridComponent = {};
     const changeDetectorRef = {};
-    const directive = new ImngODataGridDirective(gridComponent as GridComponent, changeDetectorRef as ChangeDetectorRef);
+    const directive = new ImngODataGridDirective(
+      gridComponent as GridComponent,
+      changeDetectorRef as ChangeDetectorRef,
+    );
     expect(gridComponent).toMatchSnapshot();
     expect(directive).toBeTruthy();
   });
@@ -23,7 +26,10 @@ describe('ImngODataGridDirective', () => {
       },
       dataStateChange: jest.fn(),
     };
-    const directive = new ImngODataGridDirective(gridComponent as GridComponent, changeDetectorRef as ChangeDetectorRef);
+    const directive = new ImngODataGridDirective(
+      gridComponent as GridComponent,
+      changeDetectorRef as ChangeDetectorRef,
+    );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();
     expect(gridComponent).toMatchSnapshot();
@@ -41,7 +47,10 @@ describe('ImngODataGridDirective', () => {
       },
       dataStateChange: jest.fn(),
     };
-    const directive = new ImngODataGridDirective(gridComponent as GridComponent, changeDetectorRef as ChangeDetectorRef);
+    const directive = new ImngODataGridDirective(
+      gridComponent as GridComponent,
+      changeDetectorRef as ChangeDetectorRef,
+    );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();
     directive.ngAfterViewInit();
@@ -49,7 +58,11 @@ describe('ImngODataGridDirective', () => {
     expect(gridComponent).toMatchSnapshot();
     expect(directive).toBeTruthy();
     expect(odataComponent.dataStateChange).toBeCalledTimes(1);
-    expect((directive as unknown as { allSubscriptions: []; }).allSubscriptions.length).toBe(5);
+    const allSubscriptions = (directive as unknown as { allSubscriptions: [] }).allSubscriptions;
+    expect(allSubscriptions.length).toBe(5);
+
+    directive.ngOnDestroy();
+    expect(allSubscriptions.length).toBe(0);
   });
 
   it('should fire AfterViewInit', () => {
@@ -64,7 +77,10 @@ describe('ImngODataGridDirective', () => {
       },
       dataStateChange: jest.fn(),
     };
-    const directive = new ImngODataGridDirective(gridComponent as GridComponent, changeDetectorRef as ChangeDetectorRef);
+    const directive = new ImngODataGridDirective(
+      gridComponent as GridComponent,
+      changeDetectorRef as ChangeDetectorRef,
+    );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();
     directive.ngAfterViewInit();

@@ -13,8 +13,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
   // eslint-disable-next-line @typescript-eslint/ban-types
   @Input('imngArrayGrid') public arrayComponent: KendoArrayBasedComponent<object, object>;
   @Input() public pageable: boolean | PagerSettings;
-  constructor(public readonly gridComponent: GridComponent) { }
-
+  constructor(public readonly gridComponent: GridComponent) {}
 
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
@@ -25,11 +24,11 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
       mode: 'multiple',
     };
     this.gridComponent.navigable = true;
-    this.gridComponent.pageable = this.pageable === undefined ? {
+    this.gridComponent.pageable = this.pageable || {
       info: true,
       type: 'numeric',
       pageSizes: [5, 10, 20, 50, 100], //NOSONAR
-    } : this.pageable;
+    };
     this.allSubscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
         this.gridComponent.sort = this.arrayComponent.state.sort = t.sort;
@@ -49,7 +48,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
         this.arrayComponent.markForCheck();
         this.arrayComponent.filterChange(t);
       }),
-      this.arrayComponent.gridData$.subscribe(t => {
+      this.arrayComponent.gridData$.subscribe((t) => {
         this.gridComponent.data = t;
       }),
     );

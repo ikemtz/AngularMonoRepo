@@ -1,18 +1,13 @@
 <kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
-    <div class="d-flex justify-content-between">
+    <div class="w-100 d-flex justify-content-between">
       <h3>Nurses</h3>
-      <div>
-        <button type="button" title="Add Employee" primary="true" (click)="addItem()" class="btn btn-primary mx-2">
-          <fa-icon [icon]="faPlusCircle"></fa-icon> Add Nurse
-        </button>
-        <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="mx-2">
-          Export to PDF
-        </button>
-        <button type="button" title="Export To Excel" kendoGridExcelCommand icon="file-excel" class="mx-2">
-          Export To Excel
-        </button>
-      </div>
+      <imng-kendo-odata-grid-header
+        entityName="Nurse"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (clearFiltersClicked)="resetFilters()"
+      ></imng-kendo-odata-grid-header>
     </div>
   </ng-template>
 
