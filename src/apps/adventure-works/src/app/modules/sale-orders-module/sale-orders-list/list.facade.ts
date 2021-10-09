@@ -16,7 +16,10 @@ export class SaleOrderListFacade implements IKendoODataGridFacade<ISaleOrder>, I
   gridPagerSettings$ = this.store.pipe(select(saleOrderQueries.getPagerSettings));
   gridODataState$ = this.store.pipe(select(saleOrderQueries.getGridODataState));
 
-  constructor(private readonly store: Store<SaleOrdersPartialState>) { }
+  constructor(private readonly store: Store<SaleOrdersPartialState>) {}
+  reloadEntities(): void {
+    throw new Error('Method not implemented.');
+  }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(saleOrdersActionTypes.loadSaleOrdersRequest(state));
