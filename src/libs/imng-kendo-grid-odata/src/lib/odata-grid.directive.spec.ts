@@ -2,7 +2,6 @@ import { ImngODataGridDirective } from './kendo-odata-grid.directive';
 import { of } from 'rxjs';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { ChangeDetectorRef } from '@angular/core';
-import { Subscriptions } from 'imng-ngrx-utils';
 
 describe('ImngODataGridDirective', () => {
   it('should create an instance', () => {

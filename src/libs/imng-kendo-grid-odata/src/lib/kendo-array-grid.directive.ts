@@ -24,14 +24,11 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
       mode: 'multiple',
     };
     this.gridComponent.navigable = true;
-    this.gridComponent.pageable =
-      this.pageable === undefined
-        ? {
-            info: true,
-            type: 'numeric',
-            pageSizes: [5, 10, 20, 50, 100], //NOSONAR
-          }
-        : this.pageable;
+    this.gridComponent.pageable = this.pageable || {
+      info: true,
+      type: 'numeric',
+      pageSizes: [5, 10, 20, 50, 100], //NOSONAR
+    };
     this.allSubscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
         this.gridComponent.sort = this.arrayComponent.state.sort = t.sort;

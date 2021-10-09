@@ -1,4 +1,4 @@
-import { Observable, isObservable, Subscription } from 'rxjs';
+import { Observable, isObservable } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy, InjectionToken, Inject, Directive } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
