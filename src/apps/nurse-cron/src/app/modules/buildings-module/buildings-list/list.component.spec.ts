@@ -21,7 +21,7 @@ describe('BuildingListComponent', () => {
         { provide: BuildingListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: BuildingCrudFacade, useValue: createDataEntryMockFacade() },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
