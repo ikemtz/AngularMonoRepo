@@ -1,4 +1,4 @@
-import { Observable, isObservable } from 'rxjs';
+import { Observable, isObservable, Subscription } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy, InjectionToken, Inject, Directive } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
@@ -15,7 +15,7 @@ const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
   implements OnInit, OnDestroy, Subscribable
 {
-  public readonly allSubscriptions = Subscriptions.instance;
+  public readonly allSubscriptions = new Subscriptions();
   public gridStateQueryKey = 'odataState';
   public gridDataState: ODataState;
   public readonly gridDataResult$: Observable<ODataResult<ENTITY>>;

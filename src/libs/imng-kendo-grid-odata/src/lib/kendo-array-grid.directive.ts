@@ -9,7 +9,7 @@ import { CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-
   selector: '[imngArrayGrid]',
 })
 export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy, Subscribable {
-  public readonly allSubscriptions = Subscriptions.instance;
+  public readonly allSubscriptions = new Subscriptions();
   // eslint-disable-next-line @typescript-eslint/ban-types
   @Input('imngArrayGrid') public arrayComponent: KendoArrayBasedComponent<object, object>;
   @Input() public pageable: boolean | PagerSettings;

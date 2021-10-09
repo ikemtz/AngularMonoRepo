@@ -59,10 +59,11 @@ describe('ImngODataGridDirective', () => {
     expect(gridComponent).toMatchSnapshot();
     expect(directive).toBeTruthy();
     expect(odataComponent.dataStateChange).toBeCalledTimes(1);
-    expect((directive as unknown as { allSubscriptions: [] }).allSubscriptions.length).toBe(6);
+    const allSubscriptions = (directive as unknown as { allSubscriptions: [] }).allSubscriptions;
+    expect(allSubscriptions.length).toBe(5);
 
     directive.ngOnDestroy();
-    expect(Subscriptions.instance.length).toBe(0);
+    expect(allSubscriptions.length).toBe(0);
   });
 
   it('should fire AfterViewInit', () => {

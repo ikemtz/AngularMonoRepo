@@ -33,7 +33,7 @@ import { ImngMatchSelectedEvent } from './match-selected-event';
 })
 export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnInit, OnDestroy, Subscribable {
   private _typeAheadFacade: ImngTypeAheadFacade<T>;
-  public readonly allSubscriptions = Subscriptions.instance;
+  public readonly allSubscriptions = new Subscriptions();
 
   constructor(
     cis: ComponentLoaderFactory,

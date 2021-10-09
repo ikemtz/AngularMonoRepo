@@ -17,7 +17,7 @@ import { tap } from 'rxjs/operators';
   selector: '[imngEditableDataGrid]',
 })
 export class ImngEditableDataGridDirective implements OnInit, OnDestroy, Subscribable {
-  public readonly allSubscriptions = Subscriptions.instance;
+  public readonly allSubscriptions = new Subscriptions();
   // eslint-disable-next-line @typescript-eslint/ban-types
   _gridDataEntryHelper: GridDataEntryHelper<object>;
   // eslint-disable-next-line @typescript-eslint/ban-types

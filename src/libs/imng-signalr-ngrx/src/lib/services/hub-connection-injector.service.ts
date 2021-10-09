@@ -13,7 +13,7 @@ import { OidcFacade } from 'imng-auth0-oidc';
   providedIn: 'root',
 })
 export class HubConnectionInjectorService implements OnDestroy, Subscribable {
-  public readonly allSubscriptions = Subscriptions.instance;
+  public readonly allSubscriptions = new Subscriptions();
   public hubConnection: HubConnection;
 
   constructor(
