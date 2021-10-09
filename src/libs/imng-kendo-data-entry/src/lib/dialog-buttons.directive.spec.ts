@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
-import { DialogModule } from '@progress/kendo-angular-dialog';
 import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
@@ -17,7 +16,7 @@ describe('DialogButtonsDirective', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DataEntryDialogComponent, TestHostComponent, DialogButtonsDirective],
-      imports: [DialogModule, NoopAnimationsModule],
+      imports: [NoopAnimationsModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [{ provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() }],
     }).compileComponents();
@@ -47,16 +46,14 @@ describe('DialogButtonsDirective', () => {
     expect(element.nativeElement).toMatchSnapshot();
     expect(component.onCancel).toHaveBeenCalledTimes(1);
   });
-
 });
 
 @Component({
   selector: 'imng-thc',
-  template: `
-  <imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this">
+  template: ` <imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this">
     <ng-template [imngDialogBtns] let-coreButtons>
-        <button id='y' (click)="coreButtons.cancel()">😈</button>
-        <button id='x' (click)="coreButtons.submit()">😇</button>
+      <button id="y" (click)="coreButtons.cancel()">😈</button>
+      <button id="x" (click)="coreButtons.submit()">😇</button>
     </ng-template>
   </imng-data-entry-dialog>`,
 })
