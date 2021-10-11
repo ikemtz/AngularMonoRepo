@@ -5,9 +5,9 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
-import { ODataState } from 'imng-kendo-odata';
+import { ODataService, ODataState } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '@env/nurse-cron';
 
 import { BuildingEffects } from '../+state/building.effects';
@@ -93,6 +93,25 @@ describe('BuildingListFacade', () => {
       expect(httpClient.get).toBeCalledWith('buildings-odata/odata/v1/Buildings?&$count=true');
     });
 
+    it('reloadEntities() should return empty list with loaded == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      let isloading = await readFirst(facade.loading$);
+
+      const service: { fetch: (endpoint, odataState) => Observable<unknown> } = TestBed.inject(ODataService);
+      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      service.fetch = jest.fn(() => response);
+
+      expect(list.data.length).toBe(0);
+      expect(isloading).toBe(false);
+      facade.reloadEntities();
+
+      list = await readFirst(facade.gridData$);
+      isloading = await readFirst(facade.loading$);
+
+      expect(list.data.length).toBe(3);
+      expect(isloading).toBe(false);
+      expect(service.fetch).toBeCalledTimes(1);
+    });
     it('should get the grid state', async () => {
       const filteringState: ODataState = {
         filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },

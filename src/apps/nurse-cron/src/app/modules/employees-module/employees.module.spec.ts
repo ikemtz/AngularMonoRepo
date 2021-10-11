@@ -6,11 +6,11 @@ describe('EmployeesModule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [EmployeesModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
-  it.skip('should create', () => {
+  it('should create', () => {
     expect(EmployeesModule).toBeDefined();
     const module = new EmployeesModule();
     expect(module).toBeTruthy();

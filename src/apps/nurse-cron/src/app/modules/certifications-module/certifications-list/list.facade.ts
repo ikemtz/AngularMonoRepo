@@ -19,14 +19,13 @@ export class CertificationListFacade
   gridPagerSettings$ = this.store.pipe(select(certificationQueries.getPagerSettings));
 
   constructor(private readonly store: Store<CertificationsPartialState>) {}
-  reloadEntities(): void {
-    throw new Error('Method not implemented.');
-  }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(certificationActionTypes.loadCertificationsRequest(state));
   }
-
+  public reloadEntities(): void {
+    this.store.dispatch(certificationActionTypes.reloadCertificationsRequest());
+  }
   public deleteExistingEntity(entity: ICertification): void {
     this.store.dispatch(certificationActionTypes.deleteCertificationRequest(entity));
   }

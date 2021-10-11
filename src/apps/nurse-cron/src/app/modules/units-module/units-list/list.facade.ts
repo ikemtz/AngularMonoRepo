@@ -18,7 +18,7 @@ export class UnitListFacade implements IKendoODataGridFacade<IUnit>, IDataDelete
 
   constructor(private readonly store: Store<UnitsPartialState>) {}
   reloadEntities(): void {
-    throw new Error('Method not implemented.');
+    this.store.dispatch(unitActionTypes.reloadUnitsRequest());
   }
 
   loadEntities(state: ODataState): void {

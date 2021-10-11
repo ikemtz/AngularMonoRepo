@@ -18,9 +18,8 @@ export class BuildingListFacade implements IKendoODataGridFacade<IBuilding>, IDa
 
   constructor(private readonly store: Store<BuildingsPartialState>) {}
   reloadEntities(): void {
-    throw new Error('Method not implemented.');
+    this.store.dispatch(buildingActionTypes.reloadBuildingsRequest());
   }
-
   public loadEntities(state: ODataState): void {
     this.store.dispatch(buildingActionTypes.loadBuildingsRequest(state));
   }

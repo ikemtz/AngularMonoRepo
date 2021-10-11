@@ -31,30 +31,35 @@ const certificationsReducer = createReducer(
     loading: true,
     error: null,
   })),
-  on(certificationActionTypes.loadCertificationsSuccess, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    gridPagerSettings: getODataPagerSettings({
+  on(
+    certificationActionTypes.reloadCertificationsSuccess,
+    certificationActionTypes.loadCertificationsSuccess,
+    (state, { payload }) => ({
+      ...state,
+      loading: false,
+      gridPagerSettings: getODataPagerSettings({
+        gridData: payload,
+        gridODataState: state.gridODataState,
+      }),
       gridData: payload,
-      gridODataState: state.gridODataState,
+      error: null,
     }),
-    gridData: payload,
-    error: null,
-  })),
+  ),
 
-  on(certificationActionTypes.setCurrentCertification, (state, { payload }) => ({ ...state, currentCertification: payload })),
-  on(certificationActionTypes.clearCurrentCertification, state => ({ ...state, currentCertification: null })),
+  on(certificationActionTypes.setCurrentCertification, (state, { payload }) => ({
+    ...state,
+    currentCertification: payload,
+  })),
+  on(certificationActionTypes.clearCurrentCertification, (state) => ({ ...state, currentCertification: null })),
   on(
     certificationActionTypes.saveCertificationRequest,
     certificationActionTypes.updateCertificationRequest,
     certificationActionTypes.deleteCertificationRequest,
-    state => ({
+    (state) => ({
       ...state,
       loading: true,
     }),
   ),
-
-
 );
 
 export function reducer(state: State | undefined, action: Action): State {

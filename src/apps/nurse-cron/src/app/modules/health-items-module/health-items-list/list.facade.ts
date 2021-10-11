@@ -17,8 +17,9 @@ export class HealthItemListFacade implements IKendoODataGridFacade<IHealthItem>,
   gridPagerSettings$ = this.store.pipe(select(healthItemQueries.getPagerSettings));
 
   constructor(private readonly store: Store<HealthItemsPartialState>) {}
+
   reloadEntities(): void {
-    throw new Error('Method not implemented.');
+    this.store.dispatch(healthItemActionTypes.reloadHealthItemsRequest());
   }
 
   loadEntities(state: ODataState): void {
