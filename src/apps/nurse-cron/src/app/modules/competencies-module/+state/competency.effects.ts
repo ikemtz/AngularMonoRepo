@@ -49,57 +49,30 @@ export class CompetencyEffects {
 
   saveCompetencyEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(competencyActionTypes.saveCompetencyRequest, {
-      run: (
-        action: ReturnType<typeof competencyActionTypes.saveCompetencyRequest>,
-        state: fromCompetenciesReducer.CompetenciesPartialState,
-      ) =>
+      run: (action: ReturnType<typeof competencyActionTypes.saveCompetencyRequest>) =>
         this.competencyApiService
           .post(action.payload)
-          .pipe(
-            map(() =>
-              competencyActionTypes.loadCompetenciesRequest(
-                state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+          .pipe(map(() => competencyActionTypes.reloadCompetenciesRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   updateCompetencyEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(competencyActionTypes.updateCompetencyRequest, {
-      run: (
-        action: ReturnType<typeof competencyActionTypes.updateCompetencyRequest>,
-        state: fromCompetenciesReducer.CompetenciesPartialState,
-      ) =>
+      run: (action: ReturnType<typeof competencyActionTypes.updateCompetencyRequest>) =>
         this.competencyApiService
           .put(action.payload)
-          .pipe(
-            map(() =>
-              competencyActionTypes.loadCompetenciesRequest(
-                state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+          .pipe(map(() => competencyActionTypes.reloadCompetenciesRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   deleteCompetencyEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(competencyActionTypes.deleteCompetencyRequest, {
-      run: (
-        action: ReturnType<typeof competencyActionTypes.deleteCompetencyRequest>,
-        state: fromCompetenciesReducer.CompetenciesPartialState,
-      ) =>
+      run: (action: ReturnType<typeof competencyActionTypes.deleteCompetencyRequest>) =>
         this.competencyApiService
           .delete(action.payload)
-          .pipe(
-            map(() =>
-              competencyActionTypes.loadCompetenciesRequest(
-                state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+          .pipe(map(() => competencyActionTypes.reloadCompetenciesRequest())),
       onError: this.exceptionHandler,
     }),
   );

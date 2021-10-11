@@ -72,7 +72,7 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
     this.closeForm();
   }
 
-  protected isDataInvalid(): boolean {
+  public isDataInvalid(): boolean {
     return this.addEditForm.invalid;
   }
 
