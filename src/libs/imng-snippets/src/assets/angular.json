@@ -1,0 +1,27 @@
+{
+  "ComponentMethodsTypeAhead": {
+    "prefix": "imng-component-methods-type-ahead",
+    "body": [
+      "  public onTypeAheadSelected(match: ImngMatchSelectedEvent<I${1:EntityName}>) {",
+      "  }",
+      "  public onTypeAheadCleared(noMatches: boolean) {",
+      "  }"
+    ],
+    "description": "ComponentMethodsTypeAhead"
+  },
+  "ServicesDataEntry": {
+    "prefix": "imng-services-data-entry",
+    "body": [
+      "@Injectable({",
+      "  providedIn: 'root',",
+      "})",
+      "export class ${1:ENTITY_NAME}Service extends NrsrxBaseApiClientService<I${1:ENTITY_NAME}> {",
+      "  url: string = environment.endPoints.${2:MICROSERVICE_NAME}.api;",
+      "  constructor(http: HttpClient) {",
+      "    super(http);",
+      "  }",
+      "}"
+    ],
+    "description": "ServicesDataEntry"
+  }
+}

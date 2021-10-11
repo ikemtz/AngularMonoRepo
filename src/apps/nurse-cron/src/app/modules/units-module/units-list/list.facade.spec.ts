@@ -5,9 +5,9 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
-import { ODataState } from 'imng-kendo-odata';
+import { ODataService, ODataState } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '@env/nurse-cron';
 
 import { UnitEffects } from '../+state/unit.effects';
@@ -20,15 +20,16 @@ interface TestSchema {
   [UNITS_FEATURE_KEY]: UnitsPartialState;
 }
 
-export const createUnit = () => <IUnit>{
-  [UnitProperties.ID]: 'ID',
-  [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
-  [UnitProperties.NAME]: 'NAME',
-  [UnitProperties.ROOM_COUNT]: 0,
-  [UnitProperties.DELETED_BY]: 'DELETED_BY',
-  [UnitProperties.DELETED_ON_UTC]: new Date(),
-  [UnitProperties.BUILDING]: 'BUILDING',
-};
+export const createUnit = () =>
+  <IUnit>{
+    [UnitProperties.ID]: 'ID',
+    [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
+    [UnitProperties.NAME]: 'NAME',
+    [UnitProperties.ROOM_COUNT]: 0,
+    [UnitProperties.DELETED_BY]: 'DELETED_BY',
+    [UnitProperties.DELETED_ON_UTC]: new Date(),
+    [UnitProperties.BUILDING]: 'BUILDING',
+  };
 
 describe('UnitListFacade', () => {
   let facade: UnitListFacade;
@@ -42,11 +43,12 @@ describe('UnitListFacade', () => {
           StoreModule.forFeature(UNITS_FEATURE_KEY, unitReducer, { initialState }),
           EffectsModule.forFeature([UnitEffects]),
         ],
-        providers: [UnitListFacade,
+        providers: [
+          UnitListFacade,
           { provide: HttpClient, useValue: { get: jest.fn(() => of({ value: [createUnit()], '@odata.count': 1 })) } },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -56,7 +58,7 @@ describe('UnitListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -76,7 +78,6 @@ describe('UnitListFacade', () => {
       expect(list.data.length).toBe(1);
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith('units-odata/odata/v1/Units?&$count=true');
-
     });
 
     it('should get the grid state', async () => {
@@ -93,7 +94,26 @@ describe('UnitListFacade', () => {
       facade.loadEntities({});
       state = await readFirst(facade.gridODataState$);
       expect(state).toStrictEqual({});
+    });
 
+    it('reloadEntities() should return empty list with loaded == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      let isloading = await readFirst(facade.loading$);
+
+      const service: { fetch: (endpoint, odataState) => Observable<unknown> } = TestBed.inject(ODataService);
+      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      service.fetch = jest.fn(() => response);
+
+      expect(list.data.length).toBe(0);
+      expect(isloading).toBe(false);
+      facade.reloadEntities();
+
+      list = await readFirst(facade.gridData$);
+      isloading = await readFirst(facade.loading$);
+
+      expect(list.data.length).toBe(3);
+      expect(isloading).toBe(false);
+      expect(service.fetch).toBeCalledTimes(1);
     });
 
     /**
@@ -106,7 +126,6 @@ describe('UnitListFacade', () => {
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);
-
     });
 
     it('should handle DeleteItem', async () => {

@@ -31,7 +31,7 @@ const unitsReducer = createReducer(
     loading: true,
     error: null,
   })),
-  on(unitActionTypes.loadUnitsSuccess, (state, { payload }) => ({
+  on(unitActionTypes.reloadUnitsSuccess, unitActionTypes.loadUnitsSuccess, (state, { payload }) => ({
     ...state,
     loading: false,
     gridPagerSettings: getODataPagerSettings({
@@ -43,18 +43,16 @@ const unitsReducer = createReducer(
   })),
 
   on(unitActionTypes.setCurrentUnit, (state, { payload }) => ({ ...state, currentUnit: payload })),
-  on(unitActionTypes.clearCurrentUnit, state => ({ ...state, currentUnit: null })),
+  on(unitActionTypes.clearCurrentUnit, (state) => ({ ...state, currentUnit: null })),
   on(
     unitActionTypes.saveUnitRequest,
     unitActionTypes.updateUnitRequest,
     unitActionTypes.deleteUnitRequest,
-    state => ({
+    (state) => ({
       ...state,
       loading: true,
     }),
   ),
-
-
 );
 
 export function reducer(state: State | undefined, action: Action): State {

@@ -18,56 +18,90 @@ export class CompetencyEffects {
     private readonly odataservice: ODataService,
     private readonly dataPersistence: DataPersistence<fromCompetenciesReducer.CompetenciesPartialState>,
     private readonly competencyApiService: CompetencyApiService,
-  ) { }
+  ) {}
 
   loadCompetenciesEffect$ = createEffect(() =>
     this.dataPersistence.fetch(competencyActionTypes.loadCompetenciesRequest, {
       run: (action: ReturnType<typeof competencyActionTypes.loadCompetenciesRequest>) =>
         this.odataservice
           .fetch<ICompetency>(environment.endPoints.competencies.competenciesOData, action.payload)
-          .pipe(map(t => competencyActionTypes.loadCompetenciesSuccess(t))),
+          .pipe(map((t) => competencyActionTypes.loadCompetenciesSuccess(t))),
+      onError: this.exceptionHandler,
+    }),
+  );
+
+  reloadCompetenciesEffect$ = createEffect(() =>
+    this.dataPersistence.fetch(competencyActionTypes.reloadCompetenciesRequest, {
+      run: (
+        action: ReturnType<typeof competencyActionTypes.reloadCompetenciesRequest>,
+        partialState: fromCompetenciesReducer.CompetenciesPartialState,
+      ) =>
+        this.odataservice
+          .fetch<ICompetency>(
+            environment.endPoints.competencies.competenciesOData,
+            partialState[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState,
+            { bustCache: true },
+          )
+          .pipe(map((t) => competencyActionTypes.loadCompetenciesSuccess(t))),
       onError: this.exceptionHandler,
     }),
   );
 
   saveCompetencyEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(competencyActionTypes.saveCompetencyRequest, {
-      run: (action: ReturnType<typeof competencyActionTypes.saveCompetencyRequest>,
-        state: fromCompetenciesReducer.CompetenciesPartialState) =>
-        this.competencyApiService.post(action.payload).pipe(
-          map(() =>
-            competencyActionTypes.loadCompetenciesRequest(state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState),
+      run: (
+        action: ReturnType<typeof competencyActionTypes.saveCompetencyRequest>,
+        state: fromCompetenciesReducer.CompetenciesPartialState,
+      ) =>
+        this.competencyApiService
+          .post(action.payload)
+          .pipe(
+            map(() =>
+              competencyActionTypes.loadCompetenciesRequest(
+                state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState,
+              ),
+            ),
           ),
-        ),
       onError: this.exceptionHandler,
     }),
   );
 
   updateCompetencyEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(competencyActionTypes.updateCompetencyRequest, {
-      run: (action: ReturnType<typeof competencyActionTypes.updateCompetencyRequest>,
-        state: fromCompetenciesReducer.CompetenciesPartialState) =>
-        this.competencyApiService.put(action.payload).pipe(
-          map(() =>
-            competencyActionTypes.loadCompetenciesRequest(state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState),
+      run: (
+        action: ReturnType<typeof competencyActionTypes.updateCompetencyRequest>,
+        state: fromCompetenciesReducer.CompetenciesPartialState,
+      ) =>
+        this.competencyApiService
+          .put(action.payload)
+          .pipe(
+            map(() =>
+              competencyActionTypes.loadCompetenciesRequest(
+                state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState,
+              ),
+            ),
           ),
-        ),
       onError: this.exceptionHandler,
     }),
   );
 
   deleteCompetencyEffect$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(competencyActionTypes.deleteCompetencyRequest,
-      {
-        run: (action: ReturnType<typeof competencyActionTypes.deleteCompetencyRequest>,
-          state: fromCompetenciesReducer.CompetenciesPartialState) =>
-          this.competencyApiService.delete(action.payload).pipe(
+    this.dataPersistence.pessimisticUpdate(competencyActionTypes.deleteCompetencyRequest, {
+      run: (
+        action: ReturnType<typeof competencyActionTypes.deleteCompetencyRequest>,
+        state: fromCompetenciesReducer.CompetenciesPartialState,
+      ) =>
+        this.competencyApiService
+          .delete(action.payload)
+          .pipe(
             map(() =>
-              competencyActionTypes.loadCompetenciesRequest(state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState),
+              competencyActionTypes.loadCompetenciesRequest(
+                state[fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY].gridODataState,
+              ),
             ),
           ),
-        onError: this.exceptionHandler,
-      })
+      onError: this.exceptionHandler,
+    }),
   );
 
   // tslint:disable-next-line: typedef

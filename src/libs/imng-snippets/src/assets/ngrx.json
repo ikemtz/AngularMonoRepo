@@ -1,0 +1,174 @@
+{
+  "NgRxEffectsDataEntry": {
+    "prefix": "imng-ngrx-effects-data-entry",
+    "body": [
+      "  save$1Effect$ = createEffect(() =>",
+      "    this.actions$.pipe(",
+      "      ofType($2ActionTypes.save$1Request),",
+      "      fetch({",
+      "        run: (action: ReturnType<typeof $2ActionTypes.save$1Request>) =>",
+      "          this.$2ApiService.post(action.payload).pipe(",
+      "            map(() => $2ActionTypes.reload$1sRequest())),",
+      "        onError: this.exceptionHandler,",
+      "      }),",
+      "    ),",
+      "  );",
+      "  update$1Effect$ = createEffect(() =>",
+      "    this.actions$.pipe(",
+      "      ofType($2ActionTypes.update$1Request),",
+      "      fetch({",
+      "        run: (action: ReturnType<typeof $2ActionTypes.update$1Request>) =>",
+      "          this.$2ApiService.put(action.payload).pipe(",
+      "            map(() => $2ActionTypes.reload$1sRequest())),",
+      "        onError: this.exceptionHandler,",
+      "      }),",
+      "    ),",
+      "  );",
+      "  delete$1Effect$ = createEffect(() =>",
+      "    this.actions$.pipe(",
+      "      ofType($2ActionTypes.delete$1Request),",
+      "      fetch({",
+      "        run: (action: ReturnType<typeof $2ActionTypes.delete$1Request>) =>",
+      "          this.$2ApiService.delete(action.payload).pipe(",
+      "            map(() => $2ActionTypes.reload$1sRequest())),",
+      "        onError: this.exceptionHandler,",
+      "      }),",
+      "    ),",
+      "  );"
+    ],
+    "description": "NgRxEffectsDataEntry"
+  },
+  "NgRxEffectsExceptionHandler": {
+    "prefix": "imng-ngrx-effects-exception-handler",
+    "body": [
+      "private exceptionHandler(action, error) {",
+      "  console.error('Error', error);  // NOSONAR",
+      "  return $1ActionTypes.load$1sFailure({ error});",
+      "}"
+    ],
+    "description": "Create Exception Hanlder for Effects"
+  },
+  "NgRxLoadEffectOData": {
+    "prefix": "imng-ngrx-effects-load-odata",
+    "body": [
+      "load{1:ENTITY_NAME}sEffect$ = createEffect(() =>",
+      "    this.actions$.pipe(",
+      "      ofType(${2:ACTION_TYPE_PREFIX}ActionTypes.load{1:ENTITY_NAME}sRequest),",
+      "      fetch({",
+      "        run: (action: ReturnType<typeof ${2:ACTION_TYPE_PREFIX}ActionTypes.load${1:ENTITY_NAME}sRequest>) =>",
+      "          this.odataservice",
+      "            .fetch<I${1:ENTITY_NAME}>(env.endPoints.${2:ACTION_TYPE_PREFIX}.${1:ENTITY_NAME}OData, action.payload)",
+      "            .pipe(map(t => ${2:ACTION_TYPE_PREFIX}ActionTypes.load${1:ENTITY_NAME}sSuccess(t))),",
+      "        onError: this.exceptionHandler,",
+      "      }),",
+      "    ),",
+      "  );"
+    ],
+    "description": "Create Load OData Request Effects"
+  },
+  "NgRxReloadEffectOData": {
+    "prefix": "imng-ngrx-effects-reload-odata",
+    "body": [
+      "  reload${1:__ENTITY_NAME__PASCAL_CASE__}sEffect$ = createEffect(() =>",
+      "    this.dataPersistence.fetch(${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.reload${1:__ENTITY_NAME__PASCAL_CASE__}sRequest, {",
+      "      run: (",
+      "        action: ReturnType<typeof ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.reload${1:__ENTITY_NAME__PASCAL_CASE__}sRequest>,",
+      "        partialState: from${3:__NGRX_FEATURE_KEY__PASCAL_CASE__}sReducer.${3:__NGRX_FEATURE_KEY__PASCAL_CASE__}sPartialState,",
+      "      ) =>",
+      "        this.odataservice",
+      "          .fetch<I${1:__ENTITY_NAME__PASCAL_CASE__}>(",
+      "            environment.endPoints.${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}s.${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}sOData,",
+      "            partialState[from${3:__NGRX_FEATURE_KEY__PASCAL_CASE__}sReducer.${4:__NGRX_FEATURE_KEY__TITLE_CASE__}S_FEATURE_KEY].gridODataState,",
+      "            { bustCache: true },",
+      "          )",
+      "          .pipe(map((t) => ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${1:__ENTITY_NAME__PASCAL_CASE__}sSuccess(t))),",
+      "      onError: this.exceptionHandler,",
+      "    }),",
+      "  );"
+    ],
+    "description": "Create Reload OData Request Effects"
+  },
+  "NgRxReducerDataEntry": {
+    "prefix": "imng-ngrx-reducer-data-entry",
+    "body": [
+      "  on($1ActionTypes.setCurrent$2, (state, { payload }) => ({ ...state, current$2: payload })),",
+      "  on($1ActionTypes.clearCurrent$2, state => ({ ...state, current$2: null })),",
+      "  on(",
+      "    $1ActionTypes.save$2Request,",
+      "    $1ActionTypes.update$2Request,",
+      "    $1ActionTypes.delete$2Request,",
+      "    state => ({",
+      "      ...state,",
+      "      loading: true,",
+      "    }),",
+      "  ),"
+    ],
+    "description": "NgRxReducersDataEntry"
+  },
+  "NgRxReducerFailure": {
+    "prefix": "imng-ngrx-reducer-failure",
+    "body": ["  on($1ActionTypes.load$2sFailure, (state, { payload }) => ({ ...state, error: payload.error })),", ""],
+    "description": "Create Reducer for failure action"
+  },
+  "NgRxReducerOData": {
+    "prefix": "imng-ngrx-reducer-odata",
+    "body": [
+      " on($1ActionTypes.load$2sRequest, (state, { payload }) => ({",
+      "    ...state,",
+      "    gridODataState: payload,",
+      "    loading: true,",
+      "    error: null,",
+      "  })),",
+      "  on($1ActionTypes.load$2sSuccess, (state, { payload }) => ({",
+      "    ...state,",
+      "    loading: false,",
+      "    gridPagerSettings: getODataPagerSettings({",
+      "      gridData: payload,",
+      "      gridODataState: state.gridODataState,",
+      "    }),",
+      "    $3: payload,",
+      "    error: null,",
+      "  })),"
+    ],
+    "description": "Create Reducer for OData Requests"
+  },
+  "NgRxSelectorsDataEntry": {
+    "prefix": "imng-ngrx-selectors-data-entry",
+    "body": [
+      "export const getCurrent$1 = createSelector(",
+      "  get$2sState,",
+      "  state => state.current$1,",
+      ");",
+      "export const getIsEdit$1Active = createSelector(",
+      "  getCurrent$1,",
+      "  entity=> isTruthy(entity) && isTruthy(entity.id),",
+      ");",
+      "export const getIsNew$1Active = createSelector(",
+      "  getCurrent$1,",
+      "  entity=> isTruthy(entity) && !isTruthy(entity.id),",
+      ");",
+      "export const dataEntry$1Queries = {",
+      "  getCurrent$1,",
+      "  getIsEdit$1Active,",
+      "  getIsNew$1Active,",
+      "};"
+    ],
+    "description": "NgRx Selectors for Data Entry components"
+  },
+  "NgRxSelectorsGridOData": {
+    "prefix": "imng-ngrx-selectors-grid-odata",
+    "body": [
+      "const get$1s = createSelector(get$1sState, state => state.gridData);",
+      "const getLoading = createSelector(get$1sState, state => state.loading);",
+      "const getGridODataState = createSelector(get$1sState, state => state.gridODataState);",
+      "const getPagerSettings = createSelector(get$1sState, state => state.gridPagerSettings);",
+      "export const odataGrid$1Queries = {",
+      "  get$1s,",
+      "  getLoading,",
+      "  getGridODataState,",
+      "  getPagerSettings,",
+      "};"
+    ],
+    "description": "NgRxSelectorsGridOData"
+  }
+}

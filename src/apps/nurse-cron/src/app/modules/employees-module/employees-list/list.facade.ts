@@ -8,19 +8,20 @@ import { EmployeesPartialState } from '../+state/employee.reducer';
 import { employeeQueries } from '../+state/employee.selectors';
 import * as employeeActionTypes from '../+state/employee.actions';
 import { IEmployee } from '../../../models/employees-odata';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class EmployeeListFacade implements IKendoODataGridFacade<IEmployee>, IDataDeleteFacade<IEmployee> {
-  names = "Isaac,Sam,Ash,B,Cardi,Mofo,Peter,Paul,Matt,Jojo".split(',').map(t => ({ id: t }));
+  names = 'Isaac,Sam,Ash,B,Cardi,Mofo,Peter,Paul,Matt,Jojo'.split(',').map((t) => ({ id: t }));
   loading$ = this.store.pipe(select(employeeQueries.getLoading));
   gridODataState$ = this.store.pipe(select(employeeQueries.getGridODataState));
-  gridData$ = this.store.pipe(select(employeeQueries.getEmployees),
-    map(t => ({ ...t, data: t.data.map(m => ({ ...m, subTable: [...this.names, ...this.names, ...this.names, ...this.names, ...this.names, ...this.names, ...this.names] })) })),
-    map(t => ({ ...t, data: [...t.data, ...t.data, ...t.data, ...t.data, ...t.data] })));
+  gridData$ = this.store.pipe(select(employeeQueries.getEmployees));
   gridPagerSettings$ = this.store.pipe(select(employeeQueries.getPagerSettings));
 
-  constructor(private readonly store: Store<EmployeesPartialState>) { }
+  constructor(private readonly store: Store<EmployeesPartialState>) {}
+
+  reloadEntities(): void {
+    this.store.dispatch(employeeActionTypes.reloadEmployeesRequest());
+  }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(employeeActionTypes.loadEmployeesRequest(state));

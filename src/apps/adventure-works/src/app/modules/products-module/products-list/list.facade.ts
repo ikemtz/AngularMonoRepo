@@ -16,7 +16,10 @@ export class ProductListFacade implements IKendoODataGridFacade<IProduct>, IData
   gridPagerSettings$ = this.store.pipe(select(productQueries.getPagerSettings));
   gridODataState$ = this.store.pipe(select(productQueries.getGridODataState));
 
-  constructor(private readonly store: Store<ProductsPartialState>) { }
+  constructor(private readonly store: Store<ProductsPartialState>) {}
+  reloadEntities(): void {
+    throw new Error('Method not implemented.');
+  }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(productsActionTypes.loadProductsRequest(state));
