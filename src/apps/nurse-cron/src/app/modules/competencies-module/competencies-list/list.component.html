@@ -2,23 +2,19 @@
   <ng-template kendoGridToolbarTemplate>
     <div class="d-flex justify-content-between">
       <h3>Competencies</h3>
-      <div>
-        <button type="button" title="Add Competency" primary="true" (click)="addItem()" class="btn btn-primary mx-2">
-          <fa-icon [icon]="faPlusCircle"></fa-icon> Add Competency
-        </button>
-        <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="mx-2">
-          Export to PDF
-        </button>
-        <button type="button" title="Export To Excel" kendoGridExcelCommand icon="file-excel" class="mx-2">
-          Export To Excel
-        </button>
-      </div>
+      <imng-kendo-odata-grid-header
+        entityName="Competency"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (clearFiltersClicked)="resetFilters()"
+      >
+      </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
 
   <kendo-grid-column [field]="props.ID" [width]="100">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.id | slice:0:5 }}
+      {{ dataItem.id | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>

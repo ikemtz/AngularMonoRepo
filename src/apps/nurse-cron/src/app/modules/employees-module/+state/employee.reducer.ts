@@ -31,7 +31,7 @@ const employeesReducer = createReducer(
     loading: true,
     error: null,
   })),
-  on(employeeActionTypes.loadEmployeesSuccess, (state, { payload }) => ({
+  on(employeeActionTypes.reloadEmployeesSuccess, employeeActionTypes.loadEmployeesSuccess, (state, { payload }) => ({
     ...state,
     loading: false,
     gridPagerSettings: getODataPagerSettings({
@@ -43,12 +43,12 @@ const employeesReducer = createReducer(
   })),
 
   on(employeeActionTypes.setCurrentEmployee, (state, { payload }) => ({ ...state, currentEmployee: payload })),
-  on(employeeActionTypes.clearCurrentEmployee, state => ({ ...state, currentEmployee: null })),
+  on(employeeActionTypes.clearCurrentEmployee, (state) => ({ ...state, currentEmployee: null })),
   on(
     employeeActionTypes.saveEmployeeRequest,
     employeeActionTypes.updateEmployeeRequest,
     employeeActionTypes.deleteEmployeeRequest,
-    state => ({
+    (state) => ({
       ...state,
       loading: true,
     }),

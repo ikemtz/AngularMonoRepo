@@ -16,7 +16,10 @@ export class UnitListFacade implements IKendoODataGridFacade<IUnit>, IDataDelete
   gridData$ = this.store.pipe(select(unitQueries.getUnits));
   gridPagerSettings$ = this.store.pipe(select(unitQueries.getPagerSettings));
 
-  constructor(private readonly store: Store<UnitsPartialState>) { }
+  constructor(private readonly store: Store<UnitsPartialState>) {}
+  reloadEntities(): void {
+    this.store.dispatch(unitActionTypes.reloadUnitsRequest());
+  }
 
   loadEntities(state: ODataState): void {
     this.store.dispatch(unitActionTypes.loadUnitsRequest(state));

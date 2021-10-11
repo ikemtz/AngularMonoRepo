@@ -14,3 +14,4 @@ export * from './lib/kendo-odata-initial-state-creator';
 export * from './lib/kendo-odata-grid.module';
 export * from './lib/kendo-odata-grid.directive';
 export * from './lib/kendo-child-column-template/kendo-child-column-template.component';
+export * from './lib/grid-header/grid-header.component';

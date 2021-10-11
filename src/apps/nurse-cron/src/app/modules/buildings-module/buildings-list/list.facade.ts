@@ -16,8 +16,10 @@ export class BuildingListFacade implements IKendoODataGridFacade<IBuilding>, IDa
   gridData$ = this.store.pipe(select(buildingQueries.getBuildings));
   gridPagerSettings$ = this.store.pipe(select(buildingQueries.getPagerSettings));
 
-  constructor(private readonly store: Store<BuildingsPartialState>) { }
-
+  constructor(private readonly store: Store<BuildingsPartialState>) {}
+  reloadEntities(): void {
+    this.store.dispatch(buildingActionTypes.reloadBuildingsRequest());
+  }
   public loadEntities(state: ODataState): void {
     this.store.dispatch(buildingActionTypes.loadBuildingsRequest(state));
   }

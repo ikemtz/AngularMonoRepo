@@ -16,8 +16,10 @@ export class CompetencyListFacade implements IKendoODataGridFacade<ICompetency>,
   gridData$ = this.store.pipe(select(competencyQueries.getCompetencies));
   gridPagerSettings$ = this.store.pipe(select(competencyQueries.getPagerSettings));
 
-  constructor(private readonly store: Store<CompetenciesPartialState>) { }
-
+  constructor(private readonly store: Store<CompetenciesPartialState>) {}
+  reloadEntities(): void {
+    this.store.dispatch(competencyActionTypes.reloadCompetenciesRequest());
+  }
   loadEntities(state: ODataState): void {
     this.store.dispatch(competencyActionTypes.loadCompetenciesRequest(state));
   }

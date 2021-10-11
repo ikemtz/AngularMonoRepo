@@ -24,31 +24,34 @@ const healthItemsReducer = createReducer(
     ...state,
     error: payload.error,
   })),
-
   on(healthItemActionTypes.loadHealthItemsRequest, (state, { payload }) => ({
     ...state,
     gridODataState: payload,
     loading: true,
     error: null,
   })),
-  on(healthItemActionTypes.loadHealthItemsSuccess, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    gridPagerSettings: getODataPagerSettings({
+  on(
+    healthItemActionTypes.reloadHealthItemsSuccess,
+    healthItemActionTypes.loadHealthItemsSuccess,
+    (state, { payload }) => ({
+      ...state,
+      loading: false,
+      gridPagerSettings: getODataPagerSettings({
+        gridData: payload,
+        gridODataState: state.gridODataState,
+      }),
       gridData: payload,
-      gridODataState: state.gridODataState,
+      error: null,
     }),
-    gridData: payload,
-    error: null,
-  })),
+  ),
 
   on(healthItemActionTypes.setCurrentHealthItem, (state, { payload }) => ({ ...state, currentHealthItem: payload })),
-  on(healthItemActionTypes.clearCurrentHealthItem, state => ({ ...state, currentHealthItem: null })),
+  on(healthItemActionTypes.clearCurrentHealthItem, (state) => ({ ...state, currentHealthItem: null })),
   on(
     healthItemActionTypes.saveHealthItemRequest,
     healthItemActionTypes.updateHealthItemRequest,
     healthItemActionTypes.deleteHealthItemRequest,
-    state => ({
+    (state) => ({
       ...state,
       loading: true,
     }),
