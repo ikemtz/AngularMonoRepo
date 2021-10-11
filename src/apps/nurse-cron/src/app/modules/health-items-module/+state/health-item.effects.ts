@@ -52,57 +52,28 @@ export class HealthItemEffects {
 
   saveHealthItemEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(healthItemActionTypes.saveHealthItemRequest, {
-      run: (
-        action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>,
-        state: fromHealthItemsReducer.HealthItemsPartialState,
-      ) =>
+      run: (action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>) =>
         this.healthItemApiService
           .post(action.payload)
-          .pipe(
-            map(() =>
-              healthItemActionTypes.loadHealthItemsRequest(
-                state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+          .pipe(map(() => healthItemActionTypes.reloadHealthItemsRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   updateHealthItemEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(healthItemActionTypes.updateHealthItemRequest, {
-      run: (
-        action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>,
-        state: fromHealthItemsReducer.HealthItemsPartialState,
-      ) =>
-        this.healthItemApiService
-          .put(action.payload)
-          .pipe(
-            map(() =>
-              healthItemActionTypes.loadHealthItemsRequest(
-                state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+      run: (action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>) =>
+        this.healthItemApiService.put(action.payload).pipe(map(() => healthItemActionTypes.reloadHealthItemsRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   deleteHealthItemEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(healthItemActionTypes.deleteHealthItemRequest, {
-      run: (
-        action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>,
-        state: fromHealthItemsReducer.HealthItemsPartialState,
-      ) =>
+      run: (action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>) =>
         this.healthItemApiService
           .delete(action.payload)
-          .pipe(
-            map(() =>
-              healthItemActionTypes.loadHealthItemsRequest(
-                state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+          .pipe(map(() => healthItemActionTypes.reloadHealthItemsRequest())),
       onError: this.exceptionHandler,
     }),
   );

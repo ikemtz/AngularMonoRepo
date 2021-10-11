@@ -49,30 +49,24 @@ export class UnitEffects {
 
   saveUnitEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(unitActionTypes.saveUnitRequest, {
-      run: (action: ReturnType<typeof unitActionTypes.saveUnitRequest>, state: fromUnitsReducer.UnitsPartialState) =>
-        this.unitApiService
-          .post(action.payload)
-          .pipe(map(() => unitActionTypes.loadUnitsRequest(state[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState))),
+      run: (action: ReturnType<typeof unitActionTypes.saveUnitRequest>) =>
+        this.unitApiService.post(action.payload).pipe(map(() => unitActionTypes.reloadUnitsRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   updateUnitEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(unitActionTypes.updateUnitRequest, {
-      run: (action: ReturnType<typeof unitActionTypes.updateUnitRequest>, state: fromUnitsReducer.UnitsPartialState) =>
-        this.unitApiService
-          .put(action.payload)
-          .pipe(map(() => unitActionTypes.loadUnitsRequest(state[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState))),
+      run: (action: ReturnType<typeof unitActionTypes.updateUnitRequest>) =>
+        this.unitApiService.put(action.payload).pipe(map(() => unitActionTypes.reloadUnitsRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   deleteUnitEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(unitActionTypes.deleteUnitRequest, {
-      run: (action: ReturnType<typeof unitActionTypes.deleteUnitRequest>, state: fromUnitsReducer.UnitsPartialState) =>
-        this.unitApiService
-          .delete(action.payload)
-          .pipe(map(() => unitActionTypes.loadUnitsRequest(state[fromUnitsReducer.UNITS_FEATURE_KEY].gridODataState))),
+      run: (action: ReturnType<typeof unitActionTypes.deleteUnitRequest>) =>
+        this.unitApiService.delete(action.payload).pipe(map(() => unitActionTypes.reloadUnitsRequest())),
       onError: this.exceptionHandler,
     }),
   );
