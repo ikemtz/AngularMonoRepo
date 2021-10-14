@@ -6,14 +6,26 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
 
 @Component({
   selector: 'imng-data-entry-dialog[parentComponent]',
-  templateUrl: './data-entry-dialog.component.html',
+  template: `<kendo-dialog [width]="width" [height]="height" (close)="close()">
+      <kendo-dialog-titlebar class="bg-primary">{{ dialogTitle }}</kendo-dialog-titlebar>
+      <ng-content></ng-content>
+      <kendo-dialog-actions>
+        <ng-container *ngTemplateOutlet="dialogBtnsTemplate || defaultDialogActionsTpl; context: dialogActionBtnsCtx">
+        </ng-container>
+      </kendo-dialog-actions>
+    </kendo-dialog>
+
+    <ng-template #defaultDialogActionsTpl>
+      <button id="btnCancel" class="k-button" (click)="cancel()">Cancel</button>
+      <button id="btnSave" class="k-button k-primary" (click)="submit()">{{ saveButtonText }}</button>
+    </ng-template>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataEntryDialogComponent implements OnInit {
   @Input() public width: string | number;
   @Input() public height: string | number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() public parentComponent: BaseDataEntryComponent<any>;//NOSONAR
+  @Input() public parentComponent: BaseDataEntryComponent<any>; //NOSONAR
   @Input() public saveButtonText = 'Save';
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
   public dialogBtnsTemplate: TemplateRef<unknown>;
