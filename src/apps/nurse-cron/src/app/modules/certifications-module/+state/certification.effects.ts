@@ -49,57 +49,30 @@ export class CertificationEffects {
 
   saveCertificationEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(certificationActionTypes.saveCertificationRequest, {
-      run: (
-        action: ReturnType<typeof certificationActionTypes.saveCertificationRequest>,
-        state: fromCertificationsReducer.CertificationsPartialState,
-      ) =>
+      run: (action: ReturnType<typeof certificationActionTypes.saveCertificationRequest>) =>
         this.certificationApiService
           .post(action.payload)
-          .pipe(
-            map(() =>
-              certificationActionTypes.loadCertificationsRequest(
-                state[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+          .pipe(map(() => certificationActionTypes.reloadCertificationsRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   updateCertificationEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(certificationActionTypes.updateCertificationRequest, {
-      run: (
-        action: ReturnType<typeof certificationActionTypes.updateCertificationRequest>,
-        state: fromCertificationsReducer.CertificationsPartialState,
-      ) =>
+      run: (action: ReturnType<typeof certificationActionTypes.updateCertificationRequest>) =>
         this.certificationApiService
           .put(action.payload)
-          .pipe(
-            map(() =>
-              certificationActionTypes.loadCertificationsRequest(
-                state[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+          .pipe(map(() => certificationActionTypes.reloadCertificationsRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   deleteCertificationEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(certificationActionTypes.deleteCertificationRequest, {
-      run: (
-        action: ReturnType<typeof certificationActionTypes.deleteCertificationRequest>,
-        state: fromCertificationsReducer.CertificationsPartialState,
-      ) =>
+      run: (action: ReturnType<typeof certificationActionTypes.deleteCertificationRequest>) =>
         this.certificationApiService
           .delete(action.payload)
-          .pipe(
-            map(() =>
-              certificationActionTypes.loadCertificationsRequest(
-                state[fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+          .pipe(map(() => certificationActionTypes.reloadCertificationsRequest())),
       onError: this.exceptionHandler,
     }),
   );

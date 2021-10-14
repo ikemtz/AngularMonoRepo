@@ -14,18 +14,14 @@ import { processChildFilterDescriptors } from './transform-child-filters';
   providedIn: 'root',
 })
 export class ODataService {
+  constructor(private readonly http: HttpClient) {}
 
-  constructor(private readonly http: HttpClient) { }
-
-  public fetch<T>(
-    odataEndpoint: string,
-    state: ODataState,
-    options: FetchOptions = {},
-  ): Observable<ODataResult<T>> {
+  public fetch<T>(odataEndpoint: string, state: ODataState, options: FetchOptions = {}): Observable<ODataResult<T>> {
     let tempState = { ...state };
-    options.boundChildTableProperties?.forEach(prop => tempState = translateChildFilterExpression(tempState, prop));
+    options.boundChildTableProperties?.forEach((prop) => (tempState = translateChildFilterExpression(tempState, prop)));
     const countClause = tempState.count === false ? '' : '&$count=true';
-    const cacheBustClause = options.bustCache === true ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}` : '';
+    const cacheBustClause =
+      options.bustCache === true ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}` : '';
     const queryStr = `${this.getODataString(tempState)}${countClause}${cacheBustClause}`;
     return this.http
       .get(`${odataEndpoint}?${queryStr}`)
@@ -71,11 +67,11 @@ export class ODataService {
       if (m.index === guidRegex.lastIndex) {
         guidRegex.lastIndex++;
       }
-      m.forEach(match => {
+      m.forEach((match) => {
         guidMatches.push(match);
       });
     }
-    guidMatches.forEach(guid => queryString = queryString.replace(guid, guid.replace(/'/g, '')));
+    guidMatches.forEach((guid) => (queryString = queryString.replace(guid, guid.replace(/'/g, ''))));
     return queryString;
   }
 
@@ -88,8 +84,7 @@ export class ODataService {
   private processExpanders(state: ODataState, queryString: string): string {
     if (state.expanders && state.expanders.length > 0) {
       queryString += `&$expand=`;
-      state.expanders.forEach(element =>
-        queryString += this.getExpansionString(element));
+      state.expanders.forEach((element) => (queryString += this.getExpansionString(element)));
       //Removes trailing comma
       queryString = queryString.replace(/,$/, '');
     }
@@ -123,14 +118,13 @@ export class ODataService {
     if (!state.inFilters) {
       return queryString;
     }
-    state.inFilters.forEach(inFilter => {
-      const deDupedVals = Array.from(new Set(inFilter.values.filter(f => f)));
-      const inVals = deDupedVals.map(m => isaNumber(m) ? `${m}` : `'${m}'`).join(',');
+    state.inFilters.forEach((inFilter) => {
+      const deDupedVals = Array.from(new Set(inFilter.values.filter((f) => f)));
+      const inVals = deDupedVals.map((m) => (isaNumber(m) ? `${m}` : `'${m}'`)).join(',');
       const inFilterString = `(${inFilter.field} in (${inVals}))`;
       if (!queryString || queryString.trim().length === 0) {
-        return `$filter=${inFilterString}`;
-      }
-      if (queryString.match(/\$filter=/)) {
+        queryString = `$filter=${inFilterString}`;
+      } else if (queryString.match(/\$filter=/)) {
         queryString = queryString.replace(/\$filter=/, `$filter=${inFilterString} ${inFilter.logic || 'and'} `);
       } else {
         queryString = `${queryString}&$filter=${inFilterString}`;

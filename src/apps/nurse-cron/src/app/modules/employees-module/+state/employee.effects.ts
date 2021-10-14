@@ -47,57 +47,24 @@ export class EmployeeEffects {
 
   saveEmployeeEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(employeeActionTypes.saveEmployeeRequest, {
-      run: (
-        action: ReturnType<typeof employeeActionTypes.saveEmployeeRequest>,
-        state: fromEmployeesReducer.EmployeesPartialState,
-      ) =>
-        this.employeeApiService
-          .post(action.payload)
-          .pipe(
-            map(() =>
-              employeeActionTypes.loadEmployeesRequest(
-                state[fromEmployeesReducer.EMPLOYEES_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+      run: (action: ReturnType<typeof employeeActionTypes.saveEmployeeRequest>) =>
+        this.employeeApiService.post(action.payload).pipe(map(() => employeeActionTypes.reloadEmployeesRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   updateEmployeeEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(employeeActionTypes.updateEmployeeRequest, {
-      run: (
-        action: ReturnType<typeof employeeActionTypes.updateEmployeeRequest>,
-        state: fromEmployeesReducer.EmployeesPartialState,
-      ) =>
-        this.employeeApiService
-          .put(action.payload)
-          .pipe(
-            map(() =>
-              employeeActionTypes.loadEmployeesRequest(
-                state[fromEmployeesReducer.EMPLOYEES_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+      run: (action: ReturnType<typeof employeeActionTypes.updateEmployeeRequest>) =>
+        this.employeeApiService.put(action.payload).pipe(map(() => employeeActionTypes.reloadEmployeesRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   deleteEmployeeEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(employeeActionTypes.deleteEmployeeRequest, {
-      run: (
-        action: ReturnType<typeof employeeActionTypes.deleteEmployeeRequest>,
-        state: fromEmployeesReducer.EmployeesPartialState,
-      ) =>
-        this.employeeApiService
-          .delete(action.payload)
-          .pipe(
-            map(() =>
-              employeeActionTypes.loadEmployeesRequest(
-                state[fromEmployeesReducer.EMPLOYEES_FEATURE_KEY].gridODataState,
-              ),
-            ),
-          ),
+      run: (action: ReturnType<typeof employeeActionTypes.deleteEmployeeRequest>) =>
+        this.employeeApiService.delete(action.payload).pipe(map(() => employeeActionTypes.reloadEmployeesRequest())),
       onError: this.exceptionHandler,
     }),
   );

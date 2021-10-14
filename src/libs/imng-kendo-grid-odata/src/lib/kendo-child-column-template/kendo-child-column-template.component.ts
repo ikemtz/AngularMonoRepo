@@ -10,8 +10,19 @@ import {
 
 @Component({
   selector: 'imng-kendo-grid-child-column-template',
-  templateUrl: './kendo-child-column-template.component.html',
-  styleUrls: ['./kendo-child-column-template.component.scss'],
+  template: `<div *ngFor="let item of currentData | slice: 0:visibleRecCount">
+      {{ item }}
+    </div>
+    <button
+      type="button"
+      *ngIf="showMore && currentData?.length > visibleRecCount"
+      class="btn btn-sm btn-primary"
+      [title]="formatToolTip()"
+      (click)="moreClicked()"
+    >
+      More ...
+      <span class="badge bg-secondary">{{ currentData.length - visibleRecCount }}</span>
+    </button>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImngGridChildColumnTemplateComponent implements OnInit {
