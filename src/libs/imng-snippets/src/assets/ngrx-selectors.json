@@ -1,0 +1,41 @@
+{
+  "NgRxSelectorsDataEntry": {
+    "prefix": "imng-ngrx-selectors-data-entry",
+    "body": [
+      "export const getCurrent${1:__ENTITY_NAME__PASCAL_CASE__} = createSelector(",
+      "  get${2:__NGRX_FEATURE_KEY__PASCAL_CASE__}sState,",
+      "  state => state.current${1:__ENTITY_NAME__PASCAL_CASE__},",
+      ");",
+      "export const getIsEdit${1:__ENTITY_NAME__PASCAL_CASE__}Active = createSelector(",
+      "  getCurrent${1:__ENTITY_NAME__PASCAL_CASE__},",
+      "  entity=> isTruthy(entity) && isTruthy(entity.id),",
+      ");",
+      "export const getIsNew${1:__ENTITY_NAME__PASCAL_CASE__}Active = createSelector(",
+      "  getCurrent${1:__ENTITY_NAME__PASCAL_CASE__},",
+      "  entity=> isTruthy(entity) && !isTruthy(entity.id),",
+      ");",
+      "export const dataEntry${1:__ENTITY_NAME__PASCAL_CASE__}Queries = {",
+      "  getCurrent${1:__ENTITY_NAME__PASCAL_CASE__},",
+      "  getIsEdit${1:__ENTITY_NAME__PASCAL_CASE__}Active,",
+      "  getIsNew${1:__ENTITY_NAME__PASCAL_CASE__}Active,",
+      "};"
+    ],
+    "description": "NgRx Selectors for Data Entry components"
+  },
+  "NgRxSelectorsGridOData": {
+    "prefix": "imng-ngrx-selectors-grid-odata",
+    "body": [
+      "const get${1:__ENTITY_NAME__PASCAL_CASE__}s = createSelector(get${2:__NGRX_FEATURE_KEY__PASCAL_CASE__}sState, state => state.gridData);",
+      "const getLoading = createSelector(get${2:__NGRX_FEATURE_KEY__PASCAL_CASE__}sState, state => state.loading);",
+      "const getGridODataState = createSelector(get${2:__NGRX_FEATURE_KEY__PASCAL_CASE__}sState, state => state.gridODataState);",
+      "const getPagerSettings = createSelector(get${2:__NGRX_FEATURE_KEY__PASCAL_CASE__}sState, state => state.gridPagerSettings);",
+      "export const odataGrid${1:__ENTITY_NAME__PASCAL_CASE__}Queries = {",
+      "  get${1:__ENTITY_NAME__PASCAL_CASE__}s,",
+      "  getLoading,",
+      "  getGridODataState,",
+      "  getPagerSettings,",
+      "};"
+    ],
+    "description": "NgRxSelectorsGridOData"
+  }
+}
