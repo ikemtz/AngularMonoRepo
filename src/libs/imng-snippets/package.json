@@ -3,7 +3,7 @@
   "displayName": "IMNG Snippets",
   "description": "Snippets collection for IMNG based libraries",
   "icon": "src/assets/imng-snippets.png",
-  "version": "0.2.0",
+  "version": "0.2.4",
   "repository": {
     "url": "https://github.com/ikemtz/AngularMonoRepo/tree/master/src/libs/imng-snippets"
   },
@@ -30,15 +30,23 @@
       },
       {
         "language": "typescript",
-        "path": "./src/assets/ngrx.json"
-      },
-      {
-        "language": "typescript",
         "path": "./src/assets/ngrx-actions.json"
       },
       {
         "language": "typescript",
+        "path": "./src/assets/ngrx-effects.json"
+      },
+      {
+        "language": "typescript",
         "path": "./src/assets/ngrx-facade.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/assets/ngrx-reducers.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/assets/ngrx-selectors.json"
       },
       {
         "language": "typescript",
