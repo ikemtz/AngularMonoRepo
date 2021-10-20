@@ -1,9 +1,28 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 
 @Component({
   selector: 'imng-kendo-grid-child-column-template',
-  templateUrl: './kendo-child-column-template.component.html',
-  styleUrls: ['./kendo-child-column-template.component.scss'],
+  template: `<div *ngFor="let item of currentData | slice: 0:visibleRecCount">
+      {{ item }}
+    </div>
+    <button
+      type="button"
+      *ngIf="showMore && currentData?.length > visibleRecCount"
+      class="btn btn-sm btn-primary"
+      [title]="formatToolTip()"
+      (click)="moreClicked()"
+    >
+      More ...
+      <span class="badge bg-secondary">{{ currentData.length - visibleRecCount }}</span>
+    </button>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImngGridChildColumnTemplateComponent implements OnInit {
@@ -27,12 +46,10 @@ export class ImngGridChildColumnTemplateComponent implements OnInit {
     return this._data;
   }
 
-  constructor(private readonly changeDetectorRef: ChangeDetectorRef) { }
+  constructor(public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
-    this.currentData = (this.data || [])
-      .filter(val => (val[this.field] || '').length > 0)
-      .map(t => t[this.field]);
+    this.currentData = (this.data || []).filter((val) => (val[this.field] || '').length > 0).map((t) => t[this.field]);
     this.initialized = true;
   }
   public formatToolTip(): string {

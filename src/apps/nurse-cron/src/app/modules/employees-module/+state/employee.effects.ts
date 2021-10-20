@@ -17,56 +17,56 @@ export class EmployeeEffects {
     private readonly odataservice: ODataService,
     private readonly employeeApiService: EmployeeApiService,
     private readonly dataPersistence: DataPersistence<fromEmployeesReducer.EmployeesPartialState>,
-  ) { }
+  ) {}
 
   loadEmployeesEffect$ = createEffect(() =>
-    this.dataPersistence.fetch(employeeActionTypes.loadEmployeesRequest,
-      {
-        run: (action: ReturnType<typeof employeeActionTypes.loadEmployeesRequest>) =>
-          this.odataservice
-            .fetch<IEmployee>(environment.endPoints.employees.employeesOData, action.payload)
-            .pipe(map(t => employeeActionTypes.loadEmployeesSuccess(t))),
-        onError: this.exceptionHandler,
-      })
+    this.dataPersistence.fetch(employeeActionTypes.loadEmployeesRequest, {
+      run: (action: ReturnType<typeof employeeActionTypes.loadEmployeesRequest>) =>
+        this.odataservice
+          .fetch<IEmployee>(environment.endPoints.employees.employeesOData, action.payload)
+          .pipe(map((t) => employeeActionTypes.loadEmployeesSuccess(t))),
+      onError: this.exceptionHandler,
+    }),
+  );
+  reloadEmployeesEffect$ = createEffect(() =>
+    this.dataPersistence.fetch(employeeActionTypes.reloadEmployeesRequest, {
+      run: (
+        action: ReturnType<typeof employeeActionTypes.reloadEmployeesRequest>,
+        partialState: fromEmployeesReducer.EmployeesPartialState,
+      ) =>
+        this.odataservice
+          .fetch<IEmployee>(
+            environment.endPoints.employees.employeesOData,
+            partialState[fromEmployeesReducer.EMPLOYEES_FEATURE_KEY].gridODataState,
+            { bustCache: true },
+          )
+          .pipe(map((t) => employeeActionTypes.loadEmployeesSuccess(t))),
+      onError: this.exceptionHandler,
+    }),
   );
 
   saveEmployeeEffect$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(employeeActionTypes.saveEmployeeRequest,
-      {
-        run: (action: ReturnType<typeof employeeActionTypes.saveEmployeeRequest>, state: fromEmployeesReducer.EmployeesPartialState) =>
-          this.employeeApiService.post(action.payload).pipe(
-            map(() =>
-              employeeActionTypes.loadEmployeesRequest(state[fromEmployeesReducer.EMPLOYEES_FEATURE_KEY].gridODataState),
-            ),
-          ),
-        onError: this.exceptionHandler,
-      })
+    this.dataPersistence.pessimisticUpdate(employeeActionTypes.saveEmployeeRequest, {
+      run: (action: ReturnType<typeof employeeActionTypes.saveEmployeeRequest>) =>
+        this.employeeApiService.post(action.payload).pipe(map(() => employeeActionTypes.reloadEmployeesRequest())),
+      onError: this.exceptionHandler,
+    }),
   );
 
   updateEmployeeEffect$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(employeeActionTypes.updateEmployeeRequest,
-      {
-        run: (action: ReturnType<typeof employeeActionTypes.updateEmployeeRequest>, state: fromEmployeesReducer.EmployeesPartialState) =>
-          this.employeeApiService.put(action.payload).pipe(
-            map(() =>
-              employeeActionTypes.loadEmployeesRequest(state[fromEmployeesReducer.EMPLOYEES_FEATURE_KEY].gridODataState),
-            ),
-          ),
-        onError: this.exceptionHandler,
-      })
+    this.dataPersistence.pessimisticUpdate(employeeActionTypes.updateEmployeeRequest, {
+      run: (action: ReturnType<typeof employeeActionTypes.updateEmployeeRequest>) =>
+        this.employeeApiService.put(action.payload).pipe(map(() => employeeActionTypes.reloadEmployeesRequest())),
+      onError: this.exceptionHandler,
+    }),
   );
 
   deleteEmployeeEffect$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(employeeActionTypes.deleteEmployeeRequest,
-      {
-        run: (action: ReturnType<typeof employeeActionTypes.deleteEmployeeRequest>, state: fromEmployeesReducer.EmployeesPartialState) =>
-          this.employeeApiService.delete(action.payload).pipe(
-            map(() =>
-              employeeActionTypes.loadEmployeesRequest(state[fromEmployeesReducer.EMPLOYEES_FEATURE_KEY].gridODataState),
-            ),
-          ),
-        onError: this.exceptionHandler,
-      })
+    this.dataPersistence.pessimisticUpdate(employeeActionTypes.deleteEmployeeRequest, {
+      run: (action: ReturnType<typeof employeeActionTypes.deleteEmployeeRequest>) =>
+        this.employeeApiService.delete(action.payload).pipe(map(() => employeeActionTypes.reloadEmployeesRequest())),
+      onError: this.exceptionHandler,
+    }),
   );
 
   // tslint:disable-next-line: typedef

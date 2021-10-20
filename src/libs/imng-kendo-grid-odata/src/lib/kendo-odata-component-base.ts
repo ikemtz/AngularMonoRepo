@@ -1,13 +1,17 @@
 import { Observable, isObservable } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
-import { OnInit, OnDestroy, Directive } from '@angular/core';
+import { OnInit, OnDestroy, InjectionToken, Inject, Directive } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-/** @dynamic */ @Directive()
-// eslint-disable-next-line @angular-eslint/directive-class-suffix
+
+const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>('imng-grid-odata-facade');
+const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
+
+@Directive()
+// eslint-disable-next-line @angular-eslint/component-class-suffix
 export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
   implements OnInit, OnDestroy, Subscribable
 {
@@ -27,10 +31,10 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   protected transformations: string;
 
   constructor(
-    public readonly facade: FACADE,
-    protected readonly state: ODataState | Observable<ODataState>,
+    @Inject(FACADE) public readonly facade: FACADE,
+    @Inject(STATE) public readonly state: ODataState | Observable<ODataState>,
     public readonly router: Router = null,
-    protected readonly gridRefresh$: Observable<unknown> = null,
+    public readonly gridRefresh$: Observable<unknown> = null,
   ) {
     this.loading$ = this.facade.loading$;
     this.gridDataResult$ = this.facade.gridData$;

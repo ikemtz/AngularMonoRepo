@@ -31,7 +31,7 @@ const buildingsReducer = createReducer(
     loading: true,
     error: null,
   })),
-  on(buildingActionTypes.loadBuildingsSuccess, (state, { payload }) => ({
+  on(buildingActionTypes.reloadBuildingsSuccess, buildingActionTypes.loadBuildingsSuccess, (state, { payload }) => ({
     ...state,
     loading: false,
     gridPagerSettings: getODataPagerSettings({
@@ -43,18 +43,16 @@ const buildingsReducer = createReducer(
   })),
 
   on(buildingActionTypes.setCurrentBuilding, (state, { payload }) => ({ ...state, currentBuilding: payload })),
-  on(buildingActionTypes.clearCurrentBuilding, state => ({ ...state, currentBuilding: null })),
+  on(buildingActionTypes.clearCurrentBuilding, (state) => ({ ...state, currentBuilding: null })),
   on(
     buildingActionTypes.saveBuildingRequest,
     buildingActionTypes.updateBuildingRequest,
     buildingActionTypes.deleteBuildingRequest,
-    state => ({
+    (state) => ({
       ...state,
       loading: true,
     }),
   ),
-
-
 );
 
 export function reducer(state: State | undefined, action: Action): State {

@@ -1,0 +1,30 @@
+{
+  "ComponentMethodsTypeAhead": {
+    "prefix": "imng-component-methods-type-ahead",
+    "body": [
+      "  public onTypeAheadSelected(match: ImngMatchSelectedEvent<I${1:__ENTITY_NAME__PASCAL_CASE__}>) {",
+      "  }",
+      "  public onTypeAheadCleared(noMatches: boolean) {",
+      "  }"
+    ],
+    "description": "ComponentMethodsTypeAhead"
+  },
+  "ServicesDataEntry": {
+    "prefix": "imng-services-data-entry",
+    "body": [
+      "import { HttpClient } from '@angular/common/http';",
+      "import { Injectable } from '@angular/core';",
+      "import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';",
+      "@Injectable({",
+      "  providedIn: 'root',",
+      "})",
+      "export class ${1:__ENTITY_NAME__PASCAL_CASE__}Service extends NrsrxBaseApiClientService<I${1:__ENTITY_NAME__PASCAL_CASE__}> {",
+      "  url: string = environment.endPoints.${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}s.${1:__ENTITY_NAME__PASCAL_CASE__};",
+      "  constructor(http: HttpClient) {",
+      "    super(http);",
+      "  }",
+      "}"
+    ],
+    "description": "ServicesDataEntry"
+  }
+}

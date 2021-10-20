@@ -31,30 +31,32 @@ const competenciesReducer = createReducer(
     loading: true,
     error: null,
   })),
-  on(competencyActionTypes.loadCompetenciesSuccess, (state, { payload }) => ({
-    ...state,
-    loading: false,
-    gridPagerSettings: getODataPagerSettings({
+  on(
+    competencyActionTypes.reloadCompetenciesSuccess,
+    competencyActionTypes.loadCompetenciesSuccess,
+    (state, { payload }) => ({
+      ...state,
+      loading: false,
+      gridPagerSettings: getODataPagerSettings({
+        gridData: payload,
+        gridODataState: state.gridODataState,
+      }),
       gridData: payload,
-      gridODataState: state.gridODataState,
+      error: null,
     }),
-    gridData: payload,
-    error: null,
-  })),
+  ),
 
   on(competencyActionTypes.setCurrentCompetency, (state, { payload }) => ({ ...state, currentCompetency: payload })),
-  on(competencyActionTypes.clearCurrentCompetency, state => ({ ...state, currentCompetency: null })),
+  on(competencyActionTypes.clearCurrentCompetency, (state) => ({ ...state, currentCompetency: null })),
   on(
     competencyActionTypes.saveCompetencyRequest,
     competencyActionTypes.updateCompetencyRequest,
     competencyActionTypes.deleteCompetencyRequest,
-    state => ({
+    (state) => ({
       ...state,
       loading: true,
     }),
   ),
-
-
 );
 
 export function reducer(state: State | undefined, action: Action): State {

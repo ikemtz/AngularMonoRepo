@@ -10,20 +10,17 @@
     "OData"
   ],
   "peerDependencies": {
-    "@angular/core": ">=11.x",
-    "@angular/common": ">=11.x",
-    "@angular/platform-browser": ">=11.x",
-    "@angular/router": ">=11.x",
-    "@ngrx/store": ">=9.x",
+    "@angular/core": ">=12.x",
+    "@angular/common": ">=12.x",
+    "@angular/platform-browser": ">=12.x",
+    "@angular/router": ">=12.x",
+    "@ngrx/store": ">=12.x",
     "@progress/kendo-angular-grid": ">=5.x",
     "@progress/kendo-data-query": ">=1.x",
     "imng-kendo-odata": "*",
     "imng-nrsrx-client-utils": "*",
     "rxjs": ">=6.x",
     "tslib": ">=2.x"
-  },
-  "dependencies": {
-    "@nrwl/angular": ">=12.x"
   },
   "devDependencies": {
     "@nrwl/angular": ">=12.x"

@@ -1,14 +1,10 @@
-import { Inject, Input, OnDestroy, InjectionToken } from '@angular/core';
+import { Directive, Inject, InjectionToken, Input, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
-const FACADE = new InjectionToken<{
-  loading$: Observable<boolean>;
-  clearCurrentEntity(): void;
-}>('facade');
-
+const FACADE = new InjectionToken<IBaseDataEntryFacade>('imng-data-entry-facade');
 
 /**
  * The extending class has to implement the following properties on ngInit
@@ -22,12 +18,10 @@ const FACADE = new InjectionToken<{
  *
  * @class BaseDataEntryComponent>
  */
+@Directive()
 export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade> implements OnDestroy, Subscribable {
   @Input() public width: string | number;
   @Input() public height: string | number;
-  protected get facade(): FACADE {
-    return this.injectedFacade;
-  }
 
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
@@ -47,9 +41,7 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
   public formControlErrors(controlName: string): ValidationErrors {
     return this.addEditForm.controls[controlName].errors;
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(@Inject(FACADE) private readonly injectedFacade: any) { //NOSONAR
+  constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
     this.initForm();
   }
@@ -80,7 +72,7 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
     this.closeForm();
   }
 
-  protected isDataInvalid(): boolean {
+  public isDataInvalid(): boolean {
     return this.addEditForm.invalid;
   }
 

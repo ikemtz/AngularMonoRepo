@@ -12,6 +12,7 @@ import { IBuilding } from '../../../models/units-odata';
 })
 export class BuildingAddComponent extends BuildingBaseEntryComponent {
   public dialogTitle = 'Add Building';
+
   public active$ = this.facade.isNewActive$;
 
   constructor(facade: BuildingCrudFacade) {

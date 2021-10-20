@@ -18,7 +18,7 @@ export class HealthItemEffects {
     private readonly odataservice: ODataService,
     private readonly dataPersistence: DataPersistence<fromHealthItemsReducer.HealthItemsPartialState>,
     private readonly healthItemApiService: HealthItemApiService,
-  ) { }
+  ) {}
 
   loadHealthItemsEffect$ = createEffect(() =>
     this.actions$.pipe(
@@ -27,49 +27,55 @@ export class HealthItemEffects {
         run: (action: ReturnType<typeof healthItemActionTypes.loadHealthItemsRequest>) =>
           this.odataservice
             .fetch<IHealthItem>(environment.endPoints.healthItems.healthItemsOData, action.payload)
-            .pipe(map(t => healthItemActionTypes.loadHealthItemsSuccess(t))),
+            .pipe(map((t) => healthItemActionTypes.loadHealthItemsSuccess(t))),
         onError: this.exceptionHandler,
       }),
     ),
   );
 
+  reloadHealthItemsEffect$ = createEffect(() =>
+    this.dataPersistence.fetch(healthItemActionTypes.reloadHealthItemsRequest, {
+      run: (
+        action: ReturnType<typeof healthItemActionTypes.reloadHealthItemsRequest>,
+        partialState: fromHealthItemsReducer.HealthItemsPartialState,
+      ) =>
+        this.odataservice
+          .fetch<IHealthItem>(
+            environment.endPoints.healthItems.healthItemsOData,
+            partialState[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState,
+            { bustCache: true },
+          )
+          .pipe(map((t) => healthItemActionTypes.loadHealthItemsSuccess(t))),
+      onError: this.exceptionHandler,
+    }),
+  );
+
   saveHealthItemEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(healthItemActionTypes.saveHealthItemRequest, {
-      run: (action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>,
-        state: fromHealthItemsReducer.HealthItemsPartialState) =>
-        this.healthItemApiService.post(action.payload).pipe(
-          map(() =>
-            healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
-          ),
-        ),
+      run: (action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>) =>
+        this.healthItemApiService
+          .post(action.payload)
+          .pipe(map(() => healthItemActionTypes.reloadHealthItemsRequest())),
       onError: this.exceptionHandler,
     }),
   );
 
   updateHealthItemEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(healthItemActionTypes.updateHealthItemRequest, {
-      run: (action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>,
-        state: fromHealthItemsReducer.HealthItemsPartialState) =>
-        this.healthItemApiService.put(action.payload).pipe(
-          map(() =>
-            healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
-          ),
-        ),
+      run: (action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>) =>
+        this.healthItemApiService.put(action.payload).pipe(map(() => healthItemActionTypes.reloadHealthItemsRequest())),
       onError: this.exceptionHandler,
-    })
+    }),
   );
 
   deleteHealthItemEffect$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(healthItemActionTypes.deleteHealthItemRequest, {
-      run: (action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>,
-        state: fromHealthItemsReducer.HealthItemsPartialState) =>
-        this.healthItemApiService.delete(action.payload).pipe(
-          map(() =>
-            healthItemActionTypes.loadHealthItemsRequest(state[fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY].gridODataState),
-          ),
-        ),
+      run: (action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>) =>
+        this.healthItemApiService
+          .delete(action.payload)
+          .pipe(map(() => healthItemActionTypes.reloadHealthItemsRequest())),
       onError: this.exceptionHandler,
-    })
+    }),
   );
 
   // tslint:disable-next-line: typedef

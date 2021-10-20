@@ -6,11 +6,11 @@ describe('HealthItemsModule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HealthItemsModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
-  it.skip('should create', () => {
+  it('should create', () => {
     expect(HealthItemsModule).toBeDefined();
     const module = new HealthItemsModule();
     expect(module).toBeTruthy();

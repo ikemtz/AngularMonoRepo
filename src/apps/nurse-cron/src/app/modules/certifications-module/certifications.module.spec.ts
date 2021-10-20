@@ -6,11 +6,11 @@ describe('CertificationsModule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [CertificationsModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
-  it.skip('should create', () => {
+  it('should create', () => {
     expect(CertificationsModule).toBeDefined();
     const module = new CertificationsModule();
     expect(module).toBeTruthy();

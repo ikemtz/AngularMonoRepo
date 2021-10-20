@@ -60,7 +60,7 @@
     "build:azc-prod": "nx build imng-az-func-configr --sourceMap=true --configuration=production",
     "build:ivtr": "nx build imng-inventory --sourceMap=true --statsJson",
     "build:ivtr-prod": "nx build imng-inventory --sourceMap=true --configuration=production",
-    "build:libs": "npm run build:nrsrx-utils && npm run build:odata && npm run build:ngrx-utils && npm run build:data-entry && npm run build:app-insight && npm run build:grid && npm run build:grid-odata && npm run build:type-ahead && npm run build:chart-odata && npm run build:signalr && npm run build:ngrx-idle && npm run build:theme-blue && npm run build:auth0-oidc",
+    "build:libs": "npm run build:nrsrx-utils && npm run build:odata && npm run build:ngrx-utils && npm run build:data-entry && npm run build:app-insight && npm run build:grid && npm run build:grid-odata && npm run build:type-ahead && npm run build:chart-odata && npm run build:signalr && npm run build:ngrx-idle && npm run build:theme-blue && npm run build:auth0-oidc && npm run build:grid-filt",
     "build:data-entry": "rm -dr ./dist/libs/imng-kendo-data-entry & nx build imng-kendo-data-entry --configuration=production --with-deps",
     "build:odata": "rm -dr ./dist/libs/imng-kendo-odata & nx build imng-kendo-odata --configuration=production --with-deps",
     "build:grid": "rm -dr ./dist/libs/imng-kendo-grid & nx build imng-kendo-grid --configuration=production --with-deps",

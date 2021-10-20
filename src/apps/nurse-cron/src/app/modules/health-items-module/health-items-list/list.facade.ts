@@ -16,7 +16,11 @@ export class HealthItemListFacade implements IKendoODataGridFacade<IHealthItem>,
   gridData$ = this.store.pipe(select(healthItemQueries.getHealthItems));
   gridPagerSettings$ = this.store.pipe(select(healthItemQueries.getPagerSettings));
 
-  constructor(private readonly store: Store<HealthItemsPartialState>) { }
+  constructor(private readonly store: Store<HealthItemsPartialState>) {}
+
+  reloadEntities(): void {
+    this.store.dispatch(healthItemActionTypes.reloadHealthItemsRequest());
+  }
 
   loadEntities(state: ODataState): void {
     this.store.dispatch(healthItemActionTypes.loadHealthItemsRequest(state));

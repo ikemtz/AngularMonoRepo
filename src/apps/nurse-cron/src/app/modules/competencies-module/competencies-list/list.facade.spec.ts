@@ -5,9 +5,9 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
-import { ODataState } from 'imng-kendo-odata';
+import { ODataService, ODataState } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '@env/nurse-cron';
 
 import { CompetencyEffects } from '../+state/competency.effects';
@@ -16,7 +16,7 @@ import {
   CompetenciesPartialState,
   initialState,
   reducer as competencyReducer,
-  COMPETENCIES_FEATURE_KEY
+  COMPETENCIES_FEATURE_KEY,
 } from '../+state/competency.reducer';
 import { CompetencyListFacade } from './list.facade';
 import { ICompetency, CompetencyProperties } from '../../../models/competencies-odata';
@@ -25,18 +25,17 @@ interface TestSchema {
   [COMPETENCIES_FEATURE_KEY]: CompetenciesPartialState;
 }
 
-export const createCompetency = () => <ICompetency>{
-  [CompetencyProperties.ID]: 'ID',
-  [CompetencyProperties.NAME]: 'NAME',
-  [CompetencyProperties.IS_ENABLED]: true,
-};
+export const createCompetency = () =>
+  <ICompetency>{
+    [CompetencyProperties.ID]: 'ID',
+    [CompetencyProperties.NAME]: 'NAME',
+    [CompetencyProperties.IS_ENABLED]: true,
+  };
 
 describe('CompetencyListFacade', () => {
   let facade: CompetencyListFacade;
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
-
-
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -45,11 +44,15 @@ describe('CompetencyListFacade', () => {
           StoreModule.forFeature(COMPETENCIES_FEATURE_KEY, competencyReducer, { initialState }),
           EffectsModule.forFeature([CompetencyEffects]),
         ],
-        providers: [CompetencyListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of({ value: [createCompetency()], '@odata.count': 1 })) } },
+        providers: [
+          CompetencyListFacade,
+          {
+            provide: HttpClient,
+            useValue: { get: jest.fn(() => of({ value: [createCompetency()], '@odata.count': 1 })) },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -59,7 +62,7 @@ describe('CompetencyListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -79,6 +82,26 @@ describe('CompetencyListFacade', () => {
       expect(list.data.length).toBe(1);
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith('competencies-odata/odata/v1/Competencies?&$count=true');
+    });
+
+    it('reloadEntities() should return empty list with loaded == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      let isloading = await readFirst(facade.loading$);
+
+      const service: { fetch: (endpoint, odataState) => Observable<unknown> } = TestBed.inject(ODataService);
+      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      service.fetch = jest.fn(() => response);
+
+      expect(list.data.length).toBe(0);
+      expect(isloading).toBe(false);
+      facade.reloadEntities();
+
+      list = await readFirst(facade.gridData$);
+      isloading = await readFirst(facade.loading$);
+
+      expect(list.data.length).toBe(3);
+      expect(isloading).toBe(false);
+      expect(service.fetch).toBeCalledTimes(1);
     });
 
     it('should get the grid state', async () => {
@@ -103,11 +126,12 @@ describe('CompetencyListFacade', () => {
     it('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
-      store.dispatch(competencyActionTypes.loadCompetenciesSuccess({ data: [createCompetency(), createCompetency()], total: 0 }));
+      store.dispatch(
+        competencyActionTypes.loadCompetenciesSuccess({ data: [createCompetency(), createCompetency()], total: 0 }),
+      );
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);
-
     });
 
     it('should handle DeleteItem', async () => {

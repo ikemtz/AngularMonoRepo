@@ -6,11 +6,11 @@ describe('UnitsModule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [UnitsModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
-  it.skip('should create', () => {
+  it('should create', () => {
     expect(UnitsModule).toBeDefined();
     const module = new UnitsModule();
     expect(module).toBeTruthy();
