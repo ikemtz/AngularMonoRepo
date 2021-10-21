@@ -38,6 +38,9 @@
     "prefix": "imng-ngrx-effects-exception-handler",
     "body": [
       "private exceptionHandler(action, error) {",
+      "  if (!environment.production) { ",
+      "    throw new Error(error); ",
+      "  }",
       "  console.error('Error', error);  // NOSONAR",
       "  return ${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${2:__NGRX_FEATURE_KEY__PASCAL_CASE__}sFailure({ error});",
       "}"

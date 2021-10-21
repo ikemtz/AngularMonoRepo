@@ -1,4 +1,6 @@
 name: 3.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+pool:
+  vmImage: ubuntu-latest
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm
 
