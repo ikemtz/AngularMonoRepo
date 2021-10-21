@@ -13,11 +13,10 @@ import * as fromEmployeesReducer from './+state/employee.reducer';
 import { EmployeeEffects } from './+state/employee.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 import { EmployeeListComponent, EmployeeListFacade } from './employees-list';
 import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, EmployeeCrudFacade } from './employees-crud';
 import { DataPersistence } from '@nrwl/angular';
-
+import { DialogModule } from '@progress/kendo-angular-dialog';
 
 @NgModule({
   declarations: [EmployeeListComponent, EmployeeAddComponent, EmployeeEditComponent],
@@ -25,6 +24,7 @@ import { DataPersistence } from '@nrwl/angular';
     CommonModule,
     GridModule,
     ExcelModule,
+    DialogModule,
     PDFModule,
     ImngKendoGridODataModule,
     ImngKendoGridFilteringModule,
@@ -35,6 +35,6 @@ import { DataPersistence } from '@nrwl/angular';
     StoreModule.forFeature(fromEmployeesReducer.EMPLOYEES_FEATURE_KEY, fromEmployeesReducer.reducer),
     EffectsModule.forFeature([EmployeeEffects]),
   ],
-  providers: [EmployeeApiService, EmployeeListFacade, EmployeeCrudFacade, DataPersistence]
+  providers: [EmployeeApiService, EmployeeListFacade, EmployeeCrudFacade, DataPersistence],
 })
-export class EmployeesModule { }
+export class EmployeesModule {}

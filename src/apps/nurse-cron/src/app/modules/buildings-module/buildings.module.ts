@@ -12,10 +12,9 @@ import * as fromBuildingsReducer from './+state/building.reducer';
 import { BuildingEffects } from './+state/building.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 import { BuildingListComponent, BuildingListFacade } from './buildings-list';
 import { BuildingAddComponent, BuildingEditComponent, BuildingApiService, BuildingCrudFacade } from './buildings-crud';
-
+import { DataPersistence } from '@nrwl/angular';
 
 @NgModule({
   declarations: [BuildingListComponent, BuildingAddComponent, BuildingEditComponent],
@@ -32,6 +31,6 @@ import { BuildingAddComponent, BuildingEditComponent, BuildingApiService, Buildi
     StoreModule.forFeature(fromBuildingsReducer.BUILDINGS_FEATURE_KEY, fromBuildingsReducer.reducer),
     EffectsModule.forFeature([BuildingEffects]),
   ],
-  providers: [BuildingApiService, BuildingListFacade, BuildingCrudFacade]
+  providers: [BuildingApiService, BuildingListFacade, BuildingCrudFacade, DataPersistence],
 })
-export class BuildingsModule { }
+export class BuildingsModule {}

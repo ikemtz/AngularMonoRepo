@@ -12,10 +12,9 @@ import * as fromUnitsReducer from './+state/unit.reducer';
 import { UnitEffects } from './+state/unit.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 import { UnitListComponent, UnitListFacade } from './units-list';
 import { UnitAddComponent, UnitEditComponent, UnitApiService, UnitCrudFacade } from './units-crud';
-
+import { DataPersistence } from '@nrwl/angular';
 
 @NgModule({
   declarations: [UnitListComponent, UnitAddComponent, UnitEditComponent],
@@ -32,6 +31,6 @@ import { UnitAddComponent, UnitEditComponent, UnitApiService, UnitCrudFacade } f
     StoreModule.forFeature(fromUnitsReducer.UNITS_FEATURE_KEY, fromUnitsReducer.reducer),
     EffectsModule.forFeature([UnitEffects]),
   ],
-  providers: [UnitApiService, UnitListFacade, UnitCrudFacade]
+  providers: [UnitApiService, UnitListFacade, UnitCrudFacade, DataPersistence],
 })
-export class UnitsModule { }
+export class UnitsModule {}
