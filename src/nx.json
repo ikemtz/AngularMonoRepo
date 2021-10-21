@@ -18,81 +18,29 @@
       }
     }
   },
-  "projects": {
-    "adventure-works": {
-      "tags": []
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
     },
-    "adventure-works-e2e": {
-      "tags": [],
-      "implicitDependencies": ["adventure-works"]
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "f4c251a3-a9e0-433e-b1f3-2c10661975ea"
+  },
+  "defaultProject": "nurse-cron",
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     },
-    "imng-angular-core": {
-      "tags": ["core"]
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
     },
-    "imng-application-insights-ngrx": {
-      "tags": []
-    },
-    "imng-auth0-oidc": {
-      "tags": []
-    },
-    "imng-az-func-configr": {
-      "tags": []
-    },
-    "imng-az-func-configr-e2e": {
-      "tags": [],
-      "implicitDependencies": ["imng-az-func-configr"]
-    },
-    "imng-inventory": {
-      "tags": []
-    },
-    "imng-inventory-e2e": {
-      "tags": [],
-      "implicitDependencies": ["imng-inventory"]
-    },
-    "imng-kendo-chart-odata": {
-      "tags": [],
-      "implicitDependencies": ["imng-kendo-odata"]
-    },
-    "imng-kendo-data-entry": {
-      "tags": []
-    },
-    "imng-kendo-grid": {
-      "tags": []
-    },
-    "imng-kendo-grid-filtering": {
-      "tags": []
-    },
-    "imng-kendo-grid-odata": {
-      "tags": []
-    },
-    "imng-kendo-odata": {
-      "tags": []
-    },
-    "imng-ngrx-idle": {
-      "tags": []
-    },
-    "imng-ngrx-utils": {
-      "tags": []
-    },
-    "imng-ngxb-typeahead": {
-      "tags": []
-    },
-    "imng-nrsrx-client-utils": {
-      "tags": []
-    },
-    "imng-signalr-ngrx": {
-      "tags": [],
-      "implicitDependencies": ["imng-ngrx-utils"]
-    },
-    "imng-snippets": {
-      "tags": []
-    },
-    "nurse-cron": {
-      "tags": []
-    },
-    "nurse-cron-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nurse-cron"]
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
   }
 }
