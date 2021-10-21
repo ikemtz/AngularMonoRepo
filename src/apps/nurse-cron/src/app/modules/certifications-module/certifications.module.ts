@@ -12,15 +12,14 @@ import * as fromCertificationsReducer from './+state/certification.reducer';
 import { CertificationEffects } from './+state/certification.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 import { CertificationListComponent, CertificationListFacade } from './certifications-list';
 import {
   CertificationAddComponent,
   CertificationEditComponent,
   CertificationApiService,
-  CertificationCrudFacade
+  CertificationCrudFacade,
 } from './certifications-crud';
-
+import { DataPersistence } from '@nrwl/angular';
 
 @NgModule({
   declarations: [CertificationListComponent, CertificationAddComponent, CertificationEditComponent],
@@ -37,6 +36,6 @@ import {
     StoreModule.forFeature(fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY, fromCertificationsReducer.reducer),
     EffectsModule.forFeature([CertificationEffects]),
   ],
-  providers: [CertificationApiService, CertificationListFacade, CertificationCrudFacade]
+  providers: [CertificationApiService, CertificationListFacade, CertificationCrudFacade, DataPersistence],
 })
-export class CertificationsModule { }
+export class CertificationsModule {}

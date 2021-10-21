@@ -12,10 +12,14 @@ import * as fromCompetenciesReducer from './+state/competency.reducer';
 import { CompetencyEffects } from './+state/competency.effects';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 import { CompetencyListComponent, CompetencyListFacade } from './competencies-list';
-import { CompetencyAddComponent, CompetencyEditComponent, CompetencyApiService, CompetencyCrudFacade } from './competencies-crud';
-
+import {
+  CompetencyAddComponent,
+  CompetencyEditComponent,
+  CompetencyApiService,
+  CompetencyCrudFacade,
+} from './competencies-crud';
+import { DataPersistence } from '@nrwl/angular';
 
 @NgModule({
   declarations: [CompetencyListComponent, CompetencyAddComponent, CompetencyEditComponent],
@@ -32,6 +36,6 @@ import { CompetencyAddComponent, CompetencyEditComponent, CompetencyApiService, 
     StoreModule.forFeature(fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY, fromCompetenciesReducer.reducer),
     EffectsModule.forFeature([CompetencyEffects]),
   ],
-  providers: [CompetencyApiService, CompetencyListFacade, CompetencyCrudFacade]
+  providers: [CompetencyApiService, CompetencyListFacade, CompetencyCrudFacade, DataPersistence],
 })
-export class CompetenciesModule { }
+export class CompetenciesModule {}
