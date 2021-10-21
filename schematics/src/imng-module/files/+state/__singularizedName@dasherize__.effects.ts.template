@@ -74,6 +74,9 @@ export class <%= classify(singularizedName) %>Effects {
 <% } %>
 
   private exceptionHandler(_action: unknown, error: unknown) {
+    if (!environment.production) {
+      throw new Error(error);
+    }
     console.error('Error', error); // NOSONAR
     return <%= camelize(singularizedName) %>ActionTypes.<%= camelize(pluralizedName) %>Failure({ error });
   }
