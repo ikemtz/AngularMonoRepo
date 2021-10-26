@@ -18,9 +18,9 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   public readonly allSubscriptions = new Subscriptions();
   public gridStateQueryKey = 'odataState';
   public gridDataState: ODataState;
-  public readonly gridDataResult$: Observable<ODataResult<ENTITY>>;
-  public readonly loading$: Observable<boolean>;
-  public readonly gridPagerSettings$: Observable<false | PagerSettings>;
+  public gridDataResult$: Observable<ODataResult<ENTITY>>;
+  public loading$: Observable<boolean>;
+  public gridPagerSettings$: Observable<false | PagerSettings>;
   /**
    * A properties enum to make kendo grid columns definitions type safe
    * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
