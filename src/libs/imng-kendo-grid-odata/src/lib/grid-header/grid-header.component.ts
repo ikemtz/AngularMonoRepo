@@ -28,7 +28,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     <button type="button" title="Export To Excel" kendoGridExcelCommand icon="file-excel" class="mx-1">
       Export To Excel
     </button>
-    <kendo-grid-column-chooser [allowHideAll]="true" [autoSync]="true" class="mr-5 pr-5"></kendo-grid-column-chooser>
+    <kendo-grid-column-chooser
+      *ngIf="hideColumnChooser !== true"
+      [allowHideAll]="true"
+      [autoSync]="true"
+      class="mr-5 pr-5"
+    ></kendo-grid-column-chooser>
   </div> `,
   styles: [
     `
@@ -52,6 +57,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ImngGridHeaderComponent {
   @Input()
   public entityName: string;
+  @Input()
+  public hideColumnChooser: boolean;
   @Output()
   public addItemClicked = new EventEmitter();
   @Output()
