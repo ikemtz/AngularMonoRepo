@@ -84,7 +84,10 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   public normalizeFilters(filter: FilterDescriptor | CompositeFilterDescriptor) {
     if (isCompositeFilterDescriptor(filter)) {
       this.normalizeFilters(filter);
-    } else if ((filter?.field as string)?.toUpperCase().endsWith('DATE')) {
+    } else if (
+      (filter?.field as string)?.toUpperCase().endsWith('DATE') ||
+      (filter?.field as string)?.toUpperCase().endsWith('UTC')
+    ) {
       filter.value = new Date(filter.value);
     }
   }
