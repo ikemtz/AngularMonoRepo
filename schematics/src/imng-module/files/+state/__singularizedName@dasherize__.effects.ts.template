@@ -75,8 +75,9 @@ export class <%= classify(singularizedName) %>Effects {
 
   private exceptionHandler(_action: unknown, error: unknown) {
     if (!environment.production) {
-      throw new Error(error);
+      throw new Error(error as string);
     }
+    //eslint-disable-next-line no-console
     console.error('Error', error); // NOSONAR
     return <%= camelize(singularizedName) %>ActionTypes.<%= camelize(pluralizedName) %>Failure({ error });
   }
