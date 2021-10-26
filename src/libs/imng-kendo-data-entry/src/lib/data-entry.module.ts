@@ -1,12 +1,12 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
 import { DialogButtonsDirective } from './dialog-buttons.directive';
+import { DialogModule } from '@progress/kendo-angular-dialog';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, DialogModule],
   declarations: [DataEntryDialogComponent, DialogButtonsDirective],
   exports: [DataEntryDialogComponent, DialogButtonsDirective],
-  schemas: [NO_ERRORS_SCHEMA],
 })
 export class ImngDataEntryDialogModule {}
