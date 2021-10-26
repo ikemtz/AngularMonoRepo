@@ -5,9 +5,9 @@ import { NxModule, DataPersistence } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { ODataState, createODataPayload, createODataResult } from 'imng-kendo-odata';
+import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '@env';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
