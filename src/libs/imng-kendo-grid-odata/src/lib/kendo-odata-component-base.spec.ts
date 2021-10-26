@@ -4,6 +4,7 @@ import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { ODataGridMockFacade, createODataGridMockFacade } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { ODataResultEmpty, ODataState } from 'imng-kendo-odata';
+import * as exp from 'constants';
 
 describe('KendoODataComponentBase', () => {
   let component: KendoODataGridTestComponent;
@@ -43,6 +44,21 @@ describe('KendoODataComponentBase', () => {
   it('should reload', async () => {
     component.reloadEntities();
     expect(component.facade.reloadEntities).toBeCalledTimes(1);
+  });
+
+  it('should serialize/deserialize odataState filters correctly', () => {
+    const tempDate = new Date();
+    const serializedResult = component.serializeODataState({
+      filter: { logic: 'and', filters: [{ field: 'xyzDate', operator: 'eq', value: tempDate }] },
+    });
+    const deserializedResult: any = component.deserializeODataState(serializedResult);
+    expect(tempDate).toEqual(deserializedResult.filter.filters[0].value);
+  });
+
+  it('should serialize/deserialize odataState correctly', () => {
+    const serializedResult = component.serializeODataState({});
+    const deserializedResult = component.deserializeODataState(serializedResult);
+    expect(deserializedResult).toStrictEqual({});
   });
 });
 
