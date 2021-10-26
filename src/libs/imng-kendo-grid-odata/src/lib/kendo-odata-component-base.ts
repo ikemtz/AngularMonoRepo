@@ -1,11 +1,12 @@
 import { Observable, isObservable } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy, InjectionToken, Inject, Directive } from '@angular/core';
-import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
+import { ODataState, ODataResult, Expander, isCompositeChildFilterDescriptor } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
+import { CompositeFilterDescriptor, FilterDescriptor, isCompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>('imng-grid-odata-facade');
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
@@ -41,8 +42,8 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
     if (this.router?.routerState?.snapshot?.root.queryParams[this.gridStateQueryKey]) {
       try {
-        this.gridDataState = JSON.parse(
-          atob(this.router?.routerState?.snapshot?.root?.queryParams[this.gridStateQueryKey]),
+        this.gridDataState = this.deserializeODataState(
+          this.router?.routerState?.snapshot?.root?.queryParams[this.gridStateQueryKey],
         );
       } catch (e) {
         console.error(`Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`);
@@ -72,6 +73,24 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     if (!this.gridRefresh$) {
       this.loadEntities(this.gridDataState);
     }
+  }
+
+  public deserializeODataState(stateQueryParam: string): ODataState {
+    const state: ODataState = JSON.parse(atob(stateQueryParam));
+    state.filter?.filters?.forEach((filter) => this.normalizeFilters(filter));
+    return state;
+  }
+
+  public normalizeFilters(filter: FilterDescriptor | CompositeFilterDescriptor) {
+    if (isCompositeFilterDescriptor(filter)) {
+      this.normalizeFilters(filter);
+    } else if ((filter?.field as string)?.toUpperCase().endsWith('DATE')) {
+      filter.value = new Date(filter.value);
+    }
+  }
+
+  public serializeODataState(odataState: ODataState): string {
+    return btoa(JSON.stringify(odataState));
   }
 
   public ngOnDestroy(): void {
@@ -110,7 +129,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
       this.router.navigate([], {
         relativeTo: this.router.routerState.root,
         queryParams: {
-          [this.gridStateQueryKey]: btoa(JSON.stringify(tempState)),
+          [this.gridStateQueryKey]: this.serializeODataState(tempState),
         },
         skipLocationChange: false,
         queryParamsHandling: 'merge',
