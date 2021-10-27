@@ -66,7 +66,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
     /**
      * The initially generated facade::loadEntities() returns an array of (1)
      */
-    it('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
+    test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
       facade.loadEntities({});
@@ -82,7 +82,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       expect(httpClient.get).toBeCalledTimes(2);
     });
 
-    it('reloadEntities() should return empty list with loaded == true', async () => {
+    test('reloadEntities() should return empty list with loaded == true', async () => {
       let list = await readFirst(facade.gridData$);
       let isloading = await readFirst(facade.loading$);
 
@@ -102,7 +102,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       expect(service.fetch).toBeCalledTimes(1);
     });
 
-    it('should get the grid state', async () => {
+    test('it should get the grid state', async () => {
       const filteringState: ODataState = {
         filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
       };
@@ -121,7 +121,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
     /**
      * Use `<%= camelize(pluralizedName) %>Loaded` to manually submit list for state management
      */
-    it('gridData$ should return the loaded list; and loaded flag == true', async () => { 
+    test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
       store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(createODataResult([create<%= classify(name) %>(), create<%= classify(name) %>()])));
@@ -130,7 +130,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       expect(list.data.length).toBe(2);
     });
 
-    it('should handle DeleteItem', async () => {
+    test('it should handle DeleteItem', async () => {
       await testDeleteCurrentEntity(facade, httpClient);
     });
   });

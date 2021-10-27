@@ -28,11 +28,11 @@ describe('<%= classify(name) %>AddComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should save', () => {
+  test('should save', () => {
     component.initForm();
     component.addEditForm.patchValue({
 <% swaggerProperties.forEach(function(swaggerProperty)
@@ -55,14 +55,14 @@ describe('<%= classify(name) %>AddComponent', () => {
 <% } %>
   });
 
-  it('should not save', () => {
+  test('should not save', () => {
     component.addEditForm = { valid: false } as never;
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
   });
 
-  it('should cancel', () => {
+  test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);

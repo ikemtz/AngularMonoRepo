@@ -37,36 +37,36 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
     crudFacade = TestBed.inject(<%= classify(singularizedName) %>CrudFacade);
   });
 
-  it('should create', () => {
+  test('it should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle DetailExpanded', () => {
+  test('it should handle DetailExpanded', () => {
     const grid = fixture.debugElement.query(By.directive(GridComponent));
     const item = create<%= classify(name) %>();
     grid.triggerEventHandler('detailExpand', { dataItem: item } as DetailExpandEvent);
     expect(component.currentItem).toEqual(item);
   });
 
-  it('should handle reload', () => {
+  test('it should handle reload', () => {
     component.reloadEntities();
     expect(listFacade.reloadEntities).toBeCalledTimes(1); 
   });
 
-  it('should handle AddItem', () => {
+  test('it should handle AddItem', () => {
     component.addItem();
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith({});
   });
   
-  it('should handle EditItem', () => {
+  test('it should handle EditItem', () => {
     const item = create<%= classify(singularizedName) %>();
     component.editItem(item);
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
   });
 
-  it('should handle DeleteItem', () => {
+  test('it should handle DeleteItem', () => {
     const item = create<%= classify(singularizedName) %>();
     component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
