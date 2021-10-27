@@ -1,5 +1,8 @@
 import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from 'imng-ngrx-utils/testing';
@@ -9,7 +12,7 @@ import { classify } from '@angular-devkit/core/src/utils/strings';
 const collectionPath = path.join(__dirname, `../collection.json`);
 
 describe(`imng-crud`, () => {
-  it(`works`, async () => {
+  test(`generation works`, async () => {
     const runner = new SchematicTestRunner(`schematics`, collectionPath);
     const options: IOptions = {
       name: `certification`,
@@ -18,9 +21,11 @@ describe(`imng-crud`, () => {
       path: `./test`,
       swaggerProperties: [],
       storeName: `certifications`,
-      appPrefix: `nrcrn`
+      appPrefix: `nrcrn`,
     };
-    const tree: UnitTestTree = await readFirst(runner.runSchematicAsync(`imng-crud`, options, Tree.empty()));
+    const tree: UnitTestTree = await readFirst(
+      runner.runSchematicAsync(`imng-crud`, options, Tree.empty())
+    );
 
     expect(tree.files).toEqual([
       `/test/${pluralize(options.name)}-crud/add-edit.component.html`,
@@ -36,29 +41,46 @@ describe(`imng-crud`, () => {
       `/test/${pluralize(options.name)}-crud/index.ts`,
     ]);
 
-    const htmlFile = tree.get(`/test/${pluralize(options.name)}-crud/add-edit.component.html`);
+    const htmlFile = tree.get(
+      `/test/${pluralize(options.name)}-crud/add-edit.component.html`
+    );
     let content = htmlFile?.content.toString();
     expect(content).toContain(`[formControlName]="props.IS_ENABLED"`);
 
-    const addComponent = tree.get(`/test/${pluralize(options.name)}-crud/add.component.ts`);
+    const addComponent = tree.get(
+      `/test/${pluralize(options.name)}-crud/add.component.ts`
+    );
     content = addComponent?.content.toString();
     expect(content).toContain(`'${options.appPrefix}-${options.name}-add'`);
 
-    const addComponentSpecFile = tree.get(`/test/${pluralize(options.name)}-crud/add.component.spec.ts`);
+    const addComponentSpecFile = tree.get(
+      `/test/${pluralize(options.name)}-crud/add.component.spec.ts`
+    );
     content = addComponentSpecFile?.content.toString();
-    expect(content).toContain(`[${classify(options.name)}Properties.IS_ENABLED]: true,`);
+    expect(content).toContain(
+      `[${classify(options.name)}Properties.IS_ENABLED]: true,`
+    );
 
-    const facadeSpecFile = tree.get(`/test/${pluralize(options.name)}-crud/crud.facade.spec.ts`);
+    const facadeSpecFile = tree.get(
+      `/test/${pluralize(options.name)}-crud/crud.facade.spec.ts`
+    );
     content = facadeSpecFile?.content.toString();
-    expect(content).toContain(`[${classify(options.name)}Properties.IS_ENABLED]: true,`);
+    expect(content).toContain(
+      `[${classify(options.name)}Properties.IS_ENABLED]: true,`
+    );
 
-    const editComponent = tree.get(`/test/${pluralize(options.name)}-crud/edit.component.ts`);
+    const editComponent = tree.get(
+      `/test/${pluralize(options.name)}-crud/edit.component.ts`
+    );
     content = editComponent?.content.toString();
     expect(content).toContain(`'${options.appPrefix}-${options.name}-edit'`);
 
-    const editComponentSpecFile = tree.get(`/test/${pluralize(options.name)}-crud/edit.component.spec.ts`);
+    const editComponentSpecFile = tree.get(
+      `/test/${pluralize(options.name)}-crud/edit.component.spec.ts`
+    );
     content = editComponentSpecFile?.content.toString();
-    expect(content).toContain(`[${classify(options.name)}Properties.IS_ENABLED]: true,`);
-
+    expect(content).toContain(
+      `[${classify(options.name)}Properties.IS_ENABLED]: true,`
+    );
   });
 });

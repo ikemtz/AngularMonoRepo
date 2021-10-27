@@ -1,5 +1,8 @@
 import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from 'imng-ngrx-utils/testing';
@@ -9,17 +12,20 @@ import * as pluralize from 'pluralize';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 describe('imng-list', () => {
-  it('works', async () => {
+  test('generation works', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const options: IOptions = {
       name: 'employee',
-      openApiJsonUrl: 'https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
+      openApiJsonUrl:
+        'https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
       path: './test',
       swaggerProperties: [],
       storeName: 'employees',
-      appPrefix: 'nrcrn'
+      appPrefix: 'nrcrn',
     };
-    const tree: UnitTestTree = await readFirst(runner.runSchematicAsync('imng-list', options, Tree.empty()));
+    const tree: UnitTestTree = await readFirst(
+      runner.runSchematicAsync('imng-list', options, Tree.empty())
+    );
 
     expect(tree.files).toEqual([
       `/test/${pluralize(options.name)}-list/index.ts`,
@@ -31,21 +37,32 @@ describe('imng-list', () => {
       `/test/${pluralize(options.name)}-list/list.facade.ts`,
     ]);
 
-    const htmlFile = tree.get(`/test/${pluralize(options.name)}-list/list.component.html`);
+    const htmlFile = tree.get(
+      `/test/${pluralize(options.name)}-list/list.component.html`
+    );
     let content = htmlFile?.content.toString();
     expect(content).toContain('[field]="props.ADDRESS_LINE_1"');
     expect(content).toContain(`<${options.appPrefix}-${options.name}-add `);
     expect(content).toContain(`<${options.appPrefix}-${options.name}-edit `);
 
-    const componentFile = tree.get(`/test/${pluralize(options.name)}-list/list.component.ts`);
+    const componentFile = tree.get(
+      `/test/${pluralize(options.name)}-list/list.component.ts`
+    );
     content = componentFile?.content.toString();
-    expect(content).toContain(`${classify(options.name)}Properties.ADDRESS_LINE_1,`);
+    expect(content).toContain(
+      `${classify(options.name)}Properties.ADDRESS_LINE_1,`
+    );
     expect(content).toContain(`'${options.appPrefix}-${options.name}-list'`);
 
-    const facadeSpecFile = tree.get(`/test/${pluralize(options.name)}-list/list.facade.spec.ts`);
+    const facadeSpecFile = tree.get(
+      `/test/${pluralize(options.name)}-list/list.facade.spec.ts`
+    );
     content = facadeSpecFile?.content.toString();
-    expect(content).toContain(`[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`);
-    expect(content).toContain(`[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`);
-
+    expect(content).toContain(
+      `[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`
+    );
+    expect(content).toContain(
+      `[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`
+    );
   });
 });
