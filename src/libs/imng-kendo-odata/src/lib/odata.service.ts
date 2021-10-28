@@ -83,10 +83,8 @@ export class ODataService {
   }
   private processExpanders(state: ODataState, queryString: string): string {
     if (state.expanders && state.expanders.length > 0) {
-      queryString += `&$expand=`;
-      state.expanders.forEach((element) => (queryString += this.getExpansionString(element)));
-      //Removes trailing comma
-      queryString = queryString.replace(/,$/, '');
+      const expansionStrings = state.expanders.map((element) => this.getExpansionString(element));
+      queryString += `&$expand=${expansionStrings.join(',')}`;
     }
     return queryString;
   }
@@ -112,12 +110,12 @@ export class ODataService {
       if (element.expander && !isExpander(element.expander)) {
         result += `$expand=${element.expander};`;
       } else if (isExpander(element.expander)) {
-        result += `$expand=${this.getExpansionString(element.expander).slice(0, -1)}`;
+        result += `$expand=${this.getExpansionString(element.expander)}`;
       }
       result += ')';
       result = result.replace(/\(\)/, '').replace(/;\)/, ')');
     }
-    return `${result},`;
+    return result;
   }
 
   private processInFilter(state: ODataState, queryString: string): string {
