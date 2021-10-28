@@ -533,7 +533,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
     );
   });
 
@@ -553,7 +553,7 @@ describe('ODataService', () => {
         ],
       },
     ] as CompositeFilterDescriptor[];
-    const expectedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
+    const expectedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
     const gridState: ODataState = {
       expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
       selectors: ['id', 'name'],
@@ -567,7 +567,6 @@ describe('ODataService', () => {
       }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
-    console.log(requestUrl);
     expect(requestUrl.startsWith(expectedUrlStart)).toBe(true);
   });
   it('should support byPrimaryKey operations', async () => {

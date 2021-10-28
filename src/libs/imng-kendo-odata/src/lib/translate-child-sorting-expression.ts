@@ -1,6 +1,7 @@
 import { SortDescriptor } from '@progress/kendo-data-query';
 import { BoundChildTableProperty } from './fetch-options';
 import { Expander, isExpander, ODataState } from './odata-state';
+import { distinct } from 'imng-nrsrx-client-utils';
 
 export function translateChildSortingExpression(
   odataState: ODataState,
@@ -9,7 +10,7 @@ export function translateChildSortingExpression(
   if (!childTableProperties || childTableProperties.length === 0) {
     return odataState;
   }
-  const childTableStrings: string[] = childTableProperties.map((x) => x.table).distinct();
+  const childTableStrings: string[] = distinct(childTableProperties.map((x) => x.table));
   const childTablePropertyStrings: string[] = childTableProperties.map((x) => `${x.table}.${x.field}`);
   const filterPredicate = (x: SortDescriptor) => childTablePropertyStrings.indexOf(x.field) > -1;
   const sortedColumns = odataState.sort
@@ -20,10 +21,16 @@ export function translateChildSortingExpression(
     const expanders = odataState.expanders
       .filter(isExpander)
       .filter((t: Expander) => childTableStrings.indexOf(t.table) > -1)
-      .map((t) => ({ ...t, sort: t.sort || [] }));
-    sortedColumns.forEach((x) =>
-      expanders.find((e) => e.table === x.childProperty[0]).sort.push({ field: x.childProperty[1], dir: x.dir }),
-    );
+      .map((t) => {
+        t.sort = (t.sort || []).filter(
+          (f) => !sortedColumns.find((s) => t.table === s.childProperty[0] && f.field === s.childProperty[1]),
+        );
+        return t;
+      });
+    sortedColumns.forEach((x) => {
+      const expander = expanders.find((e) => e.table === x.childProperty[0]);
+      expander.sort.push({ field: x.childProperty[1], dir: x.dir });
+    });
   }
   return odataState;
 }
