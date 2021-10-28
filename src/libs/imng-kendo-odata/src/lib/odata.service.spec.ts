@@ -158,12 +158,18 @@ describe('ODataService', () => {
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
 
-  it('should support multi-level expands', async () => {
+  it('should support multi-level string expands', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {
       selectors: ['id', 'name'],
       expanders: [
-        { tableName: 'parentTable', expander: 'grandParentTable', filter: `id eq '😉'`, selectors: ['id', 'field2'] },
+        {
+          tableName: 'parentTable',
+          expander: 'grandParentTable',
+          filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
+          selectors: ['id', 'field2'],
+          sort: [{ field: 'xyz', dir: 'desc' }],
+        },
       ],
       filter: {
         logic: 'and',
@@ -179,7 +185,39 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$expand=grandParentTable;$filter=id eq '😉')&$select=id,name&$count=true`,
+      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=id eq 'abc';$expand=grandParentTable)&$select=id,name&$count=true`,
+    );
+    expect(result).toMatchSnapshot(jestPropertyMatcher);
+  });
+
+  it('should support multi-level expanders', async () => {
+    httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+    const gridState: ODataState = {
+      selectors: ['id', 'name'],
+      expanders: [
+        {
+          tableName: 'parentTable',
+          expander: { tableName: 'grandParentTable', sort: [{ field: 'def', dir: 'asc' }] },
+          filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
+          selectors: ['id', 'field2'],
+          sort: [{ field: 'xyz', dir: 'desc' }],
+        },
+      ],
+      filter: {
+        logic: 'and',
+        filters: [
+          { field: 'fieldName', value: 'xyz', operator: 'eq' },
+          { field: 'fieldName2', value: 'xyz', operator: 'contains' },
+        ],
+      },
+    };
+    const result = await readFirst(
+      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+    );
+    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toBeCalledWith(
+      // eslint-disable-next-line max-len
+      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=id eq 'abc';$expand=grandParentTable($orderby=def))&$select=id,name&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
