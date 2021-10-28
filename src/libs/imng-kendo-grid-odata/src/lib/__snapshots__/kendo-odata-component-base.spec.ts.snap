@@ -2,6 +2,7 @@
 
 exports[`KendoODataComponentBase should reset 1`] = `
 Object {
+  "childFilters": undefined,
   "filter": Object {
     "filters": Array [
       Object {
@@ -12,6 +13,7 @@ Object {
     ],
     "logic": "and",
   },
+  "inFilters": undefined,
   "selectors": Array [
     "x",
     "y",
