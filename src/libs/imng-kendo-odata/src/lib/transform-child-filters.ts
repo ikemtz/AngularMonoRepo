@@ -5,6 +5,8 @@ import {
   isCompositeChildFilterDescriptor,
   ODataState,
 } from './odata-state';
+import { serializeFilters } from '@progress/kendo-data-query/dist/npm/filter-serialization.common';
+import { toODataString } from '@progress/kendo-data-query';
 
 export const stringFilterOperators: string[] = [
   `startswith`,
@@ -58,12 +60,10 @@ export function transformChildFilter(childFilter: ChildFilterDescriptor): string
   let filteringString: string;
   if (-1 < stringFilterOperators.findIndex((x) => x === childFilter.operator) && !isaNumber(childFilter.value)) {
     filteringString = `${childFilter.operator}(o/${childFilter.field}, '${childFilter.value}')`;
-  } else if (isaNumber(childFilter.value)) {
-    filteringString = `o/${childFilter.field} ${childFilter.operator} ${childFilter.value}`;
-  } else if (isaDate(childFilter.value)) {
-    filteringString = `o/${childFilter.field} ${childFilter.operator} ${(childFilter.value as Date).toISOString()}`;
   } else {
-    filteringString = `o/${childFilter.field} ${childFilter.operator} '${childFilter.value}'`;
+    filteringString = `o/${toODataString({
+      filter: { logic: 'and', filters: [childFilter] },
+    }).slice('$filter='.length)}`;
   }
   return `${childFilter.childTableNavigationProperty}/${childFilter.linqOperation}` + `(o: ${filteringString})`;
 }

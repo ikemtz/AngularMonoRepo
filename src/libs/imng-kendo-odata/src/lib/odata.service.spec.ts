@@ -279,7 +279,7 @@ describe('ODataService', () => {
         filters: [
           {
             field: 'name',
-            value: '😎🐱‍👤',
+            value: 'xy',
             linqOperation: 'any',
             childTableNavigationProperty: 'childTable1',
             operator: 'eq',
@@ -294,7 +294,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=childTable1/any(o: o/name eq '😎🐱‍👤')&$count=true`,
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=childTable1/any(o: o/name eq 'xy')&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -308,14 +308,14 @@ describe('ODataService', () => {
         filters: [
           {
             field: 'name2',
-            value: '🐱',
+            value: 'abc',
             linqOperation: 'any',
             childTableNavigationProperty: 'childTable4',
             operator: 'eq',
           },
           {
             field: 'name',
-            value: '😎🐱‍👤',
+            value: 'def',
             linqOperation: 'any',
             childTableNavigationProperty: 'childTable1',
             operator: 'eq',
@@ -330,7 +330,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(childTable4/any(o: o/name2 eq '🐱') or childTable1/any(o: o/name eq '😎🐱‍👤'))&$count=true`,
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(childTable4/any(o: o/name2 eq 'abc') or childTable1/any(o: o/name eq 'def'))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
