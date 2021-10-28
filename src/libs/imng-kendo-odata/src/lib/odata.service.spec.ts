@@ -33,7 +33,7 @@ describe('ODataService', () => {
           values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7', 1],
         },
       ],
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
@@ -60,7 +60,7 @@ describe('ODataService', () => {
           values: ['xyz', 1, new Date(2021, 11, 30, 0, 0, 0, 0)],
         },
       ],
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const expectedRequestedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('xyz',1,2021-12-30T`;
     const result = await readFirst(
@@ -76,7 +76,7 @@ describe('ODataService', () => {
     const gridState: ODataState = {
       selectors: ['id', 'name'],
       inFilters: [{ field: 'field1', values: [1, 2, 6, 4] }],
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
@@ -100,7 +100,7 @@ describe('ODataService', () => {
           values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
         },
       ],
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
       filter: {
         logic: 'and',
         filters: [
@@ -131,7 +131,7 @@ describe('ODataService', () => {
           values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
         },
       ],
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
       filter: {
         logic: 'and',
         filters: [
@@ -163,7 +163,7 @@ describe('ODataService', () => {
         },
         { field: 'field2', logic: 'or', values: ['a', 'b', 't', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'] },
       ],
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
       filter: {
         logic: 'and',
         filters: [
@@ -189,7 +189,7 @@ describe('ODataService', () => {
       selectors: ['id', 'name'],
       expanders: [
         {
-          tableName: 'parentTable',
+          table: 'parentTable',
           expander: 'grandParentTable',
           filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
           selectors: ['id', 'field2'],
@@ -221,8 +221,8 @@ describe('ODataService', () => {
       selectors: ['id', 'name'],
       expanders: [
         {
-          tableName: 'parentTable',
-          expander: { tableName: 'grandParentTable', sort: [{ field: 'def', dir: 'asc' }] },
+          table: 'parentTable',
+          expander: { table: 'grandParentTable', sort: [{ field: 'def', dir: 'asc' }] },
           filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
           selectors: ['id', 'field2'],
           sort: [{ field: 'xyz', dir: 'desc' }],
@@ -251,7 +251,7 @@ describe('ODataService', () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {
       selectors: ['id', 'name'],
-      expanders: [{ tableName: 'parentTable' }],
+      expanders: [{ table: 'parentTable' }],
       filter: {
         logic: 'and',
         filters: [
@@ -286,7 +286,7 @@ describe('ODataService', () => {
           },
         ],
       },
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
@@ -322,7 +322,7 @@ describe('ODataService', () => {
           },
         ],
       },
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
@@ -521,15 +521,19 @@ describe('ODataService', () => {
       },
     ] as CompositeFilterDescriptor[];
     const gridState: ODataState = {
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
       selectors: ['id', 'name'],
       sort: [{ field: 'a.b', dir: 'asc' }],
       filter: { logic: 'or', filters: compositeFilter },
     };
-    await readFirst(service.fetch('//idunno.com', gridState, { boundChildTableProperties: ['a.b'] }));
+    await readFirst(
+      service.fetch('//idunno.com', gridState, {
+        boundChildTableProperties: [{ table: 'a', field: 'b' }],
+      }),
+    );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
     );
   });
 
@@ -549,22 +553,27 @@ describe('ODataService', () => {
         ],
       },
     ] as CompositeFilterDescriptor[];
-    const expectedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
+    const expectedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
     const gridState: ODataState = {
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
       selectors: ['id', 'name'],
       sort: [{ field: 'a.b', dir: 'asc' }],
       filter: { logic: 'or', filters: compositeFilter },
       count: false,
     };
-    await readFirst(service.fetch('//idunno.com', gridState, { boundChildTableProperties: ['a.b'] }));
+    await readFirst(
+      service.fetch('//idunno.com', gridState, {
+        boundChildTableProperties: [{ table: 'a', field: 'b' }],
+      }),
+    );
     expect(httpClient.get).toBeCalledTimes(1);
+    console.log(requestUrl);
     expect(requestUrl.startsWith(expectedUrlStart)).toBe(true);
   });
   it('should support byPrimaryKey operations', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {
-      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
       selectors: ['id', 'name'],
       inFilters: [
         {

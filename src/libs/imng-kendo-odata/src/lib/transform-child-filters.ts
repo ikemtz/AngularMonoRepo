@@ -1,13 +1,12 @@
-import { isaDate, isaNumber } from 'imng-nrsrx-client-utils';
+import { isaNumber } from 'imng-nrsrx-client-utils';
 import {
   ChildFilterDescriptor,
   CompositeChildFilterDescriptor,
   isCompositeChildFilterDescriptor,
   ODataState,
 } from './odata-state';
-import { serializeFilters } from '@progress/kendo-data-query/dist/npm/filter-serialization.common';
 import { toODataString } from '@progress/kendo-data-query';
-
+export const filterQueryStringParamLen = 8; //"$filter="
 export const stringFilterOperators: string[] = [
   `startswith`,
   `endswith`,
@@ -63,7 +62,7 @@ export function transformChildFilter(childFilter: ChildFilterDescriptor): string
   } else {
     filteringString = `o/${toODataString({
       filter: { logic: 'and', filters: [childFilter] },
-    }).slice('$filter='.length)}`;
+    }).slice(filterQueryStringParamLen)}`;
   }
   return `${childFilter.childTableNavigationProperty}/${childFilter.linqOperation}` + `(o: ${filteringString})`;
 }
