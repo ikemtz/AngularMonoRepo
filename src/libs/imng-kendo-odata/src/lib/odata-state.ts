@@ -27,14 +27,14 @@ export interface ChildFilterDescriptor extends FilterDescriptor {
 }
 
 export interface Expander {
-  tableName: string;
+  table: string;
   selectors?: string[];
   expander?: string | Expander;
   filter?: CompositeFilterDescriptor;
   sort?: Array<SortDescriptor>;
 }
 export function isExpander(source: string | Expander): source is Expander {
-  return !!(source as Expander)?.tableName;
+  return !!(source as Expander)?.table;
 }
 
 export function isCompositeChildFilterDescriptor(

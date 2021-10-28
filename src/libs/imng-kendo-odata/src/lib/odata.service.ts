@@ -9,6 +9,7 @@ import { isaDate, isaNumber } from 'imng-nrsrx-client-utils';
 import { FetchOptions } from './fetch-options';
 import { translateChildFilterExpression } from './translate-child-filter-expression';
 import { processChildFilterDescriptors } from './transform-child-filters';
+import { translateChildSortingExpression } from './translate-child-sorting-expression';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class ODataService {
   public fetch<T>(odataEndpoint: string, state: ODataState, options: FetchOptions = {}): Observable<ODataResult<T>> {
     let tempState = { ...state };
     options.boundChildTableProperties?.forEach((prop) => (tempState = translateChildFilterExpression(tempState, prop)));
+    tempState = translateChildSortingExpression(tempState, options.boundChildTableProperties);
     const countClause = tempState.count === false ? '' : '&$count=true';
     const cacheBustClause =
       options.bustCache === true ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}` : '';
@@ -96,7 +98,7 @@ export class ODataService {
     if (typeof element === 'string') {
       result += element;
     } else {
-      result += `${element.tableName}(`;
+      result += `${element.table}(`;
       if (element.selectors && element.selectors.length > 0) {
         result += `$select=${element.selectors.join()};`;
       }
