@@ -1,4 +1,4 @@
-import { State, FilterDescriptor, CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { State, FilterDescriptor, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 
 export interface ODataState extends State {
   expanders?: Array<Expander | string>;
@@ -29,10 +29,16 @@ export interface ChildFilterDescriptor extends FilterDescriptor {
 export interface Expander {
   tableName: string;
   selectors?: string[];
-  expander?: string;
-  filter?: string;
+  expander?: string | Expander;
+  filter?: CompositeFilterDescriptor;
+  sort?: Array<SortDescriptor>;
+}
+export function isExpander(source: string | Expander): source is Expander {
+  return !!(source as Expander)?.tableName;
 }
 
-export function isCompositeChildFilterDescriptor(source: CompositeChildFilterDescriptor | ChildFilterDescriptor): source is CompositeChildFilterDescriptor {
-  return !!(source as CompositeChildFilterDescriptor).filters;
+export function isCompositeChildFilterDescriptor(
+  source: CompositeChildFilterDescriptor | ChildFilterDescriptor,
+): source is CompositeChildFilterDescriptor {
+  return !!(source as CompositeChildFilterDescriptor)?.filters;
 }

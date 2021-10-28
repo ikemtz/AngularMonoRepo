@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { toODataString } from '@progress/kendo-data-query';
+import { State, toODataString } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Expander, ODataState } from './odata-state';
+import { Expander, isExpander, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
 import { isaNumber } from 'imng-nrsrx-client-utils';
@@ -83,10 +83,8 @@ export class ODataService {
   }
   private processExpanders(state: ODataState, queryString: string): string {
     if (state.expanders && state.expanders.length > 0) {
-      queryString += `&$expand=`;
-      state.expanders.forEach((element) => (queryString += this.getExpansionString(element)));
-      //Removes trailing comma
-      queryString = queryString.replace(/,$/, '');
+      const expansionStrings = state.expanders.map((element) => this.getExpansionString(element));
+      queryString += `&$expand=${expansionStrings.join(',')}`;
     }
     return queryString;
   }
@@ -102,16 +100,22 @@ export class ODataService {
       if (element.selectors && element.selectors.length > 0) {
         result += `$select=${element.selectors.join()};`;
       }
-      if (element.expander) {
-        result += `$expand=${element.expander};`;
+      if (element.filter || element.sort) {
+        const state: State = {
+          sort: element.sort,
+          filter: element.filter,
+        };
+        result += `${toODataString(state).replace('&', ';')};`;
       }
-      if (element.filter) {
-        result += `$filter=${element.filter};`;
+      if (element.expander && !isExpander(element.expander)) {
+        result += `$expand=${element.expander};`;
+      } else if (isExpander(element.expander)) {
+        result += `$expand=${this.getExpansionString(element.expander)}`;
       }
       result += ')';
       result = result.replace(/\(\)/, '').replace(/;\)/, ')');
     }
-    return `${result},`;
+    return result;
   }
 
   private processInFilter(state: ODataState, queryString: string): string {
