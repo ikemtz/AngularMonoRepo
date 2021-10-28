@@ -6,3 +6,4 @@ export * from './lib/kendo-odata.module';
 export * from './lib/odata-rxjs-operators';
 export * from './lib/fetch-options';
 export * from './lib/translate-child-filter-expression';
+export * from './lib/translate-child-sorting-expression';
