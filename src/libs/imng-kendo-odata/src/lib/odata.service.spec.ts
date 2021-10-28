@@ -30,7 +30,7 @@ describe('ODataService', () => {
       inFilters: [
         {
           field: 'field1',
-          values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
+          values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7', 1],
         },
       ],
       expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
@@ -41,8 +41,33 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7))&$count=true`,
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7,1))&$count=true`,
     );
+    expect(result).toMatchSnapshot(jestPropertyMatcher);
+  });
+
+  it('should support infilter operations with Dates', async () => {
+    let requestedUrl: string;
+    httpClient.get = jest.fn((x) => {
+      requestedUrl = x;
+      return of(mockDataFactory());
+    }) as never;
+    const gridState: ODataState = {
+      selectors: ['id', 'name'],
+      inFilters: [
+        {
+          field: 'field1',
+          values: ['xyz', 1, new Date(2021, 11, 30, 0, 0, 0, 0)],
+        },
+      ],
+      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+    };
+    const expectedRequestedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('xyz',1,2021-12-30T`;
+    const result = await readFirst(
+      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+    );
+    expect(httpClient.get).toBeCalledTimes(1);
+    expect(requestedUrl.startsWith(expectedRequestedUrlStart)).toBe(true);
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
 
@@ -487,7 +512,13 @@ describe('ODataService', () => {
   it('should support child table filtering', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const compositeFilter = [
-      { logic: 'and', filters: [{ field: 'a.b', operator: 'eq', value: '123' }] },
+      {
+        logic: 'and',
+        filters: [
+          { field: 'a.b', operator: 'eq', value: '123' },
+          { field: 'a.d', operator: 'eq', value: 123 },
+        ],
+      },
     ] as CompositeFilterDescriptor[];
     const gridState: ODataState = {
       expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
@@ -498,10 +529,38 @@ describe('ODataService', () => {
     await readFirst(service.fetch('//idunno.com', gridState, { boundChildTableProperties: ['a.b'] }));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=a/any(o: o/b eq '123')&$count=true`,
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
     );
   });
 
+  it('should support child table date filtering', async () => {
+    let requestUrl: string;
+    httpClient.get = jest.fn((x) => {
+      requestUrl = x;
+      return of(mockDataFactory());
+    }) as never;
+    const compositeFilter = [
+      {
+        logic: 'and',
+        filters: [
+          { field: 'a.b', operator: 'eq', value: '123' },
+          { field: 'a.d', operator: 'eq', value: 123 },
+          { field: 'a.d', operator: 'eq', value: new Date(2021, 11, 30, 0, 0, 0, 0) },
+        ],
+      },
+    ] as CompositeFilterDescriptor[];
+    const expectedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
+    const gridState: ODataState = {
+      expanders: ['childTable2', { tableName: 'childTable1', selectors: ['id', 'name'] }],
+      selectors: ['id', 'name'],
+      sort: [{ field: 'a.b', dir: 'asc' }],
+      filter: { logic: 'or', filters: compositeFilter },
+      count: false,
+    };
+    await readFirst(service.fetch('//idunno.com', gridState, { boundChildTableProperties: ['a.b'] }));
+    expect(httpClient.get).toBeCalledTimes(1);
+    expect(requestUrl.startsWith(expectedUrlStart)).toBe(true);
+  });
   it('should support byPrimaryKey operations', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {

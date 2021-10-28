@@ -1,7 +1,7 @@
 import { Observable, isObservable } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { OnInit, OnDestroy, InjectionToken, Inject, Directive } from '@angular/core';
-import { ODataState, ODataResult, Expander, isCompositeChildFilterDescriptor } from 'imng-kendo-odata';
+import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';

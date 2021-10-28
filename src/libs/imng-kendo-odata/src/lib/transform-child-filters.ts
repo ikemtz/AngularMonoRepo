@@ -1,4 +1,4 @@
-import { isaNumber } from 'imng-nrsrx-client-utils';
+import { isaDate, isaNumber } from 'imng-nrsrx-client-utils';
 import {
   ChildFilterDescriptor,
   CompositeChildFilterDescriptor,
@@ -58,10 +58,12 @@ export function transformChildFilter(childFilter: ChildFilterDescriptor): string
   let filteringString: string;
   if (-1 < stringFilterOperators.findIndex((x) => x === childFilter.operator) && !isaNumber(childFilter.value)) {
     filteringString = `${childFilter.operator}(o/${childFilter.field}, '${childFilter.value}')`;
-  } else if (!isaNumber(childFilter.value)) {
-    filteringString = `o/${childFilter.field} ${childFilter.operator} '${childFilter.value}'`;
-  } else {
+  } else if (isaNumber(childFilter.value)) {
     filteringString = `o/${childFilter.field} ${childFilter.operator} ${childFilter.value}`;
+  } else if (isaDate(childFilter.value)) {
+    filteringString = `o/${childFilter.field} ${childFilter.operator} ${(childFilter.value as Date).toISOString()}`;
+  } else {
+    filteringString = `o/${childFilter.field} ${childFilter.operator} '${childFilter.value}'`;
   }
   return `${childFilter.childTableNavigationProperty}/${childFilter.linqOperation}` + `(o: ${filteringString})`;
 }
