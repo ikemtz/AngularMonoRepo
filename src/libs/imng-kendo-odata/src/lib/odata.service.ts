@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Expander, isExpander, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
-import { isaNumber } from 'imng-nrsrx-client-utils';
+import { isaDate, isaNumber } from 'imng-nrsrx-client-utils';
 import { FetchOptions } from './fetch-options';
 import { translateChildFilterExpression } from './translate-child-filter-expression';
 import { processChildFilterDescriptors } from './transform-child-filters';
@@ -124,7 +124,9 @@ export class ODataService {
     }
     state.inFilters.forEach((inFilter) => {
       const deDupedVals = Array.from(new Set(inFilter.values.filter((f) => f)));
-      const inVals = deDupedVals.map((m) => (isaNumber(m) ? `${m}` : `'${m}'`)).join(',');
+      const inVals = deDupedVals
+        .map((m) => (isaNumber(m) ? `${m}` : isaDate(m) ? `${(m as Date).toISOString()}` : `'${m}'`))
+        .join(',');
       const inFilterString = `(${inFilter.field} in (${inVals}))`;
       if (!queryString || queryString.trim().length === 0) {
         queryString = `$filter=${inFilterString}`;

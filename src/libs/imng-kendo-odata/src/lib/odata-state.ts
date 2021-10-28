@@ -13,7 +13,7 @@ export interface InFilter {
   /** This value will default to 'and' in cases where there are additional filters specified. */
   logic?: 'or' | 'and';
   field: string;
-  values: (string | number)[];
+  values: (string | number | Date)[];
 }
 
 export interface CompositeChildFilterDescriptor extends CompositeFilterDescriptor {

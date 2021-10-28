@@ -306,6 +306,47 @@ Object {
 }
 `;
 
+exports[`ODataService should support infilter operations with Dates 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "addressLine1": "123 Main St",
+      "birthDate": Any<Date>,
+      "city": "Anywhere",
+      "email": "some_email@domain.com",
+      "firstName": "Sam",
+      "hireDate": Any<Date>,
+      "homePhone": "",
+      "id": "537c0e1c-221f-4756-9869-2bf71abadd47",
+      "isEnabled": true,
+      "lastName": "Goody",
+      "mobilePhone": "123-123-1342",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7_Fo1olCl-psLUoEqePbtx_PA__E3hOWHHk1w7UIuk8WojzVG&usqp=CAU",
+      "state": "NY",
+      "zip": "11111",
+    },
+    Object {
+      "addressLine1": "yyyyyy",
+      "birthDate": Any<Date>,
+      "city": "Orlando",
+      "email": "@ikemtz",
+      "fireDate": Any<Date>,
+      "firstName": "Isaac2",
+      "hireDate": Any<Date>,
+      "homePhone": "",
+      "id": "493afc39-ee35-4247-a80a-845b16ee75cb",
+      "isEnabled": true,
+      "lastName": "Martinez",
+      "mobilePhone": "704-123-1234",
+      "photo": "https://lh3.googleusercontent.com/a-/xtyz",
+      "state": "FL",
+      "zip": "32829",
+    },
+  ],
+  "total": 2,
+}
+`;
+
 exports[`ODataService should support infilter with ANDS 1`] = `
 Object {
   "data": Array [
