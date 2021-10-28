@@ -104,7 +104,12 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
    */
   public resetFilters(): void {
     if (!isObservable(this.state)) {
-      this.gridDataState = { ...this.gridDataState, filter: this.state.filter };
+      this.gridDataState = {
+        ...this.gridDataState,
+        filter: this.state.filter,
+        inFilters: this.state.inFilters,
+        childFilters: this.state.childFilters,
+      };
       this.loadEntities(this.gridDataState);
     }
   }
