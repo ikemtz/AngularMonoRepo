@@ -2,6 +2,7 @@
 
 exports[`KendoODataComponentBaseRouted should reset 1`] = `
 Object {
+  "childFilters": undefined,
   "expanders": undefined,
   "filter": Object {
     "filters": Array [
@@ -13,6 +14,7 @@ Object {
     ],
     "logic": "and",
   },
+  "inFilters": undefined,
   "selectors": Array [
     "x",
     "y",
