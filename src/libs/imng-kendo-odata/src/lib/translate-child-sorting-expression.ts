@@ -18,10 +18,11 @@ export function translateChildSortingExpression(
     .map((m) => ({ ...m, childProperty: m.field.split('.') }));
   if (sortedColumns?.length > 0) {
     odataState.sort = odataState.sort?.filter((x) => !filterPredicate(x));
+
+    odataState.expanders = odataState.expanders.map((m) => (isExpander(m) ? { ...m } : m));
     const expanders = odataState.expanders
-      .filter(isExpander)
       .filter((t: Expander) => childTableStrings.indexOf(t.table) > -1)
-      .map((t) => {
+      .map((t: Expander) => {
         t.sort = (t.sort || []).filter(
           (f) => !sortedColumns.find((s) => t.table === s.childProperty[0] && f.field === s.childProperty[1]),
         );
