@@ -28,6 +28,10 @@ describe('<%= classify(name) %>AddComponent', () => {
     fixture.detectChanges();
   });
 
+  afterAll(() => {
+    component.ngOnDestroy();
+  });
+
   test('should create', () => {
     expect(component).toBeTruthy();
   });

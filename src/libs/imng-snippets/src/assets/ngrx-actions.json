@@ -12,7 +12,9 @@
   },
   "NgRxActionsFailure": {
     "prefix": "imng-ngrx-actions-failure",
-    "body": ["export const load${1:__NGRX_FEATURE_KEY__TITLE_CASE__}sFailure = createPayloadAction<{ error: any }>(", "  '[${1:__NGRX_FEATURE_KEY__TITLE_CASE__}s] Load ${1:__NGRX_FEATURE_KEY__TITLE_CASE__}s Failure');"],
+    "body": [
+      "export const load${1:__NGRX_FEATURE_KEY__TITLE_CASE__}sFailure = createPayloadAction<{ error: unknown }>(",
+      "  '[${1:__NGRX_FEATURE_KEY__TITLE_CASE__}s] Load ${1:__NGRX_FEATURE_KEY__TITLE_CASE__}s Failure');"],
     "description": "Create Exception Hanlder for Effects"
   },
   "NgRxActionsLoadOData": {

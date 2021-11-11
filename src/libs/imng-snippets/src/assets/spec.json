@@ -64,6 +64,15 @@
     ],
     "description": "SpecNgRxFacadeUpdateEntities"
   },
+    "SpecComponentAfterAll": {
+    "prefix": "imng-spec-component-after-all",
+    "body": [
+      "  afterAll(() => {",
+      "    component.ngOnDestroy();",
+      "  });"
+    ],
+    "description": "Spec afterAll() method for angular component"
+  },
   "SpecNgRxFacadeTypeAhead": {
     "prefix": "imng-spec-ngrx-facade-type-ahead",
     "body": [
