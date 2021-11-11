@@ -37,6 +37,10 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
     crudFacade = TestBed.inject(<%= classify(singularizedName) %>CrudFacade);
   });
 
+  afterAll(() => {
+    component.ngOnDestroy();
+  });
+
   test('it should create', () => {
     expect(component).toBeTruthy();
   });
