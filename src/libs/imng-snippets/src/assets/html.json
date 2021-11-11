@@ -67,6 +67,7 @@
 			"  (addItemClicked)=\"addItem()\"",
 			"  (reloadEntitiesClicked)=\"reloadEntities()\"",
 			"  (clearFiltersClicked)=\"resetFilters()\">",
+			"  [hasHiddenColumns$]=\"hasHiddenColumns$\"",
 			"</imng-kendo-odata-grid-header>"
   	],
   	"description": "Generates a kendo grid header with a set of common IMNG functions"

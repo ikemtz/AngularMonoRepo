@@ -2,7 +2,8 @@
 import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-import { filter } from 'rxjs/operators';
+import { merge, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
@@ -18,6 +19,10 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
   constructor(public readonly gridComponent: GridComponent, public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    this.odataComponent.hasHiddenColumns$ = merge(
+      of(this.gridComponent.columns.some((s) => s.hidden)),
+      this.gridComponent.columnVisibilityChange.pipe(map(() => this.gridComponent.columns.some((s) => s.hidden))),
+    );
     this.facade = this.odataComponent.facade;
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
