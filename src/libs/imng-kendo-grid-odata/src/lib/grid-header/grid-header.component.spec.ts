@@ -28,14 +28,14 @@ describe('ImngGridHeaderComponent', () => {
     component.hasHiddenColumns$ = of(true);
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toContain('"text-primary mr-5 pr-5"');
+    expect(element.innerHTML).toContain('"text-primary mr-2 pr-2"');
   });
 
   it('should support hiddenColumns = false', () => {
     component.hasHiddenColumns$ = of(false);
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toContain('"mr-5 pr-5"');
+    expect(element.innerHTML).toContain('"mr-2 pr-2"');
   });
 
   it('should support hideReloadData = true', () => {

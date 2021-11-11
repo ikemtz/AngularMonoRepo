@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { ODataGridMockFacade, createODataGridMockFacade } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { ODataResultEmpty, ODataState } from 'imng-kendo-odata';
-import * as exp from 'constants';
+import { FilterDescriptor } from '@progress/kendo-data-query';
+import { ODataState } from 'imng-kendo-odata';
 
 describe('KendoODataComponentBase', () => {
   let component: KendoODataGridTestComponent;
@@ -29,7 +29,7 @@ describe('KendoODataComponentBase', () => {
 
   it('should export to Excel', async () => {
     const data = await readFirst(component.excelData());
-    expect(data).toStrictEqual(ODataResultEmpty);
+    expect(data).toStrictEqual({ data: [{ id: 'apples' }], total: 0 });
   });
 
   it('should reset', async () => {
@@ -51,8 +51,8 @@ describe('KendoODataComponentBase', () => {
     const serializedResult = component.serializeODataState({
       filter: { logic: 'and', filters: [{ field: 'xyzDate', operator: 'eq', value: tempDate }] },
     });
-    const deserializedResult: any = component.deserializeODataState(serializedResult);
-    expect(tempDate).toEqual(deserializedResult.filter.filters[0].value);
+    const deserializedResult = component.deserializeODataState(serializedResult);
+    expect(tempDate).toEqual((deserializedResult.filter.filters[0] as FilterDescriptor).value);
   });
 
   it('should serialize/deserialize odataState correctly', () => {

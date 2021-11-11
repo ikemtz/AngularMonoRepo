@@ -20,8 +20,8 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
 
   ngOnInit(): void {
     this.odataComponent.hasHiddenColumns$ = merge(
-      of(this.gridComponent.columns.some((s) => s.hidden)),
-      this.gridComponent.columnVisibilityChange.pipe(map(() => this.gridComponent.columns.some((s) => s.hidden))),
+      of(this.gridComponent.columns?.some((s) => s.hidden)),
+      this.gridComponent.columnVisibilityChange?.pipe(map(() => this.gridComponent.columns.some((s) => s.hidden))),
     );
     this.facade = this.odataComponent.facade;
     this.gridComponent.reorderable = true;
