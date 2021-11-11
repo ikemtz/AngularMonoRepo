@@ -17,6 +17,10 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   implements OnInit, OnDestroy, Subscribable
 {
   public readonly allSubscriptions = new Subscriptions();
+  /**
+   * This will allow you to provide a visual indicator that some of the columns have been hidden.
+   */
+  public hasHiddenColumns$: Observable<boolean>;
   public gridStateQueryKey = 'odataState';
   public gridDataState: ODataState;
   public gridDataResult$: Observable<ODataResult<ENTITY>>;

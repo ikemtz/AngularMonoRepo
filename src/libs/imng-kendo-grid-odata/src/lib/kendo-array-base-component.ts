@@ -2,14 +2,17 @@ import { DataStateChangeEvent, SortSettings, PageChangeEvent } from '@progress/k
 import { Input, ChangeDetectorRef, OnDestroy, Component } from '@angular/core';
 import { process, State, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
 import { ODataResult } from 'imng-kendo-odata';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 @Component({ template: '' })
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> implements OnDestroy, Subscribable {
   public readonly allSubscriptions = new Subscriptions();
-
+  /**
+   * This will allow you to provide a visual indicator that some of the columns have been hidden.
+   */
+  public hasHiddenColumns$: Observable<boolean>;
   @Input() public item?: PARENT_ENTITY;
 
   private _detail: LISTED_ENTITY[];

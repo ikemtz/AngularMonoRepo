@@ -3,13 +3,13 @@ import { PagerSettings } from '@progress/kendo-angular-grid';
 import { ODataState, ODataResult } from 'imng-kendo-odata';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 
-export class ODataGridMockFacade implements IKendoODataGridFacade<object> {
+export class ODataGridMockFacade implements IKendoODataGridFacade<{ id: string }> {
   public loading$: Observable<boolean> = of(false);
   public gridODataState$: Observable<ODataState> = of({});
-  public gridData$: Observable<ODataResult<object>> = of({ data: [], total: 0 });
+  public gridData$: Observable<ODataResult<{ id: string }>> = of({ data: [{ id: 'apples' }], total: 0 });
   public gridPagerSettings$: Observable<false | PagerSettings> = of({});
-  public loadEntities = jest.fn((state: ODataState) => { });
-  public reloadEntities = jest.fn(() => { });
+  public loadEntities = jest.fn();
+  public reloadEntities = jest.fn();
 }
 
 export function createODataGridMockFacade(mockFacade?: ODataGridMockFacade | any): ODataGridMockFacade {
@@ -20,7 +20,7 @@ export function createODataGridMockFacade(mockFacade?: ODataGridMockFacade | any
   mockFacade.loading$ = mockFacade.loading$ || localFacade.loading$;
   mockFacade.gridODataState$ = mockFacade.gridODataState$ || localFacade.gridODataState$;
   mockFacade.gridPagerSettings$ = mockFacade.gridPagerSettings$ || localFacade.gridPagerSettings$;
-  mockFacade.loadEntities = mockFacade.loadEntities || jest.fn((x) => { });
-  mockFacade.reloadEntities = mockFacade.reloadEntities || jest.fn((x) => { });
+  mockFacade.loadEntities = mockFacade.loadEntities || jest.fn((x) => {});
+  mockFacade.reloadEntities = mockFacade.reloadEntities || jest.fn((x) => {});
   return mockFacade;
 }
