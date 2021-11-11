@@ -93,7 +93,7 @@ const initialGridState: ODataState = {
 };
 @Component({
   selector: 'imng-test-component',
-  template: '<h1>{{ hasHiddenColumns$ | async}}</h1>',
+  template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class KendoODataGridTestComponent extends KendoODataComponentBase<object, ODataGridMockFacade> {
