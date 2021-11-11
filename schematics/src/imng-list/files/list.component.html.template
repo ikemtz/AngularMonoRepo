@@ -6,7 +6,8 @@
         entityName="<%= classify(name) %>"
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
-        (clearFiltersClicked)="resetFilters()">
+        (clearFiltersClicked)="resetFilters()"
+        [hasHiddenColumns$]="hasHiddenColumns$">
       </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
