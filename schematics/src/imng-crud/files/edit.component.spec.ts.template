@@ -35,6 +35,10 @@ describe('<%= classify(name) %>EditComponent', () => {
     fixture.detectChanges();
   });
 
+  afterAll(() => {
+    component.ngOnDestroy();
+  });
+
   test('should update', () => {
     component.initForm();
     component.addEditForm.patchValue({
