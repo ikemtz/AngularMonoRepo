@@ -3,10 +3,10 @@
     "nrwl.angular-console",
     "angular.ng-template",
     "esbenp.prettier-vscode",
-    "msjsdiag.debugger-for-chrome",
     "ms-azuretools.vscode-docker",
     "visualstudioexptteam.vscodeintellicode",
     "firsttris.vscode-jest-runner",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "ikemtz.imng-snippets"
   ]
 }
