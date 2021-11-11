@@ -91,7 +91,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       service.fetch = jest.fn(() => response);
 
       expect(list.data.length).toBe(0);
-      expect(isloading).toBe(false);
+      expect(isloading).toBe(true);
       facade.reloadEntities();
 
       list = await readFirst(facade.gridData$);

@@ -7,7 +7,6 @@ import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
-const template = '<kendo-grid [imngArrayGrid]="this"><kendo-grid-column field="id"></kendo-grid-column></kendo-grid>';
 describe('KendoArrayBaseComponent', () => {
   let component: KendoArrayGridTestComponent;
   let fixture: ComponentFixture<KendoArrayGridTestComponent>;
@@ -96,7 +95,10 @@ describe('KendoArrayBaseComponent', () => {
 
 @Component({
   selector: 'imng-test-component',
-  template: template,
+  template: ` <kendo-grid [imngArrayGrid]="this">
+      <kendo-grid-column field="id"></kendo-grid-column>
+    </kendo-grid>
+    {{ hasHiddenColumns$ | async }}`,
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class KendoArrayGridTestComponent extends KendoArrayBasedComponent<object, object> implements Subscribable {
