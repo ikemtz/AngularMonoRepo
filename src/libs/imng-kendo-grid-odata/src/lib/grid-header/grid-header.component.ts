@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'imng-kendo-odata-grid-header',
-  template: `<div>
+  template: `<div class="mr-5 pr-5">
     <button
       *ngIf="entityName"
       type="button"
@@ -38,11 +38,11 @@ import { Observable } from 'rxjs';
     </button>
     <kendo-grid-column-chooser
       *ngIf="hideColumnChooser !== true"
+      title="Columns"
       [allowHideAll]="true"
       [autoSync]="true"
       [ngClass]="{
-        'text-primary': (hasHiddenColumns$ | async),
-        'mr-2 pr-2': true
+        'text-primary': (hasHiddenColumns$ | async)
       }"
     ></kendo-grid-column-chooser>
   </div> `,
@@ -54,13 +54,16 @@ import { Observable } from 'rxjs';
         background-color: #f5f5f5;
         border-color: rgba(0, 0, 0, 0.08);
       }
-
       .btn-primary {
         background-color: #007bff;
       }
-
       .k-icon {
         padding-bottom: 3px;
+      }
+      .k-bare {
+        border-color: rgba(0, 0, 0, 0.08) !important;
+        background-color: #f5f5f5 !important;
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.02)) !important;
       }
     `,
   ],
