@@ -10,5 +10,5 @@ export function toShortDateString(dt: Date): string {
   const locale =
     navigator.language || (navigator.languages && navigator.languages.length > 0) ? navigator.languages[0] : 'en-US';
 
-  return dt.toLocaleDateString(locale, shortDateOptions);
+  return dt?.toLocaleDateString(locale, shortDateOptions);
 }
