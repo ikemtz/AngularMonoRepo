@@ -6,6 +6,9 @@ describe('toShortDateString', () => {
     const dt = new Date('1/1/2020');
     expect(toShortDateString(dt)).toBe('01/01/2020');
   });
+  it('to handle undefined', () => {
+    expect(toShortDateString(undefined)).toBe(undefined);
+  });
 });
 
 describe('weekOfYear', () => {
