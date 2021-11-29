@@ -4,8 +4,7 @@ import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
 import { KendoArrayBasedComponent } from './kendo-array-base-component';
 import { CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
-import { merge, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { hasHiddenColumns } from './kendo-odata-grid.directive';
 
 @Directive({
   selector: '[imngArrayGrid]',
@@ -18,10 +17,6 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
   constructor(public readonly gridComponent: GridComponent) {}
 
   ngOnInit(): void {
-    this.arrayComponent.hasHiddenColumns$ = merge(
-      of(this.gridComponent.columns.some((s) => s.hidden)),
-      this.gridComponent.columnVisibilityChange.pipe(map(() => this.gridComponent.columns.some((s) => s.hidden))),
-    );
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
     this.gridComponent.filterable = 'menu';
@@ -64,6 +59,9 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
     this.gridComponent.skip = this.arrayComponent.state.skip;
     this.gridComponent.sort = this.arrayComponent.state.sort;
     this.gridComponent.data = this.arrayComponent.gridData;
+    this.arrayComponent.hasHiddenColumns$ = this.gridComponent.columnVisibilityChange.pipe(
+      hasHiddenColumns(this.gridComponent),
+    );
   }
 
   ngAfterViewInit(): void {
