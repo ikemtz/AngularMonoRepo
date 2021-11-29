@@ -2,7 +2,7 @@
 import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-import { merge, of } from 'rxjs';
+import { merge } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
@@ -19,10 +19,6 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
   constructor(public readonly gridComponent: GridComponent, public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.odataComponent.hasHiddenColumns$ = merge(
-      of(this.gridComponent.columns?.some((s) => s.hidden)),
-      this.gridComponent.columnVisibilityChange?.pipe(map(() => this.gridComponent.columns.some((s) => s.hidden))),
-    );
     this.facade = this.odataComponent.facade;
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
@@ -37,6 +33,10 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
         this.gridComponent.loading = t;
         this.changeDetectorRef.markForCheck();
       }),
+    );
+    this.odataComponent.hasHiddenColumns$ = merge(
+      this.odataComponent.facade.loading$.pipe(hasHiddenColumns(this.gridComponent)),
+      this.gridComponent.columnVisibilityChange?.pipe(hasHiddenColumns(this.gridComponent)),
     );
   }
 
@@ -62,4 +62,8 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
   ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
   }
+}
+
+export function hasHiddenColumns(gridComponent: GridComponent) {
+  return map(() => gridComponent.columns.some((s) => s.hidden));
 }
