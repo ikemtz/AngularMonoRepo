@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`RxJs Operators findById handle undefined datasets 1`] = `Object {}`;
+
+exports[`RxJs Operators findById handle undefined objects 1`] = `Object {}`;
+
+exports[`RxJs Operators firstRecord handle undefined datasets 1`] = `Object {}`;
+
+exports[`RxJs Operators firstRecord handle undefined objects 1`] = `Object {}`;
+
 exports[`RxJs Operators getSubData should function 1`] = `
 Array [
   Object {
