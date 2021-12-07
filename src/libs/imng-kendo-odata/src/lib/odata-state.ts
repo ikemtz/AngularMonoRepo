@@ -1,4 +1,5 @@
 import { State, FilterDescriptor, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
+import { IdType } from 'imng-nrsrx-client-utils';
 
 export interface ODataState extends State {
   expanders?: Array<Expander | string>;
@@ -13,7 +14,7 @@ export interface InFilter {
   /** This value will default to 'and' in cases where there are additional filters specified. */
   logic?: 'or' | 'and';
   field: string;
-  values: (string | number | Date)[];
+  values: IdType[];
 }
 
 export interface CompositeChildFilterDescriptor extends CompositeFilterDescriptor {
