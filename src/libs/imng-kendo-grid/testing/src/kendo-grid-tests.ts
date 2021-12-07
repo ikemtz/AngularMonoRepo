@@ -1,6 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { IdType } from 'imng-nrsrx-client-utils';
-import { GridDataEntryHelper } from '../../src/lib/grid-data-entry.helper';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { GridDataEntryHelper } from 'imng-kendo-grid';
 
 export async function validateGridAddHandler<entity extends { id?: IdType }>(
   gridEntryHelper: GridDataEntryHelper<entity>,
