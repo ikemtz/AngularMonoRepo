@@ -1,5 +1,5 @@
 import './date.extensions';
-import { toShortDateString, weekOfYear } from './date.helper';
+import { toShortDateString, weekOfYear } from './date.extensions';
 
 describe('toShortDateString', () => {
   it('to handle 1/1/2020', () => {

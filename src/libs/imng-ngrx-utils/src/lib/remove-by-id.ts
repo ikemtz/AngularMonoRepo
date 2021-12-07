@@ -7,11 +7,12 @@ export function removeById<T extends { id?: IdType }>(
   if (Array.isArray(source)) {
     const result = source;
     return result?.filter((f) => f.id !== id);
-  } else {
-    const data = source?.data?.filter((f) => f.id !== id);
+  } else if (source) {
+    const data = source.data?.filter((f) => f.id !== id);
     return {
-      total: source.total + (data.length - source?.data?.length),
+      total: source.total + (data?.length - source.data?.length) || 0,
       data: data,
     };
   }
+  return null;
 }
