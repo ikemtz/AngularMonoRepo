@@ -1,1 +1,1 @@
-export type ValueType = string | number | Date;
+export { IdType as ValueType } from './id-type';

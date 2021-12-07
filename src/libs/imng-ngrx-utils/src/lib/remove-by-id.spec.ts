@@ -1,8 +1,7 @@
-import { ODataResult } from 'imng-kendo-odata';
 import { removeById } from './remove-by-id';
 
 describe('removeById', () => {
-  const result = (): ODataResult<{ id: number; val: string }> => ({
+  const result = (): { data: { id: number; val: string }[]; total: number } => ({
     data: [
       { id: 4, val: '👼👼' },
       { id: 3, val: '👼👼' },

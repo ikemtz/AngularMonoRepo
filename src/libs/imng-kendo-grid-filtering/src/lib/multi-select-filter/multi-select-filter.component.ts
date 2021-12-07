@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FilterService } from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor, distinct, filterBy, FilterDescriptor } from '@progress/kendo-data-query';
+import { IdType } from 'imng-nrsrx-client-utils';
 import { ODataState } from 'imng-kendo-odata';
 
 @Component({
@@ -129,7 +130,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onInput(e: { target: { value: string | number | Date } } | any) {
+  public onInput(e: { target: { value: IdType } } | any) {
     this.currentData = distinct(
       [
         ...this.currentData.filter((dataItem: unknown) =>
