@@ -62,6 +62,16 @@ jobs:
           verbose: false
           customCommand: 'run lint:libs'
       #Build
+
+      - task: Npm@1
+        continueOnError: true
+        displayName: 'npm run build:nrsrx-utils'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:nrsrx-utils'
+
       - task: Npm@1
         displayName: 'npm run build:data-entry'
         continueOnError: true
@@ -169,15 +179,6 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:signalr'
-
-      - task: Npm@1
-        continueOnError: true
-        displayName: 'npm run build:nrsrx-utils'
-        inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run build:nrsrx-utils'
 
       - task: Npm@1
         displayName: 'npm run build:ngrx-idle'

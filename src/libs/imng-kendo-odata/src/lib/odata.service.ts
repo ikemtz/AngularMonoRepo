@@ -44,7 +44,7 @@ export class ODataService {
     return this.http.get(`${odataEndpoint}?${queryStr}`).pipe(mapToExtDataResult<T>(), firstRecord<T>());
   }
 
-  private getODataString(state: ODataState): string {
+  public getODataString(state: ODataState): string {
     let queryString = toODataString(state);
     queryString = this.processExpanders(state, queryString);
     queryString = this.processSelectors(state, queryString);
@@ -54,13 +54,15 @@ export class ODataService {
     queryString = this.applyTransformations(state, queryString);
     return queryString;
   }
-  private applyTransformations(state: ODataState, queryString): string {
+
+  public applyTransformations(state: ODataState, queryString): string {
     if (state.transformations) {
       queryString += `&$apply=${state.transformations}`;
     }
     return queryString;
   }
-  private processGuids(queryString: string): string {
+
+  public processGuids(queryString: string): string {
     const guidRegex = /'[\dA-F]{8}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{12}'/gi;
     let m: RegExpExecArray;
     const guidMatches: string[] = [];
@@ -77,19 +79,21 @@ export class ODataService {
     return queryString;
   }
 
-  private processSelectors(state: ODataState, queryString: string): string {
+  public processSelectors(state: ODataState, queryString: string): string {
     if (state.selectors && state.selectors.length > 0) {
       queryString += `&$select=${state.selectors.join()}`;
     }
     return queryString;
   }
-  private processExpanders(state: ODataState, queryString: string): string {
+
+  public processExpanders(state: ODataState, queryString: string): string {
     if (state.expanders && state.expanders.length > 0) {
       const expansionStrings = state.expanders.map((element) => this.getExpansionString(element));
       queryString += `&$expand=${expansionStrings.join(',')}`;
     }
     return queryString;
   }
+
   public getExpansionString(element: string | Expander): string {
     let result = '';
     if (!element) {
@@ -120,7 +124,7 @@ export class ODataService {
     return result;
   }
 
-  private processInFilter(state: ODataState, queryString: string): string {
+  public processInFilter(state: ODataState, queryString: string): string {
     if (!state.inFilters) {
       return queryString;
     }

@@ -3,8 +3,9 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EditEvent, CancelEvent, SaveEvent, RemoveEvent, AddEvent, GridComponent } from '@progress/kendo-angular-grid';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
+import { IdType } from 'imng-nrsrx-client-utils';
 
-export class GridDataEntryHelper<T extends { id?: string | number | Date; }> {
+export class GridDataEntryHelper<T extends { id?: IdType }> {
   private _editedRowIndex: number;
   private _gridFormGroup: FormGroup;
   private readonly _gridData$: BehaviorSubject<Array<T>>;
@@ -37,7 +38,7 @@ export class GridDataEntryHelper<T extends { id?: string | number | Date; }> {
   }
 
   public get isValid$(): Observable<boolean> {
-    return this.gridData$.pipe(map(t => this.gridValidationLogic(t)));
+    return this.gridData$.pipe(map((t) => this.gridValidationLogic(t)));
   }
   constructor(private readonly formGroupFactory: () => FormGroup, private _gridData: Array<T> = []) {
     this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
@@ -53,14 +54,13 @@ export class GridDataEntryHelper<T extends { id?: string | number | Date; }> {
 
   public removeItems(...items: T[]): T[] {
     if (items) {
-      items.forEach(f => {
-        this._gridData = this.gridData.filter(t => t !== f);
+      items.forEach((f) => {
+        this._gridData = this.gridData.filter((t) => t !== f);
       });
       this._gridData$.next(this._gridData);
     }
     return this._gridData;
   }
-
 
   public editHandler(editEvent: EditEvent): void {
     this.closeEditor(editEvent.sender, editEvent.rowIndex);
@@ -83,7 +83,7 @@ export class GridDataEntryHelper<T extends { id?: string | number | Date; }> {
 
   public saveHandler(saveEvent: SaveEvent): void {
     const result: T = saveEvent.formGroup.value;
-    const tempGrid: T[] = this.gridData.map(t => ({ ...t }));
+    const tempGrid: T[] = this.gridData.map((t) => ({ ...t }));
     if (saveEvent.isNew) {
       result.id = null;
       tempGrid.push(result);
@@ -96,7 +96,7 @@ export class GridDataEntryHelper<T extends { id?: string | number | Date; }> {
   }
 
   public removeHandler(removeEvent: RemoveEvent): void {
-    const tempGrid = this.gridData.map(t => ({ ...t }));
+    const tempGrid = this.gridData.map((t) => ({ ...t }));
     tempGrid.splice(removeEvent.rowIndex, 1);
     this.gridData = tempGrid;
     this._gridData$.next(this.gridData);

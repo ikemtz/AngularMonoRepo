@@ -8,8 +8,10 @@
     },
     "dest": "../../dist/libs/imng-nrsrx-client-utils"
   },
+  "dependencies": {
+    "tslib": ">=2.x"
+  },
   "peerDependencies": {
-    "tslib": ">=2.x",
     "@angular/common": ">=11.x",
     "rxjs": ">=6.x"
   },
