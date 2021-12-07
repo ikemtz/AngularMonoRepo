@@ -52,6 +52,7 @@ export class ODataService {
     queryString = this.processInFilter(state, queryString);
     queryString = this.processGuids(queryString);
     queryString = this.applyTransformations(state, queryString);
+    queryString = this.processDates(queryString);
     return queryString;
   }
 
@@ -59,6 +60,25 @@ export class ODataService {
     if (state.transformations) {
       queryString += `&$apply=${state.transformations}`;
     }
+    return queryString;
+  }
+
+  public processDates(queryString: string): string {
+    const dateRegex = /Date [e-t]{2} \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/g;
+    let m: RegExpExecArray;
+    const dateMatches: string[] = [];
+    while ((m = dateRegex.exec(queryString)) !== null) {
+      // This is necessary to avoid infinite loops with zero-width matches
+      if (m.index === dateRegex.lastIndex) {
+        dateRegex.lastIndex++;
+      }
+      m.forEach((match) => {
+        dateMatches.push(match);
+      });
+    }
+    dateMatches.forEach(
+      (date) => (queryString = queryString.replace(date, date.replace(/T\d{2}:\d{2}:\d{2}.\d{3}Z/g, ''))),
+    );
     return queryString;
   }
 
