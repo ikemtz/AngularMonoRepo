@@ -18,6 +18,10 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
 {
   public readonly allSubscriptions = new Subscriptions();
   /**
+   * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
+   */
+  public maxSortedColumnCount = 5; //NOSONAR
+  /**
    * This will allow you to provide a visual indicator that some of the columns have been hidden.
    */
   public hasHiddenColumns$: Observable<boolean>;
@@ -130,6 +134,12 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   public excelData = (): Observable<ODataResult<ENTITY>> => this.gridDataResult$;
 
   public loadEntities(odataState: ODataState): void {
+    if (odataState.sort?.length > this.maxSortedColumnCount) {
+      odataState = { ...odataState, sort: odataState.sort.slice(0, this.maxSortedColumnCount) };
+      console.warn(
+        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
+      ); //NOSONAR
+    }
     this.gridDataState = odataState;
     this.expanders = odataState.expanders;
     this.transformations = odataState.transformations;
