@@ -55,6 +55,31 @@ describe('KendoODataComponentBase', () => {
     expect(tempDate).toEqual((deserializedResult.filter.filters[0] as FilterDescriptor).value);
   });
 
+  it('should limit odataState sort parameters', () => {
+    const odataState: ODataState = {
+      sort: [
+        { field: 'a', dir: 'asc' },
+        { field: 'b', dir: 'asc' },
+        { field: 'c', dir: 'asc' },
+        { field: 'd', dir: 'asc' },
+        { field: 'e', dir: 'asc' },
+        { field: 'f', dir: 'asc' },
+      ],
+    };
+    component.facade.loadEntities = jest.fn();
+    component.loadEntities(odataState);
+    expect(component.facade.loadEntities).toBeCalledTimes(1);
+    expect(component.facade.loadEntities).toBeCalledWith({
+      sort: [
+        { field: 'a', dir: 'asc' },
+        { field: 'b', dir: 'asc' },
+        { field: 'c', dir: 'asc' },
+        { field: 'd', dir: 'asc' },
+        { field: 'e', dir: 'asc' },
+      ],
+    });
+  });
+
   it('should serialize/deserialize odataState correctly', () => {
     const serializedResult = component.serializeODataState({});
     const deserializedResult = component.deserializeODataState(serializedResult);
