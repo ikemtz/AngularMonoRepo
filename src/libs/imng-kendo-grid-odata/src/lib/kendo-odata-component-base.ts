@@ -134,18 +134,27 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   public excelData = (): Observable<ODataResult<ENTITY>> => this.gridDataResult$;
 
   public loadEntities(odataState: ODataState): void {
-    if (odataState.sort?.length > this.maxSortedColumnCount) {
-      odataState = { ...odataState, sort: odataState.sort.slice(0, this.maxSortedColumnCount) };
-      console.warn(
-        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
-      ); //NOSONAR
-    }
+    odataState = this.validateSortParameters(odataState);
     this.gridDataState = odataState;
     this.expanders = odataState.expanders;
     this.transformations = odataState.transformations;
     this.facade.loadEntities(this.gridDataState);
+    this.updateRouterState(odataState);
+  }
+
+  public validateSortParameters(state: ODataState): ODataState {
+    if (state.sort?.length > this.maxSortedColumnCount) {
+      state = { ...state, sort: state.sort.slice(0, this.maxSortedColumnCount) };
+      console.warn(
+        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
+      ); //NOSONAR
+    }
+    return state;
+  }
+
+  public updateRouterState(state: ODataState): void {
     if (this.router) {
-      const tempState = { ...odataState };
+      const tempState = { ...state };
       delete tempState.selectors;
       delete tempState.expanders;
       this.router.navigate([], {
@@ -158,7 +167,6 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
       });
     }
   }
-
   public reloadEntities(): void {
     this.facade.reloadEntities();
   }
