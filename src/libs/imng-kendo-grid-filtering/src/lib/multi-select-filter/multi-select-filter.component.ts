@@ -8,7 +8,7 @@ import { ODataState } from 'imng-kendo-odata';
   selector: 'imng-multi-select-filter',
   template: `
     <ul>
-      <li *ngIf="showFilter">
+      <li *ngIf="showTextFilter">
         <input class="k-textbox" (input)="onInput($event)" />
       </li>
       <li
@@ -64,9 +64,9 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   @Input() public textField: string = undefined;
   @Input() public valueField: string = undefined;
   @Input() public field = '';
+  @Input() public showTextFilter = true;
 
   public currentData: unknown[];
-  public showFilter = true;
   public value: unknown[] = [];
 
   public textAccessor = (dataItem: unknown) => (this.isPrimitive ? dataItem : dataItem[this.textField]);
@@ -84,7 +84,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
         ? tempValue.reduce((previousArray: [], currentArray: []) => previousArray.concat(...currentArray))
         : [];
 
-    this.showFilter = typeof this.textAccessor(this.currentData[0]) === 'string';
+    this.showTextFilter = typeof this.textAccessor(this.currentData[0]) === 'string';
     this.changeDetectorRef.markForCheck();
   }
 
