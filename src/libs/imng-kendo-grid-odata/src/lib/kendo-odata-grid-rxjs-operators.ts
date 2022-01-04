@@ -3,8 +3,11 @@ import { PagerSettings } from '@progress/kendo-angular-grid';
 import { map } from 'rxjs/operators';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 
-export const getODataPagerSettings = <T>(m: { gridData: ODataResult<T>; gridODataState?: ODataState; }): false | PagerSettings => {
-  if (!m.gridODataState || m.gridData.total <= m.gridODataState.take) {
+export const getODataPagerSettings = <T>(m: {
+  gridData: ODataResult<T>;
+  gridODataState?: ODataState;
+}): false | PagerSettings => {
+  if (!m.gridODataState || !m.gridODataState.take || !m.gridData || !m.gridData.total) {
     return false;
   }
   let pageCount = m.gridData.total / m.gridODataState.take;
@@ -18,9 +21,12 @@ export const getODataPagerSettings = <T>(m: { gridData: ODataResult<T>; gridODat
   };
 };
 
-export const mapPagerSettings = <T>() => (
-  source: Observable<{
-    gridData: ODataResult<T>;
-    gridODataState?: ODataState;
-  }>,
-) => source.pipe(map(m => getODataPagerSettings(m)));
+export const mapPagerSettings =
+  <T>() =>
+  (
+    source: Observable<{
+      gridData: ODataResult<T>;
+      gridODataState?: ODataState;
+    }>,
+  ) =>
+    source.pipe(map((m) => getODataPagerSettings(m)));
