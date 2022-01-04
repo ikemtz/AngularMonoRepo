@@ -84,7 +84,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
         ? tempValue.reduce((previousArray: [], currentArray: []) => previousArray.concat(...currentArray))
         : [];
 
-    this.showTextFilter = typeof this.textAccessor(this.currentData[0]) === 'string';
+    this.showTextFilter = this.showTextFilter && typeof this.textAccessor(this.currentData[0]) === 'string';
     this.changeDetectorRef.markForCheck();
   }
 
