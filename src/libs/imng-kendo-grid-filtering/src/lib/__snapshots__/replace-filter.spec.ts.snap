@@ -74,3 +74,12 @@ Object {
   },
 }
 `;
+
+exports[`removeMatchingFilters should work with non-filtered odata states 1`] = `
+Object {
+  "filter": Object {
+    "filters": Array [],
+    "logic": "and",
+  },
+}
+`;

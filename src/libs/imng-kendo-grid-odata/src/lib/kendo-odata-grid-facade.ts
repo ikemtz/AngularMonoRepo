@@ -8,5 +8,5 @@ export interface IKendoODataGridFacade<Entity> {
   gridData$: Observable<ODataResult<Entity>>;
   gridPagerSettings$: Observable<false | PagerSettings>;
   loadEntities(state: ODataState): void;
-  reloadEntities(): void;
+  reloadEntities(state?: ODataState): void;
 }
