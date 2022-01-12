@@ -37,9 +37,3 @@ export interface Expander {
 export function isExpander(source: string | Expander): source is Expander {
   return !!(source as Expander)?.table;
 }
-
-export function isCompositeChildFilterDescriptor(
-  source: CompositeChildFilterDescriptor | ChildFilterDescriptor,
-): source is CompositeChildFilterDescriptor {
-  return !!(source as CompositeChildFilterDescriptor)?.filters;
-}

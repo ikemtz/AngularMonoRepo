@@ -28,6 +28,15 @@ export class DataEntryDialogComponent implements OnInit {
   @Input() public parentComponent: BaseDataEntryComponent<any>; //NOSONAR
   @Input() public saveButtonText = 'Save';
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
+  /**
+   * Example Usage:
+   * <imng-data-entry-dialog>
+   * ......
+   *  <ng-template [imngDialogBtns] let-coreButtons>
+   *    <button id="btnCustom1" class="k-button" (click)="cancel()">Close</button>
+   *  </ng-template>
+   * </imng-data-entry-dialog>
+   */
   public dialogBtnsTemplate: TemplateRef<unknown>;
   public loading$: Observable<boolean>;
   public addEditForm: FormGroup;

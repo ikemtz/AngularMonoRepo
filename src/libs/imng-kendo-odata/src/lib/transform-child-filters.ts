@@ -1,10 +1,6 @@
 import { isaNumber } from 'imng-nrsrx-client-utils';
-import {
-  ChildFilterDescriptor,
-  CompositeChildFilterDescriptor,
-  isCompositeChildFilterDescriptor,
-  ODataState,
-} from './odata-state';
+import { ChildFilterDescriptor, CompositeChildFilterDescriptor, ODataState } from './odata-state';
+import { isCompositeChildFilterDescriptor } from './isCompositeChildFilterDescriptor';
 import { toODataString } from '@progress/kendo-data-query';
 export const filterQueryStringParamLen = 8; //"$filter="
 export const stringFilterOperators: string[] = [
