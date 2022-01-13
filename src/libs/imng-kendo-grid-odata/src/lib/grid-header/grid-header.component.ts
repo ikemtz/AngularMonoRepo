@@ -32,8 +32,24 @@ import { Observable } from 'rxjs';
     >
       <span class="k-icon k-i-reset"></span> Reload Data
     </button>
-    <button type="button" title="Export To PDF" kendoGridPDFCommand icon="file-pdf" class="mx-1">Export to PDF</button>
-    <button type="button" title="Export To Excel" kendoGridExcelCommand icon="file-excel" class="mx-1">
+    <button
+      *ngIf="hideExports !== true"
+      type="button"
+      title="Export To PDF"
+      kendoGridPDFCommand
+      icon="file-pdf"
+      class="mx-1"
+    >
+      Export to PDF
+    </button>
+    <button
+      *ngIf="hideExports !== true"
+      type="button"
+      title="Export To Excel"
+      kendoGridExcelCommand
+      icon="file-excel"
+      class="mx-1"
+    >
       Export To Excel
     </button>
     <kendo-grid-column-chooser
@@ -77,6 +93,8 @@ export class ImngGridHeaderComponent {
   public hideClearFilters: boolean;
   @Input()
   public hideReloadData: boolean;
+  @Input()
+  public hideExports: boolean;
   @Input()
   public hasHiddenColumns$: Observable<boolean>;
   @Output()
