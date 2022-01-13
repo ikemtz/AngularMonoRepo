@@ -9,3 +9,5 @@ export * from './lib/translate-child-filter-expression';
 export * from './lib/translate-child-sorting-expression';
 export * from './lib/isCompositeChildFilterDescriptor';
 export * from './lib/isFilterDescriptor';
+export * from './lib/replace-filter';
+export * from './lib/find-filter';
