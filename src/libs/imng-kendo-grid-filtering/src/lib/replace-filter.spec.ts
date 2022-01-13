@@ -42,11 +42,7 @@ describe('removeMatchingFilters', () => {
     expect(result).toMatchSnapshot();
   });
   it('should work with non-filtered odata states', () => {
-    const filters: CompositeFilterDescriptor = {
-      logic: 'and',
-      filters: undefined,
-    };
-    const result = removeMatchingFilters({ filter: { filters: [filters], logic: 'and' } }, 'x');
+    const result = removeMatchingFilters({}, 'x');
     expect(result).toMatchSnapshot();
   });
 });

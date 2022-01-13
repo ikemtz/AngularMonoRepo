@@ -2,13 +2,12 @@ import { CompositeFilterDescriptor, FilterDescriptor, isCompositeFilterDescripto
 import { isFilterDescriptor, ODataState } from 'imng-kendo-odata';
 
 export function removeMatchingFilters(odataState: ODataState, filterField: string): ODataState {
-  if (odataState.filter) {
-    odataState = {
-      ...odataState,
-      filter: { ...odataState.filter, filters: filterFilters(odataState.filter, filterField) },
-    };
-  }
-  return odataState;
+  return {
+    ...odataState,
+    filter: !odataState.filter
+      ? { logic: 'and', filters: [] }
+      : { ...odataState.filter, filters: filterFilters(odataState.filter, filterField) },
+  };
 }
 
 export function filterFilters(
