@@ -25,6 +25,21 @@ Object {
 }
 `;
 
+exports[`removeMatchingFilters should remove 1`] = `
+Object {
+  "filter": Object {
+    "filters": Array [
+      Object {
+        "field": "z",
+        "operator": "eq",
+        "value": 2,
+      },
+    ],
+    "logic": "and",
+  },
+}
+`;
+
 exports[`removeMatchingFilters should remove sub filters 1`] = `
 Object {
   "filter": Object {

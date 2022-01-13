@@ -45,9 +45,6 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     public readonly router: Router = null,
     public readonly gridRefresh$: Observable<unknown> = null,
   ) {
-    this.loading$ = this.facade.loading$;
-    this.gridDataResult$ = this.facade.gridData$;
-    this.gridPagerSettings$ = this.facade.gridPagerSettings$;
     if (this.router?.routerState?.snapshot?.root.queryParams[this.gridStateQueryKey]) {
       try {
         this.gridDataState = this.deserializeODataState(
@@ -81,6 +78,9 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     if (!this.gridRefresh$) {
       this.loadEntities(this.gridDataState);
     }
+    this.loading$ = this.facade.loading$;
+    this.gridDataResult$ = this.facade.gridData$;
+    this.gridPagerSettings$ = this.facade.gridPagerSettings$;
   }
 
   public deserializeODataState(stateQueryParam: string): ODataState {
