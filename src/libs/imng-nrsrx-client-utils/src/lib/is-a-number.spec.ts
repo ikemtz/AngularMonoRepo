@@ -2,6 +2,7 @@ import * as i from './id-type';
 
 describe('isaNumber', () => {
   it('should work for a number', () => {
+    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
     expect(i.isaNumber(234234123412341234123412341234)).toBe(true);
   });
   it('should not  work for a string', () => {
