@@ -1,5 +1,6 @@
 import { CompositeFilterDescriptor, FilterDescriptor, isCompositeFilterDescriptor } from '@progress/kendo-data-query';
-import { isFilterDescriptor, ODataState } from 'imng-kendo-odata';
+import { isFilterDescriptor } from './isFilterDescriptor';
+import { ODataState } from './odata-state';
 
 export function removeMatchingFilters(odataState: ODataState, filterField: string): ODataState {
   return {
