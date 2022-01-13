@@ -6,7 +6,7 @@
     "declaration": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2019"]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
@@ -15,6 +15,10 @@
     "strictInjectionParameters": true,
     "enableResourceInlining": true
   },
-  "exclude": ["src/test-setup.ts", "**/*.spec.ts"],
-  "include": ["**\\*.ts", "../imng-ngrx-utils/src/lib/is-a-date.spec.ts"]
+  "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.test.ts"],
+  "include": [
+    "**\\*.ts",
+    "../imng-ngrx-utils/src/lib/is-a-date.spec.ts",
+    "../imng-ngrx-utils/src/lib/is-a-date.test.ts"
+  ]
 }
