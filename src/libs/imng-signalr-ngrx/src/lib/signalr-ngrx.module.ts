@@ -14,7 +14,7 @@ import { Auth0OidcModule } from 'imng-auth0-oidc';
     CommonModule,
     StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer),
     EffectsModule.forFeature([SignalrEffects]),
-    Auth0OidcModule
+    Auth0OidcModule,
   ],
   providers: [HubConnectionInjectorService, SignalrFacade],
 })

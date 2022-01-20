@@ -1,7 +1,8 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "dist",
+  "dest": "../../dist/libs/imng-auth0-oidc",
   "lib": {
-    "entryFile": "src/index.ts"
-  }
+    "entryFile": "src/lib/public_api.ts"
+  },
+  "assets": ["./src/assets/*"]
 }

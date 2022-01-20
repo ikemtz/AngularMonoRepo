@@ -18,13 +18,6 @@
     "@progress/kendo-angular-grid": ">=5.x",
     "@progress/kendo-data-query": ">=1.x"
   },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-kendo-grid"
-  },
   "devDependencies": {
     "tslib": ">=2.x",
     "@nrwl/angular": ">=11.x"

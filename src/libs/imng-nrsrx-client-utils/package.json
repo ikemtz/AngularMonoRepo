@@ -1,13 +1,6 @@
 {
   "name": "imng-nrsrx-client-utils",
   "version": "0.1.0",
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-nrsrx-client-utils"
-  },
   "dependencies": {
     "tslib": ">=2.x"
   },

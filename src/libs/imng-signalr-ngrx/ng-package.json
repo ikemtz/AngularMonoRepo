@@ -1,7 +1,8 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../dist/imng-signalr-ngrx",
+  "dest": "../../dist/libs/imng-signalr-ngrx",
   "lib": {
-    "entryFile": "src/public-api.ts"
-  }
+    "entryFile": "src/lib/public_api.ts"
+  },
+  "allowedNonPeerDependencies": ["imng-auth0-oidc"]
 }

@@ -1,4 +1,7 @@
 {
+  "cli": {
+    "analytics": "10736d4f-98f4-4bba-99e2-10f81dbbd5a9"
+  },
   "version": 1,
   "projects": {
     "adventure-works": {
