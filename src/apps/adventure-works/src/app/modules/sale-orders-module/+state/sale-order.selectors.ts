@@ -1,15 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { SALE_ORDERS_FEATURE_KEY, State, SaleOrdersPartialState } from './sale-order.reducer';
+import { SALE_ORDERS_FEATURE_KEY, State } from './sale-order.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const getSaleOrdersState = createFeatureSelector<SaleOrdersPartialState, State>(
-  SALE_ORDERS_FEATURE_KEY,
-);
+export const getSaleOrdersState = createFeatureSelector<State>(SALE_ORDERS_FEATURE_KEY);
 
-const getSaleOrders = createSelector(getSaleOrdersState, state => state.gridData);
-const getLoading = createSelector(getSaleOrdersState, state => state.loading);
-const getGridODataState = createSelector(getSaleOrdersState, state => state.gridODataState);
-const getPagerSettings = createSelector(getSaleOrdersState, state => state.gridPagerSettings);
+const getSaleOrders = createSelector(getSaleOrdersState, (state) => state.gridData);
+const getLoading = createSelector(getSaleOrdersState, (state) => state.loading);
+const getGridODataState = createSelector(getSaleOrdersState, (state) => state.gridODataState);
+const getPagerSettings = createSelector(getSaleOrdersState, (state) => state.gridPagerSettings);
 export const odataGridSaleOrderQueries = {
   getSaleOrders,
   getLoading,
@@ -17,17 +15,14 @@ export const odataGridSaleOrderQueries = {
   getPagerSettings,
 };
 
-const getCurrentSaleOrder = createSelector(
-  getSaleOrdersState,
-  state => state.currentSaleOrder,
-);
+const getCurrentSaleOrder = createSelector(getSaleOrdersState, (state) => state.currentSaleOrder);
 const getIsEditSaleOrderActive = createSelector(
   getCurrentSaleOrder,
-  entity => isTruthy(entity) && isTruthy(entity?.id),
+  (entity) => isTruthy(entity) && isTruthy(entity?.id),
 );
 const getIsNewSaleOrderActive = createSelector(
   getCurrentSaleOrder,
-  entity => isTruthy(entity) && !isTruthy(entity?.id),
+  (entity) => isTruthy(entity) && !isTruthy(entity?.id),
 );
 export const dataEntrySaleOrderQueries = {
   getCurrentSaleOrder,
@@ -36,4 +31,3 @@ export const dataEntrySaleOrderQueries = {
 };
 
 export const saleOrderQueries = { ...odataGridSaleOrderQueries, ...dataEntrySaleOrderQueries };
-
