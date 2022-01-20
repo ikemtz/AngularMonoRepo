@@ -1,1 +1,1 @@
-export * from './index';
+export * from './kendo-grid-tests';

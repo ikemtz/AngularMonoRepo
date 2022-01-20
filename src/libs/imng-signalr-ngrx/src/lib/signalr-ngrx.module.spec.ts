@@ -6,7 +6,9 @@ describe('ImngSignalrNgrxModule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ImngSignalrNgrxModule],
-      providers: [{ provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1 } }]
+      providers: [
+        { provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1 } },
+      ],
     }).compileComponents();
   });
 
@@ -18,7 +20,7 @@ describe('ImngSignalrNgrxModule', () => {
     const result = ImngSignalrNgrxModule.forRoot({
       logLevel: 4,
       hostUrl: '/notificationHub',
-      clientMethods: ['x']
+      clientMethods: ['x'],
     });
     expect(result).toBeTruthy();
   });

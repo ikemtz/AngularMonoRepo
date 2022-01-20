@@ -2,13 +2,6 @@
   "name": "imng-kendo-data-entry",
   "version": "0.4.7",
   "license": "MIT",
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-kendo-data-entry"
-  },
   "dependencies": {
     "tslib": ">=2.x"
   },

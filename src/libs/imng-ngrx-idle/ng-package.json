@@ -1,8 +1,9 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../dist/imng-ngrx-idle",
+  "dest": "../../dist/libs/imng-ngrx-idle",
   "lib": {
-    "entryFile": "src/public-api.ts"
+    "entryFile": "src/lib/public_api.ts"
   },
-  "deleteDestPath": true
+  "deleteDestPath": true,
+  "allowedNonPeerDependencies": ["imng-auth0-oidc", "imng-ngrx-utils"]
 }

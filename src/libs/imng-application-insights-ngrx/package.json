@@ -8,13 +8,6 @@
     "copyPackageJson": "cp package.json dist",
     "release:semantic": "semantic-release --prepare && npm run copyPackageJson && npm publish dist && semantic-release post"
   },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-application-insights-ngrx"
-  },
   "peerDependencies": {
     "@ngrx/store": ">=11.x",
     "@ngrx/effects": ">=11.x",
@@ -22,8 +15,10 @@
     "rxjs": ">=6.x",
     "@microsoft/applicationinsights-web": ">=2.x",
     "@angular/common": ">=11.x",
-    "tslib": ">=2.x",
     "@nrwl/angular": ">=11.x"
+  },
+  "dependencies": {
+    "tslib": ">=2.x"
   },
   "devDependencies": {
     "ng-packagr": ">=12.x"
