@@ -6,7 +6,7 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
 
 @Component({
   selector: 'imng-data-entry-dialog[parentComponent]',
-  template: `<kendo-dialog [width]="width" [height]="height" (close)="close()">
+  template: `<kendo-dialog [width]="width" [height]="height" (close)="close()" [autoFocusedElement]="autoFocusedElement">
       <kendo-dialog-titlebar class="bg-primary">{{ dialogTitle }}</kendo-dialog-titlebar>
       <ng-content></ng-content>
       <kendo-dialog-actions>
@@ -24,6 +24,10 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
 export class DataEntryDialogComponent implements OnInit {
   @Input() public width: string | number;
   @Input() public height: string | number;
+  /**
+   * https://www.telerik.com/kendo-angular-ui/components/dialogs/dialog/initial-focus/
+   */
+  @Input() public autoFocusedElement: string; 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public parentComponent: BaseDataEntryComponent<any>; //NOSONAR
   @Input() public saveButtonText = 'Save';
