@@ -4,7 +4,7 @@
   "description": "A blank schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "eslint ./src --ext .ts",
     "preinstall": "npx npm-force-resolutions",
     "postbuild": "bash package.sh",
