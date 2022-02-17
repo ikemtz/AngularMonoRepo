@@ -62,13 +62,14 @@ function getFileNames(openApiJsonFileName: string) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 export function processOpenApiDoc(data: any, schema: IOptions, host: Tree): Tree { //NOSONAR
-  const openApiComonent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
-  if (!openApiComonent) {
+  const openApiComponent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
+  if (!openApiComponent) {
     throw new Error(`OpenApi Component not found in swagger doc: ${schema.name}`);
   }
-  const properties = openApiComonent.properties as {
+  const properties = openApiComponent.properties as {
     [key: string]: PropertyInfo;
   };
+  let firstProperty: PropertyInfo | undefined;
   const filteredProperties: PropertyInfo[] = [];
   const excludedFields = ['createdBy', 'createdOnUtc', 'tenantId', 'updatedBy', 'updatedOnUtc'];
   schema.hasDates = false;
@@ -78,12 +79,16 @@ export function processOpenApiDoc(data: any, schema: IOptions, host: Tree): Tree
         mapPropertyAttributes(schema, properties[propertyKey], {
           ...properties[propertyKey],
           name: propertyKey,
-          required: (openApiComonent.required ?? []).indexOf(propertyKey) > -1,
+          required: (openApiComponent.required ?? []).indexOf(propertyKey) > -1,
         });
       filteredProperties.push(property);
+      if (!firstProperty && propertyKey !== 'id') {
+        firstProperty = property;
+      }
     }
   }
   schema.swaggerProperties = filteredProperties;
+  schema.firstProperty = firstProperty;
   return host;
 }
 
@@ -136,4 +141,4 @@ export function generateFiles(schema: IOptions, templateType: 'list' | 'crud' | 
     return chain([mergeWith(templateSource)])(tree, context);
   };
 }
- 
+
