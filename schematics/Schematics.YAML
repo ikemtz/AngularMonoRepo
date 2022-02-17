@@ -53,6 +53,8 @@ jobs:
             sonar.tests=schematics/src
             sonar.test.inclusions=**/*.spec.ts
             sonar.typescript.lcov.reportPaths=schematics/coverage/lcov.info
+            sonar.javascript.lcov.reportPaths=schematics/coverage/lcov.info
+            sonar.typescript.tsconfigPath=schematics/tsconfig.json
             sonar.coverage.exclusions=**/node_modules/**,**/*.spec.ts
 
       - task: Npm@1
