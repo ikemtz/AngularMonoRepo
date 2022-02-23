@@ -15,7 +15,7 @@ import { translateChildSortingExpression } from './translate-child-sorting-expre
   providedIn: 'root',
 })
 export class ODataService {
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {}
 
   public fetch<T>(odataEndpoint: string, state: ODataState, options: FetchOptions = {}): Observable<ODataResult<T>> {
     let tempState = { ...state };
@@ -167,10 +167,12 @@ export class ODataService {
   }
 
   public processComputations(state: ODataState, queryString: string): string {
-    if (!state.compute) { 
-      const computeStrings : string[] = state.compute.filter(f=>!isComputation(f)).map(f=> f.toString());
-      computeStrings.push(...state.compute.filter(isComputation).map(f => `${f.fieldA} ${f.operator} ${f.fieldB} as ${f.alias}`));
-      queryString += `${queryString}&$compute=${computeStrings.join(',')}`;
+    if (state.compute) {
+      const computeStrings: string[] = state.compute.filter((f) => !isComputation(f)).map((f) => f.toString());
+      computeStrings.push(
+        ...state.compute.filter(isComputation).map((f) => `${f.fieldA} ${f.operator} ${f.fieldB} as ${f.alias}`),
+      );
+      queryString = `$compute=${computeStrings.join(',')}${queryString}`;
     }
     return queryString;
   }
