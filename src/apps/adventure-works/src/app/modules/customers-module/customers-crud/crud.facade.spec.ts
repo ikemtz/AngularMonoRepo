@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule, DataPersistence } from '@nrwl/angular';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -17,7 +17,7 @@ import {
   CustomersPartialState,
   initialState,
   reducer as customersReducer,
-  CUSTOMERS_FEATURE_KEY
+  CUSTOMERS_FEATURE_KEY,
 } from '../+state/customer.reducer';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerApiService } from './api.service';
@@ -48,7 +48,7 @@ describe('CustomerCrudFacade', () => {
   let store: Store<TestSchema>;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { });
+  beforeEach(() => {});
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -58,13 +58,9 @@ describe('CustomerCrudFacade', () => {
           EffectsModule.forFeature([CustomerEffects]),
           HttpClientTestingModule,
         ],
-        providers: [
-          DataPersistence,
-          CustomerCrudFacade,
-          CustomerApiService,
-        ],
+        providers: [DataPersistence, CustomerCrudFacade, CustomerApiService],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -74,7 +70,7 @@ describe('CustomerCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

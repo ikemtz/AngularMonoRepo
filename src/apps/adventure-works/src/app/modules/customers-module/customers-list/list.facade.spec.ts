@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { NxModule, DataPersistence } from '@nrwl/angular';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult } from 'imng-kendo-odata';
@@ -11,7 +11,12 @@ import { of } from 'rxjs';
 
 import { CustomerEffects } from '../+state/customer.effects';
 import * as customerActionTypes from '../+state/customer.actions';
-import { CustomersPartialState, initialState, reducer as customersReducer, CUSTOMERS_FEATURE_KEY } from '../+state/customer.reducer';
+import {
+  CustomersPartialState,
+  initialState,
+  reducer as customersReducer,
+  CUSTOMERS_FEATURE_KEY,
+} from '../+state/customer.reducer';
 import { CustomerListFacade } from './list.facade';
 import { CustomerProperties, ICustomer } from '../../../models';
 import { environment } from '../../../../environments/environment';
@@ -20,19 +25,20 @@ interface TestSchema {
   [CUSTOMERS_FEATURE_KEY]: CustomersPartialState;
 }
 
-export const createCustomer = () => <ICustomer>{
-  [CustomerProperties.ID]: 'ID',
-  [CustomerProperties.NAME_STYLE]: true,
-  [CustomerProperties.TITLE]: 'TITLE',
-  [CustomerProperties.FIRST_NAME]: 'FIRST_NAME',
-  [CustomerProperties.MIDDLE_NAME]: 'MIDDLE_NAME',
-  [CustomerProperties.LAST_NAME]: 'LAST_NAME',
-  [CustomerProperties.SUFFIX]: 'SUFFIX',
-  [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
-  [CustomerProperties.SALES_PERSON]: 'SALES_PERSON',
-  [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
-  [CustomerProperties.PHONE]: 'PHONE',
-};
+export const createCustomer = () =>
+  <ICustomer>{
+    [CustomerProperties.ID]: 'ID',
+    [CustomerProperties.NAME_STYLE]: true,
+    [CustomerProperties.TITLE]: 'TITLE',
+    [CustomerProperties.FIRST_NAME]: 'FIRST_NAME',
+    [CustomerProperties.MIDDLE_NAME]: 'MIDDLE_NAME',
+    [CustomerProperties.LAST_NAME]: 'LAST_NAME',
+    [CustomerProperties.SUFFIX]: 'SUFFIX',
+    [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
+    [CustomerProperties.SALES_PERSON]: 'SALES_PERSON',
+    [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
+    [CustomerProperties.PHONE]: 'PHONE',
+  };
 
 describe('CustomerListFacade', () => {
   let facade: CustomerListFacade;
@@ -40,7 +46,7 @@ describe('CustomerListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { });
+  beforeEach(() => {});
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -55,7 +61,7 @@ describe('CustomerListFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCustomer()]))) } },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -65,7 +71,7 @@ describe('CustomerListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -87,7 +93,6 @@ describe('CustomerListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/Customers?&$count=true');
-
     });
 
     it('should get the grid state', async () => {
@@ -104,7 +109,6 @@ describe('CustomerListFacade', () => {
       facade.loadEntities({});
       state = await readFirst(facade.gridODataState$);
       expect(state).toStrictEqual({});
-
     });
 
     /**
@@ -117,7 +121,6 @@ describe('CustomerListFacade', () => {
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);
-
     });
 
     it('should handle DeleteItem', async () => {
