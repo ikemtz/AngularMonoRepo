@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OData Test Helpers testGridODataState() should work 1`] = `
+ZoneAwarePromise {
+  "__zone_symbol__state": null,
+  "__zone_symbol__value": Array [],
+}
+`;
+
+exports[`OData Test Helpers testGridPagerSettings() should work 1`] = `undefined`;

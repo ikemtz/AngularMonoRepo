@@ -38,16 +38,16 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
         this.arrayComponent.dataStateChange(t);
         this.arrayComponent.markForCheck();
       }),
+      this.gridComponent.filterChange.subscribe((t: CompositeFilterDescriptor) => {
+        this.gridComponent.filter = this.arrayComponent.state.filter = t;
+        this.arrayComponent.filterChange(t);
+        this.arrayComponent.markForCheck();
+      }),
       this.gridComponent.pageChange.subscribe((t: PageChangeEvent) => {
         this.arrayComponent.pageChange(t);
       }),
       this.gridComponent.sortChange.subscribe((t: SortDescriptor[]) => {
         this.arrayComponent.sortChange(t);
-      }),
-      this.gridComponent.filterChange.subscribe((t: CompositeFilterDescriptor) => {
-        this.gridComponent.filter = this.arrayComponent.state.filter = t;
-        this.arrayComponent.markForCheck();
-        this.arrayComponent.filterChange(t);
       }),
       this.arrayComponent.gridData$.subscribe((t) => {
         this.gridComponent.data = t;

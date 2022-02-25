@@ -9,7 +9,6 @@
   },
   "peerDependencies": {
     "imng-kendo-odata": "*",
-    "tslib": ">=2.x",
     "@angular/forms": ">=11.x",
     "@angular/core": ">=11.x",
     "@angular/common": ">=11.x",
