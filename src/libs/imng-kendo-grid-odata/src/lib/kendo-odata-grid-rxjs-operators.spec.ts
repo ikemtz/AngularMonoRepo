@@ -1,6 +1,6 @@
 import { mapPagerSettings } from './kendo-odata-grid-rxjs-operators';
 import { of } from 'rxjs';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 
 describe('Testing mapPagerSettings', () => {

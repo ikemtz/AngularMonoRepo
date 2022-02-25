@@ -6,7 +6,6 @@
     "@ngrx/effects": ">=11.x",
     "@microsoft/signalr": ">=3.x",
     "imng-auth0-oidc": "*",
-    "tslib": ">=2.x",
     "imng-ngrx-utils": "*",
     "@angular/core": ">=11.x",
     "rxjs": ">=6.x",
@@ -14,6 +13,9 @@
     "@angular/common": ">=11.x",
     "@angular/router": ">=11.x",
     "oidc-client": ">=1.x"
+  },
+  "dependencies": {
+    "tslib": ">=2.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",

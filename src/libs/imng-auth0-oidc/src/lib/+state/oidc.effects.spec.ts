@@ -6,7 +6,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { NxModule, DataPersistence } from '@nrwl/angular';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { OidcEffects } from './oidc.effects';
 import * as OidcActions from './oidc.actions';
 import { OIDC_CONFIG } from '../models/config.model';
@@ -27,12 +27,11 @@ describe('Oidc Effects', () => {
         DataPersistence,
         provideMockActions(() => actions),
         provideMockStore(),
-        { provide: OIDC_CONFIG, useValue: { oidc_config: {}, getUserMetadata: true, } },
+        { provide: OIDC_CONFIG, useValue: { oidc_config: {}, getUserMetadata: true } },
         OidcService,
         { provide: HttpClient, useValue: { get: () => of({ userinfo_endpoint: 'xyz' }) } },
-        { provide: Router, useValue: { navigateByUrl: jest.fn() } }
+        { provide: Router, useValue: { navigateByUrl: jest.fn() } },
       ],
-
     });
 
     effects = TestBed.inject(OidcEffects);
@@ -44,7 +43,6 @@ describe('Oidc Effects', () => {
       actions = of(OidcActions.signInSilent({}));
       const result = await readFirst(effects.signInSilent$);
       expect(result).toMatchSnapshot();
-
     });
 
     it('should work', async () => {
@@ -52,7 +50,6 @@ describe('Oidc Effects', () => {
       service.signInSilent = jest.fn(() => of(1));
       const result = await readFirst(effects.signInSilent$);
       expect(result).toMatchSnapshot();
-
     });
   });
 
@@ -61,7 +58,6 @@ describe('Oidc Effects', () => {
       actions = of(OidcActions.signInPopup({}));
       const result = await readFirst(effects.signInPopup$);
       expect(result).toMatchSnapshot();
-
     });
 
     it('should work', async () => {
@@ -69,7 +65,6 @@ describe('Oidc Effects', () => {
       service.signInPopup = jest.fn(() => of(1));
       const result = await readFirst(effects.signInPopup$);
       expect(result).toMatchSnapshot();
-
     });
   });
 
@@ -79,7 +74,6 @@ describe('Oidc Effects', () => {
       service.removeOidcUser = jest.fn(() => throwError('Expected exception in unit tests.'));
       const result = await readFirst(effects.removeOidcUser$);
       expect(result).toMatchSnapshot();
-
     });
   });
 
@@ -89,7 +83,6 @@ describe('Oidc Effects', () => {
       service.signInPopup = jest.fn(() => of('x'));
       const result = await readFirst(effects.signInRedirect$);
       expect(result).toMatchSnapshot();
-
     });
 
     it('should work', async () => {
@@ -98,7 +91,6 @@ describe('Oidc Effects', () => {
       service.signinRedirectCallback = jest.fn(() => of(1));
       const result = await readFirst(effects.signInRedirect$);
       expect(result).toMatchSnapshot();
-
     });
   });
 
@@ -109,7 +101,6 @@ describe('Oidc Effects', () => {
       const result = await readFirst(effects.signOutPopup$);
       expect(window.open).toBeCalledTimes(1);
       expect(result).toMatchSnapshot();
-
     });
 
     it('should work', async () => {
@@ -117,7 +108,6 @@ describe('Oidc Effects', () => {
       service.signOutPopup = jest.fn(() => of(1));
       const result = await readFirst(effects.signOutPopup$);
       expect(result).toMatchSnapshot();
-
     });
   });
 
@@ -126,7 +116,6 @@ describe('Oidc Effects', () => {
       actions = of(OidcActions.signOutRedirect({}));
       const result = await readFirst(effects.signOutRedirect$);
       expect(result).toMatchSnapshot();
-
     });
 
     it('should work', async () => {
@@ -134,7 +123,6 @@ describe('Oidc Effects', () => {
       service.signOutRedirect = jest.fn(() => of(1));
       const result = await readFirst(effects.signOutRedirect$);
       expect(result).toMatchSnapshot();
-
     });
   });
 
