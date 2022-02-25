@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { CUSTOMERS_FEATURE_KEY, State, CustomersPartialState } from './customer.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const getCustomersState = createFeatureSelector<CustomersPartialState, State>(
+export const getCustomersState = createFeatureSelector< State>(
   CUSTOMERS_FEATURE_KEY,
 );
 

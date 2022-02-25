@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { COMPETENCIES_FEATURE_KEY, State, CompetenciesPartialState } from './competency.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const getCompetenciesState = createFeatureSelector<CompetenciesPartialState, State>(
+export const getCompetenciesState = createFeatureSelector< State>(
   COMPETENCIES_FEATURE_KEY,
 ); 
 

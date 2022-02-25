@@ -17,8 +17,7 @@
     "rxjs": ">=6.x",
     "@angular/common": ">=11.x",
     "@nrwl/angular": ">=11.x",
-    "@angular/router": ">=11.x",
-    "tslib": ">=2.x"
+    "@angular/router": ">=11.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
@@ -33,7 +32,9 @@
   "devDependencies": {
     "ng-packagr": ">=12"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tslib": ">=2.x"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ikemtz/AngularMonoRepo.git"

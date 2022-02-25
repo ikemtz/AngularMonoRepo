@@ -19,8 +19,7 @@
     "@microsoft/signalr": ">=5.x",
     "ngx-bootstrap": ">=6.x",
     "oidc-client": ">=1.x",
-    "rxjs": ">=6.x",
-    "tslib": ">=2.x"
+    "rxjs": ">=6.x"
   },
   "keywords": [
     "imng",
@@ -29,7 +28,7 @@
     "Kendo"
   ],
   "dependencies": {
-    "tslib": "^2.1.0",
+    "tslib": ">=2.x",
     "imng-application-insights-ngrx": "latest",
     "imng-auth0-oidc": "latest",
     "imng-kendo-chart-odata": "latest",

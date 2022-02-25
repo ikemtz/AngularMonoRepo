@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
@@ -31,34 +31,35 @@ describe('SignalrFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer, { initialState }),
-          EffectsModule.forFeature([SignalrEffects])],
+          EffectsModule.forFeature([SignalrEffects]),
+        ],
         providers: [
-          { provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1, clientMethods: ['x'] } },
+          {
+            provide: SIGNALR_CONFIG,
+            multi: false,
+            useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1, clientMethods: ['x'] },
+          },
           { provide: OidcFacade, useValue: { accessToken$: of('xyz') } },
           {
-            provide: HubConnectionInjectorService, useValue: {
+            provide: HubConnectionInjectorService,
+            useValue: {
               hubConnection: {
                 on: jest.fn(),
                 send: jest.fn(),
                 start: jest.fn(() => Promise.resolve()),
-                onclose: jest.fn()
-              }
-            }
+                onclose: jest.fn(),
+              },
+            },
           },
-          SignalrFacade
+          SignalrFacade,
         ],
-
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
-        imports: [
-          NxModule.forRoot(),
-          StoreModule.forRoot({}),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule],
+        imports: [NxModule.forRoot(), StoreModule.forRoot({}), EffectsModule.forRoot([]), CustomFeatureModule],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -72,7 +73,6 @@ describe('SignalrFacade', () => {
       expect(facade).toBeTruthy();
     });
 
-
     it('should handle reconnect', async () => {
       facade.dispatchAction(connect());
       expect(service.hubConnection.start).toBeCalledTimes(1);
@@ -80,7 +80,6 @@ describe('SignalrFacade', () => {
       expect(result).toMatchSnapshot();
       const isConnected = await readFirst(facade.isConnected$);
       expect(isConnected).toBe(true);
-
     });
 
     it('should handle send', () => {
@@ -99,8 +98,7 @@ describe('SignalrFacade', () => {
       expect(message).toStrictEqual({ methodName: 'helloWorld', data: '😎' });
 
       const messages = await readFirst(facade.receivedMessages$);
-      expect(messages).toStrictEqual([
-        { methodName: 'helloWorld', data: '😎' }]);
+      expect(messages).toStrictEqual([{ methodName: 'helloWorld', data: '😎' }]);
 
       facade.dispatchAction(clearMessages());
       result = await readFirst(store);

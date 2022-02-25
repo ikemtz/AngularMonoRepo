@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { HEALTH_ITEMS_FEATURE_KEY, State, HealthItemsPartialState } from './health-item.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const getHealthItemsState = createFeatureSelector<HealthItemsPartialState, State>(
+export const getHealthItemsState = createFeatureSelector< State>(
   HEALTH_ITEMS_FEATURE_KEY,
 ); 
 
