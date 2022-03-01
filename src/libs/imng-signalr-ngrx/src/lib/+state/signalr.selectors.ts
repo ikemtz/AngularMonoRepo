@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { SIGNALR_FEATURE_KEY, State, SignalrPartialState } from './signalr.reducer';
 
-export const getSignalrState = createFeatureSelector<SignalrPartialState, State>(SIGNALR_FEATURE_KEY);
+export const getSignalrState = createFeatureSelector< State>(SIGNALR_FEATURE_KEY);
 
 export const getReceivedMessages = createSelector(getSignalrState, (state: State) => state.receivedMessages);
 

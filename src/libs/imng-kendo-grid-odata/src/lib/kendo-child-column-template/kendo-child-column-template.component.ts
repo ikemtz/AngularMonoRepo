@@ -49,7 +49,11 @@ export class ImngGridChildColumnTemplateComponent implements OnInit {
   constructor(public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
-    this.currentData = (this.data || []).filter((val) => (val[this.field] || '').length > 0).map((t) => t[this.field]);
+    this.currentData = (this.data || [])
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .filter((val: any) => (val[this.field] || '').length > 0)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((t: any) => t[this.field]);
     this.initialized = true;
   }
   public formatToolTip(): string {

@@ -36,14 +36,14 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract readonly props: any; //NOSONAR
-  protected expanders: (string | Expander)[];
-  protected transformations: string;
+  protected expanders: Expander[] | undefined;
+  protected transformations?: string;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
     @Inject(STATE) public readonly state: ODataState | Observable<ODataState>,
-    public readonly router: Router = null,
-    public readonly gridRefresh$: Observable<unknown> = null,
+    public readonly router: Router | undefined = undefined,
+    public readonly gridRefresh$: Observable<unknown> | null = null,
   ) {
     if (this.router?.routerState?.snapshot?.root.queryParams[this.gridStateQueryKey]) {
       try {
@@ -143,8 +143,8 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   }
 
   public validateSortParameters(state: ODataState): ODataState {
-    if (state.sort?.length > this.maxSortedColumnCount) {
-      state = { ...state, sort: state.sort.slice(0, this.maxSortedColumnCount) };
+    if (state?.sort?.length || 0 > this.maxSortedColumnCount) {
+      state = { ...state, sort: state?.sort?.slice(0, this.maxSortedColumnCount) };
       console.warn(
         `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
       ); //NOSONAR

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mock OData Facade Creator createODataGridMockFacade() should work 1`] = `
+Object {
+  "gridODataState$": Observable {
+    "_isScalar": false,
+    "_subscribe": [Function],
+  },
+  "gridPagerSettings$": Observable {
+    "_isScalar": false,
+    "_subscribe": [Function],
+  },
+  "loadEntities": [MockFunction],
+  "loading$": Observable {
+    "_isScalar": false,
+    "_subscribe": [Function],
+  },
+  "reloadEntities": [MockFunction],
+}
+`;
+
+exports[`Mock OData Facade Creator createODataGridMockFacade() should work with undefined 1`] = `
+ODataGridMockFacade {
+  "gridData$": Observable {
+    "_isScalar": false,
+    "_subscribe": [Function],
+  },
+  "gridODataState$": Observable {
+    "_isScalar": false,
+    "_subscribe": [Function],
+  },
+  "gridPagerSettings$": Observable {
+    "_isScalar": false,
+    "_subscribe": [Function],
+  },
+  "loadEntities": [MockFunction],
+  "loading$": Observable {
+    "_isScalar": false,
+    "_subscribe": [Function],
+  },
+  "reloadEntities": [MockFunction],
+}
+`;

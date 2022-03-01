@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { createAction } from '@ngrx/store';
 import { of } from 'rxjs';
 import { AppInsightsMonitoringService, APP_INSIGHTS_CONFIG } from './app-insights-monitoring.service';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 
 describe('AppInsightsMonitoringService', () => {
   let service: AppInsightsMonitoringService;
@@ -43,37 +43,47 @@ describe('AppInsightsMonitoringService', () => {
     const err = new Error('🐱‍👤 struck again');
     service.logException(err);
     expect(service.appInsights.trackException).toBeCalledTimes(1);
-    expect(service.appInsights.trackException).toBeCalledWith({ exception: err, measurements: undefined, properties: undefined });
+    expect(service.appInsights.trackException).toBeCalledWith({
+      exception: err,
+      measurements: undefined,
+      properties: undefined,
+    });
   });
 
   it('should handle logEvent', () => {
     service.appInsights.trackEvent = jest.fn();
     service.logEvent('happy 🐱');
     expect(service.appInsights.trackEvent).toBeCalledTimes(1);
-    expect(service.appInsights.trackEvent).toBeCalledWith({ measurements: undefined, name: 'happy 🐱', properties: undefined });
+    expect(service.appInsights.trackEvent).toBeCalledWith({
+      measurements: undefined,
+      name: 'happy 🐱',
+      properties: undefined,
+    });
   });
 
   it('should handle trackEventsEffect', async () => {
-    const testAction = createAction(
-      '[test] Action'
-    );
+    const testAction = createAction('[test] Action');
 
     service.appInsights.trackEvent = jest.fn();
     await readFirst(service.trackEventsEffect(of(testAction()), true));
     expect(service.appInsights.trackEvent).toBeCalledTimes(1);
-    expect(service.appInsights.trackEvent).toBeCalledWith({ measurements: undefined, name: '[test] Action', properties: undefined });
+    expect(service.appInsights.trackEvent).toBeCalledWith({
+      measurements: undefined,
+      name: '[test] Action',
+      properties: undefined,
+    });
   });
 
   it('should handle trackErrorsEffect', async () => {
-    const testActionError = createAction(
-      '[test] Action Error'
-    );
+    const testActionError = createAction('[test] Action Error');
 
     service.appInsights.trackException = jest.fn();
     await readFirst(service.trackErrorsEffect(of(testActionError())));
     expect(service.appInsights.trackException).toBeCalledTimes(1);
     expect(service.appInsights.trackException).toBeCalledWith({
-      exception: { type: '[test] Action Error' }, measurements: undefined, properties: undefined
+      exception: { type: '[test] Action Error' },
+      measurements: undefined,
+      properties: undefined,
     });
   });
 });

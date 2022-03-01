@@ -7,10 +7,9 @@
     "@progress/kendo-angular-dialog": ">=5.*",
     "@progress/kendo-angular-buttons": ">=5.*",
     "imng-auth0-oidc": "*",
-    "imng-ngrx-utils": "*",
-    "tslib": ">=2.x"
+    "imng-ngrx-utils": "*"
   },
-  "devDependencies": {
+  "dependencies": {
     "tslib": ">=2.x"
   },
   "ngPackage": {
