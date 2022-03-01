@@ -32,7 +32,7 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
     };
     this.allSubscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) => {
-        this.gridComponent.sort = this.arrayComponent.state.sort = t.sort;
+        this.gridComponent.sort = this.arrayComponent.state.sort = t.sort || [];
         this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
         this.gridComponent.skip = this.arrayComponent.state.skip = t.skip;
         this.arrayComponent.dataStateChange(t);
@@ -54,10 +54,10 @@ export class ImngArrayGridDirective implements OnInit, AfterViewInit, OnDestroy,
       }),
     );
 
-    this.gridComponent.pageSize = this.arrayComponent.state.take;
-    this.gridComponent.filter = this.arrayComponent.state.filter;
-    this.gridComponent.skip = this.arrayComponent.state.skip;
-    this.gridComponent.sort = this.arrayComponent.state.sort;
+    this.gridComponent.pageSize = this.arrayComponent.state.take || 0;
+    this.gridComponent.filter = this.arrayComponent.state.filter || { logic: 'and', filters: [] };
+    this.gridComponent.skip = this.arrayComponent.state.skip || 0;
+    this.gridComponent.sort = this.arrayComponent.state.sort || [];
     this.gridComponent.data = this.arrayComponent.gridData;
     this.arrayComponent.hasHiddenColumns$ = this.gridComponent.columnVisibilityChange.pipe(
       hasHiddenColumns(this.gridComponent),
