@@ -5,18 +5,18 @@
     "tslib": ">=2.x"
   },
   "devDependencies": {
-    "@nrwl/angular": ">=11.x"
+    "@nrwl/angular": ">=13.x"
   },
   "peerDependencies": {
     "imng-kendo-odata": "*",
-    "@angular/forms": ">=11.x",
-    "@angular/core": ">=11.x",
-    "@angular/common": ">=11.x",
+    "@angular/forms": ">=13.x",
+    "@angular/core": ">=13.x",
+    "@angular/common": ">=13.x",
     "ngx-bootstrap": ">=6.x",
     "rxjs": ">=6.x",
     "@progress/kendo-data-query": ">=1.x",
-    "@angular/platform-browser": ">=11.x",
-    "@nrwl/angular": ">=11.x",
+    "@angular/platform-browser": ">=13.x",
+    "@nrwl/angular": ">=13.x",
     "imng-nrsrx-client-utils": "*"
   },
   "ngPackage": {

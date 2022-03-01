@@ -16,13 +16,13 @@
     "dest": "../../dist/libs/imng-application-insights-ngrx"
   },
   "peerDependencies": {
-    "@ngrx/store": ">=11.x",
-    "@ngrx/effects": ">=11.x",
-    "@angular/core": ">=11.x",
+    "@ngrx/store": ">=13.x",
+    "@ngrx/effects": ">=13.x",
+    "@angular/core": ">=13.x",
     "rxjs": ">=6.x",
     "@microsoft/applicationinsights-web": ">=2.x",
-    "@angular/common": ">=11.x",
-    "@nrwl/angular": ">=11.x"
+    "@angular/common": ">=13.x",
+    "@nrwl/angular": ">=13.x"
   },
   "devDependencies": {
     "ng-packagr": ">=12.x"

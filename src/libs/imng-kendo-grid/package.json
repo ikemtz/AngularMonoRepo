@@ -9,11 +9,11 @@
     "Kendo"
   ],
   "peerDependencies": {
-    "@angular/common": ">=11.x",
-    "@angular/core": ">=11.x",
+    "@angular/common": ">=13.x",
+    "@angular/core": ">=13.x",
     "rxjs": ">=6.x",
-    "@angular/forms": ">=11.x",
-    "@nrwl/angular": ">=11.x",
+    "@angular/forms": ">=13.x",
+    "@nrwl/angular": ">=13.x",
     "@progress/kendo-angular-grid": ">=5.x",
     "@progress/kendo-data-query": ">=1.x"
   },
@@ -25,7 +25,7 @@
     "dest": "../../dist/libs/imng-kendo-grid"
   },
   "devDependencies": {
-    "@nrwl/angular": ">=11.x"
+    "@nrwl/angular": ">=13.x"
   },
   "dependencies": {
     "tslib": ">=2.x"

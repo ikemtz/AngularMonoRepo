@@ -12,7 +12,7 @@
     "tslib": ">=2.x"
   },
   "peerDependencies": {
-    "@angular/common": ">=11.x",
+    "@angular/common": ">=13.x",
     "rxjs": ">=6.x"
   },
   "repository": {
