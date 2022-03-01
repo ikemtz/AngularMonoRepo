@@ -7,21 +7,23 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CustomerAddComponent } from './add.component';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerProperties, ICustomer } from '../../../models';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 
 describe('CustomerAddComponent', () => {
   let component: CustomerAddComponent;
   let fixture: ComponentFixture<CustomerAddComponent>;
   let facade: CustomerCrudFacade;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [CustomerAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
-      providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() }],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [CustomerAddComponent],
+        imports: [ReactiveFormsModule, NoopAnimationsModule],
+        providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() }],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CustomerAddComponent);
@@ -51,7 +53,7 @@ describe('CustomerAddComponent', () => {
     });
 
     let item: ICustomer | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
     component.save();
     item = await readFirst(facade.currentEntity$);
@@ -59,7 +61,6 @@ describe('CustomerAddComponent', () => {
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
 
     expect(item).toMatchSnapshot();
-
   });
 
   it('should not save', () => {

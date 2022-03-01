@@ -22,11 +22,13 @@
     "rxjs": ">=6.x",
     "@microsoft/applicationinsights-web": ">=2.x",
     "@angular/common": ">=11.x",
-    "tslib": ">=2.x",
     "@nrwl/angular": ">=11.x"
   },
   "devDependencies": {
     "ng-packagr": ">=12.x"
+  },
+  "dependencies": {
+    "tslib": ">=2.x"
   },
   "repository": {
     "type": "git",

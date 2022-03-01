@@ -19,11 +19,13 @@
     "@progress/kendo-data-query": ">=1.x",
     "imng-kendo-odata": "*",
     "imng-nrsrx-client-utils": "*",
-    "rxjs": ">=6.x",
-    "tslib": ">=2.x"
+    "rxjs": ">=6.x"
   },
   "devDependencies": {
     "@nrwl/angular": ">=12.x"
+  },
+  "dependencies": {
+    "tslib": ">=2.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",

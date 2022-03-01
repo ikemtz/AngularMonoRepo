@@ -7,5 +7,5 @@
   "deleteDestPath": true,
   "allowedNonPeerDependencies": [
     "@microsoft/applicationinsights-web"
-  ] 
+  ]
 }

@@ -19,7 +19,4 @@ module.exports = {
       },
     ],
   ],
-  moduleNameMapper: {
-    'imng-(.*)': '<rootDir>/../../dist/libs/imng-$1',
-  },
 };
