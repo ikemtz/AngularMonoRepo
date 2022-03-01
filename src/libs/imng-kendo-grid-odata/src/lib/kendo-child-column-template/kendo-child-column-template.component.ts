@@ -15,7 +15,7 @@ import {
     </div>
     <button
       type="button"
-      *ngIf="showMore && currentData?.length > visibleRecCount"
+      *ngIf="showMore && (currentData?.length || 0) > visibleRecCount"
       class="btn btn-sm btn-primary"
       [title]="formatToolTip()"
       (click)="moreClicked()"

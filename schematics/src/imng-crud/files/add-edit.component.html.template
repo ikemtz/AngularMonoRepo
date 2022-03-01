@@ -9,13 +9,13 @@
  { %>          <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" maxlength="<%= swaggerProperty.maxLength %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
             [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
           <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>).required"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
+            <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.required"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
           </div>
         </div><% } else if (swaggerProperty.required)
  { %>          <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
             [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
           <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>).required"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
+            <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.required"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
           </div>
         </div><% } else if (swaggerProperty.maxLength)
  { %>          <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" maxlength="<%= swaggerProperty.maxLength %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
