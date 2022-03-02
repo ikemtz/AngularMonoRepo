@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { State, toODataString } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Expander, isExpander, ODataState } from './odata-state';
+import { Expander, isComputation, isExpander, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
 import { isaDate, isaNumber } from 'imng-nrsrx-client-utils';
@@ -50,8 +50,9 @@ export class ODataService {
     queryString = this.processSelectors(state, queryString);
     queryString = processChildFilterDescriptors(state, queryString);
     queryString = this.processInFilter(state, queryString);
-    queryString = this.processGuids(queryString);
     queryString = this.applyTransformations(state, queryString);
+    queryString = this.processComputations(state, queryString);
+    queryString = this.processGuids(queryString);
     queryString = this.processDates(queryString);
     return queryString;
   }
@@ -133,10 +134,14 @@ export class ODataService {
         };
         result += `${toODataString(state).replace('&', ';')};`;
       }
-      if (element.expander && !isExpander(element.expander)) {
-        result += `$expand=${element.expander};`;
-      } else if (isExpander(element.expander)) {
-        result += `$expand=${this.getExpansionString(element.expander)}`;
+      if (element.expanders) {
+        const expanders = element.expanders.map((expander) => {
+          if (isExpander(expander)) {
+            return this.getExpansionString(expander);
+          }
+          return expander;
+        });
+        result += `$expand=${expanders.join(',')};`;
       }
       result += ')';
       result = result.replace(/\(\)/, '').replace(/;\)/, ')');
@@ -162,6 +167,17 @@ export class ODataService {
         queryString = `${queryString}&$filter=${inFilterString}`;
       }
     });
+    return queryString;
+  }
+
+  public processComputations(state: ODataState, queryString: string): string {
+    if (state.compute) {
+      const computeStrings: string[] = state.compute.filter((f) => !isComputation(f)).map((f) => f.toString());
+      computeStrings.push(
+        ...state.compute.filter(isComputation).map((f) => `${f.fieldA} ${f.operator} ${f.fieldB} as ${f.alias}`),
+      );
+      queryString = `$compute=${computeStrings.join(',')}${queryString}`;
+    }
     return queryString;
   }
 }

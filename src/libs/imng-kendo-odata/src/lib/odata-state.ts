@@ -8,6 +8,16 @@ export interface ODataState extends State {
   childFilters?: CompositeChildFilterDescriptor;
   count?: boolean;
   transformations?: string;
+  compute?: Array<Computation | string>;
+}
+export interface Computation {
+  /** This can also be a static value */
+  fieldA: string | number;
+  /** This can also be a static value */
+  fieldB: string | number;
+  operator: 'mul' | 'div' | 'add' | 'sub' | 'mod' | string;
+  /** This MUST differ from the names of declared or dynamic properties of the identified resources. */
+  alias: string;
 }
 
 export interface InFilter {
@@ -30,10 +40,13 @@ export interface ChildFilterDescriptor extends FilterDescriptor {
 export interface Expander {
   table: string;
   selectors?: string[];
-  expander?: string | Expander;
+  expanders?: Array<Expander | string>;
   filter?: CompositeFilterDescriptor;
   sort?: Array<SortDescriptor>;
 }
 export function isExpander(source: string | Expander): source is Expander {
   return !!(source as Expander)?.table;
+}
+export function isComputation(source: string | Computation): source is Computation {
+  return !!(source as Computation)?.operator;
 }
