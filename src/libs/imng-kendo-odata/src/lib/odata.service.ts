@@ -134,10 +134,14 @@ export class ODataService {
         };
         result += `${toODataString(state).replace('&', ';')};`;
       }
-      if (element.expander && !isExpander(element.expander)) {
-        result += `$expand=${element.expander};`;
-      } else if (isExpander(element.expander)) {
-        result += `$expand=${this.getExpansionString(element.expander)}`;
+      if (element.expanders) {
+        const expanders = element.expanders.map((expander) => {
+          if (isExpander(expander)) {
+            return this.getExpansionString(expander);
+          }
+          return expander;
+        });
+        result += `$expand=${expanders.join(',')};`;
       }
       result += ')';
       result = result.replace(/\(\)/, '').replace(/;\)/, ')');

@@ -40,7 +40,7 @@ export interface ChildFilterDescriptor extends FilterDescriptor {
 export interface Expander {
   table: string;
   selectors?: string[];
-  expander?: string | Expander;
+  expanders?: Array<Expander | string>;
   filter?: CompositeFilterDescriptor;
   sort?: Array<SortDescriptor>;
 }

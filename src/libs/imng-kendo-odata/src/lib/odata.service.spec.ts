@@ -190,7 +190,7 @@ describe('ODataService', () => {
       expanders: [
         {
           table: 'parentTable',
-          expander: 'grandParentTable',
+          expanders: ['grandParentTable'],
           filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
           selectors: ['id', 'field2'],
           sort: [{ field: 'xyz', dir: 'desc' }],
@@ -222,7 +222,43 @@ describe('ODataService', () => {
       expanders: [
         {
           table: 'parentTable',
-          expander: { table: 'grandParentTable', sort: [{ field: 'def', dir: 'asc' }] },
+          expanders: [{ table: 'grandParentTable', sort: [{ field: 'def', dir: 'asc' }] }],
+          filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
+          selectors: ['id', 'field2'],
+          sort: [{ field: 'xyz', dir: 'desc' }],
+        },
+      ],
+      filter: {
+        logic: 'and',
+        filters: [
+          { field: 'fieldName', value: 'xyz', operator: 'eq' },
+          { field: 'fieldName2', value: 'xyz', operator: 'contains' },
+        ],
+      },
+    };
+    const result = await readFirst(
+      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+    );
+    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toBeCalledWith(
+      // eslint-disable-next-line max-len
+      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=id eq 'abc';$expand=grandParentTable($orderby=def))&$select=id,name&$count=true`,
+    );
+    expect(result).toMatchSnapshot(jestPropertyMatcher);
+  });
+
+  it('should support multi-level multi-table expanders', async () => {
+    httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+    const gridState: ODataState = {
+      selectors: ['id', 'name'],
+      expanders: [
+        {
+          table: 'parentTable',
+          expanders: [
+            { table: 'grandParentTableA', sort: [{ field: 'def', dir: 'asc' }] },
+            { table: 'grandParentTableB', sort: [{ field: 'ghi', dir: 'desc' }] },
+            { table: 'grandParentTableC', sort: [{ field: 'rst', dir: 'asc' }] },
+          ],
           filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
           selectors: ['id', 'field2'],
           sort: [{ field: 'xyz', dir: 'desc' }],
