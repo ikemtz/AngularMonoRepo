@@ -19,7 +19,7 @@
     "@progress/kendo-data-query": ">=1.x",
     "imng-kendo-odata": "*",
     "imng-nrsrx-client-utils": "*",
-    "rxjs": ">=6.x",
+    "rxjs": "*",
     "tslib": ">=2.x"
   },
   "devDependencies": {

@@ -1,24 +1,20 @@
 {
   "name": "imng-ngxb-typeahead",
   "version": "0.1.9",
-  "dependencies": {
-    "tslib": ">=2.x"
-  },
-  "devDependencies": {
-    "@nrwl/angular": ">=11.x"
-  },
   "peerDependencies": {
     "imng-kendo-odata": "*",
-    "tslib": ">=2.x",
-    "@angular/forms": ">=11.x",
-    "@angular/core": ">=11.x",
-    "@angular/common": ">=11.x",
+    "@angular/forms": ">=12.x",
+    "@angular/core": ">=12.x",
+    "@angular/common": ">=12.x",
     "ngx-bootstrap": ">=6.x",
-    "rxjs": ">=6.x",
+    "rxjs": "*",
     "@progress/kendo-data-query": ">=1.x",
-    "@angular/platform-browser": ">=11.x",
-    "@nrwl/angular": ">=11.x",
+    "@angular/platform-browser": ">=12.x",
+    "@nrwl/angular": ">=12.x",
     "imng-nrsrx-client-utils": "*"
+  },
+  "dependencies": {
+    "tslib": ">=2.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
