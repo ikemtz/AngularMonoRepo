@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { EMPLOYEES_FEATURE_KEY, State, EmployeesPartialState } from './employee.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const getEmployeesState = createFeatureSelector<EmployeesPartialState, State>(
+export const getEmployeesState = createFeatureSelector< State>(
   EMPLOYEES_FEATURE_KEY,
 ); 
 

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImngArrayGridDirective should handle dataStateChange 1`] = `undefined`;

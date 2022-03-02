@@ -10,17 +10,18 @@
   ],
   "peerDependencies": {
     "@progress/kendo-data-query": ">=1.x",
-    "@angular/core": ">=11.x",
-    "@angular/common": ">=11.x",
+    "@angular/core": ">=13.x",
+    "@angular/common": ">=13.x",
     "rxjs": ">=6.x",
-    "@nrwl/angular": ">=11.x",
-    "imng-nrsrx-client-utils": "*",
-    "tslib": ">=2.x"
+    "@nrwl/angular": ">=13.x",
+    "imng-nrsrx-client-utils": "*"
   },
   "devDependencies": {
     "ng-packagr": ">=12",
-    "tslib": ">=2.x",
-    "@nrwl/angular": ">=11.x"
+    "@nrwl/angular": ">=13.x"
+  },
+  "dependencies": {
+    "tslib": ">=2.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",

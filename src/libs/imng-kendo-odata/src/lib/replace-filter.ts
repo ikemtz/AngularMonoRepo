@@ -23,7 +23,7 @@ export function filterFilters(
       if (isCompositeFilterDescriptor(m)) {
         m.filters = [...filterFilters(m.filters, filterField)];
         return true;
-      } else if (isFilterDescriptor(m)) {
+      } else {
         return m.field !== filterField;
       }
     }),

@@ -2,14 +2,12 @@
 import { TestBed } from '@angular/core/testing';
 import { StateService } from './state.service';
 import { AzFunc, AzWebApp, DockerEnv } from './transformers';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { IAzSetting } from './az-setting.model';
 
 describe('StateService', () => {
   let service: StateService;
-  const azConfigFactory = (): IAzSetting[] => [
-    { name: 'dbConnection', value: 'MySqlServer', slotSetting: false }
-  ];
+  const azConfigFactory = (): IAzSetting[] => [{ name: 'dbConnection', value: 'MySqlServer', slotSetting: false }];
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -49,7 +47,6 @@ describe('StateService', () => {
     expect(result).toEqual(transformer);
     expect(data).toMatchSnapshot();
   });
-
 
   it('should setTransformer AzFunc Empty', async () => {
     const transformer = AzFunc;

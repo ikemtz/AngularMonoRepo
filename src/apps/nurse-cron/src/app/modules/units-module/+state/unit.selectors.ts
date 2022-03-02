@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UNITS_FEATURE_KEY, State, UnitsPartialState } from './unit.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const getUnitsState = createFeatureSelector<UnitsPartialState, State>(
+export const getUnitsState = createFeatureSelector< State>(
   UNITS_FEATURE_KEY,
 ); 
 
