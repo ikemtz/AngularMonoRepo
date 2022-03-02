@@ -18,36 +18,36 @@ export class AppInsightsMonitoringService {
   }
 
   public setAuthenticatedUserContext(userId: string): void {
-    this.appInsights.setAuthenticatedUserContext(userId, null, true);
+    this.appInsights.setAuthenticatedUserContext(userId, undefined, true);
   }
 
   public clearAuthenticatedUserContext(): void {
     this.appInsights.clearAuthenticatedUserContext();
   }
 
-  public logException(exception: Error, properties?: unknown, measurements?: { [key: string]: number; }): void {
+  public logException(exception: Error, properties?: object, measurements?: { [key: string]: number }): void {
     this.appInsights.trackException({ exception, properties, measurements });
   }
 
-  public logEvent(name: string, properties?: unknown, measurements?: { [key: string]: number; }): void {
+  public logEvent(name: string, properties?: object, measurements?: { [key: string]: number }): void {
     this.appInsights.trackEvent({ name, properties, measurements });
   }
 
   public trackEventsEffect(actions$: Actions, logPayload: boolean): Observable<Action> {
     return actions$.pipe(
-      tap(x => {
-        this.logEvent(x.type, logPayload ? (x as unknown as { payload: string; }).payload : null);
+      tap((x) => {
+        this.logEvent(x.type, logPayload ? (x as unknown as { payload: object }).payload : null);
       }),
     );
   }
 
   public trackErrorsEffect(actions$: Actions): Observable<Action> {
     return actions$.pipe(
-      filter(x => {
+      filter((x) => {
         const type = x.type.toUpperCase();
         return type.endsWith('ERROR') || type.endsWith('FAILURE');
       }),
-      tap(x => {
+      tap((x) => {
         this.logException(x as never);
       }),
     );

@@ -6,16 +6,20 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'aw-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss']
+  styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent {
-  public readonly identity$: Observable<IOidcUser>;
-  public readonly email$: Observable<string>;
+  public readonly identity$: Observable<IOidcUser | null>;
+  public readonly email$: Observable<string | undefined>;
   public readonly loggedIn$: Observable<boolean>;
-  public readonly profilePicture$: Observable<string>;
+  public readonly profilePicture$: Observable<string | undefined>;
   public collapsed = true;
 
-  constructor(private readonly oidcFacade: OidcFacade, private readonly auth0Facade: Auth0Facade, public readonly router: Router) {
+  constructor(
+    private readonly oidcFacade: OidcFacade,
+    private readonly auth0Facade: Auth0Facade,
+    public readonly router: Router,
+  ) {
     this.identity$ = this.oidcFacade.identity$;
     this.email$ = this.auth0Facade.email$;
     this.loggedIn$ = this.oidcFacade.loggedIn$;

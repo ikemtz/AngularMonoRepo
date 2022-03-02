@@ -21,6 +21,6 @@ describe('removeById', () => {
     expect(removeById({ data: [], total: 0 }, 3)).toStrictEqual({ data: [], total: 0 });
   });
   it('should handle null', () => {
-    expect(removeById(null, 3)).toBeNull();
+    expect(removeById(null, 3)).toStrictEqual([]);
   });
 });
