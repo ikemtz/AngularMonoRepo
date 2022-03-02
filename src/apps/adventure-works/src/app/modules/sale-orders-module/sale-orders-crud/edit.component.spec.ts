@@ -15,19 +15,21 @@ describe('SaleOrderEditComponent', () => {
   let fixture: ComponentFixture<SaleOrderEditComponent>;
   let facade: SaleOrderCrudFacade;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [SaleOrderEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
-      providers: [
-        {
-          provide: SaleOrderCrudFacade,
-          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
-        },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SaleOrderEditComponent],
+        imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
+        providers: [
+          {
+            provide: SaleOrderCrudFacade,
+            useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
+          },
+        ],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SaleOrderEditComponent);
@@ -65,7 +67,7 @@ describe('SaleOrderEditComponent', () => {
       [SaleOrderProperties.CUSTOMER]: 'CUSTOMER',
     });
     let item: ISaleOrder | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component.addEditForm = { ...component.addEditForm, valid: true } as any;
     component.save();
@@ -77,7 +79,6 @@ describe('SaleOrderEditComponent', () => {
       dueDate: expect.any(Date),
       shipDate: expect.any(Date),
     });
-
   });
 
   test('should not update', () => {

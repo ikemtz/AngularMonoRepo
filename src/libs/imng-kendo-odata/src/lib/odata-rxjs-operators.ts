@@ -49,7 +49,8 @@ export function parseDatesInCollection<T>(
       }
     });
 
-    collection.forEach((val: unknown) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    collection.forEach((val: any) => {
       utcProps.filter((p) => val[p]).forEach((p) => (val[p] = new Date(val[p])));
       dateProps.filter((p) => val[p]).forEach((p) => (val[p] = toLocalDate(val[p])));
     });
@@ -63,29 +64,28 @@ export function toLocalDate(date: string): Date {
 }
 
 export function getSubGridData<PARENT_ENTITY extends { id?: IdType }, SUB_ENTITY>(
-  id: IdType,
-  mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[],
+  id: IdType | undefined,
+  mappingFunction: (entity: PARENT_ENTITY | undefined) => SUB_ENTITY[],
 ): (source: Observable<ODataResult<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
-  // tslint:disable-next-line: space-before-function-paren
   return function (source: Observable<ODataResult<PARENT_ENTITY>>): Observable<SUB_ENTITY[]> {
     return source.pipe(
       map((t) => t.data.find((f) => f.id === id)),
-      map((entity: PARENT_ENTITY) => mappingFunction(entity)),
       filter((t) => !!t),
+      map((entity) => mappingFunction(entity)),
     );
   };
 }
 
 export function getSubData<PARENT_ENTITY extends { id?: IdType }, SUB_ENTITY>(
-  id: IdType,
-  mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[],
+  id: IdType | undefined,
+  mappingFunction: (entity: PARENT_ENTITY | undefined) => SUB_ENTITY[],
 ): (source: Observable<Array<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
   // tslint:disable-next-line: space-before-function-paren
   return function (source: Observable<Array<PARENT_ENTITY>>): Observable<SUB_ENTITY[]> {
     return source.pipe(
-      map((t) => t.find((f) => f.id === id)),
-      map((entity: PARENT_ENTITY) => mappingFunction(entity)),
+      map((t) => t.find((f) => f?.id === id)),
       filter((t) => !!t),
+      map((entity) => mappingFunction(entity)),
     );
   };
 }

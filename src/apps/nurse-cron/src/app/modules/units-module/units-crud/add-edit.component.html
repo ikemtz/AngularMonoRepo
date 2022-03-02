@@ -14,7 +14,7 @@
           [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.BUILDING_ID) }"
         />
         <div *ngIf="(submitted$ | async) && formControlErrors(props.BUILDING_ID)" class="invalid-feedback">
-          <div *ngIf="formControlErrors(props.BUILDING_ID).required">Unit building id is required</div>
+          <div *ngIf="formControlErrors(props.BUILDING_ID)?.required">Unit building id is required</div>
         </div>
       </div>
       <div class="form-group col-md-6">
@@ -26,7 +26,7 @@
           [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NAME) }"
         />
         <div *ngIf="(submitted$ | async) && formControlErrors(props.NAME)" class="invalid-feedback">
-          <div *ngIf="formControlErrors(props.NAME).required">Unit name is required</div>
+          <div *ngIf="formControlErrors(props.NAME)?.required">Unit name is required</div>
         </div>
       </div>
       <div class="form-group col-md-6">
@@ -38,7 +38,7 @@
           [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ROOM_COUNT) }"
         />
         <div *ngIf="(submitted$ | async) && formControlErrors(props.ROOM_COUNT)" class="invalid-feedback">
-          <div *ngIf="formControlErrors(props.ROOM_COUNT).required">Unit room count is required</div>
+          <div *ngIf="formControlErrors(props.ROOM_COUNT)?.required">Unit room count is required</div>
         </div>
       </div>
       <div class="form-group col-md-6">

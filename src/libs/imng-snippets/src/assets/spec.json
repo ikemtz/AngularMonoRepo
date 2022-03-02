@@ -83,7 +83,7 @@
       "import { StoreModule, Store } from '@ngrx/store';",
       "import { NxModule } from '@nrwl/angular';",
       "import { HttpClient } from '@angular/common/http';",
-      "import { readFirst } from 'imng-ngrx-utils/testing';",
+      "import { readFirst } from '@nrwl/angular/testing/src/testing-utils';",
       "import { ODataService } from 'imng-kendo-odata';",
       "import { of } from 'rxjs';",
       "",

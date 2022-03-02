@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 
 import { IdleState, IDLE_FEATURE_KEY, idleReducer, initialState } from './idle.reducer';
 import { IdleFacade } from './idle.facade';
@@ -25,16 +25,18 @@ describe('IdleFacade', () => {
           StoreModule.forFeature(IDLE_FEATURE_KEY, idleReducer, { initialState }),
           EffectsModule.forFeature([IdleEffects]),
         ],
-        providers: [IdleFacade,
+        providers: [
+          IdleFacade,
           {
-            provide: IDLE_CONFIG, useValue: {
+            provide: IDLE_CONFIG,
+            useValue: {
               timeoutWarningInMs: 2,
-              autoLogoutInMs: 4
-            }
-          }
+              autoLogoutInMs: 4,
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -44,7 +46,7 @@ describe('IdleFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);

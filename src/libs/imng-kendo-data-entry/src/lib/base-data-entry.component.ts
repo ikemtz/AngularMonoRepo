@@ -29,7 +29,7 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
   public abstract props: any;
   public addEditForm: FormGroup;
   public loading$: Observable<boolean>;
-  private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public get submitted$(): Observable<boolean> {
     return this._submitted$.asObservable();
@@ -38,7 +38,7 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
   public formControl(controlName: string): AbstractControl {
     return this.addEditForm.controls[controlName];
   }
-  public formControlErrors(controlName: string): ValidationErrors {
+  public formControlErrors(controlName: string): ValidationErrors | null {
     return this.addEditForm.controls[controlName].errors;
   }
   constructor(@Inject(FACADE) public readonly facade: FACADE) {

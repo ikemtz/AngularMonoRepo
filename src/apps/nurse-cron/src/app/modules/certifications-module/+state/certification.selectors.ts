@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { CERTIFICATIONS_FEATURE_KEY, State, CertificationsPartialState } from './certification.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const getCertificationsState = createFeatureSelector<CertificationsPartialState, State>(
+export const getCertificationsState = createFeatureSelector< State>(
   CERTIFICATIONS_FEATURE_KEY,
 ); 
 

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ImngTypeAheadFacade } from 'imng-ngxb-typeahead';
 import { ODataService } from 'imng-kendo-odata';
 import { of } from 'rxjs';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 
 export function testLoadMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
   facade: TFacade,
@@ -12,7 +12,6 @@ export function testLoadMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
   const getSpy = jest.spyOn(httpClient, 'get');
   facade.loadMatches('🎂 🍩 😡');
   expect(getSpy).toBeCalledTimes(1);
-
 }
 
 export async function testOdataMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
@@ -25,5 +24,4 @@ export async function testOdataMatches<TFacade extends ImngTypeAheadFacade<unkno
   expect(oDataService.fetch).toBeCalledTimes(1);
   const matches = await readFirst(facade.matches$);
   expect(matches.length).toEqual(1);
-
 }

@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { dir } from 'console';
 import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { ChangeDetectorRef } from '@angular/core';
 

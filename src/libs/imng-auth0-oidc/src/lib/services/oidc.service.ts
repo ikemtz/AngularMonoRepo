@@ -2,11 +2,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Log, OidcClient, SigninRequest, SignoutRequest, UserManager, UserManagerSettings } from 'oidc-client';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { Config, OIDC_CONFIG } from '../models/config.model';
 import { OidcEvent, StorageKeys } from '../models/constants';
 import { IOidcUser } from '../models/oidc-user';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -47,9 +47,12 @@ export class OidcService {
   }
 
   public getUserMetadata(): Observable<unknown> {
-    return this.httpClient
-      .get<{ userinfo_endpoint: string }>(this.config.oidc_config.metadataUrl)
-      .pipe(switchMap((openidConfig) => this.httpClient.get<unknown>(openidConfig.userinfo_endpoint)));
+    if (this.config.oidc_config.metadataUrl) {
+      return this.httpClient
+        .get<{ userinfo_endpoint: string }>(this.config.oidc_config.metadataUrl)
+        .pipe(switchMap((openidConfig) => this.httpClient.get<unknown>(openidConfig.userinfo_endpoint)));
+    }
+    return of({});
   }
 
   getUserManager(): UserManager {
@@ -61,7 +64,7 @@ export class OidcService {
   }
 
   getOidcUser(): Observable<IOidcUser> {
-    return from(this._oidcUserManager.getUser());
+    return from(this._oidcUserManager.getUser()).pipe(map((x) => x as IOidcUser));
   }
 
   removeOidcUser(): Observable<void> {

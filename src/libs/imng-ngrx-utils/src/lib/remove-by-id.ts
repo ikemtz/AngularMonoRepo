@@ -14,5 +14,5 @@ export function removeById<T extends { id?: IdType }>(
       data: data,
     };
   }
-  return null;
+  return [];
 }

@@ -1,10 +1,9 @@
 import { ODataState } from 'imng-kendo-odata';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 
 export async function testGridODataState<TFacade extends IKendoODataGridFacade<unknown>>(
-  done: jest.DoneCallback,
   facade: TFacade,
 ): Promise<void> {
   const filteringState: ODataState = {

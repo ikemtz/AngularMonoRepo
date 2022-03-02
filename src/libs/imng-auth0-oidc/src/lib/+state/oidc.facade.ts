@@ -25,9 +25,9 @@ export class OidcFacade {
   expiring$: Observable<boolean> = this.store.select(oidcQuery.isIdentityExpiring);
   expired$: Observable<boolean> = this.store.select(oidcQuery.isIdentityExpired);
   loggedIn$: Observable<boolean> = this.store.select(oidcQuery.isLoggedIn);
-  identity$: Observable<IOidcUser> = this.store.select(oidcQuery.getOidcIdentity);
+  identity$: Observable<IOidcUser | null> = this.store.select(oidcQuery.getOidcIdentity);
   accessToken$: Observable<string> = this.store.select(oidcQuery.getAccessToken);
-  httpError$: Observable<HttpErrorResponse> = this.store.select(oidcQuery.getHttpError);
+  httpError$: Observable<HttpErrorResponse | undefined> = this.store.select(oidcQuery.getHttpError);
   signInError$: Observable<unknown> = this.store.select(oidcQuery.getSignInError);
   silentRenewError$: Observable<unknown> = this.store.select(oidcQuery.getSilentRenewError);
   hasErrors$: Observable<boolean> = this.store.select(oidcQuery.hasErrors);
@@ -61,7 +61,7 @@ export class OidcFacade {
     }
   }
 
-  public addSilentRenewError(e): void {
+  public addSilentRenewError(e: Error): void {
     this.store.dispatch(oidcActions.onSilentRenewError(e));
   }
 
@@ -75,7 +75,7 @@ export class OidcFacade {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public addUserSessionChanged(e): void {
+  public addUserSessionChanged(e: unknown): void {
     this.store.dispatch(oidcActions.onSessionChanged());
   }
 
@@ -129,7 +129,9 @@ export class OidcFacade {
   }
 
   public signoutRedirect(args?: RequestArugments): void {
-    this.store.dispatch(oidcActions.signOutRedirect(args));
+    if (args) {
+      this.store.dispatch(oidcActions.signOutRedirect(args));
+    }
   }
 
   public getSigninUrl(args?: RequestArugments): Observable<SigninRequest> {
@@ -149,9 +151,9 @@ export class OidcFacade {
     // add simple loggers
     this.registerEvent(OidcEvent.AccessTokenExpired, this.accessTokenExpired);
     this.registerEvent(OidcEvent.AccessTokenExpiring, this.accessTokenExpiring);
-    this.registerEvent(OidcEvent.SilentRenewError, this.addSilentRenewError);
+    this.registerEvent(OidcEvent.SilentRenewError, (x) => this.addSilentRenewError(x as Error));
 
-    this.registerEvent(OidcEvent.UserLoaded, this.addUserLoaded);
+    this.registerEvent(OidcEvent.UserLoaded, (x) => this.addUserLoaded(x as OidcUser));
     this.registerEvent(OidcEvent.UserUnloaded, this.addUserUnLoaded);
     this.registerEvent(OidcEvent.UserSignedOut, this.addUserSignedOut);
     this.registerEvent(OidcEvent.UserSessionChanged, this.addUserSessionChanged);

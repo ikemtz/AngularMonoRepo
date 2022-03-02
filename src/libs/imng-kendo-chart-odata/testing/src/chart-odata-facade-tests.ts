@@ -1,4 +1,4 @@
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { IChartODataFacade } from 'imng-kendo-chart-odata';
 import { ODataService } from 'imng-kendo-odata';

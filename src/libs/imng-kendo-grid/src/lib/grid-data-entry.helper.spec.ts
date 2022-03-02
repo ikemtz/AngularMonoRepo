@@ -1,15 +1,15 @@
 import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { formGroupFac } from './editable-data-grid.directive.spec';
 import { AddEvent, GridComponent } from '@progress/kendo-angular-grid';
 
 export const gridComponentMockFac = () =>
-({
-  closeRow: jest.fn(),
-  addRow: jest.fn(),
-  editRow: jest.fn(),
-} as unknown as GridComponent);
+  ({
+    closeRow: jest.fn(),
+    addRow: jest.fn(),
+    editRow: jest.fn(),
+  } as unknown as GridComponent);
 describe('GridDataEntryHelper<>', () => {
   it('should report invalid if gridData is empty ', async () => {
     const gridHelper = new GridDataEntryHelper(
@@ -24,7 +24,6 @@ describe('GridDataEntryHelper<>', () => {
     expect(await readFirst(gridHelper.isValid$)).toBe(false);
     expect(gridHelper.isValid).toBe(false);
     expect(gridHelper.isInEditMode).toBe(false);
-
   });
 
   it('should report invalid if gridData is inEditMode ', async () => {
@@ -39,7 +38,6 @@ describe('GridDataEntryHelper<>', () => {
     expect(await readFirst(gridHelper.isValid$)).toBe(false);
     expect(gridHelper.isValid).toBe(false);
     expect(gridHelper.isInEditMode).toBe(true);
-
   });
 
   it('should report valid ', async () => {
@@ -53,8 +51,6 @@ describe('GridDataEntryHelper<>', () => {
     expect(await readFirst(gridHelper.isValid$)).toBe(true);
     expect(gridHelper.isValid).toBe(true);
     expect(gridHelper.isInEditMode).toBe(false);
-
-
   });
 
   it('should handle saving edited records ', async () => {
@@ -69,8 +65,7 @@ describe('GridDataEntryHelper<>', () => {
     });
     const result = await readFirst(gridHelper.gridData$);
     expect(result).toMatchSnapshot();
-    expect((result[1] as unknown as { test: string; }).test).toBe('👍');
-
+    expect((result[1] as unknown as { test: string }).test).toBe('👍');
   });
 
   it('should handle saving new records ', async () => {
@@ -88,7 +83,6 @@ describe('GridDataEntryHelper<>', () => {
     const newRec = result[3];
     expect(newRec.id).toBeNull();
     expect(newRec.test).toBe('👍');
-
   });
 
   it('should editHandler', async () => {
@@ -105,7 +99,6 @@ describe('GridDataEntryHelper<>', () => {
     expect(gridComponentMock.editRow).toBeCalledTimes(1);
     expect(gridComponentMock.closeRow).toBeCalledTimes(1);
     expect(gridComponentMock.closeRow).toHaveBeenNthCalledWith(1, 4);
-
   });
 
   it('should cancelHandler', async () => {
@@ -122,7 +115,6 @@ describe('GridDataEntryHelper<>', () => {
     expect(gridComponentMock.editRow).toBeCalledTimes(0);
     expect(gridComponentMock.closeRow).toBeCalledTimes(1);
     expect(gridComponentMock.closeRow).toHaveBeenNthCalledWith(1, 4);
-
   });
 
   it('should removeHandler', async () => {
@@ -139,7 +131,6 @@ describe('GridDataEntryHelper<>', () => {
     expect(gridComponentMock.closeRow).toBeCalledTimes(0);
     expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
     expect(gridHelper.gridData.length).toBe(2);
-
   });
 
   it('should handle add', async () => {
@@ -147,7 +138,6 @@ describe('GridDataEntryHelper<>', () => {
     gridHelper.addItems({ id: '🐂' });
     expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
     expect(gridHelper.gridData.length).toBe(4);
-
   });
 
   it('should handle remove', async () => {
@@ -157,7 +147,6 @@ describe('GridDataEntryHelper<>', () => {
     gridHelper.removeItems(gridHelper.gridData[2]);
     expect(gridHelper.gridData.length).toBe(2);
     expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
-
   });
 
   it('should handle sorting', async () => {
@@ -168,6 +157,5 @@ describe('GridDataEntryHelper<>', () => {
     gridHelper.sortHandler([{ field: 'id', dir: 'asc' }]);
     expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot('asc');
     expect(await readFirst(gridHelper.sortDescriptors$)).toStrictEqual([{ field: 'id', dir: 'asc' }]);
-
   });
 });

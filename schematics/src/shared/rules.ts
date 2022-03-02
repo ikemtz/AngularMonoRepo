@@ -18,9 +18,9 @@ import { map, switchMap } from 'rxjs/operators';
 import { IOptions } from './options';
 import _ = require('lodash');
 import * as fs from 'fs';
-import * as findUp from 'find-up';
 import * as https from 'https';
 import * as http from 'http';
+import { findUpSync } from './find-up';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
@@ -49,7 +49,6 @@ export function getSwaggerDoc(options: IOptions): Rule {
       return jsonDoc.pipe(map(data => processOpenApiDoc(data, options, host)));
     }
     return of(host);
-
   };
 }
 
@@ -57,7 +56,7 @@ function getFileNames(openApiJsonFileName: string) {
   if (fs.existsSync(`${__dirname}/${openApiJsonFileName}`)) {
     return `${__dirname}/${openApiJsonFileName}`;
   }
-  return findUp.sync(openApiJsonFileName);
+  return findUpSync(openApiJsonFileName);
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
