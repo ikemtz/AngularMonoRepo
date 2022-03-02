@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { BUILDINGS_FEATURE_KEY, State, BuildingsPartialState } from './building.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const getBuildingsState = createFeatureSelector<BuildingsPartialState, State>(
+export const getBuildingsState = createFeatureSelector< State>(
   BUILDINGS_FEATURE_KEY,
 ); 
 

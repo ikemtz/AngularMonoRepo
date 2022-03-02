@@ -5,7 +5,7 @@ import { distinct } from 'imng-nrsrx-client-utils';
 
 export function translateChildSortingExpression(
   odataState: ODataState,
-  childTableProperties: BoundChildTableProperty[],
+  childTableProperties: BoundChildTableProperty[] | undefined,
 ): ODataState {
   if (!childTableProperties || childTableProperties.length === 0) {
     return odataState;
@@ -16,21 +16,21 @@ export function translateChildSortingExpression(
   const sortedColumns = odataState.sort
     ?.filter(filterPredicate)
     .map((m) => ({ ...m, childProperty: m.field.split('.') }));
-  if (sortedColumns?.length > 0) {
+  if (sortedColumns && sortedColumns?.length > 0) {
     odataState.sort = odataState.sort?.filter((x) => !filterPredicate(x));
 
-    odataState.expanders = odataState.expanders.map((m) => (isExpander(m) ? { ...m } : m));
+    odataState.expanders = odataState.expanders?.map((m) => (isExpander(m) ? { ...m } : m));
     const expanders = odataState.expanders
-      .filter((t: Expander) => childTableStrings.indexOf(t.table) > -1)
+      ?.filter((t: Expander) => childTableStrings.indexOf(t.table) > -1)
       .map((t: Expander) => {
         t.sort = (t.sort || []).filter(
-          (f) => !sortedColumns.find((s) => t.table === s.childProperty[0] && f.field === s.childProperty[1]),
+          (f) => !sortedColumns?.find((s) => t.table === s.childProperty[0] && f.field === s.childProperty[1]),
         );
         return t;
       });
-    sortedColumns.forEach((x) => {
-      const expander = expanders.find((e) => e.table === x.childProperty[0]);
-      expander.sort.push({ field: x.childProperty[1], dir: x.dir });
+    sortedColumns?.forEach((x) => {
+      const expander = expanders?.find((e) => e.table === x.childProperty[0]);
+      expander?.sort?.push({ field: x.childProperty[1], dir: x.dir });
     });
   }
   return odataState;

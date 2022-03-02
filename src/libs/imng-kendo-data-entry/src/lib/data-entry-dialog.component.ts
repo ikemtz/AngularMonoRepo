@@ -6,7 +6,12 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
 
 @Component({
   selector: 'imng-data-entry-dialog[parentComponent]',
-  template: `<kendo-dialog [width]="width" [height]="height" (close)="close()" [autoFocusedElement]="autoFocusedElement">
+  template: `<kendo-dialog
+      [width]="width"
+      [height]="height"
+      (close)="close()"
+      [autoFocusedElement]="autoFocusedElement"
+    >
       <kendo-dialog-titlebar class="bg-primary">{{ dialogTitle }}</kendo-dialog-titlebar>
       <ng-content></ng-content>
       <kendo-dialog-actions>
@@ -27,7 +32,7 @@ export class DataEntryDialogComponent implements OnInit {
   /**
    * https://www.telerik.com/kendo-angular-ui/components/dialogs/dialog/initial-focus/
    */
-  @Input() public autoFocusedElement: string; 
+  @Input() public autoFocusedElement: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public parentComponent: BaseDataEntryComponent<any>; //NOSONAR
   @Input() public saveButtonText = 'Save';
@@ -67,7 +72,8 @@ export class DataEntryDialogComponent implements OnInit {
   public submit(): void {
     this.parentComponent.onSubmit();
   }
-  get dialogActionBtnsCtx(): unknown {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  get dialogActionBtnsCtx(): Object {
     return { $implicit: { cancel: () => this.cancel(), submit: () => this.submit() } };
   }
 }

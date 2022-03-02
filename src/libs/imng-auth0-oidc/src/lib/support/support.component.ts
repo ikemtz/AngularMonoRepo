@@ -39,7 +39,8 @@ export class SupportComponent implements OnInit {
   constructor(public readonly facade: OidcFacade, public readonly auth0Facade: Auth0Facade) {}
   ngOnInit(): void {
     this.profileValue$ = this.auth0Facade.profile$.pipe(
-      map((x) => Object.keys(x).map((propertyKey) => ({ key: propertyKey, value: x[propertyKey] }))),
+      map((x) => x as never),
+      map((x) => Object.keys(x).map((propertyKey) => ({ key: propertyKey, value: x[propertyKey] as string }))),
     );
   }
 }

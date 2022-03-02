@@ -10,11 +10,11 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class Auth0Facade {
-  constructor(private readonly store: Store<OidcState>) { }
+  constructor(private readonly store: Store<OidcState>) {}
   profile$: Observable<Auth0Profile> = this.store.select(auth0Query.getProfile);
-  email$: Observable<string> = this.store.select(auth0Query.getEmail);
-  profilePicture$: Observable<string> = this.store.select(auth0Query.getProfilePicture);
-  permissions$: Observable<string[]> = this.store.select(auth0Query.getPermissions);
+  email$: Observable<string | undefined> = this.store.select(auth0Query.getEmail);
+  profilePicture$: Observable<string | undefined> = this.store.select(auth0Query.getProfilePicture);
+  permissions$: Observable<string[] | undefined> = this.store.select(auth0Query.getPermissions);
 
   public hasPermissions(requiredPermissions: Array<string>): Observable<boolean> {
     return this.permissions$.pipe(

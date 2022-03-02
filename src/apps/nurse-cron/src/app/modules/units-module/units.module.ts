@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UnitsRoutingModule } from './units.routing.module';
 import * as fromUnitsReducer from './+state/unit.reducer';
 import { UnitEffects } from './+state/unit.effects';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { UnitListComponent, UnitListFacade } from './units-list';
 import { UnitAddComponent, UnitEditComponent, UnitApiService, UnitCrudFacade } from './units-crud';
@@ -26,7 +25,6 @@ import { DataPersistence } from '@nrwl/angular';
     ImngKendoGridODataModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
     UnitsRoutingModule,
     StoreModule.forFeature(fromUnitsReducer.UNITS_FEATURE_KEY, fromUnitsReducer.reducer),
     EffectsModule.forFeature([UnitEffects]),

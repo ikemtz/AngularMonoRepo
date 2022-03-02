@@ -7,7 +7,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { ODataService } from 'imng-kendo-odata';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { environment } from '@env/nurse-cron';
 import { AppRoutingModule } from './app.routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -19,7 +18,6 @@ import { ImngSignalrNgrxModule } from 'imng-signalr-ngrx';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ImngNgrxIdleModule } from 'imng-ngrx-idle';
 
-
 @NgModule({
   declarations: [AppComponent, NavBarComponent, MessagingComponent],
   imports: [
@@ -29,7 +27,7 @@ import { ImngNgrxIdleModule } from 'imng-ngrx-idle';
       {},
       {
         metaReducers: [],
-        runtimeChecks: environment.runtimeChecks
+        runtimeChecks: environment.runtimeChecks,
       },
     ),
     EffectsModule.forRoot([]),
@@ -38,12 +36,11 @@ import { ImngNgrxIdleModule } from 'imng-ngrx-idle';
     Auth0OidcModule.forRoot(environment.auth0_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
     ImngSignalrNgrxModule.forRoot(environment.signalr),
-    FontAwesomeModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    ImngNgrxIdleModule.forRoot(environment.idleConfig)
+    ImngNgrxIdleModule.forRoot(environment.idleConfig),
   ],
   providers: [ODataService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

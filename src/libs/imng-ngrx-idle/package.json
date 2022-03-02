@@ -2,15 +2,14 @@
   "name": "imng-ngrx-idle",
   "version": "0.0.5",
   "peerDependencies": {
-    "@ngrx/store": ">=11.x",
-    "@ngrx/effects": ">=11.x",
+    "@ngrx/store": ">=13.x",
+    "@ngrx/effects": ">=13.x",
     "@progress/kendo-angular-dialog": ">=5.*",
     "@progress/kendo-angular-buttons": ">=5.*",
     "imng-auth0-oidc": "*",
-    "imng-ngrx-utils": "*",
-    "tslib": ">=2.x"
+    "imng-ngrx-utils": "*"
   },
-  "devDependencies": {
+  "dependencies": {
     "tslib": ">=2.x"
   },
   "ngPackage": {

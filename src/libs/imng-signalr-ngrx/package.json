@@ -2,18 +2,20 @@
   "name": "imng-signalr-ngrx",
   "version": "0.1.0",
   "peerDependencies": {
-    "@ngrx/store": ">=11.x",
-    "@ngrx/effects": ">=11.x",
+    "@ngrx/store": ">=13.x",
+    "@ngrx/effects": ">=13.x",
     "@microsoft/signalr": ">=3.x",
     "imng-auth0-oidc": "*",
-    "tslib": ">=2.x",
     "imng-ngrx-utils": "*",
-    "@angular/core": ">=11.x",
+    "@angular/core": ">=13.x",
     "rxjs": ">=6.x",
-    "@nrwl/angular": ">=11.x",
-    "@angular/common": ">=11.x",
-    "@angular/router": ">=11.x",
+    "@nrwl/angular": ">=13.x",
+    "@angular/common": ">=13.x",
+    "@angular/router": ">=13.x",
     "oidc-client": ">=1.x"
+  },
+  "dependencies": {
+    "tslib": ">=2.x"
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",

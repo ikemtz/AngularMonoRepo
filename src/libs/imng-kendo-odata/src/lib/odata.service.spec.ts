@@ -3,7 +3,7 @@ import { ODataService } from './odata.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { ODataState } from './odata-state';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 describe('ODataService', () => {
@@ -33,7 +33,7 @@ describe('ODataService', () => {
           values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7', 1],
         },
       ],
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
@@ -41,7 +41,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7,1))&$count=true`,
+      `//idunno.com?&$expand=childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7,1))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -60,9 +60,9 @@ describe('ODataService', () => {
           values: ['xyz', 1, new Date(2021, 11, 30, 0, 0, 0, 0)],
         },
       ],
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
     };
-    const expectedRequestedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('xyz',1,2021-12-30T`;
+    const expectedRequestedUrlStart = `//idunno.com?&$expand=childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('xyz',1,2021-12-30T`;
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
     );
@@ -76,7 +76,7 @@ describe('ODataService', () => {
     const gridState: ODataState = {
       selectors: ['id', 'name'],
       inFilters: [{ field: 'field1', values: [1, 2, 6, 4] }],
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
@@ -84,7 +84,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in (1,2,6,4))&$count=true`,
+      `//idunno.com?&$expand=childTable1($select=id,name)&$select=id,name&$filter=(field1 in (1,2,6,4))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -100,7 +100,7 @@ describe('ODataService', () => {
           values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
         },
       ],
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
       filter: {
         logic: 'and',
         filters: [
@@ -115,7 +115,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) and (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$count=true`,
+      `//idunno.com?$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) and (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=childTable1($select=id,name)&$select=id,name&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -131,7 +131,7 @@ describe('ODataService', () => {
           values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
         },
       ],
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
       filter: {
         logic: 'and',
         filters: [
@@ -146,7 +146,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) or (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$count=true`,
+      `//idunno.com?$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) or (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=childTable1($select=id,name)&$select=id,name&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -163,7 +163,7 @@ describe('ODataService', () => {
         },
         { field: 'field2', logic: 'or', values: ['a', 'b', 't', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'] },
       ],
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
       filter: {
         logic: 'and',
         filters: [
@@ -178,7 +178,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?$filter=(field2 in ('a','b','t',2b837a73-1d01-4414-ae92-c047a0ff0fe7)) or (field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) or (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$count=true`,
+      `//idunno.com?$filter=(field2 in ('a','b','t',2b837a73-1d01-4414-ae92-c047a0ff0fe7)) or (field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) or (fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=childTable1($select=id,name)&$select=id,name&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -286,7 +286,7 @@ describe('ODataService', () => {
           },
         ],
       },
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
@@ -294,7 +294,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=childTable1/any(o: o/name eq 'xy')&$count=true`,
+      `//idunno.com?&$expand=childTable1($select=id,name)&$select=id,name&$filter=childTable1/any(o: o/name eq 'xy')&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -322,7 +322,7 @@ describe('ODataService', () => {
           },
         ],
       },
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
     };
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
@@ -330,7 +330,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(childTable4/any(o: o/name2 eq 'abc') or childTable1/any(o: o/name eq 'def'))&$count=true`,
+      `//idunno.com?&$expand=childTable1($select=id,name)&$select=id,name&$filter=(childTable4/any(o: o/name2 eq 'abc') or childTable1/any(o: o/name eq 'def'))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -521,7 +521,7 @@ describe('ODataService', () => {
       },
     ] as CompositeFilterDescriptor[];
     const gridState: ODataState = {
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
       selectors: ['id', 'name'],
       sort: [{ field: 'a.b', dir: 'asc' }],
       filter: { logic: 'or', filters: compositeFilter },
@@ -533,7 +533,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
+      `//idunno.com?&$expand=childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
     );
   });
 
@@ -553,9 +553,9 @@ describe('ODataService', () => {
         ],
       },
     ] as CompositeFilterDescriptor[];
-    const expectedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
+    const expectedUrlStart = `//idunno.com?&$expand=childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
     const gridState: ODataState = {
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
       selectors: ['id', 'name'],
       sort: [{ field: 'a.b', dir: 'asc' }],
       filter: { logic: 'or', filters: compositeFilter },
@@ -572,7 +572,7 @@ describe('ODataService', () => {
   it('should support byPrimaryKey operations', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {
-      expanders: ['childTable2', { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [{ table: 'childTable1', selectors: ['id', 'name'] }],
       selectors: ['id', 'name'],
       inFilters: [
         {
@@ -596,7 +596,7 @@ describe('ODataService', () => {
     const result = await readFirst(service.fetchByPrimaryKey('//idunno.com', 'xyz', gridState));
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
-      `//idunno.com?$filter=id eq 'xyz'&$expand=childTable2,childTable1($select=id,name)&$select=id,name`,
+      `//idunno.com?$filter=id eq 'xyz'&$expand=childTable1($select=id,name)&$select=id,name`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher.data[0]);
   });

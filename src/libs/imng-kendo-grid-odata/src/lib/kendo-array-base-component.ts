@@ -50,7 +50,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY> imp
     this.markForCheck();
   }
 
-  constructor(public readonly changeDetectorRef: ChangeDetectorRef = null) {}
+  constructor(public readonly changeDetectorRef: ChangeDetectorRef) {}
 
   public readonly markForCheck = (): void => this.changeDetectorRef?.markForCheck();
 

@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { UnitListFacade } from './list.facade';
 import { UnitCrudFacade } from '../units-crud';
@@ -20,9 +19,7 @@ const initialGridState: ODataState = {
     UnitProperties.DELETED_ON_UTC,
     UnitProperties.BUILDING,
   ],
-  sort: [
-    { field: UnitProperties.ID, dir: 'asc' },
-  ],
+  sort: [{ field: UnitProperties.ID, dir: 'asc' }],
 };
 
 @Component({
@@ -34,10 +31,6 @@ const initialGridState: ODataState = {
 export class UnitListComponent extends KendoODataComponentBase<IUnit, UnitListFacade> {
   public readonly props = UnitProperties;
   public currentItem: IUnit;
-  public readonly faPlusCircle = faPlusCircle;
-  public readonly faCheck = faCheck;
-  public readonly faEdit = faEdit;
-  public readonly faTrash = faTrash;
 
   constructor(facade: UnitListFacade, public readonly crudFacade: UnitCrudFacade) {
     super(facade, initialGridState);

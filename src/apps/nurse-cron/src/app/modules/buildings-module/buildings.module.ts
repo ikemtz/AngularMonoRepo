@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BuildingsRoutingModule } from './buildings.routing.module';
 import * as fromBuildingsReducer from './+state/building.reducer';
 import { BuildingEffects } from './+state/building.effects';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { BuildingListComponent, BuildingListFacade } from './buildings-list';
 import { BuildingAddComponent, BuildingEditComponent, BuildingApiService, BuildingCrudFacade } from './buildings-crud';
@@ -26,7 +25,6 @@ import { DataPersistence } from '@nrwl/angular';
     ImngKendoGridODataModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
     BuildingsRoutingModule,
     StoreModule.forFeature(fromBuildingsReducer.BUILDINGS_FEATURE_KEY, fromBuildingsReducer.reducer),
     EffectsModule.forFeature([BuildingEffects]),

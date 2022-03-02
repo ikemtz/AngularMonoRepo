@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { getSubGridData, findById, firstRecord, getSubData, mapToExtDataResult } from './odata-rxjs-operators';
 import { map } from 'rxjs/operators';
 
