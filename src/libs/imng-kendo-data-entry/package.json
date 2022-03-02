@@ -9,20 +9,20 @@
     },
     "dest": "../../dist/libs/imng-kendo-data-entry"
   },
-  "dependencies": {
-    "tslib": ">=2.x"
-  },
   "peerDependencies": {
     "@angular/common": ">=12.x",
     "@angular/core": ">=12.x",
     "@angular/forms": ">=12.x",
     "@angular/platform-browser": ">=12.x",
-    "@ngrx/store": ">=11.x",
-    "@nrwl/angular": ">=11.x",
+    "@ngrx/store": ">=12.x",
+    "@nrwl/angular": ">=12.x",
     "@progress/kendo-angular-dialog": ">=5.x",
     "imng-nrsrx-client-utils": "*",
     "imng-ngrx-utils": "*",
     "rxjs": ">=6.x"
+  },
+  "dependencies": {
+    "tslib": ">=2.x"
   },
   "repository": {
     "type": "git",

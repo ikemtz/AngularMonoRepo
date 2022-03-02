@@ -3,10 +3,9 @@
   "version": "0.0.5",
   "peerDependencies": {
     "@progress/kendo-data-query": ">=1.x",
-    "@ngrx/store": ">=11.x",
-    "tslib": ">=2.x"
+    "@ngrx/store": ">=12.x"
   },
-  "devDependencies": {
+  "dependencies": {
     "tslib": ">=2.x"
   },
   "ngPackage": {
