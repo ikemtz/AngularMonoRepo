@@ -51,10 +51,10 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
       }),
       this.facade.gridPagerSettings$.subscribe((t) => (this.gridComponent.pageable = t)),
       this.facade.gridODataState$.pipe(filter((t) => !!t)).subscribe((t) => {
-        this.gridComponent.pageSize = t.take;
-        this.gridComponent.filter = t.filter;
-        this.gridComponent.skip = t.skip;
-        this.gridComponent.sort = t.sort;
+        this.gridComponent.pageSize = t.take || 0;
+        this.gridComponent.filter = t.filter || { logic: 'and', filters: [] };
+        this.gridComponent.skip = t.skip || 0;
+        this.gridComponent.sort = t.sort || [];
       }),
     );
   }

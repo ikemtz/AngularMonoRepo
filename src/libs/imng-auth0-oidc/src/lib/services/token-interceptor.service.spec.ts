@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { of, throwError } from 'rxjs';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { Store } from '@ngrx/store';
 import { OIDC_CONFIG } from '../models/config.model';
@@ -16,8 +16,8 @@ describe('TokenInterceptorService', () => {
       providers: [
         { provide: Store, useValue: { select: jest.fn(() => of('🐱‍👤')), dispatch: jest.fn() } },
         { provide: OIDC_CONFIG, useValue: {} },
-        TokenInterceptorService]
-
+        TokenInterceptorService,
+      ],
     });
     tokenInterceptorService = TestBed.inject(TokenInterceptorService);
     store = TestBed.inject(Store);
@@ -30,27 +30,26 @@ describe('TokenInterceptorService', () => {
   it('should support canActivate', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const req: any = {
-      clone: jest.fn()
+      clone: jest.fn(),
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const next: any = {
-      handle: jest.fn(() => of('😎'))
+      handle: jest.fn(() => of('😎')),
     };
     const result = await readFirst(tokenInterceptorService.intercept(req, next));
     expect(result).toBe('😎');
     expect(next.handle).toBeCalledTimes(1);
     expect(store.dispatch).toBeCalledTimes(0);
-
   });
 
   it('should support exceptionHandling = true', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const req: any = {
-      clone: jest.fn()
+      clone: jest.fn(),
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const next: any = {
-      handle: jest.fn(() => throwError(new HttpErrorResponse({ error: 'Validation' })))
+      handle: jest.fn(() => throwError(new HttpErrorResponse({ error: 'Validation' }))),
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let result: HttpEvent<any>;
@@ -64,7 +63,5 @@ describe('TokenInterceptorService', () => {
       return;
     }
     throwError('The anticipated exception was not thrown');
-
   });
-
 });

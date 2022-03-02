@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HealthItemsRoutingModule } from './health-items.routing.module';
 import * as fromHealthItemsReducer from './+state/health-item.reducer';
 import { HealthItemEffects } from './+state/health-item.effects';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HealthItemListComponent, HealthItemListFacade } from './health-items-list';
 import {
@@ -31,7 +30,6 @@ import { DataPersistence } from '@nrwl/angular';
     ImngKendoGridODataModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
     HealthItemsRoutingModule,
     StoreModule.forFeature(fromHealthItemsReducer.HEALTH_ITEMS_FEATURE_KEY, fromHealthItemsReducer.reducer),
     EffectsModule.forFeature([HealthItemEffects]),

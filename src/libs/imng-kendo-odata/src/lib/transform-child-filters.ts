@@ -16,7 +16,7 @@ export function processChildFilterDescriptors(state: ODataState, queryString: st
   if (!childFilters) {
     return queryString;
   }
-  queryString = transformCompositeChildFilter(state.childFilters, queryString);
+  queryString = transformCompositeChildFilter(state.childFilters as CompositeChildFilterDescriptor, queryString);
   return queryString;
 }
 
@@ -27,6 +27,7 @@ export function transformCompositeChildFilter(
   let tempFilterString = '';
   compositeChildFilter.filters
     .filter((filter) => !isCompositeChildFilterDescriptor(filter))
+    .map((filter) => filter as ChildFilterDescriptor)
     .forEach((filter: ChildFilterDescriptor, index: number, array: ChildFilterDescriptor[]) => {
       tempFilterString += index === 0 && array.length > 1 ? '(' : '';
       tempFilterString += transformChildFilter(filter);
@@ -45,6 +46,7 @@ export function transformCompositeChildFilter(
   }
   compositeChildFilter.filters
     .filter((filter) => isCompositeChildFilterDescriptor(filter))
+    .map((filter) => filter as CompositeChildFilterDescriptor)
     .forEach((filter: CompositeChildFilterDescriptor) => {
       queryString = transformCompositeChildFilter(filter, queryString);
     });

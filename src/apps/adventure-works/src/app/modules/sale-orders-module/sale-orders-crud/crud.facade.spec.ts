@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule, DataPersistence } from '@nrwl/angular';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -18,7 +18,7 @@ import {
   SaleOrdersPartialState,
   initialState,
   reducer as saleOrdersReducer,
-  SALE_ORDERS_FEATURE_KEY
+  SALE_ORDERS_FEATURE_KEY,
 } from '../+state/sale-order.reducer';
 import { SaleOrderCrudFacade } from './crud.facade';
 import { SaleOrderApiService } from './api.service';
@@ -62,7 +62,7 @@ describe('SaleOrderCrudFacade', () => {
   let store: Store<TestSchema>;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { });
+  beforeEach(() => {});
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -72,13 +72,9 @@ describe('SaleOrderCrudFacade', () => {
           EffectsModule.forFeature([SaleOrderEffects]),
           HttpClientTestingModule,
         ],
-        providers: [
-          DataPersistence,
-          SaleOrderCrudFacade,
-          SaleOrderApiService,
-        ],
+        providers: [DataPersistence, SaleOrderCrudFacade, SaleOrderApiService],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -88,7 +84,7 @@ describe('SaleOrderCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

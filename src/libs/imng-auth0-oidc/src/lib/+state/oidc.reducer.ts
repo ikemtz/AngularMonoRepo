@@ -7,9 +7,9 @@ import { IOidcUser } from '../models/oidc-user';
 export const OIDC_FEATURE_KEY = 'oidc';
 export interface OidcState {
   identity: IOidcUser | null;
-  audiences: string[];
+  audiences: string[] | undefined;
   userMetadata?: unknown;
-  permissions: string[];
+  permissions: string[] | undefined;
   loading: boolean;
   loggedIn: boolean;
   expiring: boolean;
@@ -36,7 +36,7 @@ export const initialState: OidcState = {
   errors: {
     silentRenewError: null,
     signInError: null,
-    httpError: null,
+    httpError: undefined,
   },
 };
 
@@ -85,8 +85,8 @@ const featureReducer = createReducer(
       ...state,
       identity: identity.payload,
       loggedIn: true,
-      audiences: jwtDecoder<{ aud?: [] }>(identity.payload.access_token).aud,
-      permissions: jwtDecoder<{ permissions?: [] }>(identity.payload.access_token).permissions,
+      audiences: jwtDecoder<{ aud?: string[] }>(identity.payload.access_token)?.aud,
+      permissions: jwtDecoder<{ permissions?: string[] }>(identity.payload.access_token)?.permissions,
     }),
   ),
   on(oidcActions.userExpired, (state) => ({ ...state, loggedIn: false, expiring: false })),

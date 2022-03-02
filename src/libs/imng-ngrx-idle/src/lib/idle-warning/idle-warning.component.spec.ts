@@ -3,7 +3,7 @@ import { IdleWarningComponent } from './idle-warning.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { IdleFacade } from '../+state/idle.facade';
 import { of } from 'rxjs';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 
 describe('IdleWarningComponent', () => {
   let component: IdleWarningComponent;
@@ -13,9 +13,8 @@ describe('IdleWarningComponent', () => {
     TestBed.configureTestingModule({
       declarations: [IdleWarningComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      providers: [{ provide: IdleFacade, useValue: { isTimingOut$: of(true), timeOutSpanInMs$: of(20) } }]
-    })
-      .compileComponents();
+      providers: [{ provide: IdleFacade, useValue: { isTimingOut$: of(true), timeOutSpanInMs$: of(20) } }],
+    }).compileComponents();
   });
 
   beforeEach(() => {

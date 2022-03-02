@@ -6,7 +6,7 @@ import { Auth0Facade } from '../+state/auth0.facade';
 import { Router } from '@angular/router';
 import { of, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 
 describe('PermissionsGuard', () => {
   let guard: PermissionsGuard;
@@ -18,8 +18,8 @@ describe('PermissionsGuard', () => {
         { provide: OidcFacade, useValue: { waitForAuthenticationLoaded: jest.fn(() => of(true)) } },
         { provide: Auth0Facade, useValue: { hasPermissions: jest.fn(() => of(false)) } },
         { provide: Router, useValue: { navigate: jest.fn(), routerState: { root: '🌳🌳🌳' } } },
-        PermissionsGuardTester]
-
+        PermissionsGuardTester,
+      ],
     });
     guard = TestBed.inject(PermissionsGuardTester);
     router = TestBed.inject(Router);
@@ -43,5 +43,4 @@ class PermissionsGuardTester extends PermissionsGuard {
   constructor(oidcFacade: OidcFacade, auth0Facade: Auth0Facade, router: Router) {
     super(oidcFacade, auth0Facade, router);
   }
-
 }

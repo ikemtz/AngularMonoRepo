@@ -2,7 +2,7 @@ import { State, FilterDescriptor, CompositeFilterDescriptor, SortDescriptor } fr
 import { IdType } from 'imng-nrsrx-client-utils';
 
 export interface ODataState extends State {
-  expanders?: Array<Expander | string>;
+  expanders?: Expander[];
   selectors?: string[];
   inFilters?: InFilter[];
   childFilters?: CompositeChildFilterDescriptor;
@@ -34,6 +34,6 @@ export interface Expander {
   filter?: CompositeFilterDescriptor;
   sort?: Array<SortDescriptor>;
 }
-export function isExpander(source: string | Expander): source is Expander {
+export function isExpander(source: string | Expander | undefined): source is Expander {
   return !!(source as Expander)?.table;
 }

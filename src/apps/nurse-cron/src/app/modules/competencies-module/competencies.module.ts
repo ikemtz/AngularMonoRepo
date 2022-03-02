@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CompetenciesRoutingModule } from './competencies.routing.module';
 import * as fromCompetenciesReducer from './+state/competency.reducer';
 import { CompetencyEffects } from './+state/competency.effects';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CompetencyListComponent, CompetencyListFacade } from './competencies-list';
 import {
@@ -31,7 +30,6 @@ import { DataPersistence } from '@nrwl/angular';
     ImngKendoGridODataModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
     CompetenciesRoutingModule,
     StoreModule.forFeature(fromCompetenciesReducer.COMPETENCIES_FEATURE_KEY, fromCompetenciesReducer.reducer),
     EffectsModule.forFeature([CompetencyEffects]),

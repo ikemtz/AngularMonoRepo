@@ -30,14 +30,14 @@ export const onUserloadError = createPayloadAction<Error>('[Oidc] user load erro
 export const onUserUnloaded = createAction('[Oidc] on user unloaded');
 export const onUserSignedOut = createAction('[Oidc] on user signed out');
 export const onSilentRenewError = createPayloadAction<Error>('[Oidc] on silent renew error');
-export const signInPopup = createPayloadAction<RequestArugments>('[Oidc] sign in popup');
-export const signInRedirect = createPayloadAction<RequestArugments>('[Oidc] sign in redirect');
+export const signInPopup = createPayloadAction<RequestArugments | undefined>('[Oidc] sign in popup');
+export const signInRedirect = createPayloadAction<RequestArugments | undefined>('[Oidc] sign in redirect');
 export const signInError = createPayloadAction<Error>('[Oidc] sign in popup error');
-export const signOutPopup = createPayloadAction<RequestArugments>('[Oidc] sign out popup');
+export const signOutPopup = createPayloadAction<RequestArugments | undefined>('[Oidc] sign out popup');
 export const signOutPopupError = createPayloadAction<string>('[Oidc] sign out popup error');
 export const signOutRedirect = createPayloadAction<RequestArugments>('[Oidc] sign out redirect');
 export const signOutRedirectError = createPayloadAction<string>('[Oidc] sign out redirect error');
-export const signInSilent = createPayloadAction<RequestArugments>('[Oidc] sign in silent');
+export const signInSilent = createPayloadAction<RequestArugments | undefined>('[Oidc] sign in silent');
 export const oidcError = createPayloadAction<Error>('[Oidc] error');
 
 // HTTP
