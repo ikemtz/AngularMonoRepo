@@ -278,7 +278,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=id eq 'abc';$expand=grandParentTable($orderby=def))&$select=id,name&$count=true`,
+      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=id eq 'abc';$expand=grandParentTableA($orderby=def),grandParentTableB($orderby=ghi desc),grandParentTableC($orderby=rst))&$select=id,name&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
