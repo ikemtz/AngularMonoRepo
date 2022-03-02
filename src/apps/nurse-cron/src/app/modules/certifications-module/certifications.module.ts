@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CertificationsRoutingModule } from './certifications.routing.module';
 import * as fromCertificationsReducer from './+state/certification.reducer';
 import { CertificationEffects } from './+state/certification.effects';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CertificationListComponent, CertificationListFacade } from './certifications-list';
 import {
@@ -31,7 +30,6 @@ import { DataPersistence } from '@nrwl/angular';
     ImngKendoGridODataModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
     CertificationsRoutingModule,
     StoreModule.forFeature(fromCertificationsReducer.CERTIFICATIONS_FEATURE_KEY, fromCertificationsReducer.reducer),
     EffectsModule.forFeature([CertificationEffects]),

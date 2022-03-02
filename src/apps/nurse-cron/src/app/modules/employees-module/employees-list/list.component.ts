@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { EmployeeListFacade } from './list.facade';
 import { EmployeeCrudFacade } from '../employees-crud';
@@ -34,9 +33,7 @@ const initialGridState: ODataState = {
     EmployeeProperties.COMPETENCY_COUNT,
     EmployeeProperties.HEALTH_ITEM_COUNT,
   ],
-  sort: [
-    { field: EmployeeProperties.ID, dir: 'asc' },
-  ],
+  sort: [{ field: EmployeeProperties.ID, dir: 'asc' }],
 };
 
 @Component({
@@ -48,10 +45,6 @@ const initialGridState: ODataState = {
 export class EmployeeListComponent extends KendoODataComponentBase<IEmployee, EmployeeListFacade> {
   public readonly props = EmployeeProperties;
   public currentItem: IEmployee;
-  public readonly faPlusCircle = faPlusCircle;
-  public readonly faCheck = faCheck;
-  public readonly faEdit = faEdit;
-  public readonly faTrash = faTrash;
 
   constructor(facade: EmployeeListFacade, public readonly crudFacade: EmployeeCrudFacade, router: Router) {
     super(facade, initialGridState, router);

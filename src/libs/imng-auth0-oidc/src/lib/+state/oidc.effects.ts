@@ -19,7 +19,7 @@ export class OidcEffects implements OnInitEffects {
     private readonly oidcService: OidcService,
     @Inject(OIDC_CONFIG) private readonly config: Config,
     private readonly router: Router,
-  ) { }
+  ) {}
 
   getOidcUser$ = createEffect(() =>
     this.actions$.pipe(
@@ -27,18 +27,24 @@ export class OidcEffects implements OnInitEffects {
       switchMap(() =>
         this.oidcService.getOidcUser().pipe(
           map((userData: IOidcUser) => oidcActions.userFound(this.makeOidcUserSerializable(userData))),
-          catchError(err => of(oidcActions.userDoneLoadingError(err)))))));
+          catchError((err) => of(oidcActions.userDoneLoadingError(err))),
+        ),
+      ),
+    ),
+  );
 
   silentRenew$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.userFound),
-      filter(userFound => {
+      filter((userFound) => {
         const automaticSilentRenew =
           this.config.oidc_config.automaticSilentRenew != null && this.config.oidc_config.automaticSilentRenew;
         // user expired, initiate silent sign-in if configured to automatic
         return userFound.payload != null && userFound.payload.expired && automaticSilentRenew;
       }),
-      map(userFound => oidcActions.signInSilent(userFound.payload))));
+      map((userFound) => oidcActions.signInSilent(userFound.payload)),
+    ),
+  );
 
   removeOidcUser$ = createEffect(() =>
     this.actions$.pipe(
@@ -46,74 +52,111 @@ export class OidcEffects implements OnInitEffects {
       concatMap(() =>
         this.oidcService.removeOidcUser().pipe(
           map(() => oidcActions.userDoneLoading()),
-          catchError(err => of(oidcActions.oidcError(err)))))));
+          catchError((err) => of(oidcActions.oidcError(err))),
+        ),
+      ),
+    ),
+  );
 
   userDoneLoadingNoMetadata$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.userFound),
       filter(() => !this.config.getUserMetadata),
-      map(() => oidcActions.userDoneLoading())));
+      map(() => oidcActions.userDoneLoading()),
+    ),
+  );
 
   userDoneLoadingWithMetadata$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.userFound),
       filter(() => this.config.getUserMetadata),
       switchMap(() => this.oidcService.getUserMetadata()),
-      map(metadata => oidcActions.onUserMetadataLoaded(metadata))));
+      map((metadata) => oidcActions.onUserMetadataLoaded(metadata)),
+    ),
+  );
 
   onAccessTokenExpired$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.onAccessTokenExpired),
-      map(() => oidcActions.removeOidcUser())));
+      map(() => oidcActions.removeOidcUser()),
+    ),
+  );
 
   signInPopup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.signInPopup),
-      concatMap(args =>
+      concatMap((args) =>
         this.oidcService.signInPopup(args.payload).pipe(
-          map(user => oidcActions.onSignInPopup(this.makeOidcUserSerializable(user))),
-          catchError(err => of(oidcActions.signInError(err)))))));
+          map((user) => oidcActions.onSignInPopup(this.makeOidcUserSerializable(user))),
+          catchError((err) => of(oidcActions.signInError(err))),
+        ),
+      ),
+    ),
+  );
 
   signInRedirect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.signInRedirect),
-      concatMap(args =>
+      concatMap((args) =>
         this.oidcService.signInRedirect(args.payload).pipe(
           concatMap(() => this.oidcService.signinRedirectCallback()),
-          map(user => oidcActions.onSignInRedirect(this.makeOidcUserSerializable(user))),
-          catchError(err => of(oidcActions.signInError(err)))))));
+          map((user) => oidcActions.onSignInRedirect(this.makeOidcUserSerializable(user))),
+          catchError((err) => of(oidcActions.signInError(err))),
+        ),
+      ),
+    ),
+  );
 
   signInSilent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.signInSilent),
-      concatMap(args =>
+      concatMap((args) =>
         this.oidcService.signInSilent(args.payload).pipe(
-          map(user => oidcActions.onSignInSilent(this.makeOidcUserSerializable(user))),
-          catchError(err => of(oidcActions.onSilentRenewError(err)))))));
+          map((user) => oidcActions.onSignInSilent(this.makeOidcUserSerializable(user))),
+          catchError((err) => of(oidcActions.onSilentRenewError(err))),
+        ),
+      ),
+    ),
+  );
 
   signOutPopup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.signOutPopup),
-      concatMap(args =>
+      concatMap((args) =>
         this.oidcService.signOutPopup(args.payload).pipe(
           map(() => oidcActions.onUserSignedOut()),
-          catchError(err => of(oidcActions.signOutPopupError(err.message)))))));
+          catchError((err) => of(oidcActions.signOutPopupError(err.message))),
+        ),
+      ),
+    ),
+  );
 
   signOutRedirect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(oidcActions.signOutRedirect),
-      concatMap(args => this.oidcService.signOutRedirect(args.payload).pipe(
-        map(() => oidcActions.onUserSignedOut()),
-        catchError(err => of(oidcActions.signOutRedirectError(err.message)))))));
+      concatMap((args) =>
+        this.oidcService.signOutRedirect(args.payload).pipe(
+          map(() => oidcActions.onUserSignedOut()),
+          catchError((err) => of(oidcActions.signOutRedirectError(err.message))),
+        ),
+      ),
+    ),
+  );
 
-  onUserSignedOut$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(oidcActions.onUserSignedOut, oidcActions.signOutPopupError, oidcActions.signOutRedirectError),
-      tap(() => {
-        localStorage.clear();
-        sessionStorage.clear();
-        this.router.navigateByUrl(oidcLogoutRoute.path);
-      })), { dispatch: false });
+  onUserSignedOut$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(oidcActions.onUserSignedOut, oidcActions.signOutPopupError, oidcActions.signOutRedirectError),
+        tap(() => {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (oidcLogoutRoute.path) {
+            this.router.navigateByUrl(oidcLogoutRoute.path);
+          }
+        }),
+      ),
+    { dispatch: false },
+  );
 
   ngrxOnInitEffects(): Action {
     return oidcActions.getOidcUser();

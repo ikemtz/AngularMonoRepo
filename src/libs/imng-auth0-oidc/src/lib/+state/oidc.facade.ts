@@ -31,8 +31,8 @@ export class OidcFacade {
   signInError$: Observable<unknown> = this.store.select(oidcQuery.getSignInError);
   silentRenewError$: Observable<unknown> = this.store.select(oidcQuery.getSilentRenewError);
   hasErrors$: Observable<boolean> = this.store.select(oidcQuery.hasErrors);
-  permissions$: Observable<string[]> = this.store.select(oidcQuery.getPermissions);
-  audiences$: Observable<string[]> = this.store.select(oidcQuery.getAudiences);
+  permissions$: Observable<string[] | undefined> = this.store.select(oidcQuery.getPermissions);
+  audiences$: Observable<string[] | undefined> = this.store.select(oidcQuery.getAudiences);
   expiresAt$: Observable<Date> = this.store.select(oidcQuery.getExpiresAt);
   userMetadata$: Observable<unknown> = this.store.select(oidcQuery.getUserMetadata);
 

@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { faPlusCircle, faCheck, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { CertificationListFacade } from './list.facade';
 import { CertificationCrudFacade } from '../certifications-crud';
@@ -18,9 +17,7 @@ const initialGridState: ODataState = {
     CertificationProperties.IS_ENABLED,
     CertificationProperties.EXPIRES_ON_UTC,
   ],
-  sort: [
-    { field: CertificationProperties.ID, dir: 'asc' },
-  ],
+  sort: [{ field: CertificationProperties.ID, dir: 'asc' }],
 };
 
 @Component({
@@ -32,10 +29,6 @@ const initialGridState: ODataState = {
 export class CertificationListComponent extends KendoODataComponentBase<ICertification, CertificationListFacade> {
   public readonly props = CertificationProperties;
   public currentItem: ICertification;
-  public readonly faPlusCircle = faPlusCircle;
-  public readonly faCheck = faCheck;
-  public readonly faEdit = faEdit;
-  public readonly faTrash = faTrash;
 
   constructor(facade: CertificationListFacade, public readonly crudFacade: CertificationCrudFacade, router: Router) {
     super(facade, initialGridState, router);
