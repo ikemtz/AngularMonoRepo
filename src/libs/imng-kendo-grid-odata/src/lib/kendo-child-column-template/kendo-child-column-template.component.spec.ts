@@ -25,9 +25,9 @@ describe('ImngGridChildColumnTemplateComponent', () => {
   it('should formatToolTip', () => {
     component.field = 'id';
     component.visibleRecCount = 1;
-    component.data = [{ id: 'x' }, { id: 'y' }, { id: 'z' }];
-    expect(component.formatToolTip()).toBe('y; z');
-    expect(component.currentData).toStrictEqual(['x', 'y', 'z']);
+    component.data = [{ id: 'x' }, { id: 'y' }, { id: 'z' }, { id: 3 }];
+    expect(component.formatToolTip()).toBe('y; z; 3');
+    expect(component.currentData).toStrictEqual(['x', 'y', 'z', 3]);
   });
 
   it('moreClicked should emit', async () => {
