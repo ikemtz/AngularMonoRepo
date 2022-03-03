@@ -9,8 +9,8 @@
     "Kendo"
   ],
   "peerDependencies": {
-    "@angular/common": ">=12.2.0",
-    "@angular/core": ">=12.2.0"
+    "@angular/common": ">=12.x",
+    "@angular/core": ">=12.x"
   },
   "dependencies": {
     "tslib": ">=2.x"
