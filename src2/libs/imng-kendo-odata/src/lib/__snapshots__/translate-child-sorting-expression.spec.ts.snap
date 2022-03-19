@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`translateChildSortingExpression should handle child sorting 1`] = `
+Object {
+  "expanders": Array [
+    Object {
+      "sort": Array [
+        Object {
+          "dir": "desc",
+          "field": "b",
+        },
+      ],
+      "table": "a",
+    },
+  ],
+  "sort": Array [],
+}
+`;
+
+exports[`translateChildSortingExpression should handle child sorting on previously sorted column 1`] = `
+Object {
+  "expanders": Array [
+    Object {
+      "sort": Array [
+        Object {
+          "dir": "desc",
+          "field": "b",
+        },
+      ],
+      "table": "a",
+    },
+  ],
+  "sort": Array [],
+}
+`;
