@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KendoODataComponentBaseRouted should reset 1`] = `
+Object {
+  "childFilters": undefined,
+  "expanders": undefined,
+  "filter": Object {
+    "filters": Array [
+      Object {
+        "field": "x",
+        "operator": "eq",
+        "value": 1,
+      },
+    ],
+    "logic": "and",
+  },
+  "inFilters": undefined,
+  "selectors": Array [
+    "x",
+    "y",
+    "z",
+  ],
+  "skip": 0,
+  "sort": Array [
+    Object {
+      "dir": "asc",
+      "field": "id",
+    },
+  ],
+  "take": 20,
+}
+`;

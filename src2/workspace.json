@@ -3,6 +3,7 @@
   "projects": {
     "imng-az-func-configr": "apps/imng-az-func-configr",
     "imng-az-func-configr-e2e": "apps/imng-az-func-configr-e2e",
+    "imng-kendo-grid-odata": "libs/imng-kendo-grid-odata",
     "imng-kendo-odata": "libs/imng-kendo-odata",
     "imng-ngrx-utils": "libs/imng-ngrx-utils",
     "imng-nrsrx-client-utils": "libs/imng-nrsrx-client-utils"
