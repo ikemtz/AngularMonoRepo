@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StateService should setTransformer AzFunc 1`] = `
+Object {
+  "IsEncrypted": false,
+  "Values": Object {
+    "dbConnection": "MySqlServer",
+  },
+}
+`;
+
+exports[`StateService should setTransformer AzFunc Empty 1`] = `
+Object {
+  "IsEncrypted": false,
+  "Values": Object {},
+}
+`;
+
+exports[`StateService should setTransformer AzWebApp 1`] = `
+Object {
+  "dbConnection": "MySqlServer",
+}
+`;
+
+exports[`StateService should setTransformer AzWebApp Empy 1`] = `Object {}`;
+
+exports[`StateService should setTransformer DockerEnv 1`] = `"dbConnection=MySqlServer"`;
+
+exports[`StateService should setTransformer DockerEnv Empty 1`] = `""`;

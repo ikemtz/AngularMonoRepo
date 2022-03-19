@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "projects": {
+    "imng-az-func-configr": "apps/imng-az-func-configr",
+    "imng-az-func-configr-e2e": "apps/imng-az-func-configr-e2e",
+    "imng-nrsrx-client-utils": "libs/imng-nrsrx-client-utils"
+  }
+}
