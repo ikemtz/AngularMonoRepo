@@ -20,6 +20,9 @@
       "imng-kendo-grid-editable": [
         "libs/imng-kendo-grid-editable/src/index.ts"
       ],
+      "imng-kendo-grid-filtering": [
+        "libs/imng-kendo-grid-filtering/src/index.ts"
+      ],
       "imng-kendo-grid-odata": ["libs/imng-kendo-grid-odata/src/index.ts"],
       "imng-kendo-grid-odata/testing": [
         "libs/imng-kendo-grid-odata/testing/src/index.ts"
