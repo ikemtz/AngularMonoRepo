@@ -56,6 +56,8 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@angular/service-worker": "~13.2.0",
+    "@ngrx/effects": "^13.0.2",
+    "@ngrx/router-store": "^13.0.2",
     "@ngrx/store": "^13.0.2",
     "@progress/kendo-angular-buttons": "^7.0.4",
     "@progress/kendo-angular-common": "^2.0.3",
@@ -76,6 +78,7 @@
     "@progress/kendo-theme-default": "^5.2.0",
     "ang-jsoneditor": "^1.10.5",
     "jsoneditor": "^9.7.4",
+    "oidc-client": "^1.11.5",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
