@@ -6,9 +6,10 @@ import {
 } from '@angular/core';
 import { KendoArrayBasedComponent } from './kendo-array-base-component';
 import { ImngArrayGridDirective } from './kendo-array-grid.directive';
-import { of, Subject, tap } from 'rxjs';
+import { of } from 'rxjs';
 import { Subscribable } from 'imng-ngrx-utils';
 import { GridComponent } from '@progress/kendo-angular-grid';
+import { MockGridComponent } from 'imng-kendo-grid/testing';
 
 describe('KendoArrayBaseComponent', () => {
   let component: KendoArrayGridTestComponent;
@@ -21,13 +22,7 @@ describe('KendoArrayBaseComponent', () => {
       providers: [
         {
           provide: GridComponent,
-          useValue: {
-            dataStateChange: new Subject(),
-            pageChange: of(),
-            sortChange: of(),
-            filterChange: of().pipe(tap()),
-            columnVisibilityChange: of(),
-          },
+          useClass: MockGridComponent,
         },
       ],
     }).compileComponents();

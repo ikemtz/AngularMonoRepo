@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'imng-kendo-odata-grid-header',
   template: `<div class="mr-5 pr-5">
     <button
@@ -79,24 +80,27 @@ import { Observable } from 'rxjs';
       .k-bare {
         border-color: rgba(0, 0, 0, 0.08) !important;
         background-color: #f5f5f5 !important;
-        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.02)) !important;
+        background-image: linear-gradient(
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.02)
+        ) !important;
       }
     `,
   ],
 })
 export class ImngGridHeaderComponent {
   @Input()
-  public entityName: string;
+  public entityName = '';
   @Input()
-  public hideColumnChooser: boolean;
+  public hideColumnChooser = false;
   @Input()
-  public hideClearFilters: boolean;
+  public hideClearFilters = false;
   @Input()
-  public hideReloadData: boolean;
+  public hideReloadData = false;
   @Input()
-  public hideExports: boolean;
+  public hideExports = false;
   @Input()
-  public hasHiddenColumns$: Observable<boolean>;
+  public hasHiddenColumns$: Observable<boolean> | undefined;
   @Output()
   public addItemClicked = new EventEmitter();
   @Output()

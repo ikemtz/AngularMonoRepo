@@ -29,12 +29,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImngGridChildColumnTemplateComponent implements OnInit {
-  private _data: unknown[];
-  public currentData: unknown[];
+  private _data: unknown[] = [];
+  public currentData: unknown[] = [];
   private initialized = false;
 
   @Output() showMoreClicked = new EventEmitter();
-  @Input() public field: string;
+  @Input() public field = '';
   @Input() public visibleRecCount = 5;
   @Input() public showMore = true;
   @Input() public toolTipJoinCharacter = ';';

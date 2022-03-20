@@ -6,7 +6,7 @@ import {
   createODataGridMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { ODataResultEmpty, ODataState } from 'imng-kendo-odata';
+import { ODataState } from 'imng-kendo-odata';
 import { Router } from '@angular/router';
 
 describe('KendoODataComponentBaseRouted', () => {

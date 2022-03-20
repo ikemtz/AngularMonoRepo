@@ -2,20 +2,21 @@ import { ImngODataGridDirective } from './kendo-odata-grid.directive';
 import { of } from 'rxjs';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { ChangeDetectorRef } from '@angular/core';
+import { MockGridComponent } from 'imng-kendo-grid/testing';
 
 describe('ImngODataGridDirective', () => {
   it('should create an instance', () => {
-    const gridComponent = {};
+    const gridComponent = new MockGridComponent();
     const changeDetectorRef = {};
     const directive = new ImngODataGridDirective(
       gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef,
+      changeDetectorRef as ChangeDetectorRef
     );
     expect(gridComponent).toMatchSnapshot();
     expect(directive).toBeTruthy();
   });
   it('should fire OnInit', () => {
-    const gridComponent = {};
+    const gridComponent = new MockGridComponent();
     const changeDetectorRef = {};
     const odataComponent = {
       facade: {
@@ -28,7 +29,7 @@ describe('ImngODataGridDirective', () => {
     };
     const directive = new ImngODataGridDirective(
       gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef,
+      changeDetectorRef as ChangeDetectorRef
     );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();
@@ -36,7 +37,7 @@ describe('ImngODataGridDirective', () => {
     expect(directive).toBeTruthy();
   });
   it('should fire AfterViewInit', () => {
-    const gridComponent = { dataStateChange: of({}) };
+    const gridComponent = new MockGridComponent();
     const changeDetectorRef = {};
     const odataComponent = {
       facade: {
@@ -49,7 +50,7 @@ describe('ImngODataGridDirective', () => {
     };
     const directive = new ImngODataGridDirective(
       gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef,
+      changeDetectorRef as ChangeDetectorRef
     );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();
@@ -57,8 +58,9 @@ describe('ImngODataGridDirective', () => {
 
     expect(gridComponent).toMatchSnapshot();
     expect(directive).toBeTruthy();
-    expect(odataComponent.dataStateChange).toBeCalledTimes(1);
-    const allSubscriptions = (directive as unknown as { allSubscriptions: [] }).allSubscriptions;
+    expect(odataComponent.dataStateChange).toBeCalledTimes(0);
+    const allSubscriptions = (directive as unknown as { allSubscriptions: [] })
+      .allSubscriptions;
     expect(allSubscriptions.length).toBe(5);
 
     directive.ngOnDestroy();
@@ -79,7 +81,7 @@ describe('ImngODataGridDirective', () => {
     };
     const directive = new ImngODataGridDirective(
       gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef,
+      changeDetectorRef as ChangeDetectorRef
     );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();
