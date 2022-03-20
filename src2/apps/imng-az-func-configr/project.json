@@ -7,7 +7,12 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
-      "dependsOn": [{ "target": "build", "projects": "dependencies" }],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "options": {
         "outputPath": "dist/apps/imng-az-func-configr",
         "index": "apps/imng-az-func-configr/src/index.html",
@@ -86,7 +91,6 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "dependsOn": [{ "target": "build", "projects": "dependencies" }],
       "outputs": ["coverage/apps/imng-az-func-configr"],
       "options": {
         "jestConfig": "apps/imng-az-func-configr/jest.config.js",

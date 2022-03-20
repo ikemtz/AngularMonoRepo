@@ -10,7 +10,12 @@
       "options": {
         "project": "libs/imng-kendo-grid/ng-package.json"
       },
-      "dependsOn": [{ "target": "build", "projects": "dependencies" }],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "configurations": {
         "production": {
           "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.prod.json"
@@ -24,7 +29,12 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-kendo-grid"],
-      "dependsOn": [{ "target": "build", "projects": "dependencies" }],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "options": {
         "jestConfig": "libs/imng-kendo-grid/jest.config.js",
         "passWithNoTests": true

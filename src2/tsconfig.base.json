@@ -15,6 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "imng-kendo-chart-odata": ["libs/imng-kendo-chart-odata/src/index.ts"],
+      "imng-kendo-chart-odata/testing": [
+        "libs/imng-kendo-chart-odata/testing/src/index.ts"
+      ],
       "imng-kendo-data-entry": ["libs/imng-kendo-data-entry/src/index.ts"],
       "imng-kendo-data-entry/testing": [
         "libs/imng-kendo-data-entry/testing/src/index.ts"
