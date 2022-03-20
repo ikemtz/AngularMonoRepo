@@ -10,10 +10,10 @@ import {
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { merge } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
-import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
+import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -62,8 +62,8 @@ export class ImngODataGridDirective
 
   ngAfterViewInit(): void {
     this.allSubscriptions.push(
-      this.gridComponent.dataStateChange.subscribe(
-        (t: ODataGridStateChangeEvent) => this.odataComponent.dataStateChange(t)
+      this.gridComponent.dataStateChange.subscribe((t: GridStateChangeEvent) =>
+        this.odataComponent.dataStateChange(t)
       ),
       this.facade.gridData$.subscribe((t) => {
         this.gridComponent.data = t;
@@ -84,8 +84,4 @@ export class ImngODataGridDirective
   ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
   }
-}
-
-export function hasHiddenColumns(gridComponent: GridComponent) {
-  return map(() => gridComponent.columns.some((s) => s.hidden));
 }

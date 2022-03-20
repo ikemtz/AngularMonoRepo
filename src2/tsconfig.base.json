@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "imng-kendo-grid": ["libs/imng-kendo-grid/src/index.ts"],
+      "imng-kendo-grid-array": ["libs/imng-kendo-grid-array/src/index.ts"],
       "imng-kendo-grid-odata": ["libs/imng-kendo-grid-odata/src/index.ts"],
       "imng-kendo-grid-odata/testing": [
         "libs/imng-kendo-grid-odata/testing/src/index.ts"

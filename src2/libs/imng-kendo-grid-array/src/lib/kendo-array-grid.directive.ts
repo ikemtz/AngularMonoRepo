@@ -11,13 +11,12 @@ import {
   PagerSettings,
 } from '@progress/kendo-angular-grid';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
+import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 import { KendoArrayBasedComponent } from './kendo-array-base-component';
 import {
   CompositeFilterDescriptor,
   SortDescriptor,
 } from '@progress/kendo-data-query';
-import { hasHiddenColumns } from './kendo-odata-grid.directive';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -31,7 +30,7 @@ export class ImngArrayGridDirective
     object,
     object
   >;
-  @Input() public pageable: boolean | PagerSettings;
+  @Input() public pageable: boolean | PagerSettings = true;
   constructor(public readonly gridComponent: GridComponent) {}
 
   ngOnInit(): void {
@@ -50,7 +49,7 @@ export class ImngArrayGridDirective
     };
     this.allSubscriptions.push(
       this.gridComponent.dataStateChange.subscribe(
-        (t: ODataGridStateChangeEvent) => {
+        (t: GridStateChangeEvent) => {
           this.gridComponent.sort = this.arrayComponent.state.sort =
             t.sort || [];
           this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;

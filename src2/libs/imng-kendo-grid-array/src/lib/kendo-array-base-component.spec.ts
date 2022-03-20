@@ -50,7 +50,9 @@ describe('KendoArrayBaseComponent', () => {
       skip: 7,
       sort: [{ field: 'id', dir: 'desc' }],
     });
-    expect((component as unknown as { _gridData })._gridData).toMatchSnapshot();
+    expect(
+      (component as unknown as { _gridData: [] })._gridData
+    ).toMatchSnapshot();
     expect(dataStateChangeSpy).toBeCalledTimes(1);
   });
 
@@ -60,7 +62,9 @@ describe('KendoArrayBaseComponent', () => {
 
     component.pageChange({ take: 2, skip: 4 });
     expect(component.state).toStrictEqual({});
-    expect((component as unknown as { _gridData })._gridData).toMatchSnapshot();
+    expect(
+      (component as unknown as { _gridData: [] })._gridData
+    ).toMatchSnapshot();
     expect(pageChangeSpy).toBeCalledTimes(1);
     expect(dataStateChangeSpy).toBeCalledTimes(0);
   });

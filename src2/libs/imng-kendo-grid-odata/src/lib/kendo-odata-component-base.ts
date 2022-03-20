@@ -8,7 +8,7 @@ import {
   Directive,
 } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
-import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
+import { GridStateChangeEvent } from 'imng-kendo-grid';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
@@ -152,7 +152,7 @@ export abstract class KendoODataComponentBase<
     }
   }
 
-  public dataStateChange(state: ODataGridStateChangeEvent): void {
+  public dataStateChange(state: GridStateChangeEvent): void {
     this.gridDataState = {
       ...state,
       expanders: this.expanders,

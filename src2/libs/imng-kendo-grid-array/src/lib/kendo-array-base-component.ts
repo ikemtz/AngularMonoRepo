@@ -23,10 +23,10 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   /**
    * This will allow you to provide a visual indicator that some of the columns have been hidden.
    */
-  public hasHiddenColumns$: Observable<boolean>;
+  public hasHiddenColumns$: Observable<boolean> | undefined;
   @Input() public item?: PARENT_ENTITY;
 
-  private _detail: LISTED_ENTITY[];
+  private _detail: LISTED_ENTITY[] = [];
   @Input()
   public set detail(value: LISTED_ENTITY[]) {
     this._detail = value || [];
@@ -50,7 +50,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
     mode: 'multiple',
   };
 
-  private _gridData: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[];
+  private _gridData: ODataResult<LISTED_ENTITY> | LISTED_ENTITY[] = [];
   public gridData$ = new BehaviorSubject<
     ODataResult<LISTED_ENTITY> | LISTED_ENTITY[]
   >({ data: [], total: 0 });
