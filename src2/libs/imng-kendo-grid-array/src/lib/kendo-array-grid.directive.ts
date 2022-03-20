@@ -19,7 +19,6 @@ import {
 } from '@progress/kendo-data-query';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[imngArrayGrid]',
 })
 export class ImngArrayGridDirective

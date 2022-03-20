@@ -2,7 +2,7 @@
   "projectType": "library",
   "root": "libs/imng-kendo-grid-array",
   "sourceRoot": "libs/imng-kendo-grid-array/src",
-  "prefix": "ikemtz",
+  "prefix": "imng",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",

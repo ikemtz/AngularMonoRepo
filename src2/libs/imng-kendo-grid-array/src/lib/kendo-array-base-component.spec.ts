@@ -93,7 +93,6 @@ describe('KendoArrayBaseComponent', () => {
 });
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'imng-test-component',
   template: ` <kendo-grid [imngArrayGrid]="this">
       <kendo-grid-column field="id"></kendo-grid-column>

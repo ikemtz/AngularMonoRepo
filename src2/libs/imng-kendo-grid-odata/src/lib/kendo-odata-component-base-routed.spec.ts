@@ -100,7 +100,6 @@ const initialGridState: ODataState = {
   filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] },
 };
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'imng-test-component',
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })

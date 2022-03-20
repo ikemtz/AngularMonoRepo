@@ -5,6 +5,7 @@
     "imng-az-func-configr-e2e": "apps/imng-az-func-configr-e2e",
     "imng-kendo-grid": "libs/imng-kendo-grid",
     "imng-kendo-grid-array": "libs/imng-kendo-grid-array",
+    "imng-kendo-grid-editable": "libs/imng-kendo-grid-editable",
     "imng-kendo-grid-odata": "libs/imng-kendo-grid-odata",
     "imng-kendo-odata": "libs/imng-kendo-odata",
     "imng-ngrx-utils": "libs/imng-ngrx-utils",

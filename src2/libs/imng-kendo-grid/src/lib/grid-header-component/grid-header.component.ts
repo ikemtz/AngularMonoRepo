@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'imng-kendo-odata-grid-header',
   template: `<div class="mr-5 pr-5">
     <button

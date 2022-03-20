@@ -2,7 +2,7 @@
   "projectType": "library",
   "root": "libs/imng-kendo-odata",
   "sourceRoot": "libs/imng-kendo-odata/src",
-  "prefix": "ikemtz",
+  "prefix": "imng",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",

@@ -2,7 +2,7 @@
   "projectType": "library",
   "root": "libs/imng-ngrx-utils",
   "sourceRoot": "libs/imng-ngrx-utils/src",
-  "prefix": "ikemtz",
+  "prefix": "imng",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",

@@ -16,7 +16,6 @@ import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[imngODataGrid]',
 })
 export class ImngODataGridDirective

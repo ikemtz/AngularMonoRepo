@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'imng-kendo-grid-child-column-template',
   template: `<div *ngFor="let item of currentData | slice: 0:visibleRecCount">
       {{ item }}
