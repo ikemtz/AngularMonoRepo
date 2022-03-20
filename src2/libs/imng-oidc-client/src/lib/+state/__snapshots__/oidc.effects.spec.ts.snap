@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Oidc Effects removeOidcUser$ should fail because silent_redirect_uri is not configured 1`] = `
+Object {
+  "payload": "Expected exception in unit tests.",
+  "type": "[Oidc] error",
+}
+`;
+
+exports[`Oidc Effects signInPopup$ should fail because silent_redirect_uri is not configured 1`] = `
+Object {
+  "payload": [Error: No popup_redirect_uri or redirect_uri configured],
+  "type": "[Oidc] sign in popup error",
+}
+`;
+
+exports[`Oidc Effects signInPopup$ should work 1`] = `
+Object {
+  "payload": 1,
+  "type": "[Oidc] on SignInPopup",
+}
+`;
+
+exports[`Oidc Effects signInRedirect$ should signInRedirect 1`] = `
+Object {
+  "payload": [Error: No authority or metadataUrl configured on settings],
+  "type": "[Oidc] sign in popup error",
+}
+`;
+
+exports[`Oidc Effects signInRedirect$ should work 1`] = `
+Object {
+  "payload": 1,
+  "type": "[Oidc] on onSignInRedirect",
+}
+`;
+
+exports[`Oidc Effects signInSilent$ should fail because silent_redirect_uri is not configured 1`] = `
+Object {
+  "payload": [Error: No silent_redirect_uri configured],
+  "type": "[Oidc] on silent renew error",
+}
+`;
+
+exports[`Oidc Effects signInSilent$ should work 1`] = `
+Object {
+  "payload": 1,
+  "type": "[Oidc] on onSignInSilent",
+}
+`;
+
+exports[`Oidc Effects signOutPopup$ should fail because silent_redirect_uri is not configured 1`] = `
+Object {
+  "payload": "No authority or metadataUrl configured on settings",
+  "type": "[Oidc] sign out popup error",
+}
+`;
+
+exports[`Oidc Effects signOutPopup$ should work 1`] = `
+Object {
+  "type": "[Oidc] on user signed out",
+}
+`;
+
+exports[`Oidc Effects signOutRedirect$ should fail because silent_redirect_uri is not configured 1`] = `
+Object {
+  "payload": "No authority or metadataUrl configured on settings",
+  "type": "[Oidc] sign out redirect error",
+}
+`;
+
+exports[`Oidc Effects signOutRedirect$ should work 1`] = `
+Object {
+  "type": "[Oidc] on user signed out",
+}
+`;

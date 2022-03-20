@@ -39,7 +39,8 @@
       "imng-kendo-odata": ["libs/imng-kendo-odata/src/index.ts"],
       "imng-ngrx-utils": ["libs/imng-ngrx-utils/src/index.ts"],
       "imng-ngrx-utils/testing": ["libs/imng-ngrx-utils/testing/src/index.ts"],
-      "imng-nrsrx-client-utils": ["libs/imng-nrsrx-client-utils/src/index.ts"]
+      "imng-nrsrx-client-utils": ["libs/imng-nrsrx-client-utils/src/index.ts"],
+      "imng-oidc-client": ["libs/imng-oidc-client/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
