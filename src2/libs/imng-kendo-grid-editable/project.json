@@ -7,6 +7,7 @@
     "build": {
       "executor": "@nrwl/angular:package",
       "outputs": ["dist/libs/imng-kendo-grid-editable"],
+      "dependsOn": [{ "target": "build", "projects": "dependencies" }],
       "options": {
         "project": "libs/imng-kendo-grid-editable/ng-package.json"
       },
@@ -23,6 +24,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-kendo-grid-editable"],
+      "dependsOn": [{ "target": "build", "projects": "dependencies" }],
       "options": {
         "jestConfig": "libs/imng-kendo-grid-editable/jest.config.js",
         "passWithNoTests": true

@@ -1,32 +1,32 @@
 {
   "projectType": "library",
-  "root": "libs/imng-kendo-grid",
-  "sourceRoot": "libs/imng-kendo-grid/src",
+  "root": "libs/imng-kendo-data-entry",
+  "sourceRoot": "libs/imng-kendo-data-entry/src",
   "prefix": "imng",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-kendo-grid"],
+      "outputs": ["dist/libs/imng-kendo-data-entry"],
       "options": {
-        "project": "libs/imng-kendo-grid/ng-package.json"
+        "project": "libs/imng-kendo-data-entry/ng-package.json"
       },
       "dependsOn": [{ "target": "build", "projects": "dependencies" }],
       "configurations": {
         "production": {
-          "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.prod.json"
+          "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.json"
+          "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-kendo-grid"],
+      "outputs": ["coverage/libs/imng-kendo-data-entry"],
       "dependsOn": [{ "target": "build", "projects": "dependencies" }],
       "options": {
-        "jestConfig": "libs/imng-kendo-grid/jest.config.js",
+        "jestConfig": "libs/imng-kendo-data-entry/jest.config.js",
         "passWithNoTests": true
       }
     },
@@ -34,10 +34,10 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/imng-kendo-grid/src/**/*.ts",
-          "libs/imng-kendo-grid/src/**/*.html",
-          "libs/imng-kendo-grid/testing/**/*.ts",
-          "libs/imng-kendo-grid/testing/**/*.html"
+          "libs/imng-kendo-data-entry/src/**/*.ts",
+          "libs/imng-kendo-data-entry/src/**/*.html",
+          "libs/imng-kendo-data-entry/testing/**/*.ts",
+          "libs/imng-kendo-data-entry/testing/**/*.html"
         ]
       }
     }

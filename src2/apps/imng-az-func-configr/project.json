@@ -6,9 +6,8 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
+      "dependsOn": [{ "target": "build", "projects": "dependencies" }],
       "options": {
         "outputPath": "dist/apps/imng-az-func-configr",
         "index": "apps/imng-az-func-configr/src/index.html",
@@ -20,9 +19,7 @@
           "apps/imng-az-func-configr/src/favicon.ico",
           "apps/imng-az-func-configr/src/assets"
         ],
-        "styles": [
-          "apps/imng-az-func-configr/src/styles.scss"
-        ],
+        "styles": ["apps/imng-az-func-configr/src/styles.scss"],
         "scripts": [],
         "serviceWorker": true,
         "ngswConfigPath": "apps/imng-az-func-configr/ngsw-config.json"
@@ -33,7 +30,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
@@ -89,9 +86,8 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/imng-az-func-configr"
-      ],
+      "dependsOn": [{ "target": "build", "projects": "dependencies" }],
+      "outputs": ["coverage/apps/imng-az-func-configr"],
       "options": {
         "jestConfig": "apps/imng-az-func-configr/jest.config.js",
         "passWithNoTests": true

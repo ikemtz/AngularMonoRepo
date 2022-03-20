@@ -3,6 +3,7 @@
   "projects": {
     "imng-az-func-configr": "apps/imng-az-func-configr",
     "imng-az-func-configr-e2e": "apps/imng-az-func-configr-e2e",
+    "imng-kendo-data-entry": "libs/imng-kendo-data-entry",
     "imng-kendo-grid": "libs/imng-kendo-grid",
     "imng-kendo-grid-array": "libs/imng-kendo-grid-array",
     "imng-kendo-grid-editable": "libs/imng-kendo-grid-editable",

@@ -15,6 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "imng-kendo-data-entry": ["libs/imng-kendo-data-entry/src/index.ts"],
+      "imng-kendo-data-entry/testing": [
+        "libs/imng-kendo-data-entry/testing/src/index.ts"
+      ],
       "imng-kendo-grid": ["libs/imng-kendo-grid/src/index.ts"],
       "imng-kendo-grid-array": ["libs/imng-kendo-grid-array/src/index.ts"],
       "imng-kendo-grid-editable": [

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataEntryDialog should create 1`] = `
+DataEntryDialogComponent {
+  "height": 600,
+  "parentComponent": Object {
+    "addEditForm": "🐎",
+    "closeForm": [MockFunction],
+    "dialogTitle": "🔥",
+    "loading$": "💩",
+    "onCancel": [MockFunction],
+    "onSubmit": [MockFunction],
+  },
+  "saveButtonText": "Save",
+  "submitted": false,
+  "width": 800,
+}
+`;
+
+exports[`DataEntryDialog should handle null parent 1`] = `[TypeError: The input 'parentComponent' is required]`;
