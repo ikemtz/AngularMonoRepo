@@ -29,12 +29,6 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-kendo-odata"],
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "dependencies"
-        }
-      ],
       "options": {
         "jestConfig": "libs/imng-kendo-odata/jest.config.js",
         "passWithNoTests": true

@@ -9,7 +9,7 @@ export class ChartODataMockFacade implements IChartODataFacade {
   public seriesData$: Observable<ChartSeriesDataPoint[] | GroupResult[]> = of([
     { seriesName: '🔷integration Tests🔷', metric: 5, interval: '💩' },
   ]);
-  public loadSeriesData = jest.fn();
+  public loadSeriesData: (filter: unknown) => void = jest.fn();
 }
 
 export function createChartODataMockFacade(

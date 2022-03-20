@@ -29,12 +29,6 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-kendo-data-entry"],
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "dependencies"
-        }
-      ],
       "options": {
         "jestConfig": "libs/imng-kendo-data-entry/jest.config.js",
         "passWithNoTests": true

@@ -29,12 +29,6 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-kendo-grid-filtering"],
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "dependencies"
-        }
-      ],
       "options": {
         "jestConfig": "libs/imng-kendo-grid-filtering/jest.config.js",
         "passWithNoTests": true
