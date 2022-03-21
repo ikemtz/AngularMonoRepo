@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "imng-angular-core": ["libs/imng-angular-core/src/index.ts"],
       "imng-application-insights-ngrx": [
         "libs/imng-application-insights-ngrx/src/index.ts"
       ],

@@ -1,0 +1,22 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/libs/imng-angular-core",
+  "lib": {
+    "entryFile": "src/index.ts"
+  },
+  "allowedNonPeerDependencies": [
+    "imng-application-insights-ngrx",
+    "imng-auth0-oidc",
+    "imng-kendo-chart-odata",
+    "imng-kendo-data-entry",
+    "imng-kendo-grid",
+    "imng-kendo-grid-filtering",
+    "imng-kendo-odata",
+    "imng-kendo-theme-blue",
+    "imng-ngrx-idle",
+    "imng-ngrx-utils",
+    "imng-ngxb-typeahead",
+    "imng-nrsrx-client-utils",
+    "imng-signalr-ngrx"
+  ]
+}
