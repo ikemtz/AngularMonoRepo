@@ -1,0 +1,15 @@
+.scanner-viewport {
+  height: 40px;
+}
+.scanner {
+  display: flex;
+}
+video {
+  width: 600px !important;
+  max-width: 600px !important;
+  position: relative !important;
+  margin-right: auto;
+  margin-left: auto;
+  left: auto !important;
+  right: auto !important;
+}

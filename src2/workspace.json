@@ -5,6 +5,8 @@
     "imng-application-insights-ngrx": "libs/imng-application-insights-ngrx",
     "imng-az-func-configr": "apps/imng-az-func-configr",
     "imng-az-func-configr-e2e": "apps/imng-az-func-configr-e2e",
+    "imng-inventory": "apps/imng-inventory",
+    "imng-inventory-e2e": "apps/imng-inventory-e2e",
     "imng-kendo-chart-odata": "libs/imng-kendo-chart-odata",
     "imng-kendo-data-entry": "libs/imng-kendo-data-entry",
     "imng-kendo-grid": "libs/imng-kendo-grid",
