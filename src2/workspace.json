@@ -10,6 +10,7 @@
     "imng-kendo-grid-editable": "libs/imng-kendo-grid-editable",
     "imng-kendo-grid-filtering": "libs/imng-kendo-grid-filtering",
     "imng-kendo-grid-odata": "libs/imng-kendo-grid-odata",
+    "imng-kendo-ngrx-idle": "libs/imng-kendo-ngrx-idle",
     "imng-kendo-odata": "libs/imng-kendo-odata",
     "imng-ngrx-utils": "libs/imng-ngrx-utils",
     "imng-nrsrx-client-utils": "libs/imng-nrsrx-client-utils",
