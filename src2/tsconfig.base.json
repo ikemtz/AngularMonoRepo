@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "imng-application-insights-ngrx": [
+        "libs/imng-application-insights-ngrx/src/index.ts"
+      ],
       "imng-kendo-chart-odata": ["libs/imng-kendo-chart-odata/src/index.ts"],
       "imng-kendo-chart-odata/testing": [
         "libs/imng-kendo-chart-odata/testing/src/index.ts"

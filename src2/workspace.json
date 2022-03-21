@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "imng-application-insights-ngrx": "libs/imng-application-insights-ngrx",
     "imng-az-func-configr": "apps/imng-az-func-configr",
     "imng-az-func-configr-e2e": "apps/imng-az-func-configr-e2e",
     "imng-kendo-chart-odata": "libs/imng-kendo-chart-odata",
