@@ -1,0 +1,86 @@
+{  
+  "NgRxEffectsDataEntry": {
+    "prefix": "imng-ngrx-effects-data-entry",
+  "body": [
+    "  save${1:__ENTITY_NAME__PASCAL_CASE__}Effect$ = createEffect(() =>",
+    "    this.dataPersistence.pessimisticUpdate(${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.save${1:__ENTITY_NAME__PASCAL_CASE__}Request, {",
+    "      run: (action: ReturnType<typeof ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.save${1:__ENTITY_NAME__PASCAL_CASE__}Request>) =>",
+    "        this.${3:__ENTITY_NAME__CAMEL_CASE__}ApiService",
+    "          .post(action.payload)",
+    "          .pipe(map(() => ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.reload${1:__ENTITY_NAME__PASCAL_CASE__}sRequest())),",
+    "      onError: this.exceptionHandler,",
+    "    }),",
+    "  );",
+    "",
+    "  update${1:__ENTITY_NAME__PASCAL_CASE__}Effect$ = createEffect(() =>",
+    "    this.dataPersistence.pessimisticUpdate(${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.update${1:__ENTITY_NAME__PASCAL_CASE__}Request, {",
+    "      run: (action: ReturnType<typeof ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.update${1:__ENTITY_NAME__PASCAL_CASE__}Request>) =>",
+    "        this.${3:__ENTITY_NAME__CAMEL_CASE__}ApiService",
+    "          .put(action.payload)",
+    "          .pipe(map(() => ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.reload${1:__ENTITY_NAME__PASCAL_CASE__}sRequest())),",
+    "      onError: this.exceptionHandler,",
+    "    }),",
+    "  );",
+    "",
+    "  delete${1:__ENTITY_NAME__PASCAL_CASE__}Effect$ = createEffect(() =>",
+    "    this.dataPersistence.pessimisticUpdate(${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.delete${1:__ENTITY_NAME__PASCAL_CASE__}Request, {",
+    "      run: (action: ReturnType<typeof ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.delete${1:__ENTITY_NAME__PASCAL_CASE__}Request>) =>",
+    "        this.${3:__ENTITY_NAME__CAMEL_CASE__}ApiService",
+    "          .delete(action.payload)",
+    "          .pipe(map(() => ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.reload${1:__ENTITY_NAME__PASCAL_CASE__}sRequest())),",
+    "      onError: this.exceptionHandler,",
+    "    }),",
+    "  );"
+  ],
+    "description": "NgRxEffectsDataEntry"
+  },  
+  "NgRxEffectsExceptionHandler": {
+    "prefix": "imng-ngrx-effects-exception-handler",
+    "body": [
+      "private exceptionHandler(action, error) {",
+      "  if (!environment.production) { ",
+      "    throw new Error(error); ",
+      "  }",
+      "  console.error('Error', error);  // NOSONAR",
+      "  return ${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${2:__NGRX_FEATURE_KEY__PASCAL_CASE__}sFailure({ error});",
+      "}"
+    ],
+    "description": "Create Exception Hanlder for Effects"
+  },
+  "NgRxLoadEffectOData": {
+    "prefix": "imng-ngrx-effects-load-odata",
+  "body": [
+    "  load${1:__ENTITY_NAME__PASCAL_CASE__}sEffect$ = createEffect(() =>",
+    "    this.dataPersistence.fetch(${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${1:__ENTITY_NAME__PASCAL_CASE__}sRequest, {",
+    "      run: (action: ReturnType<typeof ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${1:__ENTITY_NAME__PASCAL_CASE__}sRequest>) =>",
+    "        this.odataservice",
+    "          .fetch<I${1:__ENTITY_NAME__PASCAL_CASE__}>(environment.endPoints.${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}s.${1:__ENTITY_NAME__PASCAL_CASE__}sOData, action.payload)",
+    "          .pipe(map((t) => ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${1:__ENTITY_NAME__PASCAL_CASE__}sSuccess(t))),",
+    "      onError: this.exceptionHandler,",
+    "    }),",
+    "  );"
+  ],
+    "description": "Create Load OData Request Effects"
+  },
+  "NgRxReloadEffectOData": {
+    "prefix": "imng-ngrx-effects-reload-odata",
+    "body": [
+      "  reload${1:__ENTITY_NAME__PASCAL_CASE__}sEffect$ = createEffect(() =>",
+      "    this.dataPersistence.fetch(${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.reload${1:__ENTITY_NAME__PASCAL_CASE__}sRequest, {",
+      "      run: (action: ReturnType<typeof ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.reload${1:__ENTITY_NAME__PASCAL_CASE__}sRequest>,",
+      "        partialState: from${3:__NGRX_FEATURE_KEY__PASCAL_CASE__}sReducer.${3:__NGRX_FEATURE_KEY__PASCAL_CASE__}sPartialState,",
+      "      ) =>",
+      "        this.odataservice",
+      "          .fetch<I${1:__ENTITY_NAME__PASCAL_CASE__}>(",
+      "            environment.endPoints.${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}s.${2:__ENTITY_NAME__PASCAL_CASE__}sOData,",
+      "            partialState[from${3:__NGRX_FEATURE_KEY__PASCAL_CASE__}sReducer.${4:__NGRX_FEATURE_KEY__TITLE_CASE__}S_FEATURE_KEY].gridODataState,",
+      "            { bustCache: true },",
+      "          )",
+      "          .pipe(map((t) => ${2:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${1:__ENTITY_NAME__PASCAL_CASE__}sSuccess(t))),",
+      "      onError: this.exceptionHandler,",
+      "    }),",
+      "  );"
+    ],
+    "description": "Create Reload OData Request Effects"
+  }
+}

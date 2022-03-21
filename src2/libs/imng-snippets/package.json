@@ -1,0 +1,66 @@
+{
+  "name": "imng-snippets",
+  "version": "0.3.0",
+  "scripts": {
+    "build": "vsce package",
+    "publish": "vsce package && vsce publish"
+  },
+  "publisher": "ikemtz",
+  "engines": {
+    "vscode": "^1.28.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "typescript",
+        "path": "./src/assets/angular.json"
+      },
+      {
+        "language": "html",
+        "path": "./src/assets/html.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/assets/ngrx-actions.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/assets/ngrx-effects.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/assets/ngrx-facade.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/assets/ngrx-reducers.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/assets/ngrx-selectors.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/assets/spec.json"
+      }
+    ]
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "vsce": "2.7.0"
+  },
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz/AngularMonoRepo"
+  },
+  "repository": {
+    "directory": "https://github.com/ikemtz/AngularMonoRepo/tree/master/src/libs/imng-snippets"
+  }
+}
