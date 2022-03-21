@@ -15,6 +15,7 @@
     "imng-ngrx-utils": "libs/imng-ngrx-utils",
     "imng-ngxb-typeahead": "libs/imng-ngxb-typeahead",
     "imng-nrsrx-client-utils": "libs/imng-nrsrx-client-utils",
-    "imng-oidc-client": "libs/imng-oidc-client"
+    "imng-oidc-client": "libs/imng-oidc-client",
+    "imng-signalr-ngrx": "libs/imng-signalr-ngrx"
   }
 }
