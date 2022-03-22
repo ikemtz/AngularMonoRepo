@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OidcFacade used in NgModule should addUserLoaded and addUserSignedOut: identity 1`] = `null`;
-
 exports[`OidcFacade used in NgModule should addUserLoaded and addUserSignedOut: profile 1`] = `undefined`;
 
 exports[`OidcFacade used in NgModule should getOidcUser and removeOidcUser: email 1`] = `undefined`;

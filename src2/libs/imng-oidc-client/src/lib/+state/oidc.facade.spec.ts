@@ -182,7 +182,7 @@ describe('OidcFacade', () => {
 
       facade.removeOidcUser();
       const removeResult = await readFirst(facade.identity$);
-      expect(removeResult).toBeNull();
+      expect(removeResult).toBeUndefined();
       expect(removeUserMock).toBeCalledTimes(1);
     });
 
@@ -202,7 +202,7 @@ describe('OidcFacade', () => {
       service.OidcUserManager.removeUser = removeUserMock as never;
       facade.addUserLoaded(oidcUser as any);
       const getResult = await readFirst(facade.identity$);
-      expect(getResult).toMatchSnapshot('identity');
+      expect(getResult).toBeUndefined();
       expect(await readFirst(facade.waitForAuthenticationLoaded())).toBe(true);
       expect(await readFirst(oidcUserFacade.profile$)).toMatchSnapshot(
         'profile'
@@ -210,7 +210,7 @@ describe('OidcFacade', () => {
 
       facade.addUserSignedOut();
       const removeResult = await readFirst(facade.identity$);
-      expect(removeResult).toBeNull();
+      expect(removeResult).toBeUndefined();
       expect(removeUserMock).toBeCalledTimes(1);
     });
 
@@ -228,7 +228,7 @@ describe('OidcFacade', () => {
 
       facade.accessTokenExpired();
       const result = await readFirst(facade.identity$);
-      expect(result).toBeNull();
+      expect(result).toBeUndefined();
       expect(await readFirst(facade.expired$)).toBe(true);
       expect(window.location.reload).toBeCalledTimes(0);
     });
