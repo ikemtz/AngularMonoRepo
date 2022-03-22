@@ -30,8 +30,8 @@ import { tap, filter, switchMap, map } from 'rxjs/operators';
 })
 export class IdleWarningComponent implements OnInit, OnDestroy {
   public readonly isSessionTimingOut$ = new BehaviorSubject<boolean>(false);
-  public secondsRemaining$: Observable<number>;
-  private timeoutSub: Subscription;
+  public secondsRemaining$?: Observable<number>;
+  private timeoutSub?: Subscription;
 
   constructor(public readonly idleFacade: IdleFacade) {}
 

@@ -6,8 +6,8 @@ import { IOidcUser } from '../models/oidc-user';
 
 export const OIDC_FEATURE_KEY = 'oidc';
 export interface OidcState {
-  identity: IOidcUser | null;
-  audiences?: string[] | null;
+  identity?: IOidcUser;
+  audiences?: string[];
   userMetadata?: unknown;
   permissions?: string[];
   loading: boolean;
@@ -26,7 +26,6 @@ export interface ErrorState {
 }
 
 export const initialState: OidcState = {
-  identity: null,
   audiences: [],
   permissions: [],
   loading: true,
@@ -51,7 +50,7 @@ const featureReducer = createReducer(
     ...state,
     loading: true,
     loggedIn: false,
-    identity: null,
+    identity: undefined,
   })),
   on(oidcActions.setHttpError, (state, err) => ({
     ...state,
@@ -91,7 +90,7 @@ const featureReducer = createReducer(
     (state) => ({
       ...state,
       loggedIn: false,
-      identity: null,
+      identity: undefined,
       expired: true,
       expiring: false,
       userMetadata: undefined,
@@ -99,7 +98,7 @@ const featureReducer = createReducer(
   ),
   on(oidcActions.signOutRedirect, oidcActions.signOutPopup, (state) => ({
     ...state,
-    identity: null,
+    identity: undefined,
     userMetadata: null,
     loggedIn: false,
   })),
@@ -114,7 +113,7 @@ const featureReducer = createReducer(
       loggedIn: true,
       audiences: payload.access_token
         ? jwtDecoder<{ aud?: [] }>(payload.access_token)?.aud
-        : null,
+        : undefined,
       permissions: jwtDecoder<{ permissions?: [] }>(payload.access_token)
         ?.permissions,
     })

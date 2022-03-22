@@ -21,7 +21,7 @@ export abstract class ChartODataBaseComponent<FACADE extends IChartODataFacade>
   public readonly seriesData$: Observable<
     ChartSeriesDataPoint[] | GroupResult[]
   >;
-  public readonly isDataLoadPending$: Observable<boolean>;
+  public readonly isDataLoadPending$?: Observable<boolean>;
   @Input() public height: string | number = 400;
 
   constructor(

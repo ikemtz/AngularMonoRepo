@@ -1,0 +1,39 @@
+<nrcrn-nav-bar></nrcrn-nav-bar>
+<imng-idle-warning></imng-idle-warning>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<footer class="footer">
+  <div class="d-flex justify-content-between">
+    <div></div>
+    <div>
+      <span class="text-muted px-1">Version:</span>
+      <a
+        class="font-weight-bold"
+        target="_blank"
+        href="//ikemtz.visualstudio.com/Devops/_build?definitionId=28&_a=summary"
+      >
+        <span class="badge badge-pill badge-secondary">{{ buildNumber }}</span>
+        <img class="img ml-2" src="../assets/azure-devops.svg" alt="azure" height="15" />
+      </a>
+    </div>
+    <div class="pr-3">
+      Crafted by:
+      <a href="//twitter.com/ikemtz" rel="noopener noreferrer" target="_blank">
+        @IkeMtz
+        <img
+          class="img pic"
+          title="Azure Devops Pipeline"
+          src="//cdn2.iconfinder.com/data/icons/minimalism/512/twitter.png"
+          alt="twitter-icon"
+      /></a>
+      <a href="//github.com/ikemtz/AngularMonoRepo" rel="noopener noreferrer" target="_blank">
+        <img
+          class="img pic"
+          src="//cdn4.iconfinder.com/data/icons/miu-social/60/github-social-media-128.png"
+          alt="github-icon"
+        />
+      </a>
+    </div>
+  </div>
+</footer>

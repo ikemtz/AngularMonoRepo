@@ -25,7 +25,7 @@ export class ImngArrayGridDirective
   implements OnInit, AfterViewInit, OnDestroy, Subscribable
 {
   public readonly allSubscriptions = new Subscriptions();
-  @Input('imngArrayGrid') public arrayComponent: KendoArrayBasedComponent<
+  @Input('imngArrayGrid') public arrayComponent?: KendoArrayBasedComponent<
     object,
     object
   >;
@@ -49,48 +49,55 @@ export class ImngArrayGridDirective
     this.allSubscriptions.push(
       this.gridComponent.dataStateChange.subscribe(
         (t: GridStateChangeEvent) => {
-          this.gridComponent.sort = this.arrayComponent.state.sort =
-            t.sort || [];
-          this.gridComponent.pageSize = this.arrayComponent.state.take = t.take;
-          this.gridComponent.skip = this.arrayComponent.state.skip = t.skip;
-          this.arrayComponent.dataStateChange(t);
-          this.arrayComponent.markForCheck();
+          this.gridComponent.sort = t.sort || [];
+          this.gridComponent.pageSize = t.take;
+          this.gridComponent.skip = t.skip;
+          if (this.arrayComponent?.state) {
+            this.arrayComponent.state = t;
+            this.arrayComponent.dataStateChange(t);
+            this.arrayComponent.markForCheck();
+          }
         }
       ),
       this.gridComponent.pageChange.subscribe((t: PageChangeEvent) => {
-        this.arrayComponent.pageChange(t);
+        this.arrayComponent?.pageChange(t);
       }),
       this.gridComponent.sortChange.subscribe((t: SortDescriptor[]) => {
-        this.arrayComponent.sortChange(t);
+        this.arrayComponent?.sortChange(t);
       }),
       this.gridComponent.filterChange.subscribe(
         (t: CompositeFilterDescriptor) => {
-          this.gridComponent.filter = this.arrayComponent.state.filter = t;
-          this.arrayComponent.markForCheck();
-          this.arrayComponent.filterChange(t);
+          this.gridComponent.filter = t;
+          if (this.arrayComponent) {
+            this.arrayComponent.state.filter = t;
+            this.arrayComponent.markForCheck();
+            this.arrayComponent.filterChange(t);
+          }
         }
       ),
-      this.arrayComponent.gridData$.subscribe((t) => {
+      this.arrayComponent?.gridData$.subscribe((t) => {
         this.gridComponent.data = t;
       })
     );
 
-    this.gridComponent.pageSize = this.arrayComponent.state.take || 20;
-    this.gridComponent.filter = this.arrayComponent.state.filter || {
+    this.gridComponent.pageSize = this.arrayComponent?.state.take || 20;
+    this.gridComponent.filter = this.arrayComponent?.state.filter || {
       logic: 'and',
       filters: [],
     };
-    this.gridComponent.skip = this.arrayComponent.state.skip || 0;
-    this.gridComponent.sort = this.arrayComponent.state.sort || [];
-    this.gridComponent.data = this.arrayComponent.gridData;
-    this.arrayComponent.hasHiddenColumns$ =
-      this.gridComponent.columnVisibilityChange.pipe(
-        hasHiddenColumns(this.gridComponent)
-      );
+    this.gridComponent.skip = this.arrayComponent?.state.skip || 0;
+    this.gridComponent.sort = this.arrayComponent?.state.sort || [];
+    this.gridComponent.data = this.arrayComponent?.gridData || [];
+    if (this.arrayComponent) {
+      this.arrayComponent.hasHiddenColumns$ =
+        this.gridComponent.columnVisibilityChange.pipe(
+          hasHiddenColumns(this.gridComponent)
+        );
+    }
   }
 
   ngAfterViewInit(): void {
-    this.arrayComponent.markForCheck();
+    this.arrayComponent?.markForCheck();
   }
 
   ngOnDestroy(): void {

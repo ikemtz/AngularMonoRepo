@@ -18,7 +18,7 @@ const getOidcIdentity = createSelector(
 );
 const getAccessToken = createSelector(
   getOidcIdentity,
-  (user: IOidcUser | null) => (user || { access_token: null }).access_token
+  (user?: IOidcUser) => (user || { access_token: undefined }).access_token
 );
 const isIdentityExpiring = createSelector(
   selectOidcState,
@@ -70,10 +70,8 @@ const getAudiences = createSelector(
   selectOidcState,
   (state: OidcState) => state.audiences
 );
-const getExpiresAt = createSelector(
-  getOidcIdentity,
-  (state: IOidcUser | null) =>
-    state?.expires_at ? new Date(state.expires_at * 1000) : null
+const getExpiresAt = createSelector(getOidcIdentity, (state?: IOidcUser) =>
+  state?.expires_at ? new Date(state.expires_at * 1000) : null
 );
 const getUserMetadata = createSelector(
   selectOidcState,

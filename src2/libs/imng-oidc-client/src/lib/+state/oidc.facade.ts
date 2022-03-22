@@ -37,10 +37,10 @@ export class OidcFacade {
     oidcQuery.isIdentityExpired
   );
   loggedIn$: Observable<boolean> = this.store.select(oidcQuery.isLoggedIn);
-  identity$: Observable<IOidcUser | null> = this.store.select(
+  identity$: Observable<IOidcUser | undefined> = this.store.select(
     oidcQuery.getOidcIdentity
   );
-  accessToken$: Observable<string | null> = this.store.select(
+  accessToken$: Observable<string | undefined> = this.store.select(
     oidcQuery.getAccessToken
   );
   httpError$: Observable<HttpErrorResponse | undefined> = this.store.select(
@@ -146,7 +146,7 @@ export class OidcFacade {
     this.store.dispatch(oidcActions.signInPopup(args));
   }
 
-  public signinRedirect(args: RequestArugments): void {
+  public signinRedirect(args?: RequestArugments): void {
     this.store.dispatch(oidcActions.signInRedirect(args));
   }
 
@@ -158,7 +158,7 @@ export class OidcFacade {
     this.store.dispatch(oidcActions.signOutPopup(args));
   }
 
-  public signoutRedirect(args: RequestArugments): void {
+  public signoutRedirect(args?: RequestArugments): void {
     this.store.dispatch(oidcActions.signOutRedirect(args));
   }
 

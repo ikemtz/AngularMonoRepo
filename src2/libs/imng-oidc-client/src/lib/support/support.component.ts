@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { OidcFacade } from '../+state/oidc.facade';
 import { OidcUserFacade } from '../+state/oidc-user.facade';
 import { Observable } from 'rxjs';
@@ -36,13 +36,12 @@ import { map } from 'rxjs/operators';
     </div>
   </div> `,
 })
-export class SupportComponent implements OnInit {
+export class SupportComponent {
   public profileValue$: Observable<{ key: string; value: string }[]>;
   constructor(
     public readonly facade: OidcFacade,
     public readonly oidcUserFacade: OidcUserFacade
-  ) {}
-  ngOnInit(): void {
+  ) {
     this.profileValue$ = this.oidcUserFacade.profile$.pipe(
       map((x) =>
         Object.keys(x).map((propertyKey) => ({

@@ -38,7 +38,7 @@ export abstract class BaseDataEntryComponent<
   public abstract dialogTitle: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract props: any;
-  public addEditForm: FormGroup;
+  public addEditForm?: FormGroup;
   public loading$: Observable<boolean>;
   private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(
     false as boolean
@@ -48,11 +48,11 @@ export abstract class BaseDataEntryComponent<
     return this._submitted$.asObservable();
   }
   // convenience getter for easy access to form fields
-  public formControl(controlName: string): AbstractControl {
-    return this.addEditForm.controls[controlName];
+  public formControl(controlName: string): AbstractControl | undefined {
+    return this.addEditForm?.controls[controlName];
   }
-  public formControlErrors(controlName: string): ValidationErrors | null {
-    return this.addEditForm.controls[controlName].errors;
+  public formControlErrors(controlName: string): ValidationErrors | undefined {
+    return this.addEditForm?.controls[controlName].errors || undefined;
   }
   constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
@@ -85,8 +85,8 @@ export abstract class BaseDataEntryComponent<
     this.closeForm();
   }
 
-  public isDataInvalid(): boolean {
-    return this.addEditForm.invalid;
+  public isDataInvalid(): boolean | undefined {
+    return this.addEditForm?.invalid;
   }
 
   public abstract initForm(): void;

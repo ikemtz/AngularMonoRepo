@@ -10,18 +10,20 @@
   "dependencies": {
     "tslib": ">=2.x",
     "imng-application-insights-ngrx": "latest",
-    "imng-auth0-oidc": "latest",
     "imng-kendo-chart-odata": "latest",
     "imng-kendo-data-entry": "latest",
     "imng-kendo-grid": "latest",
+    "imng-kendo-grid-array": "latest",
+    "imng-kendo-grid-editable": "latest",
     "imng-kendo-grid-filtering": "latest",
     "imng-kendo-grid-odata": "latest",
+    "imng-kendo-ngrx-idle": "latest",
     "imng-kendo-odata": "latest",
-    "imng-kendo-theme-blue": "latest",
-    "imng-ngrx-idle": "latest",
     "imng-ngrx-utils": "latest",
+    "imng-kendo-theme-blue": "latest",
     "imng-ngxb-typeahead": "latest",
     "imng-nrsrx-client-utils": "latest",
+    "imng-oidc-client": "latest",
     "imng-signalr-ngrx": "latest"
   }
 }

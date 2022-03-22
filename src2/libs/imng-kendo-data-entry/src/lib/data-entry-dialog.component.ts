@@ -17,7 +17,7 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
       [width]="width"
       [height]="height"
       (close)="close()"
-      [autoFocusedElement]="autoFocusedElement"
+      [autoFocusedElement]="autoFocusedElement || ''"
     >
       <kendo-dialog-titlebar class="bg-primary">{{
         dialogTitle
@@ -48,9 +48,9 @@ export class DataEntryDialogComponent implements OnInit {
   /**
    * https://www.telerik.com/kendo-angular-ui/components/dialogs/dialog/initial-focus/
    */
-  @Input() public autoFocusedElement: string;
+  @Input() public autoFocusedElement?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() public parentComponent: BaseDataEntryComponent<any>; //NOSONAR
+  @Input() public parentComponent?: BaseDataEntryComponent<any>; //NOSONAR
   @Input() public saveButtonText = 'Save';
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
   /**
@@ -62,13 +62,13 @@ export class DataEntryDialogComponent implements OnInit {
    *  </ng-template>
    * </imng-data-entry-dialog>
    */
-  public dialogBtnsTemplate: TemplateRef<unknown>;
-  public loading$: Observable<boolean>;
-  public addEditForm: FormGroup;
+  public dialogBtnsTemplate?: TemplateRef<unknown>;
+  public loading$?: Observable<boolean>;
+  public addEditForm?: FormGroup;
   public submitted = false;
-  public dialogTitle: string;
+  public dialogTitle?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
-  public component: {};
+  public component?: {};
 
   public ngOnInit(): void {
     if (!this.parentComponent) {
@@ -80,13 +80,13 @@ export class DataEntryDialogComponent implements OnInit {
   }
 
   public close(): void {
-    this.parentComponent.closeForm();
+    this.parentComponent?.closeForm();
   }
   public cancel(): void {
-    this.parentComponent.onCancel();
+    this.parentComponent?.onCancel();
   }
   public submit(): void {
-    this.parentComponent.onSubmit();
+    this.parentComponent?.onSubmit();
   }
   get dialogActionBtnsCtx(): unknown {
     return {

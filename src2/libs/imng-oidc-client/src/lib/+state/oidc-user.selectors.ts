@@ -6,7 +6,7 @@ import { IOidcUser } from '../models/oidc-user';
 
 const getProfile = createSelector(
   oidcQuery.getOidcIdentity,
-  (identity: IOidcUser | null) => identity?.profile as OidcUserProfile
+  (identity?: IOidcUser) => identity?.profile as OidcUserProfile
 );
 
 const getPermissions = createSelector(
