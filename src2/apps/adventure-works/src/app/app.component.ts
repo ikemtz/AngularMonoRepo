@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'aw-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'adventure-works';
+  public readonly year: number;
+  public readonly buildNumber: string;
+
+  constructor() {
+    this.year = new Date().getFullYear();
+    this.buildNumber = environment.version;
+  }
 }

@@ -16,7 +16,12 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/adventure-works/src/favicon.ico",
-          "apps/adventure-works/src/assets"
+          "apps/adventure-works/src/assets",
+          {
+            "glob": "*",
+            "input": "libs/imng-oidc-client/src/assets",
+            "output": "/"
+          }
         ],
         "styles": ["apps/adventure-works/src/styles.scss"],
         "scripts": []

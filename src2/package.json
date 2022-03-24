@@ -8,6 +8,7 @@
     "test": "nx test",
     "format:write": "nx format:write --uncommitted",
     "postinstall": "ngcc --properties es2015 browser module main",
+    "gen:ts:aw": "node ./apps/adventure-works/gen-ts.js && npm run format:write",
     "gen:ts:nrcrn": "node ./apps/nurse-cron/gen-ts.js && npm run format:write"
   },
   "private": false,
