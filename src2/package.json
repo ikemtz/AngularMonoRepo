@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "postinstall": "ngcc --properties es2015 browser module main"
+    "postinstall": "ngcc --properties es2015 browser module main",
+    "gen:ts:nrcrn": "node ./apps/nurse-cron/gen-ts.js && npm run format:write"
   },
   "private": false,
   "devDependencies": {
@@ -38,6 +39,8 @@
     "ng-packagr": "^13.0.0",
     "ngx-bootstrap": "^8.0.0",
     "nx": "13.9.3",
+    "openapi-mermaid": "1.83",
+    "openapi-ts-generator": "^4.83.6",
     "postcss": "^8.4.5",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^6.7.0",

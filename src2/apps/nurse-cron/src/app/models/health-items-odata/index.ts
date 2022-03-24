@@ -5,6 +5,5 @@
  * Do not edit.
  */
 /* tslint:disable */
-export * from './health-item.form-group-fac';
 export * from './health-item.model';
 export * from './health-item.properties';

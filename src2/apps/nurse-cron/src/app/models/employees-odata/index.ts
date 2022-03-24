@@ -5,15 +5,11 @@
  * Do not edit.
  */
 /* tslint:disable */
-export * from './employee-certification.form-group-fac';
 export * from './employee-certification.model';
 export * from './employee-certification.properties';
-export * from './employee-competency.form-group-fac';
 export * from './employee-competency.model';
 export * from './employee-competency.properties';
-export * from './employee-health-item.form-group-fac';
 export * from './employee-health-item.model';
 export * from './employee-health-item.properties';
-export * from './employee.form-group-fac';
 export * from './employee.model';
 export * from './employee.properties';
