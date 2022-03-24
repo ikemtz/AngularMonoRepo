@@ -1,7 +1,5 @@
 # imng-oidc-client
 
-This library was generated with [Nx](https://nx.dev).
-
 To utilize this library you will need to be in an Angular Application running NGRX.
 
 In addition, you'll need to deploy these three files to the root of your site:
@@ -48,3 +46,5 @@ Open up your angular.json and navigate to the node for your project. Let's assum
               // THIS IS WHAT YOU'LL NEED TO ADD (END)
             ],
 ```
+
+This library was generated with [Nx](https://nx.dev).

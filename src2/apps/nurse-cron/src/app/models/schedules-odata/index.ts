@@ -5,5 +5,6 @@
  * Do not edit.
  */
 /* tslint:disable */
+export * from './schedule.form-group-fac';
 export * from './schedule.model';
 export * from './schedule.properties';

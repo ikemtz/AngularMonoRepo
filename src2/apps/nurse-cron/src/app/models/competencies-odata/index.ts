@@ -5,5 +5,6 @@
  * Do not edit.
  */
 /* tslint:disable */
+export * from './competency.form-group-fac';
 export * from './competency.model';
 export * from './competency.properties';

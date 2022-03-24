@@ -5,5 +5,6 @@
  * Do not edit.
  */
 /* tslint:disable */
+export * from './certification.form-group-fac';
 export * from './certification.model';
 export * from './certification.properties';

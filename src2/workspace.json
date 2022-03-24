@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "adventure-works": "apps/adventure-works",
+    "adventure-works-e2e": "apps/adventure-works-e2e",
     "imng-angular-core": "libs/imng-angular-core",
     "imng-application-insights-ngrx": "libs/imng-application-insights-ngrx",
     "imng-az-func-configr": "apps/imng-az-func-configr",

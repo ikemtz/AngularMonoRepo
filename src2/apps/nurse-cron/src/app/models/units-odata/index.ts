@@ -5,7 +5,9 @@
  * Do not edit.
  */
 /* tslint:disable */
+export * from './building.form-group-fac';
 export * from './building.model';
 export * from './building.properties';
+export * from './unit.form-group-fac';
 export * from './unit.model';
 export * from './unit.properties';
