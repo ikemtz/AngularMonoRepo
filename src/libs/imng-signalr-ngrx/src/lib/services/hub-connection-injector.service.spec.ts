@@ -12,20 +12,25 @@ describe('HubConnectionInjectorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1 } },
+        { provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logger: 0 } },
         { provide: OidcFacade, useValue: { accessToken$: of('xyz') } },
-        { provide: Store, useValue: { dispatch: jest.fn() } }
-      ]
+        { provide: Store, useValue: { dispatch: jest.fn() } },
+      ],
     });
     service = TestBed.inject(HubConnectionInjectorService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
-    expect((service as unknown as { allSubscriptions: []; }).allSubscriptions.length).toBe(1);
+    expect((service as unknown as { allSubscriptions: [] }).allSubscriptions.length).toBe(1);
   });
 
   it('should be ngOnDestroy', () => {
     service.ngOnDestroy();
+  });
+
+  it('should use the proper AccessToken', (done) => {
+    const hubConnection = service.getNewHubConnection('accessToken');
+    hubConnection.start().catch(done());
   });
 });
