@@ -41,8 +41,11 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
 
   public getNewHubConnection(accessToken: string): HubConnection {
     return new HubConnectionBuilder()
-      .withUrl(this.signalrConfiguration.hostUrl, { accessTokenFactory: () => accessToken })
-      .configureLogging(this.signalrConfiguration.logLevel)
+      .withUrl(this.signalrConfiguration.hostUrl, {
+        ...this.signalrConfiguration,
+        accessTokenFactory: () => accessToken,
+      })
+      .configureLogging(this.signalrConfiguration.logger)
       .withAutomaticReconnect()
       .build();
   }
