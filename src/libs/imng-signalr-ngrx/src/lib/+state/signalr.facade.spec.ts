@@ -17,7 +17,7 @@ import { receivedMessage } from './signalr.actions';
 import { OidcFacade } from 'imng-auth0-oidc';
 import { of } from 'rxjs';
 
-interface TestSchema {
+export interface TestSchema {
   signalr: State;
 }
 
