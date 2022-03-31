@@ -8,6 +8,7 @@ import { signalrActions } from '../+state/signalr.actions';
 import { Store } from '@ngrx/store';
 import * as fromSignalr from '../+state/signalr.reducer';
 import { OidcFacade } from 'imng-auth0-oidc';
+import { ISignalrMessage } from '../models/signalr.message';
 
 @Injectable({
   providedIn: 'root',
@@ -27,18 +28,21 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
           filter((accessToken) => !!accessToken),
           tap((accessToken) => {
             this.hubConnection = this.getNewHubConnection(accessToken);
-            this.hubConnection.onclose(async () => this.store$.dispatch(signalrActions.connect()));
+            this.hubConnection.onclose(this.onClose);
             signalrConfiguration.clientMethods?.forEach((clientMethod) =>
-              this.hubConnection.on(clientMethod, (data) =>
-                this.store$.dispatch(signalrActions.receivedMessage({ methodName: clientMethod, data })),
-              ),
+              this.hubConnection.on(clientMethod, (data) => this.onMessageReceived(clientMethod, data)),
             );
           }),
         )
         .subscribe(),
     );
   }
-
+  public onClose() {
+    this.store$.dispatch(signalrActions.connect());
+  }
+  public onMessageReceived(clientMethod: string, data: unknown) {
+    this.store$.dispatch(signalrActions.receivedMessage({ methodName: clientMethod, data }));
+  }
   public getNewHubConnection(accessToken: string): HubConnection {
     return new HubConnectionBuilder()
       .withUrl(this.signalrConfiguration.hostUrl, {
