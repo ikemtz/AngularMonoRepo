@@ -28,7 +28,7 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
           tap((accessToken) => {
             this.hubConnection = this.getNewHubConnection(accessToken);
             this.hubConnection.onclose(async () => this.store$.dispatch(signalrActions.connect()));
-            signalrConfiguration.clientMethods.forEach((clientMethod) =>
+            signalrConfiguration.clientMethods?.forEach((clientMethod) =>
               this.hubConnection.on(clientMethod, (data) =>
                 this.store$.dispatch(signalrActions.receivedMessage({ methodName: clientMethod, data })),
               ),
@@ -41,8 +41,11 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
 
   public getNewHubConnection(accessToken: string): HubConnection {
     return new HubConnectionBuilder()
-      .withUrl(this.signalrConfiguration.hostUrl, { accessTokenFactory: () => accessToken })
-      .configureLogging(this.signalrConfiguration.logLevel)
+      .withUrl(this.signalrConfiguration.hostUrl, {
+        ...this.signalrConfiguration,
+        accessTokenFactory: () => accessToken,
+      })
+      .configureLogging(this.signalrConfiguration.logger)
       .withAutomaticReconnect()
       .build();
   }
