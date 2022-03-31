@@ -13,11 +13,11 @@ import { SignalrFacade } from './signalr.facade';
 import { SIGNALR_FEATURE_KEY, State, initialState, signalrReducer } from './signalr.reducer';
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
 import { SIGNALR_CONFIG } from '../models/signalr.configuration';
-import { connect, sendMessage, receivedMessage, clearMessages } from './signalr.actions';
+import { receivedMessage } from './signalr.actions';
 import { OidcFacade } from 'imng-auth0-oidc';
 import { of } from 'rxjs';
 
-interface TestSchema {
+export interface TestSchema {
   signalr: State;
 }
 
@@ -31,34 +31,35 @@ describe('SignalrFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer, { initialState }),
-          EffectsModule.forFeature([SignalrEffects])],
+          EffectsModule.forFeature([SignalrEffects]),
+        ],
         providers: [
-          { provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1, clientMethods: ['x'] } },
+          {
+            provide: SIGNALR_CONFIG,
+            multi: false,
+            useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1, clientMethods: ['x'] },
+          },
           { provide: OidcFacade, useValue: { accessToken$: of('xyz') } },
           {
-            provide: HubConnectionInjectorService, useValue: {
+            provide: HubConnectionInjectorService,
+            useValue: {
               hubConnection: {
                 on: jest.fn(),
                 send: jest.fn(),
                 start: jest.fn(() => Promise.resolve()),
-                onclose: jest.fn()
-              }
-            }
+                onclose: jest.fn(),
+              },
+            },
           },
-          SignalrFacade
+          SignalrFacade,
         ],
-
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
-        imports: [
-          NxModule.forRoot(),
-          StoreModule.forRoot({}),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule],
+        imports: [NxModule.forRoot(), StoreModule.forRoot({}), EffectsModule.forRoot([]), CustomFeatureModule],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -72,25 +73,24 @@ describe('SignalrFacade', () => {
       expect(facade).toBeTruthy();
     });
 
-
     it('should handle reconnect', async () => {
-      facade.dispatchAction(connect());
+      facade.connect();
       expect(service.hubConnection.start).toBeCalledTimes(1);
       const result = await readFirst(store);
       expect(result).toMatchSnapshot();
       const isConnected = await readFirst(facade.isConnected$);
       expect(isConnected).toBe(true);
-
     });
 
     it('should handle send', () => {
-      facade.dispatchAction(sendMessage({ methodName: 'helloWorld', data: '😎' }));
+      facade.sendMessage({ methodName: 'helloWorld', data: '😎' });
       expect(service.hubConnection.send).toBeCalledTimes(1);
       expect(service.hubConnection.send).toBeCalledWith('helloWorld', '😎');
     });
 
     it('should handle received messages', async () => {
-      facade.dispatchAction(receivedMessage({ methodName: 'helloWorld', data: '😎' }));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (facade as any).store.dispatch(receivedMessage({ methodName: 'helloWorld', data: '😎' }));
 
       let result = await readFirst(store);
       expect(result).toMatchSnapshot('pre-clear');
@@ -99,10 +99,9 @@ describe('SignalrFacade', () => {
       expect(message).toStrictEqual({ methodName: 'helloWorld', data: '😎' });
 
       const messages = await readFirst(facade.receivedMessages$);
-      expect(messages).toStrictEqual([
-        { methodName: 'helloWorld', data: '😎' }]);
+      expect(messages).toStrictEqual([{ methodName: 'helloWorld', data: '😎' }]);
 
-      facade.dispatchAction(clearMessages());
+      facade.clearMessages();
       result = await readFirst(store);
       expect(result).toMatchSnapshot('post-cleared');
     });
