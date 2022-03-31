@@ -8,7 +8,6 @@ import { signalrActions } from '../+state/signalr.actions';
 import { Store } from '@ngrx/store';
 import * as fromSignalr from '../+state/signalr.reducer';
 import { OidcFacade } from 'imng-auth0-oidc';
-import { ISignalrMessage } from '../models/signalr.message';
 
 @Injectable({
   providedIn: 'root',

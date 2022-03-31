@@ -6,7 +6,6 @@ import { OidcFacade } from 'imng-auth0-oidc';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TestSchema } from '../+state/signalr.facade.spec';
-import exp = require('constants');
 
 describe('HubConnectionInjectorService', () => {
   let service: HubConnectionInjectorService;
