@@ -28,7 +28,7 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
           tap((accessToken) => {
             this.hubConnection = this.getNewHubConnection(accessToken);
             this.hubConnection.onclose(async () => this.store$.dispatch(signalrActions.connect()));
-            signalrConfiguration.clientMethods.forEach((clientMethod) =>
+            signalrConfiguration.clientMethods?.forEach((clientMethod) =>
               this.hubConnection.on(clientMethod, (data) =>
                 this.store$.dispatch(signalrActions.receivedMessage({ methodName: clientMethod, data })),
               ),
