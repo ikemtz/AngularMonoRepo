@@ -30,20 +30,11 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
         .pipe(
           filter((accessToken) => !!accessToken),
           tap((accessToken) => {
-            this.hubConnection = this.getNewHubConnection(
-              accessToken as string
-            );
-            this.hubConnection.onclose(async () =>
-              this.store$.dispatch(signalrActions.connect())
-            );
-            signalrConfiguration.clientMethods.forEach((clientMethod) =>
-              this.hubConnection?.on(clientMethod, (data: unknown) =>
-                this.store$.dispatch(
-                  signalrActions.receivedMessage({
-                    methodName: clientMethod,
-                    data,
-                  })
-                )
+            this.hubConnection = this.getNewHubConnection(accessToken);
+            this.hubConnection?.onclose(this.onClose);
+            signalrConfiguration.clientMethods?.forEach((clientMethod) =>
+              this.hubConnection?.on(clientMethod, (data) =>
+                this.onMessageReceived(clientMethod, data)
               )
             );
           })
@@ -51,15 +42,26 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
         .subscribe()
     );
   }
-
-  public getNewHubConnection(accessToken: string): HubConnection {
-    return new HubConnectionBuilder()
-      .withUrl(this.signalrConfiguration.hostUrl, {
-        accessTokenFactory: () => accessToken,
-      })
-      .configureLogging(this.signalrConfiguration.logLevel)
-      .withAutomaticReconnect()
-      .build();
+  public onClose() {
+    this.store$.dispatch(signalrActions.connect());
+  }
+  public onMessageReceived(clientMethod: string, data: unknown) {
+    this.store$.dispatch(
+      signalrActions.receivedMessage({ methodName: clientMethod, data })
+    );
+  }
+  public getNewHubConnection(accessToken?: string): HubConnection | undefined {
+    if (accessToken) {
+      return new HubConnectionBuilder()
+        .withUrl(this.signalrConfiguration.hostUrl, {
+          ...this.signalrConfiguration,
+          accessTokenFactory: () => accessToken,
+        })
+        .configureLogging(this.signalrConfiguration.logger)
+        .withAutomaticReconnect()
+        .build();
+    }
+    return;
   }
 
   public ngOnDestroy(): void {
