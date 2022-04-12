@@ -4,8 +4,8 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-/* tslint:disable */
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
 
 export function EmployeeFormGroupFac(): FormGroup {
   return new FormGroup({
@@ -29,8 +29,8 @@ export function EmployeeFormGroupFac(): FormGroup {
     certificationCount: new FormControl('', Validators.required),
     competencyCount: new FormControl('', Validators.required),
     healthItemCount: new FormControl('', Validators.required),
-    employeeCertifications: new FormControl(''),
-    employeeCompetencies: new FormControl(''),
-    employeeHealthItems: new FormControl(''),
+    employeeCertifications: new FormArray([]),
+    employeeCompetencies: new FormArray([]),
+    employeeHealthItems: new FormArray([]),
   });
 }

@@ -5,7 +5,7 @@
  * Do not edit.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormControl, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
 
 export function EmployeeHealthItemFormGroupFac(): FormGroup {
   return new FormGroup({

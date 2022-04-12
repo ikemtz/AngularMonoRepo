@@ -1,0 +1,50 @@
+{
+  "projectType": "library",
+  "root": "libs/imng-kendo-grid",
+  "sourceRoot": "libs/imng-kendo-grid/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/imng-kendo-grid"],
+      "options": {
+        "project": "libs/imng-kendo-grid/ng-package.json"
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/imng-kendo-grid/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/imng-kendo-grid"],
+      "options": {
+        "jestConfig": "libs/imng-kendo-grid/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/imng-kendo-grid/src/**/*.ts",
+          "libs/imng-kendo-grid/src/**/*.html",
+          "libs/imng-kendo-grid/testing/**/*.ts",
+          "libs/imng-kendo-grid/testing/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
