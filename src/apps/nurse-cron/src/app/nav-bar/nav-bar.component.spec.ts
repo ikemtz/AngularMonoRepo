@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavBarComponent } from './nav-bar.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { OidcFacade, Auth0Facade } from 'imng-auth0-oidc';
+import { OidcFacade, OidcUserFacade } from 'imng-oidc-client';
 
 describe('NavBarComponent', () => {
   let component: NavBarComponent;
@@ -12,9 +12,11 @@ describe('NavBarComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NavBarComponent],
       imports: [RouterTestingModule],
-      providers: [{ provide: OidcFacade, useValue: {} }, { provide: Auth0Facade, useValue: {} }]
-    })
-      .compileComponents();
+      providers: [
+        { provide: OidcFacade, useValue: {} },
+        { provide: OidcUserFacade, useValue: {} },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

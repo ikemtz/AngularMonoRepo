@@ -10,11 +10,16 @@ import { NxModule } from '@nrwl/angular';
 import { SignalrEffects } from './signalr.effects';
 import { SignalrFacade } from './signalr.facade';
 
-import { SIGNALR_FEATURE_KEY, State, initialState, signalrReducer } from './signalr.reducer';
+import {
+  SIGNALR_FEATURE_KEY,
+  State,
+  initialState,
+  signalrReducer,
+} from './signalr.reducer';
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
 import { SIGNALR_CONFIG } from '../models/signalr.configuration';
 import { receivedMessage } from './signalr.actions';
-import { OidcFacade } from 'imng-auth0-oidc';
+import { OidcFacade } from 'imng-oidc-client';
 import { of } from 'rxjs';
 
 export interface TestSchema {
@@ -30,14 +35,20 @@ describe('SignalrFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer, { initialState }),
+          StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer, {
+            initialState,
+          }),
           EffectsModule.forFeature([SignalrEffects]),
         ],
         providers: [
           {
             provide: SIGNALR_CONFIG,
             multi: false,
-            useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1, clientMethods: ['x'] },
+            useValue: {
+              hostUrl: 'http://xyz/notificationHub',
+              logLevel: 1,
+              clientMethods: ['x'],
+            },
           },
           { provide: OidcFacade, useValue: { accessToken$: of('xyz') } },
           {
@@ -57,7 +68,12 @@ describe('SignalrFacade', () => {
       class CustomFeatureModule {}
 
       @NgModule({
-        imports: [NxModule.forRoot(), StoreModule.forRoot({}), EffectsModule.forRoot([]), CustomFeatureModule],
+        imports: [
+          NxModule.forRoot(),
+          StoreModule.forRoot({}),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
       })
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
@@ -75,7 +91,7 @@ describe('SignalrFacade', () => {
 
     it('should handle reconnect', async () => {
       facade.connect();
-      expect(service.hubConnection.start).toBeCalledTimes(1);
+      expect(service.hubConnection?.start).toBeCalledTimes(1);
       const result = await readFirst(store);
       expect(result).toMatchSnapshot();
       const isConnected = await readFirst(facade.isConnected$);
@@ -84,13 +100,15 @@ describe('SignalrFacade', () => {
 
     it('should handle send', () => {
       facade.sendMessage({ methodName: 'helloWorld', data: '😎' });
-      expect(service.hubConnection.send).toBeCalledTimes(1);
-      expect(service.hubConnection.send).toBeCalledWith('helloWorld', '😎');
+      expect(service.hubConnection?.send).toBeCalledTimes(1);
+      expect(service.hubConnection?.send).toBeCalledWith('helloWorld', '😎');
     });
 
     it('should handle received messages', async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (facade as any).store.dispatch(receivedMessage({ methodName: 'helloWorld', data: '😎' }));
+      (facade as any).store.dispatch(
+        receivedMessage({ methodName: 'helloWorld', data: '😎' })
+      );
 
       let result = await readFirst(store);
       expect(result).toMatchSnapshot('pre-clear');
@@ -99,7 +117,9 @@ describe('SignalrFacade', () => {
       expect(message).toStrictEqual({ methodName: 'helloWorld', data: '😎' });
 
       const messages = await readFirst(facade.receivedMessages$);
-      expect(messages).toStrictEqual([{ methodName: 'helloWorld', data: '😎' }]);
+      expect(messages).toStrictEqual([
+        { methodName: 'helloWorld', data: '😎' },
+      ]);
 
       facade.clearMessages();
       result = await readFirst(store);

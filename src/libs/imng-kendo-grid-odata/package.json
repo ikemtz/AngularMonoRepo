@@ -1,50 +1,11 @@
 {
   "name": "imng-kendo-grid-odata",
-  "version": "3.277.26",
-  "description": "A library to make integrating Angular Kendo Grid, OData endpoints, and NGRX a bit simpler.",
-  "keywords": [
-    "Angular",
-    "NGRX",
-    "Kendo",
-    "Grid",
-    "OData"
-  ],
+  "version": "0.0.1",
   "peerDependencies": {
-    "@angular/core": ">=12.x",
-    "@angular/common": ">=12.x",
-    "@angular/platform-browser": ">=12.x",
-    "@angular/router": ">=12.x",
-    "@ngrx/store": ">=12.x",
-    "@progress/kendo-angular-grid": ">=5.x",
-    "@progress/kendo-data-query": ">=1.x",
-    "imng-kendo-odata": "*",
-    "imng-nrsrx-client-utils": "*",
-    "rxjs": "*",
-    "tslib": ">=2.x"
+    "@angular/common": "^13.2.0",
+    "@angular/core": "^13.2.0"
   },
-  "devDependencies": {
-    "@nrwl/angular": ">=12.x"
-  },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-kendo-grid-odata",
-    "allowedNonPeerDependencies": [
-      "imng-kendo-odata",
-      "@nrwl/angular"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
-  },
-  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
-  "license": "MIT",
-  "private": false,
-  "author": {
-    "name": "Isaac Martinez <@ikemtz>",
-    "url": "https://github.com/ikemtz"
+  "dependencies": {
+    "tslib": "^2.3.0"
   }
 }

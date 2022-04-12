@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/imng-kendo-theme-blue",
+  "sourceRoot": "libs/imng-kendo-theme-blue/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/imng-kendo-theme-blue"],
+      "options": {
+        "project": "libs/imng-kendo-theme-blue/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/imng-kendo-theme-blue/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/imng-kendo-theme-blue/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/imng-kendo-theme-blue"],
+      "options": {
+        "jestConfig": "libs/imng-kendo-theme-blue/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/imng-kendo-theme-blue/src/**/*.ts",
+          "libs/imng-kendo-theme-blue/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

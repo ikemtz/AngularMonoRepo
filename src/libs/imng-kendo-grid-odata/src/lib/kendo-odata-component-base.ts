@@ -1,20 +1,34 @@
 import { Observable, isObservable } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
-import { OnInit, OnDestroy, InjectionToken, Inject, Directive } from '@angular/core';
+import {
+  OnInit,
+  OnDestroy,
+  InjectionToken,
+  Inject,
+  Directive,
+} from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
-import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
+import { GridStateChangeEvent } from 'imng-kendo-grid';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-import { CompositeFilterDescriptor, FilterDescriptor, isCompositeFilterDescriptor } from '@progress/kendo-data-query';
+import {
+  CompositeFilterDescriptor,
+  FilterDescriptor,
+  isCompositeFilterDescriptor,
+} from '@progress/kendo-data-query';
 
-const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>('imng-grid-odata-facade');
+const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>(
+  'imng-grid-odata-facade'
+);
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 
 @Directive()
 // eslint-disable-next-line @angular-eslint/component-class-suffix
-export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoODataGridFacade<ENTITY>>
-  implements OnInit, OnDestroy, Subscribable
+export abstract class KendoODataComponentBase<
+  ENTITY,
+  FACADE extends IKendoODataGridFacade<ENTITY>
+> implements OnInit, OnDestroy, Subscribable
 {
   public readonly allSubscriptions = new Subscriptions();
   /**
@@ -36,22 +50,30 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract readonly props: any; //NOSONAR
-  protected expanders: (string | Expander)[];
-  protected transformations: string;
+  protected expanders?: Expander[];
+  protected transformations?: string;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
     @Inject(STATE) public readonly state: ODataState | Observable<ODataState>,
-    public readonly router: Router = null,
-    public readonly gridRefresh$: Observable<unknown> = null,
+    public readonly router: Router | null = null,
+    public readonly gridRefresh$: Observable<unknown> | null = null
   ) {
-    if (this.router?.routerState?.snapshot?.root.queryParams[this.gridStateQueryKey]) {
+    if (
+      this.router?.routerState?.snapshot?.root.queryParams[
+        this.gridStateQueryKey
+      ]
+    ) {
       try {
         this.gridDataState = this.deserializeODataState(
-          this.router?.routerState?.snapshot?.root?.queryParams[this.gridStateQueryKey],
+          this.router?.routerState?.snapshot?.root?.queryParams[
+            this.gridStateQueryKey
+          ]
         );
       } catch (e) {
-        console.error(`Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`);
+        console.error(
+          `Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`
+        );
       }
     }
     if (isObservable(state)) {
@@ -60,17 +82,23 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
           this.gridDataState = t;
           this.expanders = t.expanders;
           this.transformations = t.transformations;
-        }),
+        })
       );
     } else {
       this.gridDataState = this.gridDataState
-        ? { ...this.gridDataState, selectors: state.selectors, expanders: state.expanders }
+        ? {
+            ...this.gridDataState,
+            selectors: state.selectors,
+            expanders: state.expanders,
+          }
         : state;
       this.expanders = state.expanders;
       this.transformations = state.transformations;
     }
     if (gridRefresh$) {
-      this.allSubscriptions.push(gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState)));
+      this.allSubscriptions.push(
+        gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState))
+      );
     }
   }
 
@@ -89,7 +117,9 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     return state;
   }
 
-  public normalizeFilters(filter: FilterDescriptor | CompositeFilterDescriptor) {
+  public normalizeFilters(
+    filter: FilterDescriptor | CompositeFilterDescriptor
+  ) {
     if (isCompositeFilterDescriptor(filter)) {
       this.normalizeFilters(filter);
     } else if (
@@ -122,7 +152,7 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     }
   }
 
-  public dataStateChange(state: ODataGridStateChangeEvent): void {
+  public dataStateChange(state: GridStateChangeEvent): void {
     this.gridDataState = {
       ...state,
       expanders: this.expanders,
@@ -131,7 +161,8 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
     this.loadEntities(this.gridDataState);
   }
 
-  public excelData = (): Observable<ODataResult<ENTITY>> => this.gridDataResult$;
+  public excelData = (): Observable<ODataResult<ENTITY>> =>
+    this.gridDataResult$;
 
   public loadEntities(odataState: ODataState): void {
     odataState = this.validateSortParameters(odataState);
@@ -143,10 +174,13 @@ export abstract class KendoODataComponentBase<ENTITY, FACADE extends IKendoOData
   }
 
   public validateSortParameters(state: ODataState): ODataState {
-    if (state.sort?.length > this.maxSortedColumnCount) {
-      state = { ...state, sort: state.sort.slice(0, this.maxSortedColumnCount) };
+    if (state.sort && (state.sort?.length || 0) > this.maxSortedColumnCount) {
+      state = {
+        ...state,
+        sort: state.sort.slice(0, this.maxSortedColumnCount),
+      };
       console.warn(
-        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
+        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`
       ); //NOSONAR
     }
     return state;

@@ -40,7 +40,8 @@ describe('RxJs Operators', () => {
   });
 
   it('mapToExtDataResult should handle null', async () => {
-    const result = await readFirst(of(null).pipe(mapToExtDataResult()));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = await readFirst(of(null as any).pipe(mapToExtDataResult()));
     expect(result).toMatchSnapshot();
   });
 
@@ -70,12 +71,13 @@ describe('RxJs Operators', () => {
   });
 
   it('findById handle undefined objects', async () => {
-    const result = await readFirst(of(null).pipe(findById(2)));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = await readFirst(of(null as any).pipe(findById(2))); //NOSONAR
     expect(result).toMatchSnapshot();
   });
 
   it('findById handle undefined datasets', async () => {
-    const result = await readFirst(of({ data: undefined }).pipe(findById(2)));
+    const result = await readFirst(of({ data: [], total: 0 }).pipe(findById(2)));
     expect(result).toMatchSnapshot();
   });
 
@@ -94,12 +96,14 @@ describe('RxJs Operators', () => {
     expect(result).toStrictEqual({});
   });
   it('firstRecord handle undefined objects', async () => {
-    const result = await readFirst(of(null).pipe(firstRecord()));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = await readFirst(of(null as any).pipe(firstRecord()));
     expect(result).toMatchSnapshot();
   });
 
   it('firstRecord handle undefined datasets', async () => {
-    const result = await readFirst(of({ data: undefined }).pipe(firstRecord()));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = await readFirst(of({ data: undefined as any, total:0 }).pipe(firstRecord()));
     expect(result).toMatchSnapshot();
   });
 });

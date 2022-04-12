@@ -12,7 +12,7 @@ export class StateService {
   public readonly output$ = new BehaviorSubject<ILocalSetting | string>(initialFunctionDevSettings());
   public currentTransformer: ITransformer = AzFunc;
   public readonly currentTransformer$ = new BehaviorSubject<ITransformer>(this.currentTransformer);
-  private currentData: IAzSetting[];
+  private currentData: IAzSetting[] = [];
 
   constructor() {
     this.editorOptions = new JsonEditorOptions();
