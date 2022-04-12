@@ -160,8 +160,7 @@ export class ODataService {
         .map((m) => {
           if (isaNumber(m)) {
             return `${m}`;
-          }
-          else if (isaDate(m)) {
+          } else if (isaDate(m)) {
             return `${m.toISOString()}`;
           }
           return `'${m}'`;
