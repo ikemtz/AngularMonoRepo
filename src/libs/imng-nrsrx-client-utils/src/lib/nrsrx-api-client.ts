@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { IdType } from './id-type';
 
 export class NrsrxBaseApiClientService<T extends { id?: IdType }> {
-  public url: string;
+  public url = '';
   constructor(protected readonly http: HttpClient) {}
   // Used to insert entities on NRSRx based API endpoints
   public post(payload: T): Observable<T> {

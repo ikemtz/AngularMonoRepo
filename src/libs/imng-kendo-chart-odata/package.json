@@ -1,49 +1,11 @@
 {
   "name": "imng-kendo-chart-odata",
-  "version": "0.1.4",
-  "license": "MIT",
-  "description": "A library to make integrating Angular Kendo Charts and NGRX a bit simpler.",
-  "keywords": [
-    "Angular",
-    "NGRX",
-    "Kendo",
-    "Charts",
-    "OData"
-  ],
+  "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">=12.x",
-    "@progress/kendo-data-query": ">=1.x",
-    "@angular/core": ">=12.x",
-    "rxjs": "*",
-    "@nrwl/angular": ">=12.x"
+    "@angular/common": "^13.2.0",
+    "@angular/core": "^13.2.0"
   },
   "dependencies": {
-    "imng-kendo-odata": "*",
-    "imng-nrsrx-client-utils": "*",
-    "tslib": ">=2.x"
-  },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-kendo-chart-odata",
-    "allowedNonPeerDependencies": [
-      "imng-kendo-odata",
-      "imng-nrsrx-client-utils"
-    ]
-  },
-  "devDependencies": {
-    "ng-packagr": ">=12.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
-  },
-  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
-  "private": false,
-  "author": {
-    "name": "Isaac Martinez <@ikemtz>",
-    "url": "https://github.com/ikemtz"
+    "tslib": "^2.3.0"
   }
 }

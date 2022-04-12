@@ -1,0 +1,94 @@
+{
+  "projectType": "application",
+  "root": "apps/imng-inventory",
+  "sourceRoot": "apps/imng-inventory/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/imng-inventory",
+        "index": "apps/imng-inventory/src/index.html",
+        "main": "apps/imng-inventory/src/main.ts",
+        "polyfills": "apps/imng-inventory/src/polyfills.ts",
+        "tsConfig": "apps/imng-inventory/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/imng-inventory/src/favicon.ico",
+          "apps/imng-inventory/src/assets"
+        ],
+        "styles": ["apps/imng-inventory/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/imng-inventory/src/environments/environment.ts",
+              "with": "apps/imng-inventory/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "imng-inventory:build:production"
+        },
+        "development": {
+          "browserTarget": "imng-inventory:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "imng-inventory:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/imng-inventory/src/**/*.ts",
+          "apps/imng-inventory/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/imng-inventory"],
+      "options": {
+        "jestConfig": "apps/imng-inventory/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
