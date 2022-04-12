@@ -1,0 +1,50 @@
+{
+  "projectType": "library",
+  "root": "libs/imng-ngrx-utils",
+  "sourceRoot": "libs/imng-ngrx-utils/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/imng-ngrx-utils"],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
+      "options": {
+        "project": "libs/imng-ngrx-utils/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/imng-ngrx-utils/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/imng-ngrx-utils"],
+      "options": {
+        "jestConfig": "libs/imng-ngrx-utils/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/imng-ngrx-utils/src/**/*.ts",
+          "libs/imng-ngrx-utils/src/**/*.html",
+          "libs/imng-ngrx-utils/testing/**/*.ts",
+          "libs/imng-ngrx-utils/testing/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

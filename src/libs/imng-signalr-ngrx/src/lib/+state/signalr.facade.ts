@@ -9,16 +9,22 @@ import { signalrSelectors } from './signalr.selectors';
 
 @Injectable()
 export class SignalrFacade {
-  public readonly isConnected$ = this.store.pipe(select(signalrSelectors.getIsConnected));
-  public readonly lastReceivedMessage$ = this.store.pipe(select(signalrSelectors.getLastReceivedMessage));
-  public readonly receivedMessages$ = this.store.pipe(select(signalrSelectors.getReceivedMessages));
+  public readonly isConnected$ = this.store.pipe(
+    select(signalrSelectors.getIsConnected)
+  );
+  public readonly lastReceivedMessage$ = this.store.pipe(
+    select(signalrSelectors.getLastReceivedMessage)
+  );
+  public readonly receivedMessages$ = this.store.pipe(
+    select(signalrSelectors.getReceivedMessages)
+  );
 
   constructor(private readonly store: Store<fromSignalr.SignalrPartialState>) {}
 
   public connect(): void {
     this.store.dispatch(signalrActions.connect());
   }
-  public sendMessage(payload: ISignalrMessage<unknown>): void {
+  public sendMessage(payload: ISignalrMessage): void {
     this.store.dispatch(signalrActions.sendMessage(payload));
   }
   public clearMessages(): void {

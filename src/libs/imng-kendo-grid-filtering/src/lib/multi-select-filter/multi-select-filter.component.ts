@@ -1,6 +1,17 @@
-import { Component, AfterViewInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  Input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FilterService } from '@progress/kendo-angular-grid';
-import { CompositeFilterDescriptor, distinct, filterBy, FilterDescriptor } from '@progress/kendo-data-query';
+import {
+  CompositeFilterDescriptor,
+  distinct,
+  filterBy,
+  FilterDescriptor,
+} from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
 import { ODataState } from 'imng-kendo-odata';
 
@@ -24,7 +35,10 @@ import { ODataState } from 'imng-kendo-odata';
           class="k-checkbox"
           [checked]="isItemSelected(item)"
         />
-        <label class="k-multiselect-checkbox k-checkbox-label" for="chk-{{ valueAccessor(item) }}">
+        <label
+          class="k-multiselect-checkbox k-checkbox-label"
+          for="chk-{{ valueAccessor(item) }}"
+        >
           {{ textAccessor(item) }}
         </label>
       </li>
@@ -59,32 +73,51 @@ import { ODataState } from 'imng-kendo-odata';
 })
 export class MultiSelectFilterComponent implements AfterViewInit {
   @Input() public isPrimitive = false;
-  @Input() public odataState: ODataState;
-  @Input() public data: unknown[];
-  @Input() public textField: string = undefined;
-  @Input() public valueField: string = undefined;
+  @Input() public odataState: ODataState = {};
+  @Input() public data: unknown[] = [];
+  @Input() public textField: string | undefined = undefined;
+  @Input() public valueField: string | undefined = undefined;
   @Input() public field = '';
   @Input() public showTextFilter = true;
 
-  public currentData: unknown[];
+  public currentData: unknown[] = [];
   public value: unknown[] = [];
 
-  public textAccessor = (dataItem: unknown) => (this.isPrimitive ? dataItem : dataItem[this.textField]);
-  public valueAccessor = (dataItem: unknown) => (this.isPrimitive ? dataItem : dataItem[this.valueField]);
+  public textAccessor = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dataItem: any //NOSONAR
+  ) =>
+    this.isPrimitive || !this.textField ? dataItem : dataItem[this.textField];
+  public valueAccessor = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dataItem: any //NOSONAR
+  ) =>
+    this.isPrimitive || !this.valueField ? dataItem : dataItem[this.valueField];
 
-  constructor(public readonly filterService: FilterService, public readonly changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    public readonly filterService: FilterService,
+    public readonly changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   public ngAfterViewInit() {
     this.currentData = this.data;
-    const tempValue = this.odataState.filter?.filters.map((f: CompositeFilterDescriptor) =>
-      f.filters.filter((x: FilterDescriptor) => x.field === this.field).map((x: FilterDescriptor) => x.value),
+    const tempValue = this.odataState.filter?.filters.map(
+      (f: CompositeFilterDescriptor | FilterDescriptor) =>
+        (f as CompositeFilterDescriptor).filters
+          .filter(
+            (x: FilterDescriptor | CompositeFilterDescriptor) =>
+              (x as FilterDescriptor).field === this.field
+          )
+          .map(
+            (x: FilterDescriptor | CompositeFilterDescriptor) =>
+              (x as FilterDescriptor).value
+          )
     );
-    this.value =
-      tempValue?.length >= 0
-        ? tempValue.reduce((previousArray: [], currentArray: []) => previousArray.concat(...currentArray))
-        : [];
+    this.value = tempValue?.length ? tempValue?.flat() || [] : [];
 
-    this.showTextFilter = this.showTextFilter && typeof this.textAccessor(this.currentData[0]) === 'string';
+    this.showTextFilter =
+      this.showTextFilter &&
+      typeof this.textAccessor(this.currentData[0]) === 'string';
     this.changeDetectorRef.markForCheck();
   }
 
@@ -92,7 +125,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     return this.value.some((x) => x === this.valueAccessor(item));
   }
 
-  public onSelectionChange(item: unknown, li) {
+  public onSelectionChange(item: unknown, li: unknown) {
     if (this.value.some((x) => x === item)) {
       this.value = this.value.filter((x) => x !== item);
     } else {
@@ -100,15 +133,25 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     }
     const currentFilter: CompositeFilterDescriptor = {
       logic: this.odataState.filter?.logic ?? 'and',
-      filters: this.odataState.filter?.filters ? this.odataState.filter.filters : [],
+      filters: this.odataState.filter?.filters
+        ? this.odataState.filter.filters
+        : [],
     };
     if (
-      currentFilter.filters.some((x: CompositeFilterDescriptor) =>
-        x.filters.some((f: FilterDescriptor) => f.field === this.field),
+      currentFilter.filters.some(
+        (x: CompositeFilterDescriptor | FilterDescriptor) =>
+          (x as CompositeFilterDescriptor).filters.some(
+            (f: FilterDescriptor | CompositeFilterDescriptor) =>
+              (f as FilterDescriptor).field === this.field
+          )
       )
     ) {
       currentFilter.filters = currentFilter.filters.filter(
-        (x: CompositeFilterDescriptor) => !x.filters.some((f: FilterDescriptor) => f.field === this.field),
+        (x: CompositeFilterDescriptor | FilterDescriptor) =>
+          !(x as CompositeFilterDescriptor).filters.some(
+            (f: FilterDescriptor | CompositeFilterDescriptor) =>
+              (f as FilterDescriptor).field === this.field
+          )
       );
     }
     if (this.value.length > 0) {
@@ -134,7 +177,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     this.currentData = distinct(
       [
         ...this.currentData.filter((dataItem: unknown) =>
-          this.value.some((val) => val === this.valueAccessor(dataItem)),
+          this.value.some((val) => val === this.valueAccessor(dataItem))
         ),
         ...filterBy(this.data, {
           operator: 'contains',
@@ -142,7 +185,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
           value: e.target.value,
         }),
       ],
-      this.textField,
+      this.textField
     );
     this.changeDetectorRef.markForCheck();
   }
@@ -150,7 +193,8 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public onFocus(li: any): void {
     const ul = li.parentNode;
-    const below = ul.scrollTop + ul.offsetHeight < li.offsetTop + li.offsetHeight;
+    const below =
+      ul.scrollTop + ul.offsetHeight < li.offsetTop + li.offsetHeight;
     const above = li.offsetTop < ul.scrollTop;
 
     // Scroll to focused checkbox

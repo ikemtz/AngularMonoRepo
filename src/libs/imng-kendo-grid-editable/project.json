@@ -1,0 +1,48 @@
+{
+  "projectType": "library",
+  "root": "libs/imng-kendo-grid-editable",
+  "sourceRoot": "libs/imng-kendo-grid-editable/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/imng-kendo-grid-editable"],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
+      "options": {
+        "project": "libs/imng-kendo-grid-editable/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/imng-kendo-grid-editable/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/imng-kendo-grid-editable/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/imng-kendo-grid-editable"],
+      "options": {
+        "jestConfig": "libs/imng-kendo-grid-editable/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/imng-kendo-grid-editable/src/**/*.ts",
+          "libs/imng-kendo-grid-editable/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

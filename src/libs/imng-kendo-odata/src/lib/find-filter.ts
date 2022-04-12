@@ -1,5 +1,5 @@
 import { CompositeFilterDescriptor, FilterDescriptor, isCompositeFilterDescriptor } from '@progress/kendo-data-query';
-import { ODataState } from './odata-state';
+import { ODataState } from './odata-state'; 
 
 export function findMatchingFilters(odataState: ODataState, filterField: string): FilterDescriptor | undefined {
   if (!odataState.filter) {

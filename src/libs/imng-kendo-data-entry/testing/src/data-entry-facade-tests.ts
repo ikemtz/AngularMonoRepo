@@ -1,8 +1,9 @@
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { Observable } from 'rxjs';
 
-export async function testAddSetAndClearCurrentEntity
-  <TFacade extends TestableFacade>(facade: TFacade): Promise<void> {
+export async function testAddSetAndClearCurrentEntity<
+  TFacade extends TestableFacade
+>(facade: TFacade): Promise<void> {
   const entity = { name: '🆕' };
   await validateInitialState(facade);
 
@@ -19,9 +20,9 @@ export async function testAddSetAndClearCurrentEntity
   expect(status.isNewActive).toBeFalsy();
 }
 
-export async function testEditSetAndClearCurrentEntity<TFacade extends TestableFacade>(
-  facade: TFacade,
-): Promise<void> {
+export async function testEditSetAndClearCurrentEntity<
+  TFacade extends TestableFacade
+>(facade: TFacade): Promise<void> {
   const entity = { id: '💃', name: '🧓👴👵' };
   await validateInitialState(facade);
 
@@ -44,9 +45,11 @@ async function validateInitialState(facade: TestableFacade): Promise<void> {
   expect(status.isNewActive).toBeFalsy();
 }
 
-async function getEntityStatus<TFacade extends TestableFacade>(facade: TFacade): Promise<{
-  currentEntity: unknown,
-  isEditActive: unknown,
+async function getEntityStatus<TFacade extends TestableFacade>(
+  facade: TFacade
+): Promise<{
+  currentEntity: unknown;
+  isEditActive: unknown;
   isNewActive: unknown;
 }> {
   return {
@@ -58,8 +61,8 @@ async function getEntityStatus<TFacade extends TestableFacade>(facade: TFacade):
 
 export interface TestableFacade {
   currentEntity$: Observable<unknown>;
-  isEditActive$: Observable<boolean>;
-  isNewActive$: Observable<boolean>;
+  isEditActive$: Observable<boolean | null>;
+  isNewActive$: Observable<boolean | null>;
   setCurrentEntity(entity: unknown, parentEntity?: unknown): void;
   clearCurrentEntity(): void;
 }

@@ -138,7 +138,7 @@ jobs:
 
       - task: Docker@2
         inputs:
-          containerRegistry: 'Azure Container Registry'
+          containerRegistry: 'Azure Container Registry (NgMono)'
           repository: 'adventure-works'
           command: 'buildAndPush'
           Dockerfile: 'src/adventure-works.lcl.Dockerfile'

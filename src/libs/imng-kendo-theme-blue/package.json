@@ -23,8 +23,8 @@
     "build": "node-sass ./src/styles.scss --source-map true --output dist --source-map-content scss --output-style compressed"
   },
   "devDependencies": {
-    "@progress/kendo-theme-default": ">=4.x",
-    "node-sass": ">=4.x"
+    "@progress/kendo-theme-default": ">=5.x",
+    "node-sass": ">=7.x"
   },
   "private": false,
   "author": {
