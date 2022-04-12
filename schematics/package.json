@@ -26,7 +26,7 @@
     "@angular-devkit/core": "^12.0.0",
     "@angular-devkit/schematics": "^12.0.0",
     "find-up": "^5.0.0",
-    "imng-ngrx-utils": "^3.291.2",
+    "imng-ngrx-utils": "^3.357.2",
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.5",
     "pluralize": "^8.0.0",
