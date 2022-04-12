@@ -33,7 +33,7 @@ import { environment } from '../environments/environment';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ name: 'Nurse-CRON' }),
     StoreRouterConnectingModule.forRoot(),
-    ImngOidcClientModule.forRoot(environment.auth0_options),
+    ImngOidcClientModule.forRoot(environment.oidc_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
     ImngSignalrNgrxModule.forRoot(environment.signalr),
     BrowserAnimationsModule,

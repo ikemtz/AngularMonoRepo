@@ -22,7 +22,7 @@ export const environment = {
   },
   signalr: {
     hostUrl: 'https://im-wa-coms-nrcrn.azurewebsites.net/notificationHub',
-    logLevel: LogLevel.Trace,
+    logger: LogLevel.Trace,
     clientMethods: ['OnMessageRecieved'],
   },
   idleConfig: {

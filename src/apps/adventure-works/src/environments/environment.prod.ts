@@ -1,4 +1,4 @@
-import { Endpoints } from '../app/models/endpoints';
+import { Endpoints } from '../app/models/odata/endpoints';
 
 export const environment = {
   production: true,
