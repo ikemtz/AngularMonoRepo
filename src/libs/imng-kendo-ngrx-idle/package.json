@@ -1,15 +1,22 @@
 {
   "name": "imng-kendo-ngrx-idle",
-  "version": "0.0.1", 
-   "keywords": [
+  "version": "0.0.1",
+  "keywords": [
     "Angular",
     "NGRX",
     "Kendo",
     "Idle"
   ],
   "peerDependencies": {
-    "@angular/common": "^13.2.0",
-    "@angular/core": "^13.2.0"
+    "@angular/common": ">=13.x",
+    "@angular/core": ">=13.x",
+    "@ngrx/effects": ">=13.x",
+    "@ngrx/store": ">=13.x",
+    "@progress/kendo-angular-dialog": ">=5.*",
+    "@progress/kendo-angular-buttons": ">=5.*",
+    "imng-oidc-client": "*",
+    "imng-ngrx-utils": "*",
+    "rxjs": "*"
   },
   "dependencies": {
     "tslib": "^2.3.0"
