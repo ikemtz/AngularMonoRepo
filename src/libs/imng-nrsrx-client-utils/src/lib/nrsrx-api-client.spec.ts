@@ -13,12 +13,12 @@ describe('NrsrxBaseApiClientService', () => {
   it('post should handle invalid id', () => {
     const httpClient = { post: jest.fn() } as unknown as HttpClient;
     const apiService = new MockApiService(httpClient);
-    const postData = { id: null };
+    const postData = { id: null as unknown as string};
     apiService.post(postData);
     expect(httpClient.post).toBeCalledWith(`good_times`, postData);
   });
 
   class MockApiService extends NrsrxBaseApiClientService<{ id: string; }>{
-    public url = 'good_times';
+    public override url = 'good_times';
   }
 });

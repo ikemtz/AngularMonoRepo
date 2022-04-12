@@ -1,26 +1,6 @@
 {
   "name": "imng-angular-core",
   "version": "0.0.1",
-  "description": "A collection packages used expedite angular, ngrx, and kendo based projects",
-  "peerDependencies": {
-    "@angular/common": ">=12.x",
-    "@angular/core": ">=12.x",
-    "@angular/forms": ">=12.x",
-    "@angular/router": ">=12.x",
-    "@angular/platform-browser": ">=12.x",
-    "@ngrx/effects": ">=12.x",
-    "@ngrx/store": ">=12.x",
-    "@nrwl/angular": ">=12.x",
-    "@progress/kendo-angular-buttons": ">=6.x",
-    "@progress/kendo-angular-dialog": ">=5.x",
-    "@progress/kendo-angular-grid": ">=5.x",
-    "@progress/kendo-data-query": ">=1.x",
-    "@microsoft/applicationinsights-web": ">=2.x",
-    "@microsoft/signalr": ">=5.x",
-    "ngx-bootstrap": ">=6.x",
-    "oidc-client": ">=1.x",
-    "rxjs": ">=6.x"
-  },
   "keywords": [
     "imng",
     "Angular",
@@ -30,29 +10,20 @@
   "dependencies": {
     "tslib": ">=2.x",
     "imng-application-insights-ngrx": "latest",
-    "imng-auth0-oidc": "latest",
     "imng-kendo-chart-odata": "latest",
     "imng-kendo-data-entry": "latest",
     "imng-kendo-grid": "latest",
+    "imng-kendo-grid-array": "latest",
+    "imng-kendo-grid-editable": "latest",
     "imng-kendo-grid-filtering": "latest",
     "imng-kendo-grid-odata": "latest",
+    "imng-kendo-ngrx-idle": "latest",
     "imng-kendo-odata": "latest",
-    "imng-kendo-theme-blue": "latest",
-    "imng-ngrx-idle": "latest",
     "imng-ngrx-utils": "latest",
+    "imng-kendo-theme-blue": "latest",
     "imng-ngxb-typeahead": "latest",
     "imng-nrsrx-client-utils": "latest",
+    "imng-oidc-client": "latest",
     "imng-signalr-ngrx": "latest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
-  },
-  "license": "MIT",
-  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
-  "private": false,
-  "author": {
-    "name": "Isaac Martinez <@ikemtz>",
-    "url": "https://github.com/ikemtz"
   }
 }

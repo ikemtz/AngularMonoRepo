@@ -1,28 +1,11 @@
 {
   "name": "imng-kendo-grid-filtering",
-  "version": "0.0.2",
-  "license": "MIT",
-  "description": "A library to facilitate Angulra Kendo grid data entry.",
-  "keywords": [
-    "Angular",
-    "NGRX",
-    "Kendo"
-  ],
+  "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">=12.x",
-    "@angular/core": ">=12.x"
+    "@angular/common": "^13.2.0",
+    "@angular/core": "^13.2.0"
   },
   "dependencies": {
-    "tslib": ">=2.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
-  },
-  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
-  "private": false,
-  "author": {
-    "name": "Isaac Martinez <@ikemtz>",
-    "url": "https://github.com/ikemtz"
+    "tslib": "^2.3.0"
   }
 }

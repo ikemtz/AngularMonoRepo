@@ -1,0 +1,48 @@
+{
+  "projectType": "library",
+  "root": "libs/imng-kendo-ngrx-idle",
+  "sourceRoot": "libs/imng-kendo-ngrx-idle/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/imng-kendo-ngrx-idle"],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
+      "options": {
+        "project": "libs/imng-kendo-ngrx-idle/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/imng-kendo-ngrx-idle/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/imng-kendo-ngrx-idle/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/imng-kendo-ngrx-idle"],
+      "options": {
+        "jestConfig": "libs/imng-kendo-ngrx-idle/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/imng-kendo-ngrx-idle/src/**/*.ts",
+          "libs/imng-kendo-ngrx-idle/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
