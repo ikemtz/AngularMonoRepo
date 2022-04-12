@@ -88,7 +88,7 @@ export class DataEntryDialogComponent implements OnInit {
   public submit(): void {
     this.parentComponent?.onSubmit();
   }
-  get dialogActionBtnsCtx(): unknown {
+  get dialogActionBtnsCtx(): object | null { //NOSONAR
     return {
       $implicit: { cancel: () => this.cancel(), submit: () => this.submit() },
     };
