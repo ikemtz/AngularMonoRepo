@@ -1,0 +1,99 @@
+{
+  "projectType": "application",
+  "root": "apps/nurse-cron",
+  "sourceRoot": "apps/nurse-cron/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/nurse-cron",
+        "index": "apps/nurse-cron/src/index.html",
+        "main": "apps/nurse-cron/src/main.ts",
+        "polyfills": "apps/nurse-cron/src/polyfills.ts",
+        "tsConfig": "apps/nurse-cron/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/nurse-cron/src/favicon.ico",
+          "apps/nurse-cron/src/assets",
+          {
+            "glob": "*",
+            "input": "libs/imng-oidc-client/src/assets",
+            "output": "/"
+          }
+        ],
+        "styles": ["apps/nurse-cron/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/nurse-cron/src/environments/environment.ts",
+              "with": "apps/nurse-cron/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "nurse-cron:build:production"
+        },
+        "development": {
+          "browserTarget": "nurse-cron:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "nurse-cron:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/nurse-cron/src/**/*.ts",
+          "apps/nurse-cron/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/nurse-cron"],
+      "options": {
+        "jestConfig": "apps/nurse-cron/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

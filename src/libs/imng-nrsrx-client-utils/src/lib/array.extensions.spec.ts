@@ -10,4 +10,16 @@ describe('distinct<T>', () => {
     const collection = [1, 2, 3, 1];
     expect(collection.distinct()).toStrictEqual([1, 2, 3]);
   });
+
+});
+
+describe('flat<T>', () => {
+  it('to handle [1, [2, 3], [4]]', () => {
+    const collection = [1, [2, 3], [4]];
+    expect(collection.flat()).toStrictEqual([1, 2, 3, 4]);
+  });
+  it('to handle [1, 2, 3, 4]', () => {
+    const collection = [1, 2, 3, 4];
+    expect(collection.flat()).toStrictEqual([1, 2, 3, 4]);
+  });
 });

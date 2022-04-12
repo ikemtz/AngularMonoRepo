@@ -1,1 +1,1 @@
-export * from './kendo-grid-tests';
+export * from './lib/mock-datagrid';

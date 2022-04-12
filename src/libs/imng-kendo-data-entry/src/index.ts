@@ -1,4 +1,4 @@
-export * from './lib/data-entry.module';
+export * from './lib/imng-kendo-data-entry.module';
 export * from './lib/data-entry-dialog.component';
 export * from './lib/base-data-entry.component';
 export * from './lib/data-entry-facade';

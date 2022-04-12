@@ -8,6 +8,6 @@ describe('imng-az-func-configr', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to imng-az-func-configr!');
+    getGreeting().contains('Welcome imng-az-func-configr');
   });
 });

@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/imng-snippets",
+  "sourceRoot": "libs/imng-snippets/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/imng-snippets"],
+      "options": {
+        "project": "libs/imng-snippets/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/imng-snippets/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/imng-snippets/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/imng-snippets"],
+      "options": {
+        "jestConfig": "libs/imng-snippets/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/imng-snippets/src/**/*.ts",
+          "libs/imng-snippets/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

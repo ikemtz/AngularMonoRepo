@@ -1,14 +1,9 @@
 const nxPreset = require('@nrwl/jest/preset');
+
 module.exports = {
   ...nxPreset,
-  testMatch: ['**/+(*.)+(spec|test).ts?(x)'],
-  transform: {
-    '^.+\\.(ts|html)$': 'ts-jest',
-  },
-  resolver: '@nrwl/jest/plugins/resolver',
-  moduleFileExtensions: ['ts', 'js', 'html'],
   collectCoverage: true,
-  coverageReporters: ['html', 'lcov', 'cobertura'],
+  coverageReporters: ['json', 'lcov', 'text', 'clover', 'html', 'cobertura'],
   reporters: [
     'default',
     [
@@ -19,7 +14,4 @@ module.exports = {
       },
     ],
   ],
-  moduleNameMapper: {
-    'imng-(.*)': '<rootDir>/../../dist/libs/imng-$1',
-  },
 };

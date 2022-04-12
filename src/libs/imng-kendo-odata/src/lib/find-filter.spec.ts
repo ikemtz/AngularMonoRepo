@@ -31,7 +31,7 @@ describe('findFilter', () => {
         },
       ],
     };
-    const result = findMatchingFilters({ filter: filters }, 'y');
+    const result = findMatchingFilters({ filter: filters }, 'y') as never;
     expect(isFilterDescriptor(result)).toBe(true);
     expect(result).toMatchSnapshot();
   });

@@ -1,6 +1,6 @@
 import { createAction } from '@ngrx/store';
 
-export class Payload<T> {
+export interface Payload<T> {
   payload: T;
 }
 

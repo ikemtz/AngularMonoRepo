@@ -1,37 +1,11 @@
 {
   "name": "imng-kendo-data-entry",
-  "version": "0.4.7",
-  "license": "MIT",
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-kendo-data-entry"
-  },
+  "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">=12.x",
-    "@angular/core": ">=12.x",
-    "@angular/forms": ">=12.x",
-    "@angular/platform-browser": ">=12.x",
-    "@ngrx/store": ">=12.x",
-    "@nrwl/angular": ">=12.x",
-    "@progress/kendo-angular-dialog": ">=5.x",
-    "imng-nrsrx-client-utils": "*",
-    "imng-ngrx-utils": "*",
-    "rxjs": ">=6.x"
+    "@angular/common": "^13.2.0",
+    "@angular/core": "^13.2.0"
   },
   "dependencies": {
-    "tslib": ">=2.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
-  },
-  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
-  "private": false,
-  "author": {
-    "name": "Isaac Martinez <@ikemtz>",
-    "url": "https://github.com/ikemtz"
+    "tslib": "^2.3.0"
   }
 }

@@ -1,43 +1,11 @@
 {
   "name": "imng-kendo-grid",
-  "version": "0.1.2",
-  "license": "MIT",
-  "description": "A library to facilitate Angulra Kendo grid data entry.",
-  "keywords": [
-    "Angular",
-    "NGRX",
-    "Kendo"
-  ],
+  "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">=12.x",
-    "@angular/core": ">=12.x",
-    "rxjs": "*",
-    "@angular/forms": ">=12.x",
-    "@nrwl/angular": ">=12.x",
-    "@progress/kendo-angular-grid": ">=5.x"
+    "@angular/common": "^13.2.0",
+    "@angular/core": "^13.2.0"
   },
   "dependencies": {
-    "tslib": ">=2.x"
-  },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-kendo-grid"
-  },
-  "devDependencies": {
-    "tslib": ">=2.x",
-    "@nrwl/angular": ">=12.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
-  },
-  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
-  "private": false,
-  "author": {
-    "name": "Isaac Martinez <@ikemtz>",
-    "url": "https://github.com/ikemtz"
+    "tslib": "^2.3.0"
   }
 }
