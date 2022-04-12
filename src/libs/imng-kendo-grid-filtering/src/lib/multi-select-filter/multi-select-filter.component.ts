@@ -83,11 +83,15 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   public currentData: unknown[] = [];
   public value: unknown[] = [];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public textAccessor = (dataItem: any) =>
+  public textAccessor = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dataItem: any //NOSONAR
+  ) =>
     this.isPrimitive || !this.textField ? dataItem : dataItem[this.textField];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public valueAccessor = (dataItem: any) =>
+  public valueAccessor = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dataItem: any //NOSONAR
+  ) =>
     this.isPrimitive || !this.valueField ? dataItem : dataItem[this.valueField];
 
   constructor(
@@ -121,8 +125,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     return this.value.some((x) => x === this.valueAccessor(item));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onSelectionChange(item: unknown, li: any) {
+  public onSelectionChange(item: unknown, li: unknown) {
     if (this.value.some((x) => x === item)) {
       this.value = this.value.filter((x) => x !== item);
     } else {
