@@ -55,7 +55,7 @@ export abstract class KendoODataComponentBase<
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
     @Inject(STATE) public readonly state: ODataState | Observable<ODataState>,
-    public readonly router: Router | null = null,
+    public readonly router: Router | null = null, //NOSONAR
     public readonly gridRefresh$: Observable<unknown> | null = null
   ) {
     if (

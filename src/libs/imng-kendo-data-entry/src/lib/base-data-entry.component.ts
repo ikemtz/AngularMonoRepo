@@ -35,8 +35,7 @@ export abstract class BaseDataEntryComponent<
 
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public abstract props: any;
+  public abstract props: unknown;
   public addEditForm?: FormGroup;
   public loading$: Observable<boolean>;
   private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(
