@@ -2,7 +2,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { Endpoints } from '../app/models/endpoints';
+import { Endpoints } from '../app/models/odata/endpoints';
 
 export const environment = {
   production: false,

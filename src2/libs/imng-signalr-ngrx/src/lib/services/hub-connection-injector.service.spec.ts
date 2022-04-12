@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TestSchema } from '../+state/signalr.facade.spec';
 import { NullLogger } from '@microsoft/signalr';
-import signalR = require('@microsoft/signalr');
+import { HttpTransportType } from '@microsoft/signalr';
 
 describe('HubConnectionInjectorService', () => {
   let service: HubConnectionInjectorService;
@@ -24,7 +24,7 @@ describe('HubConnectionInjectorService', () => {
             logger: NullLogger,
             clientMethods: ['x'],
             skipNegotiation: true,
-            transport: signalR.HttpTransportType.WebSockets,
+            transport: HttpTransportType.WebSockets,
           },
         },
         { provide: OidcFacade, useValue: { accessToken$: of('xyz') } },
