@@ -2,6 +2,7 @@
 
 exports[`DataEntryDialog should create 1`] = `
 DataEntryDialogComponent {
+  "height": 600,
   "parentComponent": Object {
     "addEditForm": "🐎",
     "closeForm": [MockFunction],
@@ -11,6 +12,8 @@ DataEntryDialogComponent {
     "onSubmit": [MockFunction],
   },
   "saveButtonText": "Save",
+  "submitted": false,
+  "width": 800,
 }
 `;
 

@@ -1,7 +1,8 @@
 import { ODataService } from './odata.service';
 
 describe('ODataService', () => {
-  const service: ODataService = new ODataService(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const service: ODataService = new ODataService(null as any); //NOSONAR
 
   it('should handle Date', () => {
     const result = service.processDates(
@@ -19,7 +20,8 @@ describe('ODataService', () => {
     );
   });
   it('should handle null query string', () => {
-    const result = service.processDates(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = service.processDates(null as any); //NOSONAR
     expect(result).toBeNull();
   });
 });

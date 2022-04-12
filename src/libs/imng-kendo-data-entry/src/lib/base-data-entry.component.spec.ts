@@ -36,13 +36,13 @@ describe('MockBaseComponent', () => {
   });
 
   it('handle formControl get', () => {
-    component.addEditForm.patchValue({ id: '💩' });
+    component.addEditForm?.patchValue({ id: '💩' });
     const control = component.formControl('id');
-    expect(control.value).toBe('💩');
+    expect(control?.value).toBe('💩');
   });
 
   it('handle formControlErrors get', () => {
-    component.addEditForm.controls['id'].setErrors({ ['happy']: '😎' });
+    component.addEditForm?.controls['id'].setErrors({ ['happy']: '😎' });
     const value = component.formControlErrors('id');
     expect(value).toStrictEqual({ happy: '😎' });
   });
@@ -50,7 +50,8 @@ describe('MockBaseComponent', () => {
 
 export class MockBaseComponent
   extends BaseDataEntryComponent<MockFacade>
-  implements Subscribable {
+  implements Subscribable
+{
   dialogTitle = '';
   props = {};
   save = jest.fn();
