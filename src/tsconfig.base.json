@@ -42,6 +42,7 @@
       "imng-kendo-grid/testing": ["libs/imng-kendo-grid/testing/src/index.ts"],
       "imng-kendo-ngrx-idle": ["libs/imng-kendo-ngrx-idle/src/index.ts"],
       "imng-kendo-odata": ["libs/imng-kendo-odata/src/index.ts"],
+      "imng-kendo-theme-blue": ["libs/imng-kendo-theme-blue/src/index.ts"],
       "imng-ngrx-utils": ["libs/imng-ngrx-utils/src/index.ts"],
       "imng-ngrx-utils/testing": ["libs/imng-ngrx-utils/testing/src/index.ts"],
       "imng-ngxb-typeahead": ["libs/imng-ngxb-typeahead/src/index.ts"],

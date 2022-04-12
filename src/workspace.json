@@ -18,6 +18,7 @@
     "imng-kendo-grid-odata": "libs/imng-kendo-grid-odata",
     "imng-kendo-ngrx-idle": "libs/imng-kendo-ngrx-idle",
     "imng-kendo-odata": "libs/imng-kendo-odata",
+    "imng-kendo-theme-blue": "libs/imng-kendo-theme-blue",
     "imng-ngrx-utils": "libs/imng-ngrx-utils",
     "imng-ngxb-typeahead": "libs/imng-ngxb-typeahead",
     "imng-nrsrx-client-utils": "libs/imng-nrsrx-client-utils",
