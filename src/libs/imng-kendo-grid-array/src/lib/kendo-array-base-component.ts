@@ -63,7 +63,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   }
 
   constructor(
-    public readonly changeDetectorRef: ChangeDetectorRef | null = null
+    public readonly changeDetectorRef: ChangeDetectorRef | null = null //NOSONAR
   ) { }
 
   public readonly markForCheck = (): void =>
@@ -75,17 +75,17 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public pageChange(t: PageChangeEvent): void {
+  public pageChange(t: PageChangeEvent): void { //NOSONAR
     //This is intentional
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public filterChange(t: CompositeFilterDescriptor): void {
+  public filterChange(t: CompositeFilterDescriptor): void { //NOSONAR
     //This is intentional
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public sortChange(t: SortDescriptor[]): void {
+  public sortChange(t: SortDescriptor[]): void { //NOSONAR
     //This is intentional
   }
 

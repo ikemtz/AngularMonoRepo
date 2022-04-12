@@ -8,14 +8,14 @@ declare global {
 }
 
 if (!Array.prototype.distinct) {
-  Array.prototype.distinct = function <T>(this: T[]): T[] {
+  Array.prototype.distinct = function <T>(this: T[]): T[] { //NOSONAR
     return distinct(this);
   };
 }
 
 if (!Array.prototype.flat) {
-  Array.prototype.flat = function <T>(this: T[][] | T[]): T[] {
+  Array.prototype.flat = function <T>(this: T[][] | T[]): T[] { //NOSONAR
     return flat(this);
   };
 }
-export {};
+export { };

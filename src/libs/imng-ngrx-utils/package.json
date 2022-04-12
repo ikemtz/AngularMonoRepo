@@ -1,13 +1,16 @@
 {
   "name": "imng-ngrx-utils",
-  "version": "0.0.1",  
+  "version": "0.0.1",
   "keywords": [
     "Angular",
     "NGRX"
   ],
   "peerDependencies": {
-    "@angular/common": "^13.2.0",
-    "@angular/core": "^13.2.0"
+    "@angular/common": ">=13.x",
+    "@angular/core": ">=13.x",
+    "@ngrx/store": ">=13.x",
+    "imng-nrsrx-client-utils": "*",
+    "rxjs": "*"
   },
   "dependencies": {
     "tslib": "^2.3.0"

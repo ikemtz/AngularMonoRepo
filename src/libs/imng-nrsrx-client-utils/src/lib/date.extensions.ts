@@ -15,7 +15,7 @@ export const MILLI_SECS_PER_SEC = 60000;
 export const DAYS_PER_WEEK = 7;
 if (!Date.prototype.toShortDateString) {
   //NOSONAR
-  Date.prototype.toShortDateString = function (this: Date): string {
+  Date.prototype.toShortDateString = function (this: Date): string { //NOSONAR
     return toShortDateString(this);
   };
 }
@@ -23,12 +23,12 @@ if (!Date.prototype.toShortDateString) {
 if (!Date.prototype.weekOfYear) {
   //NOSONAR
   // tslint:disable-next-line: space-before-function-paren
-  Date.prototype.weekOfYear = function (this: Date): number {
+  Date.prototype.weekOfYear = function (this: Date): number { //NOSONAR
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     return weekOfYear(this);
   };
 }
-export {};
+export { };
 
 export function weekOfYear(dt: Date): number {
   const onejan = new Date(dt.getFullYear(), 0, 1);

@@ -6,8 +6,9 @@
     "Utils"
   ],
   "peerDependencies": {
-    "@angular/common": "^13.2.0",
-    "@angular/core": "^13.2.0"
+    "@angular/common": ">=13.x",
+    "@angular/core": ">=13.x",
+    "rxjs": "*"
   },
   "dependencies": {
     "tslib": "^2.3.0"
