@@ -1,38 +1,12 @@
 {
   "name": "imng-signalr-ngrx",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "peerDependencies": {
-    "@ngrx/store": ">=12.x",
-    "@ngrx/effects": ">=12.x",
-    "@microsoft/signalr": ">=3.x",
-    "imng-auth0-oidc": "*",
-    "imng-ngrx-utils": "*",
-    "@angular/core": ">=12.x",
-    "rxjs": "*",
-    "@nrwl/angular": ">=12.x",
-    "@angular/common": ">=12.x",
-    "@angular/router": ">=12.x",
-    "oidc-client": ">=1.x"
+    "@angular/common": ">=13.x",
+    "@angular/core": ">=13.x",
+    "@microsoft/signalr": ">=6.x"
   },
   "dependencies": {
-    "tslib": ">=2.x"
-  },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-signalr-ngrx"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
-  },
-  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
-  "license": "MIT",
-  "private": false,
-  "author": {
-    "name": "Isaac Martinez <@ikemtz>",
-    "url": "https://github.com/ikemtz"
+    "tslib": "^2.3.0"
   }
 }

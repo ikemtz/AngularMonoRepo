@@ -1,5 +1,4 @@
 import { CompositeFilterDescriptor, FilterDescriptor, isCompositeFilterDescriptor } from '@progress/kendo-data-query';
-import { isFilterDescriptor } from './isFilterDescriptor';
 import { ODataState } from './odata-state';
 
 export function removeMatchingFilters(odataState: ODataState, filterField: string): ODataState {
@@ -23,7 +22,7 @@ export function filterFilters(
       if (isCompositeFilterDescriptor(m)) {
         m.filters = [...filterFilters(m.filters, filterField)];
         return true;
-      } else if (isFilterDescriptor(m)) {
+      } else {
         return m.field !== filterField;
       }
     }),

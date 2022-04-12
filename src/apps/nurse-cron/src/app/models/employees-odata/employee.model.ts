@@ -4,7 +4,7 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-/* tslint:disable */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 import { IEmployeeCertification } from './employee-certification.model';
 import { IEmployeeCompetency } from './employee-competency.model';
 import { IEmployeeHealthItem } from './employee-health-item.model';

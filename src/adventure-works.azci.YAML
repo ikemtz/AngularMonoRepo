@@ -138,21 +138,12 @@ jobs:
 
       - task: Docker@2
         inputs:
-          containerRegistry: 'Azure Container Registry'
+          containerRegistry: 'Azure Container Registry (NgMono)'
           repository: 'adventure-works'
           command: 'buildAndPush'
           Dockerfile: 'src/adventure-works.lcl.Dockerfile'
           buildContext: 'src/'
           tags: 'latest'
-
-      - task: CmdLine@2
-        displayName: 'Aqua/trivy Vuln SCAN'
-        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
-        inputs:
-          script: |
-            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 0 --severity LOW,MEDIUM --ignore-unfixed ikemtz.azurecr.io/adventure-works:latest
-            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed ikemtz.azurecr.io/adventure-works:latest
-          workingDirectory: 'src'
 
       - task: Npm@1
         displayName: 'npm run build [RELEASE BUILD]'

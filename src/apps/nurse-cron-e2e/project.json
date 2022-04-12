@@ -1,0 +1,28 @@
+{
+  "root": "apps/nurse-cron-e2e",
+  "sourceRoot": "apps/nurse-cron-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/nurse-cron-e2e/cypress.json",
+        "devServerTarget": "nurse-cron:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "nurse-cron:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/nurse-cron-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["nurse-cron"]
+}
