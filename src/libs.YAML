@@ -118,6 +118,24 @@ jobs:
           customCommand: 'run build:grid-odata'
 
       - task: Npm@1
+        displayName: 'npm run build:grid-array'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:grid-array'
+
+      - task: Npm@1
+        displayName: 'npm run build:grid-edit'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:grid-edit'
+
+      - task: Npm@1
         displayName: 'npm run build:grid-filt'
         continueOnError: true
         inputs:
@@ -243,6 +261,24 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run test:grid-odata'
+
+      - task: Npm@1
+        displayName: 'npm run test:grid-array'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:grid-array'
+
+      - task: Npm@1
+        displayName: 'npm run test:grid-edit'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:grid-edit'
 
       - task: Npm@1
         displayName: 'npm run test:grid-filt'
