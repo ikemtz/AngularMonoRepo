@@ -1,11 +1,28 @@
 {
   "name": "imng-application-insights-ngrx",
   "version": "0.0.1",
+  "description": "Small library to facilitate the integration of Application Insights with an NGRX metaReducer.",
   "peerDependencies": {
     "@angular/common": "^13.2.0",
     "@angular/core": "^13.2.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "keywords": [
+    "application-insights",
+    "ngrx",
+    "angular"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+  },
+  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
   }
 }
