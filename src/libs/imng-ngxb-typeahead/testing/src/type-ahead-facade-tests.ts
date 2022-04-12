@@ -7,23 +7,22 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 
 export function testLoadMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
   facade: TFacade,
-  httpClient: HttpClient,
+  httpClient: HttpClient
 ): void {
   const getSpy = jest.spyOn(httpClient, 'get');
   facade.loadMatches('🎂 🍩 😡');
   expect(getSpy).toBeCalledTimes(1);
-
 }
 
-export async function testOdataMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
-  facade: TFacade,
-  oDataService: ODataService,
-): Promise<void> {
-  oDataService.fetch = jest.fn(() => of({ data: [{ id: '👼', name: '👿🕺' }], total: 500 })) as any;
+export async function testOdataMatches<
+  TFacade extends ImngTypeAheadFacade<unknown>
+>(facade: TFacade, oDataService: ODataService): Promise<void> {
+  oDataService.fetch = jest.fn(() =>
+    of({ data: [{ id: '👼', name: '👿🕺' }], total: 500 })
+  ) as never;
 
   facade.loadMatches('🎂 🍩 😡');
   expect(oDataService.fetch).toBeCalledTimes(1);
   const matches = await readFirst(facade.matches$);
   expect(matches.length).toEqual(1);
-
 }

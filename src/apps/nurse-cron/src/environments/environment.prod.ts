@@ -9,7 +9,7 @@ export const environment = {
   },
   endPoints,
   appInsights: { instrumentationKey: 'e92419ad-e3e7-488a-81d4-794b498de73e' },
-  auth0_options: {
+  oidc_options: {
     authority: 'https://nrsrx-demo.auth0.com',
     client_id: '6JEcsWCEL4y5k5Lvr9YGgdLG3qVTylTn',
     audience: 'IM-NurseCron',
@@ -18,11 +18,11 @@ export const environment = {
   },
   signalr: {
     hostUrl: 'https://im-wa-coms-nrcrn.azurewebsites.net/notificationHub',
-    logLevel: LogLevel.Trace,
-    clientMethods: ['OnMessageRecieved']
+    logger: LogLevel.Trace,
+    clientMethods: ['OnMessageRecieved'],
   },
   idleConfig: {
     timeoutWarningInMs: 540000, //9 minutes
-    autoLogoutInMs: 600000 //10 minutes
-  }
+    autoLogoutInMs: 600000, //10 minutes
+  },
 };

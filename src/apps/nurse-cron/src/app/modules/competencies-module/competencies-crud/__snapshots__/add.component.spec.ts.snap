@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`CompetencyAddComponent should save 1`] = `
-Object {
-  "id": null,
-  "isEnabled": true,
-  "name": "NAME",
-}
-`;

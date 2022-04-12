@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ImngNgrxIdleModule } from 'imng-ngrx-idle';
+import { ImngNgrxIdleModule } from 'imng-kendo-ngrx-idle';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { Auth0OidcModule } from 'imng-auth0-oidc';
+import { ImngOidcClientModule } from 'imng-oidc-client';
 import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -25,20 +25,20 @@ import { environment } from '../environments/environment';
       {},
       {
         metaReducers: [],
-        runtimeChecks: environment.runtimeChecks
-      },
+        runtimeChecks: environment.runtimeChecks,
+      }
     ),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ name: 'AdventureWorks' }),
     StoreRouterConnectingModule.forRoot(),
-    Auth0OidcModule.forRoot(environment.auth0_options),
+    ImngOidcClientModule.forRoot(environment.oidc_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
 
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    ImngNgrxIdleModule.forRoot(environment.idleConfig)
+    ImngNgrxIdleModule.forRoot(environment.idleConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

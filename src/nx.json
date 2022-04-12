@@ -1,32 +1,35 @@
 {
-  "implicitDependencies": {
-    "angular.json": "*",
-    "package.json": "*",
-    "tslint.json": "*",
-    "nx.json": "*",
-    "tsconfig.base.json": "*"
-  },
+  "npmScope": "imng",
   "affected": {
     "defaultBase": "master"
   },
-  "npmScope": "imng",
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "MjhiYWY5MzUtYzZmNC00MzJjLWFlYTgtZTA5OWRjYWI3YjAzfHJlYWQtd3JpdGU="
       }
     }
   },
-  "cli": {
-    "warnings": {
-      "typescriptMismatch": false,
-      "versionMismatch": false
-    },
-    "defaultCollection": "@nrwl/angular",
-    "analytics": "f4c251a3-a9e0-433e-b1f3-2c10661975ea"
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   },
-  "defaultProject": "nurse-cron",
   "generators": {
     "@nrwl/angular:application": {
       "style": "scss",
@@ -35,12 +38,12 @@
       "e2eTestRunner": "cypress"
     },
     "@nrwl/angular:library": {
-      "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {
       "style": "scss"
     }
-  }
+  },
+  "defaultProject": "imng-az-func-configr"
 }

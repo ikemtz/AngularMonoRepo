@@ -1,0 +1,99 @@
+{
+  "projectType": "application",
+  "root": "apps/adventure-works",
+  "sourceRoot": "apps/adventure-works/src",
+  "prefix": "aw",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/adventure-works",
+        "index": "apps/adventure-works/src/index.html",
+        "main": "apps/adventure-works/src/main.ts",
+        "polyfills": "apps/adventure-works/src/polyfills.ts",
+        "tsConfig": "apps/adventure-works/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/adventure-works/src/favicon.ico",
+          "apps/adventure-works/src/assets",
+          {
+            "glob": "*",
+            "input": "libs/imng-oidc-client/src/assets",
+            "output": "/"
+          }
+        ],
+        "styles": ["apps/adventure-works/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/adventure-works/src/environments/environment.ts",
+              "with": "apps/adventure-works/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "adventure-works:build:production"
+        },
+        "development": {
+          "browserTarget": "adventure-works:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "adventure-works:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/adventure-works/src/**/*.ts",
+          "apps/adventure-works/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/adventure-works"],
+      "options": {
+        "jestConfig": "apps/adventure-works/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -5,19 +5,25 @@ import { KendoODataSelector } from './kendo-odata-selector';
 import { ODataState, ODataResult } from 'imng-kendo-odata';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 
-export abstract class KendoODataFacadeBase<Entity, PartialState> implements IKendoODataGridFacade<Entity> {
-  loading$: Observable<boolean> = (this.store as Observable<unknown>).pipe(select(this.selector.getLoading));
-  gridODataState$: Observable<ODataState> = (this.store as Observable<unknown>).pipe(
-    select(this.selector.getGridODataState),
+export abstract class KendoODataFacadeBase<Entity, PartialState>
+  implements IKendoODataGridFacade<Entity> {
+  loading$: Observable<boolean> = (this.store as Observable<PartialState>).pipe(
+    select(this.selector.getLoading)
   );
-  gridData$: Observable<ODataResult<Entity>> = (this.store as Observable<unknown>).pipe(
-    select(this.selector.getGridData),
-  );
-  gridPagerSettings$: Observable<false | PagerSettings> = (this.store as Observable<unknown>).pipe(
-    select(this.selector.getPagerSettings),
-  );
+  gridODataState$: Observable<ODataState> = (
+    this.store as Observable<PartialState>
+  ).pipe(select(this.selector.getGridODataState));
+  gridData$: Observable<ODataResult<Entity>> = (
+    this.store as Observable<PartialState>
+  ).pipe(select(this.selector.getGridData));
+  gridPagerSettings$: Observable<false | PagerSettings> = (
+    this.store as Observable<PartialState>
+  ).pipe(select(this.selector.getPagerSettings));
 
-  constructor(protected store: Store<PartialState>, protected selector: KendoODataSelector) {}
+  constructor(
+    protected store: Store<PartialState>,
+    protected selector: KendoODataSelector<PartialState>
+  ) { }
 
   abstract loadEntities(state: ODataState): void;
   abstract reloadEntities(): void;

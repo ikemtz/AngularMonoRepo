@@ -1,0 +1,28 @@
+{
+  "root": "apps/adventure-works-e2e",
+  "sourceRoot": "apps/adventure-works-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/adventure-works-e2e/cypress.json",
+        "devServerTarget": "adventure-works:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "adventure-works:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/adventure-works-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["adventure-works"]
+}

@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImngODataGridDirective should create an instance 1`] = `
+MockGridComponent {
+  "columnVisibilityChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "data": Object {
+    "data": Array [],
+    "total": 0,
+  },
+  "dataStateChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "filterChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "filterable": "menu",
+  "loading": false,
+  "navigable": true,
+  "pageChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "reorderable": true,
+  "resizable": true,
+  "sortChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "sortable": Object {
+    "allowUnsort": true,
+    "mode": "multiple",
+  },
+}
+`;
+
+exports[`ImngODataGridDirective should fire AfterViewInit 1`] = `
+MockGridComponent {
+  "columnVisibilityChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "data": Object {},
+  "dataStateChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [
+      SafeSubscriber {
+        "_parentage": null,
+        "_teardowns": Array [
+          Subscription {
+            "_parentage": [Circular],
+            "_teardowns": null,
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "closed": false,
+        "destination": Object {
+          "complete": [Function],
+          "error": [Function],
+          "next": [Function],
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "thrownError": null,
+  },
+  "filter": Object {
+    "filters": Array [],
+    "logic": "and",
+  },
+  "filterChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "filterable": "menu",
+  "loading": false,
+  "navigable": true,
+  "pageChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "pageSize": 20,
+  "pageable": false,
+  "reorderable": true,
+  "resizable": true,
+  "skip": 0,
+  "sort": Array [],
+  "sortChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "sortable": Object {
+    "allowUnsort": true,
+    "mode": "multiple",
+  },
+}
+`;
+
+exports[`ImngODataGridDirective should fire OnInit 1`] = `
+MockGridComponent {
+  "columnVisibilityChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "data": Object {
+    "data": Array [],
+    "total": 0,
+  },
+  "dataStateChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "filterChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "filterable": "menu",
+  "loading": true,
+  "navigable": true,
+  "pageChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "reorderable": true,
+  "resizable": true,
+  "sortChange": EventEmitter_ {
+    "__isAsync": false,
+    "closed": false,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "sortable": Object {
+    "allowUnsort": true,
+    "mode": "multiple",
+  },
+}
+`;

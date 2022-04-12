@@ -6,7 +6,7 @@ export interface ITransformer {
     id: number;
     convert(data: IAzSetting[]): ILocalSetting | string;
 }
-export const initialFunctionDevSettings = (): ILocalSetting => ({ IsEncrypted: false, Values: {} });
+export const initialFunctionDevSettings = (): ILocalSetting => ({ IsEncrypted: false, Values: {}  });
 export const AzFunc: ITransformer = {
     // eslint-disable-next-line max-len
     icon: '//raw.githubusercontent.com/Azure/azure-functions-cli/master/src/Azure.Functions.Cli/npm/assets/azure-functions-logo-color-raster.png',
@@ -31,7 +31,8 @@ export const AzWebApp: ITransformer = {
     name: 'AZ WebApp',
     id: 2,
     convert: data => {
-        const devSettings = {};
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const devSettings:any = {};//NOSONAR
         if (Array.isArray(data)) {
             data
                 .map(t => ({ name: t.name, value: t.value }))

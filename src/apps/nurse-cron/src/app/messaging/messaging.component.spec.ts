@@ -10,9 +10,17 @@ describe('MessagingComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MessagingComponent],
-      providers: [{ provide: SignalrFacade, useValue: { isConnected$: of(true), dispatchAction: jest.fn() } }]
-    })
-      .compileComponents();
+      providers: [
+        {
+          provide: SignalrFacade,
+          useValue: {
+            isConnected$: of(true),
+            dispatchAction: jest.fn(),
+            connect: jest.fn(),
+          },
+        },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

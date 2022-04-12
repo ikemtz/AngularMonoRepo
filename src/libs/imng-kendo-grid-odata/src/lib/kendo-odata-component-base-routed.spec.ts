@@ -1,9 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
-import { ODataGridMockFacade, createODataGridMockFacade } from '../../testing/src';
+import {
+  ODataGridMockFacade,
+  createODataGridMockFacade,
+} from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { ODataResultEmpty, ODataState } from 'imng-kendo-odata';
+import { ODataState } from 'imng-kendo-odata';
 import { Router } from '@angular/router';
 
 describe('KendoODataComponentBaseRouted', () => {
@@ -22,7 +25,8 @@ describe('KendoODataComponentBaseRouted', () => {
               snapshot: {
                 root: {
                   queryParams: {
-                    odataState: 'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
+                    odataState:
+                      'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
                   },
                 },
               },
@@ -46,7 +50,8 @@ describe('KendoODataComponentBaseRouted', () => {
     expect(router.navigate).toBeCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
-        odataState: 'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
+        odataState:
+          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -69,7 +74,10 @@ describe('KendoODataComponentBaseRouted', () => {
   it('should reset', async () => {
     component.gridDataState = {
       ...component.gridDataState,
-      filter: { logic: 'and', filters: [{ field: 'y', operator: 'contains', value: 56 }] },
+      filter: {
+        logic: 'and',
+        filters: [{ field: 'y', operator: 'contains', value: 56 }],
+      },
     };
     component.resetFilters();
     expect(component.gridDataState).toMatchSnapshot();
@@ -96,9 +104,12 @@ const initialGridState: ODataState = {
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class KendoODataGridTestComponent extends KendoODataComponentBase<object, ODataGridMockFacade> {
+export class KendoODataGridTestComponent extends KendoODataComponentBase<
+  object,
+  ODataGridMockFacade
+> {
   props = {};
-  constructor(readonly router: Router) {
+  constructor(override readonly router: Router) {
     super(createODataGridMockFacade(), initialGridState, router);
   }
 }
