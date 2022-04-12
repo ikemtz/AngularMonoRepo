@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/imng-angular-core",
+  "sourceRoot": "libs/imng-angular-core/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/imng-angular-core"],
+      "options": {
+        "project": "libs/imng-angular-core/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/imng-angular-core/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/imng-angular-core/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/imng-angular-core"],
+      "options": {
+        "jestConfig": "libs/imng-angular-core/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/imng-angular-core/src/**/*.ts",
+          "libs/imng-angular-core/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

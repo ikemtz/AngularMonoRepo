@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Callback</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <script
+      src="oidc-client.rsa256.slim.min.js"
+      type="application/javascript"
+    ></script>
+    <script>
+      const hasError = 0 < window.location.href.toLowerCase().indexOf('error');
+      if (hasError) {
+        const x = (
+          0 < window.location.href.indexOf('#')
+            ? window.location.href.split('#')
+            : window.location.href.split('?')
+        )[1];
+        for (var queryString in x.split('&')) {
+          queryString = decodeURI(queryString);
+          document.writeln('<h6>' + queryString + '</h6>');
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <script>
+      var Oidc = window.Oidc;
+      var settings = JSON.parse(window.localStorage.getItem('ngoidc:settings'));
+      var isPopupCallback = JSON.parse(
+        window.localStorage.getItem('ngoidc:isPopupCallback')
+      );
+      if (isPopupCallback) {
+        new Oidc.UserManager(settings).signinPopupCallback();
+      } else {
+        var promise = new Oidc.UserManager(settings).signinRedirectCallback();
+        promise.then(function (t) {
+          window.location.href = (t.state || {}).redirect_url || '/';
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,10 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
-import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
-import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock.facade';
+import {
+  DataEntryMockFacade,
+  createDataEntryMockFacade,
+} from '../../testing/src/data-entry-mock.facade';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
@@ -20,7 +27,9 @@ describe('DataEntryDialogComponent', () => {
       declarations: [DataEntryDialogComponent, TestHostComponent],
       imports: [NoopAnimationsModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-      providers: [{ provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() }],
+      providers: [
+        { provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() },
+      ],
     }).compileComponents();
   });
 
@@ -59,7 +68,10 @@ describe('DataEntryDialogComponent', () => {
   template: template,
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacade> implements Subscribable {
+export class TestHostComponent
+  extends BaseDataEntryComponent<DataEntryMockFacade>
+  implements Subscribable
+{
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   public saved = false;
@@ -111,7 +123,8 @@ describe('DataEntryDialog', () => {
 
   it('should handle null parent', (done) => {
     try {
-      component.parentComponent = null;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (component as any).parentComponent = null;
       component.ngOnInit();
       done.fail('shouldve thrown an err');
     } catch (err) {
