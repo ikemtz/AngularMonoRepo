@@ -2,7 +2,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { Endpoints } from '../app/models/';
+import { Endpoints } from '../app/models/odata/endpoints';
 
 export const environment = {
   production: false,
@@ -13,7 +13,7 @@ export const environment = {
     strictStateImmutability: true,
   },
   appInsights: { instrumentationKey: 'e92419ad-e3e7-488a-81d4-794b498de73e' },
-  auth0_options: {
+  oidc_options: {
     authority: 'https://nrsrx-demo.auth0.com',
     client_id: 'em42lcjfm0WbbPwhooEbYAqvAjburTPW',
     audience: 'AdventureWorks',
@@ -22,8 +22,8 @@ export const environment = {
   },
   idleConfig: {
     timeoutWarningInMs: 540000, //9 minutes
-    autoLogoutInMs: 600000 //10 minutes
-  }
+    autoLogoutInMs: 600000, //10 minutes
+  },
 };
 
 /*

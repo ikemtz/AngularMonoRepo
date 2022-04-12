@@ -1,0 +1,34 @@
+{
+  "root": "apps/imng-az-func-configr-e2e",
+  "sourceRoot": "apps/imng-az-func-configr-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/imng-az-func-configr-e2e/cypress.json",
+        "devServerTarget": "imng-az-func-configr:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "imng-az-func-configr:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/imng-az-func-configr-e2e/**/*.{js,ts}"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": [
+    "imng-az-func-configr"
+  ]
+}
