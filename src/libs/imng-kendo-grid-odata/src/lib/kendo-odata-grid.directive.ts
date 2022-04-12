@@ -1,25 +1,40 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  AfterViewInit,
+} from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { merge } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { KendoODataComponentBase } from './kendo-odata-component-base';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
-import { ODataGridStateChangeEvent } from './kendo-odata-grid-state-change-event';
+import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 
 @Directive({
   selector: '[imngODataGrid]',
 })
-export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy, Subscribable {
+export class ImngODataGridDirective
+  implements OnInit, AfterViewInit, OnDestroy, Subscribable
+{
   public readonly allSubscriptions = new Subscriptions();
   private facade: IKendoODataGridFacade<object>;
 
-  @Input('imngODataGrid') public odataComponent: KendoODataComponentBase<object, IKendoODataGridFacade<object>>;
-  constructor(public readonly gridComponent: GridComponent, public readonly changeDetectorRef: ChangeDetectorRef) {}
+  @Input('imngODataGrid') public odataComponent: KendoODataComponentBase<
+    object,
+    IKendoODataGridFacade<object>
+  >;
+  constructor(
+    public readonly gridComponent: GridComponent,
+    public readonly changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.facade = this.odataComponent.facade;
+    this.facade = this.odataComponent.facade || ({} as never);
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;
     this.gridComponent.filterable = 'menu';
@@ -32,38 +47,40 @@ export class ImngODataGridDirective implements OnInit, AfterViewInit, OnDestroy,
       this.facade.loading$.subscribe((t: boolean) => {
         this.gridComponent.loading = t;
         this.changeDetectorRef.markForCheck();
-      }),
+      })
     );
     this.odataComponent.hasHiddenColumns$ = merge(
-      this.odataComponent.facade.loading$.pipe(hasHiddenColumns(this.gridComponent)),
-      this.gridComponent.columnVisibilityChange?.pipe(hasHiddenColumns(this.gridComponent)),
+      this.odataComponent.facade.loading$.pipe(
+        hasHiddenColumns(this.gridComponent)
+      ),
+      this.gridComponent.columnVisibilityChange?.pipe(
+        hasHiddenColumns(this.gridComponent)
+      )
     );
   }
 
   ngAfterViewInit(): void {
     this.allSubscriptions.push(
-      this.gridComponent.dataStateChange.subscribe((t: ODataGridStateChangeEvent) =>
-        this.odataComponent.dataStateChange(t),
+      this.gridComponent.dataStateChange.subscribe((t: GridStateChangeEvent) =>
+        this.odataComponent.dataStateChange(t)
       ),
       this.facade.gridData$.subscribe((t) => {
         this.gridComponent.data = t;
         this.changeDetectorRef.markForCheck();
       }),
-      this.facade.gridPagerSettings$.subscribe((t) => (this.gridComponent.pageable = t)),
+      this.facade.gridPagerSettings$.subscribe(
+        (t) => (this.gridComponent.pageable = t)
+      ),
       this.facade.gridODataState$.pipe(filter((t) => !!t)).subscribe((t) => {
-        this.gridComponent.pageSize = t.take;
-        this.gridComponent.filter = t.filter;
-        this.gridComponent.skip = t.skip;
-        this.gridComponent.sort = t.sort;
-      }),
+        this.gridComponent.pageSize = t.take || 20;
+        this.gridComponent.filter = t.filter || { logic: 'and', filters: [] };
+        this.gridComponent.skip = t.skip || 0;
+        this.gridComponent.sort = t.sort || [];
+      })
     );
   }
 
   ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
   }
-}
-
-export function hasHiddenColumns(gridComponent: GridComponent) {
-  return map(() => gridComponent.columns.some((s) => s.hidden));
 }

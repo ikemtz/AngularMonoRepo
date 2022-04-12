@@ -1,19 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-
-import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
+import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, RouterModule.forRoot([], {
-    initialNavigation: 'enabled',
-    relativeLinkResolution: 'corrected'
-  }
-  ), BarcodeScannerLivestreamComponent],
+  imports: [BrowserModule, BarcodeScannerLivestreamModule],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

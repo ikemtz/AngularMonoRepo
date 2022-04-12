@@ -1,5 +1,10 @@
 import { InjectionToken } from '@angular/core';
-import { HttpTransportType, ILogger, ITransport, LogLevel } from '@microsoft/signalr';
+import {
+  HttpTransportType,
+  ILogger,
+  ITransport,
+  LogLevel,
+} from '@microsoft/signalr';
 
 export const SIGNALR_CONFIG = new InjectionToken('signalr-config');
 

@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, Inject, InjectionToken } from '@angular/core';
-import { ApplicationInsights, IConfiguration } from '@microsoft/applicationinsights-web';
+import {
+  ApplicationInsights,
+  IConfiguration,
+} from '@microsoft/applicationinsights-web';
 import { Actions } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -12,44 +15,60 @@ export const APP_INSIGHTS_CONFIG = new InjectionToken('app-insights-config');
 })
 export class AppInsightsMonitoringService {
   public readonly appInsights: ApplicationInsights;
-  constructor(@Inject(APP_INSIGHTS_CONFIG) readonly appInsightsConfig: IConfiguration) {
+  constructor(
+    @Inject(APP_INSIGHTS_CONFIG) readonly appInsightsConfig: IConfiguration
+  ) {
     this.appInsights = new ApplicationInsights({ config: appInsightsConfig });
     this.appInsights.loadAppInsights();
   }
 
   public setAuthenticatedUserContext(userId: string): void {
-    this.appInsights.setAuthenticatedUserContext(userId, null, true);
+    this.appInsights.setAuthenticatedUserContext(userId, undefined, true);
   }
 
   public clearAuthenticatedUserContext(): void {
     this.appInsights.clearAuthenticatedUserContext();
   }
 
-  public logException(exception: Error, properties?: unknown, measurements?: { [key: string]: number; }): void {
+  public logException(
+    exception: Error,
+    properties?: never,
+    measurements?: { [key: string]: number }
+  ): void {
     this.appInsights.trackException({ exception, properties, measurements });
   }
 
-  public logEvent(name: string, properties?: unknown, measurements?: { [key: string]: number; }): void {
+  public logEvent(
+    name: string,
+    properties?: never,
+    measurements?: { [key: string]: number }
+  ): void {
     this.appInsights.trackEvent({ name, properties, measurements });
   }
 
-  public trackEventsEffect(actions$: Actions, logPayload: boolean): Observable<Action> {
+  public trackEventsEffect(
+    actions$: Actions,
+    logPayload: boolean
+  ): Observable<Action> {
     return actions$.pipe(
-      tap(x => {
-        this.logEvent(x.type, logPayload ? (x as unknown as { payload: string; }).payload : null);
-      }),
+      tap((x) => {
+        this.logEvent(
+          x.type,
+          logPayload ? (x as unknown as { payload: never }).payload : undefined
+        );
+      })
     );
   }
 
   public trackErrorsEffect(actions$: Actions): Observable<Action> {
     return actions$.pipe(
-      filter(x => {
+      filter((x) => {
         const type = x.type.toUpperCase();
         return type.endsWith('ERROR') || type.endsWith('FAILURE');
       }),
-      tap(x => {
+      tap((x) => {
         this.logException(x as never);
-      }),
+      })
     );
   }
 }

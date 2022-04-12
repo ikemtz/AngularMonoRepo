@@ -7,7 +7,11 @@ describe('ImngSignalrNgrxModule', () => {
     TestBed.configureTestingModule({
       imports: [ImngSignalrNgrxModule],
       providers: [
-        { provide: SIGNALR_CONFIG, multi: false, useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1 } },
+        {
+          provide: SIGNALR_CONFIG,
+          multi: false,
+          useValue: { hostUrl: 'http://xyz/notificationHub', logLevel: 1 },
+        },
       ],
     }).compileComponents();
   });

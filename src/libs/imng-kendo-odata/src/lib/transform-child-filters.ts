@@ -12,12 +12,11 @@ export const stringFilterOperators: string[] = [
   `isnotempty`,
 ];
 export function processChildFilterDescriptors(state: ODataState, queryString: string): string {
-  const childFilters = state.childFilters;
-  if (!childFilters) {
+  if (!state.childFilters) {
     return queryString;
+  } else {
+    return transformCompositeChildFilter(state.childFilters, queryString);
   }
-  queryString = transformCompositeChildFilter(state.childFilters, queryString);
-  return queryString;
 }
 
 export function transformCompositeChildFilter(
@@ -27,9 +26,9 @@ export function transformCompositeChildFilter(
   let tempFilterString = '';
   compositeChildFilter.filters
     .filter((filter) => !isCompositeChildFilterDescriptor(filter))
-    .forEach((filter: ChildFilterDescriptor, index: number, array: ChildFilterDescriptor[]) => {
+    .forEach((filter: ChildFilterDescriptor | CompositeChildFilterDescriptor, index: number, array: (ChildFilterDescriptor | CompositeChildFilterDescriptor)[]) => {
       tempFilterString += index === 0 && array.length > 1 ? '(' : '';
-      tempFilterString += transformChildFilter(filter);
+      tempFilterString += transformChildFilter(filter as ChildFilterDescriptor);
       if (index === array.length - 1 && array.length > 1) {
         tempFilterString += ')';
       } else if (index !== array.length - 1) {
@@ -45,8 +44,8 @@ export function transformCompositeChildFilter(
   }
   compositeChildFilter.filters
     .filter((filter) => isCompositeChildFilterDescriptor(filter))
-    .forEach((filter: CompositeChildFilterDescriptor) => {
-      queryString = transformCompositeChildFilter(filter, queryString);
+    .forEach((filter: CompositeChildFilterDescriptor | ChildFilterDescriptor) => {
+      queryString = transformCompositeChildFilter(filter as CompositeChildFilterDescriptor, queryString);
     });
   return queryString;
 }

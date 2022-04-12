@@ -342,3 +342,4 @@ src/documentation/**
 **/junit*xml
 **/dist/*
 **/*.tar
+old-src

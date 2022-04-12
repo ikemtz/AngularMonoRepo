@@ -1,12 +1,8 @@
 {
   "recommendations": [
     "nrwl.angular-console",
-    "angular.ng-template",
     "esbenp.prettier-vscode",
-    "ms-azuretools.vscode-docker",
-    "visualstudioexptteam.vscodeintellicode",
     "firsttris.vscode-jest-runner",
-    "dbaeumer.vscode-eslint",
-    "ikemtz.imng-snippets"
+    "dbaeumer.vscode-eslint"
   ]
 }

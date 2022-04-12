@@ -1,5 +1,0 @@
-{
-  "extends": "./tsconfig.base.json",
-  "include": ["apps/nurse-cron/src/**/*.ts"],
-  "exclude": ["apps/nurse-cron/src/**/*.spec.ts"]
-}

@@ -4,19 +4,15 @@ exports[`Testing createDataEntryMockFacade should create 1`] = `
 DataEntryMockFacade {
   "clearCurrentEntity": [MockFunction],
   "currentEntity$": Observable {
-    "_isScalar": false,
     "_subscribe": [Function],
   },
   "isEditActive$": Observable {
-    "_isScalar": false,
     "_subscribe": [Function],
   },
   "isNewActive$": Observable {
-    "_isScalar": false,
     "_subscribe": [Function],
   },
   "loading$": Observable {
-    "_isScalar": false,
     "_subscribe": [Function],
   },
   "saveNewEntity": [MockFunction],

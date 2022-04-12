@@ -6,7 +6,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function normalizeRequest<T extends object>(payload: T): T {
   for (const x in payload) {
-    payload[x] = payload[x]?.toString() === '' ? null : payload[x];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const newLocal = (payload[x] as any).toString() === ''; //NOSONAR
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    payload[x] = (newLocal ? null : payload[x]) as any; //NOSONAR
   }
   return payload;
 }
