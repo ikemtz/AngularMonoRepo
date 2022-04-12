@@ -1,3 +1,4 @@
+import { isNullOrUndefined } from 'imng-nrsrx-client-utils';
 import { OidcClientConfig } from '../models/oidc-client-config';
 import { OidcLibraryConfig } from '../models/oidc-library-config';
 
@@ -16,15 +17,15 @@ export function oidcConfigurator(
       post_logout_redirect_uri: `${document.location.origin}/signout-callback.html`,
       silent_redirect_uri: `${document.location.origin}/renew-callback.html`,
       automaticSilentRenew:
-        oidcClientConfig.automaticSilentRenew === undefined
+        isNullOrUndefined(oidcClientConfig.automaticSilentRenew)
           ? true
           : oidcClientConfig.automaticSilentRenew,
       metadataUrl: `${oidcClientConfig.authority}/.well-known/openid-configuration`,
     },
     getUserMetadata: oidcClientConfig.getUserMetadata,
     useCallbackFlag:
-      oidcClientConfig.useCallbackFlag === undefined
+      isNullOrUndefined(oidcClientConfig.useCallbackFlag)
         ? true
-        : oidcClientConfig.useCallbackFlag,
+        : oidcClientConfig.useCallbackFlag as boolean,
   };
 }
