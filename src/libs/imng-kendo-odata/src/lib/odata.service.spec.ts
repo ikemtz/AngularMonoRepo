@@ -3,7 +3,7 @@ import { ODataService } from './odata.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { ODataState } from './odata-state';
-import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
+import { readFirst } from 'imng-ngrx-utils/testing'
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 describe('ODataService', () => {
@@ -605,7 +605,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toBeCalledTimes(1);
     expect(requestedUrl.startsWith(expectedUrlStart)).toBe(true);
   });
-  
+
   it('should support byPrimaryKey operations', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {

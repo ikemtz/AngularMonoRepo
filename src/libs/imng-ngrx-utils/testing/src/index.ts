@@ -1,6 +1,5 @@
 import { first, firstValueFrom, lastValueFrom, Observable, toArray } from 'rxjs';
 
-
 export function readFirst<T>(o: Observable<T>): Promise<T> {
   return firstValueFrom(o.pipe(first()));
 }
