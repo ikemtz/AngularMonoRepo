@@ -32,9 +32,9 @@ describe('oidcConfigurator', () => {
       audience: 'aud',
       client_id: 'client',
       authority: 'auth',
-      getUserMetadata: true,
-      automaticSilentRenew: true,
-      useCallbackFlag: true
+      getUserMetadata: false,
+      automaticSilentRenew: false,
+      useCallbackFlag: false
     }, {
       location: { origin: 'origin' }
     } as Document);
