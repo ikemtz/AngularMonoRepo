@@ -1,9 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  SignalrFacade,
-  signalrActions,
-  ISignalrMessage,
-} from 'imng-signalr-ngrx';
+import { SignalrFacade, ISignalrMessage } from 'imng-signalr-ngrx';
 import { take, filter, tap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 
@@ -13,7 +9,7 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./messaging.component.scss'],
 })
 export class MessagingComponent implements OnInit, OnDestroy {
-  public lastMessage$?: Observable<ISignalrMessage<string> | undefined>;
+  public lastMessage$?: Observable<ISignalrMessage<unknown> | undefined>;
   public subscriptions: Subscription[] = [];
   constructor(private readonly signalrFacade: SignalrFacade) {}
 
@@ -24,18 +20,16 @@ export class MessagingComponent implements OnInit, OnDestroy {
           filter((t) => t),
           take(1),
           tap(() =>
-            this.signalrFacade.dispatchAction(
-              signalrActions.sendMessage({
-                methodName: 'SendMessage',
-                data: 'Signed In',
-              })
-            )
+            this.signalrFacade.sendMessage({
+              methodName: 'SendMessage',
+              data: 'Signed In',
+            })
           )
         )
         .subscribe()
     );
     this.lastMessage$ = this.signalrFacade.lastReceivedMessage$;
-    this.signalrFacade.dispatchAction(signalrActions.connect());
+    this.signalrFacade.connect();
   }
   ngOnDestroy(): void {
     this.subscriptions
