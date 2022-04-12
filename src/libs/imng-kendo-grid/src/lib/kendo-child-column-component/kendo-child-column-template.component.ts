@@ -34,7 +34,7 @@ export class ImngGridChildColumnTemplateComponent implements OnInit {
 
   @Output() showMoreClicked = new EventEmitter();
   @Input() public field = '';
-  @Input() public visibleRecCount = 5;
+  @Input() public visibleRecCount = 5; //NOSONAR
   @Input() public showMore = true;
   @Input() public toolTipJoinCharacter = ';';
   @Input() set data(value: unknown[]) {
@@ -48,13 +48,13 @@ export class ImngGridChildColumnTemplateComponent implements OnInit {
     return this._data;
   }
 
-  constructor(public readonly changeDetectorRef: ChangeDetectorRef) {}
+  constructor(public readonly changeDetectorRef: ChangeDetectorRef) { }
 
   public ngOnInit(): void {
     this.currentData = (this.data || [])
       .filter((val) => (typeof val === 'string' ? val.length > 0 : true))
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .map((t: any) => t[this.field]);
+      .map((t: any) => t[this.field]); //NOSONAR
     this.initialized = true;
   }
   public formatToolTip(): string {

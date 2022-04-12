@@ -29,10 +29,9 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
 @Directive()
 export abstract class BaseDataEntryComponent<
   FACADE extends IBaseDataEntryFacade
-> implements OnDestroy, Subscribable
-{
-  @Input() public width: string | number = 800;
-  @Input() public height: string | number = 600;
+  > implements OnDestroy, Subscribable {
+  @Input() public width: string | number = 800; //NOSONAR
+  @Input() public height: string | number = 600; //NOSONAR
 
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
@@ -78,7 +77,7 @@ export abstract class BaseDataEntryComponent<
 
     // stop here if form is invalid
     if (this.isDataInvalid()) {
-      console.log('form validation errors.');
+      console.error('form validation errors.'); //NOSONAR
       return;
     }
     this.save();

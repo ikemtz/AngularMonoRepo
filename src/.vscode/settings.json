@@ -13,6 +13,6 @@
   "html.format.extraLiners": null,
   "prettier.singleQuote": true,
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }

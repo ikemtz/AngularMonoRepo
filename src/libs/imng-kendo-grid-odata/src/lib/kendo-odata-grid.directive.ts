@@ -19,8 +19,7 @@ import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
   selector: '[imngODataGrid]',
 })
 export class ImngODataGridDirective
-  implements OnInit, AfterViewInit, OnDestroy, Subscribable
-{
+  implements OnInit, AfterViewInit, OnDestroy, Subscribable {
   public readonly allSubscriptions = new Subscriptions();
   private facade: IKendoODataGridFacade<object>;
 
@@ -31,7 +30,7 @@ export class ImngODataGridDirective
   constructor(
     public readonly gridComponent: GridComponent,
     public readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facade = this.odataComponent.facade || ({} as never);
@@ -72,7 +71,7 @@ export class ImngODataGridDirective
         (t) => (this.gridComponent.pageable = t)
       ),
       this.facade.gridODataState$.pipe(filter((t) => !!t)).subscribe((t) => {
-        this.gridComponent.pageSize = t.take || 20;
+        this.gridComponent.pageSize = t.take || 20; //NOSONAR
         this.gridComponent.filter = t.filter || { logic: 'and', filters: [] };
         this.gridComponent.skip = t.skip || 0;
         this.gridComponent.sort = t.sort || [];

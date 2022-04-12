@@ -43,8 +43,8 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataEntryDialogComponent implements OnInit {
-  @Input() public width: string | number = 800;
-  @Input() public height: string | number = 600;
+  @Input() public width: string | number = 800; //NOSONAR
+  @Input() public height: string | number = 600; //NOSONAR
   /**
    * https://www.telerik.com/kendo-angular-ui/components/dialogs/dialog/initial-focus/
    */

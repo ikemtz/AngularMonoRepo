@@ -2,3 +2,5 @@
 
 /dist
 /coverage
+/node_modules
+/libs/imng-snippets/src/assets

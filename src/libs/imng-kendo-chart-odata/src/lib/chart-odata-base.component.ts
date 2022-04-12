@@ -15,24 +15,23 @@ const FACADE = new InjectionToken<IChartODataFacade>('imng-chart-facade');
 
 @Directive()
 export abstract class ChartODataBaseComponent<FACADE extends IChartODataFacade>
-  implements OnDestroy, Subscribable
-{
+  implements OnDestroy, Subscribable {
   public allSubscriptions = new Subscriptions();
   public readonly seriesData$: Observable<
     ChartSeriesDataPoint[] | GroupResult[]
   >;
   public readonly isDataLoadPending$?: Observable<boolean>;
-  @Input() public height: string | number = 400;
+  @Input() public height: string | number = 400; //NOSONAR
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
-    public readonly gridRefresh$: Observable<unknown> | null = null
+    public readonly gridRefresh$: Observable<unknown> | null = null,
   ) {
     this.seriesData$ = this.facade.seriesData$;
 
     if (gridRefresh$) {
       this.allSubscriptions.push(
-        this.gridRefresh$?.subscribe(() => this.loadChart())
+        this.gridRefresh$?.subscribe(() => this.loadChart()),
       );
     }
   }

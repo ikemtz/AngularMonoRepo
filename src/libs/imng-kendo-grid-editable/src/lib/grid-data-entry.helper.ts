@@ -12,7 +12,7 @@ import {
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
 
-export class GridDataEntryHelper<T extends { id?: IdType }> {
+export class GridDataEntryHelper<T extends { id?: IdType; }> {
   private _editedRowIndex: number | undefined;
   private _gridFormGroup: FormGroup | undefined;
   private readonly _gridData$: BehaviorSubject<Array<T>>;
@@ -21,7 +21,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
     return this._gridFormGroup;
   }
 
-  public get gridData$(): Observable<Array<T>> {
+  public get gridData$(): Observable<Array<T>> { //NOSONAR
     return this._gridData$.asObservable();
   }
 
@@ -44,7 +44,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
     return this.gridValidationLogic(this.gridData);
   }
 
-  public get isValid$(): Observable<boolean> {
+  public get isValid$(): Observable<boolean> { //NOSONAR
     return this.gridData$.pipe(map((t) => this.gridValidationLogic(t)));
   }
   constructor(
@@ -127,7 +127,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public gridValidationLogic(data: Array<T>): boolean {
+  public gridValidationLogic(_data: Array<T>): boolean {
     return this._gridData.length > 0 && !this._gridFormGroup;
   }
 }

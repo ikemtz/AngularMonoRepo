@@ -22,15 +22,14 @@ import {
   selector: '[imngArrayGrid]',
 })
 export class ImngArrayGridDirective
-  implements OnInit, AfterViewInit, OnDestroy, Subscribable
-{
+  implements OnInit, AfterViewInit, OnDestroy, Subscribable {
   public readonly allSubscriptions = new Subscriptions();
   @Input('imngArrayGrid') public arrayComponent?: KendoArrayBasedComponent<
     object,
     object
   >;
   @Input() public pageable: boolean | PagerSettings = true;
-  constructor(public readonly gridComponent: GridComponent) {}
+  constructor(public readonly gridComponent: GridComponent) { }
 
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
@@ -80,7 +79,7 @@ export class ImngArrayGridDirective
       })
     );
 
-    this.gridComponent.pageSize = this.arrayComponent?.state.take || 20;
+    this.gridComponent.pageSize = this.arrayComponent?.state.take || 20; //NOSONAR
     this.gridComponent.filter = this.arrayComponent?.state.filter || {
       logic: 'and',
       filters: [],

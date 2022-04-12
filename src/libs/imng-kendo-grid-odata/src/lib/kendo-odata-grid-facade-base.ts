@@ -6,8 +6,7 @@ import { ODataState, ODataResult } from 'imng-kendo-odata';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 
 export abstract class KendoODataFacadeBase<Entity, PartialState>
-  implements IKendoODataGridFacade<Entity>
-{
+  implements IKendoODataGridFacade<Entity> {
   loading$: Observable<boolean> = (this.store as Observable<PartialState>).pipe(
     select(this.selector.getLoading)
   );
@@ -24,7 +23,7 @@ export abstract class KendoODataFacadeBase<Entity, PartialState>
   constructor(
     protected store: Store<PartialState>,
     protected selector: KendoODataSelector<PartialState>
-  ) {}
+  ) { }
 
   abstract loadEntities(state: ODataState): void;
   abstract reloadEntities(): void;

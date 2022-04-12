@@ -25,11 +25,11 @@ export class AppComponent implements AfterViewInit {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onValueChanges(result: { codeResult: { code: string } } | any): void {
+  onValueChanges(result: { codeResult: { code: string; }; } | any): void {
     this.barcodeValue = result.codeResult.code;
-    console.log(JSON.stringify(result));
+    console.log(JSON.stringify(result)); //NOSONAR
   }
   onStarted(started: unknown): void {
-    console.log(started);
+    console.log(started); //NOSONAR
   }
 }

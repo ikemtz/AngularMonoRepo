@@ -97,7 +97,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   constructor(
     public readonly filterService: FilterService,
     public readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   public ngAfterViewInit() {
     this.currentData = this.data;
@@ -125,7 +125,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     return this.value.some((x) => x === this.valueAccessor(item));
   }
 
-  public onSelectionChange(item: unknown, li: unknown) {
+  public onSelectionChange(item: unknown, li: HTMLLIElement) {
     if (this.value.some((x) => x === item)) {
       this.value = this.value.filter((x) => x !== item);
     } else {
@@ -173,7 +173,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onInput(e: { target: { value: IdType } } | any) {
+  public onInput(e: { target: { value: IdType; }; } | any) { //NOSONAR
     this.currentData = distinct(
       [
         ...this.currentData.filter((dataItem: unknown) =>
@@ -190,9 +190,9 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onFocus(li: any): void {
-    const ul = li.parentNode;
+  public onFocus(li: HTMLLIElement): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const ul = li.parentNode as any; //NOSONAR
     const below =
       ul.scrollTop + ul.offsetHeight < li.offsetTop + li.offsetHeight;
     const above = li.offsetTop < ul.scrollTop;
