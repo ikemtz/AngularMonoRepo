@@ -9,8 +9,11 @@
     "DataGrid"
   ],
   "peerDependencies": {
-    "@angular/common": "^13.2.0",
-    "@angular/core": "^13.2.0"
+    "@angular/common": ">=13.x",
+    "@angular/core": ">=13.x",
+    "@progress/kendo-angular-grid": ">=6.x",
+    "imng-kendo-odata": "*",
+    "rxjs": "*"
   },
   "dependencies": {
     "tslib": "^2.3.0"
