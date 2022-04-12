@@ -125,6 +125,7 @@
     "eslint-plugin-cypress": "^2.10.3",
     "imng-schematics": "^4.47.1",
     "jest": "27.2.3",
+    "jest-junit": "^13.1.0",
     "jest-preset-angular": "11.1.1",
     "ng-packagr": "^13.0.0",
     "ngx-bootstrap": "^8.0.0",
