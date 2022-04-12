@@ -1,41 +1,11 @@
 {
   "name": "imng-ngxb-typeahead",
-  "version": "0.1.9",
+  "version": "0.0.1",
   "peerDependencies": {
-    "imng-kendo-odata": "*",
-    "@angular/forms": ">=12.x",
-    "@angular/core": ">=12.x",
-    "@angular/common": ">=12.x",
-    "ngx-bootstrap": ">=6.x",
-    "rxjs": "*",
-    "@progress/kendo-data-query": ">=1.x",
-    "@angular/platform-browser": ">=12.x",
-    "@nrwl/angular": ">=12.x",
-    "imng-nrsrx-client-utils": "*"
+    "@angular/common": "^13.2.0",
+    "@angular/core": "^13.2.0"
   },
   "dependencies": {
-    "tslib": ">=2.x"
-  },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "dest": "../../dist/libs/imng-ngxb-typeahead",
-    "allowedNonPeerDependencies": [
-      "imng-kendo-odata",
-      "imng-nrsrx-client-utils"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
-  },
-  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
-  "license": "MIT",
-  "private": false,
-  "author": {
-    "name": "Isaac Martinez <@ikemtz>",
-    "url": "https://github.com/ikemtz"
+    "tslib": "^2.3.0"
   }
 }

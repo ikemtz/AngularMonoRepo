@@ -11,13 +11,13 @@ export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNulla
     }
     const result = Array.isArray(response)
       ? {
-          data: response,
-          total: response.length,
-        }
+        data: response,
+        total: response.length,
+      }
       : ({
-          data: response.value,
-          total: response['@odata.count'],
-        } as ODataResult<T>);
+        data: response.value,
+        total: response['@odata.count'],
+      } as ODataResult<T>);
     result.data = parseDatesInCollection(result.data, utcNullableProps, dateNullableProps);
     return result;
   });
@@ -49,7 +49,8 @@ export function parseDatesInCollection<T>(
       }
     });
 
-    collection.forEach((val: unknown) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    collection.forEach((val: any) => { //NOSONAR
       utcProps.filter((p) => val[p]).forEach((p) => (val[p] = new Date(val[p])));
       dateProps.filter((p) => val[p]).forEach((p) => (val[p] = toLocalDate(val[p])));
     });
@@ -69,7 +70,7 @@ export function getSubGridData<PARENT_ENTITY extends { id?: IdType }, SUB_ENTITY
   // tslint:disable-next-line: space-before-function-paren
   return function (source: Observable<ODataResult<PARENT_ENTITY>>): Observable<SUB_ENTITY[]> {
     return source.pipe(
-      map((t) => t.data.find((f) => f.id === id)),
+      map((t) => t.data.find((f) => f.id === id) as PARENT_ENTITY),
       map((entity: PARENT_ENTITY) => mappingFunction(entity)),
       filter((t) => !!t),
     );
@@ -83,7 +84,7 @@ export function getSubData<PARENT_ENTITY extends { id?: IdType }, SUB_ENTITY>(
   // tslint:disable-next-line: space-before-function-paren
   return function (source: Observable<Array<PARENT_ENTITY>>): Observable<SUB_ENTITY[]> {
     return source.pipe(
-      map((t) => t.find((f) => f.id === id)),
+      map((t) => t.find((f) => f.id === id) as PARENT_ENTITY),
       map((entity: PARENT_ENTITY) => mappingFunction(entity)),
       filter((t) => !!t),
     );

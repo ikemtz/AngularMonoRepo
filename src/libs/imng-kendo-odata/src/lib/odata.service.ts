@@ -10,12 +10,13 @@ import { FetchOptions } from './fetch-options';
 import { translateChildFilterExpression } from './translate-child-filter-expression';
 import { processChildFilterDescriptors } from './transform-child-filters';
 import { translateChildSortingExpression } from './translate-child-sorting-expression';
+import { ODataPayload } from './odata-payload';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ODataService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   public fetch<T>(odataEndpoint: string, state: ODataState, options: FetchOptions = {}): Observable<ODataResult<T>> {
     let tempState = { ...state };
@@ -26,14 +27,14 @@ export class ODataService {
       options.bustCache === true ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}` : '';
     const queryStr = `${this.getODataString(tempState)}${countClause}${cacheBustClause}`;
     return this.http
-      .get(`${odataEndpoint}?${queryStr}`)
+      .get<ODataPayload<T> | T[]>(`${odataEndpoint}?${queryStr}`)
       .pipe(mapToExtDataResult<T>(options.utcNullableProps || [], options.dateNullableProps || []));
   }
 
   public fetchByPrimaryKey<T>(odataEndpoint: string, id: string, state?: ODataState): Observable<T> {
     const request: ODataState = {
-      expanders: state.expanders,
-      selectors: state.selectors,
+      expanders: state?.expanders,
+      selectors: state?.selectors,
       filter: {
         logic: 'and',
         filters: [{ operator: 'eq', field: 'id', value: id }],
@@ -41,7 +42,7 @@ export class ODataService {
     };
 
     const queryStr = this.getODataString(request);
-    return this.http.get(`${odataEndpoint}?${queryStr}`).pipe(mapToExtDataResult<T>(), firstRecord<T>());
+    return this.http.get<ODataPayload<T> | T[]>(`${odataEndpoint}?${queryStr}`).pipe(mapToExtDataResult<T>(), firstRecord<T>());
   }
 
   public getODataString(state: ODataState): string {
@@ -57,7 +58,7 @@ export class ODataService {
     return queryString;
   }
 
-  public applyTransformations(state: ODataState, queryString): string {
+  public applyTransformations(state: ODataState, queryString: string): string {
     if (state.transformations) {
       queryString += `&$apply=${state.transformations}`;
     }
@@ -66,7 +67,7 @@ export class ODataService {
 
   public processDates(queryString: string): string {
     const dateRegex = /Date [e-t]{2} \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/g;
-    let m: RegExpExecArray;
+    let m: RegExpExecArray | null;
     const dateMatches: string[] = [];
     while ((m = dateRegex.exec(queryString)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
@@ -85,7 +86,7 @@ export class ODataService {
 
   public processGuids(queryString: string): string {
     const guidRegex = /'[\dA-F]{8}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{12}'/gi;
-    let m: RegExpExecArray;
+    let m: RegExpExecArray | null;
     const guidMatches: string[] = [];
     while ((m = guidRegex.exec(queryString)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
@@ -156,7 +157,15 @@ export class ODataService {
     state.inFilters.forEach((inFilter) => {
       const deDupedVals = Array.from(new Set(inFilter.values.filter((f) => f)));
       const inVals = deDupedVals
-        .map((m) => (isaNumber(m) ? `${m}` : isaDate(m) ? `${(m as Date).toISOString()}` : `'${m}'`))
+        .map((m) => {
+          if (isaNumber(m)) {
+            return `${m}`;
+          }
+          else if (isaDate(m)) {
+            return `${m.toISOString()}`;
+          }
+          return `'${m}'`;
+        })
         .join(',');
       const inFilterString = `(${inFilter.field} in (${inVals}))`;
       if (!queryString || queryString.trim().length === 0) {

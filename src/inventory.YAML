@@ -115,7 +115,7 @@ jobs:
 
       - task: Docker@2
         inputs:
-          containerRegistry: 'Azure Container Registry'
+          containerRegistry: 'Azure Container Registry (NgMono)'
           repository: 'inventory'
           command: 'buildAndPush'
           Dockerfile: 'src/inventory.local.Dockerfile'

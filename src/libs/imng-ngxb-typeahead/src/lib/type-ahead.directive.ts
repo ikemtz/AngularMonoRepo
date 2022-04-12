@@ -10,14 +10,19 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { TypeaheadDirective, TypeaheadConfig } from 'ngx-bootstrap/typeahead';
+import {
+  TypeaheadDirective,
+  TypeaheadConfig,
+  TypeaheadMatch,
+} from 'ngx-bootstrap/typeahead';
 import { ComponentLoaderFactory } from 'ngx-bootstrap/component-loader';
 import { ImngTypeAheadFacade } from './type-ahead-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-import { debounceTime, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 import { NgControl } from '@angular/forms';
 import { ImngTypeaheadMatch } from './type-ahead-match';
 import { ImngMatchSelectedEvent } from './match-selected-event';
+import { of } from 'rxjs';
 
 /*
  * ### Example markup
@@ -31,8 +36,10 @@ import { ImngMatchSelectedEvent } from './match-selected-event';
 @Directive({
   selector: '[imngTypeahead]',
 })
-export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnInit, OnDestroy, Subscribable {
-  private _typeAheadFacade: ImngTypeAheadFacade<T>;
+export class ImngTypeaheadDirective<T>
+  extends TypeaheadDirective
+  implements OnInit, OnDestroy, Subscribable {
+  private _typeAheadFacade?: ImngTypeAheadFacade<T>;
   public readonly allSubscriptions = new Subscriptions();
 
   constructor(
@@ -41,7 +48,7 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
     element: ElementRef,
     ngControl: NgControl,
     renderer: Renderer2,
-    viewContainerRef: ViewContainerRef,
+    viewContainerRef: ViewContainerRef
   ) {
     super(
       cis,
@@ -54,8 +61,11 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
       element,
       ngControl,
       renderer,
-      viewContainerRef,
+      viewContainerRef
     );
+    this.typeaheadOnSelect = new EventEmitter<
+      TypeaheadMatch | ImngMatchSelectedEvent<T>
+    >(false);
     this.typeaheadAsync = true;
 
     //These are default values to avoid overtaxing the data endpoint
@@ -68,25 +78,32 @@ export class ImngTypeaheadDirective<T> extends TypeaheadDirective implements OnI
     this.typeahead = typeAheadFacade.matches$;
     this._typeAheadFacade = typeAheadFacade;
   }
-  @Output()
-  typeaheadOnSelect: EventEmitter<ImngMatchSelectedEvent<T>>;
+  public override activeDescendant?: string;
 
-  public ngOnDestroy(): void {
+  @Output()
+  public override typeaheadOnSelect: EventEmitter<
+    ImngMatchSelectedEvent<T> | TypeaheadMatch
+  >;
+
+  public override ngOnDestroy(): void {
     super.ngOnDestroy();
     this.allSubscriptions.unsubscribeAll();
   }
 
-  protected asyncActions(): void {
+  protected override asyncActions(): void {
     this.allSubscriptions.push(
       this.keyUpEventEmitter
         .pipe(
           debounceTime(this.typeaheadWaitMs),
-          tap((t) => this._typeAheadFacade.loadMatches(t)),
-          switchMap(() => this._typeAheadFacade.matches$),
+          filter(() => !!this._typeAheadFacade),
+          tap((t) => this._typeAheadFacade?.loadMatches(t)),
+          switchMap(
+            () => (this._typeAheadFacade || { matches$: of() }).matches$
+          )
         )
         .subscribe((matches: ImngTypeaheadMatch<T>[]) => {
           this.finalizeAsyncCall(matches);
-        }),
+        })
     );
   }
 }

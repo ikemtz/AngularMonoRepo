@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChartODataBaseComponent } from './chart-odata-base.component';
-import { ChartODataMockFacade, createChartODataMockFacade } from '../../testing/src/chart-odata-mock-facade';
+import {
+  ChartODataMockFacade,
+  createChartODataMockFacade,
+} from '../../testing/src/lib/chart-odata-mock-facade';
 import { Component } from '@angular/core';
 
 describe('ChartODataBaseComponent', () => {
