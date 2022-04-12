@@ -2,10 +2,10 @@
 
 exports[`oidcConfigurator should handle falses 1`] = `
 Object {
-  "getUserMetadata": true,
+  "getUserMetadata": false,
   "oidc_config": Object {
     "authority": "auth",
-    "automaticSilentRenew": true,
+    "automaticSilentRenew": false,
     "client_id": "client",
     "extraQueryParams": Object {
       "audience": "aud",
@@ -17,7 +17,7 @@ Object {
     "scope": "openid profile offline_access email",
     "silent_redirect_uri": "origin/renew-callback.html",
   },
-  "useCallbackFlag": true,
+  "useCallbackFlag": false,
 }
 `;
 
