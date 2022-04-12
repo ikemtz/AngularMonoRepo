@@ -10,7 +10,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(@Inject(DOCUMENT) private readonly document: any, private readonly oidcFacade: OidcFacade) { }
+  constructor(@Inject(DOCUMENT) private readonly document: any, private readonly oidcFacade: OidcFacade) { } //NOSONAR
 
   public readonly isLoggedInPipe$ = this.oidcFacade.waitForAuthenticationLoaded().pipe(
     switchMap(() => this.oidcFacade.loggedIn$),
@@ -24,12 +24,12 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> { //NOSONAR
     return this.isLoggedInPipe$;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) //NOSONAR
     : Observable<boolean> {
     return this.isLoggedInPipe$;
   }

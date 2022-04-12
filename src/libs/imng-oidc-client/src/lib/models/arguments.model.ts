@@ -8,7 +8,7 @@ export interface RequestArugments {
   scope?: string;
   authority?: string;
   // optional
-  data?: any;
+  data?: any; //NOSONAR
   state?: string;
   prompt?: string;
   display?: string;
@@ -18,7 +18,7 @@ export interface RequestArugments {
   login_hint?: string;
   acr_values?: string;
   resource?: string;
-  request?: any;
+  request?: any; //NOSONAR
   request_uri?: string;
-  extraQueryParams?: any;
+  extraQueryParams?: any; //NOSONAR
 }

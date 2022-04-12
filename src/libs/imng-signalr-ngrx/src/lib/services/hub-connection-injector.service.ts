@@ -61,7 +61,7 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
         .withAutomaticReconnect()
         .build();
     }
-    return;
+    return; //NOSONAR
   }
 
   public ngOnDestroy(): void {

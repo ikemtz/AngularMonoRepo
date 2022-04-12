@@ -38,8 +38,7 @@ import { of } from 'rxjs';
 })
 export class ImngTypeaheadDirective<T>
   extends TypeaheadDirective
-  implements OnInit, OnDestroy, Subscribable
-{
+  implements OnInit, OnDestroy, Subscribable {
   private _typeAheadFacade?: ImngTypeAheadFacade<T>;
   public readonly allSubscriptions = new Subscriptions();
 

@@ -9,9 +9,9 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./messaging.component.scss'],
 })
 export class MessagingComponent implements OnInit, OnDestroy {
-  public lastMessage$?: Observable<ISignalrMessage<unknown> | undefined>;
+  public lastMessage$?: Observable<ISignalrMessage | undefined>;
   public subscriptions: Subscription[] = [];
-  constructor(private readonly signalrFacade: SignalrFacade) {}
+  constructor(private readonly signalrFacade: SignalrFacade) { }
 
   ngOnInit(): void {
     this.subscriptions.push(

@@ -71,7 +71,7 @@ const getAudiences = createSelector(
   (state: OidcState) => state.audiences
 );
 const getExpiresAt = createSelector(getOidcIdentity, (state?: IOidcUser) =>
-  state?.expires_at ? new Date(state.expires_at * 1000) : null
+  state?.expires_at ? new Date(state.expires_at * 1000) : null //NOSONAR
 );
 const getUserMetadata = createSelector(
   selectOidcState,

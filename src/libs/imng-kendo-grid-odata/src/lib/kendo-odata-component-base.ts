@@ -28,8 +28,7 @@ const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 export abstract class KendoODataComponentBase<
   ENTITY,
   FACADE extends IKendoODataGridFacade<ENTITY>
-> implements OnInit, OnDestroy, Subscribable
-{
+  > implements OnInit, OnDestroy, Subscribable {
   public readonly allSubscriptions = new Subscriptions();
   /**
    * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
@@ -61,17 +60,17 @@ export abstract class KendoODataComponentBase<
   ) {
     if (
       this.router?.routerState?.snapshot?.root.queryParams[
-        this.gridStateQueryKey
+      this.gridStateQueryKey
       ]
     ) {
       try {
         this.gridDataState = this.deserializeODataState(
           this.router?.routerState?.snapshot?.root?.queryParams[
-            this.gridStateQueryKey
+          this.gridStateQueryKey
           ]
         );
       } catch (e) {
-        console.error(
+        console.error( //NOSONAR
           `Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`
         );
       }
@@ -87,10 +86,10 @@ export abstract class KendoODataComponentBase<
     } else {
       this.gridDataState = this.gridDataState
         ? {
-            ...this.gridDataState,
-            selectors: state.selectors,
-            expanders: state.expanders,
-          }
+          ...this.gridDataState,
+          selectors: state.selectors,
+          expanders: state.expanders,
+        }
         : state;
       this.expanders = state.expanders;
       this.transformations = state.transformations;

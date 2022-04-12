@@ -158,8 +158,12 @@ export class ODataService {
       const deDupedVals = Array.from(new Set(inFilter.values.filter((f) => f)));
       const inVals = deDupedVals
         .map((m) => {
-          if (isaNumber(m)) { return `${m}`; }
-          if (isaDate(m)) { return `${m.toISOString()}`; }
+          if (isaNumber(m)) {
+            return `${m}`;
+          }
+          else if (isaDate(m)) {
+            return `${m.toISOString()}`;
+          }
           return `'${m}'`;
         })
         .join(',');

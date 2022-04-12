@@ -55,7 +55,7 @@ export class OidcService {
 
   public getUserMetadata(): Observable<unknown> {
     return this.httpClient
-      .get<{ userinfo_endpoint: string }>(
+      .get<{ userinfo_endpoint: string; }>(
         this.oidcLibraryConfig.oidc_config?.metadataUrl || ''
       )
       .pipe(
@@ -143,34 +143,34 @@ export class OidcService {
     }
   }
 
-  signInPopup(args?: any): Observable<IOidcUser> {
+  signInPopup(args?: any): Observable<IOidcUser> { //NOSONAR
     this.setCallbackInformation(true);
 
     return from(this.OidcUserManager.signinPopup({ ...args }));
   }
 
-  signInRedirect(args?: any): Observable<void> {
+  signInRedirect(args?: any): Observable<void> { //NOSONAR
     this.setCallbackInformation(false);
 
     return from(this.OidcUserManager.signinRedirect({ ...args }));
   }
 
-  signOutPopup(args?: any): Observable<any> {
+  signOutPopup(args?: any): Observable<any> { //NOSONAR
     this.setCallbackInformation(true);
 
     return from(this.OidcUserManager.signoutPopup({ ...args }));
   }
 
-  signOutRedirect(args?: any): Observable<any> {
+  signOutRedirect(args?: any): Observable<any> { //NOSONAR
     this.setCallbackInformation(false);
     return from(this.OidcUserManager.signoutRedirect({ ...args }));
   }
 
-  signInSilent(args?: any): Observable<IOidcUser> {
+  signInSilent(args?: any): Observable<IOidcUser> { //NOSONAR
     return from(this.OidcUserManager.signinSilent({ ...args }));
   }
 
-  signinPopupCallback(): Observable<any> {
+  signinPopupCallback(): Observable<any> { //NOSONAR
     return from(this.OidcUserManager.signinPopupCallback());
   }
 
@@ -182,15 +182,15 @@ export class OidcService {
     return from(this.OidcUserManager.signoutPopupCallback());
   }
 
-  signoutRedirectCallback(): Observable<any> {
+  signoutRedirectCallback(): Observable<any> { //NOSONAR
     return from(this.OidcUserManager.signoutRedirectCallback());
   }
 
-  getSigninUrl(args?: any): Observable<SigninRequest> {
+  getSigninUrl(args?: any): Observable<SigninRequest> { //NOSONAR
     return from(this.OidcUserManager.createSigninRequest(args));
   }
 
-  getSignoutUrl(args?: any): Observable<SignoutRequest> {
+  getSignoutUrl(args?: any): Observable<SignoutRequest> { //NOSONAR
     return from(this.OidcUserManager.createSignoutRequest(args));
   }
 

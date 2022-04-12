@@ -37,7 +37,7 @@ import { map } from 'rxjs/operators';
   </div> `,
 })
 export class SupportComponent {
-  public profileValue$: Observable<{ key: string; value: string }[]>;
+  public profileValue$: Observable<{ key: string; value: string; }[]>;
   constructor(
     public readonly facade: OidcFacade,
     public readonly oidcUserFacade: OidcUserFacade
@@ -47,7 +47,7 @@ export class SupportComponent {
         Object.keys(x).map((propertyKey) => ({
           key: propertyKey,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          value: (x as any)[propertyKey],
+          value: (x as any)[propertyKey], //NOSONAR
         }))
       )
     );

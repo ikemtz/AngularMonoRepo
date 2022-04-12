@@ -25,7 +25,7 @@ export class TokenInterceptorService implements HttpInterceptor {
             if (err instanceof HttpErrorResponse) {
               this.store.dispatch(oidcActions.setHttpError(err));
             }
-            return throwError(err);
+            return throwError(() => err);
           }));
       }
       ));
