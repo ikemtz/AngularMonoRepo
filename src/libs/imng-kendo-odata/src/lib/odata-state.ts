@@ -15,7 +15,7 @@ export interface Computation {
   fieldA: string | number;
   /** This can also be a static value */
   fieldB: string | number;
-  operator: 'mul' | 'div' | 'add' | 'sub' | 'mod' | string;
+  operator: 'mul' | 'div' | 'add' | 'sub' | 'mod' | string; //NOSONAR
   /** This MUST differ from the names of declared or dynamic properties of the identified resources. */
   alias: string;
 }

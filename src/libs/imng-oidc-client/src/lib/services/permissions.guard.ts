@@ -14,15 +14,15 @@ export abstract class PermissionsGuard implements CanActivate {
     private readonly oidcFacade: OidcFacade,
     private readonly oidcUserFacade: OidcUserFacade,
     private readonly router: Router
-  ) {}
+  ) { }
 
   protected abstract permissions: string[];
 
   public canActivate(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    route: ActivatedRouteSnapshot,
+    route: ActivatedRouteSnapshot, //NOSONAR
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot //NOSONAR
   ): Observable<boolean> | boolean {
     return this.oidcFacade.waitForAuthenticationLoaded().pipe(
       switchMap(() => this.oidcUserFacade.hasPermissions(this.permissions)),

@@ -1,6 +1,6 @@
 {
   "name": "imng-signalr-ngrx",
-  "version": "0.0.1",  
+  "version": "0.0.1",
   "keywords": [
     "Angular",
     "Signalr",
@@ -9,7 +9,11 @@
   "peerDependencies": {
     "@angular/common": ">=13.x",
     "@angular/core": ">=13.x",
-    "@microsoft/signalr": ">=6.x"
+    "@microsoft/signalr": ">=6.x",
+    "@ngrx/store": ">=13.x",
+    "@ngrx/effects": ">=13.x",
+    "imng-ngrx-utils": "*",
+    "imng-oidc-client": "*"
   },
   "dependencies": {
     "tslib": "^2.3.0"
