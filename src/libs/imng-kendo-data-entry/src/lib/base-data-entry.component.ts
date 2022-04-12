@@ -1,10 +1,18 @@
-import { Directive, Inject, InjectionToken, Input, OnDestroy } from '@angular/core';
+import {
+  Directive,
+  Inject,
+  InjectionToken,
+  Input,
+  OnDestroy,
+} from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
-const FACADE = new InjectionToken<IBaseDataEntryFacade>('imng-data-entry-facade');
+const FACADE = new InjectionToken<IBaseDataEntryFacade>(
+  'imng-data-entry-facade'
+);
 
 /**
  * The extending class has to implement the following properties on ngInit
@@ -19,27 +27,31 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>('imng-data-entry-facade'
  * @class BaseDataEntryComponent>
  */
 @Directive()
-export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade> implements OnDestroy, Subscribable {
-  @Input() public width: string | number;
-  @Input() public height: string | number;
+export abstract class BaseDataEntryComponent<
+  FACADE extends IBaseDataEntryFacade
+  > implements OnDestroy, Subscribable {
+  @Input() public width: string | number = 800; //NOSONAR
+  @Input() public height: string | number = 600; //NOSONAR
 
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract props: any;
-  public addEditForm: FormGroup;
+  public addEditForm?: FormGroup;
   public loading$: Observable<boolean>;
-  private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(
+    false as boolean
+  );
 
   public get submitted$(): Observable<boolean> {
     return this._submitted$.asObservable();
   }
   // convenience getter for easy access to form fields
-  public formControl(controlName: string): AbstractControl {
-    return this.addEditForm.controls[controlName];
+  public formControl(controlName: string): AbstractControl | undefined {
+    return this.addEditForm?.controls[controlName];
   }
-  public formControlErrors(controlName: string): ValidationErrors {
-    return this.addEditForm.controls[controlName].errors;
+  public formControlErrors(controlName: string): ValidationErrors | undefined {
+    return this.addEditForm?.controls[controlName].errors || undefined;
   }
   constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
@@ -65,15 +77,15 @@ export abstract class BaseDataEntryComponent<FACADE extends IBaseDataEntryFacade
 
     // stop here if form is invalid
     if (this.isDataInvalid()) {
-      console.log('form validation errors.');
+      console.error('form validation errors.'); //NOSONAR
       return;
     }
     this.save();
     this.closeForm();
   }
 
-  public isDataInvalid(): boolean {
-    return this.addEditForm.invalid;
+  public isDataInvalid(): boolean | undefined {
+    return this.addEditForm?.invalid;
   }
 
   public abstract initForm(): void;

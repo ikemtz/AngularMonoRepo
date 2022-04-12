@@ -51,7 +51,7 @@ describe('CheckboxFilterComponent', () => {
     expect(component.currentData).toStrictEqual(['💩']);
   });
   it('onSelectionChange should work', () => {
-    component.onSelectionChange('🎂', { parentNode: {} });
+    component.onSelectionChange('🎂', { parentNode: {} } as never);
     expect(component.value).toStrictEqual(['💩', '🎂']);
     expect(filterService.filter).toBeCalledTimes(1);
     expect(filterService.filter).toBeCalledWith({
@@ -68,7 +68,7 @@ describe('CheckboxFilterComponent', () => {
     });
   });
   it('onSelectionChange should clear filter', () => {
-    component.onSelectionChange('💩', { parentNode: {} });
+    component.onSelectionChange('💩', { parentNode: {} } as never);
     expect(component.value).toStrictEqual([]);
     expect(filterService.filter).toBeCalledTimes(1);
     expect(filterService.filter).toBeCalledWith({

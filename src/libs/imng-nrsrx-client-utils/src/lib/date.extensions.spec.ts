@@ -7,7 +7,7 @@ describe('toShortDateString', () => {
     expect(toShortDateString(dt)).toBe('01/01/2020');
   });
   it('to handle undefined', () => {
-    expect(toShortDateString(undefined)).toBe(undefined);
+    expect(toShortDateString(undefined as unknown as Date)).toBe(undefined);
   });
 });
 

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ImngDataEntryDialogModule } from './data-entry.module';
+import { ImngDataEntryDialogModule } from './imng-kendo-data-entry.module';
 
 describe('ImngDataEntryDialogModule', () => {
   beforeEach(() => {

@@ -1,0 +1,28 @@
+{
+  "root": "apps/imng-inventory-e2e",
+  "sourceRoot": "apps/imng-inventory-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/imng-inventory-e2e/cypress.json",
+        "devServerTarget": "imng-inventory:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "imng-inventory:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/imng-inventory-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["imng-inventory"]
+}
