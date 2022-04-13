@@ -38,7 +38,7 @@ describe('<%= classify(name) %>AddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm.patchValue({
+    component.addEditForm?.patchValue({
 <% swaggerProperties.forEach(function(swaggerProperty)
  {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
 <% }) %>    });

@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { DialogModule } from '@progress/kendo-angular-dialog';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +26,7 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     ExcelModule,
     PDFModule,
     DialogModule,
+    ImngKendoGridModule,
     ImngKendoGridODataModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,

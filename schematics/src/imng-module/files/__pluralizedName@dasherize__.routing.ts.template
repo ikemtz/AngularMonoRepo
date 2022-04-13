@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'imng-auth0-oidc';<% if (openApiJsonUrl || openApiJsonFileName) { %>
+import { AuthGuard } from 'imng-oidc-client';<% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ListComponent } from './<%= dasherize(pluralizedName) %>-list';
 <% } %>
 

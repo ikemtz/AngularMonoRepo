@@ -43,7 +43,7 @@ const <%= camelize(pluralizedName) %>Reducer = createReducer(
   })),
 
   on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>, (state, { payload }) => ({ ...state, current<%= classify(singularizedName) %>: payload })),
-  on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>, state => ({ ...state, current<%= classify(singularizedName) %>: null })),
+  on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>, state => ({ ...state, current<%= classify(singularizedName) %>: undefined })),
   on(
     <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request,
     <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request,

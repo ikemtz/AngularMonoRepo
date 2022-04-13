@@ -32,11 +32,11 @@ export abstract class BaseDataEntryComponent<
   > implements OnDestroy, Subscribable {
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
-
+  public readonly RequiredError = "Required";
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
   public abstract props: unknown;
-  public addEditForm?: FormGroup;
+  public addEditForm: FormGroup = new FormGroup({});
   public loading$: Observable<boolean>;
   private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(
     false as boolean
@@ -49,8 +49,8 @@ export abstract class BaseDataEntryComponent<
   public formControl(controlName: string): AbstractControl | undefined {
     return this.addEditForm?.controls[controlName];
   }
-  public formControlErrors(controlName: string): ValidationErrors | undefined {
-    return this.addEditForm?.controls[controlName].errors || undefined;
+  public formControlErrors(controlName: string): ValidationErrors | null {
+    return this.addEditForm.controls[controlName].errors;
   }
   constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
