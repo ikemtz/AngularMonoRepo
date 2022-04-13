@@ -24,5 +24,5 @@ export async function testOdataMatches<
   facade.loadMatches('🎂 🍩 😡');
   expect(oDataService.fetch).toBeCalledTimes(1);
   const matches = await readFirst(facade.matches$);
-  expect(matches.length).toEqual(1);
+  expect(matches?.length).toEqual(1);
 }
