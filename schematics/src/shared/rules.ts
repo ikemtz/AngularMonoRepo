@@ -10,17 +10,17 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import { strings, normalize } from '@angular-devkit/core';
-import fetch from 'node-fetch';
+import axios from 'axios';
 import { PropertyInfo, OpenApiComponent } from './open-api-component';
 import * as pluralize from 'pluralize';
 import { Observable, from, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { IOptions } from './options';
 import _ = require('lodash');
 import * as fs from 'fs';
-import * as findUp from 'find-up';
 import * as https from 'https';
 import * as http from 'http';
+import * as findUp from 'find-up';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
@@ -40,13 +40,13 @@ export function getSwaggerDoc(options: IOptions): Rule {
       const httpsAgent = options.openApiJsonUrl.toLowerCase().startsWith("https") ? new https.Agent({
         rejectUnauthorized: false,
       }) : new http.Agent();
-      jsonDoc = from(fetch(options.openApiJsonUrl, {
-        agent: httpsAgent
-      })).pipe(
-        switchMap(resp => from(resp.json())));
+      jsonDoc = from(axios.get(options.openApiJsonUrl, {
+        httpsAgent: httpsAgent
+      })).pipe(map(m => m.data));
     }
     if (jsonDoc) {
-      return jsonDoc.pipe(map(data => processOpenApiDoc(data, options, host)));
+      return jsonDoc.pipe(map(data => 
+        processOpenApiDoc(data, options, host)));
     }
     return of(host);
 

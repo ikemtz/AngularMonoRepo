@@ -1,9 +1,9 @@
-import { first, firstValueFrom, lastValueFrom, Observable, toArray } from 'rxjs';
+import { first, Observable, toArray } from 'rxjs';
 
-export function readFirst<T>(o: Observable<T>): Promise<T> {
-  return firstValueFrom(o.pipe(first()));
+export function readFirst<T>(o: Observable<T>): Promise<T | undefined> {
+  return o.pipe(first()).toPromise(); //NOSONAR
 }
 
-export function readAll<T>(o: Observable<T>): Promise<T[]> {
-  return lastValueFrom(o.pipe(toArray()));
+export function readAll<T>(o: Observable<T>): Promise<T[] | undefined> {
+  return o.pipe(toArray()).toPromise(); //NOSONAR
 }
