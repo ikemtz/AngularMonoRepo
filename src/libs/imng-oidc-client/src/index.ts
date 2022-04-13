@@ -4,7 +4,7 @@ export { OidcUserSelectors } from './lib/+state/oidc-user.selectors';
 export * from './lib/+state/oidc.actions';
 export * from './lib/+state/oidc.effects';
 export * from './lib/+state/oidc.facade';
-export { OidcState, ErrorState, oidcReducer } from './lib/+state/oidc.reducer';
+export { OidcState, ErrorState, oidcFeature } from './lib/+state/oidc.reducer';
 export { oidcQuery } from './lib/+state/oidc.selectors';
 export * from './lib/models/arguments.model';
 export {
