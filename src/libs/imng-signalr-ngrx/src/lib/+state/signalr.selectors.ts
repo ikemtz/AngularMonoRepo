@@ -1,16 +1,12 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { SIGNALR_FEATURE_KEY, State } from './signalr.reducer';
+import { signalrFeature } from './signalr.reducer';
 
-export const getSignalrState = createFeatureSelector<State>(SIGNALR_FEATURE_KEY);
+export const getReceivedMessages = signalrFeature.selectReceivedMessages;
 
-export const getReceivedMessages = createSelector(getSignalrState, (state: State) => state.receivedMessages);
+export const getLastReceivedMessage = signalrFeature.selectLastReceivedMessage;
 
-export const getLastReceivedMessage = createSelector(getSignalrState, (state: State) => state.lastReceivedMessage);
-
-export const getIsConnected = createSelector(getSignalrState, (state: State) => state.isConnected);
+export const getIsConnected = signalrFeature.selectIsConnected;
 
 export const signalrSelectors = {
-  getSignalrState,
   getReceivedMessages,
   getLastReceivedMessage,
   getIsConnected,

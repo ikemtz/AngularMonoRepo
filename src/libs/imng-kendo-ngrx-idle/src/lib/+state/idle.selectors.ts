@@ -1,12 +1,6 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { IdleState, IDLE_FEATURE_KEY } from './idle.reducer';
+import { idleFeature } from './idle.reducer';
 
-export const selectIdleState = createFeatureSelector<IdleState>(
-  IDLE_FEATURE_KEY
-);
+const getIsTimingOut = idleFeature.selectIsTimingOut;
 
-const selectState = createFeatureSelector<IdleState>(IDLE_FEATURE_KEY);
-const getIsTimingOut = createSelector(selectState, (state: IdleState) => state.isTimingOut);
-
-const getTimeoutSpanInMs = createSelector(selectState, (state: IdleState) => state.timeoutSpanInMs);
+const getTimeoutSpanInMs = idleFeature.selectIsTimingOut;
 export const idleQuery = { getIsTimingOut, getTimeoutSpanInMs };
