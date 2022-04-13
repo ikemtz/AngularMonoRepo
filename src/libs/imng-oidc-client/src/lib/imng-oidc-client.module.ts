@@ -10,7 +10,7 @@ import { OidcEffects } from './+state/oidc.effects';
 import { OidcService } from './services/oidc.service';
 import { OidcFacade } from './+state/oidc.facade';
 import { StoreModule, Store } from '@ngrx/store';
-import { oidcReducer, OIDC_FEATURE_KEY } from './+state/oidc.reducer';
+import { oidcFeature } from './+state/oidc.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { OidcUserFacade } from './+state/oidc-user.facade';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -30,7 +30,7 @@ import { OIDC_LIBRARY_CONFIG } from './models/oidc-library-config';
   imports: [
     CommonModule,
     HttpClientModule,
-    StoreModule.forFeature(OIDC_FEATURE_KEY, oidcReducer),
+    StoreModule.forFeature(oidcFeature),
     EffectsModule.forFeature([OidcEffects]),
     ImngOidcClientRoutingModule,
   ],
