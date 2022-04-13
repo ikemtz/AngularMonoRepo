@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "jest --coverage --env=node",
+    "snyk-test" : "snyk test",
     "lint": "eslint ./src --ext .ts",
     "preinstall": "npx npm-force-resolutions",
     "postbuild": "bash package.sh",
@@ -49,7 +50,7 @@
     "jest-junit": "^13.1.0",
     "npm-force-resolutions": "^0.0.10",
     "schematics": "^0.2.0",
-    "snyk": "^1.904.0",
+    "snyk": "^1.905.0",
     "ts-jest": "^27.1.4",
     "typescript": "^4.4.4"
   }

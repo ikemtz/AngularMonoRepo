@@ -11,8 +11,8 @@ import { OidcEffects } from './oidc.effects';
 import {
   OidcState,
   initialState,
-  oidcReducer,
-  OIDC_FEATURE_KEY,
+  oidcFeature,
+  OIDC_FEATURE_KEY
 } from './oidc.reducer';
 import * as oidcActions from './oidc.actions';
 import { OidcService } from '../services/oidc.service';
@@ -41,9 +41,7 @@ describe('OidcFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(OIDC_FEATURE_KEY, oidcReducer, {
-            initialState,
-          }),
+          StoreModule.forFeature(oidcFeature),
           EffectsModule.forFeature([OidcEffects]),
         ],
         providers: [
@@ -65,7 +63,7 @@ describe('OidcFacade', () => {
           { provide: Router, useValue: { navigateByUrl: jest.fn() } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -75,7 +73,7 @@ describe('OidcFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
