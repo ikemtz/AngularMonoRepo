@@ -17,14 +17,16 @@ export class <%= classify(name) %>EditComponent extends <%= classify(name) %>Bas
   constructor(facade: <%= classify(name) %>CrudFacade) {
     super(facade);
   }
-  public initForm(): void {
+  public override initForm(): void {
     super.initForm();
-    this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
+    if (this.addEditForm) {
+      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
+    }
   }
 
   public save(): void {
-    if (this.addEditForm.valid) {
-      const val: I<%= classify(name) %> = this.addEditForm.value;
+    if (this.addEditForm?.valid) {
+      const val: I<%= classify(name) %> = this.addEditForm?.value;
       this.facade.updateExistingEntity(val);
     }
   }
