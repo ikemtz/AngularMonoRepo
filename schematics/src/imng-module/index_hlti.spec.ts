@@ -1,3 +1,6 @@
+/**
+* @jest-environment node
+*/
 import { Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
