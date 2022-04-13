@@ -13,8 +13,7 @@ import { SignalrFacade } from './signalr.facade';
 import {
   SIGNALR_FEATURE_KEY,
   State,
-  initialState,
-  signalrReducer,
+  signalrFeature,
 } from './signalr.reducer';
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
 import { SIGNALR_CONFIG } from '../models/signalr.configuration';
@@ -23,7 +22,7 @@ import { OidcFacade } from 'imng-oidc-client';
 import { of } from 'rxjs';
 
 export interface TestSchema {
-  signalr: State;
+  [SIGNALR_FEATURE_KEY]: State;
 }
 
 describe('SignalrFacade', () => {
@@ -35,9 +34,7 @@ describe('SignalrFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer, {
-            initialState,
-          }),
+          StoreModule.forFeature(signalrFeature),
           EffectsModule.forFeature([SignalrEffects]),
         ],
         providers: [
@@ -65,7 +62,7 @@ describe('SignalrFacade', () => {
           SignalrFacade,
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -75,7 +72,7 @@ describe('SignalrFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);

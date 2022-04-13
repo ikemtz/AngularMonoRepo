@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { signalrReducer, SIGNALR_FEATURE_KEY } from './+state/signalr.reducer';
+import { signalrFeature } from './+state/signalr.reducer';
 import { SignalrEffects } from './+state/signalr.effects';
 import { SignalrFacade } from './+state/signalr.facade';
 import {
@@ -15,7 +15,7 @@ import { ImngOidcClientModule } from 'imng-oidc-client';
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature(SIGNALR_FEATURE_KEY, signalrReducer),
+    StoreModule.forFeature(signalrFeature),
     EffectsModule.forFeature([SignalrEffects]),
     ImngOidcClientModule,
   ],

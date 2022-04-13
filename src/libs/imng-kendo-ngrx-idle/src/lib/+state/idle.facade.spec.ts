@@ -5,7 +5,7 @@ import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 
-import { IdleState, IDLE_FEATURE_KEY, idleReducer, initialState } from './idle.reducer';
+import { IdleState, IDLE_FEATURE_KEY, idleFeature } from './idle.reducer';
 import { IdleFacade } from './idle.facade';
 import { IdleEffects } from './idle.effects';
 import { IDLE_CONFIG } from '../idle-config';
@@ -22,7 +22,7 @@ describe('IdleFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(IDLE_FEATURE_KEY, idleReducer, { initialState }),
+          StoreModule.forFeature(idleFeature),
           EffectsModule.forFeature([IdleEffects]),
         ],
         providers: [IdleFacade,
