@@ -1,48 +1,26 @@
-import {
-  createFeatureSelector,
-  createSelector,
-  MemoizedSelector,
-} from '@ngrx/store';
-import { ErrorState, OidcState } from './oidc.reducer';
+import { createSelector } from '@ngrx/store';
+import { ErrorState, oidcFeature } from './oidc.reducer';
 import { IOidcUser } from '../models/oidc-user';
 // State Selectors
 
-const selectOidcState = createFeatureSelector<OidcState>('oidc');
-const getOidcLoading = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.loading
-);
-const getOidcIdentity = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.identity
-);
+const getOidcLoading = oidcFeature.selectLoading;
+const getOidcIdentity = oidcFeature.selectIdentity;
 const getAccessToken = createSelector(
-  getOidcIdentity,
+  oidcFeature.selectIdentity,
   (user?: IOidcUser) => (user || { access_token: undefined }).access_token
 );
-const isIdentityExpiring = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.expiring
-);
+const isIdentityExpiring = oidcFeature.selectExpiring;
 
-const isIdentityExpired = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.expired
-);
-const isLoggedIn = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.loggedIn
-);
+const isIdentityExpired = oidcFeature.selectExpired;
+const isLoggedIn = oidcFeature.selectLoggedIn;
 
 // errors
-// eslint-disable-next-line @typescript-eslint/ban-types
-const selectOidcErrorState: MemoizedSelector<{}, ErrorState> = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.errors
+const selectOidcErrorState = createSelector(
+  oidcFeature.selectErrors,
+  (errors) => errors
 );
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-const hasErrors: MemoizedSelector<{}, boolean> = createSelector(
+const hasErrors = createSelector(
   selectOidcErrorState,
   (state: ErrorState) =>
     !!state.httpError || !!state.signInError || !!state.silentRenewError
@@ -62,26 +40,17 @@ const getHttpError = createSelector(
   selectOidcErrorState,
   (errors: ErrorState) => errors.httpError
 );
-const getPermissions = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.permissions
-);
-const getAudiences = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.audiences
-);
+const getPermissions = oidcFeature.selectPermissions;
+const getAudiences = oidcFeature.selectAudiences;
+
 const getExpiresAt = createSelector(getOidcIdentity, (state?: IOidcUser) =>
   state?.expires_at ? new Date(state.expires_at * 1000) : null //NOSONAR
 );
-const getUserMetadata = createSelector(
-  selectOidcState,
-  (state: OidcState) => state.userMetadata
-);
+const getUserMetadata = oidcFeature.selectUserMetadata;
 
 export const oidcQuery = {
   getExpiresAt,
   getPermissions,
-  selectOidcState,
   getOidcLoading,
   getOidcIdentity,
   getAccessToken,
