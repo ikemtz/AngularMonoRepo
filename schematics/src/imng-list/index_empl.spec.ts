@@ -5,7 +5,7 @@ import {
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import { classify } from '@angular-devkit/core/src/utils/strings';
 import * as pluralize from 'pluralize';
 

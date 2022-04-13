@@ -5,7 +5,7 @@ import {
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import * as pluralize from 'pluralize';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
