@@ -16,13 +16,13 @@ export class <%= classify(name) %>AddComponent extends <%= classify(name) %>Base
   constructor(facade: <%= classify(name) %>CrudFacade) {
     super(facade);
   }
-  public initForm(): void {
+  public override initForm(): void {
     super.initForm();
-    this.addEditForm.patchValue({});
+    this.addEditForm?.patchValue({});
   }
 
   public save(): void {
-    if (this.addEditForm.valid) {
+    if (this.addEditForm?.valid) {
       const val: I<%= classify(name) %> = this.addEditForm.value;
       val.id = undefined;
       this.facade.saveNewEntity(val);

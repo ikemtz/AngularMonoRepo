@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class <%= classify(name) %>ApiService extends NrsrxBaseApiClientService<I<%= classify(name) %>> {
-  public url = environment.endPoints.<%= camelize(pluralizedStoreName) %>.<%= camelize(pluralizedStoreName) %>Api;
+  public override url = environment.endPoints.<%= camelize(pluralizedStoreName) %>.<%= camelize(pluralizedStoreName) %>Api;
   constructor(http: HttpClient) {
     super(http);
   }

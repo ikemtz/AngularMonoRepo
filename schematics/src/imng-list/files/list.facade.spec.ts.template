@@ -8,7 +8,6 @@ import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
-import { environment } from '@env';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';

@@ -3,7 +3,6 @@ import { createEffect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
 import { ODataService } from 'imng-kendo-odata';
 import { map } from 'rxjs/operators';
-import { environment } from '@env';
 
 import * as from<%= classify(pluralizedName) %>Reducer from './<%= dasherize(singularizedName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
