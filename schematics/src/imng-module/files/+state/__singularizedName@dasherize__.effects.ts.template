@@ -11,14 +11,16 @@ import { environment } from '../../../../environments/environment';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-crud';
 <% } %>
+
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
     private store: Store<State>,
-    private readonly <%= camelize(singularizedName) %>ApiService : <%= classify(singularizedName) %>ApiService, <% } %>
+    private readonly <%= camelize(singularizedName) %>ApiService : <%= classify(singularizedName) %>ApiService,
   ) {}
+
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
   load<%= classify(pluralizedName) %>Effect$ = createEffect(() =>
    this.actions$.pipe(

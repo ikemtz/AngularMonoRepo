@@ -23,7 +23,11 @@
             "output": "/"
           }
         ],
-        "styles": ["apps/adventure-works/src/styles.scss"],
+        "styles": [
+          {
+            "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+          },
+          "apps/adventure-works/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
