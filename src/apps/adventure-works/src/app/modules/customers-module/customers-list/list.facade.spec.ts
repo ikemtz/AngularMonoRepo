@@ -81,7 +81,7 @@ describe('CustomerListFacade', () => {
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('customers-odata/odata/v1/Customers?&$count=true');
+      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/Customers?&$count=true');
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);

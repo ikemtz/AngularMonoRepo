@@ -1,11 +1,10 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CustomerListComponent } from './list.component';
-import { GridModule, GridComponent, DetailExpandEvent } from '@progress/kendo-angular-grid';
+import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 import { createCustomer } from './list.facade.spec';
 import { CustomerListFacade } from './list.facade';
@@ -19,8 +18,8 @@ describe('CustomerListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomerListComponent ],
-      imports: [ GridModule, RouterTestingModule ],
+      declarations: [CustomerListComponent],
+      imports: [RouterTestingModule],
       providers: [
         { provide: CustomerListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() },
@@ -46,15 +45,14 @@ describe('CustomerListComponent', () => {
   });
 
   test('it should handle DetailExpanded', () => {
-    const grid = fixture.debugElement.query(By.directive(GridComponent));
-    const item = createCustomer();
-    grid.triggerEventHandler('detailExpand', { dataItem: item } as DetailExpandEvent);
-    expect(component.currentItem).toEqual(item);
+    const dataItem = createCustomer();
+    component.detailExpanded({ dataItem } as never);
+    expect(component.currentItem).toEqual(dataItem);
   });
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1); 
+    expect(listFacade.reloadEntities).toBeCalledTimes(1);
   });
 
   test('it should handle AddItem', () => {
@@ -62,7 +60,7 @@ describe('CustomerListComponent', () => {
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith({});
   });
-  
+
   test('it should handle EditItem', () => {
     const item = createCustomer();
     component.editItem(item);
