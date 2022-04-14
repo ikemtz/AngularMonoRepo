@@ -5,6 +5,7 @@ MockGridComponent {
   "columnVisibilityChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -17,6 +18,7 @@ MockGridComponent {
   "dataStateChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -25,6 +27,7 @@ MockGridComponent {
   "filterChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -36,6 +39,7 @@ MockGridComponent {
   "pageChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -46,6 +50,7 @@ MockGridComponent {
   "sortChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -63,6 +68,7 @@ MockGridComponent {
   "columnVisibilityChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -72,24 +78,27 @@ MockGridComponent {
   "dataStateChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [
       SafeSubscriber {
-        "_parentage": null,
-        "_teardowns": Array [
+        "_finalizers": Array [
           Subscription {
+            "_finalizers": null,
             "_parentage": [Circular],
-            "_teardowns": null,
             "closed": false,
             "initialTeardown": [Function],
           },
         ],
+        "_parentage": null,
         "closed": false,
-        "destination": Object {
-          "complete": [Function],
-          "error": [Function],
-          "next": [Function],
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": [Function],
+            "next": [Function],
+          },
         },
         "initialTeardown": undefined,
         "isStopped": false,
@@ -104,6 +113,7 @@ MockGridComponent {
   "filterChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -115,6 +125,7 @@ MockGridComponent {
   "pageChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -129,6 +140,7 @@ MockGridComponent {
   "sortChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -146,6 +158,7 @@ MockGridComponent {
   "columnVisibilityChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -158,6 +171,7 @@ MockGridComponent {
   "dataStateChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -166,6 +180,7 @@ MockGridComponent {
   "filterChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -177,6 +192,7 @@ MockGridComponent {
   "pageChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],
@@ -187,6 +203,7 @@ MockGridComponent {
   "sortChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
+    "currentObservers": null,
     "hasError": false,
     "isStopped": false,
     "observers": Array [],

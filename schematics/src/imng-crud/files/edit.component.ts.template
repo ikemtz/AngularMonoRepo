@@ -25,8 +25,8 @@ export class <%= classify(name) %>EditComponent extends <%= classify(name) %>Bas
   }
 
   public save(): void {
-    if (this.addEditForm?.valid) {
-      const val: I<%= classify(name) %> = this.addEditForm?.value;
+    if (this.addEditForm.valid) {
+      const val: I<%= classify(name) %> = this.addEditForm.value;
       this.facade.updateExistingEntity(val);
     }
   }
