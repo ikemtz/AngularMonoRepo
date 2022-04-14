@@ -15,8 +15,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import {
-  <%= classify(pluralizedStoreName) %>PartialState, 
-  reducer as <%= camelize(storeName) %>Reducer,
+  <%= classify(pluralizedStoreName) %>PartialState,
   <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY,
   <%= camelize(pluralizedStoreName) %>Feature,
 } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
@@ -45,7 +44,7 @@ describe('<%= classify(name) %>CrudFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(camelize(pluralizedStoreName) %>Feature),
+          StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
           EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
           HttpClientTestingModule,
         ],

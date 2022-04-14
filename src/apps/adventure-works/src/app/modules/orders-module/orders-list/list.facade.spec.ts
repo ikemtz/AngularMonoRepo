@@ -1,0 +1,158 @@
+import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { NxModule } from '@nrwl/angular';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
+import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
+import { Observable, of } from 'rxjs';
+
+import { OrderEffects } from '../+state/order.effects';
+import * as orderActionTypes from '../+state/order.actions';
+import { OrdersPartialState, ORDERS_FEATURE_KEY, ordersFeature } from '../+state/order.reducer';
+import { OrderListFacade } from './list.facade';
+import { environment } from '../../../../environments/environment';
+import { IOrder, OrderProperties } from '../../../models/odata';
+
+interface TestSchema {
+  [ORDERS_FEATURE_KEY]: OrdersPartialState;
+}
+
+export const createOrder = () => <IOrder>{
+  [OrderProperties.ID]: 'ID',
+  [OrderProperties.ORDER_ID]: 0,
+  [OrderProperties.REVISION_NUM]: 0,
+  [OrderProperties.DATE]: new Date(),
+  [OrderProperties.DUE_DATE]: new Date(),
+  [OrderProperties.SHIP_DATE]: new Date(),
+  [OrderProperties.STATUS]: 0,
+  [OrderProperties.IS_ONLINE_ORDER]: true,
+  [OrderProperties.NUM]: 'NUM',
+  [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
+  [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
+  [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
+  [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
+  [OrderProperties.SHIP_METHOD]: 'SHIP_METHOD',
+  [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
+  [OrderProperties.SUB_TOTAL]: 0,
+  [OrderProperties.TAX_AMT]: 0,
+  [OrderProperties.FREIGHT]: 0,
+  [OrderProperties.TOTAL_DUE]: 0,
+  [OrderProperties.COMMENT]: 'COMMENT',
+  [OrderProperties.CUSTOMER]: 'CUSTOMER',
+  [OrderProperties.SHIP_TO_ADDRESS]: 'SHIP_TO_ADDRESS',
+  [OrderProperties.BILL_TO_ADDRESS]: 'BILL_TO_ADDRESS',
+};
+
+describe('OrderListFacade', () => {
+  let facade: OrderListFacade;
+  let store: Store<TestSchema>;
+  let httpClient: HttpClient;
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach(() => { });
+
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(ordersFeature),
+          EffectsModule.forFeature([OrderEffects]),
+        ],
+        providers: [
+          OrderListFacade,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createOrder()]))) } },
+        ],
+      })
+      class CustomFeatureModule { }
+
+      @NgModule({
+        imports: [
+          NxModule.forRoot(),
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule { }
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(OrderListFacade);
+      httpClient = TestBed.inject(HttpClient);
+    });
+
+    /**
+     * The initially generated facade::loadEntities() returns an array of (1)
+     */
+    test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      facade.loadEntities({});
+
+      list = await readFirst(facade.gridData$);
+      const loading = await readFirst(facade.loading$);
+      expect(list.data.length).toBe(1);
+      expect(loading).toBe(false);
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/Orders?&$count=true');
+
+      facade.reloadEntities();
+      expect(httpClient.get).toBeCalledTimes(2);
+    });
+
+    test('reloadEntities() should return empty list with loaded == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      let isloading = await readFirst(facade.loading$);
+
+      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
+      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      service.fetch = jest.fn(() => response);
+
+      expect(list.data.length).toBe(0);
+      expect(isloading).toBe(true);
+      facade.reloadEntities();
+
+      list = await readFirst(facade.gridData$);
+      isloading = await readFirst(facade.loading$);
+
+      expect(list.data.length).toBe(3);
+      expect(isloading).toBe(false);
+      expect(service.fetch).toBeCalledTimes(1);
+    });
+
+    test('it should get the grid state', async () => {
+      const filteringState: ODataState = {
+        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+      };
+      let state = await readFirst(facade.gridODataState$);
+      expect(state?.count).toBeUndefined();
+      facade.loadEntities(filteringState);
+
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual(filteringState);
+
+      facade.loadEntities({});
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual({});
+    });
+
+    /**
+     * Use `ordersLoaded` to manually submit list for state management
+     */
+    test('gridData$ should return the loaded list; and loaded flag == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      store.dispatch(orderActionTypes.loadOrdersSuccess(createODataResult([createOrder(), createOrder()])));
+
+      list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(2);
+    });
+
+    test('it should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
+    });
+  });
+});

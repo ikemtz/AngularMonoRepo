@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
-import { <%= pluralizedName %>Feature } from './<%= dasherize(singularizedName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedName) %>.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
-const getCurrent<%= classify(name) %> = <%= pluralizedName %>Feature.selectCurrent<%= classify(name) %>;
+const getCurrent<%= classify(name) %> = <%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>;
 const getIsEdit<%= classify(name) %>Active = createSelector(
   getCurrent<%= classify(name) %>,
   entity => isTruthy(entity) && isTruthy((entity as {id: never}).id),

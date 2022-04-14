@@ -129,7 +129,7 @@
     "eslint": "8.13",
     "eslint-config-prettier": "8.5",
     "eslint-plugin-cypress": "^2.10.3",
-    "imng-schematics": "^4.103.4",
+    "imng-schematics": "^4.104.5",
     "jest": "27.2.3",
     "jest-junit": "^13.1.0",
     "jest-preset-angular": "11.1.1",
