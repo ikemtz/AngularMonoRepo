@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { NxModule, DataPersistence } from '@nrwl/angular';
+import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -15,13 +15,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import {
-  <%= classify(pluralizedStoreName) %>PartialState,
-  initialState,
+  <%= classify(pluralizedStoreName) %>PartialState, 
   reducer as <%= camelize(storeName) %>Reducer,
-  <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY
+  <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY,
+  <%= camelize(pluralizedStoreName) %>Feature,
 } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 import { <%= classify(name) %>ApiService } from './api.service';
+import { environment } from '../../../../environments/environment';
 
 interface TestSchema {
   [<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY]: <%= classify(pluralizedStoreName) %>PartialState;
@@ -44,12 +45,11 @@ describe('<%= classify(name) %>CrudFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY, <%= camelize(storeName) %>Reducer, { initialState }),
+          StoreModule.forFeature(camelize(pluralizedStoreName) %>Feature),
           EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
           HttpClientTestingModule,
         ],
         providers: [
-          DataPersistence,
           <%= classify(name) %>CrudFacade,
           <%= classify(name) %>ApiService,
         ],

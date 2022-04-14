@@ -1,0 +1,46 @@
+<imng-data-entry-dialog width="700" height="550" [parentComponent]="this" autoFocusedElement="#num">
+  <form novalidate [formGroup]="addEditForm" autocomplete="false">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id" class="control-label mr-4">Id:</label>
+          <input id="id" type="text" class="form-control" [formControlName]="props.ID"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Customer id is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="num" class="control-label mr-4">Num:</label>
+          <input id="num" type="text" maxlength="15" class="form-control" [formControlName]="props.NUM"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Customer num is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="name" class="control-label mr-4">Name:</label>
+          <input id="name" type="text" maxlength="512" class="form-control" [formControlName]="props.NAME" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="company_name" class="control-label mr-4">Company Name:</label>
+          <input id="company_name" type="text" maxlength="128" class="form-control" [formControlName]="props.COMPANY_NAME"
+            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.COMPANY_NAME) }" />
+          <div *ngIf="(submitted$ | async) && formControlErrors(props.COMPANY_NAME)" class="invalid-feedback">
+            <div *ngIf="formControlErrors(props.COMPANY_NAME)?.[RequiredError]">Customer company name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="sales_person" class="control-label mr-4">Sales Person:</label>
+          <input id="sales_person" type="text" class="form-control" [formControlName]="props.SALES_PERSON" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="email_address" class="control-label mr-4">Email Address:</label>
+          <input id="email_address" type="text" maxlength="250" class="form-control" [formControlName]="props.EMAIL_ADDRESS" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="phone" class="control-label mr-4">Phone:</label>
+          <input id="phone" type="text" maxlength="25" class="form-control" [formControlName]="props.PHONE" />
+        </div>
+    </div>
+  </form>
+</imng-data-entry-dialog>

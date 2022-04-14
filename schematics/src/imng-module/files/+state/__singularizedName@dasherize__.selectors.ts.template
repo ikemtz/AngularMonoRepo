@@ -1,26 +1,9 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { <%= decamelize(pluralizedName).toUpperCase() %>_FEATURE_KEY, State, <%= classify(pluralizedName) %>PartialState } from './<%= dasherize(singularizedName) %>.reducer';
+import { createSelector } from '@ngrx/store';
+import { <%= pluralizedName %>Feature } from './<%= dasherize(singularizedName) %>.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
 
-export const get<%= classify(pluralizedName) %>State = createFeatureSelector<<%= classify(pluralizedName) %>PartialState, State>(
-  <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY,
-);<% if (openApiJsonUrl || openApiJsonFileName) { %> 
-
-const get<%= classify(pluralizedName) %> = createSelector(get<%= classify(pluralizedName) %>State, state => state.gridData);
-const getLoading = createSelector(get<%= classify(pluralizedName) %>State, state => state.loading);
-const getGridODataState = createSelector(get<%= classify(pluralizedName) %>State, state => state.gridODataState);
-const getPagerSettings = createSelector(get<%= classify(pluralizedName) %>State, state => state.gridPagerSettings);
-export const odataGrid<%= classify(name) %>Queries = {
-  get<%= classify(pluralizedName) %>,
-  getLoading,
-  getGridODataState,
-  getPagerSettings,
-};
-
-const getCurrent<%= classify(name) %> = createSelector(
-  get<%= classify(pluralizedName) %>State,
-  state => state.current<%= classify(name) %>,
-);
+<% if (openApiJsonUrl || openApiJsonFileName) { %>
+const getCurrent<%= classify(name) %> = <%= pluralizedName %>Feature.selectCurrent<%= classify(name) %>;
 const getIsEdit<%= classify(name) %>Active = createSelector(
   getCurrent<%= classify(name) %>,
   entity => isTruthy(entity) && isTruthy(entity?.id),
@@ -35,7 +18,7 @@ export const dataEntry<%= classify(name) %>Queries = {
   getIsNew<%= classify(name) %>Active,
 };
 
-export const <%= camelize(singularizedName) %>Queries = { ...odataGrid<%= classify(name) %>Queries, ...dataEntry<%= classify(name) %>Queries };
+export const <%= camelize(singularizedName) %>Queries = { ...dataEntry<%= classify(name) %>Queries };
 <% } else { %>
 export const <%= camelize(singularizedName) %>Queries = {};
 <% } %>

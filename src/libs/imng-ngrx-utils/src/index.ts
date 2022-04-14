@@ -6,3 +6,4 @@ export { matchAndSpread } from './lib/match-and-spread';
 export { removeById } from './lib/remove-by-id';
 export { Subscriptions } from './lib/subscriptions';
 export { Subscribable } from './lib/subscribable';
+export * from './lib/error-handler';

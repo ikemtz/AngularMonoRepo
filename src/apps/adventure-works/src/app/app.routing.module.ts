@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { oidcRoutes } from 'imng-oidc-client';
+import { AuthGuard, oidcRoutes } from 'imng-oidc-client';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  //  {
-  //  path: 'customers',
-  //  loadChildren: () => import('./modules/customers-module/customers.module').then(m => m.CustomersModule),
-  //  canActivateChild: [AuthGuard]
-  //}, {
+  {
+    path: 'customers',
+    loadChildren: () => import('./modules/customers-module/customers.module').then(m => m.CustomersModule),
+    canActivateChild: [AuthGuard]
+  }, //{
   //  path: 'products',
   //  loadChildren: () => import('./modules/products-module/products.module').then(m => m.ProductsModule),
   //  canActivateChild: [AuthGuard]
@@ -30,4 +30,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

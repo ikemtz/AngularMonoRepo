@@ -6,6 +6,6 @@ export interface KendoODataGridState<Entity> {
   loading: boolean;
   gridODataState: ODataState;
   /** Last known error (if any) */
-  error?: unknown;
+  error: unknown | undefined;
   gridPagerSettings: PagerSettings | false;
 }
