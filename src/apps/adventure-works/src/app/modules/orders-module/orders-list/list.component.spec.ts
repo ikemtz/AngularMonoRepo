@@ -4,35 +4,35 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
-import { <%= classify(singularizedName) %>ListComponent } from './list.component';
-import { create<%= classify(singularizedName) %> } from './list.facade.spec';
-import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
-import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
+import { OrderListComponent } from './list.component';
+import { createOrder } from './list.facade.spec';
+import { OrderListFacade } from './list.facade';
+import { OrderCrudFacade } from '../orders-crud';
 
-describe('<%= classify(singularizedName) %>ListComponent', () => {
-  let component: <%= classify(singularizedName) %>ListComponent;
-  let fixture: ComponentFixture<<%= classify(singularizedName) %>ListComponent>;
-  let listFacade: <%= classify(singularizedName) %>ListFacade;
-  let crudFacade: <%= classify(singularizedName) %>CrudFacade;
+describe('OrderListComponent', () => {
+  let component: OrderListComponent;
+  let fixture: ComponentFixture<OrderListComponent>;
+  let listFacade: OrderListFacade;
+  let crudFacade: OrderCrudFacade;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ <%= classify(singularizedName) %>ListComponent ],
-      imports: [ RouterTestingModule ],
+      declarations: [OrderListComponent],
+      imports: [RouterTestingModule],
       providers: [
-        { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
-        { provide: <%= classify(singularizedName) %>CrudFacade, useValue: createDataEntryMockFacade() },
+        { provide: OrderListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
+        { provide: OrderCrudFacade, useValue: createDataEntryMockFacade() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(<%= classify(singularizedName) %>ListComponent);
+    fixture = TestBed.createComponent(OrderListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    listFacade = TestBed.inject(<%= classify(singularizedName) %>ListFacade);
-    crudFacade = TestBed.inject(<%= classify(singularizedName) %>CrudFacade);
+    listFacade = TestBed.inject(OrderListFacade);
+    crudFacade = TestBed.inject(OrderCrudFacade);
   });
 
   afterAll(() => {
@@ -44,14 +44,14 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   });
 
   test('it should handle DetailExpanded', () => {
-    const dataItem = create<%= classify(name) %>();
+    const dataItem = createOrder();
     component.detailExpanded({ dataItem } as never);
     expect(component.currentItem).toEqual(dataItem);
   });
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1); 
+    expect(listFacade.reloadEntities).toBeCalledTimes(1);
   });
 
   test('it should handle AddItem', () => {
@@ -59,16 +59,16 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith({});
   });
-  
+
   test('it should handle EditItem', () => {
-    const item = create<%= classify(singularizedName) %>();
+    const item = createOrder();
     component.editItem(item);
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
   });
 
   test('it should handle DeleteItem', () => {
-    const item = create<%= classify(singularizedName) %>();
+    const item = createOrder();
     component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
     expect(listFacade.deleteExistingEntity).toBeCalledWith(item);

@@ -24,7 +24,7 @@ export class CustomerEffects {
     this.actions$.pipe(
       ofType(customerActionTypes.loadCustomersRequest),
       mergeMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataservice
-        .fetch<ICustomer>(environment.customerODataEnpoints.customers, action.payload)
+        .fetch<ICustomer>(environment.odataEnpoints.customers, action.payload)
         .pipe(
           map(t => customerActionTypes.loadCustomersSuccess(t)),
           handleEffectError(action)))));
@@ -34,7 +34,7 @@ export class CustomerEffects {
       ofType(customerActionTypes.reloadCustomersRequest),
       concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
       mergeMap(([action, odataState]) => this.odataservice
-        .fetch<ICustomer>(environment.customerODataEnpoints.customers, odataState)
+        .fetch<ICustomer>(environment.odataEnpoints.customers, odataState)
         .pipe(
           map(t => customerActionTypes.reloadCustomersSuccess(t)),
           handleEffectError(action)))));

@@ -8,7 +8,7 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root',
 })
 export class CustomerApiService extends NrsrxBaseApiClientService<ICustomer> {
-  public override url = environment.customerWebApiEnpoints.customers;
+  public override url = environment.webApiEnpoints.customers;
   constructor(http: HttpClient) {
     super(http);
   }

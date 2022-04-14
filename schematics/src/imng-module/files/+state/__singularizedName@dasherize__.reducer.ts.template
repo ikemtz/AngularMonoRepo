@@ -18,9 +18,9 @@ export const initialState: State = {
   loading: true,
 };
 
-export const <%= camelize(pluralizedName) %>Feature = createFeature({
+export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
   name: <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY,
-  reducer: createRedcuer(
+  reducer: createReducer(
     initialState,
   <% if (openApiJsonUrl || openApiJsonFileName) { %>
     on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, (state, { payload }) => ({

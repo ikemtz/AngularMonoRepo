@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
-import { <%= classify(pluralizedStoreName) %>PartialState } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(pluralizedStoreName) %>PartialState } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= camelize(singularizedStoreName) %>Queries } from '../+state/<%= dasherize(singularizedStoreName) %>.selectors';
 import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
 
@@ -13,7 +13,7 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
   isNewActive$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getIsNew<%= classify(name) %>Active));
 
   constructor(private readonly store: Store<<%= classify(pluralizedStoreName) %>PartialState>) {}
-  
+
   public setCurrentEntity(item: I<%= classify(name) %>): void {
     this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.setCurrent<%= classify(name) %>(item));
   }
