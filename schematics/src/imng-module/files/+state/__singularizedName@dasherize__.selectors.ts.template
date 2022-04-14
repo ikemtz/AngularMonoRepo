@@ -6,11 +6,11 @@ import { isTruthy } from 'imng-ngrx-utils';
 const getCurrent<%= classify(name) %> = <%= pluralizedName %>Feature.selectCurrent<%= classify(name) %>;
 const getIsEdit<%= classify(name) %>Active = createSelector(
   getCurrent<%= classify(name) %>,
-  entity => isTruthy(entity) && isTruthy(entity?.id),
+  entity => isTruthy(entity) && isTruthy((entity as {id: never}).id),
 );
 const getIsNew<%= classify(name) %>Active = createSelector(
   getCurrent<%= classify(name) %>,
-  entity => isTruthy(entity) && !isTruthy(entity?.id),
+  entity => isTruthy(entity) && !isTruthy((entity as {id: never}).id),
 );
 export const dataEntry<%= classify(name) %>Queries = {
   getCurrent<%= classify(name) %>,

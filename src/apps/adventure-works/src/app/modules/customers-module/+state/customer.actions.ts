@@ -3,8 +3,6 @@ import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 import { ICustomer } from '../../../models/odata';
 
-export const customersFailure = createPayloadAction<{ error: unknown; }>('[Customers] Customers Failure');
-
 export const loadCustomersRequest = createPayloadAction<ODataState>(
     '[Customers] Load Customers Request');
 export const loadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>>(

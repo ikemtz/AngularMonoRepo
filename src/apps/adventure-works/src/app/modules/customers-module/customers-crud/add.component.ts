@@ -19,11 +19,11 @@ export class CustomerAddComponent extends CustomerBaseEntryComponent implements 
   }
   public override initForm(): void {
     super.initForm();
-    this.addEditForm?.patchValue({});
+    this.addEditForm.patchValue({});
   }
 
   public save(): void {
-    if (this.addEditForm?.valid) {
+    if (this.addEditForm.valid) {
       const val: ICustomer = this.addEditForm.value;
       val.id = undefined;
       this.facade.saveNewEntity(val);

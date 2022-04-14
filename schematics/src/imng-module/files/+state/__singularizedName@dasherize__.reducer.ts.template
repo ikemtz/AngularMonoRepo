@@ -22,10 +22,6 @@ export const <%= camelize(pluralizedName) %>Feature = createFeature({
   name: <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY,
   reducer: createRedcuer(
     initialState,
-    on(<%= camelize(singularizedName) %>ActionTypes.<%= camelize(pluralizedName) %>Failure, (state, { payload }) => ({
-      ...state,
-      error: payload.error,
-    })),
   <% if (openApiJsonUrl || openApiJsonFileName) { %>
     on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, (state, { payload }) => ({
       ...state,

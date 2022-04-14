@@ -26,8 +26,8 @@ export class CustomerEditComponent extends CustomerBaseEntryComponent implements
   }
 
   public save(): void {
-    if (this.addEditForm?.valid) {
-      const val: ICustomer = this.addEditForm?.value;
+    if (this.addEditForm.valid) {
+      const val: ICustomer = this.addEditForm.value;
       this.facade.updateExistingEntity(val);
     }
   }

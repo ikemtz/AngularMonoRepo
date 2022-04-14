@@ -23,10 +23,6 @@ export const customersFeature = createFeature(
     name: CUSTOMERS_FEATURE_KEY,
     reducer: createReducer(
       initialState,
-      on(customerActionTypes.customersFailure, (state, { payload }) => ({
-        ...state,
-        error: payload.error,
-      })),
       on(customerActionTypes.loadCustomersRequest, (state, { payload }) => ({
         ...state,
         gridODataState: payload,
