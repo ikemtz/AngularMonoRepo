@@ -9,42 +9,48 @@ import { ODataState, createODataPayload, createODataResult, ODataService } from 
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
-import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
-import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
-import { <%= classify(pluralizedStoreName) %>PartialState, <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY, <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
-import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
+import { CustomerEffects } from '../+state/customer.effects';
+import * as customerActionTypes from '../+state/customer.actions';
+import { CustomersPartialState, CUSTOMERS_FEATURE_KEY, customersFeature } from '../+state/customer.reducer';
+import { CustomerListFacade } from './list.facade';
+import { CustomerProperties, ICustomer } from '../../../models/odata';
 import { environment } from '../../../../environments/environment';
 
 interface TestSchema {
-  [<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY]: <%= classify(pluralizedStoreName) %>PartialState;
+  [CUSTOMERS_FEATURE_KEY]: CustomersPartialState;
 }
 
-export const create<%= classify(singularizedName) %> = () => <I<%= classify(singularizedName) %>>{
-<% swaggerProperties.forEach(function(swaggerProperty)
- {%>  [<%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
-<% }) %>    };
+export const createCustomer = () => <ICustomer>{
+  [CustomerProperties.ID]: 'ID',
+  [CustomerProperties.NUM]: 'NUM',
+  [CustomerProperties.NAME]: 'NAME',
+  [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
+  [CustomerProperties.SALES_PERSON]: 'SALES_PERSON',
+  [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
+  [CustomerProperties.PHONE]: 'PHONE',
+};
 
-describe('<%= classify(singularizedName) %>ListFacade', () => {
-  let facade: <%= classify(singularizedName) %>ListFacade;
+describe('CustomerListFacade', () => {
+  let facade: CustomerListFacade;
   let store: Store<TestSchema>;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {});
+  beforeEach(() => { });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
+          StoreModule.forFeature(customersFeature),
+          EffectsModule.forFeature([CustomerEffects]),
         ],
         providers: [
-          <%= classify(singularizedName) %>ListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([create<%= classify(name) %>()]))) } },
+          CustomerListFacade,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCustomer()]))) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -54,11 +60,11 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
-      facade = TestBed.inject(<%= classify(singularizedName) %>ListFacade);
+      facade = TestBed.inject(CustomerListFacade);
       httpClient = TestBed.inject(HttpClient);
     });
 
@@ -75,7 +81,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
+      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/Customers?&$count=true');
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);
@@ -118,12 +124,12 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
     });
 
     /**
-     * Use `<%= camelize(pluralizedName) %>Loaded` to manually submit list for state management
+     * Use `customersLoaded` to manually submit list for state management
      */
-    test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
+    test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
-      store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(createODataResult([create<%= classify(name) %>(), create<%= classify(name) %>()])));
+      store.dispatch(customerActionTypes.loadCustomersSuccess(createODataResult([createCustomer(), createCustomer()])));
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);

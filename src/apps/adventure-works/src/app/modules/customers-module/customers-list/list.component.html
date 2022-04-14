@@ -1,0 +1,70 @@
+<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+  <ng-template kendoGridToolbarTemplate>
+    <div class="w-100 d-flex justify-content-between">
+      <h3>Customers</h3>
+      <imng-kendo-odata-grid-header
+        entityName="Customer"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (clearFiltersClicked)="resetFilters()"
+        [hasHiddenColumns$]="hasHiddenColumns$">
+      </imng-kendo-odata-grid-header>
+    </div>
+  </ng-template>
+
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.id | slice:0:5 }}
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NUM" [width]="100" title="Num" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Num</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.COMPANY_NAME" [width]="100" title="Company Name" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Company Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SALES_PERSON" [width]="100" title="Sales Person" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Sales Person</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.EMAIL_ADDRESS" [width]="100" title="Email Address" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Email Address</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.PHONE" [width]="100" title="Phone" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Phone</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [width]="50">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
+        <span class="k-icon k-i-edit"></span>
+      </button>
+      <button type="button" class="btn btn-sm mr-1" (click)="deleteItem(dataItem)" placement="left" tooltip="Delete">
+        <span class="k-icon k-i-delete"></span>
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf fileName="Customers.pdf" [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+  <kendo-grid-excel fileName="Customers.xlsx" [fetchData]="excelData"></kendo-grid-excel>
+</kendo-grid>
+<aw-customer-add *ngIf="crudFacade.isNewActive$ | async"></aw-customer-add>
+<aw-customer-edit *ngIf="crudFacade.isEditActive$ | async"></aw-customer-edit>

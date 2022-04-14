@@ -115,7 +115,7 @@ describe('imng-module', () => {
     expect(content).toContain(
       `${options.name}ActionTypes.reload${classify(
         pluralize(options.name)
-      )}Request())),`
+      )}Request),`
     );
     expect(content).toContain(
       `import { ${classify(options.name)}ApiService } from '../${dasherize(
