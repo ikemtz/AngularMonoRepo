@@ -10,7 +10,7 @@ import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { <%= classify(pluralizedName) %>RoutingModule } from './<%= dasherize(pluralizedName) %>.routing';
-import { <%= pluralizedName %>Feature } from './+state/<%= dasherize(singularizedName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from './+state/<%= dasherize(singularizedName) %>.reducer';
 import { <%= classify(singularizedName) %>Effects } from './+state/<%= dasherize(singularizedName) %>.effects';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(pluralizedName) %>-list';
@@ -30,7 +30,7 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
     <%= classify(pluralizedName) %>RoutingModule,
-    StoreModule.forFeature(<%= pluralizedName %>Feature),
+    StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
     EffectsModule.forFeature([<%= classify(singularizedName) %>Effects]),
   ],
   providers: [

@@ -1,6 +1,17 @@
 module.exports = {
   displayName: 'imng-application-insights-ngrx',
   preset: '../../jest.preset.js',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: '.',
+        outputName: './junit.imng-application-insights-ngrx.xml',
+        uniqueOutputName: true,
+      },
+    ],
+  ],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {

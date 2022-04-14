@@ -12,11 +12,12 @@ const routes: Routes = [
   //  path: 'products',
   //  loadChildren: () => import('./modules/products-module/products.module').then(m => m.ProductsModule),
   //  canActivateChild: [AuthGuard]
-  //}, {
-  //  path: 'sale-orders',
-  //  loadChildren: () => import('./modules/sale-orders-module/sale-orders.module').then(m => m.SaleOrdersModule),
-  //  canActivateChild: [AuthGuard]
-  //},
+  //}
+  {
+    path: 'orders',
+    loadChildren: () => import('./modules/orders-module/orders.module').then(m => m.OrdersModule),
+    canActivateChild: [AuthGuard]
+  },
   ...oidcRoutes,
   { path: '**', component: HomeComponent },
 ];
