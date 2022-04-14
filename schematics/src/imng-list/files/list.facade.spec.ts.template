@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
-import { NxModule, DataPersistence } from '@nrwl/angular';
+import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
@@ -11,8 +11,9 @@ import { Observable, of } from 'rxjs';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
-import { <%= classify(pluralizedStoreName) %>PartialState, initialState, reducer as <%= camelize(storeName) %>Reducer, <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= classify(pluralizedStoreName) %>PartialState, <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY, <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
+import { environment } from '../../../../environments/environment';
 
 interface TestSchema {
   [<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY]: <%= classify(pluralizedStoreName) %>PartialState;
@@ -35,11 +36,10 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY, <%= camelize(storeName) %>Reducer, { initialState }),
+          StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
           EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
         ],
         providers: [
-          DataPersistence,
           <%= classify(singularizedName) %>ListFacade,
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([create<%= classify(name) %>()]))) } },
         ],
@@ -85,7 +85,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       let list = await readFirst(facade.gridData$);
       let isloading = await readFirst(facade.loading$);
 
-      const service: { fetch: (endpoint, odataState) => Observable<unknown> } = TestBed.inject(ODataService);
+      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
       const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
       service.fetch = jest.fn(() => response);
 

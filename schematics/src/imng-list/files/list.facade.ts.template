@@ -5,15 +5,14 @@ import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { <%= classify(pluralizedStoreName) %>PartialState } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
-import { <%= camelize(singularizedStoreName) %>Queries } from '../+state/<%= dasherize(singularizedStoreName) %>.selectors';
 import * as <%= camelize(storeName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
 
 @Injectable()
 export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
-  loading$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getLoading));
-  gridData$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.get<%= classify(pluralizedName) %>));
-  gridPagerSettings$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getPagerSettings));
-  gridODataState$ = this.store.pipe(select(<%= camelize(singularizedStoreName) %>Queries.getGridODataState));
+  loading$ = this.store.pipe(select(<%= pluralizedStoreName %>Feature.selectLoading));
+  gridData$ = this.store.pipe(select(<%= pluralizedStoreName %>Feature.selectGridData));
+  gridPagerSettings$ = this.store.pipe(select(<%= pluralizedStoreName %>Feature.selectGridPagerSettings));
+  gridODataState$ = this.store.pipe(select(<%= pluralizedStoreName %>Feature.selectGridODataState));
 
   constructor(private readonly store: Store<<%= classify(pluralizedStoreName) %>PartialState>) {}
 
