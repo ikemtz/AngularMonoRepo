@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { createEffect, Actions } from '@ngrx/effects';
-import { DataPersistence } from '@nrwl/angular';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ODataService } from 'imng-kendo-odata';
-import { map } from 'rxjs/operators';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, mergeMap } from 'rxjs/operators';
 
-import * as from<%= classify(pluralizedName) %>Reducer from './<%= dasherize(singularizedName) %>.reducer';
+import { <%= classify(pluralizedName) %>Feature, State } from './<%= dasherize(singularizedName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+import { environment } from '../../../../environments/environment';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-crud';
 <% } %>
@@ -14,70 +16,48 @@ export class <%= classify(singularizedName) %>Effects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private readonly dataPersistence: DataPersistence<from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState>,<% if (openApiJsonUrl || openApiJsonFileName) { %> 
+    private store: Store<State>,
     private readonly <%= camelize(singularizedName) %>ApiService : <%= classify(singularizedName) %>ApiService, <% } %>
   ) {}
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
   load<%= classify(pluralizedName) %>Effect$ = createEffect(() =>
-    this.dataPersistence.fetch(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, {
-      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>, partialState: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
-        this.odataservice
-          .fetch<I<%= classify(name) %>>(environment.endPoints.<%= camelize(pluralizedName) %>.<%= camelize(pluralizedName) %>OData, action.payload)
-          .pipe(
-            map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(t)),
-          ),
-        onError: this.exceptionHandler,
-    })
-  );
-  
+   this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request),
+      mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.loadCustomersRequest>) => this.odataservice
+        .fetch<I<%= classify(name) %>>(environment.<%= camelize(singularizedName) %>ODataEnpoints.<%= camelize(pluralizedName) %>, action.payload)
+        .pipe(
+          map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(t)),
+          handleEffectError(action)))));
+
   reload<%= classify(pluralizedName) %>Effect$ = createEffect(() =>
-    this.dataPersistence.fetch(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request, {
-      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request>, partialState: from<%= classify(pluralizedName) %>Reducer.<%= classify(pluralizedName) %>PartialState) =>
-        this.odataservice
-          .fetch<I<%= classify(name) %>>(environment.endPoints.<%= camelize(pluralizedName) %>.<%= camelize(pluralizedName) %>OData, 
-            partialState[from<%= classify(pluralizedName) %>Reducer.<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY].gridODataState, 
-            { bustCache: true })
-          .pipe(
-            map(t => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success(t)),
-          ),
-        onError: this.exceptionHandler,
-    })
-  );
+    this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request),
+      concatLatestFrom(() => this.store.select(<%= camelize(pluralizedName) %>Feature.selectGridODataState)),
+      mergeMap(([action, odataState]) => this.odataservice
+        .fetch<I<%= classify(singularizedName) %>>(environment.<%= camelize(singularizedName) %>ODataEnpoints.<%= camelize(pluralizedName) %>, odataState)
+        .pipe(
+          map(t => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success(t)),
+          handleEffectError(action)))));
 
   save<%= classify(singularizedName) %>Effect$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request, {
-      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request>) =>
-        this.<%= camelize(singularizedName) %>ApiService.post(action.payload).pipe(
-          map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request())),
-      onError: this.exceptionHandler,
-    })
-  );
+    this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request),
+      mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.post(action.payload).pipe(
+        map(() => customerActionTypes.reload<%= classify(pluralizedName) %>Request()),
+        handleEffectError(action)))));
 
   update<%= classify(singularizedName) %>Effect$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(<%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request, {
-      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request>) =>
-        this.<%= camelize(singularizedName) %>ApiService.put(action.payload).pipe( 
-          map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request())),
-      onError: this.exceptionHandler,
-    })
-  );
+    this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request),
+      mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.put(action.payload).pipe(
+        map(() => customerActionTypes.reload<%= classify(pluralizedName) %>Request()),
+        handleEffectError(action)))));
 
   delete<%= classify(singularizedName) %>Effect$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request, {
-      run: (action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) =>
-        this.<%= camelize(singularizedName) %>ApiService.delete(action.payload).pipe(
-          map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request())),
-      onError: this.exceptionHandler,
-      })
-  );
+    this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request),
+      mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.delete(action.payload).pipe(
+        map(() => customerActionTypes.reload<%= classify(pluralizedName) %>Request()),
+        handleEffectError(action)))));
 <% } %>
-
-  private exceptionHandler(_action: unknown, error: unknown) {
-    if (!environment.production) {
-      throw new Error(error as string);
-    }
-    //eslint-disable-next-line no-console
-    console.error('Error', error); // NOSONAR
-    return <%= camelize(singularizedName) %>ActionTypes.<%= camelize(pluralizedName) %>Failure({ error });
-  }
 }

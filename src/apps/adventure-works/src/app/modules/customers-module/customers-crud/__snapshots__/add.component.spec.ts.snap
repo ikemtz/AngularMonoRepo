@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomerAddComponent should save 1`] = `
+Object {
+  "companyName": "COMPANY_NAME",
+  "customerAddresses": Array [],
+  "emailAddress": "EMAIL_ADDRESS",
+  "id": undefined,
+  "name": "NAME",
+  "num": "NUM",
+  "orders": Array [],
+  "phone": "PHONE",
+  "salesPerson": "SALES_PERSON",
+}
+`;

@@ -69,7 +69,11 @@
           "browserTarget": "adventure-works:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "browserTarget": "adventure-works:build",
+        "proxyConfig": "apps/adventure-works/proxy.conf.js"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
