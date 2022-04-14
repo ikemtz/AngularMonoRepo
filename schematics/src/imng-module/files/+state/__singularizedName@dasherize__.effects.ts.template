@@ -5,7 +5,7 @@ import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
 import { map, mergeMap } from 'rxjs/operators';
 
-import { <%= classify(pluralizedName) %>Feature, State } from './<%= dasherize(singularizedName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature, State } from './<%= dasherize(singularizedName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
 import { environment } from '../../../../environments/environment';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
@@ -25,8 +25,8 @@ export class <%= classify(singularizedName) %>Effects {
   load<%= classify(pluralizedName) %>Effect$ = createEffect(() =>
    this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request),
-      mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.loadCustomersRequest>) => this.odataservice
-        .fetch<I<%= classify(name) %>>(environment.<%= camelize(singularizedName) %>ODataEnpoints.<%= camelize(pluralizedName) %>, action.payload)
+      mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>) => this.odataservice
+        .fetch<I<%= classify(name) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, action.payload)
         .pipe(
           map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(t)),
           handleEffectError(action)))));
@@ -34,9 +34,9 @@ export class <%= classify(singularizedName) %>Effects {
   reload<%= classify(pluralizedName) %>Effect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request),
-      concatLatestFrom(() => this.store.select(<%= camelize(pluralizedName) %>Feature.selectGridODataState)),
+      concatLatestFrom(() => this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState)),
       mergeMap(([action, odataState]) => this.odataservice
-        .fetch<I<%= classify(singularizedName) %>>(environment.<%= camelize(singularizedName) %>ODataEnpoints.<%= camelize(pluralizedName) %>, odataState)
+        .fetch<I<%= classify(singularizedName) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, odataState)
         .pipe(
           map(t => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success(t)),
           handleEffectError(action)))));
@@ -45,21 +45,21 @@ export class <%= classify(singularizedName) %>Effects {
     this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request),
       mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.post(action.payload).pipe(
-        map(() => customerActionTypes.reload<%= classify(pluralizedName) %>Request()),
+        map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
         handleEffectError(action)))));
 
   update<%= classify(singularizedName) %>Effect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request),
       mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.put(action.payload).pipe(
-        map(() => customerActionTypes.reload<%= classify(pluralizedName) %>Request()),
+        map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
         handleEffectError(action)))));
 
   delete<%= classify(singularizedName) %>Effect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request),
       mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.delete(action.payload).pipe(
-        map(() => customerActionTypes.reload<%= classify(pluralizedName) %>Request()),
+        map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
         handleEffectError(action)))));
 <% } %>
 }

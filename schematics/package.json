@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "jest --coverage --env=node",
-    "snyk-test" : "snyk test",
+    "snyk-test": "snyk test",
     "lint": "eslint ./src --ext .ts",
     "preinstall": "npx npm-force-resolutions",
     "postbuild": "bash package.sh",

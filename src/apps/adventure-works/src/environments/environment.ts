@@ -2,14 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { Endpoints as customerODataEnpoints } from '../app/models/odata/endpoints';
-import { Endpoints as customerWebApiEnpoints } from '../app/models/webapi/endpoints';
+import { endpoints } from './endpoints';
 
 export const environment = {
   production: false,
   version: '1.0.0',
-  customerODataEnpoints,
-  customerWebApiEnpoints,
+  ...endpoints,
   runtimeChecks: {
     strictActionImmutability: true,
     strictStateImmutability: true,
