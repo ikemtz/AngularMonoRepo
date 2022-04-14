@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IdType } from './id-type';
 
-export class NrsrxBaseApiClientService<T extends { id?: IdType }> {
+export class NrsrxBaseApiClientService<T extends { id?: IdType; }> {
   public url = '';
-  constructor(protected readonly http: HttpClient) {}
+  constructor(protected readonly http: HttpClient) { }
   // Used to insert entities on NRSRx based API endpoints
   public post(payload: T): Observable<T> {
     return this.http.post<T>(payload.id ? `${this.url}?id=${payload.id}` : this.url, payload);
