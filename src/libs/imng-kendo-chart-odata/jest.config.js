@@ -1,6 +1,17 @@
 module.exports = {
   displayName: 'imng-kendo-chart-odata',
   preset: '../../jest.preset.js',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: '.',
+        outputName: './junit.imng-kendo-chart-odata.xml',
+        uniqueOutputName: true,
+      },
+    ],
+  ],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {

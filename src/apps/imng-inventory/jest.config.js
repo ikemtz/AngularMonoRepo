@@ -1,6 +1,17 @@
 module.exports = {
   displayName: 'imng-inventory',
   preset: '../../jest.preset.js',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: '.',
+        outputName: './junit.imng-inventory.xml',
+        uniqueOutputName: true,
+      },
+    ],
+  ],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {

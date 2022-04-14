@@ -1,6 +1,17 @@
 module.exports = {
   displayName: 'nurse-cron',
   preset: '../../jest.preset.js',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: '.',
+        outputName: './junit.nurse-cron.xml',
+        uniqueOutputName: true,
+      },
+    ],
+  ],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
