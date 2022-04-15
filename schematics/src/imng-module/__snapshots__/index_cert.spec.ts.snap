@@ -11,10 +11,6 @@ export interface State extends KendoODataGridState<ICertification> {
   currentCertification: ICertification | undefined;
 }
 
-export interface CertificationsPartialState {
-  readonly [CERTIFICATIONS_FEATURE_KEY]: State;
-}
-
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
   currentCertification: undefined,
@@ -25,7 +21,6 @@ export const certificationsFeature = createFeature({
   name: CERTIFICATIONS_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-  
     on(certificationActionTypes.loadCertificationsRequest, 
       (state, { payload }) : State => ({
         ...state,

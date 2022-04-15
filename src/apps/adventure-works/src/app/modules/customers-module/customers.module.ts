@@ -10,15 +10,15 @@ import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { CustomersRoutingModule } from './customers.routing';
+import { customersFeature } from './+state/customer.reducer';
 import { CustomerEffects } from './+state/customer.effects';
 
 import { CustomerListComponent, CustomerListFacade } from './customers-list';
-import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, CustomerCrudFacade } from './customers-crud';
-import { customersFeature } from './+state/customer.reducer';
+import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, CustomerCrudFacade  } from './customers-crud';
 
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerAddComponent, CustomerEditComponent],
+  declarations: [ CustomerListComponent, CustomerAddComponent, CustomerEditComponent ],
   imports: [
     CommonModule,
     GridModule,
@@ -36,7 +36,7 @@ import { customersFeature } from './+state/customer.reducer';
   providers: [
     CustomerListFacade,
     CustomerCrudFacade,
-    CustomerApiService,
+    CustomerApiService, 
   ],
 })
 export class CustomersModule { }

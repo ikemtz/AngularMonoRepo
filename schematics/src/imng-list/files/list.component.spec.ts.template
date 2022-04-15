@@ -51,7 +51,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1); 
+    expect(listFacade.reloadEntities).toBeCalledTimes(1);
   });
 
   test('it should handle AddItem', () => {
@@ -59,7 +59,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith({});
   });
-  
+
   test('it should handle EditItem', () => {
     const item = create<%= classify(singularizedName) %>();
     component.editItem(item);

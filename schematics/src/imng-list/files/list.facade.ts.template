@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(pluralizedStoreName) %>PartialState } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import * as <%= camelize(storeName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
 
 @Injectable()
