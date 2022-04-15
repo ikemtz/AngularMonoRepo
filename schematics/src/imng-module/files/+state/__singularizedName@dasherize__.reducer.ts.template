@@ -8,10 +8,6 @@ export interface State extends KendoODataGridState<I<%= classify(singularizedNam
   current<%= classify(singularizedName) %>: I<%= classify(singularizedName) %> | undefined;
 }
 
-export interface <%= classify(pluralizedName) %>PartialState {
-  readonly [<%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY]: State;
-}
-
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
   current<%= classify(singularizedName) %>: undefined,
@@ -21,8 +17,7 @@ export const initialState: State = {
 export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
   name: <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY,
   reducer: createReducer(
-    initialState,
-  <% if (openApiJsonUrl || openApiJsonFileName) { %>
+    initialState,<% if (openApiJsonUrl || openApiJsonFileName) { %>
     on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, 
       (state, { payload }) : State => ({
         ...state,

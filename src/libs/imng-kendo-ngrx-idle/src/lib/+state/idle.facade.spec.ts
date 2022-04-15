@@ -5,18 +5,15 @@ import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 
-import { IdleState, IDLE_FEATURE_KEY, idleFeature } from './idle.reducer';
+import { idleFeature } from './idle.reducer';
 import { IdleFacade } from './idle.facade';
 import { IdleEffects } from './idle.effects';
 import { IDLE_CONFIG } from '../idle-config';
 
-interface TestSchema {
-  [IDLE_FEATURE_KEY]: IdleState;
-}
 
 describe('IdleFacade', () => {
   let facade: IdleFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
 
   describe('used in NgModule', () => {
     beforeEach(() => {

@@ -9,7 +9,6 @@ import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { tap, filter } from 'rxjs/operators';
 import { signalrActions } from '../+state/signalr.actions';
 import { Store } from '@ngrx/store';
-import * as fromSignalr from '../+state/signalr.reducer';
 import { OidcFacade } from 'imng-oidc-client';
 
 @Injectable({
@@ -22,7 +21,7 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
   constructor(
     @Inject(SIGNALR_CONFIG)
     private readonly signalrConfiguration: ISignalrConfiguration,
-    private readonly store$: Store<fromSignalr.SignalrPartialState>,
+    private readonly store: Store,
     oidcFacade: OidcFacade
   ) {
     this.allSubscriptions.push(
@@ -43,10 +42,10 @@ export class HubConnectionInjectorService implements OnDestroy, Subscribable {
     );
   }
   public onClose() {
-    this.store$.dispatch(signalrActions.connect());
+    this.store.dispatch(signalrActions.connect());
   }
   public onMessageReceived(clientMethod: string, data: unknown) {
-    this.store$.dispatch(
+    this.store.dispatch(
       signalrActions.receivedMessage({ methodName: clientMethod, data })
     );
   }

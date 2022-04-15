@@ -9,50 +9,48 @@ export interface State extends KendoODataGridState<ICustomer> {
   currentCustomer: ICustomer | undefined;
 }
 
-export interface CustomersPartialState {
-  readonly [CUSTOMERS_FEATURE_KEY]: State;
-}
-
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
   currentCustomer: undefined,
   loading: true,
 };
-export const customersFeature = createFeature(
-  {
-    name: CUSTOMERS_FEATURE_KEY,
-    reducer: createReducer(
-      initialState,
-      on(customerActionTypes.loadCustomersRequest, (state, { payload }) => ({
+
+export const customersFeature = createFeature({
+  name: CUSTOMERS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+
+    on(customerActionTypes.loadCustomersRequest,
+      (state, { payload }): State => ({
         ...state,
         gridODataState: payload,
         loading: true,
         error: null,
       })),
-      on(customerActionTypes.loadCustomersSuccess,
-        customerActionTypes.reloadCustomersSuccess, (state, { payload }) => ({
-          ...state,
-          loading: false,
-          gridPagerSettings: getODataPagerSettings({
-            gridData: payload,
-            gridODataState: state.gridODataState,
-          }),
+    on(customerActionTypes.loadCustomersSuccess,
+      customerActionTypes.reloadCustomersSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
           gridData: payload,
-          error: null,
-        })),
-
-      on(customerActionTypes.setCurrentCustomer, (state, { payload }) => ({ ...state, currentCustomer: payload })),
-      on(customerActionTypes.clearCurrentCustomer, state => ({ ...state, currentCustomer: undefined })),
-      on(
-        customerActionTypes.saveCustomerRequest,
-        customerActionTypes.updateCustomerRequest,
-        customerActionTypes.deleteCustomerRequest,
-        state => ({
-          ...state,
-          loading: true,
+          gridODataState: state.gridODataState,
         }),
-      ),
-
-    )
-  }
-); 
+        gridData: payload,
+        error: null,
+      })),
+    on(customerActionTypes.setCurrentCustomer,
+      (state, { payload }): State =>
+        ({ ...state, currentCustomer: payload })),
+    on(customerActionTypes.clearCurrentCustomer,
+      (state): State => ({ ...state, currentCustomer: undefined })),
+    on(customerActionTypes.saveCustomerRequest,
+      customerActionTypes.updateCustomerRequest,
+      customerActionTypes.deleteCustomerRequest,
+      (state): State => ({
+        ...state,
+        loading: true,
+      }),
+    ),
+  )
+});

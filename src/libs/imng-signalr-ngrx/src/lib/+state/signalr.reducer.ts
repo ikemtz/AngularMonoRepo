@@ -11,10 +11,6 @@ export interface State {
   receivedMessages: ISignalrMessage[];
 }
 
-export interface SignalrPartialState {
-  readonly [SIGNALR_FEATURE_KEY]: State;
-}
-
 export const initialState: State = {
   isConnected: false,
   receivedMessages: [],
@@ -25,19 +21,22 @@ export const signalrFeature = createFeature({
   name: SIGNALR_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(SignalrActions.setConnectionState, (state, action) => ({
-      ...state,
-      isConnected: action.payload,
-    })),
-    on(SignalrActions.receivedMessage, (state, action) => ({
-      ...state,
-      receivedMessages: [action.payload, ...state.receivedMessages],
-      lastReceivedMessage: action.payload,
-    })),
-    on(SignalrActions.clearMessages, (state) => ({
-      ...state,
-      receivedMessages: [],
-      lastReceivedMessage: undefined,
-    }))
+    on(SignalrActions.setConnectionState,
+      (state, action): State => ({
+        ...state,
+        isConnected: action.payload.isConnected,
+      })),
+    on(SignalrActions.receivedMessage,
+      (state, action): State => ({
+        ...state,
+        receivedMessages: [action.payload, ...state.receivedMessages],
+        lastReceivedMessage: action.payload,
+      })),
+    on(SignalrActions.clearMessages,
+      (state): State => ({
+        ...state,
+        receivedMessages: [],
+        lastReceivedMessage: undefined,
+      }))
   )
 });

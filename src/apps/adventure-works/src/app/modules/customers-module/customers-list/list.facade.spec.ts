@@ -11,14 +11,10 @@ import { Observable, of } from 'rxjs';
 
 import { CustomerEffects } from '../+state/customer.effects';
 import * as customerActionTypes from '../+state/customer.actions';
-import { CustomersPartialState, CUSTOMERS_FEATURE_KEY, customersFeature } from '../+state/customer.reducer';
+import { customersFeature } from '../+state/customer.reducer';
 import { CustomerListFacade } from './list.facade';
-import { CustomerProperties, ICustomer } from '../../../models/odata';
 import { environment } from '../../../../environments/environment';
-
-interface TestSchema {
-  [CUSTOMERS_FEATURE_KEY]: CustomersPartialState;
-}
+import { CustomerProperties, ICustomer } from '../../../models/odata';
 
 export const createCustomer = () => <ICustomer>{
   [CustomerProperties.ID]: 'ID',
@@ -32,7 +28,7 @@ export const createCustomer = () => <ICustomer>{
 
 describe('CustomerListFacade', () => {
   let facade: CustomerListFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function

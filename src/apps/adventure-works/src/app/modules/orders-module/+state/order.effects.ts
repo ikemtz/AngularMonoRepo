@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { ordersFeature, State } from './order.reducer';
 import * as orderActionTypes from './order.actions';
@@ -26,7 +26,7 @@ export class OrderEffects {
   loadOrdersEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(orderActionTypes.loadOrdersRequest),
-      mergeMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataservice
         .fetch<IOrder>(environment.odataEnpoints.orders, action.payload)
         .pipe(
           map(t => orderActionTypes.loadOrdersSuccess(t)),
@@ -36,7 +36,7 @@ export class OrderEffects {
     this.actions$.pipe(
       ofType(orderActionTypes.reloadOrdersRequest),
       concatLatestFrom(() => this.store.select(ordersFeature.selectGridODataState)),
-      mergeMap(([action, odataState]) => this.odataservice
+      switchMap(([action, odataState]) => this.odataservice
         .fetch<IOrder>(environment.odataEnpoints.orders, odataState)
         .pipe(
           map(t => orderActionTypes.reloadOrdersSuccess(t)),
@@ -45,21 +45,21 @@ export class OrderEffects {
   saveOrderEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(orderActionTypes.saveOrderRequest),
-      mergeMap((action: ReturnType<typeof orderActionTypes.saveOrderRequest>) => this.orderApiService.post(action.payload).pipe(
+      switchMap((action: ReturnType<typeof orderActionTypes.saveOrderRequest>) => this.orderApiService.post(action.payload).pipe(
         map(() => orderActionTypes.reloadOrdersRequest()),
         handleEffectError(action)))));
 
   updateOrderEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(orderActionTypes.updateOrderRequest),
-      mergeMap((action: ReturnType<typeof orderActionTypes.updateOrderRequest>) => this.orderApiService.put(action.payload).pipe(
+      switchMap((action: ReturnType<typeof orderActionTypes.updateOrderRequest>) => this.orderApiService.put(action.payload).pipe(
         map(() => orderActionTypes.reloadOrdersRequest()),
         handleEffectError(action)))));
 
   deleteOrderEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(orderActionTypes.deleteOrderRequest),
-      mergeMap((action: ReturnType<typeof orderActionTypes.deleteOrderRequest>) => this.orderApiService.delete(action.payload).pipe(
+      switchMap((action: ReturnType<typeof orderActionTypes.deleteOrderRequest>) => this.orderApiService.delete(action.payload).pipe(
         map(() => orderActionTypes.reloadOrdersRequest()),
         handleEffectError(action)))));
 

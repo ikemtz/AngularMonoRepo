@@ -5,7 +5,7 @@ import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
-import { <%= camelize(pluralizedStoreName) %>Feature, State } from './<%= dasherize(singularizedName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
 import { environment } from '../../../../environments/environment';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
@@ -49,7 +49,7 @@ export class <%= classify(singularizedName) %>Effects {
         handleEffectError(action))));
   });
 
-  update<%= classify(singularizedName) %>Effect$ = createEffect(() => 
+  update<%= classify(singularizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request),
       switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.put(action.payload).pipe(

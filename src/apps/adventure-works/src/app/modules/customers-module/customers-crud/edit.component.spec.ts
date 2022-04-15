@@ -8,7 +8,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { CustomerEditComponent } from './edit.component';
 import { CustomerCrudFacade } from './crud.facade';
-import { CustomerProperties, ICustomer } from '../../../models/odata';
+import { CustomerProperties, ICustomer } from '../../../models/webapi';
 
 describe('CustomerEditComponent', () => {
   let component: CustomerEditComponent;

@@ -8,12 +8,7 @@ import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 
 import { OidcEffects } from './oidc.effects';
-import {
-  OidcState,
-  initialState,
-  oidcFeature,
-  OIDC_FEATURE_KEY
-} from './oidc.reducer';
+import { oidcFeature } from './oidc.reducer';
 import * as oidcActions from './oidc.actions';
 import { OidcService } from '../services/oidc.service';
 import { OidcFacade } from './oidc.facade';
@@ -26,14 +21,10 @@ import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { OidcUserFacade } from './oidc-user.facade';
 import { Router } from '@angular/router';
 
-interface TestSchema {
-  [OIDC_FEATURE_KEY]: OidcState;
-}
-
 describe('OidcFacade', () => {
   let facade: OidcFacade;
   let oidcUserFacade: OidcUserFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
   let service: OidcService;
   let oidcConfig: OidcLibraryConfig;
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= camelize(singularizedStoreName) %>Queries } from '../+state/<%= dasherize(singularizedStoreName) %>.selectors';

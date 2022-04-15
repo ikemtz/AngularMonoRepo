@@ -10,10 +10,10 @@ export interface OidcState {
   audiences: string[] | undefined;
   userMetadata: unknown | undefined;
   permissions: string[] | undefined;
-  loading: boolean;
-  loggedIn: boolean;
-  expiring: boolean;
-  expired: boolean;
+  isLoading: boolean;
+  isLoggedIn: boolean;
+  isExpiring: boolean;
+  isExpired: boolean;
   errors: ErrorState;
 }
 
@@ -28,10 +28,10 @@ export interface ErrorState {
 export const initialState: OidcState = {
   audiences: [],
   permissions: [],
-  loading: true,
-  loggedIn: false,
-  expiring: false,
-  expired: false,
+  isLoading: true,
+  isLoggedIn: false,
+  isExpiring: false,
+  isExpired: false,
   identity: undefined,
   userMetadata: undefined,
   errors: {
@@ -44,72 +44,75 @@ export const initialState: OidcState = {
 export const oidcFeature = createFeature({
   name: OIDC_FEATURE_KEY,
   reducer: createReducer(initialState,
-    on(oidcActions.getOidcUser, oidcActions.onUserLoading, (state) => ({
+    on(oidcActions.getOidcUser, oidcActions.onUserLoading, (state): OidcState => ({
       ...state,
-      loading: true,
-      loggedIn: false,
+      isLoading: true,
+      isLoggedIn: false,
     })),
-    on(oidcActions.removeOidcUser, (state) => ({
+    on(oidcActions.removeOidcUser, (state): OidcState => ({
       ...state,
-      loading: true,
-      loggedIn: false,
+      isLoading: true,
+      isLoggedIn: false,
       identity: undefined,
     })),
-    on(oidcActions.setHttpError, (state, err) => ({
+    on(oidcActions.setHttpError, (state, err): OidcState => ({
       ...state,
-      loading: false,
+      isLoading: false,
       errors: {
         ...state.errors,
         httpError: err.payload,
       },
     })),
-    on(oidcActions.onUserMetadataLoaded, (state, userMetadata) => ({
+    on(oidcActions.onUserMetadataLoaded, (state, userMetadata): OidcState => ({
       ...state,
       userMetadata: userMetadata.payload,
-      loading: false,
+      isLoading: false,
     })),
-    on(oidcActions.clearErrors, (state) => ({
+    on(oidcActions.clearErrors, (state): OidcState => ({
       ...state, errors: {
         signInError: undefined,
         silentRenewError: undefined,
         httpError: undefined
       }
     })),
-    on(oidcActions.userDoneLoading, (state) => ({ ...state, loading: false })),
-    on(oidcActions.onAccessTokenExpiring, (state) => ({
+    on(oidcActions.userDoneLoading, (state): OidcState => ({
       ...state,
-      expiring: true,
+      isLoading: false
     })),
-    on(oidcActions.onAccessTokenExpired, (state) => ({
+    on(oidcActions.onAccessTokenExpiring, (state): OidcState => ({
       ...state,
-      loggedIn: false,
-      expiring: false,
-      expired: true,
+      isExpiring: true,
     })),
-    on(oidcActions.onUserLoaded, (state) => ({
+    on(oidcActions.onAccessTokenExpired, (state): OidcState => ({
       ...state,
-      loading: false,
-      expiring: false,
+      isLoggedIn: false,
+      isExpiring: false,
+      isExpired: true,
+    })),
+    on(oidcActions.onUserLoaded, (state): OidcState => ({
+      ...state,
+      isLoading: false,
+      isExpiring: false,
     })),
     on(
       oidcActions.onUserUnloaded,
       oidcActions.onUserSignedOut,
       oidcActions.signOutPopupError,
       oidcActions.signOutRedirectError,
-      (state) => ({
+      (state): OidcState => ({
         ...state,
-        loggedIn: false,
+        isLoggedIn: false,
         identity: undefined,
-        expired: true,
-        expiring: false,
+        isExpired: true,
+        isExpiring: false,
         userMetadata: undefined,
       })
     ),
-    on(oidcActions.signOutRedirect, oidcActions.signOutPopup, (state) => ({
+    on(oidcActions.signOutRedirect, oidcActions.signOutPopup, (state): OidcState => ({
       ...state,
       identity: undefined,
       userMetadata: null,
-      loggedIn: false,
+      isLoggedIn: false,
     })),
     on(
       oidcActions.userFound,
@@ -127,14 +130,14 @@ export const oidcFeature = createFeature({
           ?.permissions,
       })
     ),
-    on(oidcActions.userExpired, (state) => ({
+    on(oidcActions.userExpired, (state): OidcState => ({
       ...state,
-      loggedIn: false,
-      expiring: false,
+      isLoggedIn: false,
+      isExpiring: false,
     })),
-    on(oidcActions.onSilentRenewError, (state, err) => ({
+    on(oidcActions.onSilentRenewError, (state, err): OidcState => ({
       ...state,
-      loading: false,
+      isLoading: false,
       errors: {
         ...state.errors,
         silentRenewError: err.payload,
@@ -143,9 +146,9 @@ export const oidcFeature = createFeature({
     on(
       oidcActions.userDoneLoadingError,
       oidcActions.signInError,
-      (state, err) => ({
+      (state, err): OidcState => ({
         ...state,
-        loading: false,
+        isLoading: false,
         errors: {
           ...state.errors,
           signInError: err.payload,
