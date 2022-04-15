@@ -9,12 +9,12 @@ import * as <%= camelize(storeName) %>ActionTypes from '../+state/<%= dasherize(
 
 @Injectable()
 export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
-  loading$ = this.store.pipe(select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading));
-  gridData$ = this.store.pipe(select(<%= camelize(pluralizedStoreName) %>Feature.selectGridData));
-  gridPagerSettings$ = this.store.pipe(select(<%= camelize(pluralizedStoreName) %>Feature.selectGridPagerSettings));
-  gridODataState$ = this.store.pipe(select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState));
+  loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
+  gridData$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridData);
+  gridPagerSettings$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridPagerSettings);
+  gridODataState$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState);
 
-  constructor(private readonly store: Store<<%= classify(pluralizedStoreName) %>PartialState>) {}
+  constructor(private readonly store: Store) {}
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(<%= camelize(storeName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(state));

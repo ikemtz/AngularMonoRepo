@@ -26,7 +26,7 @@ export const create<%= classify(singularizedName) %> = () => <I<%= classify(sing
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {
   let facade: <%= classify(singularizedName) %>ListFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
