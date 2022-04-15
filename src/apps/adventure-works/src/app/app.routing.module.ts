@@ -8,11 +8,11 @@ const routes: Routes = [
     path: 'customers',
     loadChildren: () => import('./modules/customers-module/customers.module').then(m => m.CustomersModule),
     canActivateChild: [AuthGuard]
-  }, //{
-  //  path: 'products',
-  //  loadChildren: () => import('./modules/products-module/products.module').then(m => m.ProductsModule),
-  //  canActivateChild: [AuthGuard]
-  //}
+  }, {
+    path: 'products',
+    loadChildren: () => import('./modules/products-module/products.module').then(m => m.ProductsModule),
+    canActivateChild: [AuthGuard]
+  },
   {
     path: 'orders',
     loadChildren: () => import('./modules/orders-module/orders.module').then(m => m.OrdersModule),

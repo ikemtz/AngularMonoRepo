@@ -43,7 +43,6 @@ export const certificationsFeature = createFeature({
       gridData: payload,
       error: null,
     })),
-
     on(certificationActionTypes.setCurrentCertification, (state, { payload }) => ({ ...state, currentCertification: payload })),
     on(certificationActionTypes.clearCurrentCertification, state => ({ ...state, currentCertification: undefined })),
     on(
