@@ -22,6 +22,8 @@ import * as https from 'https';
 import * as http from 'http';
 import * as findUp from 'find-up';
 
+const singular = 1;
+const plural = 2;
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -121,10 +123,10 @@ export function generateFiles(schema: IOptions, templateType: 'list' | 'crud' | 
   return (tree: Tree, context: SchematicContext) => {
     context.logger.info(`Running ${strings.capitalize(templateType)} Schematic`);
 
-    const singularizedName = pluralize(schema.name, 1);
-    const pluralizedName = pluralize(schema.name, 2);
-    const singularizedStoreName = schema.storeName ? pluralize(schema.storeName, 1) : pluralize(schema.name, 1);
-    const pluralizedStoreName = schema.storeName ? pluralize(schema.storeName, 2) : pluralize(schema.name, 2);
+    const singularizedName = pluralize(schema.name, singular);
+    const pluralizedName = pluralize(schema.name, plural);
+    const singularizedStoreName = schema.storeName ? pluralize(schema.storeName, singular) : pluralize(schema.name, singular);
+    const pluralizedStoreName = schema.storeName ? pluralize(schema.storeName, plural) : pluralize(schema.name, plural);
 
     const folderName = normalize(`${schema.path}/${strings.dasherize(pluralizedName)}-${templateType}`);
     const templateSource = apply(url('./files'), [
