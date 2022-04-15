@@ -14,19 +14,11 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { OrderEffects } from '../+state/order.effects';
-import {
-  OrdersPartialState,
-  ORDERS_FEATURE_KEY,
-  ordersFeature,
-} from '../+state/order.reducer';
+import { ordersFeature } from '../+state/order.reducer';
 import { OrderCrudFacade } from './crud.facade';
 import { OrderApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
 import { IOrder, OrderProperties } from '../../../models/webapi';
-
-interface TestSchema {
-  [ORDERS_FEATURE_KEY]: OrdersPartialState;
-}
 
 export const createOrder = () =>
   <IOrder>{
@@ -57,7 +49,7 @@ export const createOrder = () =>
 
 describe('OrderCrudFacade', () => {
   let facade: OrderCrudFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach(() => { });

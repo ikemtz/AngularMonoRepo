@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
-import { productsFeature, ProductsPartialState } from '../+state/product.reducer';
+import { productsFeature } from '../+state/product.reducer';
 import { productQueries } from '../+state/product.selectors';
 import * as productActionTypes from '../+state/product.actions';
 import { IProduct } from '../../../models/webapi';
 
 @Injectable()
 export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
-  loading$ = this.store.pipe(select(productsFeature.selectLoading));
-  currentEntity$ = this.store.pipe(select(productQueries.getCurrentProduct));
-  isEditActive$ = this.store.pipe(select(productQueries.getIsEditProductActive));
-  isNewActive$ = this.store.pipe(select(productQueries.getIsNewProductActive));
+  loading$ = this.store.select(productsFeature.selectLoading);
+  currentEntity$ = this.store.select(productQueries.selectCurrentProduct);
+  isEditActive$ = this.store.select(productQueries.selectIsEditProductActive);
+  isNewActive$ = this.store.select(productQueries.selectIsNewProductActive);
 
-  constructor(private readonly store: Store<ProductsPartialState>) { }
+  constructor(private readonly store: Store) { }
 
   public setCurrentEntity(item: IProduct): void {
     this.store.dispatch(productActionTypes.setCurrentProduct(item));

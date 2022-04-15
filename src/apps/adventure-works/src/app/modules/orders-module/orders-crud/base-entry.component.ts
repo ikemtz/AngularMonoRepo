@@ -1,8 +1,7 @@
 import { OnInit, Component } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
-import { OrderFormGroupFac, OrderProperties } from '../../../models/webapi';
-
 import { OrderCrudFacade } from './crud.facade';
+import { OrderFormGroupFac, OrderProperties } from '../../../models/webapi';
 
 @Component({ template: '' })
 export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<OrderCrudFacade>
