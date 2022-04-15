@@ -23,30 +23,32 @@ export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
   reducer: createReducer(
     initialState,
   <% if (openApiJsonUrl || openApiJsonFileName) { %>
-    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, (state, { payload }) => ({
-      ...state,
-      gridODataState: payload,
-      loading: true,
-      error: null,
-    })),
+    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, 
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
     on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success,
-      <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success, (state, { payload }) => ({
-      ...state,
-      loading: false,
-      gridPagerSettings: getODataPagerSettings({
+      <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success, 
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
         gridData: payload,
-        gridODataState: state.gridODataState,
-      }),
-      gridData: payload,
-      error: null,
-    })),
-    on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>, (state, { payload }) => ({ ...state, current<%= classify(singularizedName) %>: payload })),
-    on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>, state => ({ ...state, current<%= classify(singularizedName) %>: undefined })),
-    on(
-      <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request,
+        error: null, })),
+    on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>, 
+      (state, { payload }) : State => 
+        ({ ...state, current<%= classify(singularizedName) %>: payload })),
+    on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>, 
+      (state) : State => ({ ...state, current<%= classify(singularizedName) %>: undefined })),
+    on(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request,
       <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request,
       <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request,
-      state => ({
+      (state) : State => ({
         ...state,
         loading: true,
       }),
