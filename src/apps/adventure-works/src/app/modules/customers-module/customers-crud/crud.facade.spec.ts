@@ -14,19 +14,11 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CustomerEffects } from '../+state/customer.effects';
-import {
-  CustomersPartialState,
-  CUSTOMERS_FEATURE_KEY,
-  customersFeature
-} from '../+state/customer.reducer';
+import { customersFeature } from '../+state/customer.reducer';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerApiService } from './api.service';
-import { CustomerProperties, ICustomer } from '../../../models/webapi';
 import { environment } from '../../../../environments/environment';
-
-interface TestSchema {
-  [CUSTOMERS_FEATURE_KEY]: CustomersPartialState;
-}
+import { CustomerProperties, ICustomer } from '../../../models/webapi';
 
 export const createCustomer = () =>
   <ICustomer>{
@@ -41,7 +33,7 @@ export const createCustomer = () =>
 
 describe('CustomerCrudFacade', () => {
   let facade: CustomerCrudFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach(() => { });

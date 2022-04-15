@@ -17,15 +17,17 @@ export const idleFeature = createFeature({
   name: IDLE_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(idleActions.onSessionTimingOut, (state, { payload }) => ({
-      ...state,
-      isTimingOut: true,
-      timeoutSpanInMs: payload.autoLogoutInMs - payload.timeoutWarningInMs,
-    })),
-    on(idleActions.onSessionExtended, idleActions.signOutRedirect, (state) => ({
-      ...state,
-      isTimingOut: false,
-      timeoutSpanInMs: undefined,
-    })),
+    on(idleActions.onSessionTimingOut,
+      (state, { payload }): IdleState => ({
+        ...state,
+        isTimingOut: true,
+        timeoutSpanInMs: payload.autoLogoutInMs - payload.timeoutWarningInMs,
+      })),
+    on(idleActions.onSessionExtended, idleActions.signOutRedirect,
+      (state): IdleState => ({
+        ...state,
+        isTimingOut: false,
+        timeoutSpanInMs: undefined,
+      })),
   )
 });

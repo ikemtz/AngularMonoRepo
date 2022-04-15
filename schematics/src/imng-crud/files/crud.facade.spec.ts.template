@@ -14,18 +14,10 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
-import {
-  <%= classify(pluralizedStoreName) %>PartialState,
-  <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY,
-  <%= camelize(pluralizedStoreName) %>Feature,
-} from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 import { <%= classify(name) %>ApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-
-interface TestSchema {
-  [<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY]: <%= classify(pluralizedStoreName) %>PartialState;
-}
 
 export const create<%= classify(name) %> = () => 
   <I<%= classify(name) %>>{
@@ -35,7 +27,7 @@ export const create<%= classify(name) %> = () =>
 
 describe('<%= classify(name) %>CrudFacade', () => {
   let facade: <%= classify(name) %>CrudFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach(() => {});

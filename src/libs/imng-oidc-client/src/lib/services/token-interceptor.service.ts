@@ -4,15 +4,14 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { oidcQuery } from '../+state/oidc.selectors';
-import { OidcState } from '../+state/oidc.reducer';
 import * as oidcActions from '../+state/oidc.actions';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
-  constructor(private readonly store: Store<OidcState>) { }
+  constructor(private readonly store: Store) { }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return this.store.select(oidcQuery.getAccessToken).pipe(
+    return this.store.select(oidcQuery.selectAccessToken).pipe(
       first(),
       mergeMap(accessToken => {
         if (accessToken) {

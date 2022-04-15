@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
-import { ICustomer } from '../../../models/odata';
 import { environment } from '../../../../environments/environment';
+import { ICustomer } from '../../../models/webapi';
 
 @Injectable({
   providedIn: 'root',

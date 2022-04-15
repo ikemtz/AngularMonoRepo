@@ -9,7 +9,6 @@ import {
 } from 'oidc-client';
 import { Observable } from 'rxjs';
 import { filter, take, map } from 'rxjs/operators';
-import { OidcState } from './oidc.reducer';
 import { oidcQuery } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
 import { RequestArugments } from '../models/arguments.model';
@@ -23,47 +22,47 @@ import { IOidcUser } from '../models/oidc-user';
 })
 export class OidcFacade {
   constructor(
-    private readonly store: Store<OidcState>,
+    private readonly store: Store,
     private readonly oidcService: OidcService
   ) {
     this.registerDefaultEvents();
   }
 
-  loading$: Observable<boolean> = this.store.select(oidcQuery.getOidcLoading);
+  loading$: Observable<boolean> = this.store.select(oidcQuery.selectIsLoading);
   expiring$: Observable<boolean> = this.store.select(
-    oidcQuery.isIdentityExpiring
+    oidcQuery.selectIsExpiring
   );
   expired$: Observable<boolean> = this.store.select(
-    oidcQuery.isIdentityExpired
+    oidcQuery.selectIsExpired
   );
-  loggedIn$: Observable<boolean> = this.store.select(oidcQuery.isLoggedIn);
+  loggedIn$: Observable<boolean> = this.store.select(oidcQuery.selectIsLoggedIn);
   identity$: Observable<IOidcUser | undefined> = this.store.select(
-    oidcQuery.getOidcIdentity
+    oidcQuery.selectIdentity
   );
   accessToken$: Observable<string | undefined> = this.store.select(
-    oidcQuery.getAccessToken
+    oidcQuery.selectAccessToken
   );
   httpError$: Observable<HttpErrorResponse | undefined> = this.store.select(
-    oidcQuery.getHttpError
+    oidcQuery.selectHttpError
   );
   signInError$: Observable<unknown> = this.store.select(
-    oidcQuery.getSignInError
+    oidcQuery.selectSignInError
   );
   silentRenewError$: Observable<unknown> = this.store.select(
-    oidcQuery.getSilentRenewError
+    oidcQuery.selectSilentRenewError
   );
-  hasErrors$: Observable<boolean> = this.store.select(oidcQuery.hasErrors);
+  hasErrors$: Observable<boolean> = this.store.select(oidcQuery.selectHasErrors);
   permissions$: Observable<string[] | undefined> = this.store.select(
-    oidcQuery.getPermissions
+    oidcQuery.selectPermissions
   );
   audiences$: Observable<string[] | null | undefined> = this.store.select(
-    oidcQuery.getAudiences
+    oidcQuery.selectAudiences
   );
   expiresAt$: Observable<Date | null> = this.store.select(
-    oidcQuery.getExpiresAt
+    oidcQuery.selectExpiresAt
   );
   userMetadata$: Observable<unknown> = this.store.select(
-    oidcQuery.getUserMetadata
+    oidcQuery.selectUserMetadata
   );
 
   // default bindings to events
@@ -102,7 +101,7 @@ export class OidcFacade {
   public addUserSignedOut(): void {
     this.oidcService.removeOidcUser();
     this.store.dispatch(oidcActions.onUserSignedOut());
-  }
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public addUserSessionChanged(): void {
@@ -111,7 +110,7 @@ export class OidcFacade {
 
   public clearErrors(): void {
     this.store.dispatch(oidcActions.clearErrors());
-  }
+  };
 
   // OIDC Methods
 
@@ -164,11 +163,11 @@ export class OidcFacade {
 
   public getSigninUrl(args?: RequestArugments): Observable<SigninRequest> {
     return this.oidcService.getSigninUrl(args);
-  }
+  };
 
   getSignoutUrl(args?: RequestArugments): Observable<SignoutRequest> {
     return this.oidcService.getSignoutUrl(args);
-  }
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerEvent(event: OidcEvent, callback: (...ev: unknown[]) => void): void {

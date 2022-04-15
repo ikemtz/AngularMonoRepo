@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { productsFeature, State } from './product.reducer';
 import * as productActionTypes from './product.actions';
@@ -24,7 +24,7 @@ export class ProductEffects {
   loadProductsEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(productActionTypes.loadProductsRequest),
-      mergeMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataservice
         .fetch<IProduct>(environment.odataEnpoints.products, action.payload)
         .pipe(
           map(t => productActionTypes.loadProductsSuccess(t)),
@@ -34,7 +34,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(productActionTypes.reloadProductsRequest),
       concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
-      mergeMap(([action, odataState]) => this.odataservice
+      switchMap(([action, odataState]) => this.odataservice
         .fetch<IProduct>(environment.odataEnpoints.products, odataState)
         .pipe(
           map(t => productActionTypes.reloadProductsSuccess(t)),
@@ -43,21 +43,21 @@ export class ProductEffects {
   saveProductEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(productActionTypes.saveProductRequest),
-      mergeMap((action: ReturnType<typeof productActionTypes.saveProductRequest>) => this.productApiService.post(action.payload).pipe(
+      switchMap((action: ReturnType<typeof productActionTypes.saveProductRequest>) => this.productApiService.post(action.payload).pipe(
         map(() => productActionTypes.reloadProductsRequest()),
         handleEffectError(action)))));
 
   updateProductEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(productActionTypes.updateProductRequest),
-      mergeMap((action: ReturnType<typeof productActionTypes.updateProductRequest>) => this.productApiService.put(action.payload).pipe(
+      switchMap((action: ReturnType<typeof productActionTypes.updateProductRequest>) => this.productApiService.put(action.payload).pipe(
         map(() => productActionTypes.reloadProductsRequest()),
         handleEffectError(action)))));
 
   deleteProductEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(productActionTypes.deleteProductRequest),
-      mergeMap((action: ReturnType<typeof productActionTypes.deleteProductRequest>) => this.productApiService.delete(action.payload).pipe(
+      switchMap((action: ReturnType<typeof productActionTypes.deleteProductRequest>) => this.productApiService.delete(action.payload).pipe(
         map(() => productActionTypes.reloadProductsRequest()),
         handleEffectError(action)))));
 }

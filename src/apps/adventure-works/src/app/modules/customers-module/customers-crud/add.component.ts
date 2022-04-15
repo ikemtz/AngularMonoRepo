@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerBaseEntryComponent } from './base-entry.component';
-import { ICustomer } from '../../../models/odata';
+import { ICustomer } from '../../../models/webapi';
 
 @Component({
   selector: 'aw-customer-add',

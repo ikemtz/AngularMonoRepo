@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
-import { customersFeature, CustomersPartialState } from '../+state/customer.reducer';
+import { customersFeature } from '../+state/customer.reducer';
 import * as customerActionTypes from '../+state/customer.actions';
 import { ICustomer } from '../../../models/odata';
 
 @Injectable()
 export class CustomerListFacade implements IKendoODataGridFacade<ICustomer>, IDataDeleteFacade<ICustomer> {
-  loading$ = this.store.pipe(select(customersFeature.selectLoading));
-  gridData$ = this.store.pipe(select(customersFeature.selectGridData));
-  gridPagerSettings$ = this.store.pipe(select(customersFeature.selectGridPagerSettings));
-  gridODataState$ = this.store.pipe(select(customersFeature.selectGridODataState));
+  loading$ = this.store.select(customersFeature.selectLoading);
+  gridData$ = this.store.select(customersFeature.selectGridData);
+  gridPagerSettings$ = this.store.select(customersFeature.selectGridPagerSettings);
+  gridODataState$ = this.store.select(customersFeature.selectGridODataState);
 
-  constructor(private readonly store: Store<CustomersPartialState>) { }
+  constructor(private readonly store: Store) { }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(customerActionTypes.loadCustomersRequest(state));

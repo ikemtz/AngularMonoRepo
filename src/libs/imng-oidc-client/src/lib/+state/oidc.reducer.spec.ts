@@ -8,21 +8,21 @@ describe('Employees Reducer', () => {
     it('getOidcUser', () => {
       const action = oidcActions.getOidcUser();
       const result = oidcFeature.reducer(initialState, action);
-      expect(result.loading).toBe(true);
+      expect(result.isLoading).toBe(true);
     });
 
     it('userExpired', () => {
       const action = oidcActions.userExpired();
       const result = oidcFeature.reducer(initialState, action);
-      expect(result.loggedIn).toBe(false);
-      expect(result.expiring).toBe(false);
+      expect(result.isLoggedIn).toBe(false);
+      expect(result.isExpiring).toBe(false);
     });
 
     it('onUserLoading', () => {
       const action = oidcActions.onUserLoading();
       const result = oidcFeature.reducer(initialState, action);
-      expect(result.loading).toBe(true);
-      expect(result.loggedIn).toBe(false);
+      expect(result.isLoading).toBe(true);
+      expect(result.isLoggedIn).toBe(false);
     });
   });
 });

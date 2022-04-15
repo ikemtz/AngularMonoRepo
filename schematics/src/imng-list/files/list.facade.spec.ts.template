@@ -11,13 +11,9 @@ import { Observable, of } from 'rxjs';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
-import { <%= classify(pluralizedStoreName) %>PartialState, <%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY, <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-
-interface TestSchema {
-  [<%= underscore(pluralizedStoreName).toUpperCase() %>_FEATURE_KEY]: <%= classify(pluralizedStoreName) %>PartialState;
-}
 
 export const create<%= classify(singularizedName) %> = () => <I<%= classify(singularizedName) %>>{
 <% swaggerProperties.forEach(function(swaggerProperty)
