@@ -51,7 +51,7 @@ describe('ProductListComponent', () => {
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1); 
+    expect(listFacade.reloadEntities).toBeCalledTimes(1);
   });
 
   test('it should handle AddItem', () => {
@@ -59,7 +59,7 @@ describe('ProductListComponent', () => {
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith({});
   });
-  
+
   test('it should handle EditItem', () => {
     const item = createProduct();
     component.editItem(item);

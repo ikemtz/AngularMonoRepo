@@ -14,19 +14,11 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ProductEffects } from '../+state/product.effects';
-import {
-  ProductsPartialState,
-  PRODUCTS_FEATURE_KEY,
-  productsFeature,
-} from '../+state/product.reducer';
+import { productsFeature } from '../+state/product.reducer';
 import { ProductCrudFacade } from './crud.facade';
 import { ProductApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
 import { IProduct, ProductProperties } from '../../../models/webapi';
-
-interface TestSchema {
-  [PRODUCTS_FEATURE_KEY]: ProductsPartialState;
-}
 
 export const createProduct = () =>
   <IProduct>{
@@ -50,7 +42,7 @@ export const createProduct = () =>
 
 describe('ProductCrudFacade', () => {
   let facade: ProductCrudFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   beforeEach(() => { });

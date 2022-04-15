@@ -8,7 +8,7 @@ import { IProduct } from '../../../models/webapi';
   providedIn: 'root',
 })
 export class ProductApiService extends NrsrxBaseApiClientService<IProduct> {
-  public override url = environment.webApiEnpoints.customers;
+  public override url = environment.webApiEnpoints.products;
   constructor(http: HttpClient) {
     super(http);
   }

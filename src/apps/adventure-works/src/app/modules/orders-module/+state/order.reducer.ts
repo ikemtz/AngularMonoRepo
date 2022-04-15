@@ -9,10 +9,6 @@ export interface State extends KendoODataGridState<IOrder> {
   currentOrder: IOrder | undefined;
 }
 
-export interface OrdersPartialState {
-  readonly [ORDERS_FEATURE_KEY]: State;
-}
-
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
   currentOrder: undefined,
@@ -23,15 +19,16 @@ export const ordersFeature = createFeature({
   name: ORDERS_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-
-    on(orderActionTypes.loadOrdersRequest, (state, { payload }) => ({
-      ...state,
-      gridODataState: payload,
-      loading: true,
-      error: null,
-    })),
+    on(orderActionTypes.loadOrdersRequest,
+      (state, { payload }): State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null,
+      })),
     on(orderActionTypes.loadOrdersSuccess,
-      orderActionTypes.reloadOrdersSuccess, (state, { payload }) => ({
+      orderActionTypes.reloadOrdersSuccess,
+      (state, { payload }): State => ({
         ...state,
         loading: false,
         gridPagerSettings: getODataPagerSettings({
@@ -41,14 +38,15 @@ export const ordersFeature = createFeature({
         gridData: payload,
         error: null,
       })),
-
-    on(orderActionTypes.setCurrentOrder, (state, { payload }) => ({ ...state, currentOrder: payload })),
-    on(orderActionTypes.clearCurrentOrder, state => ({ ...state, currentOrder: undefined })),
-    on(
-      orderActionTypes.saveOrderRequest,
+    on(orderActionTypes.setCurrentOrder,
+      (state, { payload }): State =>
+        ({ ...state, currentOrder: payload })),
+    on(orderActionTypes.clearCurrentOrder,
+      (state): State => ({ ...state, currentOrder: undefined })),
+    on(orderActionTypes.saveOrderRequest,
       orderActionTypes.updateOrderRequest,
       orderActionTypes.deleteOrderRequest,
-      state => ({
+      (state): State => ({
         ...state,
         loading: true,
       }),

@@ -11,14 +11,10 @@ import { Observable, of } from 'rxjs';
 
 import { ProductEffects } from '../+state/product.effects';
 import * as productActionTypes from '../+state/product.actions';
-import { ProductsPartialState, PRODUCTS_FEATURE_KEY, productsFeature } from '../+state/product.reducer';
+import { productsFeature } from '../+state/product.reducer';
 import { ProductListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
 import { IProduct, ProductProperties } from '../../../models/odata';
-
-interface TestSchema {
-  [PRODUCTS_FEATURE_KEY]: ProductsPartialState;
-}
 
 export const createProduct = () => <IProduct>{
   [ProductProperties.ID]: 'ID',
@@ -41,7 +37,7 @@ export const createProduct = () => <IProduct>{
 
 describe('ProductListFacade', () => {
   let facade: ProductListFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
