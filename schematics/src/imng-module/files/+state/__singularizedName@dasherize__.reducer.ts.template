@@ -40,7 +40,6 @@ export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
       gridData: payload,
       error: null,
     })),
-
     on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>, (state, { payload }) => ({ ...state, current<%= classify(singularizedName) %>: payload })),
     on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>, state => ({ ...state, current<%= classify(singularizedName) %>: undefined })),
     on(

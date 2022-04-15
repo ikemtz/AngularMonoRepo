@@ -1,7 +1,6 @@
 import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
-
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 export const load<%= classify(pluralizedName) %>Request = createPayloadAction<ODataState>(
     '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Request');
