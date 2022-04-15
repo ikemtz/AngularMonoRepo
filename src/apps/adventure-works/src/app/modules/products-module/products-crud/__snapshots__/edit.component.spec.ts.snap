@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductEditComponent should update 1`] = `
+Object {
+  "color": "COLOR",
+  "discontinuedDate": Any<Date>,
+  "id": "ID",
+  "listPrice": 0,
+  "name": "NAME",
+  "num": "NUM",
+  "orderLineItems": Array [],
+  "productCategory": "PRODUCT_CATEGORY",
+  "productCategoryId": "PRODUCT_CATEGORY_ID",
+  "productModel": "PRODUCT_MODEL",
+  "productModelId": "PRODUCT_MODEL_ID",
+  "sellEndDate": Any<Date>,
+  "sellStartDate": Any<Date>,
+  "size": "SIZE",
+  "standardCost": 0,
+  "thumbNailPhoto": "THUMB_NAIL_PHOTO",
+  "weight": 0,
+}
+`;
