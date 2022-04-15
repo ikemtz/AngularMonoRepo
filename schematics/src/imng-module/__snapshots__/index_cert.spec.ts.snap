@@ -26,30 +26,32 @@ export const certificationsFeature = createFeature({
   reducer: createReducer(
     initialState,
   
-    on(certificationActionTypes.loadCertificationsRequest, (state, { payload }) => ({
-      ...state,
-      gridODataState: payload,
-      loading: true,
-      error: null,
-    })),
+    on(certificationActionTypes.loadCertificationsRequest, 
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
     on(certificationActionTypes.loadCertificationsSuccess,
-      certificationActionTypes.reloadCertificationsSuccess, (state, { payload }) => ({
-      ...state,
-      loading: false,
-      gridPagerSettings: getODataPagerSettings({
+      certificationActionTypes.reloadCertificationsSuccess, 
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
         gridData: payload,
-        gridODataState: state.gridODataState,
-      }),
-      gridData: payload,
-      error: null,
-    })),
-    on(certificationActionTypes.setCurrentCertification, (state, { payload }) => ({ ...state, currentCertification: payload })),
-    on(certificationActionTypes.clearCurrentCertification, state => ({ ...state, currentCertification: undefined })),
-    on(
-      certificationActionTypes.saveCertificationRequest,
+        error: null, })),
+    on(certificationActionTypes.setCurrentCertification, 
+      (state, { payload }) : State => 
+        ({ ...state, currentCertification: payload })),
+    on(certificationActionTypes.clearCurrentCertification, 
+      (state) : State => ({ ...state, currentCertification: undefined })),
+    on(certificationActionTypes.saveCertificationRequest,
       certificationActionTypes.updateCertificationRequest,
       certificationActionTypes.deleteCertificationRequest,
-      state => ({
+      (state) : State => ({
         ...state,
         loading: true,
       }),
