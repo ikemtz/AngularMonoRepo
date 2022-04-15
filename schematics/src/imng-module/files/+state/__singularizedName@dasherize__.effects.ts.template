@@ -11,7 +11,6 @@ import { environment } from '../../../../environments/environment';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-crud';
 <% } %>
-
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
   constructor(
@@ -20,7 +19,6 @@ export class <%= classify(singularizedName) %>Effects {
     private store: Store<State>,
     private readonly <%= camelize(singularizedName) %>ApiService : <%= classify(singularizedName) %>ApiService,
   ) {}
-
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
   load<%= classify(pluralizedName) %>Effect$ = createEffect(() =>
    this.actions$.pipe(
@@ -60,6 +58,5 @@ export class <%= classify(singularizedName) %>Effects {
       ofType(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request),
       mergeMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.delete(action.payload).pipe(
         map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
-        handleEffectError(action)))));
-<% } %>
+        handleEffectError(action)))));<% } %>
 }

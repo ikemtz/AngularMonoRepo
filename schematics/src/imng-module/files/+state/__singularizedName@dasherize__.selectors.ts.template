@@ -1,7 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedName) %>.reducer';
 import { isTruthy } from 'imng-ngrx-utils';
-
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 const getCurrent<%= classify(name) %> = <%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>;
 const getIsEdit<%= classify(name) %>Active = createSelector(
@@ -20,5 +19,4 @@ export const dataEntry<%= classify(name) %>Queries = {
 
 export const <%= camelize(singularizedName) %>Queries = { ...dataEntry<%= classify(name) %>Queries };
 <% } else { %>
-export const <%= camelize(singularizedName) %>Queries = {};
-<% } %>
+export const <%= camelize(singularizedName) %>Queries = {};<% } %>
