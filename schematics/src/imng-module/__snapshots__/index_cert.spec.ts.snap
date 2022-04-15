@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imng-module generation works - Certifications 1`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+
+import * as certificationActionTypes from './certification.actions';
+export const CERTIFICATIONS_FEATURE_KEY = 'certifications';
+
+export interface State extends KendoODataGridState<ICertification> {
+  currentCertification: ICertification | undefined;
+}
+
+export interface CertificationsPartialState {
+  readonly [CERTIFICATIONS_FEATURE_KEY]: State;
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentCertification: undefined,
+  loading: true,
+};
+
+export const certificationsFeature = createFeature({
+  name: CERTIFICATIONS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+  
+    on(certificationActionTypes.loadCertificationsRequest, (state, { payload }) => ({
+      ...state,
+      gridODataState: payload,
+      loading: true,
+      error: null,
+    })),
+    on(certificationActionTypes.loadCertificationsSuccess,
+      certificationActionTypes.reloadCertificationsSuccess, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      gridPagerSettings: getODataPagerSettings({
+        gridData: payload,
+        gridODataState: state.gridODataState,
+      }),
+      gridData: payload,
+      error: null,
+    })),
+
+    on(certificationActionTypes.setCurrentCertification, (state, { payload }) => ({ ...state, currentCertification: payload })),
+    on(certificationActionTypes.clearCurrentCertification, state => ({ ...state, currentCertification: undefined })),
+    on(
+      certificationActionTypes.saveCertificationRequest,
+      certificationActionTypes.updateCertificationRequest,
+      certificationActionTypes.deleteCertificationRequest,
+      state => ({
+        ...state,
+        loading: true,
+      }),
+    ),
+)
+});
+"
+`;

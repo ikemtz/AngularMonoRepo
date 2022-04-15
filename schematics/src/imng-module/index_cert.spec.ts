@@ -21,7 +21,6 @@ describe('imng-module', () => {
       openApiJsonFileName: '../../open-api-docs/nrcrn-cert-odata.json',
       path: './test',
       swaggerProperties: [],
-      storeName: 'certifications',
       appPrefix: 'nrcrn',
     };
     const tree: UnitTestTree = await readFirst(
@@ -134,5 +133,13 @@ describe('imng-module', () => {
         pluralize(options.name)
       )}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`
     );
+
+    const reducerFile = tree.get(
+      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
+        options.name
+      )}.reducer.ts`
+    );
+    content = reducerFile?.content.toString();
+    expect(content).toMatchSnapshot();
   });
 });
