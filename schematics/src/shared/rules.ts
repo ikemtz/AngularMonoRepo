@@ -22,8 +22,6 @@ import * as https from 'https';
 import * as http from 'http';
 import * as findUp from 'find-up';
 
-const singular = 1;
-const plural = 2;
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
