@@ -17,8 +17,8 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ <%= classify(singularizedName) %>ListComponent ],
-      imports: [ RouterTestingModule ],
+      declarations: [<%= classify(singularizedName) %>ListComponent],
+      imports: [RouterTestingModule],
       providers: [
         { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: <%= classify(singularizedName) %>CrudFacade, useValue: createDataEntryMockFacade() },

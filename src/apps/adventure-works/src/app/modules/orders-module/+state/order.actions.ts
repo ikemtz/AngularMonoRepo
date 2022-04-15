@@ -1,8 +1,7 @@
 import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
-import { IOrder } from '../../../models/webapi';
-
+import { IOrder } from '../../../models/odata';
 
 export const loadOrdersRequest = createPayloadAction<ODataState>(
     '[Orders] Load Orders Request');

@@ -11,14 +11,10 @@ import { Observable, of } from 'rxjs';
 
 import { OrderEffects } from '../+state/order.effects';
 import * as orderActionTypes from '../+state/order.actions';
-import { OrdersPartialState, ORDERS_FEATURE_KEY, ordersFeature } from '../+state/order.reducer';
+import { ordersFeature } from '../+state/order.reducer';
 import { OrderListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
 import { IOrder, OrderProperties } from '../../../models/odata';
-
-interface TestSchema {
-  [ORDERS_FEATURE_KEY]: OrdersPartialState;
-}
 
 export const createOrder = () => <IOrder>{
   [OrderProperties.ID]: 'ID',
@@ -48,7 +44,7 @@ export const createOrder = () => <IOrder>{
 
 describe('OrderListFacade', () => {
   let facade: OrderListFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
