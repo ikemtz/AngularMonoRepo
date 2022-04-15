@@ -117,14 +117,16 @@ function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: Pr
   return dest;
 }
 
+const singular = 1;
+const plural = 2;
 export function generateFiles(schema: IOptions, templateType: 'list' | 'crud' | 'module'): Rule {
   return (tree: Tree, context: SchematicContext) => {
     context.logger.info(`Running ${strings.capitalize(templateType)} Schematic`);
 
-    const singularizedName = pluralize(schema.name, 1);
-    const pluralizedName = pluralize(schema.name, 2);
-    const singularizedStoreName = schema.storeName ? pluralize(schema.storeName, 1) : pluralize(schema.name, 1);
-    const pluralizedStoreName = schema.storeName ? pluralize(schema.storeName, 2) : pluralize(schema.name, 2);
+    const singularizedName = pluralize(schema.name, singular);
+    const pluralizedName = pluralize(schema.name, plural);
+    const singularizedStoreName = schema.storeName ? pluralize(schema.storeName, singular) : pluralize(schema.name, singular);
+    const pluralizedStoreName = schema.storeName ? pluralize(schema.storeName, plural) : pluralize(schema.name, plural);
 
     const folderName = normalize(`${schema.path}/${strings.dasherize(pluralizedName)}-${templateType}`);
     const templateSource = apply(url('./files'), [
