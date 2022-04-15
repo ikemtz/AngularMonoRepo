@@ -5,13 +5,12 @@ import { SIGNALR_CONFIG } from '../models/signalr.configuration';
 import { OidcFacade } from 'imng-oidc-client';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { TestSchema } from '../+state/signalr.facade.spec';
 import { NullLogger } from '@microsoft/signalr';
 import { HttpTransportType } from '@microsoft/signalr';
 
 describe('HubConnectionInjectorService', () => {
   let service: HubConnectionInjectorService;
-  let store: Store<TestSchema>;
+  let store: Store;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,7 +37,7 @@ describe('HubConnectionInjectorService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
     expect(
-      (service as unknown as { allSubscriptions: [] }).allSubscriptions.length
+      (service as unknown as { allSubscriptions: []; }).allSubscriptions.length
     ).toBe(1);
   });
 
@@ -78,7 +77,7 @@ describe('HubConnectionInjectorService', () => {
       await hubConnection?.start();
     } catch (err) {
       expect(err).toMatchSnapshot();
-      expect((err as { statusCode: number }).statusCode).toBeFalsy();
+      expect((err as { statusCode: number; }).statusCode).toBeFalsy();
     }
     expect.assertions(2);
   });

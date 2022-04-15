@@ -4,23 +4,23 @@ import { oidcQuery } from './oidc.selectors';
 import { oidcFeature } from './oidc.reducer';
 import { IOidcUser } from '../models/oidc-user';
 
-const getProfile = createSelector(
-  oidcQuery.getOidcIdentity,
+const selectProfile = createSelector(
+  oidcQuery.selectIdentity,
   (identity?: IOidcUser) => identity?.profile as OidcUserProfile
 );
 
 const getPermissions = oidcFeature.selectPermissions;
 
-const getEmail = createSelector(getProfile, (profile) => profile?.email);
+const selectEmail = createSelector(selectProfile, (profile) => profile?.email);
 
-const getProfilePicture = createSelector(
-  getProfile,
+const selectProfilePicture = createSelector(
+  selectProfile,
   (profile) => profile?.picture
 );
 
 export const OidcUserSelectors = {
-  getProfile,
-  getEmail,
-  getProfilePicture,
+  getProfile: selectProfile,
+  getEmail: selectEmail,
+  getProfilePicture: selectProfilePicture,
   getPermissions,
 };

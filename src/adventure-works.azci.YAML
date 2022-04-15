@@ -136,15 +136,6 @@ jobs:
           PathtoPublish: 'src/dist'
           ArtifactName: 'debug-drop'
 
-      - task: Docker@2
-        inputs:
-          containerRegistry: 'Azure Container Registry (NgMono)'
-          repository: 'adventure-works'
-          command: 'buildAndPush'
-          Dockerfile: 'src/adventure-works.lcl.Dockerfile'
-          buildContext: 'src/'
-          tags: 'latest'
-
       - task: Npm@1
         displayName: 'npm run build [RELEASE BUILD]'
         inputs:

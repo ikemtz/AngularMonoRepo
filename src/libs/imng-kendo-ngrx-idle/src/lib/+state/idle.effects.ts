@@ -12,28 +12,30 @@ import { IDLE_FEATURE_KEY } from './idle.reducer';
 export class IdleEffects {
   private loggedInActionPipe$?: Observable<boolean>;
 
-  signOutRedirect$ = createEffect(() =>
-    this.getLoggedInActionPipe().pipe(
+  signOutRedirect$ = createEffect(() => {
+    return this.getLoggedInActionPipe().pipe(
       switchMap(() => timer(this.idleConfig.autoLogoutInMs)),
       map(() => signOutRedirect())
-    )
+    );
+  }
   );
 
-  timingOut$ = createEffect(() =>
-    this.getLoggedInActionPipe().pipe(
+  timingOut$ = createEffect(() => {
+    return this.getLoggedInActionPipe().pipe(
       switchMap(() => timer(this.idleConfig.timeoutWarningInMs)),
       map(() => onSessionTimingOut(this.idleConfig))
-    )
+    );
+  }
   );
 
   constructor(
     @Inject(IDLE_CONFIG) private readonly idleConfig: IdleConfig,
     private readonly state: State<{
-      oidc: { loggedIn: boolean };
-      [IDLE_FEATURE_KEY]: { isTimingOut: boolean };
+      oidc: { loggedIn: boolean; };
+      [IDLE_FEATURE_KEY]: { isTimingOut: boolean; };
     }>,
     private readonly actions$: Actions
-  ) {}
+  ) { }
 
   private getLoggedInActionPipe(): Observable<boolean> {
     this.loggedInActionPipe$ = this.actions$.pipe(

@@ -10,24 +10,16 @@ import { NxModule } from '@nrwl/angular';
 import { SignalrEffects } from './signalr.effects';
 import { SignalrFacade } from './signalr.facade';
 
-import {
-  SIGNALR_FEATURE_KEY,
-  State,
-  signalrFeature,
-} from './signalr.reducer';
+import { signalrFeature } from './signalr.reducer';
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
 import { SIGNALR_CONFIG } from '../models/signalr.configuration';
 import { receivedMessage } from './signalr.actions';
 import { OidcFacade } from 'imng-oidc-client';
 import { of } from 'rxjs';
 
-export interface TestSchema {
-  [SIGNALR_FEATURE_KEY]: State;
-}
-
 describe('SignalrFacade', () => {
   let facade: SignalrFacade;
-  let store: Store<TestSchema>;
+  let store: Store;
   let service: HubConnectionInjectorService;
 
   describe('used in NgModule', () => {

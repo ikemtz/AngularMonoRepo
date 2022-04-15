@@ -43,7 +43,6 @@ import { OIDC_LIBRARY_CONFIG } from './models/oidc-library-config';
     },
     OidcService,
     OidcFacade,
-    OidcEffects,
     OidcUserFacade,
     AuthGuard,
     {

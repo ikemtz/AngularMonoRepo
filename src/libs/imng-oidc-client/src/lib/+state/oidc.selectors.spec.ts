@@ -26,7 +26,7 @@ describe('OIDC Selectors', () => {
 
   describe('OIDC Selectors', () => {
     it('getAccessToken', () => {
-      const results = oidcQuery.getAccessToken(state);
+      const results = oidcQuery.selectAccessToken(state);
       expect(results).toBe('🔑');
     });
   });
