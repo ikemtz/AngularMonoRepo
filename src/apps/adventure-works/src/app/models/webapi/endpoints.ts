@@ -8,8 +8,10 @@
 export enum Endpoints {
   customers = 'aw-webapi/api/v1/Customers.json',
   orders = 'aw-webapi/api/v1/Orders.json',
+  products = 'aw-webapi/api/v1/Products.json',
 }
 export interface IEndpoints {
   readonly customers: string;
   readonly orders: string;
+  readonly products: string;
 }

@@ -1,0 +1,121 @@
+<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+  <ng-template kendoGridToolbarTemplate>
+    <div class="w-100 d-flex justify-content-between">
+      <h3>Products</h3>
+      <imng-kendo-odata-grid-header
+        entityName="Product"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (clearFiltersClicked)="resetFilters()"
+        [hasHiddenColumns$]="hasHiddenColumns$">
+      </imng-kendo-odata-grid-header>
+    </div>
+  </ng-template>
+
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.id | slice:0:5 }}
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NUM" [width]="100" title="Num" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Num</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.COLOR" [width]="100" title="Color" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Color</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.STANDARD_COST" [width]="100" title="Standard Cost" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Standard Cost</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.LIST_PRICE" [width]="100" title="List Price" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">List Price</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SIZE" [width]="100" title="Size" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Size</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.WEIGHT" [width]="100" title="Weight" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Weight</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.PRODUCT_CATEGORY_ID" [width]="100" title="Product Category Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.product_category_id | slice:0:5 }}
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Product Category Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.PRODUCT_MODEL_ID" [width]="100" title="Product Model Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.product_model_id | slice:0:5 }}
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Product Model Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SELL_START_DATE" [width]="100" format="{0:MM/dd/yy}" title="Sell Start Date" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Sell Start Date</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SELL_END_DATE" [width]="100" format="{0:MM/dd/yy}" title="Sell End Date" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Sell End Date</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.DISCONTINUED_DATE" [width]="100" format="{0:MM/dd/yy}" title="Discontinued Date" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Discontinued Date</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.THUMB_NAIL_PHOTO" [width]="100" title="Thumb Nail Photo" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Thumb Nail Photo</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.PRODUCT_MODEL" [width]="100" title="Product Model" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Product Model</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.PRODUCT_CATEGORY" [width]="100" title="Product Category" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Product Category</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [width]="50">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
+        <span class="k-icon k-i-edit"></span>
+      </button>
+      <button type="button" class="btn btn-sm mr-1" (click)="deleteItem(dataItem)" placement="left" tooltip="Delete">
+        <span class="k-icon k-i-delete"></span>
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf fileName="Products.pdf" [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+  <kendo-grid-excel fileName="Products.xlsx" [fetchData]="excelData"></kendo-grid-excel>
+</kendo-grid>
+<aw-product-add *ngIf="crudFacade.isNewActive$ | async"></aw-product-add>
+<aw-product-edit *ngIf="crudFacade.isEditActive$ | async"></aw-product-edit>
