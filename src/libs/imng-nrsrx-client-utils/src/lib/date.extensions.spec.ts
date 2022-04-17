@@ -1,5 +1,18 @@
 import './date.extensions';
-import { toShortDateString, weekOfYear } from './date.extensions';
+import { toLocalTimeStamp, toShortDateString, weekOfYear } from './date.extensions';
+
+describe('toLocalTimeStamp', () => {
+  it('to handle 1/1/2020', () => {
+    const dt = new Date('1/1/2020');
+    expect(toLocalTimeStamp(dt)).toBe('20200101000000-000');
+  });
+  it('to handle current DateTime', () => {
+    const timeStamp = toLocalTimeStamp();
+    expect(timeStamp.length).toBe(18);
+    expect(timeStamp[14]).toBe('-');
+    expect(timeStamp[0]).toBe('2');
+  });
+});
 
 describe('toShortDateString', () => {
   it('to handle 1/1/2020', () => {

@@ -25,9 +25,10 @@
         ],
         "styles": [
           {
-            "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+            "input": "libs/imng-kendo-theme-blue/dist/styles.css"
           },
-          "apps/adventure-works/src/styles.scss"],
+          "apps/adventure-works/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
