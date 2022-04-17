@@ -1,7 +1,10 @@
+import { numPad } from './num-pad';
+
 declare global {
   export interface Date {
     toShortDateString(): string;
     weekOfYear(): number;
+    toLocalTimeStamp(): string;
   }
 }
 
@@ -34,6 +37,12 @@ export function weekOfYear(dt: Date): number {
   const onejan = new Date(dt.getFullYear(), 0, 1);
   return Math.ceil(((dt.getTime() - onejan.getTime()) / MILLI_SECS_PER_DAY + onejan.getDay() + 1) / DAYS_PER_WEEK);
 }
+
+// tslint:disable-next-line: space-before-function-paren
+export function toLocalTimeStamp(dt: Date = new Date()): string {
+  return `${dt.getFullYear()}${numPad(dt.getMonth() + 1)}${numPad(dt.getDate())}${numPad(dt.getHours())}${numPad(dt.getMinutes())}${numPad(dt.getSeconds())}-${numPad(dt.getMilliseconds(), 3)}`;
+}
+
 
 // tslint:disable-next-line: space-before-function-paren
 export function toShortDateString(dt: Date): string {

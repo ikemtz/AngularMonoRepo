@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { GridComponent } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -38,9 +39,10 @@ import { Observable } from 'rxjs';
       title="Export To PDF"
       kendoGridPDFCommand
       icon="file-pdf"
-      class="mx-1"
+      class="btn btn-sm mx-1"
+      (click)="parentGrid.saveAsPDF()"
     >
-      Export to PDF
+      <span class="k-icon k-i-pdf"></span> Export to PDF
     </button>
     <button
       *ngIf="hideExports !== true"
@@ -48,9 +50,10 @@ import { Observable } from 'rxjs';
       title="Export To Excel"
       kendoGridExcelCommand
       icon="file-excel"
-      class="mx-1"
+      class="btn btn-sm mx-1"
+      (click)="parentGrid.saveAsExcel()"
     >
-      Export To Excel
+      <span class="k-icon k-i-excel"></span> Export To Excel
     </button>
     <kendo-grid-column-chooser
       *ngIf="hideColumnChooser !== true"
@@ -106,4 +109,7 @@ export class ImngGridHeaderComponent {
   public clearFiltersClicked = new EventEmitter();
   @Output()
   public reloadEntitiesClicked = new EventEmitter();
+  constructor(@Inject(GridComponent) public parentGrid: GridComponent) {
+
+  }
 }

@@ -17,6 +17,7 @@ import {
   FilterDescriptor,
   isCompositeFilterDescriptor,
 } from '@progress/kendo-data-query';
+import { toLocalTimeStamp } from 'imng-nrsrx-client-utils';
 
 const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>(
   'imng-grid-odata-facade'
@@ -202,5 +203,9 @@ export abstract class KendoODataComponentBase<
   }
   public reloadEntities(): void {
     this.facade.reloadEntities();
+  }
+
+  public getExportFileName(exportName: string): string {
+    return `${exportName}-${toLocalTimeStamp()}`;
   }
 }

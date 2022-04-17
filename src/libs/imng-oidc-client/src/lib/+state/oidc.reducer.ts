@@ -44,56 +44,66 @@ export const initialState: OidcState = {
 export const oidcFeature = createFeature({
   name: OIDC_FEATURE_KEY,
   reducer: createReducer(initialState,
-    on(oidcActions.getOidcUser, oidcActions.onUserLoading, (state): OidcState => ({
-      ...state,
-      isLoading: true,
-      isLoggedIn: false,
-    })),
-    on(oidcActions.removeOidcUser, (state): OidcState => ({
-      ...state,
-      isLoading: true,
-      isLoggedIn: false,
-      identity: undefined,
-    })),
-    on(oidcActions.setHttpError, (state, err): OidcState => ({
-      ...state,
-      isLoading: false,
-      errors: {
-        ...state.errors,
-        httpError: err.payload,
-      },
-    })),
-    on(oidcActions.onUserMetadataLoaded, (state, userMetadata): OidcState => ({
-      ...state,
-      userMetadata: userMetadata.payload,
-      isLoading: false,
-    })),
-    on(oidcActions.clearErrors, (state): OidcState => ({
-      ...state, errors: {
-        signInError: undefined,
-        silentRenewError: undefined,
-        httpError: undefined
-      }
-    })),
-    on(oidcActions.userDoneLoading, (state): OidcState => ({
-      ...state,
-      isLoading: false
-    })),
-    on(oidcActions.onAccessTokenExpiring, (state): OidcState => ({
-      ...state,
-      isExpiring: true,
-    })),
-    on(oidcActions.onAccessTokenExpired, (state): OidcState => ({
-      ...state,
-      isLoggedIn: false,
-      isExpiring: false,
-      isExpired: true,
-    })),
-    on(oidcActions.onUserLoaded, (state): OidcState => ({
-      ...state,
-      isLoading: false,
-      isExpiring: false,
-    })),
+    on(oidcActions.getOidcUser,
+      oidcActions.onUserLoading,
+      (state): OidcState => ({
+        ...state,
+        isLoading: true,
+        isLoggedIn: false,
+      })),
+    on(oidcActions.removeOidcUser,
+      (state): OidcState => ({
+        ...state,
+        isLoading: true,
+        isLoggedIn: false,
+        identity: undefined,
+      })),
+    on(oidcActions.setHttpError,
+      (state, err): OidcState => ({
+        ...state,
+        isLoading: false,
+        errors: {
+          ...state.errors,
+          httpError: err.payload,
+        },
+      })),
+    on(oidcActions.onUserMetadataLoaded,
+      (state, userMetadata): OidcState => ({
+        ...state,
+        userMetadata: userMetadata.payload,
+        isLoading: false,
+      })),
+    on(oidcActions.clearErrors,
+      (state): OidcState => ({
+        ...state, errors: {
+          signInError: undefined,
+          silentRenewError: undefined,
+          httpError: undefined
+        }
+      })),
+    on(oidcActions.userDoneLoading,
+      (state): OidcState => ({
+        ...state,
+        isLoading: false
+      })),
+    on(oidcActions.onAccessTokenExpiring,
+      (state): OidcState => ({
+        ...state,
+        isExpiring: true,
+      })),
+    on(oidcActions.onAccessTokenExpired,
+      (state): OidcState => ({
+        ...state,
+        isLoggedIn: false,
+        isExpiring: false,
+        isExpired: true,
+      })),
+    on(oidcActions.onUserLoaded,
+      (state): OidcState => ({
+        ...state,
+        isLoading: false,
+        isExpiring: false,
+      })),
     on(
       oidcActions.onUserUnloaded,
       oidcActions.onUserSignedOut,
@@ -108,21 +118,23 @@ export const oidcFeature = createFeature({
         userMetadata: undefined,
       })
     ),
-    on(oidcActions.signOutRedirect, oidcActions.signOutPopup, (state): OidcState => ({
-      ...state,
-      identity: undefined,
-      userMetadata: null,
-      isLoggedIn: false,
-    })),
+    on(oidcActions.signOutRedirect,
+      oidcActions.signOutPopup,
+      (state): OidcState => ({
+        ...state,
+        identity: undefined,
+        userMetadata: null,
+        isLoggedIn: false,
+      })),
     on(
       oidcActions.userFound,
       oidcActions.onSignInPopup,
       oidcActions.onSignInRedirect,
       oidcActions.onSignInSilent,
-      (state, { payload }) => ({
+      (state, { payload }): OidcState => ({
         ...state,
         identity: payload,
-        loggedIn: true,
+        isLoggedIn: true,
         audiences: payload.access_token
           ? jwtDecoder<{ aud?: []; }>(payload.access_token)?.aud
           : undefined,
