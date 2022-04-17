@@ -1,5 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { GridComponent } from '@progress/kendo-angular-grid';
 import { of } from 'rxjs';
 import { ImngGridHeaderComponent } from './grid-header.component';
 
@@ -10,6 +11,10 @@ describe('ImngGridHeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ImngGridHeaderComponent],
+      providers: [{
+        provide: GridComponent,
+        useValue: {}
+      }],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });

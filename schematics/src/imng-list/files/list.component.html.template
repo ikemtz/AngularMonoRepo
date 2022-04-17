@@ -46,10 +46,10 @@
     </ng-template>
   </kendo-grid-column>
 
-  <kendo-grid-pdf fileName="<%= classify(pluralizedName) %>.pdf" [allPages]="false">
+  <kendo-grid-pdf [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [allPages]="false">
     <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
   </kendo-grid-pdf>
-  <kendo-grid-excel fileName="<%= classify(pluralizedName) %>.xlsx" [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
 <<%= appPrefix %>-<%= dasherize(name) %>-add *ngIf="crudFacade.isNewActive$ | async"></<%= appPrefix %>-<%= dasherize(name) %>-add>
 <<%= appPrefix %>-<%= dasherize(name) %>-edit *ngIf="crudFacade.isEditActive$ | async"></<%= appPrefix %>-<%= dasherize(name) %>-edit>
