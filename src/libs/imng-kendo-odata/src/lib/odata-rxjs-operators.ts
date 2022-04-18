@@ -25,7 +25,7 @@ export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNulla
 export const firstRecord = <T>() =>
   map((result: ODataResult<T>) => (result?.data?.length > 0 ? result.data[0] : ({} as T)));
 
-export const findById = <T extends { id?: IdType }>(id?: IdType) =>
+export const findById = <T extends { id?: IdType; }>(id?: IdType) =>
   map((source: ODataResult<T>) => source?.data?.find((f) => f.id === id) || ({} as T));
 
 export function parseDatesInCollection<T>(
@@ -35,7 +35,7 @@ export function parseDatesInCollection<T>(
 ): Array<T> {
   if (collection.length > 0) {
     const utcProps = Object.keys(collection[0]).filter((x) => x.endsWith('Utc'));
-    const dateProps = Object.keys(collection[0]).filter((x) => x.endsWith('Date'));
+    const dateProps = Object.keys(collection[0]).filter((x) => x.endsWith('Date') || x === 'Date');
 
     utcNullableProps?.forEach((t) => {
       if (utcProps.indexOf(t) === -1) {
@@ -63,7 +63,7 @@ export function toLocalDate(date: string): Date {
   return new Date(dt.getTime() + Math.abs(dt.getTimezoneOffset() * MILLI_SECS_PER_SEC));
 }
 
-export function getSubGridData<PARENT_ENTITY extends { id?: IdType }, SUB_ENTITY>(
+export function getSubGridData<PARENT_ENTITY extends { id?: IdType; }, SUB_ENTITY>(
   id: IdType,
   mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[],
 ): (source: Observable<ODataResult<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
@@ -77,7 +77,7 @@ export function getSubGridData<PARENT_ENTITY extends { id?: IdType }, SUB_ENTITY
   };
 }
 
-export function getSubData<PARENT_ENTITY extends { id?: IdType }, SUB_ENTITY>(
+export function getSubData<PARENT_ENTITY extends { id?: IdType; }, SUB_ENTITY>(
   id: IdType,
   mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[],
 ): (source: Observable<Array<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
