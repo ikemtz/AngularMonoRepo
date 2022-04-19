@@ -1,0 +1,38 @@
+import { createSelector } from '@ngrx/store';
+import { PagerSettings } from '@progress/kendo-angular-grid';
+import { createEmptyODataResult } from 'imng-kendo-odata';
+import { getById } from 'imng-ngrx-utils';
+
+import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedName) %>.reducer';
+
+<% if (openApiJsonUrl || openApiJsonFileName) { %>
+const select<%= classify(pluralizedName) %> = (<%= camelize(parentName) %>Id: string) => createSelector(
+  <%= camelize(pluralizedStoreName) %>Feature.selectGridData,
+  gridData => getById(gridData, <%= camelize(parentName) %>>Id) || {
+    <%= camelize(singularizedName) %>OData: createEmptyODataResult<I<%= classify(singularizedName) %>>(),
+    <%= camelize(singularizedName) %>ODataState: {},
+    <%= camelize(singularizedName) %>PagerSettings: false as (false | PagerSettings),
+  },
+);
+
+const selectGridData$ = (<%= camelize(parentName) %>Id: string) => createSelector(
+  select<%= classify(pluralizedName) %>(<%= camelize(parentName) %>Id),
+  entity => entity.<%= camelize(singularizedName) %>OData,
+);
+const selectODataState$ = (<%= camelize(parentName) %>Id: string) => createSelector(
+  select<%= classify(pluralizedName) %>(<%= camelize(parentName) %>Id),
+  entity => entity.<%= camelize(singularizedName) %>ODataState,
+);
+const selectGridPagerSettings$ = (<%= camelize(parentName) %>Id: string) => createSelector(
+  select<%= classify(pluralizedName) %>(<%= camelize(parentName) %>Id),
+  entity => entity.<%= camelize(singularizedName) %>PagerSettings || false,
+);
+
+export const <%= camelize(singularizedName) %>Queries = {
+  select<%= classify(pluralizedName) %>,
+  selectGridData$,
+  selectODataState$,
+  selectGridPagerSettings$,
+};
+<% } else { %>
+export const <%= camelize(singularizedName) %>Queries = {};<% } %>

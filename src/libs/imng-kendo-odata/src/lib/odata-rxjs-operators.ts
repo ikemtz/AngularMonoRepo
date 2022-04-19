@@ -25,8 +25,8 @@ export const mapToExtDataResult = <T>(utcNullableProps: string[] = [], dateNulla
 export const firstRecord = <T>() =>
   map((result: ODataResult<T>) => (result?.data?.length > 0 ? result.data[0] : ({} as T)));
 
-export const findById = <T extends { id?: IdType; }>(id?: IdType) =>
-  map((source: ODataResult<T>) => source?.data?.find((f) => f.id === id) || ({} as T));
+export const findById = <T extends { id?: IdType; }>(id?: IdType, defaultValue: T = {} as T) =>
+  map((source: ODataResult<T>) => source?.data?.find((f) => f.id === id) || defaultValue);
 
 export function parseDatesInCollection<T>(
   collection: Array<T>,
@@ -35,7 +35,7 @@ export function parseDatesInCollection<T>(
 ): Array<T> {
   if (collection.length > 0) {
     const utcProps = Object.keys(collection[0]).filter((x) => x.endsWith('Utc'));
-    const dateProps = Object.keys(collection[0]).filter((x) => x.endsWith('Date') || x === 'Date');
+    const dateProps = Object.keys(collection[0]).filter((x) => x.endsWith('Date') || x === 'date');
 
     utcNullableProps?.forEach((t) => {
       if (utcProps.indexOf(t) === -1) {

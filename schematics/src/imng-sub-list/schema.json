@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "imng-sub-list",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Entity name",
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        }
+      },
+      "parentName": {
+        "type": "string",
+        "description": "Parent Entity name"
+      },
+      "storeName": {
+        "type": "string",
+        "description": "NGRX Feature Store name"
+      },
+      "path": {
+        "type": "string",
+        "description": "Directory where you would like the output to go"
+      },
+      "openApiJsonUrl": {
+        "type": "string",
+        "description": "URL of swagger page"
+      },
+      "openApiJsonFileName": {
+        "type": "string",
+        "description": "Relative file name and path"
+      },
+      "appPrefix": {
+        "type": "string",
+        "default": "imng",
+        "description": "Application selector prefix for components and directives."
+      }
+    },
+    "required": ["name", "path"]
+  }
+  

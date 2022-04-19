@@ -21,6 +21,7 @@ import * as fs from 'fs';
 import * as https from 'https';
 import * as http from 'http';
 import * as findUp from 'find-up';
+import { snakeCase } from 'lodash';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
@@ -45,7 +46,7 @@ export function getSwaggerDoc(options: IOptions): Rule {
       })).pipe(map(m => m.data));
     }
     if (jsonDoc) {
-      return jsonDoc.pipe(map(data => 
+      return jsonDoc.pipe(map(data =>
         processOpenApiDoc(data, options, host)));
     }
     return of(host);
@@ -119,24 +120,34 @@ function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: Pr
 
 const singular = 1;
 const plural = 2;
-export function generateFiles(schema: IOptions, templateType: 'list' | 'crud' | 'module'): Rule {
+export function generateFiles(schema: IOptions, templateType: 'list' | 'crud' | 'module' | 'sub-list'): Rule {
   return (tree: Tree, context: SchematicContext) => {
     context.logger.info(`Running ${strings.capitalize(templateType)} Schematic`);
 
     const singularizedName = pluralize(schema.name, singular);
     const pluralizedName = pluralize(schema.name, plural);
-    const singularizedStoreName = schema.storeName ? pluralize(schema.storeName, singular) : pluralize(schema.name, singular);
-    const pluralizedStoreName = schema.storeName ? pluralize(schema.storeName, plural) : pluralize(schema.name, plural);
+    const pluralizedParentName = pluralize(schema.parentName ?? schema.name, plural);
+    const singularizedParentName = pluralize(schema.parentName ?? schema.name, singular);
+    const snakeCasedParentName = snakeCase(singularizedParentName).toUpperCase()
+    const startCasedPluralName = _.startCase(pluralizedName);
+    const singularizedStoreName = pluralize(schema.storeName ?? schema.parentName ?? schema.name, singular);
+    const pluralizedStoreName = pluralize(singularizedStoreName, plural);
 
-    const folderName = normalize(`${schema.path}/${strings.dasherize(pluralizedName)}-${templateType}`);
+    const folderName = templateType === 'sub-list' ?
+      normalize(`${schema.path}`)
+      : normalize(`${schema.path}/${strings.dasherize(pluralizedName)}-${templateType}`);
     const templateSource = apply(url('./files'), [
       applyTemplates({
         ...strings,
         ...schema,
         pluralizedName,
         singularizedName,
+        pluralizedParentName,
+        singularizedParentName,
+        snakeCasedParentName,
         pluralizedStoreName,
         singularizedStoreName,
+        startCasedPluralName,
       }),
       move(folderName),
     ]);
