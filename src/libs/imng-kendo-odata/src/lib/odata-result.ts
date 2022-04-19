@@ -8,8 +8,7 @@ export interface ODataResult<T extends { id: IdType; } | unknown> extends DataRe
 export const emptyODataResult: ODataResult<unknown> = { data: [], total: 0 };
 export function createEmptyODataResult<T extends { id: IdType; } | unknown>(): ODataResult<T> {
   return { data: Array<T>(), total: 0 };
-};
-
+}
 export function createODataResult<T extends { id: IdType; } | unknown>(t: T[]): ODataResult<T> {
   return {
     data: t,
