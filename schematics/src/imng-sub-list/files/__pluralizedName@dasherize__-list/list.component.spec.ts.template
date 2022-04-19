@@ -7,13 +7,11 @@ import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
 import { create<%= classify(singularizedName) %> } from './list.facade.spec';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
-import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
 
 describe('<%= classify(singularizedName) %>ListComponent', () => {
   let component: <%= classify(singularizedName) %>ListComponent;
   let fixture: ComponentFixture<<%= classify(singularizedName) %>ListComponent>;
   let listFacade: <%= classify(singularizedName) %>ListFacade;
-  let crudFacade: <%= classify(singularizedName) %>CrudFacade;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -21,7 +19,6 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
       imports: [RouterTestingModule],
       providers: [
         { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
-        { provide: <%= classify(singularizedName) %>CrudFacade, useValue: createDataEntryMockFacade() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -32,7 +29,6 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     listFacade = TestBed.inject(<%= classify(singularizedName) %>ListFacade);
-    crudFacade = TestBed.inject(<%= classify(singularizedName) %>CrudFacade);
   });
 
   afterAll(() => {
@@ -46,19 +42,6 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   test('it should handle reload', () => {
     component.reloadEntities();
     expect(listFacade.reloadEntities).toBeCalledTimes(1);
-  });
-
-  test('it should handle AddItem', () => {
-    component.addItem();
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith({});
-  });
-
-  test('it should handle EditItem', () => {
-    const item = create<%= classify(singularizedName) %>();
-    component.editItem(item);
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
   });
 
   test('it should handle DeleteItem', () => {

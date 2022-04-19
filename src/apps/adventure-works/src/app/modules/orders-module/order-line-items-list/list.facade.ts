@@ -34,24 +34,21 @@ export class OrderLineItemListFacade implements IKendoODataGridFacade<IOrderLine
     switchMap(x =>
       this.store.select(orderLineItemQueries.selectODataState$(x))));
 
-  constructor(private readonly store: Store) {
-  }
+  constructor(private readonly store: Store) { }
 
   public loadEntities(odataState: ODataState): void {
     this.store.dispatch(orderLineItemActionTypes.loadOrderLineItemsRequest({
-      orderId: this._parentGridId,
-      odataState
+      orderId: this.parentGridId, odataState
     }));
   }
 
   public reloadEntities(): void {
-    this.store.dispatch(orderLineItemActionTypes.reloadOrderLineItemsRequest(this._parentGridId));
+    this.store.dispatch(orderLineItemActionTypes.reloadOrderLineItemsRequest(this.parentGridId));
   }
 
   public deleteExistingEntity(entity: IOrderLineItem): void {
     this.store.dispatch(orderLineItemActionTypes.deleteOrderLineItemRequest({
-      orderId: this._parentGridId,
-      orderLineItem: entity
+      orderId: this.parentGridId, orderLineItem: entity
     }));
   }
 }

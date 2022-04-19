@@ -6,11 +6,10 @@ import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
 import * as orderLineItemActionTypes from './order-line-item.actions';
+import { orderLineItemQueries } from './order-line-item.selectors';
+import { OrderLineItemApiService } from '../order-line-items-list';
 import { environment } from '../../../../environments/environment';
 import { IOrderLineItem } from '../../../models/odata';
-import { orderLineItemQueries } from './order-line-item.selectors';
-import { OrderLineItemApiService } from '../order-line-items-list/api.service';
-
 
 @Injectable()
 export class OrderLineItemEffects {

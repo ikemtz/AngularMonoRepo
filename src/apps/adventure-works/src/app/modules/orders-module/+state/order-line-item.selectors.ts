@@ -5,6 +5,7 @@ import { getById } from 'imng-ngrx-utils';
 import { ordersFeature } from './order.reducer';
 import { IOrderLineItem } from '../../../models/odata';
 
+
 const selectOrderLineItems = (orderId: string) => createSelector(
   ordersFeature.selectGridData,
   gridData => getById(gridData, orderId) || {
@@ -13,6 +14,7 @@ const selectOrderLineItems = (orderId: string) => createSelector(
     orderLineItemPagerSettings: false as (false | PagerSettings),
   },
 );
+
 const selectGridData$ = (orderId: string) => createSelector(
   selectOrderLineItems(orderId),
   entity => entity.orderLineItemOData,

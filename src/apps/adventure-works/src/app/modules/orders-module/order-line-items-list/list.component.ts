@@ -1,10 +1,9 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
-
 import { OrderLineItemListFacade } from './list.facade';
-import { OrderLineItemProperties } from '../../../models/odata/order-line-item.properties';
-import { IOrderLineItem } from '../../../models/odata';
+import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
+
 
 const initialGridState: ODataState = {
   take: 20,
@@ -38,6 +37,7 @@ export class OrderLineItemListComponent extends KendoODataComponentBase<IOrderLi
   constructor(facade: OrderLineItemListFacade) {
     super(facade, initialGridState);
   }
+
   @Input()
   public set parentGridId(value: string) {
     this.facade.parentGridId = value;

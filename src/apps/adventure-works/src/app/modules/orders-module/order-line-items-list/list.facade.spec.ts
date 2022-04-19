@@ -15,8 +15,9 @@ import { OrderLineItemEffects } from '../+state/order-line-item.effects';
 import { ordersFeature } from '../+state/order.reducer';
 import { OrderLineItemListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
 import { createOrder } from '../orders-list/list.facade.spec';
+import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
+import { OrderEffects } from '../+state/order.effects';
 
 export const createOrderLineItem = () => <IOrderLineItem>{
   [OrderLineItemProperties.ID]: 'ID',
@@ -36,14 +37,14 @@ describe('OrderLineItemListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { });
+  beforeEach(() => { }); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
           StoreModule.forFeature(ordersFeature),
-          EffectsModule.forFeature([OrderLineItemEffects]),
+          EffectsModule.forFeature([OrderEffects, OrderLineItemEffects]),
         ],
         providers: [
           OrderLineItemListFacade,
@@ -85,7 +86,7 @@ describe('OrderLineItemListFacade', () => {
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/OrderLineItems?&$count=true');
+      expect(httpClient.get).toBeCalledWith('orders-odata/odata/v1/OrderLineItems?&$count=true');
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);
@@ -101,7 +102,6 @@ describe('OrderLineItemListFacade', () => {
 
       expect(list.data.length).toBe(0);
       expect(isloading).toBe(true);
-
       store.dispatch(orderActionTypes.loadOrdersSuccess(
         createODataResult([
           { ...createOrder(), id: 'ORDER_ID' }])));
@@ -121,9 +121,11 @@ describe('OrderLineItemListFacade', () => {
       };
       let state = await readFirst(facade.gridODataState$);
       expect(state?.count).toBeUndefined();
+
       store.dispatch(orderActionTypes.loadOrdersSuccess(
         createODataResult([
           { ...createOrder(), id: 'ORDER_ID' }])));
+
       facade.loadEntities(filteringState);
 
       state = await readFirst(facade.gridODataState$);
