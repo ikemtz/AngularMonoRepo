@@ -45,7 +45,7 @@
     title="Product Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.product_id | slice: 0:5 }}
+      {{ dataItem[props.PRODUCT_ID] | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Id</span>
