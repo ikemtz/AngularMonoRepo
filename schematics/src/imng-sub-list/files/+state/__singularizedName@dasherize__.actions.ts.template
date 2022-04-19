@@ -3,12 +3,13 @@ import { createPayloadAction } from 'imng-ngrx-utils';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 export const load<%= classify(pluralizedName) %>Request = createPayloadAction<{ <%= camelize(parentName) %>Id: string, odataState: ODataState; }>(
     '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Request');
-export const load<%= classify(pluralizedName) %>Success = createPayloadAction<{ <%= camelize(parentName) %>Id: string, odataResult: ODataResult<I<%= classify(name) %>; }>(
+export const load<%= classify(pluralizedName) %>Success = createPayloadAction<{ <%= camelize(parentName) %>Id: string, odataResult: ODataResult<I<%= classify(name) %>>; }>(
     '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Success');
 export const reload<%= classify(pluralizedName) %>Request = createPayloadAction<string>(
     '[<%= classify(pluralizedName) %>] Reload <%= classify(pluralizedName) %> Request');
-export const reload<%= classify(pluralizedName) %>Success = createPayloadAction<{ <%= camelize(parentName) %>Id: string, odataResult: ODataResult<I<%= classify(name) %>; }>(
+export const reload<%= classify(pluralizedName) %>Success = createPayloadAction<{ <%= camelize(parentName) %>Id: string, odataResult: ODataResult<I<%= classify(name) %>>; }>(
     '[<%= classify(pluralizedName) %>] Reload <%= classify(pluralizedName) %> Success');
 
-export const delete<%= classify(name) %>Request = createPayloadAction<{ <%= camelize(parentName) %>Id: string; <%= camelize(name) %>: I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Delete <%= classify(name) %> Request'); 
+export const delete<%= classify(name) %>Request = createPayloadAction<{ <%= camelize(parentName) %>Id: string; <%= camelize(name) %>: I<%= classify(name) %>; }>(
+    '[<%= classify(pluralizedName) %>] Delete <%= classify(name) %> Request'); 
 <% } %>

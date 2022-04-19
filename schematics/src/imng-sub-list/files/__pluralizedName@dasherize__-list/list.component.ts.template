@@ -1,10 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DetailExpandEvent } from '@progress/kendo-angular-grid';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
-
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
-import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -27,8 +24,7 @@ export class <%= classify(singularizedName) %>ListComponent extends KendoODataCo
   public readonly props = <%= classify(singularizedName) %>Properties;
   public currentItem: I<%= classify(singularizedName) %> | undefined;
 
-  constructor(facade: <%= classify(singularizedName) %>ListFacade, 
-    public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade) {
+  constructor(facade: <%= classify(singularizedName) %>ListFacade) {
     super(facade, initialGridState);
   }
 
@@ -37,15 +33,7 @@ export class <%= classify(singularizedName) %>ListComponent extends KendoODataCo
     this.facade.parentGridId = value;
   }
 
-  public editItem(item: I<%= classify(singularizedName) %>): void {
-    this.crudFacade.setCurrentEntity(item);
-  }
-
   public deleteItem(item: I<%= classify(singularizedName) %>): void {
     this.facade.deleteExistingEntity(item);
-  }
-
-  public detailExpanded(evt: DetailExpandEvent): void {
-    this.currentItem = evt.dataItem;
   }
 }

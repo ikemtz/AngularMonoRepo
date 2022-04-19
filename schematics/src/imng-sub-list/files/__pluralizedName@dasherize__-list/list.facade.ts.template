@@ -6,10 +6,9 @@ import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
-import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
+import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= dasherize(singularizedName) %>.actions';
 import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
-import { <%= camelize(singularizedName) %>Queries } from '../+state/<%= dasherize(singularizedStoreName) %>.selectors';
-
+import { <%= camelize(singularizedName) %>Queries } from '../+state/<%= dasherize(singularizedName) %>.selectors';
 
 @Injectable()
 export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
@@ -27,7 +26,6 @@ export class <%= classify(singularizedName) %>ListFacade implements IKendoODataG
   gridData$: Observable<ODataResult<I<%= classify(singularizedName) %>>> = this.parentGrid$.pipe(
     switchMap(x =>
       this.store.select(<%= camelize(singularizedName) %>Queries.selectGridData$(x))));
-  gridPagerSettings$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridPagerSettings);
   gridPagerSettings$: Observable<false | PagerSettings> = this.parentGrid$.pipe(
     switchMap(x =>
       this.store.select(<%= camelize(singularizedName) %>Queries.selectGridPagerSettings$(x))));
@@ -37,15 +35,17 @@ export class <%= classify(singularizedName) %>ListFacade implements IKendoODataG
 
   constructor(private readonly store: Store) {}
 
-  public loadEntities(state: ODataState): void {
-    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(state));
+  public loadEntities(odataState: ODataState): void {
+    this.store.dispatch(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request({
+      <%= camelize(singularizedParentName) %>Id: this.parentGridId, odataState }));
   }
 
   public reloadEntities(): void {
-    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request());
+    this.store.dispatch(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request(this.parentGridId));
   }
 
-  public deleteExistingEntity(entity: I<%= classify(name) %>): void {
-    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.delete<%= classify(name) %>Request(entity));
+  public deleteExistingEntity(<%= camelize(singularizedName) %>: I<%= classify(name) %>): void {
+    this.store.dispatch(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(name) %>Request({
+      <%= camelize(singularizedParentName) %>Id: this.parentGridId, <%= camelize(singularizedName) %> }));
   }
 }
