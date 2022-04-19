@@ -42,5 +42,44 @@
       "  })),"
     ],
     "description": "Create Reducer for OData Requests"
-  }
+  },
+  "NgrxReducersSubGrid": {
+  "prefix": "imng-ngrx-reducers-sub-grid",
+  "body": [
+    ",on(${1:subGridEntity}ActionTypes.load${1/^(.)(.*)$/${1:/upcase}${2}/}sRequest,",
+    "      (state, { payload }): State =>",
+    "      ({",
+    "        ...state,",
+    "        loading: true,",
+    "        gridData: {",
+    "          data: findAndModify(state.gridData.data, payload.${2:parentGridEntity}Id, rec => rec.${1:subGridEntity}ODataState = payload.odataState),",
+    "          total: state.gridData.total",
+    "        },",
+    "      })),",
+    "    on({1:subGridEntity}ActionTypes.reload{1/^(.)(.*)$/${1:/upcase}${2}/}sRequest,",
+    "      (state): State =>",
+    "      ({",
+    "        ...state,",
+    "        loading: true",
+    "      })),",
+    "    on({1:subGridEntity}ActionTypes.load{1/^(.)(.*)$/${1:/upcase}${2}/}sSuccess,",
+    "      {1:subGridEntity}ActionTypes.reload{1/^(.)(.*)$/${1:/upcase}${2}/}sSuccess,",
+    "      (state, { payload }): State =>",
+    "      ({",
+    "        ...state,",
+    "        loading: false,",
+    "        gridData: {",
+    "          data: findAndModify(state.gridData.data, payload.${2:parentGridEntity}Id, rec => {",
+    "            rec.{1:subGridEntity}OData = payload.odataResult;",
+    "            rec.{1:subGridEntity}PagerSettings = getODataPagerSettings({",
+    "              gridData: payload.odataResult,",
+    "              gridODataState: rec.{1:subGridEntity}ODataState,",
+    "            });",
+    "          }),",
+    "          total: state.gridData.total",
+    "        },",
+    "      }))"
+  ],
+  "description": "NGRX OData Reducers for subgrid"
+}
 }

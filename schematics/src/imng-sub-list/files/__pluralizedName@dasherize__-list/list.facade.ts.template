@@ -1,0 +1,52 @@
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { PagerSettings } from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor, FilterDescriptor, isCompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { IDataDeleteFacade } from 'imng-kendo-data-entry';
+import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+
+import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
+import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(singularizedName) %>Queries } from '../+state/<%= dasherize(singularizedStoreName) %>.selectors';
+
+
+@Injectable()
+export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
+  private _parentGridId = '';
+  public parentGrid$ = new BehaviorSubject<string>('');
+  public get parentGridId() {
+    return this._parentGridId;
+  }
+  public set parentGridId(value: string) {
+    this._parentGridId = value;
+    this.parentGrid$.next(value);
+  }
+
+  loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
+  gridData$: Observable<ODataResult<I<%= classify(singularizedName) %>>> = this.parentGrid$.pipe(
+    switchMap(x =>
+      this.store.select(<%= camelize(singularizedName) %>Queries.selectGridData$(x))));
+  gridPagerSettings$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridPagerSettings);
+  gridPagerSettings$: Observable<false | PagerSettings> = this.parentGrid$.pipe(
+    switchMap(x =>
+      this.store.select(<%= camelize(singularizedName) %>Queries.selectGridPagerSettings$(x))));
+  gridODataState$: Observable<ODataState> = this.parentGrid$.pipe(
+    switchMap(x =>
+      this.store.select(<%= camelize(singularizedName) %>Queries.selectODataState$(x))));
+
+  constructor(private readonly store: Store) {}
+
+  public loadEntities(state: ODataState): void {
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(state));
+  }
+
+  public reloadEntities(): void {
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request());
+  }
+
+  public deleteExistingEntity(entity: I<%= classify(name) %>): void {
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.delete<%= classify(name) %>Request(entity));
+  }
+}
