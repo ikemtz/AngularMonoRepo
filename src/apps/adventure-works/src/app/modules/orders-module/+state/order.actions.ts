@@ -2,14 +2,15 @@ import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 import { IOrder } from '../../../models/odata';
+import { IExtOrder } from '../models/ext-order';
 
 export const loadOrdersRequest = createPayloadAction<ODataState>(
     '[Orders] Load Orders Request');
-export const loadOrdersSuccess = createPayloadAction<ODataResult<IOrder>>(
+export const loadOrdersSuccess = createPayloadAction<ODataResult<IExtOrder>>(
     '[Orders] Load Orders Success');
 export const reloadOrdersRequest = createAction(
     '[Orders] Reload Orders Request');
-export const reloadOrdersSuccess = createPayloadAction<ODataResult<IOrder>>(
+export const reloadOrdersSuccess = createPayloadAction<ODataResult<IExtOrder>>(
     '[Orders] Reload Orders Success');
 
 export const clearCurrentOrder = createAction('[Orders] Clear Current Order');
