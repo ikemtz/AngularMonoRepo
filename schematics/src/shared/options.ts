@@ -3,6 +3,8 @@ import { PropertyInfo } from './open-api-component';
 export interface IOptions {
   /** Entity Name (Must match schema name in json) */
   name: string;
+  /** Parent Entity Name (Must match schema name in json) */
+  parentName?: string;
   /** NGRX Store Feature Name */
   storeName?: string;
   /** Angular application Prefix */

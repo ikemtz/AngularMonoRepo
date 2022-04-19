@@ -13,7 +13,7 @@
     },
     "imng-list": {
       "aliases": ["list"],
-      "description": "imng-schematics - Creates a kendo data grid component.",
+      "description": "imng-schematics - Creates a kendo odata grid component.",
       "factory": "./imng-list/index#imngList",
       "schema": "./imng-list/schema.json"
     },
@@ -22,6 +22,12 @@
       "description": "imng-schematics - Creates a kendo data entry component.",
       "factory": "./imng-crud/index#imngCrud",
       "schema": "./imng-crud/schema.json"
+    },
+    "imng-sub-list": {
+      "aliases": ["sub-list"],
+      "description": "imng-schematics - Creates a kendo odata sub grid component.",
+      "factory": "./imng-sub-list/index#imngSubList",
+      "schema": "./imng-sub-list/schema.json"
     }
   }
 }

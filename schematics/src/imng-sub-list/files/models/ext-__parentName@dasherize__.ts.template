@@ -1,0 +1,8 @@
+import { PagerSettings } from '@progress/kendo-angular-grid';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+
+export interface IExt<%= classify(parentName) %> extends I<%= classify(parentName) %> {
+  <%= camelize(singularizedName) %>ODataState: ODataState;
+  <%= camelize(singularizedName) %>OData: ODataResult<I<%= classify(singularizedName) %>>;
+  <%= camelize(singularizedName) %>PagerSettings: PagerSettings | false;
+}

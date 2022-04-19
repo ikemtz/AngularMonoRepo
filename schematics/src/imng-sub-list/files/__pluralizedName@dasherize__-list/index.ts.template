@@ -1,0 +1,2 @@
+export { <%= classify(singularizedName) %>ListComponent } from './list.component';
+export { <%= classify(singularizedName) %>ListFacade } from './list.facade';

@@ -26,42 +26,28 @@ export class <%= classify(singularizedName) %>Effects {
       switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>) => this.odataservice
         .fetch<I<%= classify(name) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, action.payload)
         .pipe(
-          map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(t)),
+          map(odataResult => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success({ <%= camelize(parentName) %>Id: action.payload.<%= camelize(parentName) %>Id, odataResult })),
           handleEffectError(action))));
   });
 
   reload<%= classify(pluralizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request),
-      concatLatestFrom(() => this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState)),
+      concatLatestFrom((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request>) =>
+        this.store.select(<%= camelize(singularizedName) %>Queries.selectODataState$(action.payload))),
       switchMap(([action, odataState]) => this.odataservice
         .fetch<I<%= classify(singularizedName) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, odataState, { bustCache: true })
         .pipe(
-          map(t => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success(t)),
+          map(odataResult => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success({ <%= camelize(parentName) %>Id: action.payload, odataResult })),
           handleEffectError(action))));
-  });
-
-  save<%= classify(singularizedName) %>Effect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request),
-      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.post(action.payload).pipe(
-        map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
-        handleEffectError(action))));
-  });
-
-  update<%= classify(singularizedName) %>Effect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(<%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request),
-      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.put(action.payload).pipe(
-        map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
-        handleEffectError(action))));
   });
 
   delete<%= classify(singularizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request),
-      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) => this.<%= camelize(singularizedName) %>ApiService.delete(action.payload).pipe(
-        map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
-        handleEffectError(action))));
+      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) => 
+        this.<%= camelize(singularizedName) %>ApiService.delete(action.payload.<%= camelize(singularizedName) %>).pipe(
+          map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request(action.payload.<%= camelize(parentName) %>Id)),
+          handleEffectError(action))));
   });<% } %>
 }
