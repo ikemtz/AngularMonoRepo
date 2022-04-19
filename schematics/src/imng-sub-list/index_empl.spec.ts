@@ -30,6 +30,7 @@ describe('imng-sub-list', () => {
       `/test/+state/employee-certification.effects.ts`,
       `/test/+state/employee-certification.selectors.ts`,
       `/test/models/ext-employee.ts`,
+      "/test/employee-certifications-list/api.service.ts",
       "/test/employee-certifications-list/index.ts",
       "/test/employee-certifications-list/list.component.html",
       "/test/employee-certifications-list/list.component.scss",
