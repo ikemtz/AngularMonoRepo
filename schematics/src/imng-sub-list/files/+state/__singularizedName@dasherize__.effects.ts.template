@@ -5,26 +5,27 @@ import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
-import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedStoreName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
-import { environment } from '../../../../environments/environment';
-<% if (openApiJsonUrl || openApiJsonFileName) { %>
-import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-crud';
+import { <%= camelize(singularizedName) %>Queries } from './<%= dasherize(singularizedName) %>.selectors';<% if (openApiJsonUrl || openApiJsonFileName) { %>
+import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-list';
 <% } %>
+import { environment } from '../../../../environments/environment';
+
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
     private readonly store: Store,
-    private readonly <%= camelize(singularizedName) %>ApiService : <%= classify(singularizedName) %>ApiService,
+    private readonly apiService : <%= classify(singularizedName) %>ApiService,
   ) {}
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
   load<%= classify(pluralizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request),
       switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>) => this.odataservice
-        .fetch<I<%= classify(name) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, action.payload)
+        .fetch<I<%= classify(name) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, action.payload.odataState)
         .pipe(
           map(odataResult => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success({ <%= camelize(parentName) %>Id: action.payload.<%= camelize(parentName) %>Id, odataResult })),
           handleEffectError(action))));
@@ -46,7 +47,7 @@ export class <%= classify(singularizedName) %>Effects {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request),
       switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) => 
-        this.<%= camelize(singularizedName) %>ApiService.delete(action.payload.<%= camelize(singularizedName) %>).pipe(
+        this.apiService.delete(action.payload.<%= camelize(singularizedName) %>).pipe(
           map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request(action.payload.<%= camelize(parentName) %>Id)),
           handleEffectError(action))));
   });<% } %>

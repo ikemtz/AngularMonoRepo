@@ -4,32 +4,32 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
-import { <%= classify(singularizedName) %>ListComponent } from './list.component';
-import { create<%= classify(singularizedName) %> } from './list.facade.spec';
-import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
+import { OrderLineItemListComponent } from './list.component';
+import { createOrderLineItem } from './list.facade.spec';
+import { OrderLineItemListFacade } from './list.facade';
 
-describe('<%= classify(singularizedName) %>ListComponent', () => {
-  let component: <%= classify(singularizedName) %>ListComponent;
-  let fixture: ComponentFixture<<%= classify(singularizedName) %>ListComponent>;
-  let listFacade: <%= classify(singularizedName) %>ListFacade;
+describe('OrderLineItemListComponent', () => {
+  let component: OrderLineItemListComponent;
+  let fixture: ComponentFixture<OrderLineItemListComponent>;
+  let listFacade: OrderLineItemListFacade;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [<%= classify(singularizedName) %>ListComponent],
+      declarations: [OrderLineItemListComponent],
       imports: [RouterTestingModule],
       providers: [
-        { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
+        { provide: OrderLineItemListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(<%= classify(singularizedName) %>ListComponent);
+    fixture = TestBed.createComponent(OrderLineItemListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    listFacade = TestBed.inject(<%= classify(singularizedName) %>ListFacade);
-    component.parentGridId = '<%= snakeCasedParentName %>_ID';
+    listFacade = TestBed.inject(OrderLineItemListFacade);
+    component.parentGridId = 'ORDER_ID';
   });
 
   afterAll(() => {
@@ -46,7 +46,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   });
 
   test('it should handle DeleteItem', () => {
-    const item = create<%= classify(singularizedName) %>();
+    const item = createOrderLineItem();
     component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
     expect(listFacade.deleteExistingEntity).toBeCalledWith(item);

@@ -264,7 +264,10 @@
       </button>
     </ng-template>
   </kendo-grid-column>
-
+  <div *kendoGridDetailTemplate="let dataItem">
+    <aw-order-line-item-list
+      [parentGridId]="dataItem[props.ID]"></aw-order-line-item-list>
+  </div>
   <kendo-grid-pdf [fileName]="getExportFileName('Orders')" [allPages]="false">
     <kendo-grid-pdf-margin
       top="1cm"

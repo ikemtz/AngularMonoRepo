@@ -5,7 +5,7 @@ import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { ODataState, createODataPayload, createODataResult, ODataService, createEmptyODataResult } from 'imng-kendo-odata';
+import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
@@ -14,9 +14,11 @@ import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= das
 import { <%= classify(singularizedName) %>Effects } from '../+state/<%= dasherize(singularizedName) %>.effects';
 import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
+import { <%= classify(parentName) %>Effects } from '../+state/<%= dasherize(parentName) %>.effects';
+import { create<%= classify(singularizedName) %> } from '../<%= dasherize(pluralizedParentName) %>-list/list.facade.spec';
 import { environment } from '../../../../environments/environment';
 
-export const create<%= classify(singularizedName) %> = () => <IExt<%= classify(singularizedName) %>>{
+export const create<%= classify(singularizedName) %> = () => <I<%= classify(singularizedName) %>>{
 <% swaggerProperties.forEach(function(swaggerProperty)
  {%>  [<%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
 <% }) %>
@@ -31,14 +33,14 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {});
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
           StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
+          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects, <%= classify(singularizedName) %>Effects]),
         ],
         providers: [
           <%= classify(singularizedName) %>ListFacade,
@@ -79,6 +81,10 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
+
+      const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);
+      expect(gridPagerSettings$).toBe(false);
+      
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
 
@@ -139,7 +145,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       store.dispatch(<%= camelize(parentName) %>ActionTypes.load<%= classify(pluralizedParentName) %>Success(
         createODataResult([
           { ...create<%= classify(parentName) %>(), id: '<%= snakeCasedParentName %>_ID' }])));
-      store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(
+      store.dispatch(<%= camelize(singularizedParentName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(
         { <%= camelize(parentName) %>Id: '<%= snakeCasedParentName %>_ID', odataResult: createODataResult([create<%= classify(singularizedName) %>(), create<%= classify(singularizedName) %>()]) }));
 
       list = await readFirst(facade.gridData$);
