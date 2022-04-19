@@ -14,11 +14,13 @@ import { ordersFeature } from './+state/order.reducer';
 import { OrderEffects } from './+state/order.effects';
 
 import { OrderListComponent, OrderListFacade } from './orders-list';
-import { OrderAddComponent, OrderEditComponent, OrderApiService, OrderCrudFacade  } from './orders-crud';
+import { OrderAddComponent, OrderEditComponent, OrderApiService, OrderCrudFacade } from './orders-crud';
+import { OrderLineItemEffects } from './+state/order-line-item.effects';
+import { OrderLineItemListComponent, OrderLineItemListFacade } from './order-line-items-list';
 
 
 @NgModule({
-  declarations: [ OrderListComponent, OrderAddComponent, OrderEditComponent ],
+  declarations: [OrderListComponent, OrderAddComponent, OrderEditComponent, OrderLineItemListComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -31,12 +33,13 @@ import { OrderAddComponent, OrderEditComponent, OrderApiService, OrderCrudFacade
     ReactiveFormsModule,
     OrdersRoutingModule,
     StoreModule.forFeature(ordersFeature),
-    EffectsModule.forFeature([OrderEffects]),
+    EffectsModule.forFeature([OrderEffects, OrderLineItemEffects]),
   ],
   providers: [
     OrderListFacade,
     OrderCrudFacade,
-    OrderApiService, 
+    OrderApiService,
+    OrderLineItemListFacade,
   ],
 })
 export class OrdersModule { }

@@ -1,7 +1,7 @@
 <kendo-grid [height]="800" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="w-100 d-flex justify-content-between">
-      <h3><%= startCasedPluralName %></h3>
+      <h6><%= startCasedPluralName %></h6>
       <imng-kendo-odata-grid-header
         (reloadEntitiesClicked)="reloadEntities()"
         [hideClearFilters]="true"
@@ -33,11 +33,8 @@
       <span class="h6"><%= swaggerProperty.startCaseName %></span>
     </ng-template>
   </kendo-grid-column><% }) %>
-  <kendo-grid-column [width]="50">
+  <kendo-grid-column [width]="25">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-      <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
-        <span class="k-icon k-i-edit"></span>
-      </button>
       <button type="button" class="btn btn-sm mr-1" (click)="deleteItem(dataItem)" placement="left" tooltip="Delete">
         <span class="k-icon k-i-delete"></span>
       </button>

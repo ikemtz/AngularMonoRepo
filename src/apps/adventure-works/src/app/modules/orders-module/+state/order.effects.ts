@@ -10,7 +10,7 @@ import * as orderActionTypes from './order.actions';
 import { environment } from '../../../../environments/environment';
 
 import { OrderApiService } from '../orders-crud';
-import { IOrder } from '../../../models/odata';
+import { IExtOrder } from '../models/ext-order';
 
 @Injectable()
 export class OrderEffects {
@@ -25,7 +25,7 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadOrdersRequest),
       switchMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataservice
-        .fetch<IOrder>(environment.odataEnpoints.orders, action.payload)
+        .fetch<IExtOrder>(environment.odataEnpoints.orders, action.payload)
         .pipe(
           map(t => orderActionTypes.loadOrdersSuccess(t)),
           handleEffectError(action))));
@@ -36,7 +36,7 @@ export class OrderEffects {
       ofType(orderActionTypes.reloadOrdersRequest),
       concatLatestFrom(() => this.store.select(ordersFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IOrder>(environment.odataEnpoints.orders, odataState)
+        .fetch<IExtOrder>(environment.odataEnpoints.orders, odataState)
         .pipe(
           map(t => orderActionTypes.reloadOrdersSuccess(t)),
           handleEffectError(action))));
