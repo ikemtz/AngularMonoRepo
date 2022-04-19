@@ -11,4 +11,5 @@ export const reloadOrderLineItemsRequest = createPayloadAction<string>(
 export const reloadOrderLineItemsSuccess = createPayloadAction<{ orderId: string, odataResult: ODataResult<IOrderLineItem>; }>(
     '[OrderLineItems] Reload OrderLineItems Success');
 
-export const deleteOrderLineItemRequest = createPayloadAction<{ orderId: string; orderLineItem: IOrderLineItem; }>('[OrderLineItems] Delete OrderLineItem Request'); 
+export const deleteOrderLineItemRequest = createPayloadAction<{ orderId: string; orderLineItem: IOrderLineItem; }>(
+    '[OrderLineItems] Delete OrderLineItem Request'); 

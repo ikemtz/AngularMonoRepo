@@ -5,7 +5,6 @@ import { getById } from 'imng-ngrx-utils';
 import { ordersFeature } from './order.reducer';
 import { IOrderLineItem } from '../../../models/odata';
 
-
 const selectOrderLineItems = (orderId: string) => createSelector(
   ordersFeature.selectGridData,
   gridData => getById(gridData, orderId) || {
