@@ -29,6 +29,7 @@ describe('OrderLineItemListComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     listFacade = TestBed.inject(OrderLineItemListFacade);
+    component.parentGridId = 'ORDER_ID';
   });
 
   afterAll(() => {

@@ -81,6 +81,10 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
+
+      const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);
+      expect(gridPagerSettings$).toBe(false);
+      
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
 

@@ -85,8 +85,12 @@ describe('OrderLineItemListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
+
+      const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);
+      expect(gridPagerSettings$).toBe(false);
+
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('orders-odata/odata/v1/OrderLineItems?&$count=true');
+      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/OrderLineItems?&$count=true');
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);

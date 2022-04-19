@@ -29,6 +29,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     listFacade = TestBed.inject(<%= classify(singularizedName) %>ListFacade);
+    component.parentGridId = '<%= snakeCasedParentName %>_ID';
   });
 
   afterAll(() => {
