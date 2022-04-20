@@ -13,7 +13,7 @@
     "@angular/core": ">=13.x",
     "@angular/router": ">=13.x",
     "@ngrx/store": ">=13.x",
-    "@progress/kendo-angular-grid": ">=6.x",
+    "@progress/kendo-angular-grid": ">=7.x",
     "@progress/kendo-data-query": ">=1.x",
     "imng-kendo-odata": "*",
     "imng-kendo-grid": "*",

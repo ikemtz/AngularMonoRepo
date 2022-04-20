@@ -11,7 +11,7 @@
     "@angular/common": ">=13.x",
     "@angular/core": ">=13.x",
     "@angular/forms": ">=13.x",
-    "@progress/kendo-angular-grid": ">=6.x",
+    "@progress/kendo-angular-grid": ">=7.x",
     "@progress/kendo-data-query": ">=1.x",
     "imng-ngrx-utils": "*",
     "imng-nrsrx-client-utils": "*",

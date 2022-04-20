@@ -7,7 +7,7 @@
     "@angular/core": ">=13.x",
     "@angular/forms": ">=13.x",
     "@ngrx/store": ">=13.x",
-    "@progress/kendo-angular-dialog": ">=5.x",
+    "@progress/kendo-angular-dialog": ">=7.x",
     "imng-ngrx-utils": "*",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
