@@ -12,4 +12,4 @@ export const reloadOrderLineItemsSuccess = createPayloadAction<{ orderId: string
     '[OrderLineItems] Reload OrderLineItems Success');
 
 export const deleteOrderLineItemRequest = createPayloadAction<{ orderId: string; orderLineItem: IOrderLineItem; }>(
-    '[OrderLineItems] Delete OrderLineItem Request'); 
+    '[OrderLineItems] Delete OrderLineItem Request');
