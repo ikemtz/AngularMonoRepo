@@ -4,7 +4,7 @@ import { ODataState } from 'imng-kendo-odata';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 
 const initialGridState: ODataState = {
-  take: 20,
+  take: 5,
   skip: 0,
   selectors: [<% swaggerProperties.forEach(function(swaggerProperty){ %>
     <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
