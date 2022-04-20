@@ -11,3 +11,4 @@ export * from './lib/isCompositeChildFilterDescriptor';
 export * from './lib/isFilterDescriptor';
 export * from './lib/find-filter';
 export * from './lib/replace-filter';
+export * from './lib/apply-filter';

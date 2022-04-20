@@ -90,7 +90,8 @@ describe('OrderLineItemListFacade', () => {
       expect(gridPagerSettings$).toBe(false);
 
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/OrderLineItems?&$count=true');
+      expect(httpClient.get).toBeCalledWith(
+        `aw-odata/odata/v1/OrderLineItems?$filter=orderId eq 'ORDER_ID'&$count=true`);
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);
@@ -137,7 +138,7 @@ describe('OrderLineItemListFacade', () => {
 
       facade.loadEntities({});
       state = await readFirst(facade.gridODataState$);
-      expect(state).toStrictEqual({});
+      expect(state).toMatchSnapshot();
     });
 
     /**

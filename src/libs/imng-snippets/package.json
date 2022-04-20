@@ -1,6 +1,6 @@
 {
   "name": "imng-snippets",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "build": "vsce package",
     "publish": "vsce package && vsce publish"
