@@ -102,6 +102,7 @@ jobs:
           projectName: 'imng-schematics'
           organization: 'ikemtz'
           testDirectory: '$(Build.SourcesDirectory)/schematics'
+        continueOnError: true
 
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'
