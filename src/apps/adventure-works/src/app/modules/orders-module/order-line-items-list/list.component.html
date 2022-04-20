@@ -1,4 +1,4 @@
-<kendo-grid [height]="800" kendoGridFocusable [imngODataGrid]="this">
+<kendo-grid [height]="375" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="w-100 d-flex justify-content-between">
       <h6>Order Line Items</h6>
@@ -24,7 +24,7 @@
     title="Order Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.order_id | slice: 0:5 }}
+      {{ dataItem[props.ORDER_ID] | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Order Id</span>
@@ -45,7 +45,7 @@
     title="Product Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.product_id | slice: 0:5 }}
+      {{ dataItem[props.PRODUCT_ID] | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Id</span>

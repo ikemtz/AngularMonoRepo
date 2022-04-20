@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applyFilter should should initialize 1`] = `
+Object {
+  "filter": Object {
+    "filters": Array [
+      Object {
+        "filters": Array [
+          Object {
+            "field": "ABC",
+            "operator": "eq",
+            "value": 2,
+          },
+        ],
+        "logic": "and",
+      },
+    ],
+    "logic": "and",
+  },
+}
+`;
+
+exports[`applyFilter should should override values 1`] = `
+Object {
+  "filter": Object {
+    "filters": Array [
+      Object {
+        "filters": Array [
+          Object {
+            "field": "ABC",
+            "operator": "eq",
+            "value": 2,
+          },
+        ],
+        "logic": "and",
+      },
+    ],
+    "logic": "and",
+  },
+}
+`;

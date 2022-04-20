@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
-import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { applyFilter, ODataResult, ODataState } from 'imng-kendo-odata';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= dasherize(singularizedName) %>.actions';
@@ -36,6 +36,8 @@ export class <%= classify(singularizedName) %>ListFacade implements IKendoODataG
   constructor(private readonly store: Store) {}
 
   public loadEntities(odataState: ODataState): void {
+    odataState = applyFilter({ ...odataState },
+      { field: <%= classify(singularizedName) %>Properties.<%= classify(snakeCasedParentName) %>_ID, operator: 'eq', value: this.parentGridId });
     this.store.dispatch(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request({
       <%= camelize(singularizedParentName) %>Id: this.parentGridId, odataState }));
   }

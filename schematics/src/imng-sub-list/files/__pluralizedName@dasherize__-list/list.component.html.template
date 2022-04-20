@@ -1,4 +1,4 @@
-<kendo-grid [height]="800" kendoGridFocusable [imngODataGrid]="this">
+<kendo-grid [height]="375" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="w-100 d-flex justify-content-between">
       <h6><%= startCasedPluralName %></h6>
@@ -25,7 +25,7 @@
 <%} else if (swaggerProperty.format === 'uuid') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.<%= underscore(swaggerProperty.name) %> | slice:0:5 }}
+      {{ dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>] | slice:0:5 }}
     </ng-template>
 <%} else { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">

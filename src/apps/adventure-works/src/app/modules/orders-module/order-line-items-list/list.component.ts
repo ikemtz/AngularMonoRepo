@@ -6,7 +6,7 @@ import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
 
 
 const initialGridState: ODataState = {
-  take: 20,
+  take: 5,
   skip: 0,
   selectors: [
     OrderLineItemProperties.ID,

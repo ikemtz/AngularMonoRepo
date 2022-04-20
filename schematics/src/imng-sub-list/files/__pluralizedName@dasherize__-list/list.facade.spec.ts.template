@@ -84,9 +84,10 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
       const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);
       expect(gridPagerSettings$).toBe(false);
-      
+
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
+      expect(httpClient.get).toBeCalledWith(
+        '<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?filter=<%= camelize(singularizedParentName) %>Id eq '<%= snakeCasedParentName %>_ID'&$count=true');
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);
@@ -133,7 +134,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
       facade.loadEntities({});
       state = await readFirst(facade.gridODataState$);
-      expect(state).toStrictEqual({});
+      expect(state).toMatchSnapshot();
     });
 
     /**

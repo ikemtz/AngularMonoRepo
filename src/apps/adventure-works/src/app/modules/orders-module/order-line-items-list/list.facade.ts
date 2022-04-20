@@ -3,13 +3,13 @@ import { Store } from '@ngrx/store';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
-import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { applyFilter, ODataResult, ODataState } from 'imng-kendo-odata';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 import * as orderLineItemActionTypes from '../+state/order-line-item.actions';
 import { ordersFeature } from '../+state/order.reducer';
 import { orderLineItemQueries } from '../+state/order-line-item.selectors';
-import { IOrderLineItem } from '../../../models/odata';
+import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
 
 @Injectable()
 export class OrderLineItemListFacade implements IKendoODataGridFacade<IOrderLineItem>, IDataDeleteFacade<IOrderLineItem> {
@@ -37,6 +37,8 @@ export class OrderLineItemListFacade implements IKendoODataGridFacade<IOrderLine
   constructor(private readonly store: Store) { }
 
   public loadEntities(odataState: ODataState): void {
+    odataState = applyFilter({ ...odataState },
+      { field: OrderLineItemProperties.ORDER_ID, operator: 'eq', value: this.parentGridId });
     this.store.dispatch(orderLineItemActionTypes.loadOrderLineItemsRequest({
       orderId: this.parentGridId, odataState
     }));
