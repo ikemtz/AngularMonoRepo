@@ -48,9 +48,9 @@ export class OrderLineItemListFacade implements IKendoODataGridFacade<IOrderLine
     this.store.dispatch(orderLineItemActionTypes.reloadOrderLineItemsRequest(this.parentGridId));
   }
 
-  public deleteExistingEntity(entity: IOrderLineItem): void {
+  public deleteExistingEntity(orderLineItem: IOrderLineItem): void {
     this.store.dispatch(orderLineItemActionTypes.deleteOrderLineItemRequest({
-      orderId: this.parentGridId, orderLineItem: entity
+      orderId: this.parentGridId, orderLineItem
     }));
   }
 }

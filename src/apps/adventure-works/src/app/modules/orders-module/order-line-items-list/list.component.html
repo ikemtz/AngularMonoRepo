@@ -12,7 +12,7 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.id | slice: 0:5 }}
+      {{ dataItem[props.ID] | slice: 0:5 }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
@@ -96,7 +96,7 @@
       <span class="h6">Product</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [width]="50">
+  <kendo-grid-column [width]="25">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <button
         type="button"

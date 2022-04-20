@@ -13,7 +13,7 @@
     "@angular/common": ">=13.x",
     "@angular/core": ">=13.x",
     "@progress/kendo-data-query": ">=1.x",
-    "@progress/kendo-angular-charts": ">=6.x",
+    "@progress/kendo-angular-charts": ">=7.x",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
   },

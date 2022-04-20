@@ -15,17 +15,13 @@ import { <%= classify(singularizedName) %>Effects } from '../+state/<%= dasheriz
 import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(parentName) %>Effects } from '../+state/<%= dasherize(parentName) %>.effects';
-import { create<%= classify(singularizedName) %> } from '../<%= dasherize(pluralizedParentName) %>-list/list.facade.spec';
+import { create<%= classify(singularizedParentName) %> } from '../<%= dasherize(pluralizedParentName) %>-list/list.facade.spec';
 import { environment } from '../../../../environments/environment';
 
 export const create<%= classify(singularizedName) %> = () => <I<%= classify(singularizedName) %>>{
 <% swaggerProperties.forEach(function(swaggerProperty)
  {%>  [<%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
-<% }) %>
-  <%= camelize(singularizedName) %>ODataState: {},
-  <%= camelize(singularizedName) %>OData: createEmptyODataResult(),
-  <%= camelize(singularizedName) %>PagerSettings: false
-};
+<% }) %>};
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {
   let facade: <%= classify(singularizedName) %>ListFacade;
@@ -87,7 +83,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith(
-        '<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?filter=<%= camelize(singularizedParentName) %>Id eq '<%= snakeCasedParentName %>_ID'&$count=true');
+        `<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?$filter=<%= camelize(singularizedParentName) %>Id eq '<%= snakeCasedParentName %>_ID'&$count=true`);
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);
@@ -146,7 +142,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       store.dispatch(<%= camelize(parentName) %>ActionTypes.load<%= classify(pluralizedParentName) %>Success(
         createODataResult([
           { ...create<%= classify(parentName) %>(), id: '<%= snakeCasedParentName %>_ID' }])));
-      store.dispatch(<%= camelize(singularizedParentName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(
+      store.dispatch(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(
         { <%= camelize(parentName) %>Id: '<%= snakeCasedParentName %>_ID', odataResult: createODataResult([create<%= classify(singularizedName) %>(), create<%= classify(singularizedName) %>()]) }));
 
       list = await readFirst(facade.gridData$);

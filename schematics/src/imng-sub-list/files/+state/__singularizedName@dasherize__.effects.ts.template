@@ -5,7 +5,6 @@ import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
-import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedStoreName) %>.reducer';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
 import { <%= camelize(singularizedName) %>Queries } from './<%= dasherize(singularizedName) %>.selectors';<% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-list';
