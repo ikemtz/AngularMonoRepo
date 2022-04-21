@@ -1,5 +1,6 @@
 import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
 export const <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY = '<%= camelize(pluralizedName) %>';
@@ -47,6 +48,7 @@ export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
         ...state,
         loading: true,
       }),
+    on(imngEffectError, imngEffectErrorReducer),
     ),
 <% } %>)
 });

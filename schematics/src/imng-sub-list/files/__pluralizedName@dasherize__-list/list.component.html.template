@@ -26,7 +26,7 @@
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [display]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>] | slice:0:5"
+        [displayValue]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>] | slice:0:5"
         [copyValue]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]">
       </imng-kendo-copy>
     </ng-template>

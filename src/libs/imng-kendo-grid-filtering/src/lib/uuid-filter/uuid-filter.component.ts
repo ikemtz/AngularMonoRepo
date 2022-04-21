@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { ColumnComponent, FilterService } from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { Subscriptions } from 'imng-ngrx-utils';
 
 /**
  * How To Use:
@@ -36,6 +37,8 @@ export class UuidFilterComponent {
    */
   @Input()
   filter: CompositeFilterDescriptor;
+
+  public allSubscriptions = new Subscriptions();
   constructor(
     @Inject(FilterService) public filterService: FilterService,
     @Inject(ColumnComponent) public column: ColumnComponent) {

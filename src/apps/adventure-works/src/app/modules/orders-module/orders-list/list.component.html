@@ -19,7 +19,7 @@
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [display]="dataItem[props.ID] | slice: 0:5"
+        [displayValue]="dataItem[props.ID] | slice: 0:5"
         [copyValue]="dataItem[props.ID]"></imng-kendo-copy>
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -130,7 +130,7 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [display]="dataItem[props.CUSTOMER_ID] | slice: 0:5"
+        [displayValue]="dataItem[props.CUSTOMER_ID] | slice: 0:5"
         [copyValue]="dataItem[props.CUSTOMER_ID]"></imng-kendo-copy>
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -147,7 +147,7 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [display]="dataItem[props.SHIP_TO_ADDRESS_ID] | slice: 0:5"
+        [displayValue]="dataItem[props.SHIP_TO_ADDRESS_ID] | slice: 0:5"
         [copyValue]="dataItem[props.SHIP_TO_ADDRESS_ID]"></imng-kendo-copy>
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -164,7 +164,7 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [display]="dataItem[props.BILL_TO_ADDRESS_ID] | slice: 0:5"
+        [displayValue]="dataItem[props.BILL_TO_ADDRESS_ID] | slice: 0:5"
         [copyValue]="dataItem[props.BILL_TO_ADDRESS_ID]"></imng-kendo-copy>
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>

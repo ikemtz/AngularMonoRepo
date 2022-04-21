@@ -1,5 +1,6 @@
 import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 
 import { IProduct } from '../../../models/odata';
 import * as productActionTypes from './product.actions';
@@ -51,5 +52,6 @@ export const productsFeature = createFeature({
         loading: true,
       }),
     ),
+    on(imngEffectError, imngEffectErrorReducer),
   )
 });

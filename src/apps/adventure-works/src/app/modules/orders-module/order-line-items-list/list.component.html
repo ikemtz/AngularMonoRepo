@@ -13,7 +13,7 @@
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [display]="dataItem[props.ID] | slice: 0:5"
+        [displayValue]="dataItem[props.ID] | slice: 0:5"
         [copyValue]="dataItem[props.ID]"></imng-kendo-copy>
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -30,7 +30,7 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [display]="dataItem[props.ORDER_ID] | slice: 0:5"
+        [displayValue]="dataItem[props.ORDER_ID] | slice: 0:5"
         [copyValue]="dataItem[props.ORDER_ID]"></imng-kendo-copy>
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -56,7 +56,7 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [display]="dataItem[props.PRODUCT_ID] | slice: 0:5"
+        [displayValue]="dataItem[props.PRODUCT_ID] | slice: 0:5"
         [copyValue]="dataItem[props.PRODUCT_ID]"></imng-kendo-copy>
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
