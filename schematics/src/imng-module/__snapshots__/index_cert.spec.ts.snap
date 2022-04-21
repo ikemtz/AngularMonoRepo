@@ -3,6 +3,7 @@
 exports[`imng-module generation works - Certifications 1`] = `
 "import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 
 import * as certificationActionTypes from './certification.actions';
 export const CERTIFICATIONS_FEATURE_KEY = 'certifications';
@@ -50,6 +51,7 @@ export const certificationsFeature = createFeature({
         ...state,
         loading: true,
       }),
+    on(imngEffectError, imngEffectErrorReducer),
     ),
 )
 });
