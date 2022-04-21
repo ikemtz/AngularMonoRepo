@@ -7,6 +7,7 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { OrdersRoutingModule } from './orders.routing';
@@ -34,6 +35,7 @@ import { OrderLineItemListComponent, OrderLineItemListFacade } from './order-lin
     OrdersRoutingModule,
     StoreModule.forFeature(ordersFeature),
     EffectsModule.forFeature([OrderEffects, OrderLineItemEffects]),
+    ImngKendoGridFilteringModule,
   ],
   providers: [
     OrderListFacade,
