@@ -7,6 +7,7 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { <%= classify(pluralizedName) %>RoutingModule } from './<%= dasherize(pluralizedName) %>.routing';
@@ -18,16 +19,17 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
 <% } %>
 
 @NgModule({
-  declarations: [<% if (openApiJsonUrl || openApiJsonFileName) { %> <%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent <% } %>],
+  declarations: [<% if (openApiJsonUrl || openApiJsonFileName) { %><%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent <% } %>],
   imports: [
     CommonModule,
     GridModule,
     ExcelModule,
     PDFModule,
     DialogModule,
+    ImngDataEntryDialogModule,
+    ImngKendoGridFilteringModule,
     ImngKendoGridModule,
     ImngKendoGridODataModule,
-    ImngDataEntryDialogModule,
     ReactiveFormsModule,
     <%= classify(pluralizedName) %>RoutingModule,
     StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),

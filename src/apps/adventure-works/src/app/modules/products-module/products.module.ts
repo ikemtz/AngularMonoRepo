@@ -14,20 +14,22 @@ import { productsFeature } from './+state/product.reducer';
 import { ProductEffects } from './+state/product.effects';
 
 import { ProductListComponent, ProductListFacade } from './products-list';
-import { ProductAddComponent, ProductEditComponent, ProductApiService, ProductCrudFacade  } from './products-crud';
+import { ProductAddComponent, ProductEditComponent, ProductApiService, ProductCrudFacade } from './products-crud';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 
 @NgModule({
-  declarations: [ ProductListComponent, ProductAddComponent, ProductEditComponent ],
+  declarations: [ProductListComponent, ProductAddComponent, ProductEditComponent],
   imports: [
     CommonModule,
     GridModule,
     ExcelModule,
     PDFModule,
     DialogModule,
+    ImngDataEntryDialogModule,
+    ImngKendoGridFilteringModule,
     ImngKendoGridModule,
     ImngKendoGridODataModule,
-    ImngDataEntryDialogModule,
     ReactiveFormsModule,
     ProductsRoutingModule,
     StoreModule.forFeature(productsFeature),
@@ -36,7 +38,7 @@ import { ProductAddComponent, ProductEditComponent, ProductApiService, ProductCr
   providers: [
     ProductListFacade,
     ProductCrudFacade,
-    ProductApiService, 
+    ProductApiService,
   ],
 })
 export class ProductsModule { }

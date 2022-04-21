@@ -16,9 +16,14 @@
     </div>
   </ng-template>
 
-  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.id | slice: 0:5 }}
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.ID] | slice: 0:5"
+        [copyValue]="dataItem[props.ID]"></imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
@@ -124,7 +129,12 @@
     title="Customer Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.customer_id | slice: 0:5 }}
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.CUSTOMER_ID] | slice: 0:5"
+        [copyValue]="dataItem[props.CUSTOMER_ID]"></imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Customer Id</span>
@@ -136,7 +146,12 @@
     title="Ship To Address Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.ship_to_address_id | slice: 0:5 }}
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.SHIP_TO_ADDRESS_ID] | slice: 0:5"
+        [copyValue]="dataItem[props.SHIP_TO_ADDRESS_ID]"></imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Ship To Address Id</span>
@@ -148,7 +163,12 @@
     title="Bill To Address Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem.bill_to_address_id | slice: 0:5 }}
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.BILL_TO_ADDRESS_ID] | slice: 0:5"
+        [copyValue]="dataItem[props.BILL_TO_ADDRESS_ID]"></imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Bill To Address Id</span>

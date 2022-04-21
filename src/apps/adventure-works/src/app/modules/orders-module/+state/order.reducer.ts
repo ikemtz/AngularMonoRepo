@@ -5,7 +5,7 @@ import { IExtOrder } from '../models/ext-order';
 
 import * as orderActionTypes from './order.actions';
 import * as orderLineItemActionTypes from './order-line-item.actions';
-import { findAndModify } from 'imng-ngrx-utils';
+import { findAndModify, imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 export const ORDERS_FEATURE_KEY = 'orders';
 
 export interface State extends KendoODataGridState<IExtOrder> {
@@ -86,6 +86,7 @@ export const ordersFeature = createFeature({
           }),
           total: state.gridData.total
         },
-      }))
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
   )
 });

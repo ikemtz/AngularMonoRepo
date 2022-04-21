@@ -14,11 +14,12 @@ import { customersFeature } from './+state/customer.reducer';
 import { CustomerEffects } from './+state/customer.effects';
 
 import { CustomerListComponent, CustomerListFacade } from './customers-list';
-import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, CustomerCrudFacade  } from './customers-crud';
+import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, CustomerCrudFacade } from './customers-crud';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 
 @NgModule({
-  declarations: [ CustomerListComponent, CustomerAddComponent, CustomerEditComponent ],
+  declarations: [CustomerListComponent, CustomerAddComponent, CustomerEditComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -32,11 +33,12 @@ import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, Custom
     CustomersRoutingModule,
     StoreModule.forFeature(customersFeature),
     EffectsModule.forFeature([CustomerEffects]),
+    ImngKendoGridFilteringModule,
   ],
   providers: [
     CustomerListFacade,
     CustomerCrudFacade,
-    CustomerApiService, 
+    CustomerApiService,
   ],
 })
 export class CustomersModule { }

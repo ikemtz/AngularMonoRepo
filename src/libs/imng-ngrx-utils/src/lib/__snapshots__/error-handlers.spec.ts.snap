@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`error handlers handleEffectError should work 1`] = `
+ZoneAwarePromise {
+  "__zone_symbol__state": true,
+  "__zone_symbol__value": "[unit] test",
+}
+`;
+
+exports[`error handlers imngEffectError should work 1`] = `
+Object {
+  "payload": Object {
+    "action": [Function],
+    "error": [Error: should-work],
+  },
+  "type": "[IMNG] Error Occured",
+}
+`;
+
+exports[`error handlers imngEffectErrorReducer should work 1`] = `
+Object {
+  "error": [Error: should-work],
+  "loading": false,
+}
+`;
