@@ -25,7 +25,13 @@
 <%} else if (swaggerProperty.format === 'uuid') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>] | slice:0:5 }}
+      <imng-kendo-copy
+        [display]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>] | slice:0:5"
+        [copyValue]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
     </ng-template>
 <%} else { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
