@@ -1,150 +1,354 @@
-<imng-data-entry-dialog width="700" height="550" [parentComponent]="this" autoFocusedElement="#order_id">
+<imng-data-entry-dialog
+  [width]="700"
+  [height]="550"
+  [parentComponent]="this"
+  autoFocusedElement="#order_id">
   <form novalidate [formGroup]="addEditForm" autocomplete="false">
     <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="id" class="control-label mr-4">Id:</label>
-          <input id="id" type="text" class="form-control" [formControlName]="props.ID"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Order id is required</div>
+      <div class="form-group col-md-6">
+        <label for="id" class="control-label mr-4">Id:</label>
+        <input
+          id="id"
+          type="text"
+          class="form-control"
+          [formControlName]="props.ID"
+          [ngClass]="{
+            'is-invalid': (submitted$ | async) && formControlErrors(props.ID)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.ID)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">
+            Order id is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="order_id" class="control-label mr-4">Order Id:</label>
-          <input id="order_id" type="number" class="form-control" [formControlName]="props.ORDER_ID"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ORDER_ID) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.ORDER_ID)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.ORDER_ID)?.[RequiredError]">Order order id is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="order_id" class="control-label mr-4">Order Id:</label>
+        <input
+          id="order_id"
+          type="number"
+          class="form-control"
+          [formControlName]="props.ORDER_ID"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.ORDER_ID)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.ORDER_ID)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.ORDER_ID)?.[RequiredError]">
+            Order order id is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="revision_num" class="control-label mr-4">Revision Num:</label>
-          <input id="revision_num" type="number" class="form-control" [formControlName]="props.REVISION_NUM"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.REVISION_NUM) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.REVISION_NUM)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.REVISION_NUM)?.[RequiredError]">Order revision num is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="revision_num" class="control-label mr-4"
+          >Revision Num:</label
+        >
+        <input
+          id="revision_num"
+          type="number"
+          class="form-control"
+          [formControlName]="props.REVISION_NUM"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.REVISION_NUM)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.REVISION_NUM)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.REVISION_NUM)?.[RequiredError]">
+            Order revision num is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="date" class="control-label mr-4">Date:</label>
-          <input id="date" type="date" class="form-control" [formControlName]="props.DATE"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DATE) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.DATE)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.DATE)?.[RequiredError]">Order date is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="date" class="control-label mr-4">Date:</label>
+        <input
+          id="date"
+          type="date"
+          class="form-control"
+          [formControlName]="props.DATE"
+          [ngClass]="{
+            'is-invalid': (submitted$ | async) && formControlErrors(props.DATE)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.DATE)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.DATE)?.[RequiredError]">
+            Order date is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="due_date" class="control-label mr-4">Due Date:</label>
-          <input id="due_date" type="date" class="form-control" [formControlName]="props.DUE_DATE"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DUE_DATE) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.DUE_DATE)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.DUE_DATE)?.[RequiredError]">Order due date is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="due_date" class="control-label mr-4">Due Date:</label>
+        <input
+          id="due_date"
+          type="date"
+          class="form-control"
+          [formControlName]="props.DUE_DATE"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.DUE_DATE)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.DUE_DATE)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.DUE_DATE)?.[RequiredError]">
+            Order due date is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="ship_date" class="control-label mr-4">Ship Date:</label>
-          <input id="ship_date" type="date" class="form-control" [formControlName]="props.SHIP_DATE" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="status" class="control-label mr-4">Status:</label>
-          <input id="status" type="number" class="form-control" [formControlName]="props.STATUS"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STATUS) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.STATUS)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.STATUS)?.[RequiredError]">Order status is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="ship_date" class="control-label mr-4">Ship Date:</label>
+        <input
+          id="ship_date"
+          type="date"
+          class="form-control"
+          [formControlName]="props.SHIP_DATE" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="status" class="control-label mr-4">Status:</label>
+        <input
+          id="status"
+          type="number"
+          class="form-control"
+          [formControlName]="props.STATUS"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.STATUS)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.STATUS)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.STATUS)?.[RequiredError]">
+            Order status is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="is_online_order" class="control-label mr-4">Is Online Order:</label>
-          <input id="is_online_order" type="checkbox" [formControlName]="props.IS_ONLINE_ORDER" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="num" class="control-label mr-4">Num:</label>
-          <input id="num" type="text" maxlength="25" class="form-control" [formControlName]="props.NUM"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Order num is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="is_online_order" class="control-label mr-4"
+          >Is Online Order:</label
+        >
+        <input
+          id="is_online_order"
+          type="checkbox"
+          [formControlName]="props.IS_ONLINE_ORDER" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="num" class="control-label mr-4">Num:</label>
+        <input
+          id="num"
+          type="text"
+          maxlength="25"
+          class="form-control"
+          [formControlName]="props.NUM"
+          [ngClass]="{
+            'is-invalid': (submitted$ | async) && formControlErrors(props.NUM)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.NUM)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">
+            Order num is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="purchase_order_num" class="control-label mr-4">Purchase Order Num:</label>
-          <input id="purchase_order_num" type="text" maxlength="25" class="form-control" [formControlName]="props.PURCHASE_ORDER_NUM" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="customer_id" class="control-label mr-4">Customer Id:</label>
-          <input id="customer_id" type="text" class="form-control" [formControlName]="props.CUSTOMER_ID"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.CUSTOMER_ID) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.CUSTOMER_ID)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.CUSTOMER_ID)?.[RequiredError]">Order customer id is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="purchase_order_num" class="control-label mr-4"
+          >Purchase Order Num:</label
+        >
+        <input
+          id="purchase_order_num"
+          type="text"
+          maxlength="25"
+          class="form-control"
+          [formControlName]="props.PURCHASE_ORDER_NUM" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="customer_id" class="control-label mr-4">Customer Id:</label>
+        <input
+          id="customer_id"
+          type="text"
+          class="form-control"
+          [formControlName]="props.CUSTOMER_ID"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.CUSTOMER_ID)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.CUSTOMER_ID)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.CUSTOMER_ID)?.[RequiredError]">
+            Order customer id is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="ship_to_address_id" class="control-label mr-4">Ship To Address Id:</label>
-          <input id="ship_to_address_id" type="text" class="form-control" [formControlName]="props.SHIP_TO_ADDRESS_ID" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="bill_to_address_id" class="control-label mr-4">Bill To Address Id:</label>
-          <input id="bill_to_address_id" type="text" class="form-control" [formControlName]="props.BILL_TO_ADDRESS_ID" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="ship_method" class="control-label mr-4">Ship Method:</label>
-          <input id="ship_method" type="text" maxlength="50" class="form-control" [formControlName]="props.SHIP_METHOD"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SHIP_METHOD) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.SHIP_METHOD)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.SHIP_METHOD)?.[RequiredError]">Order ship method is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="ship_to_address_id" class="control-label mr-4"
+          >Ship To Address Id:</label
+        >
+        <input
+          id="ship_to_address_id"
+          type="text"
+          class="form-control"
+          [formControlName]="props.SHIP_TO_ADDRESS_ID" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="bill_to_address_id" class="control-label mr-4"
+          >Bill To Address Id:</label
+        >
+        <input
+          id="bill_to_address_id"
+          type="text"
+          class="form-control"
+          [formControlName]="props.BILL_TO_ADDRESS_ID" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="ship_method" class="control-label mr-4">Ship Method:</label>
+        <input
+          id="ship_method"
+          type="text"
+          maxlength="50"
+          class="form-control"
+          [formControlName]="props.SHIP_METHOD"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.SHIP_METHOD)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.SHIP_METHOD)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.SHIP_METHOD)?.[RequiredError]">
+            Order ship method is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="credit_card_approval_code" class="control-label mr-4">Credit Card Approval Code:</label>
-          <input id="credit_card_approval_code" type="text" maxlength="15" class="form-control" [formControlName]="props.CREDIT_CARD_APPROVAL_CODE" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="sub_total" class="control-label mr-4">Sub Total:</label>
-          <input id="sub_total" type="number" class="form-control" [formControlName]="props.SUB_TOTAL"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SUB_TOTAL) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.SUB_TOTAL)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.SUB_TOTAL)?.[RequiredError]">Order sub total is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="credit_card_approval_code" class="control-label mr-4"
+          >Credit Card Approval Code:</label
+        >
+        <input
+          id="credit_card_approval_code"
+          type="text"
+          maxlength="15"
+          class="form-control"
+          [formControlName]="props.CREDIT_CARD_APPROVAL_CODE" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="sub_total" class="control-label mr-4">Sub Total:</label>
+        <input
+          id="sub_total"
+          type="number"
+          class="form-control"
+          [formControlName]="props.SUB_TOTAL"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.SUB_TOTAL)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.SUB_TOTAL)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.SUB_TOTAL)?.[RequiredError]">
+            Order sub total is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="tax_amt" class="control-label mr-4">Tax Amt:</label>
-          <input id="tax_amt" type="number" class="form-control" [formControlName]="props.TAX_AMT"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.TAX_AMT) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.TAX_AMT)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.TAX_AMT)?.[RequiredError]">Order tax amt is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="tax_amt" class="control-label mr-4">Tax Amt:</label>
+        <input
+          id="tax_amt"
+          type="number"
+          class="form-control"
+          [formControlName]="props.TAX_AMT"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.TAX_AMT)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.TAX_AMT)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.TAX_AMT)?.[RequiredError]">
+            Order tax amt is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="freight" class="control-label mr-4">Freight:</label>
-          <input id="freight" type="number" class="form-control" [formControlName]="props.FREIGHT"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.FREIGHT) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.FREIGHT)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.FREIGHT)?.[RequiredError]">Order freight is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="freight" class="control-label mr-4">Freight:</label>
+        <input
+          id="freight"
+          type="number"
+          class="form-control"
+          [formControlName]="props.FREIGHT"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.FREIGHT)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.FREIGHT)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.FREIGHT)?.[RequiredError]">
+            Order freight is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="total_due" class="control-label mr-4">Total Due:</label>
-          <input id="total_due" type="number" class="form-control" [formControlName]="props.TOTAL_DUE"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.TOTAL_DUE) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.TOTAL_DUE)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.TOTAL_DUE)?.[RequiredError]">Order total due is required</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="total_due" class="control-label mr-4">Total Due:</label>
+        <input
+          id="total_due"
+          type="number"
+          class="form-control"
+          [formControlName]="props.TOTAL_DUE"
+          [ngClass]="{
+            'is-invalid':
+              (submitted$ | async) && formControlErrors(props.TOTAL_DUE)
+          }" />
+        <div
+          *ngIf="(submitted$ | async) && formControlErrors(props.TOTAL_DUE)"
+          class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.TOTAL_DUE)?.[RequiredError]">
+            Order total due is required
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="comment" class="control-label mr-4">Comment:</label>
-          <input id="comment" type="text" maxlength="500" class="form-control" [formControlName]="props.COMMENT" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="customer" class="control-label mr-4">Customer:</label>
-          <input id="customer" type="text" class="form-control" [formControlName]="props.CUSTOMER" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="ship_to_address" class="control-label mr-4">Ship To Address:</label>
-          <input id="ship_to_address" type="text" class="form-control" [formControlName]="props.SHIP_TO_ADDRESS" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="bill_to_address" class="control-label mr-4">Bill To Address:</label>
-          <input id="bill_to_address" type="text" class="form-control" [formControlName]="props.BILL_TO_ADDRESS" />
-        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="comment" class="control-label mr-4">Comment:</label>
+        <input
+          id="comment"
+          type="text"
+          maxlength="500"
+          class="form-control"
+          [formControlName]="props.COMMENT" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="customer" class="control-label mr-4">Customer:</label>
+        <input
+          id="customer"
+          type="text"
+          class="form-control"
+          [formControlName]="props.CUSTOMER" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="ship_to_address" class="control-label mr-4"
+          >Ship To Address:</label
+        >
+        <input
+          id="ship_to_address"
+          type="text"
+          class="form-control"
+          [formControlName]="props.SHIP_TO_ADDRESS" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="bill_to_address" class="control-label mr-4"
+          >Bill To Address:</label
+        >
+        <input
+          id="bill_to_address"
+          type="text"
+          class="form-control"
+          [formControlName]="props.BILL_TO_ADDRESS" />
+      </div>
     </div>
   </form>
 </imng-data-entry-dialog>

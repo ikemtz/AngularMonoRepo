@@ -6,7 +6,7 @@ import { ODataState } from 'imng-kendo-odata';
 
 import { OrderListFacade } from './list.facade';
 import { OrderCrudFacade } from '../orders-crud';
-import { IOrder, OrderProperties } from '../../../models/odata';
+import { CustomerProperties, IOrder, OrderProperties } from '../../../models/odata';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -39,6 +39,9 @@ const initialGridState: ODataState = {
   sort: [
     { field: OrderProperties.ORDER_ID, dir: 'asc' },
   ],
+  expanders: [
+    { table: OrderProperties.CUSTOMER, selectors: [CustomerProperties.NAME, CustomerProperties.COMPANY_NAME] }
+  ]
 };
 
 @Component({

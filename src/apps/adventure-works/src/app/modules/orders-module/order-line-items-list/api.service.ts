@@ -8,7 +8,7 @@ import { IOrderLineItem } from '../../../models/webapi';
   providedIn: 'root',
 })
 export class OrderLineItemApiService extends NrsrxBaseApiClientService<IOrderLineItem> {
-  public override url = environment.webApiEnpoints.orders;
+  public override url = environment.webApiEnpoints.orderLineItems;
   constructor(http: HttpClient) {
     super(http);
   }
