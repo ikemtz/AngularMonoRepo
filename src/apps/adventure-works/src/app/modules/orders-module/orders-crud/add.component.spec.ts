@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OrderAddComponent } from './add.component';
 import { OrderCrudFacade } from './crud.facade';
 import { IOrder, OrderProperties } from '../../../models/webapi';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 describe('OrderAddComponent', () => {
   let component: OrderAddComponent;
@@ -16,7 +17,7 @@ describe('OrderAddComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [OrderAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DateInputsModule],
       providers: [{ provide: OrderCrudFacade, useValue: createDataEntryMockFacade() }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
