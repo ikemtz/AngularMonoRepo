@@ -1,13 +1,31 @@
-<kendo-dialog [width]="width" [height]="height" (close)="close()" [autoFocusedElement]="autoFocusedElement">
-  <kendo-dialog-titlebar class="bg-primary">{{ dialogTitle }}</kendo-dialog-titlebar>
+<kendo-dialog
+  [width]="width"
+  [height]="height"
+  (close)="close()"
+  [autoFocusedElement]="autoFocusedElement">
+  <kendo-dialog-titlebar class="bg-primary">{{
+    dialogTitle
+  }}</kendo-dialog-titlebar>
   <ng-content></ng-content>
   <kendo-dialog-actions>
-    <ng-container *ngTemplateOutlet="dialogBtnsTemplate || defaultDialogActionsTpl; context: dialogActionBtnsCtx">
+    <ng-container
+      *ngTemplateOutlet="
+        dialogBtnsTemplate || defaultDialogActionsTpl;
+        context: dialogActionBtnsCtx
+      ">
     </ng-container>
   </kendo-dialog-actions>
 </kendo-dialog>
 
 <ng-template #defaultDialogActionsTpl>
-  <button id="btnCancel" class="k-button" (click)="cancel()">Cancel</button>
-  <button id="btnSave" class="k-button k-primary" (click)="submit()">{{ saveButtonText }}</button>
+  <button kendoButton id="btnCancel" class="k-button" (click)="cancel()">
+    Cancel
+  </button>
+  <button
+    kendoButton
+    id="btnSave"
+    class="k-button k-primary"
+    (click)="submit()">
+    {{ saveButtonText }}
+  </button>
 </ng-template>

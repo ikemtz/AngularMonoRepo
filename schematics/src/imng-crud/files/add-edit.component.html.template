@@ -1,4 +1,4 @@
-<imng-data-entry-dialog width="700" height="550" [parentComponent]="this" autoFocusedElement="#<%= underscore(firstProperty.name) %>">
+<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#<%= underscore(firstProperty.name) %>">
   <form novalidate [formGroup]="addEditForm" autocomplete="false">
     <div class="form-row"><% swaggerProperties.forEach(function(swaggerProperty) {%>
         <div class="form-group col-md-6">
