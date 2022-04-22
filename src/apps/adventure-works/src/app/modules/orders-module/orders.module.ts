@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { DialogModule } from '@progress/kendo-angular-dialog';
+import { DateInputsModule } from "@progress/kendo-angular-dateinputs";
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -36,6 +37,7 @@ import { OrderLineItemListComponent, OrderLineItemListFacade } from './order-lin
     StoreModule.forFeature(ordersFeature),
     EffectsModule.forFeature([OrderEffects, OrderLineItemEffects]),
     ImngKendoGridFilteringModule,
+    DateInputsModule
   ],
   providers: [
     OrderListFacade,

@@ -65,14 +65,13 @@
       </div>
       <div class="form-group col-md-6">
         <label for="date" class="control-label mr-4">Date:</label>
-        <input
+        <kendo-datepicker
           id="date"
-          type="date"
           class="form-control"
           [formControlName]="props.DATE"
           [ngClass]="{
             'is-invalid': (submitted$ | async) && formControlErrors(props.DATE)
-          }" />
+          }"></kendo-datepicker>
         <div
           *ngIf="(submitted$ | async) && formControlErrors(props.DATE)"
           class="invalid-feedback">
@@ -83,15 +82,14 @@
       </div>
       <div class="form-group col-md-6">
         <label for="due_date" class="control-label mr-4">Due Date:</label>
-        <input
+        <kendo-datepicker
           id="due_date"
-          type="date"
           class="form-control"
           [formControlName]="props.DUE_DATE"
           [ngClass]="{
             'is-invalid':
               (submitted$ | async) && formControlErrors(props.DUE_DATE)
-          }" />
+          }"></kendo-datepicker>
         <div
           *ngIf="(submitted$ | async) && formControlErrors(props.DUE_DATE)"
           class="invalid-feedback">
@@ -102,11 +100,10 @@
       </div>
       <div class="form-group col-md-6">
         <label for="ship_date" class="control-label mr-4">Ship Date:</label>
-        <input
+        <kendo-datepicker
           id="ship_date"
-          type="date"
           class="form-control"
-          [formControlName]="props.SHIP_DATE" />
+          [formControlName]="props.SHIP_DATE"></kendo-datepicker>
       </div>
       <div class="form-group col-md-6">
         <label for="status" class="control-label mr-4">Status:</label>
