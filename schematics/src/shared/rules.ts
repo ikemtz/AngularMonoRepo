@@ -62,35 +62,50 @@ function getFileNames(openApiJsonFileName: string) {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-export function processOpenApiDoc(data: any, schema: IOptions, host: Tree): Tree { //NOSONAR
-  const openApiComponent = data.components.schemas[strings.classify(schema.name)] as OpenApiComponent;
+export function processOpenApiDoc(data: any, options: IOptions, host: Tree): Tree { //NOSONAR
+  const openApiComponent = data.components.schemas[strings.classify(options.name)] as OpenApiComponent;
   if (!openApiComponent) {
-    throw new Error(`OpenApi Component not found in swagger doc: ${schema.name}`);
+    throw new Error(`OpenApi Component not found in swagger doc: ${options.name}`);
   }
   const properties = openApiComponent.properties as {
     [key: string]: PropertyInfo;
   };
+  options.hasDates = false;
+  options.hasObjects = false;
+  const mappedProperties = mapProperties(properties, options, openApiComponent);
+  mappedProperties.filteredProperties.filter(f => f.$ref).forEach(property => {
+    const componentName = property.$ref?.split('/').pop();
+    const component = data.components.schemas[componentName || ''] as OpenApiComponent
+    if (component) {
+      property.properties = mapProperties(component.properties, options, component).filteredProperties;
+      options.hasObjects = true;
+    }
+  });
+  options.swaggerObjectProperties = mappedProperties.filteredProperties.filter(f => f.$ref);
+  options.swaggerProperties = mappedProperties.filteredProperties;
+  options.firstProperty = mappedProperties.firstProperty;
+  return host;
+}
+
+function mapProperties(properties: { [key: string]: PropertyInfo; }, options: IOptions, openApiComponent: OpenApiComponent) {
+  const excludedFields = ['createdBy', 'createdOnUtc', 'tenantId', 'updatedBy', 'updatedOnUtc'];
   let firstProperty: PropertyInfo | undefined;
   const filteredProperties: PropertyInfo[] = [];
-  const excludedFields = ['createdBy', 'createdOnUtc', 'tenantId', 'updatedBy', 'updatedOnUtc'];
-  schema.hasDates = false;
   for (const propertyKey in properties) {
-    if (excludedFields.indexOf(propertyKey) < 0 && properties[propertyKey].type !== 'array') {
-      const property =
-        mapPropertyAttributes(schema, properties[propertyKey], {
-          ...properties[propertyKey],
-          name: propertyKey,
-          required: (openApiComponent.required ?? []).indexOf(propertyKey) > -1,
-        });
-      filteredProperties.push(property);
+    const originalProperty = properties[propertyKey];
+    if (excludedFields.indexOf(propertyKey) < 0 && originalProperty.type !== 'array') {
+      const property = mapPropertyAttributes(options, originalProperty, {
+        ...properties[propertyKey],
+        name: propertyKey,
+        required: (openApiComponent.required ?? []).indexOf(propertyKey) > -1,
+      });
       if (!firstProperty && propertyKey !== 'id') {
         firstProperty = property;
       }
+      filteredProperties.push(property);
     }
   }
-  schema.swaggerProperties = filteredProperties;
-  schema.firstProperty = firstProperty;
-  return host;
+  return { firstProperty, filteredProperties };
 }
 
 function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: PropertyInfo) {
@@ -107,7 +122,15 @@ function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: Pr
     dest.filterExpression = 'date';
     dest.testFactoryValue = 'new Date()';
     options.hasDates = true;
-  } else {
+  } else if (source.$ref) {
+    dest.htmlInputType = 'object';
+    dest.filterExpression = 'text';
+    dest.$ref = source.$ref;
+    dest.pluralizedName = pluralize(dest.name || '', plural);
+    dest.testFactoryValue = `'${dest.maxLength ?
+      _.snakeCase(dest.name).toUpperCase().substring(0, dest.maxLength) : _.snakeCase(dest.name).toUpperCase()}'`;
+  }
+  else {
     dest.htmlInputType = 'text';
     dest.filterExpression = 'text';
     dest.testFactoryValue = `'${dest.maxLength ?
@@ -120,26 +143,28 @@ function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: Pr
 
 const singular = 1;
 const plural = 2;
-export function generateFiles(schema: IOptions, templateType: 'list' | 'crud' | 'module' | 'sub-list'): Rule {
+export function generateFiles(options: IOptions, templateType: 'list' | 'crud' | 'module' | 'sub-list'): Rule {
   return (tree: Tree, context: SchematicContext) => {
     context.logger.info(`Running ${strings.capitalize(templateType)} Schematic`);
 
-    const singularizedName = pluralize(schema.name, singular);
-    const pluralizedName = pluralize(schema.name, plural);
-    const pluralizedParentName = pluralize(schema.parentName ?? schema.name, plural);
-    const singularizedParentName = pluralize(schema.parentName ?? schema.name, singular);
+    const singularizedName = pluralize(options.name, singular);
+    const pluralizedName = pluralize(options.name, plural);
+    const pluralizedParentName = pluralize(options.parentName ?? options.name, plural);
+    const singularizedParentName = pluralize(options.parentName ?? options.name, singular);
     const snakeCasedParentName = snakeCase(singularizedParentName).toUpperCase()
     const startCasedPluralName = _.startCase(pluralizedName);
-    const singularizedStoreName = pluralize(schema.storeName ?? schema.parentName ?? schema.name, singular);
+    const singularizedStoreName = pluralize(options.storeName ?? options.parentName ?? options.name, singular);
     const pluralizedStoreName = pluralize(singularizedStoreName, plural);
 
     const folderName = templateType === 'sub-list' ?
-      normalize(`${schema.path}`)
-      : normalize(`${schema.path}/${strings.dasherize(pluralizedName)}-${templateType}`);
+      normalize(`${options.path}`)
+      : normalize(`${options.path}/${strings.dasherize(pluralizedName)}-${templateType}`);
     const templateSource = apply(url('./files'), [
       applyTemplates({
         ...strings,
-        ...schema,
+        ...options,
+        hasDates: options.hasDates,
+        hasObjects: options.hasObjects,
         pluralizedName,
         singularizedName,
         pluralizedParentName,

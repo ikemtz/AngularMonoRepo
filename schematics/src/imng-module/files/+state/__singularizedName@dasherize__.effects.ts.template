@@ -64,4 +64,13 @@ export class <%= classify(singularizedName) %>Effects {
         map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
         handleEffectError(action))));
   });<% } %>
-}
+<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  load<%= classify(swaggerProperty.pluralizedName) %>Effect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request),
+      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request>) => this.odataservice
+        .fetch<I<%= classify(swaggerProperty.name) %>>(environment.odataEnpoints.<%= camelize(swaggerProperty.pluralizedName) %>, action.payload)
+        .pipe(map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Success(t)),
+          handleEffectError(action))));
+  });
+<% }) %>}
