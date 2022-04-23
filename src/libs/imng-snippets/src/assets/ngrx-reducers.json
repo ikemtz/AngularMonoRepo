@@ -1,14 +1,16 @@
 {
     "NgRxReducerDataEntry": {
-    "prefix": "imng-ngrx-reducer-data-entry",
+    "prefix": "imng-ngrx-reducers-data-entry",
     "body": [
-      "  on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.setCurrent${2:__ENTITY_NAME__PASCAL_CASE__}, (state, { payload }) => ({ ...state, current${2:__ENTITY_NAME__PASCAL_CASE__}: payload })),",
-      "  on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.clearCurrent${2:__ENTITY_NAME__PASCAL_CASE__}, state => ({ ...state, current${2:__ENTITY_NAME__PASCAL_CASE__}: null })),",
+      "  on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.setCurrent${2:__ENTITY_NAME__PASCAL_CASE__}, ",
+      "    (state, { payload }): State => ({ ...state, current${2:__ENTITY_NAME__PASCAL_CASE__}: payload })),",
+      "  on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.clearCurrent${2:__ENTITY_NAME__PASCAL_CASE__}, ",
+      "    state: State => ({ ...state, current${2:__ENTITY_NAME__PASCAL_CASE__}: null })),",
       "  on(",
       "    ${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.save${2:__ENTITY_NAME__PASCAL_CASE__}Request,",
       "    ${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.update${2:__ENTITY_NAME__PASCAL_CASE__}Request,",
       "    ${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.delete${2:__ENTITY_NAME__PASCAL_CASE__}Request,",
-      "    state => ({",
+      "    state: State => ({",
       "      ...state,",
       "      loading: true,",
       "    }),",
@@ -17,20 +19,23 @@
     "description": "NgRxReducersDataEntry"
   },
   "NgRxReducerFailure": {
-    "prefix": "imng-ngrx-reducer-failure",
-    "body": ["  on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${2:__ENTITY_NAME__PASCAL_CASE__}sFailure, (state, { payload }) => ({ ...state, error: payload.error })),", ""],
+    "prefix": "imng-ngrx-reducers-failure",
+    "body": [
+      "on(imngEffectError, imngEffectErrorReducer),"],
     "description": "Create Reducer for failure action"
   },
   "NgRxReducerOData": {
-    "prefix": "imng-ngrx-reducer-odata",
+    "prefix": "imng-ngrx-reducers-odata",
     "body": [
-      " on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${2:__ENTITY_NAME__PASCAL_CASE__}sRequest, (state, { payload }) => ({",
+      " on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${2:__ENTITY_NAME__PASCAL_CASE__}sRequest,",
+      "   (state, { payload }): State => ({",
       "    ...state,",
       "    gridODataState: payload,",
       "    loading: true,",
       "    error: null,",
       "  })),",
-      "  on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${2:__ENTITY_NAME__PASCAL_CASE__}sSuccess, (state, { payload }) => ({",
+      "  on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${2:__ENTITY_NAME__PASCAL_CASE__}sSuccess, ",
+      "    (state, { payload }): State => ({",
       "    ...state,",
       "    loading: false,",
       "    gridPagerSettings: getODataPagerSettings({",
@@ -81,5 +86,16 @@
     "      }))"
   ],
   "description": "NGRX OData Reducers for subgrids"
-}
+  },
+  "NgrxReducersDropDown": {
+    "prefix": "imng-ngrx-reducers-drop-down",
+    "body": [
+      "on(${1:__NGRX_FEATURE_KEY__CAMEL_CASE__}ActionTypes.load${2:__ENTITY_NAME__PASCAL_CASE__}sSuccess,",
+      "  (state, { payload }): State => ({",
+      "    ...state,",
+      "    ${2/^(.)(.*)$/${1:/downcase}${2}/}s: payload.data",
+      "  })),"
+    ],
+    "description": "NGRX Reducer for OData bound drop downs"
+  }
 }
