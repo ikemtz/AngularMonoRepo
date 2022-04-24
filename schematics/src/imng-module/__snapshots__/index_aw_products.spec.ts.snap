@@ -368,11 +368,33 @@ exports[`imng-module crud html template should work 1`] = `
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"product_model\\" class=\\"control-label mr-4\\">Product Model:</label>
-      <input id=\\"product_model\\" type=\\"object\\" class=\\"form-control\\" [formControlName]=\\"props.PRODUCT_MODEL\\" />
+      <kendo-multicolumncombobox
+        id=\\"product_model\\"
+        placeholder=\\"Select a product model...\\"
+        [formControlName]=\\"props.PRODUCT_MODEL_ID\\"
+        [data]=\\"productModels$ | async\\"
+        [textField]=\\"productModelProps.NAME\\"
+        [valueField]=\\"productModelProps.ID\\"
+        [valuePrimitive]=\\"true\\"
+        [filterable]=\\"true\\"
+        (filterChange)=\\"handleProductModelFilter($event)\\">
+          <kendo-combobox-column field=\\"name\\" title=\\"Name\\" [width]=\\"100\\"></kendo-combobox-column>
+          <kendo-combobox-column field=\\"description\\" title=\\"Description\\" [width]=\\"100\\"></kendo-combobox-column>
+      </kendo-multicolumncombobox>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"product_category\\" class=\\"control-label mr-4\\">Product Category:</label>
-      <input id=\\"product_category\\" type=\\"object\\" class=\\"form-control\\" [formControlName]=\\"props.PRODUCT_CATEGORY\\" />
+      <kendo-combobox
+        id=\\"product_category\\"
+        placeholder=\\"Select a product category...\\"
+        [formControlName]=\\"props.PRODUCT_CATEGORY_ID\\"
+        [data]=\\"productCategories$ | async\\"
+        [textField]=\\"productCategoryProps.NAME\\"
+        [valueField]=\\"productCategoryProps.ID\\"
+        [valuePrimitive]=\\"true\\"
+        [filterable]=\\"true\\"
+        (filterChange)=\\"handleProductCategoryFilter($event)\\">
+      </kendo-combobox>
     </div>
   </form>
 </imng-data-entry-dialog>
