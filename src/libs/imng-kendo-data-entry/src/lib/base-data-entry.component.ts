@@ -56,6 +56,16 @@ export abstract class BaseDataEntryComponent<
   public formMinLengthError(controlName: string): { requiredLength: number, actualLength: number; } | null {
     return this.formControlErrors(controlName)?.[this.MinLengthError];
   }
+  public getFormErrors(): { control: string, error: ValidationErrors; }[] {
+    const errors: { control: string, error: ValidationErrors; }[] = [];
+    for (const control of Object.keys(this.addEditForm.controls)) {
+      const error = this.formControlErrors(control);
+      if (error) {
+        errors.push({ control, error });
+      }
+    }
+    return errors;
+  }
   constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
     this.initForm();

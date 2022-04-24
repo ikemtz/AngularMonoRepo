@@ -45,6 +45,7 @@ describe('<%= classify(name) %>EditComponent', () => {
 <% }) %>    });
     let item: I<%= classify(name) %> | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
+    expect(component.getFormErrors()).toBeNull();
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
