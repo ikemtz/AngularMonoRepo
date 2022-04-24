@@ -1,5 +1,374 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`imng-module actions should work 1`] = `
+"import { createAction } from '@ngrx/store';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { createPayloadAction } from 'imng-ngrx-utils';
+
+export const loadProductsRequest = createPayloadAction<ODataState>(
+    '[Products] Load Products Request');
+export const loadProductsSuccess = createPayloadAction<ODataResult<IProduct>>(
+    '[Products] Load Products Success');
+export const reloadProductsRequest = createAction(
+    '[Products] Reload Products Request');
+export const reloadProductsSuccess = createPayloadAction<ODataResult<IProduct>>(
+    '[Products] Reload Products Success');
+
+export const clearCurrentProduct = createAction('[Products] Clear Current Product');
+export const setCurrentProduct = createPayloadAction<IProduct>('[Products] Set Current Product');
+export const saveProductRequest = createPayloadAction<IProduct>('[Products] Save Product Request');
+export const updateProductRequest = createPayloadAction<IProduct>('[Products] Update Product Request');
+export const deleteProductRequest = createPayloadAction<IProduct>('[Products] Delete Product Request');
+
+
+export const loadProductModelsRequest = createPayloadAction<ODataState>(
+    '[Products] Load ProductModels Request');
+export const loadProductModelsSuccess = createPayloadAction<ODataResult<IProductModel>>(
+    '[Products] Load ProductModels Success');
+export const loadProductCategoriesRequest = createPayloadAction<ODataState>(
+    '[Products] Load ProductCategories Request');
+export const loadProductCategoriesSuccess = createPayloadAction<ODataResult<IProductCategory>>(
+    '[Products] Load ProductCategories Success');
+"
+`;
+
+exports[`imng-module base crud component should work 1`] = `
+"import { OnInit, Component } from '@angular/core';
+import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+
+import { ProductCrudFacade } from './crud.facade';
+
+@Component({ template: '' })
+export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<ProductCrudFacade>
+  implements OnInit {
+  public readonly props = ProductProperties;  
+  public readonly productModelProps = ProductModelProperties;
+  public readonly productModels$: Observable<IProductModel[]>;
+  public readonly productModelFilter$ = new BehaviorSubject('');  
+  public readonly productCategoryProps = ProductCategoryProperties;
+  public readonly productCategories$: Observable<IProductCategory[]>;
+  public readonly productCategoryFilter$ = new BehaviorSubject('');
+
+  constructor(facade: ProductCrudFacade) {
+    super(facade);
+    this.productModels$ = facade.productModels$.pipe(
+      switchMap(productModels => this.productModelFilter$.pipe(
+        map(productModelFilter => productModelFilter ? productModels
+          .filter(productModel => (
+            (productModel.name && productModel.name.toLowerCase().indexOf(productModelFilter) >= 0) ||
+            (productModel.description && productModel.description.toLowerCase().indexOf(productModelFilter) >= 0)
+          )) : productModels
+    ))));
+    this.productCategories$ = facade.productCategories$.pipe(
+      switchMap(productCategories => this.productCategoryFilter$.pipe(
+        map(productCategoryFilter => productCategoryFilter ? productCategories
+          .filter(productCategory => (
+            (productCategory.name && productCategory.name.toLowerCase().indexOf(productCategoryFilter) >= 0)
+          )) : productCategories
+    ))));
+  }
+
+  public ngOnInit(): void {
+    this.initForm();
+    this.facade.loadProductModels({ selectors: [
+      ProductModelProperties.ID,
+      ProductModelProperties.NAME,
+      ProductModelProperties.DESCRIPTION,] });
+    this.facade.loadProductCategories({ selectors: [
+      ProductCategoryProperties.ID,
+      ProductCategoryProperties.NAME,] });
+  }
+
+  public initForm(): void {
+    this.addEditForm = ProductFormGroupFac();
+  }
+
+  public cancel(): void {
+    this.facade.clearCurrentEntity();
+  }
+
+  public handleProductModelFilter(value: string) {
+    this.productModelFilter$.next(value.toLowerCase());
+  }
+  public handleProductCategoryFilter(value: string) {
+    this.productCategoryFilter$.next(value.toLowerCase());
+  }
+}
+"
+`;
+
+exports[`imng-module crud facade template should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { ODataState } from 'imng-kendo-odata';
+import { productsFeature } from '../+state/product.reducer';
+import { productQueries } from '../+state/product.selectors';
+import * as productActionTypes from '../+state/product.actions';
+
+@Injectable()
+export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
+  loading$ = this.store.select(productsFeature.selectLoading);
+  currentEntity$ = this.store.select(productQueries.selectCurrentProduct);
+  isEditActive$ = this.store.select(productQueries.selectIsEditProductActive);
+  isNewActive$ = this.store.select(productQueries.selectIsNewProductActive);
+  productModels$ = this.store.select(productsFeature.selectProductModels);
+  productCategories$ = this.store.select(productsFeature.selectProductCategories);
+
+  constructor(private readonly store: Store) {}
+
+  public setCurrentEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.setCurrentProduct(item));
+  }
+
+  public clearCurrentEntity(): void {
+    this.store.dispatch(productActionTypes.clearCurrentProduct());
+  }
+
+  public saveNewEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.saveProductRequest(item));
+  }
+
+  public updateExistingEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.updateProductRequest(item));
+  }
+
+  public loadProductModels(state: ODataState): void {
+    this.store.dispatch(productActionTypes.loadProductModelsRequest(state));
+  }
+  public loadProductCategories(state: ODataState): void {
+    this.store.dispatch(productActionTypes.loadProductCategoriesRequest(state));
+  }
+}
+"
+`;
+
+exports[`imng-module effects should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import { productsFeature } from './product.reducer';
+import * as productActionTypes from './product.actions';
+import { environment } from '../../../../environments/environment';
+
+import { ProductApiService } from '../products-crud';
+
+@Injectable()
+export class ProductEffects {
+  constructor(
+    private readonly actions$: Actions,
+    private readonly odataservice: ODataService,
+    private readonly store: Store,
+    private readonly productApiService : ProductApiService,
+  ) {}
+
+  loadProductsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductsRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataservice
+        .fetch<IProduct>(environment.odataEnpoints.products, action.payload)
+        .pipe(
+          map(t => productActionTypes.loadProductsSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  reloadProductsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.reloadProductsRequest),
+      concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
+      switchMap(([action, odataState]) => this.odataservice
+        .fetch<IProduct>(environment.odataEnpoints.products, odataState, { bustCache: true })
+        .pipe(
+          map(t => productActionTypes.reloadProductsSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  saveProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.saveProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.saveProductRequest>) => this.productApiService.post(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
+
+  updateProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.updateProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.updateProductRequest>) => this.productApiService.put(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
+
+  deleteProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.deleteProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.deleteProductRequest>) => this.productApiService.delete(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
+
+  loadProductModelsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductModelsRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductModelsRequest>) => this.odataservice
+        .fetch<IProductModel>(environment.odataEnpoints.productModels, action.payload)
+        .pipe(map(t => productActionTypes.loadProductModelsSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  loadProductCategoriesEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductCategoriesRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductCategoriesRequest>) => this.odataservice
+        .fetch<IProductCategory>(environment.odataEnpoints.productCategories, action.payload)
+        .pipe(map(t => productActionTypes.loadProductCategoriesSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-module list component should work 1`] = `
+"import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+import { DetailExpandEvent } from '@progress/kendo-angular-grid';
+import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
+import { ODataState } from 'imng-kendo-odata';
+
+import { ProductListFacade } from './list.facade';
+import { ProductCrudFacade } from '../products-crud';
+
+const initialGridState: ODataState = {
+  take: 20,
+  skip: 0,
+  selectors: [
+    ProductProperties.ID,
+    ProductProperties.NAME,
+    ProductProperties.NUM,
+    ProductProperties.COLOR,
+    ProductProperties.STANDARD_COST,
+    ProductProperties.LIST_PRICE,
+    ProductProperties.SIZE,
+    ProductProperties.WEIGHT,
+    ProductProperties.PRODUCT_CATEGORY_ID,
+    ProductProperties.PRODUCT_MODEL_ID,
+    ProductProperties.SELL_START_DATE,
+    ProductProperties.SELL_END_DATE,
+    ProductProperties.DISCONTINUED_DATE,
+    ProductProperties.THUMB_NAIL_PHOTO,
+    ProductProperties.PRODUCT_MODEL,
+    ProductProperties.PRODUCT_CATEGORY,
+  ],
+  sort: [
+    { field: ProductProperties.NAME, dir: 'asc' },
+  ],
+  expanders: [
+      { table: ProductProperties.PRODUCT_MODEL,
+        selectors: [
+          ProductModelProperties.ID,
+          ProductModelProperties.NAME,
+          ProductModelProperties.DESCRIPTION,
+        ]},
+      { table: ProductProperties.PRODUCT_CATEGORY,
+        selectors: [
+          ProductCategoryProperties.ID,
+          ProductCategoryProperties.NAME,
+        ]},
+  ]
+};
+
+@Component({
+  selector: 'aw-product-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductListComponent extends KendoODataComponentBase<IProduct, ProductListFacade> {
+  public readonly props = ProductProperties;
+  public currentItem: IProduct | undefined;
+
+  constructor(facade: ProductListFacade, 
+    public readonly crudFacade: ProductCrudFacade,
+    router: Router) {
+    super(facade, initialGridState, router);
+  }
+
+  public addItem(): void {
+    this.crudFacade.setCurrentEntity({});
+  }
+
+  public editItem(item: IProduct): void {
+    this.crudFacade.setCurrentEntity(item);
+  }
+
+  public deleteItem(item: IProduct): void {
+    this.facade.deleteExistingEntity(item);
+  }
+
+  public detailExpanded(evt: DetailExpandEvent): void {
+    this.currentItem = evt.dataItem;
+  }
+}
+"
+`;
+
+exports[`imng-module module should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import { DialogModule } from '@progress/kendo-angular-dialog';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
+
+import { ProductsRoutingModule } from './products.routing';
+import { productsFeature } from './+state/product.reducer';
+import { ProductEffects } from './+state/product.effects';
+
+import { ProductListComponent, ProductListFacade } from './products-list';
+import { ProductAddComponent, ProductEditComponent, ProductApiService, ProductCrudFacade  } from './products-crud';
+
+
+@NgModule({
+  declarations: [ProductListComponent, ProductAddComponent, ProductEditComponent ],
+  imports: [
+    CommonModule,
+    GridModule,
+    ExcelModule,
+    PDFModule,
+    DialogModule,
+    DateInputsModule,
+    DropDownsModule,
+    ImngDataEntryDialogModule,
+    ImngKendoGridFilteringModule,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ReactiveFormsModule,
+    ProductsRoutingModule,
+    StoreModule.forFeature(productsFeature),
+    EffectsModule.forFeature([ProductEffects]),
+  ],
+  providers: [
+    ProductListFacade,
+    ProductCrudFacade,
+    ProductApiService, 
+  ],
+})
+export class ProductsModule { }
+"
+`;
+
 exports[`imng-module reducers should work 1`] = `
 "import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
@@ -70,4 +439,34 @@ export const productsFeature = createFeature({
 )
 });
 "
+`;
+
+exports[`imng-module tree files should match 1`] = `
+Array [
+  "/test/products-module/products.module.spec.ts",
+  "/test/products-module/products.module.ts",
+  "/test/products-module/products.routing.ts",
+  "/test/products-module/+state/product.actions.ts",
+  "/test/products-module/+state/product.effects.ts",
+  "/test/products-module/+state/product.reducer.ts",
+  "/test/products-module/+state/product.selectors.ts",
+  "/test/products-module/products-list/index.ts",
+  "/test/products-module/products-list/list.component.html",
+  "/test/products-module/products-list/list.component.scss",
+  "/test/products-module/products-list/list.component.spec.ts",
+  "/test/products-module/products-list/list.component.ts",
+  "/test/products-module/products-list/list.facade.spec.ts",
+  "/test/products-module/products-list/list.facade.ts",
+  "/test/products-module/products-crud/add-edit.component.html",
+  "/test/products-module/products-crud/add-edit.component.scss",
+  "/test/products-module/products-crud/add.component.spec.ts",
+  "/test/products-module/products-crud/add.component.ts",
+  "/test/products-module/products-crud/api.service.ts",
+  "/test/products-module/products-crud/base-entry.component.ts",
+  "/test/products-module/products-crud/crud.facade.spec.ts",
+  "/test/products-module/products-crud/crud.facade.ts",
+  "/test/products-module/products-crud/edit.component.spec.ts",
+  "/test/products-module/products-crud/edit.component.ts",
+  "/test/products-module/products-crud/index.ts",
+]
 `;

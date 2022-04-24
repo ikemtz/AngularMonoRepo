@@ -43,6 +43,16 @@ describe(`imng-module`, () => {
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
+  test(`base crud component should work`, () => {
+    const file = tree.get(`/test/products-module/products-crud/base-entry.component.ts`);
+    const content = file?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`crud facade template should work`, () => {
+    const file = tree.get(`/test/products-module/products-crud/crud.facade.ts`);
+    const content = file?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
   test(`actions should work`, () => {
     const file = tree.get(`/test/products-module/+state/product.actions.ts`);
     const content = file?.content.toString();
