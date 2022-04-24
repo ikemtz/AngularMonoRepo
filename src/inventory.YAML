@@ -43,7 +43,7 @@ jobs:
             sonar.projectKey=Mechanager-Angular
             sonar.sourceEncoding=UTF-8
             sonar.sources=src/apps/imng-inventory/src,src/libs
-            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/imng-inventory/src/app/models/**,**/main.ts,**/environment.prod.ts,src/libs/**,src/apps/nurse-cron/**
+            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/imng-inventory/src/app/models/**,**/main.ts,**/environment.prod.ts,src/libs/**,src/apps/nurse-cron/**,**/jest.config.ts
             sonar.tests=src/apps/imng-inventory/src,src/libs
             sonar.test.inclusions=**/*.spec.ts
             sonar.javascript.lcov.reportPaths=src/coverage/apps/imng-inventory/lcov.info

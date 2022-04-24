@@ -1,16 +1,23 @@
 import { IDataEntryFacade } from './data-entry-facade';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 import { of } from 'rxjs';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscribable } from 'imng-ngrx-utils';
+import { mockConsoleError } from 'imng-ngrx-utils/testing';
 
 describe('MockBaseComponent', () => {
   let component: MockBaseComponent;
   let facade: MockFacade;
+  let consoleErrorMock: jest.SpyInstance<void>;
 
   beforeEach(() => {
+    consoleErrorMock = mockConsoleError();
     facade = new MockFacade();
     component = new MockBaseComponent(facade);
+  });
+
+  afterEach(() => {
+    consoleErrorMock.mockRestore();
   });
 
   it('should create', () => {
@@ -45,19 +52,38 @@ describe('MockBaseComponent', () => {
     component.addEditForm?.controls['id'].setErrors({ ['happy']: '😎' });
     const value = component.formControlErrors('id');
     expect(value).toStrictEqual({ happy: '😎' });
+    expect(component.getFormErrors()).toMatchSnapshot();
+    expect(component.isDataInvalid()).toBe(true);
+  });
+
+  it('handle minLength formControlErrors get', () => {
+    component.onSubmit();
+    expect(component.getFormErrors()).toStrictEqual([]);
+    expect(component.isDataInvalid()).toBe(false);
+
+    component.addEditForm?.patchValue({ id: '😎', minLenVal: 'min' });
+    component.onSubmit();
+    const result = component.formMinLengthError('minLenVal');
+    expect(result).toMatchSnapshot();
+    expect(component.isDataInvalid()).toBe(true);
+  });
+
+  it('should handle negative scenarios', () => {
+    expect(component.formControlErrors('bad-name')).toBeUndefined();
+    expect(component.formMinLengthError('bad-name')).toBeUndefined();
   });
 });
 
 export class MockBaseComponent
   extends BaseDataEntryComponent<MockFacade>
-  implements Subscribable
-{
+  implements Subscribable {
   dialogTitle = '';
   props = {};
   save = jest.fn();
   public initForm(): void {
     this.addEditForm = new FormGroup({
       id: new FormControl(''),
+      minLenVal: new FormControl('', Validators.minLength(20))
     });
   }
 }

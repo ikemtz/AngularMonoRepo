@@ -32,8 +32,8 @@ export abstract class BaseDataEntryComponent<
   > implements OnDestroy, Subscribable {
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
-  public readonly MinLengthError = "minlength";
-  public readonly RequiredError = "required";
+  public readonly MinLengthError = 'minlength';
+  public readonly RequiredError = 'required';
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
   public abstract props: unknown;
@@ -45,26 +45,6 @@ export abstract class BaseDataEntryComponent<
 
   public get submitted$(): Observable<boolean> {
     return this._submitted$.asObservable();
-  }
-  // convenience getter for easy access to form fields
-  public formControl(controlName: string): AbstractControl | undefined {
-    return this.addEditForm?.controls[controlName];
-  }
-  public formControlErrors(controlName: string): ValidationErrors | null {
-    return this.addEditForm.controls[controlName].errors;
-  }
-  public formMinLengthError(controlName: string): { requiredLength: number, actualLength: number; } | null {
-    return this.formControlErrors(controlName)?.[this.MinLengthError];
-  }
-  public getFormErrors(): { control: string, error: ValidationErrors; }[] {
-    const errors: { control: string, error: ValidationErrors; }[] = [];
-    for (const control of Object.keys(this.addEditForm.controls)) {
-      const error = this.formControlErrors(control);
-      if (error) {
-        errors.push({ control, error });
-      }
-    }
-    return errors;
   }
   constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
@@ -98,8 +78,29 @@ export abstract class BaseDataEntryComponent<
     this.closeForm();
   }
 
-  public isDataInvalid(): boolean | undefined {
-    return this.addEditForm?.invalid;
+  public isDataInvalid(): boolean {
+    return this.addEditForm.invalid;
+  }
+
+  // convenience getter for easy access to form fields
+  public formControl(controlName: string): AbstractControl {
+    return this.addEditForm.controls[controlName];
+  }
+  public formControlErrors(controlName: string): ValidationErrors | null {
+    return this.formControl(controlName)?.errors;
+  }
+  public formMinLengthError(controlName: string): { requiredLength: number, actualLength: number; } | null {
+    return this.formControlErrors(controlName)?.[this.MinLengthError];
+  }
+  public getFormErrors(): { control: string, error: ValidationErrors; }[] {
+    const errors: { control: string, error: ValidationErrors; }[] = [];
+    for (const control of Object.keys(this.addEditForm.controls)) {
+      const error = this.formControlErrors(control);
+      if (error) {
+        errors.push({ control, error });
+      }
+    }
+    return errors;
   }
 
   public abstract initForm(): void;

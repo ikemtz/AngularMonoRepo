@@ -49,7 +49,7 @@ jobs:
             sonar.projectKey=Adventure-Works-Angular
             sonar.sourceEncoding=UTF-8
             sonar.sources=src/apps/adventure-works/src
-            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/adventure-works/src/app/models/**,**/main.ts,**/environment*.ts,src/libs/**
+            sonar.exclusions=**/node_modules/**,**/*.spec.ts,src/apps/adventure-works/src/app/models/**,**/main.ts,**/environment*.ts,src/libs/**,**/jest.config.ts
             sonar.tests=src/apps/adventure-works/src
             sonar.test.inclusions=**/*.spec.ts
             sonar.javascript.lcov.reportPaths=src/coverage/apps/adventure-works/lcov.info
