@@ -32,7 +32,8 @@ export abstract class BaseDataEntryComponent<
   > implements OnDestroy, Subscribable {
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
-  public readonly RequiredError = "Required";
+  public readonly MinLengthError = "minlength";
+  public readonly RequiredError = "required";
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
   public abstract props: unknown;
@@ -51,6 +52,9 @@ export abstract class BaseDataEntryComponent<
   }
   public formControlErrors(controlName: string): ValidationErrors | null {
     return this.addEditForm.controls[controlName].errors;
+  }
+  public formMinLengthError(controlName: string): { requiredLength: number, actualLength: number; } | null {
+    return this.formControlErrors(controlName)?.[this.MinLengthError];
   }
   constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
