@@ -4,8 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';<% if (hasDates) { %>
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';<% } %><% if (hasObjects) { %>
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';<% } %>
-import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';<% if (hasObjects) { %>
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
+import { mockConsoleError<% if (hasDates || hasObjects) { %>, mockConsoleGroup, mockConsoleWarn<% } %>, readFirst } from 'imng-ngrx-utils/testing';<% if (hasObjects) { %>
 import { of } from 'rxjs';<% } %>
 
 import { <%= classify(name) %>AddComponent } from './add.component';
@@ -24,9 +24,13 @@ export function createMock<%= classify(name) %>Facade() {
 describe('<%= classify(name) %>AddComponent', () => {
   let component: <%= classify(name) %>AddComponent;
   let fixture: ComponentFixture<<%= classify(name) %>AddComponent>;
-  let facade: <%= classify(name) %>CrudFacade;
+  let facade: <%= classify(name) %>CrudFacade;<% if (hasDates || hasObjects) { %>
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;<% } %>
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(() => {<% if (hasDates || hasObjects) { %>
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();<% } %>
     TestBed.configureTestingModule({
       declarations: [<%= classify(name) %>AddComponent],
       imports: [ReactiveFormsModule, NoopAnimationsModule, <% if (hasDates) { %>DatePickerModule, <% } %><% if (hasObjects) { %>DropDownsModule, <% } %>],<% if (hasObjects) { %>
@@ -44,7 +48,9 @@ describe('<%= classify(name) %>AddComponent', () => {
   });
 
   afterAll(() => {
-    component.ngOnDestroy();
+    component.ngOnDestroy();<% if (hasDates || hasObjects) { %>
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();<% } %>
   });
 
   test('should create', () => {
@@ -62,7 +68,7 @@ describe('<%= classify(name) %>AddComponent', () => {
     facade.saveNewEntity = jest.fn(x => (item = x));
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
-    component.save();
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(1);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
 <% if (hasDates) { %>
@@ -75,11 +81,17 @@ describe('<%= classify(name) %>AddComponent', () => {
 <% } %>
   });
 
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
   test('should not save', () => {
-    component.addEditForm = { valid: false } as never;
-    component.save();
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {

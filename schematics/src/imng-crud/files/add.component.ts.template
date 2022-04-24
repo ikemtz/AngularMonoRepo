@@ -23,10 +23,8 @@ export class <%= classify(name) %>AddComponent extends <%= classify(name) %>Base
   }
 
   public save(): void {
-    if (this.addEditForm.valid) {
-      const val = normalizeRequest<I<%= classify(name) %>>(this.addEditForm.value);
-      val.id = undefined;
-      this.facade.saveNewEntity(val);
-    }
+    const val = normalizeRequest<I<%= classify(name) %>>(this.addEditForm.value);
+    val.id = undefined;
+    this.facade.saveNewEntity(val);
   }
 }
