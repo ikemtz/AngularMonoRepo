@@ -1,48 +1,46 @@
 <imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#<%= underscore(firstProperty.name) %>">
-  <form novalidate [formGroup]="addEditForm" autocomplete="false">
-    <div class="form-row"><% swaggerProperties.forEach(function(swaggerProperty) {%>
-        <div class="form-group col-md-6">
-          <label for="<%= underscore(swaggerProperty.name) %>" class="control-label mr-4"><%= swaggerProperty.startCaseName %>:</label>
+  <form novalidate [formGroup]="addEditForm" autocomplete="false" class="row"><% swaggerProperties.forEach(function(swaggerProperty) {%>
+    <div class="col-md-6">
+      <label for="<%= underscore(swaggerProperty.name) %>" class="control-label mr-4"><%= swaggerProperty.startCaseName %>:</label>
 <% if (swaggerProperty.htmlInputType === 'checkbox')
- { %>          <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
-        </div><%} else if (swaggerProperty.htmlInputType === 'date' && swaggerProperty.required)
- { %>          <kendo-datepicker id="<%= underscore(swaggerProperty.name) %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }"></kendo-datepicker>
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[RequiredError]"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
+{ %>      <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
+    </div><%} else if (swaggerProperty.htmlInputType === 'date' && swaggerProperty.required)
+{ %>      <kendo-datepicker id="<%= underscore(swaggerProperty.name) %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }"></kendo-datepicker>
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[RequiredError]"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
+      </div>
+    </div><%} else if (swaggerProperty.htmlInputType === 'date')
+{ %>      <kendo-datepicker id="<%= underscore(swaggerProperty.name) %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"></kendo-datepicker>
+    </div><%} else if (swaggerProperty.required && swaggerProperty.minLength)
+{ %>      <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[RequiredError]"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
+        <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[MinLengthError]">
+          <%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> requires a min length of
+          {{formMinLengthError(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.requiredLength}}, currently only
+          {{formMinLengthError(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.actualLength}}.
+        </div>
+      </div>
+    </div><% } else if (swaggerProperty.required)
+{ %>      <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[RequiredError]"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
+      </div>
+    </div><% } else if (swaggerProperty.minLength)
+{ %>      <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
+        <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[MinLengthError]">
+            <%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> requires a min length of
+            {{formMinLengthError(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.requiredLength}}, currently only
+            {{formMinLengthError(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.actualLength}}.
           </div>
-        </div><%} else if (swaggerProperty.htmlInputType === 'date')
- { %>          <kendo-datepicker id="<%= underscore(swaggerProperty.name) %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"></kendo-datepicker>
-        </div><%} else if (swaggerProperty.required && swaggerProperty.minLength)
- { %>          <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[RequiredError]"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
-            <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[MinLengthError]">
-                <%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %>  requires a min length of
-                {{formMinLengthError(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.requiredLength}}, currently only
-                {{formMinLengthError(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.actualLength}}.
-            </div>
-          </div>
-        </div><% } else if (swaggerProperty.required)
- { %>          <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
-          <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
-            <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[RequiredError]"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
-          </div>
-        </div><% } else if (swaggerProperty.minLength)
- { %>          <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
-            [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }" />
-                <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
-                  <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[MinLengthError]">
-                    <%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %>  requires a min length of
-                    {{formMinLengthError(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.requiredLength}}, currently only
-                    {{formMinLengthError(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.actualLength}}.
-                  </div>
-                </div>
-        </div><% } else
- { %>          <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
-        </div><% } %><% }) %>
-    </div>
+        </div>
+      </div><% } else
+{ %>      <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" class="form-control" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
+    </div><% } %><% }) %>
   </form>
 </imng-data-entry-dialog>
