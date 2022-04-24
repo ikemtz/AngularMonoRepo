@@ -7,7 +7,24 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProductAddComponent } from './add.component';
 import { ProductCrudFacade } from './crud.facade';
 import { IProduct, ProductProperties } from '../../../models/webapi';
+import { of } from 'rxjs';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
+export function createMockProductFacade() {
+  return {
+    currentEntity$: of({}),
+    productModels$: of([
+      { id: 'abc', name: 'abc', description: 'abc', },
+      { id: 'xyz', name: 'xyz', description: 'xyz', },]),
+    loadProductModels: jest.fn(),
+    productCategories$: of([
+      { id: 'abc', name: 'abc', },
+      { id: 'xyz', name: 'xyz', },]),
+    loadProductCategories: jest.fn(),
+  };
+}
 describe('ProductAddComponent', () => {
   let component: ProductAddComponent;
   let fixture: ComponentFixture<ProductAddComponent>;
@@ -16,8 +33,10 @@ describe('ProductAddComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ProductAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
-      providers: [{ provide: ProductCrudFacade, useValue: createDataEntryMockFacade() }],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule],
+      providers: [{
+        provide: ProductCrudFacade, useValue: createDataEntryMockFacade(createMockProductFacade())
+      }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -84,5 +103,17 @@ describe('ProductAddComponent', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+  });
+
+  test('should support ProductModel filters', async () => {
+    component.handleProductModelFilter('xy');
+    const result = await readFirst(component.productModels$);
+    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz', description: 'xyz', }]);
+  });
+
+  test('should support ProductCategory filters', async () => {
+    component.handleProductCategoryFilter('xy');
+    const result = await readFirst(component.productCategories$);
+    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz', }]);
   });
 });

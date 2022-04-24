@@ -2,13 +2,14 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
-import { of } from 'rxjs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ProductEditComponent } from './edit.component';
 import { ProductCrudFacade } from './crud.facade';
 import { IProduct, ProductProperties } from '../../../models/webapi';
+import { createMockProductFacade } from './add.component.spec';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 describe('ProductEditComponent', () => {
   let component: ProductEditComponent;
@@ -18,11 +19,11 @@ describe('ProductEditComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ProductEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule],
       providers: [
         {
           provide: ProductCrudFacade,
-          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
+          useValue: createDataEntryMockFacade(createMockProductFacade()),
         },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],

@@ -1,6 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
@@ -16,7 +17,7 @@ describe('CustomerAddComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CustomerAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
       providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();

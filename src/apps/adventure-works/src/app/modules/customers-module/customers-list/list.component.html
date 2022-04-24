@@ -15,8 +15,12 @@
       </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
-
-  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+  <kendo-grid-column
+    [field]="props.ID"
+    [width]="100"
+    title="Id"
+    filter="text"
+    [hidden]="true">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.ID] | slice: 0:5"
