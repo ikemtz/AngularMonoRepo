@@ -1,12 +1,25 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';<% if (hasDates) { %>
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';<% } %><% if (hasObjects) { %>
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';<% } %>
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';<% if (hasObjects) { %>
+import { readFirst } from 'imng-ngrx-utils/testing';
+import { of } from 'rxjs';<% } %>
 
 import { <%= classify(name) %>AddComponent } from './add.component';
-import { <%= classify(name) %>CrudFacade } from './crud.facade';
+import { <%= classify(name) %>CrudFacade } from './crud.facade';<% if (hasObjects) { %>
+
+export function createMock<%= classify(name) %>Facade() {
+  return {
+    currentEntity$: of({}),<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+    <%= camelize(swaggerProperty.pluralizedName) %>$: of([
+      { <% swaggerProperty.properties.filter(t=> t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'abc',<% }); %> },
+      { <% swaggerProperty.properties.filter(t=> t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> },]),
+    load<%= classify(swaggerProperty.pluralizedName) %>: jest.fn(),<% }); %>
+  };
+}<% } %>
 
 describe('<%= classify(name) %>AddComponent', () => {
   let component: <%= classify(name) %>AddComponent;
@@ -16,8 +29,9 @@ describe('<%= classify(name) %>AddComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [<%= classify(name) %>AddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
-      providers: [{ provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade() }],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, <% if (hasDates) { %>DatePickerModule, <% } %><% if (hasObjects) { %>DropDownsModule, <% } %>],<% if (hasObjects) { %>
+      providers: [{ provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade(createMock<%= classify(name) %>Facade()) }],<% } %><% else { %>
+      providers: [{ provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade() }],<% } %>
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -54,7 +68,7 @@ describe('<%= classify(name) %>AddComponent', () => {
     expect(item).toMatchSnapshot({
 <% swaggerProperties.filter(t=> t.format === 'date-time').forEach(function(swaggerProperty)
  {%>      <%= swaggerProperty.name %>: expect.any(Date),
-<% }); %>    });        
+<% }); %>    });
 <% } else { %>
     expect(item).toMatchSnapshot();
 <% } %>
@@ -71,5 +85,11 @@ describe('<%= classify(name) %>AddComponent', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
-  });
+  });<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+
+  test('should support <%= classify(swaggerProperty.name) %> filters', async () => {
+    component.handle<%= classify(swaggerProperty.name) %>Filter('xy');
+    const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);
+    expect(result).toStrictEqual([{ <% swaggerProperty.properties.filter(t=>  t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> }]);
+  });<% }); %>
 });

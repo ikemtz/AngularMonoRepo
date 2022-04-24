@@ -10,7 +10,7 @@ import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; 
 export function CustomerFormGroupFac(): FormGroup {
   return new FormGroup({
     id: new FormControl(''),
-    num: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(15)])),
+    num: new FormControl('', Validators.compose([Validators.required, Validators.minLength(12), Validators.maxLength(15)])),
     name: new FormControl('', Validators.maxLength(512)),
     companyName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(128)])),
     salesPerson: new FormControl(''),

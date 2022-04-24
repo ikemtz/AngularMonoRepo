@@ -1,11 +1,13 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
-import { of } from 'rxjs';
-import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';<% if (hasDates) { %>
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';<% } %><% if (hasObjects) { %>
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';<% } %>
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';<% if (!hasObjects) { %>
+import { of } from 'rxjs';<% } %>
+<% if (hasObjects) { %>
+import { createMock<%= classify(name) %>Facade } from './add.component.spec';<% } %>
 import { <%= classify(name) %>EditComponent } from './edit.component';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
@@ -17,13 +19,9 @@ describe('<%= classify(name) %>EditComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [<%= classify(name) %>EditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
-      providers: [
-        {
-          provide: <%= classify(name) %>CrudFacade,
-          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
-        },
-      ],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, <% if (hasDates) { %>DatePickerModule, <% } %><% if (hasObjects) { %>DropDownsModule, <% } %>],<% if (hasObjects) { %>
+      providers: [{ provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade(createMock<%= classify(name) %>Facade()) }],<% } %><% else { %>
+      providers: [{ provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade({ currentEntity$: of({}) }) }],<% } %>
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -58,7 +56,7 @@ describe('<%= classify(name) %>EditComponent', () => {
 <% } else { %>
     expect(item).toMatchSnapshot();
 <% } %>
-  });  
+  });
 
   test('should not update', () => {
     component.addEditForm = { valid: false } as never;
