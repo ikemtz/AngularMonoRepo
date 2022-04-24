@@ -6,14 +6,14 @@ import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(s
 export const <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY = '<%= camelize(pluralizedName) %>';
 
 export interface State extends KendoODataGridState<I<%= classify(singularizedName) %>> {
-  current<%= classify(singularizedName) %>: I<%= classify(singularizedName) %> | undefined;<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
-  <%= camelize(swaggerProperty.pluralizedName) %>: I<%= classify(swaggerProperty.name) %>[];<% }) %>
+  current<%= classify(singularizedName) %>: I<%= classify(singularizedName) %> | undefined;<% if(openApiJsonUrl || openApiJsonFileName){ swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  <%= camelize(swaggerProperty.pluralizedName) %>: I<%= classify(swaggerProperty.name) %>[];<% })} %>
 }
 
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
-  current<%= classify(singularizedName) %>: undefined,<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
-  <%= camelize(swaggerProperty.pluralizedName) %>: [],<% }) %>
+  current<%= classify(singularizedName) %>: undefined,<% if(openApiJsonUrl || openApiJsonFileName){  swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  <%= camelize(swaggerProperty.pluralizedName) %>: [],<% })} %>
   loading: true,
 };
 
@@ -49,12 +49,12 @@ export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
       (state) : State => ({
         ...state,
         loading: true,
-      }),<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+      }),<% if(openApiJsonUrl || openApiJsonFileName){ swaggerObjectProperties.forEach(function(swaggerProperty){ %>
     on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Success,
       (state, { payload }): State => ({
         ...state,
         <%= camelize(swaggerProperty.pluralizedName) %>: payload.data
-      })),<% }) %>
+      })),<% }) } %>
     on(imngEffectError, imngEffectErrorReducer),
     ),
 <% } %>)

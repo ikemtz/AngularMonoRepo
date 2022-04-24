@@ -15,8 +15,8 @@ export function createMock<%= classify(name) %>Facade() {
   return {
     currentEntity$: of({}),<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
     <%= camelize(swaggerProperty.pluralizedName) %>$: of([
-      { <% swaggerProperty.properties.filter(t=> t.format !== 'date-time').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'abc',<% }); %> },
-      { <% swaggerProperty.properties.filter(t=> t.format !== 'date-time').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> },]),
+      { <% swaggerProperty.properties.filter(t=> t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'abc',<% }); %> },
+      { <% swaggerProperty.properties.filter(t=> t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> },]),
     load<%= classify(swaggerProperty.pluralizedName) %>: jest.fn(),<% }); %>
   };
 }<% } %>
@@ -90,6 +90,6 @@ describe('<%= classify(name) %>AddComponent', () => {
   test('should support <%= classify(swaggerProperty.name) %> filters', async () => {
     component.handle<%= classify(swaggerProperty.name) %>Filter('xy');
     const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);
-    expect(result).toStrictEqual([{ <% swaggerProperty.properties.filter(t=> t.format !== 'date-time').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> }]);
+    expect(result).toStrictEqual([{ <% swaggerProperty.properties.filter(t=>  t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> }]);
   });<% }); %>
 });
