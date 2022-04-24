@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'imng-kendo-data-entry',
-  preset: '../../jest.preset.js',
+  displayName: 'imng-kendo-grid-editable',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.imng-kendo-data-entry.xml',
+        outputName: './junit.imng-kendo-grid-editable.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-kendo-data-entry',
+  coverageDirectory: '../../coverage/libs/imng-kendo-grid-editable',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

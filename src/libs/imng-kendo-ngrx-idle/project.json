@@ -30,7 +30,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-kendo-ngrx-idle"],
       "options": {
-        "jestConfig": "libs/imng-kendo-ngrx-idle/jest.config.js",
+        "jestConfig": "libs/imng-kendo-ngrx-idle/jest.config.ts",
         "passWithNoTests": true
       }
     },

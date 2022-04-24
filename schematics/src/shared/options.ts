@@ -20,5 +20,8 @@ export interface IOptions {
   /** Ignore: This is for internal schematic use only  */
   swaggerProperties: PropertyInfo[];
   /** Ignore: This is for internal schematic use only  */
+  swaggerObjectProperties?: PropertyInfo[];
+  /** Ignore: This is for internal schematic use only  */
   hasDates?: boolean;
+  hasObjects?: boolean;
 }

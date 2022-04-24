@@ -30,7 +30,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-ngxb-typeahead"],
       "options": {
-        "jestConfig": "libs/imng-ngxb-typeahead/jest.config.js",
+        "jestConfig": "libs/imng-ngxb-typeahead/jest.config.ts",
         "passWithNoTests": true
       }
     },

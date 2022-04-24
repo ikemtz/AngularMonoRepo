@@ -4,6 +4,8 @@
     "declarationMap": false
   },
   "angularCompilerOptions": {
-    "compilationMode": "partial"
-  }
+    "compilationMode": "partial",
+    "types": ["jest"]
+  },
+  "exclude": ["jest.config.ts"]
 }

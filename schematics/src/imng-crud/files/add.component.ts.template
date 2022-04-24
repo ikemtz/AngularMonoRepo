@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
@@ -22,10 +23,8 @@ export class <%= classify(name) %>AddComponent extends <%= classify(name) %>Base
   }
 
   public save(): void {
-    if (this.addEditForm.valid) {
-      const val: I<%= classify(name) %> = this.addEditForm.value;
-      val.id = undefined;
-      this.facade.saveNewEntity(val);
-    }
+    const val = normalizeRequest<I<%= classify(name) %>>(this.addEditForm.value);
+    val.id = undefined;
+    this.facade.saveNewEntity(val);
   }
 }

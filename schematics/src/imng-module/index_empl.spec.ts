@@ -141,7 +141,7 @@ describe(`imng-module`, () => {
     );
     content = htmlFile?.content.toString();
     expect(content).toContain(
-      `<input id="mobile_phone" type="text" maxlength="25" class="form-control" [formControlName]="props.MOBILE_PHONE" />`
+      `<input id="mobile_phone" type="text" class="form-control" [formControlName]="props.MOBILE_PHONE" />`
     );
   });
 });

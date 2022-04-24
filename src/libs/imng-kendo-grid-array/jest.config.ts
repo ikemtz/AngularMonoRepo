@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'nurse-cron',
-  preset: '../../jest.preset.js',
+  displayName: 'imng-kendo-grid-array',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.nurse-cron.xml',
+        outputName: './junit.imng-kendo-grid-array.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/nurse-cron',
+  coverageDirectory: '../../coverage/libs/imng-kendo-grid-array',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

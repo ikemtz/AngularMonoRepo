@@ -85,7 +85,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/imng-inventory"],
       "options": {
-        "jestConfig": "apps/imng-inventory/jest.config.js",
+        "jestConfig": "apps/imng-inventory/jest.config.ts",
         "passWithNoTests": true
       }
     }

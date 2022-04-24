@@ -23,8 +23,7 @@
       "export const load${1:__ENTITY_NAME__TITLE_CASE__}sRequest = createPayloadAction<ODataState>(",
       "'[${2:__NGRX_FEATURE_KEY__TITLE_CASE__}s] Load ${1:__ENTITY_NAME__TITLE_CASE__}s Request');",
       "export const load${1:__ENTITY_NAME__}sSuccess = createPayloadAction<ODataResult<I${1:__ENTITY_NAME__TITLE_CASE__}>>(",
-      "'[${2:__NGRX_FEATURE_KEY__TITLE_CASE__}s] Load ${1:__ENTITY_NAME__TITLE_CASE__}s Success',",
-      ");"
+      "'[${2:__NGRX_FEATURE_KEY__TITLE_CASE__}s] Load ${1:__ENTITY_NAME__TITLE_CASE__}s Success');"
     ],
     "description": "Create Load OData Request Success Action"
   },
@@ -34,8 +33,7 @@
       "export const reload${1:__ENTITY_NAME__TITLE_CASE__}sRequest = createAction(",
       "'[${2:__NGRX_FEATURE_KEY__TITLE_CASE__}s] Reload ${1:__ENTITY_NAME__TITLE_CASE__}s Request');",
       "export const reload${1:__ENTITY_NAME__TITLE_CASE__}sSuccess = createPayloadAction<ODataResult<I${1:__ENTITY_NAME__TITLE_CASE__}>>(",
-      "'[${2:__NGRX_FEATURE_KEY__TITLE_CASE__}s] Reload ${1:__ENTITY_NAME__TITLE_CASE__}s Success',",
-      ");"
+      "'[${2:__NGRX_FEATURE_KEY__TITLE_CASE__}s] Reload ${1:__ENTITY_NAME__TITLE_CASE__}s Success');"
     ],
     "description": "Create Reload OData Request Success Action"
   },
@@ -45,8 +43,7 @@
       "export const ${1:__ENTITY_NAME__TITLE_CASE__}Request = createPayloadAction<${2:REQUEST_TYPE}>(",
       "'[${3:__NGRX_FEATURE_KEY__TITLE_CASE__}s] ${1:__ENTITY_NAME__TITLE_CASE__} Request');",
       "export const ${1:__ENTITY_NAME__TITLE_CASE__}Success = createPayloadAction<${4:RESPONSE_TYPE}>(",
-      "'[${3:__NGRX_FEATURE_KEY__TITLE_CASE__}s] ${1:__ENTITY_NAME__TITLE_CASE__} Success',",
-      ");"
+      "'[${3:__NGRX_FEATURE_KEY__TITLE_CASE__}s] ${1:__ENTITY_NAME__TITLE_CASE__} Success');"
     ],
     "description": "NgRxActionsRequestSuccess"
   }

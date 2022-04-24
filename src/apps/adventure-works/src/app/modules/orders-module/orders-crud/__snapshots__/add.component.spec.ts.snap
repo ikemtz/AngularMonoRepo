@@ -15,7 +15,7 @@ Object {
   "isOnlineOrder": true,
   "num": "NUM",
   "orderId": 0,
-  "orderLineItems": Array [],
+  "orderLineItems": null,
   "purchaseOrderNum": "PURCHASE_ORDER_NUM",
   "revisionNum": 0,
   "shipDate": Any<Date>,

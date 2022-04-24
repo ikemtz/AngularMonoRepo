@@ -90,7 +90,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/nurse-cron"],
       "options": {
-        "jestConfig": "apps/nurse-cron/jest.config.js",
+        "jestConfig": "apps/nurse-cron/jest.config.ts",
         "passWithNoTests": true
       }
     }
