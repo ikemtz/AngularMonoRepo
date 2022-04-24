@@ -30,7 +30,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-signalr-ngrx"],
       "options": {
-        "jestConfig": "libs/imng-signalr-ngrx/jest.config.js",
+        "jestConfig": "libs/imng-signalr-ngrx/jest.config.ts",
         "passWithNoTests": true
       }
     },

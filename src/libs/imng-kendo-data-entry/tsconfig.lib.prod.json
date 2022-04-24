@@ -6,5 +6,6 @@
   "angularCompilerOptions": {
     "compilationMode": "partial",
     "types": ["jest"]
-  }
+  },
+  "exclude": ["jest.config.ts"]
 }

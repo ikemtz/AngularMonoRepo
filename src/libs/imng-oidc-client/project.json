@@ -30,7 +30,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-oidc-client"],
       "options": {
-        "jestConfig": "libs/imng-oidc-client/jest.config.js",
+        "jestConfig": "libs/imng-oidc-client/jest.config.ts",
         "passWithNoTests": true
       }
     },

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
@@ -9,9 +10,9 @@ import {
   testEditSetAndClearCurrentEntity,
   testSaveCurrentEntity,
   testUpdateCurrentEntity,
-} from 'imng-kendo-data-entry/testing';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+} from 'imng-kendo-data-entry/testing';<% if(hasObjects) { %>
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';<% } %>
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
@@ -28,9 +29,10 @@ export const create<%= classify(name) %> = () =>
 describe('<%= classify(name) %>CrudFacade', () => {
   let facade: <%= classify(name) %>CrudFacade;
   let store: Store;
+  let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {});
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -38,11 +40,11 @@ describe('<%= classify(name) %>CrudFacade', () => {
         imports: [
           StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
           EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
-          HttpClientTestingModule,
         ],
         providers: [
           <%= classify(name) %>CrudFacade,
           <%= classify(name) %>ApiService,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([create<%= classify(name) %>()]))) } },
         ],
       })
       class CustomFeatureModule {}
@@ -61,6 +63,7 @@ describe('<%= classify(name) %>CrudFacade', () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       store = TestBed.inject(Store);
       facade = TestBed.inject(<%= classify(name) %>CrudFacade);
+      httpClient = TestBed.inject(HttpClient);
     });
 
     test('clearCurrentEntity() should set current<%= classify(name) %> to null', async () => {
@@ -78,8 +81,15 @@ describe('<%= classify(name) %>CrudFacade', () => {
     test('Existing Entity Set And Clear CurrentEntity', async () =>
       testEditSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
     test('Save CurrentEntity', async () =>
-      testSaveCurrentEntity<<%= classify(name) %>CrudFacade>(facade, TestBed.inject(HttpClient)));
+      testSaveCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));
     test('Update CurrentEntity', async () =>
-      testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(facade, TestBed.inject(HttpClient)));
+      testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+
+    test('should load <%= classify(swaggerProperty.pluralizedName) %>', async () => {
+      facade.load<%= classify(swaggerProperty.pluralizedName) %>({});
+      expect(httpClient.get).toBeCalledTimes(1);
+      const result = await readFirst(facade.<%= camelize(swaggerProperty.pluralizedName) %>$);
+      expect(result.length).toBe(1);
+    });<% }); %>
   });
 });

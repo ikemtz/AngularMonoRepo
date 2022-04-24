@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'imng-signalr-ngrx',
-  preset: '../../jest.preset.js',
+  displayName: 'imng-kendo-chart-odata',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.imng-signalr-ngrx.xml',
+        outputName: './junit.imng-kendo-chart-odata.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-signalr-ngrx',
+  coverageDirectory: '../../coverage/libs/imng-kendo-chart-odata',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

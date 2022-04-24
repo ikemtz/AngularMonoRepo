@@ -1,17 +1,6 @@
 module.exports = {
-  displayName: 'imng-kendo-grid-odata',
-  preset: '../../jest.preset.js',
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: '.',
-        outputName: './junit.imng-kendo-grid-odata.xml',
-        uniqueOutputName: true,
-      },
-    ],
-  ],
+  displayName: 'imng-snippets',
+
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -19,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-kendo-grid-odata',
+  coverageDirectory: '../../coverage/libs/imng-snippets',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +18,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };
