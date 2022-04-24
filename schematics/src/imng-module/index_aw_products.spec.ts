@@ -53,6 +53,16 @@ describe(`imng-module`, () => {
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
+  test(`add component spec template should work`, () => {
+    const file = tree.get(`/test/products-module/products-crud/add.component.spec.ts`);
+    const content = file?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`edit component spec template should work`, () => {
+    const file = tree.get(`/test/products-module/products-crud/edit.component.spec.ts`);
+    const content = file?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
   test(`actions should work`, () => {
     const file = tree.get(`/test/products-module/+state/product.actions.ts`);
     const content = file?.content.toString();
