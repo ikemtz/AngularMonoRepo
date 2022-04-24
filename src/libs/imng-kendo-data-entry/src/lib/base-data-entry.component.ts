@@ -89,7 +89,7 @@ export abstract class BaseDataEntryComponent<
     this._submitted$.next(true);
 
     // stop here if form is invalid
-    if (this.isDataInvalid()) {
+    if (!this.addEditForm.valid) {
       console.error('form validation errors.'); //NOSONAR
       console.error(JSON.stringify(this.getFormErrors())); //NOSONAR
       return;
