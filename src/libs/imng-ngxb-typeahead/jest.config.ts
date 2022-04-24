@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'imng-angular-core',
-  preset: '../../jest.preset.js',
+  displayName: 'imng-ngxb-typeahead',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.imng-angular-core.xml',
+        outputName: './junit.imng-ngxb-typeahead.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-angular-core',
+  coverageDirectory: '../../coverage/libs/imng-ngxb-typeahead',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

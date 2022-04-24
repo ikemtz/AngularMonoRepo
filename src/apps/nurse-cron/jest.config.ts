@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'imng-oidc-client',
-  preset: '../../jest.preset.js',
+  displayName: 'nurse-cron',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.imng-oidc-client.xml',
+        outputName: './junit.nurse-cron.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-oidc-client',
+  coverageDirectory: '../../coverage/apps/nurse-cron',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

@@ -9,13 +9,18 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CustomerEditComponent } from './edit.component';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerProperties, ICustomer } from '../../../models/webapi';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 describe('CustomerEditComponent', () => {
   let component: CustomerEditComponent;
   let fixture: ComponentFixture<CustomerEditComponent>;
   let facade: CustomerCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
 
   beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [CustomerEditComponent],
       imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
@@ -38,13 +43,15 @@ describe('CustomerEditComponent', () => {
 
   afterAll(() => {
     component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
   });
 
   test('should update', () => {
     component.initForm();
     component.addEditForm.patchValue({
       [CustomerProperties.ID]: 'ID',
-      [CustomerProperties.NUM]: 'NUM',
+      [CustomerProperties.NUM]: 'NUM-NUM-NUM-NUM',
       [CustomerProperties.NAME]: 'NAME',
       [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
       [CustomerProperties.SALES_PERSON]: 'SALES_PERSON',
@@ -52,20 +59,26 @@ describe('CustomerEditComponent', () => {
       [CustomerProperties.PHONE]: 'PHONE',
     });
     let item: ICustomer | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
-    component.save();
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
 
     expect(item).toMatchSnapshot();
-
   });
 
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
   test('should not update', () => {
-    component.addEditForm = { valid: false } as never;
-    component.save();
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
