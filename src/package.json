@@ -141,7 +141,7 @@
     "openapi-ts-generator": "^4.114.2",
     "postcss": "^8.4.12",
     "postcss-import": "^14.1.0",
-    "postcss-preset-env": "^6.7.1",
+    "postcss-preset-env": "^7.4.3",
     "postcss-url": "^10.1.1",
     "prettier": "^2.6.2",
     "ts-jest": "27.1.4",
