@@ -15,7 +15,13 @@ const initialGridState: ODataState = {
   ],
   sort: [
     { field: <%= classify(singularizedName) %>Properties.<%= firstProperty.snakeCaseName.toUpperCase() %>, dir: 'asc' },
-  ],
+  ],<% if (hasObjects) { %>
+  expanders: [<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+      { table: <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,
+        selectors: [<% swaggerProperty.properties.forEach(function(subSwaggerProperty){ %>
+          <%= classify(swaggerProperty.name) %>Properties.<%= subSwaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
+        ]},<% }) %>
+  ]<% } %>
 };
 
 @Component({

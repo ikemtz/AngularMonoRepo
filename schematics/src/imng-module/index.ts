@@ -1,5 +1,5 @@
 import { Rule, SchematicContext, Tree, chain, schematic, noop } from '@angular-devkit/schematics';
-import { generateFiles, IOptions } from '../shared';
+import { generateFiles, getSwaggerDoc, IOptions } from '../shared';
 import pluralize = require('pluralize');
 import { normalize } from 'path';
 import { dasherize } from '@angular-devkit/core/src/utils/strings';
@@ -19,6 +19,7 @@ export function imngModule(_options: IOptions): Rule {
     };
 
     return chain([
+      getSwaggerDoc(_options), 
       generateFiles(_options, 'module'),
       _options.openApiJsonUrl || _options.openApiJsonFileName ? schematic('imng-list', listOptions) : noop(),
       _options.openApiJsonUrl || _options.openApiJsonFileName ? schematic('imng-crud', crudOptions) : noop(),

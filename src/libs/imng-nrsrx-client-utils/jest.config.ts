@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'adventure-works',
-  preset: '../../jest.preset.js',
+  displayName: 'imng-nrsrx-client-utils',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.adventure-works.xml',
+        outputName: './junit.imng-nrsrx-client-utils.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/adventure-works',
+  coverageDirectory: '../../coverage/libs/imng-nrsrx-client-utils',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

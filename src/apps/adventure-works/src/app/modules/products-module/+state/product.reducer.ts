@@ -2,17 +2,21 @@ import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
 import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 
-import { IProduct } from '../../../models/odata';
+import { IProduct, IProductCategory, IProductModel } from '../../../models/odata';
 import * as productActionTypes from './product.actions';
 export const PRODUCTS_FEATURE_KEY = 'products';
 
 export interface State extends KendoODataGridState<IProduct> {
   currentProduct: IProduct | undefined;
+  productModels: IProductModel[];
+  productCategories: IProductCategory[];
 }
 
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
   currentProduct: undefined,
+  productModels: [],
+  productCategories: [],
   loading: true,
 };
 
@@ -52,6 +56,16 @@ export const productsFeature = createFeature({
         loading: true,
       }),
     ),
+    on(productActionTypes.loadProductModelsSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        productModels: payload.data
+      })),
+    on(productActionTypes.loadProductCategoriesSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        productCategories: payload.data
+      })),
     on(imngEffectError, imngEffectErrorReducer),
   )
 });

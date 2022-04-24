@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'imng-nrsrx-client-utils',
-  preset: '../../jest.preset.js',
+  displayName: 'imng-kendo-grid-filtering',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.imng-nrsrx-client-utils.xml',
+        outputName: './junit.imng-kendo-grid-filtering.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-nrsrx-client-utils',
+  coverageDirectory: '../../coverage/libs/imng-kendo-grid-filtering',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

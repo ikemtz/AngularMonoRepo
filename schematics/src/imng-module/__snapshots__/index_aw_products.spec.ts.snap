@@ -1,0 +1,1045 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imng-module actions should work 1`] = `
+"import { createAction } from '@ngrx/store';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { createPayloadAction } from 'imng-ngrx-utils';
+
+export const loadProductsRequest = createPayloadAction<ODataState>(
+    '[Products] Load Products Request');
+export const loadProductsSuccess = createPayloadAction<ODataResult<IProduct>>(
+    '[Products] Load Products Success');
+export const reloadProductsRequest = createAction(
+    '[Products] Reload Products Request');
+export const reloadProductsSuccess = createPayloadAction<ODataResult<IProduct>>(
+    '[Products] Reload Products Success');
+
+export const clearCurrentProduct = createAction('[Products] Clear Current Product');
+export const setCurrentProduct = createPayloadAction<IProduct>('[Products] Set Current Product');
+export const saveProductRequest = createPayloadAction<IProduct>('[Products] Save Product Request');
+export const updateProductRequest = createPayloadAction<IProduct>('[Products] Update Product Request');
+export const deleteProductRequest = createPayloadAction<IProduct>('[Products] Delete Product Request');
+
+
+export const loadProductModelsRequest = createPayloadAction<ODataState>(
+    '[Products] Load ProductModels Request');
+export const loadProductModelsSuccess = createPayloadAction<ODataResult<IProductModel>>(
+    '[Products] Load ProductModels Success');
+export const loadProductCategoriesRequest = createPayloadAction<ODataState>(
+    '[Products] Load ProductCategories Request');
+export const loadProductCategoriesSuccess = createPayloadAction<ODataResult<IProductCategory>>(
+    '[Products] Load ProductCategories Success');
+"
+`;
+
+exports[`imng-module add component spec template should work 1`] = `
+"import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import { of } from 'rxjs';
+
+import { ProductAddComponent } from './add.component';
+import { ProductCrudFacade } from './crud.facade';
+
+export function createMockProductFacade() {
+  return {
+    currentEntity$: of({}),
+    productModels$: of([
+      { id: 'abc',name: 'abc',description: 'abc', },
+      { id: 'xyz',name: 'xyz',description: 'xyz', },]),
+    loadProductModels: jest.fn(),
+    productCategories$: of([
+      { id: 'abc',name: 'abc', },
+      { id: 'xyz',name: 'xyz', },]),
+    loadProductCategories: jest.fn(),
+  };
+}
+
+describe('ProductAddComponent', () => {
+  let component: ProductAddComponent;
+  let fixture: ComponentFixture<ProductAddComponent>;
+  let facade: ProductCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
+
+  beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
+    TestBed.configureTestingModule({
+      declarations: [ProductAddComponent],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule, ],
+      providers: [{ provide: ProductCrudFacade, useValue: createDataEntryMockFacade(createMockProductFacade()) }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProductAddComponent);
+    component = fixture.componentInstance;
+    facade = TestBed.inject(ProductCrudFacade);
+    fixture.detectChanges();
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
+  });
+
+  test('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  test('should save', () => {
+    component.initForm();
+    component.addEditForm?.patchValue({
+    [ProductProperties.ID]: 'ID',
+    [ProductProperties.NAME]: 'NAME',
+    [ProductProperties.NUM]: 'NUM',
+    [ProductProperties.COLOR]: 'COLOR',
+    [ProductProperties.STANDARD_COST]: 0,
+    [ProductProperties.LIST_PRICE]: 0,
+    [ProductProperties.SIZE]: 'SIZE',
+    [ProductProperties.WEIGHT]: 0,
+    [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
+    [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
+    [ProductProperties.SELL_START_DATE]: new Date(),
+    [ProductProperties.SELL_END_DATE]: new Date(),
+    [ProductProperties.DISCONTINUED_DATE]: new Date(),
+    [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
+    [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
+    [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
+    });
+
+    let item: IProduct | undefined;
+    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn();
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
+    expect(facade.saveNewEntity).toBeCalledTimes(1);
+    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+
+    expect(item).toMatchSnapshot({
+      sellStartDate: expect.any(Date),
+      sellEndDate: expect.any(Date),
+      discontinuedDate: expect.any(Date),
+    });
+
+  });
+
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
+  test('should not save', () => {
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
+    expect(facade.saveNewEntity).toBeCalledTimes(0);
+    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
+  });
+
+  test('should cancel', () => {
+    facade.clearCurrentEntity = jest.fn();
+    component.cancel();
+    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+  });
+
+  test('should support ProductModel filters', async () => {
+    component.handleProductModelFilter('xy');
+    const result = await readFirst(component.productModels$);
+    expect(result).toStrictEqual([{ id: 'xyz',name: 'xyz',description: 'xyz', }]);
+  });
+
+  test('should support ProductCategory filters', async () => {
+    component.handleProductCategoryFilter('xy');
+    const result = await readFirst(component.productCategories$);
+    expect(result).toStrictEqual([{ id: 'xyz',name: 'xyz', }]);
+  });
+});
+"
+`;
+
+exports[`imng-module add component template should work 1`] = `
+"import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
+
+import { ProductCrudFacade } from './crud.facade';
+import { ProductBaseEntryComponent } from './base-entry.component';
+
+@Component({
+  selector: 'aw-product-add',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductAddComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
+  public dialogTitle = 'Add Product';
+  public active$ = this.facade.isNewActive$;
+
+  constructor(facade: ProductCrudFacade) {
+    super(facade);
+  }
+  public override initForm(): void {
+    super.initForm();
+    this.addEditForm.patchValue({});
+  }
+
+  public save(): void {
+    const val = normalizeRequest<IProduct>(this.addEditForm.value);
+    val.id = undefined;
+    this.facade.saveNewEntity(val);
+  }
+}
+"
+`;
+
+exports[`imng-module base crud component should work 1`] = `
+"import { OnInit, Component } from '@angular/core';
+import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+
+import { ProductCrudFacade } from './crud.facade';
+
+@Component({ template: '' })
+export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<ProductCrudFacade>
+  implements OnInit {
+  public readonly props = ProductProperties;  
+  public readonly productModelProps = ProductModelProperties;
+  public readonly productModels$: Observable<IProductModel[]>;
+  public readonly productModelFilter$ = new BehaviorSubject('');  
+  public readonly productCategoryProps = ProductCategoryProperties;
+  public readonly productCategories$: Observable<IProductCategory[]>;
+  public readonly productCategoryFilter$ = new BehaviorSubject('');
+
+  constructor(facade: ProductCrudFacade) {
+    super(facade);
+    this.productModels$ = facade.productModels$.pipe(
+      switchMap(productModels => this.productModelFilter$.pipe(
+        map(productModelFilter => productModelFilter ? productModels
+          .filter(productModel => (
+            (productModel.name && productModel.name.toLowerCase().indexOf(productModelFilter) >= 0) ||
+            (productModel.description && productModel.description.toLowerCase().indexOf(productModelFilter) >= 0)
+          )) : productModels
+    ))));
+    this.productCategories$ = facade.productCategories$.pipe(
+      switchMap(productCategories => this.productCategoryFilter$.pipe(
+        map(productCategoryFilter => productCategoryFilter ? productCategories
+          .filter(productCategory => (
+            (productCategory.name && productCategory.name.toLowerCase().indexOf(productCategoryFilter) >= 0)
+          )) : productCategories
+    ))));
+  }
+
+  public ngOnInit(): void {
+    this.initForm();
+    this.facade.loadProductModels({ selectors: [
+      ProductModelProperties.ID,
+      ProductModelProperties.NAME,
+      ProductModelProperties.DESCRIPTION,] });
+    this.facade.loadProductCategories({ selectors: [
+      ProductCategoryProperties.ID,
+      ProductCategoryProperties.NAME,] });
+  }
+
+  public initForm(): void {
+    this.addEditForm = ProductFormGroupFac();
+  }
+
+  public cancel(): void {
+    this.facade.clearCurrentEntity();
+  }
+
+  public handleProductModelFilter(value: string) {
+    this.productModelFilter$.next(value.toLowerCase());
+  }
+  public handleProductCategoryFilter(value: string) {
+    this.productCategoryFilter$.next(value.toLowerCase());
+  }
+}
+"
+`;
+
+exports[`imng-module crud facade spec template should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { NxModule } from '@nrwl/angular';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import {
+  testAddSetAndClearCurrentEntity,
+  testEditSetAndClearCurrentEntity,
+  testSaveCurrentEntity,
+  testUpdateCurrentEntity,
+} from 'imng-kendo-data-entry/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
+
+import { ProductEffects } from '../+state/product.effects';
+import { productsFeature } from '../+state/product.reducer';
+import { ProductCrudFacade } from './crud.facade';
+import { ProductApiService } from './api.service';
+import { environment } from '../../../../environments/environment';
+
+export const createProduct = () => 
+  <IProduct>{
+    [ProductProperties.ID]: 'ID',
+    [ProductProperties.NAME]: 'NAME',
+    [ProductProperties.NUM]: 'NUM',
+    [ProductProperties.COLOR]: 'COLOR',
+    [ProductProperties.STANDARD_COST]: 0,
+    [ProductProperties.LIST_PRICE]: 0,
+    [ProductProperties.SIZE]: 'SIZE',
+    [ProductProperties.WEIGHT]: 0,
+    [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
+    [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
+    [ProductProperties.SELL_START_DATE]: new Date(),
+    [ProductProperties.SELL_END_DATE]: new Date(),
+    [ProductProperties.DISCONTINUED_DATE]: new Date(),
+    [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
+    [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
+    [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
+    };
+
+describe('ProductCrudFacade', () => {
+  let facade: ProductCrudFacade;
+  let store: Store;
+  let httpClient: HttpClient;
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach(() => {}); //NOSONAR
+
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(productsFeature),
+          EffectsModule.forFeature([ProductEffects]),
+        ],
+        providers: [
+          ProductCrudFacade,
+          ProductApiService,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createProduct()]))) } },
+        ],
+      })
+      class CustomFeatureModule {}
+
+      @NgModule({
+        imports: [
+          NxModule.forRoot(),
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(ProductCrudFacade);
+      httpClient = TestBed.inject(HttpClient);
+    });
+
+    test('clearCurrentEntity() should set currentProduct to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
+
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
+
+      expect(isNewActive).toBeFalsy();
+    });
+
+    test('New Entity Set And Clear CurrentEntity', async () =>
+      testAddSetAndClearCurrentEntity<ProductCrudFacade>(facade));
+    test('Existing Entity Set And Clear CurrentEntity', async () =>
+      testEditSetAndClearCurrentEntity<ProductCrudFacade>(facade));
+    test('Save CurrentEntity', async () =>
+      testSaveCurrentEntity<ProductCrudFacade>(facade, httpClient));
+    test('Update CurrentEntity', async () =>
+      testUpdateCurrentEntity<ProductCrudFacade>(facade, httpClient));
+
+    test('should load ProductModels', async () => {
+      facade.loadProductModels({});
+      expect(httpClient.get).toBeCalledTimes(1);
+      const result = await readFirst(facade.productModels$);
+      expect(result.length).toBe(1);
+    });
+
+    test('should load ProductCategories', async () => {
+      facade.loadProductCategories({});
+      expect(httpClient.get).toBeCalledTimes(1);
+      const result = await readFirst(facade.productCategories$);
+      expect(result.length).toBe(1);
+    });
+  });
+});
+"
+`;
+
+exports[`imng-module crud facade template should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { ODataState } from 'imng-kendo-odata';
+import { productsFeature } from '../+state/product.reducer';
+import { productQueries } from '../+state/product.selectors';
+import * as productActionTypes from '../+state/product.actions';
+
+@Injectable()
+export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
+  loading$ = this.store.select(productsFeature.selectLoading);
+  currentEntity$ = this.store.select(productQueries.selectCurrentProduct);
+  isEditActive$ = this.store.select(productQueries.selectIsEditProductActive);
+  isNewActive$ = this.store.select(productQueries.selectIsNewProductActive);
+  productModels$ = this.store.select(productsFeature.selectProductModels);
+  productCategories$ = this.store.select(productsFeature.selectProductCategories);
+
+  constructor(private readonly store: Store) {}
+
+  public setCurrentEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.setCurrentProduct(item));
+  }
+
+  public clearCurrentEntity(): void {
+    this.store.dispatch(productActionTypes.clearCurrentProduct());
+  }
+
+  public saveNewEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.saveProductRequest(item));
+  }
+
+  public updateExistingEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.updateProductRequest(item));
+  }
+
+  public loadProductModels(state: ODataState): void {
+    this.store.dispatch(productActionTypes.loadProductModelsRequest(state));
+  }
+  public loadProductCategories(state: ODataState): void {
+    this.store.dispatch(productActionTypes.loadProductCategoriesRequest(state));
+  }
+}
+"
+`;
+
+exports[`imng-module crud html template should work 1`] = `
+"<imng-data-entry-dialog [width]=\\"700\\" [height]=\\"550\\" [parentComponent]=\\"this\\" autoFocusedElement=\\"#name\\">
+  <form novalidate [formGroup]=\\"addEditForm\\" autocomplete=\\"false\\" class=\\"row\\">
+    <div class=\\"col-md-6\\">
+      <label for=\\"id\\" class=\\"control-label mr-4\\">Id:</label>
+      <input id=\\"id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.ID\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.ID)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.ID)?.[RequiredError]\\">Product id is required</div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"name\\" class=\\"control-label mr-4\\">Name:</label>
+      <input id=\\"name\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NAME\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NAME) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NAME)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.NAME)?.[RequiredError]\\">Product name is required</div>
+        <div *ngIf=\\"formControlErrors(props.NAME)?.[MinLengthError]\\">
+          Product name requires a min length of
+          {{formMinLengthError(props.NAME)?.requiredLength}}, currently only
+          {{formMinLengthError(props.NAME)?.actualLength}}.
+        </div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"num\\" class=\\"control-label mr-4\\">Num:</label>
+      <input id=\\"num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NUM\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NUM)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.NUM)?.[RequiredError]\\">Product num is required</div>
+        <div *ngIf=\\"formControlErrors(props.NUM)?.[MinLengthError]\\">
+          Product num requires a min length of
+          {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
+          {{formMinLengthError(props.NUM)?.actualLength}}.
+        </div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"color\\" class=\\"control-label mr-4\\">Color:</label>
+      <input id=\\"color\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.COLOR\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.COLOR) }\\" />
+        <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.COLOR)\\" class=\\"invalid-feedback\\">
+          <div *ngIf=\\"formControlErrors(props.COLOR)?.[MinLengthError]\\">
+            Product color requires a min length of
+            {{formMinLengthError(props.COLOR)?.requiredLength}}, currently only
+            {{formMinLengthError(props.COLOR)?.actualLength}}.
+          </div>
+        </div>
+      </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"standard_cost\\" class=\\"control-label mr-4\\">Standard Cost:</label>
+      <input id=\\"standard_cost\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.STANDARD_COST\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STANDARD_COST) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.STANDARD_COST)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.STANDARD_COST)?.[RequiredError]\\">Product standard cost is required</div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"list_price\\" class=\\"control-label mr-4\\">List Price:</label>
+      <input id=\\"list_price\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.LIST_PRICE\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.LIST_PRICE) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.LIST_PRICE)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.LIST_PRICE)?.[RequiredError]\\">Product list price is required</div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"size\\" class=\\"control-label mr-4\\">Size:</label>
+      <input id=\\"size\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.SIZE\\" />
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"weight\\" class=\\"control-label mr-4\\">Weight:</label>
+      <input id=\\"weight\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.WEIGHT\\" />
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"product_category_id\\" class=\\"control-label mr-4\\">Product Category Id:</label>
+      <input id=\\"product_category_id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.PRODUCT_CATEGORY_ID\\" />
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"product_model_id\\" class=\\"control-label mr-4\\">Product Model Id:</label>
+      <input id=\\"product_model_id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.PRODUCT_MODEL_ID\\" />
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"sell_start_date\\" class=\\"control-label mr-4\\">Sell Start Date:</label>
+      <kendo-datepicker id=\\"sell_start_date\\" class=\\"form-control\\" [formControlName]=\\"props.SELL_START_DATE\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SELL_START_DATE) }\\"></kendo-datepicker>
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.SELL_START_DATE)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.SELL_START_DATE)?.[RequiredError]\\">Product sell start date is required</div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"sell_end_date\\" class=\\"control-label mr-4\\">Sell End Date:</label>
+      <kendo-datepicker id=\\"sell_end_date\\" class=\\"form-control\\" [formControlName]=\\"props.SELL_END_DATE\\"></kendo-datepicker>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"discontinued_date\\" class=\\"control-label mr-4\\">Discontinued Date:</label>
+      <kendo-datepicker id=\\"discontinued_date\\" class=\\"form-control\\" [formControlName]=\\"props.DISCONTINUED_DATE\\"></kendo-datepicker>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"thumb_nail_photo\\" class=\\"control-label mr-4\\">Thumb Nail Photo:</label>
+      <input id=\\"thumb_nail_photo\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.THUMB_NAIL_PHOTO\\" />
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"product_model\\" class=\\"control-label mr-4\\">Product Model:</label>
+      <kendo-multicolumncombobox
+        id=\\"product_model\\"
+        placeholder=\\"Select a product model...\\"
+        [formControlName]=\\"props.PRODUCT_MODEL_ID\\"
+        [data]=\\"productModels$ | async\\"
+        [textField]=\\"productModelProps.NAME\\"
+        [valueField]=\\"productModelProps.ID\\"
+        [valuePrimitive]=\\"true\\"
+        [filterable]=\\"true\\"
+        (filterChange)=\\"handleProductModelFilter($event)\\">
+          <kendo-combobox-column field=\\"name\\" title=\\"Name\\" [width]=\\"100\\"></kendo-combobox-column>
+          <kendo-combobox-column field=\\"description\\" title=\\"Description\\" [width]=\\"100\\"></kendo-combobox-column>
+      </kendo-multicolumncombobox>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"product_category\\" class=\\"control-label mr-4\\">Product Category:</label>
+      <kendo-combobox
+        id=\\"product_category\\"
+        placeholder=\\"Select a product category...\\"
+        [formControlName]=\\"props.PRODUCT_CATEGORY_ID\\"
+        [data]=\\"productCategories$ | async\\"
+        [textField]=\\"productCategoryProps.NAME\\"
+        [valueField]=\\"productCategoryProps.ID\\"
+        [valuePrimitive]=\\"true\\"
+        [filterable]=\\"true\\"
+        (filterChange)=\\"handleProductCategoryFilter($event)\\">
+      </kendo-combobox>
+    </div>
+  </form>
+</imng-data-entry-dialog>
+"
+`;
+
+exports[`imng-module edit component spec template should work 1`] = `
+"import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+
+import { createMockProductFacade } from './add.component.spec';
+import { ProductEditComponent } from './edit.component';
+import { ProductCrudFacade } from './crud.facade';
+
+describe('ProductEditComponent', () => {
+  let component: ProductEditComponent;
+  let fixture: ComponentFixture<ProductEditComponent>;
+  let facade: ProductCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
+
+  beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
+    TestBed.configureTestingModule({
+      declarations: [ProductEditComponent],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule, ],
+      providers: [{ provide: ProductCrudFacade, useValue: createDataEntryMockFacade(createMockProductFacade()) }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProductEditComponent);
+    component = fixture.componentInstance;
+    facade = TestBed.inject(ProductCrudFacade);
+    fixture.detectChanges();
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
+  });
+
+  test('should update', () => {
+    component.initForm();
+    component.addEditForm.patchValue({
+    [ProductProperties.ID]: 'ID',
+    [ProductProperties.NAME]: 'NAME',
+    [ProductProperties.NUM]: 'NUM',
+    [ProductProperties.COLOR]: 'COLOR',
+    [ProductProperties.STANDARD_COST]: 0,
+    [ProductProperties.LIST_PRICE]: 0,
+    [ProductProperties.SIZE]: 'SIZE',
+    [ProductProperties.WEIGHT]: 0,
+    [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
+    [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
+    [ProductProperties.SELL_START_DATE]: new Date(),
+    [ProductProperties.SELL_END_DATE]: new Date(),
+    [ProductProperties.DISCONTINUED_DATE]: new Date(),
+    [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
+    [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
+    [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
+    });
+    let item: IProduct | undefined;
+    facade.updateExistingEntity = jest.fn(x => (item = x));
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
+    expect(facade.saveNewEntity).toBeCalledTimes(0);
+    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+
+    expect(item).toMatchSnapshot({
+      sellStartDate: expect.any(Date),
+      sellEndDate: expect.any(Date),
+      discontinuedDate: expect.any(Date),
+    });
+
+  });
+
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
+  test('should not update', () => {
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
+    expect(facade.saveNewEntity).toBeCalledTimes(0);
+    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
+  });
+
+  test('should cancel', () => {
+    component.cancel();
+    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+  });
+
+  test('should support ProductModel filters', async () => {
+    component.handleProductModelFilter('xy');
+    const result = await readFirst(component.productModels$);
+    expect(result).toStrictEqual([{ id: 'xyz',name: 'xyz',description: 'xyz', }]);
+  });
+
+  test('should support ProductCategory filters', async () => {
+    component.handleProductCategoryFilter('xy');
+    const result = await readFirst(component.productCategories$);
+    expect(result).toStrictEqual([{ id: 'xyz',name: 'xyz', }]);
+  });
+});
+"
+`;
+
+exports[`imng-module edit component template should work 1`] = `
+"import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { formGroupPatcher } from 'imng-kendo-data-entry';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
+
+import { ProductBaseEntryComponent } from './base-entry.component';
+import { ProductCrudFacade } from './crud.facade';
+
+@Component({
+  selector: 'aw-product-edit',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductEditComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
+  public dialogTitle = 'Edit Product';
+  public active$ = this.facade.isEditActive$;
+
+  constructor(facade: ProductCrudFacade) {
+    super(facade);
+  }
+  public override initForm(): void {
+    super.initForm();
+    if (this.addEditForm) {
+      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
+    }
+  }
+
+  public save(): void {
+    const val = normalizeRequest<IProduct>(this.addEditForm.value);
+    this.facade.updateExistingEntity(val);
+  }
+}
+"
+`;
+
+exports[`imng-module effects should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import { productsFeature } from './product.reducer';
+import * as productActionTypes from './product.actions';
+import { environment } from '../../../../environments/environment';
+
+import { ProductApiService } from '../products-crud';
+
+@Injectable()
+export class ProductEffects {
+  constructor(
+    private readonly actions$: Actions,
+    private readonly odataservice: ODataService,
+    private readonly store: Store,
+    private readonly productApiService : ProductApiService,
+  ) {}
+
+  loadProductsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductsRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataservice
+        .fetch<IProduct>(environment.odataEnpoints.products, action.payload)
+        .pipe(
+          map(t => productActionTypes.loadProductsSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  reloadProductsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.reloadProductsRequest),
+      concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
+      switchMap(([action, odataState]) => this.odataservice
+        .fetch<IProduct>(environment.odataEnpoints.products, odataState, { bustCache: true })
+        .pipe(
+          map(t => productActionTypes.reloadProductsSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  saveProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.saveProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.saveProductRequest>) => this.productApiService.post(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
+
+  updateProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.updateProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.updateProductRequest>) => this.productApiService.put(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
+
+  deleteProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.deleteProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.deleteProductRequest>) => this.productApiService.delete(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
+
+  loadProductModelsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductModelsRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductModelsRequest>) => this.odataservice
+        .fetch<IProductModel>(environment.odataEnpoints.productModels, action.payload)
+        .pipe(map(t => productActionTypes.loadProductModelsSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  loadProductCategoriesEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductCategoriesRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductCategoriesRequest>) => this.odataservice
+        .fetch<IProductCategory>(environment.odataEnpoints.productCategories, action.payload)
+        .pipe(map(t => productActionTypes.loadProductCategoriesSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-module list component should work 1`] = `
+"import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+import { DetailExpandEvent } from '@progress/kendo-angular-grid';
+import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
+import { ODataState } from 'imng-kendo-odata';
+
+import { ProductListFacade } from './list.facade';
+import { ProductCrudFacade } from '../products-crud';
+
+const initialGridState: ODataState = {
+  take: 20,
+  skip: 0,
+  selectors: [
+    ProductProperties.ID,
+    ProductProperties.NAME,
+    ProductProperties.NUM,
+    ProductProperties.COLOR,
+    ProductProperties.STANDARD_COST,
+    ProductProperties.LIST_PRICE,
+    ProductProperties.SIZE,
+    ProductProperties.WEIGHT,
+    ProductProperties.PRODUCT_CATEGORY_ID,
+    ProductProperties.PRODUCT_MODEL_ID,
+    ProductProperties.SELL_START_DATE,
+    ProductProperties.SELL_END_DATE,
+    ProductProperties.DISCONTINUED_DATE,
+    ProductProperties.THUMB_NAIL_PHOTO,
+    ProductProperties.PRODUCT_MODEL,
+    ProductProperties.PRODUCT_CATEGORY,
+  ],
+  sort: [
+    { field: ProductProperties.NAME, dir: 'asc' },
+  ],
+  expanders: [
+      { table: ProductProperties.PRODUCT_MODEL,
+        selectors: [
+          ProductModelProperties.ID,
+          ProductModelProperties.NAME,
+          ProductModelProperties.DESCRIPTION,
+        ]},
+      { table: ProductProperties.PRODUCT_CATEGORY,
+        selectors: [
+          ProductCategoryProperties.ID,
+          ProductCategoryProperties.NAME,
+        ]},
+  ]
+};
+
+@Component({
+  selector: 'aw-product-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductListComponent extends KendoODataComponentBase<IProduct, ProductListFacade> {
+  public readonly props = ProductProperties;
+  public currentItem: IProduct | undefined;
+
+  constructor(facade: ProductListFacade, 
+    public readonly crudFacade: ProductCrudFacade,
+    router: Router) {
+    super(facade, initialGridState, router);
+  }
+
+  public addItem(): void {
+    this.crudFacade.setCurrentEntity({});
+  }
+
+  public editItem(item: IProduct): void {
+    this.crudFacade.setCurrentEntity(item);
+  }
+
+  public deleteItem(item: IProduct): void {
+    this.facade.deleteExistingEntity(item);
+  }
+
+  public detailExpanded(evt: DetailExpandEvent): void {
+    this.currentItem = evt.dataItem;
+  }
+}
+"
+`;
+
+exports[`imng-module module should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import { DialogModule } from '@progress/kendo-angular-dialog';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
+
+import { ProductsRoutingModule } from './products.routing';
+import { productsFeature } from './+state/product.reducer';
+import { ProductEffects } from './+state/product.effects';
+
+import { ProductListComponent, ProductListFacade } from './products-list';
+import { ProductAddComponent, ProductEditComponent, ProductApiService, ProductCrudFacade  } from './products-crud';
+
+
+@NgModule({
+  declarations: [ProductListComponent, ProductAddComponent, ProductEditComponent ],
+  imports: [
+    CommonModule,
+    GridModule,
+    ExcelModule,
+    PDFModule,
+    DialogModule,
+    DateInputsModule,
+    DropDownsModule,
+    ImngDataEntryDialogModule,
+    ImngKendoGridFilteringModule,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ReactiveFormsModule,
+    ProductsRoutingModule,
+    StoreModule.forFeature(productsFeature),
+    EffectsModule.forFeature([ProductEffects]),
+  ],
+  providers: [
+    ProductListFacade,
+    ProductCrudFacade,
+    ProductApiService, 
+  ],
+})
+export class ProductsModule { }
+"
+`;
+
+exports[`imng-module reducers should work 1`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as productActionTypes from './product.actions';
+export const PRODUCTS_FEATURE_KEY = 'products';
+
+export interface State extends KendoODataGridState<IProduct> {
+  currentProduct: IProduct | undefined;
+  productModels: IProductModel[];
+  productCategories: IProductCategory[];
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentProduct: undefined,
+  productModels: [],
+  productCategories: [],
+  loading: true,
+};
+
+export const productsFeature = createFeature({
+  name: PRODUCTS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(productActionTypes.loadProductsRequest, 
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(productActionTypes.loadProductsSuccess,
+      productActionTypes.reloadProductsSuccess, 
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(productActionTypes.setCurrentProduct, 
+      (state, { payload }) : State => 
+        ({ ...state, currentProduct: payload })),
+    on(productActionTypes.clearCurrentProduct, 
+      (state) : State => ({ ...state, currentProduct: undefined })),
+    on(productActionTypes.saveProductRequest,
+      productActionTypes.updateProductRequest,
+      productActionTypes.deleteProductRequest,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      }),
+    on(productActionTypes.loadProductModelsSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        productModels: payload.data
+      })),
+    on(productActionTypes.loadProductCategoriesSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        productCategories: payload.data
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
+    ),
+)
+});
+"
+`;
+
+exports[`imng-module tree files should match 1`] = `
+Array [
+  "/test/products-module/products.module.spec.ts",
+  "/test/products-module/products.module.ts",
+  "/test/products-module/products.routing.ts",
+  "/test/products-module/+state/product.actions.ts",
+  "/test/products-module/+state/product.effects.ts",
+  "/test/products-module/+state/product.reducer.ts",
+  "/test/products-module/+state/product.selectors.ts",
+  "/test/products-module/products-list/index.ts",
+  "/test/products-module/products-list/list.component.html",
+  "/test/products-module/products-list/list.component.scss",
+  "/test/products-module/products-list/list.component.spec.ts",
+  "/test/products-module/products-list/list.component.ts",
+  "/test/products-module/products-list/list.facade.spec.ts",
+  "/test/products-module/products-list/list.facade.ts",
+  "/test/products-module/products-crud/add-edit.component.html",
+  "/test/products-module/products-crud/add-edit.component.scss",
+  "/test/products-module/products-crud/add.component.spec.ts",
+  "/test/products-module/products-crud/add.component.ts",
+  "/test/products-module/products-crud/api.service.ts",
+  "/test/products-module/products-crud/base-entry.component.ts",
+  "/test/products-module/products-crud/crud.facade.spec.ts",
+  "/test/products-module/products-crud/crud.facade.ts",
+  "/test/products-module/products-crud/edit.component.spec.ts",
+  "/test/products-module/products-crud/edit.component.ts",
+  "/test/products-module/products-crud/index.ts",
+]
+`;

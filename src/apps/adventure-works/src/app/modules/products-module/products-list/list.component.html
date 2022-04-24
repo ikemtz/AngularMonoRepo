@@ -16,7 +16,12 @@
     </div>
   </ng-template>
 
-  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+  <kendo-grid-column
+    [field]="props.ID"
+    [width]="100"
+    title="Id"
+    filter="text"
+    [hidden]="true">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.ID] | slice: 0:5"
@@ -30,8 +35,17 @@
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
-    [field]="props.NAME"
+    [field]="props.NUM"
     [width]="100"
+    title="Num"
+    filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Num</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.NAME"
+    [width]="200"
     title="Name"
     filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
@@ -39,12 +53,27 @@
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
-    [field]="props.NUM"
+    [field]="props.PRODUCT_MODEL"
     [width]="100"
-    title="Num"
+    title="Product Model"
     filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Num</span>
+      <span class="h6">Model</span>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.productModel.name }}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.PRODUCT_CATEGORY"
+    [width]="100"
+    title="Product Category"
+    filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Category</span>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.productCategory.name }}
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
@@ -60,25 +89,28 @@
     [field]="props.STANDARD_COST"
     [width]="100"
     title="Standard Cost"
-    filter="numeric">
+    filter="numeric"
+    format="{0:c}">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Standard Cost</span>
+      <span class="h6">Standard<br />Cost</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
     [field]="props.LIST_PRICE"
     [width]="100"
     title="List Price"
-    filter="numeric">
+    filter="numeric"
+    format="{0:c}">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">List Price</span>
+      <span class="h6">List<br />Price</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
     [field]="props.SIZE"
     [width]="100"
     title="Size"
-    filter="text">
+    filter="text"
+    [hidden]="true">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Size</span>
     </ng-template>
@@ -87,43 +119,10 @@
     [field]="props.WEIGHT"
     [width]="100"
     title="Weight"
-    filter="numeric">
+    filter="numeric"
+    [hidden]="true">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Weight</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column
-    [field]="props.PRODUCT_CATEGORY_ID"
-    [width]="100"
-    title="Product Category Id"
-    filter="text">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.PRODUCT_CATEGORY_ID] | slice: 0:5"
-        [copyValue]="dataItem[props.PRODUCT_CATEGORY_ID]"></imng-kendo-copy>
-    </ng-template>
-    <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
-    </ng-template>
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Product Category Id</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column
-    [field]="props.PRODUCT_MODEL_ID"
-    [width]="100"
-    title="Product Model Id"
-    filter="text">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.PRODUCT_MODEL_ID] | slice: 0:5"
-        [copyValue]="dataItem[props.PRODUCT_MODEL_ID]"></imng-kendo-copy>
-    </ng-template>
-    <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
-    </ng-template>
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Product Model Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
@@ -131,7 +130,8 @@
     [width]="100"
     format="{0:MM/dd/yy}"
     title="Sell Start Date"
-    filter="date">
+    filter="date"
+    [hidden]="true">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Sell Start Date</span>
     </ng-template>
@@ -141,7 +141,8 @@
     [width]="100"
     format="{0:MM/dd/yy}"
     title="Sell End Date"
-    filter="date">
+    filter="date"
+    [hidden]="true">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Sell End Date</span>
     </ng-template>
@@ -151,7 +152,8 @@
     [width]="100"
     format="{0:MM/dd/yy}"
     title="Discontinued Date"
-    filter="date">
+    filter="date"
+    [hidden]="true">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Discontinued Date</span>
     </ng-template>
@@ -162,25 +164,12 @@
     title="Thumb Nail Photo"
     filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Thumb Nail Photo</span>
+      <span class="h6">Photo</span>
     </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column
-    [field]="props.PRODUCT_MODEL"
-    [width]="100"
-    title="Product Model"
-    filter="text">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Product Model</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column
-    [field]="props.PRODUCT_CATEGORY"
-    [width]="100"
-    title="Product Category"
-    filter="text">
-    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Product Category</span>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <img
+        [src]="getFormatSrc(dataItem[props.THUMB_NAIL_PHOTO])"
+        [alt]="dataItem[props.NAME]" />
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [width]="50">

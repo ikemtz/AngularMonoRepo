@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'imng-az-func-configr',
-  preset: '../../jest.preset.js',
+  displayName: 'adventure-works',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.imng-az-func-configr.xml',
+        outputName: './junit.adventure-works.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/imng-az-func-configr',
+  coverageDirectory: '../../coverage/apps/adventure-works',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

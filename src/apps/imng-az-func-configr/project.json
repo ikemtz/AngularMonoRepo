@@ -93,7 +93,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/imng-az-func-configr"],
       "options": {
-        "jestConfig": "apps/imng-az-func-configr/jest.config.js",
+        "jestConfig": "apps/imng-az-func-configr/jest.config.ts",
         "passWithNoTests": true
       }
     }

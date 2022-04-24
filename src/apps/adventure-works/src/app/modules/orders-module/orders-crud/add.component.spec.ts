@@ -8,17 +8,24 @@ import { OrderAddComponent } from './add.component';
 import { OrderCrudFacade } from './crud.facade';
 import { IOrder, OrderProperties } from '../../../models/webapi';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 describe('OrderAddComponent', () => {
   let component: OrderAddComponent;
   let fixture: ComponentFixture<OrderAddComponent>;
   let facade: OrderCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
 
   beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [OrderAddComponent],
       imports: [ReactiveFormsModule, NoopAnimationsModule, DateInputsModule],
-      providers: [{ provide: OrderCrudFacade, useValue: createDataEntryMockFacade() }],
+      providers: [
+        { provide: OrderCrudFacade, useValue: createDataEntryMockFacade() },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -32,6 +39,8 @@ describe('OrderAddComponent', () => {
 
   afterAll(() => {
     component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
   });
 
   test('should create', () => {
@@ -67,9 +76,10 @@ describe('OrderAddComponent', () => {
     });
 
     let item: IOrder | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
-    component.save();
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(1);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
 
@@ -78,14 +88,19 @@ describe('OrderAddComponent', () => {
       dueDate: expect.any(Date),
       shipDate: expect.any(Date),
     });
-
   });
 
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
   test('should not save', () => {
-    component.addEditForm = { valid: false } as never;
-    component.save();
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {

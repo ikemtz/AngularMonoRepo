@@ -24,7 +24,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-angular-core"],
       "options": {
-        "jestConfig": "libs/imng-angular-core/jest.config.js",
+        "jestConfig": "libs/imng-angular-core/jest.config.ts",
         "passWithNoTests": true
       }
     },

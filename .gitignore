@@ -343,3 +343,4 @@ src/documentation/**
 **/dist/*
 **/*.tar
 old-src
+schematics/eslint-report.json
