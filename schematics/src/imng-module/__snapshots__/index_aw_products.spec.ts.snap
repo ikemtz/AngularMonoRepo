@@ -113,7 +113,7 @@ describe('ProductAddComponent', () => {
     let item: IProduct | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
     facade.updateExistingEntity = jest.fn();
-    expect(component.getFormErrors()).toBeNull();
+    expect(component.getFormErrors()).toStrictEqual([]);
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(1);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
@@ -498,7 +498,7 @@ describe('ProductEditComponent', () => {
     });
     let item: IProduct | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
-    expect(component.getFormErrors()).toBeNull();
+    expect(component.getFormErrors()).toStrictEqual([]);
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);

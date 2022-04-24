@@ -61,7 +61,7 @@ describe('<%= classify(name) %>AddComponent', () => {
     let item: I<%= classify(name) %> | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
     facade.updateExistingEntity = jest.fn();
-    expect(component.getFormErrors()).toBeNull();
+    expect(component.getFormErrors()).toStrictEqual([]);
     component.save();
     expect(facade.saveNewEntity).toBeCalledTimes(1);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);

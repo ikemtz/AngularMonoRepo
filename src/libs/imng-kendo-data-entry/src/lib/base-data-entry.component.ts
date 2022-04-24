@@ -91,6 +91,7 @@ export abstract class BaseDataEntryComponent<
     // stop here if form is invalid
     if (this.isDataInvalid()) {
       console.error('form validation errors.'); //NOSONAR
+      console.error(JSON.stringify(this.getFormErrors())); //NOSONAR
       return;
     }
     this.save();
