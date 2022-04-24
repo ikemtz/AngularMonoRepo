@@ -2,27 +2,38 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
-import { of } from 'rxjs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ProductEditComponent } from './edit.component';
 import { ProductCrudFacade } from './crud.facade';
 import { IProduct, ProductProperties } from '../../../models/webapi';
+import { createMockProductFacade } from './add.component.spec';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 describe('ProductEditComponent', () => {
   let component: ProductEditComponent;
   let fixture: ComponentFixture<ProductEditComponent>;
   let facade: ProductCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
 
   beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [ProductEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        DatePickerModule,
+        DropDownsModule,
+      ],
       providers: [
         {
           provide: ProductCrudFacade,
-          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
+          useValue: createDataEntryMockFacade(createMockProductFacade()),
         },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -38,6 +49,8 @@ describe('ProductEditComponent', () => {
 
   afterAll(() => {
     component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
   });
 
   test('should update', () => {
@@ -45,7 +58,7 @@ describe('ProductEditComponent', () => {
     component.addEditForm.patchValue({
       [ProductProperties.ID]: 'ID',
       [ProductProperties.NAME]: 'NAME',
-      [ProductProperties.NUM]: 'NUM',
+      [ProductProperties.NUM]: 'NUM-num-23',
       [ProductProperties.COLOR]: 'COLOR',
       [ProductProperties.STANDARD_COST]: 0,
       [ProductProperties.LIST_PRICE]: 0,
@@ -61,8 +74,9 @@ describe('ProductEditComponent', () => {
       [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
     });
     let item: IProduct | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
-    component.save();
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
 
@@ -71,14 +85,19 @@ describe('ProductEditComponent', () => {
       sellEndDate: expect.any(Date),
       discontinuedDate: expect.any(Date),
     });
-
   });
 
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
   test('should not update', () => {
-    component.addEditForm = { valid: false } as never;
-    component.save();
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {

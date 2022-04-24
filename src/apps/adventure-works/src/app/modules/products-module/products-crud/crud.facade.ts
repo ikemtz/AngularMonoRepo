@@ -5,6 +5,7 @@ import { productsFeature } from '../+state/product.reducer';
 import { productQueries } from '../+state/product.selectors';
 import * as productActionTypes from '../+state/product.actions';
 import { IProduct } from '../../../models/webapi';
+import { ODataState } from 'imng-kendo-odata';
 
 @Injectable()
 export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
@@ -12,6 +13,8 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
   currentEntity$ = this.store.select(productQueries.selectCurrentProduct);
   isEditActive$ = this.store.select(productQueries.selectIsEditProductActive);
   isNewActive$ = this.store.select(productQueries.selectIsNewProductActive);
+  productModels$ = this.store.select(productsFeature.selectProductModels);
+  productCategories$ = this.store.select(productsFeature.selectProductCategories);
 
   constructor(private readonly store: Store) { }
 
@@ -29,5 +32,11 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
 
   public updateExistingEntity(item: IProduct): void {
     this.store.dispatch(productActionTypes.updateProductRequest(item));
+  }
+  public loadProductModels(state: ODataState): void {
+    this.store.dispatch(productActionTypes.loadProductModelsRequest(state));
+  }
+  public loadProductCategories(state: ODataState): void {
+    this.store.dispatch(productActionTypes.loadProductCategoriesRequest(state));
   }
 }

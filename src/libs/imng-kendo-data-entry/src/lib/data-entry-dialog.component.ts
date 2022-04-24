@@ -15,6 +15,7 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
   selector: 'imng-data-entry-dialog[parentComponent]',
   template: `<kendo-dialog
       [width]="width"
+      [minWidth]="minWidth ?? width"
       [height]="height"
       (close)="close()"
       [autoFocusedElement]="autoFocusedElement || ''"
@@ -43,8 +44,9 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataEntryDialogComponent implements OnInit {
-  @Input() public width: string | number = 800; //NOSONAR
-  @Input() public height: string | number = 600; //NOSONAR
+  @Input() public minWidth?: number; //NOSONAR
+  @Input() public width = 800; //NOSONAR
+  @Input() public height = 600; //NOSONAR
   /**
    * https://www.telerik.com/kendo-angular-ui/components/dialogs/dialog/initial-focus/
    */

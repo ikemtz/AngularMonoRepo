@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
-import { IProduct, ProductProperties } from '../../../models/odata';
+import { IProduct, ProductCategoryProperties, ProductModelProperties, ProductProperties } from '../../../models/odata';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -26,12 +27,14 @@ const initialGridState: ODataState = {
     ProductProperties.SELL_END_DATE,
     ProductProperties.DISCONTINUED_DATE,
     ProductProperties.THUMB_NAIL_PHOTO,
-    ProductProperties.PRODUCT_MODEL,
-    ProductProperties.PRODUCT_CATEGORY,
   ],
   sort: [
-    { field: ProductProperties.NAME, dir: 'asc' },
+    { field: ProductProperties.LIST_PRICE, dir: 'desc' },
   ],
+  expanders: [
+    { table: ProductProperties.PRODUCT_MODEL, selectors: [ProductModelProperties.NAME] },
+    { table: ProductProperties.PRODUCT_CATEGORY, selectors: [ProductCategoryProperties.NAME] },
+  ]
 };
 
 @Component({
@@ -46,7 +49,8 @@ export class ProductListComponent extends KendoODataComponentBase<IProduct, Prod
 
   constructor(facade: ProductListFacade,
     public readonly crudFacade: ProductCrudFacade,
-    router: Router) {
+    router: Router,
+    private domSanitizer: DomSanitizer) {
     super(facade, initialGridState, router);
   }
 
@@ -64,5 +68,8 @@ export class ProductListComponent extends KendoODataComponentBase<IProduct, Prod
 
   public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
+  }
+  public getFormatSrc(base64Image: string): SafeUrl {
+    return this.domSanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${base64Image}`);
   }
 }

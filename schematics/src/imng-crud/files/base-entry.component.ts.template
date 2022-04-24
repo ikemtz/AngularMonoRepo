@@ -1,19 +1,32 @@
 import { OnInit, Component } from '@angular/core';
-import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
+import { BaseDataEntryComponent } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';<% } %>
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
 @Component({ template: '' })
 export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEntryComponent<<%= classify(name) %>CrudFacade>
   implements OnInit {
-  public readonly props = <%= classify(name) %>Properties;
+  public readonly props = <%= classify(name) %>Properties;<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>  
+  public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.name) %>Properties;
+  public readonly <%= camelize(swaggerProperty.pluralizedName) %>$: Observable<I<%= classify(swaggerProperty.name) %>[]>;
+  public readonly <%= camelize(swaggerProperty.name) %>Filter$ = new BehaviorSubject('');<% }) %>
 
   constructor(facade: <%= classify(name) %>CrudFacade) {
-    super(facade);
+    super(facade);<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+    this.<%= camelize(swaggerProperty.pluralizedName) %>$ = facade.<%= camelize(swaggerProperty.pluralizedName) %>$.pipe(
+      switchMap(<%= camelize(swaggerProperty.pluralizedName) %> => this.<%= camelize(swaggerProperty.name) %>Filter$.pipe(
+        map(<%= camelize(swaggerProperty.name) %>Filter => <%= camelize(swaggerProperty.name) %>Filter ? <%= camelize(swaggerProperty.pluralizedName) %>
+          .filter(<%= camelize(swaggerProperty.name) %> => (<% swaggerProperty.properties.filter(f => f.name !== 'id').forEach(function(swaggerSubProperty, i, arr){ %>
+            (<%= camelize(swaggerProperty.name) %>.<%= camelize(swaggerSubProperty.name) %> && <%= camelize(swaggerProperty.name) %>.<%= camelize(swaggerSubProperty.name) %>.toLowerCase().indexOf(<%= camelize(swaggerProperty.name) %>Filter) >= 0)<% if (i + 1 != arr.length) { %> ||<% } }) %>
+          )) : <%= camelize(swaggerProperty.pluralizedName) %>
+    ))));<% }) %>
   }
 
   public ngOnInit(): void {
-    this.initForm();
+    this.initForm();<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+    this.facade.load<%= classify(swaggerProperty.pluralizedName) %>({ selectors: [<% swaggerProperty.properties.forEach(function(swaggerSubProperty){ %>
+      <%= classify(swaggerProperty.name) %>Properties.<%= swaggerSubProperty.snakeCaseName.toUpperCase() %>,<% }) %>] });<% }) %>
   }
 
   public initForm(): void {
@@ -23,4 +36,8 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
   public cancel(): void {
     this.facade.clearCurrentEntity();
   }
+<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  public handle<%= classify(swaggerProperty.name) %>Filter(value: string) {
+    this.<%= camelize(swaggerProperty.name) %>Filter$.next(value.toLowerCase());
+  }<% }) %>
 }
