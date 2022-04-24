@@ -9,13 +9,18 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OrderEditComponent } from './edit.component';
 import { OrderCrudFacade } from './crud.facade';
 import { IOrder, OrderProperties } from '../../../models/webapi';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 describe('OrderEditComponent', () => {
   let component: OrderEditComponent;
   let fixture: ComponentFixture<OrderEditComponent>;
   let facade: OrderCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
 
   beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [OrderEditComponent],
       imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
@@ -38,6 +43,8 @@ describe('OrderEditComponent', () => {
 
   afterAll(() => {
     component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
   });
 
   test('should update', () => {
@@ -68,8 +75,9 @@ describe('OrderEditComponent', () => {
       [OrderProperties.BILL_TO_ADDRESS]: 'BILL_TO_ADDRESS',
     });
     let item: IOrder | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
-    component.save();
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
 
@@ -78,14 +86,19 @@ describe('OrderEditComponent', () => {
       dueDate: expect.any(Date),
       shipDate: expect.any(Date),
     });
-
   });
 
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
   test('should not update', () => {
-    component.addEditForm = { valid: false } as never;
-    component.save();
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {

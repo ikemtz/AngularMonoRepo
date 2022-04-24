@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { NxModule } from '@nrwl/angular';
@@ -10,8 +11,8 @@ import {
   testSaveCurrentEntity,
   testUpdateCurrentEntity,
 } from 'imng-kendo-data-entry/testing';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
 
 import { ProductEffects } from '../+state/product.effects';
 import { productsFeature } from '../+state/product.reducer';
@@ -43,9 +44,10 @@ export const createProduct = () =>
 describe('ProductCrudFacade', () => {
   let facade: ProductCrudFacade;
   let store: Store;
+  let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { });
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -53,14 +55,19 @@ describe('ProductCrudFacade', () => {
         imports: [
           StoreModule.forFeature(productsFeature),
           EffectsModule.forFeature([ProductEffects]),
-          HttpClientTestingModule,
         ],
         providers: [
           ProductCrudFacade,
           ProductApiService,
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createProduct()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -70,12 +77,13 @@ describe('ProductCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       store = TestBed.inject(Store);
       facade = TestBed.inject(ProductCrudFacade);
+      httpClient = TestBed.inject(HttpClient);
     });
 
     test('clearCurrentEntity() should set currentProduct to null', async () => {
@@ -93,8 +101,22 @@ describe('ProductCrudFacade', () => {
     test('Existing Entity Set And Clear CurrentEntity', async () =>
       testEditSetAndClearCurrentEntity<ProductCrudFacade>(facade));
     test('Save CurrentEntity', async () =>
-      testSaveCurrentEntity<ProductCrudFacade>(facade, TestBed.inject(HttpClient)));
+      testSaveCurrentEntity<ProductCrudFacade>(facade, httpClient));
     test('Update CurrentEntity', async () =>
-      testUpdateCurrentEntity<ProductCrudFacade>(facade, TestBed.inject(HttpClient)));
+      testUpdateCurrentEntity<ProductCrudFacade>(facade, httpClient));
+
+    test('should load ProductModels', async () => {
+      facade.loadProductModels({});
+      expect(httpClient.get).toBeCalledTimes(1);
+      const result = await readFirst(facade.productModels$);
+      expect(result.length).toBe(1);
+    });
+
+    test('should load ProductCategories', async () => {
+      facade.loadProductCategories({});
+      expect(httpClient.get).toBeCalledTimes(1);
+      const result = await readFirst(facade.productCategories$);
+      expect(result.length).toBe(1);
+    });
   });
 });

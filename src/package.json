@@ -138,7 +138,7 @@
     "ngx-bootstrap": "^8.0.0",
     "nx": "13.10.3",
     "openapi-mermaid": "^2.101.3",
-    "openapi-ts-generator": "^4.89.5",
+    "openapi-ts-generator": "^4.114.2",
     "postcss": "^8.4.12",
     "postcss-import": "^14.1.0",
     "postcss-preset-env": "^6.7.1",

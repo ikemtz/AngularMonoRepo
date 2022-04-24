@@ -28,9 +28,9 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
     this.productCategories$ = facade.productCategories$.pipe(
       switchMap(productCategories => this.productCategoryFilter$.pipe(
         map(productCategoryFilter => productCategoryFilter ? productCategories
-          .filter(productCategory => (
+          .filter(productCategory =>
             (productCategory.name && productCategory.name.toLowerCase().indexOf(productCategoryFilter) >= 0)
-          )) : productCategories
+          ) : productCategories
         ))));
   }
 

@@ -8,7 +8,7 @@ import { ProductAddComponent } from './add.component';
 import { ProductCrudFacade } from './crud.facade';
 import { IProduct, ProductProperties } from '../../../models/webapi';
 import { of } from 'rxjs';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn,readFirst } from 'imng-ngrx-utils/testing';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
@@ -16,12 +16,14 @@ export function createMockProductFacade() {
   return {
     currentEntity$: of({}),
     productModels$: of([
-      { id: 'abc', name: 'abc', description: 'abc', },
-      { id: 'xyz', name: 'xyz', description: 'xyz', },]),
+      { id: 'abc', name: 'abc', description: 'abc' },
+      { id: 'xyz', name: 'xyz', description: 'xyz' },
+    ]),
     loadProductModels: jest.fn(),
     productCategories$: of([
-      { id: 'abc', name: 'abc', },
-      { id: 'xyz', name: 'xyz', },]),
+      { id: 'abc', name: 'abc' },
+      { id: 'xyz', name: 'xyz' },
+    ]),
     loadProductCategories: jest.fn(),
   };
 }
@@ -29,14 +31,26 @@ describe('ProductAddComponent', () => {
   let component: ProductAddComponent;
   let fixture: ComponentFixture<ProductAddComponent>;
   let facade: ProductCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
 
   beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [ProductAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule],
-      providers: [{
-        provide: ProductCrudFacade, useValue: createDataEntryMockFacade(createMockProductFacade())
-      }],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        DatePickerModule,
+        DropDownsModule,
+      ],
+      providers: [
+        {
+          provide: ProductCrudFacade,
+          useValue: createDataEntryMockFacade(createMockProductFacade()),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -50,6 +64,8 @@ describe('ProductAddComponent', () => {
 
   afterAll(() => {
     component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
   });
 
   test('should create', () => {
@@ -61,7 +77,7 @@ describe('ProductAddComponent', () => {
     component.addEditForm?.patchValue({
       [ProductProperties.ID]: 'ID',
       [ProductProperties.NAME]: 'NAME',
-      [ProductProperties.NUM]: 'NUM',
+      [ProductProperties.NUM]: 'NUM-num-12',
       [ProductProperties.COLOR]: 'COLOR',
       [ProductProperties.STANDARD_COST]: 0,
       [ProductProperties.LIST_PRICE]: 0,
@@ -78,9 +94,10 @@ describe('ProductAddComponent', () => {
     });
 
     let item: IProduct | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
-    component.save();
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(1);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
 
@@ -89,14 +106,19 @@ describe('ProductAddComponent', () => {
       sellEndDate: expect.any(Date),
       discontinuedDate: expect.any(Date),
     });
-
   });
 
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
   test('should not save', () => {
-    component.addEditForm = { valid: false } as never;
-    component.save();
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
@@ -108,12 +130,14 @@ describe('ProductAddComponent', () => {
   test('should support ProductModel filters', async () => {
     component.handleProductModelFilter('xy');
     const result = await readFirst(component.productModels$);
-    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz', description: 'xyz', }]);
+    expect(result).toStrictEqual([
+      { id: 'xyz', name: 'xyz', description: 'xyz' },
+    ]);
   });
 
   test('should support ProductCategory filters', async () => {
     component.handleProductCategoryFilter('xy');
     const result = await readFirst(component.productCategories$);
-    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz', }]);
+    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz' }]);
   });
 });

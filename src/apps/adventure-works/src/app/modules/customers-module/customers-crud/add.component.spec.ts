@@ -8,17 +8,24 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CustomerAddComponent } from './add.component';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerProperties, ICustomer } from '../../../models/webapi';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 describe('CustomerAddComponent', () => {
   let component: CustomerAddComponent;
   let fixture: ComponentFixture<CustomerAddComponent>;
   let facade: CustomerCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
 
   beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [CustomerAddComponent],
       imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
-      providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() }],
+      providers: [
+        { provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -32,6 +39,8 @@ describe('CustomerAddComponent', () => {
 
   afterAll(() => {
     component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
   });
 
   test('should create', () => {
@@ -42,7 +51,7 @@ describe('CustomerAddComponent', () => {
     component.initForm();
     component.addEditForm?.patchValue({
       [CustomerProperties.ID]: 'ID',
-      [CustomerProperties.NUM]: 'NUM',
+      [CustomerProperties.NUM]: 'NUM-NUM-NUM-NUM',
       [CustomerProperties.NAME]: 'NAME',
       [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
       [CustomerProperties.SALES_PERSON]: 'SALES_PERSON',
@@ -51,21 +60,27 @@ describe('CustomerAddComponent', () => {
     });
 
     let item: ICustomer | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
-    component.save();
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(1);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
 
     expect(item).toMatchSnapshot();
-
   });
 
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
   test('should not save', () => {
-    component.addEditForm = { valid: false } as never;
-    component.save();
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
