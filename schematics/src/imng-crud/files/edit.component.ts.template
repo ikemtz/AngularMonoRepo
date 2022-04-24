@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
 import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
@@ -26,7 +27,7 @@ export class <%= classify(name) %>EditComponent extends <%= classify(name) %>Bas
 
   public save(): void {
     if (this.addEditForm.valid) {
-      const val: I<%= classify(name) %> = this.addEditForm.value;
+      const val = normalizeRequest<I<%= classify(name) %>>(this.addEditForm.value);
       this.facade.updateExistingEntity(val);
     }
   }

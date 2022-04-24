@@ -153,6 +153,42 @@ describe('ProductAddComponent', () => {
 "
 `;
 
+exports[`imng-module add component template should work 1`] = `
+"import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
+
+import { ProductCrudFacade } from './crud.facade';
+import { ProductBaseEntryComponent } from './base-entry.component';
+
+@Component({
+  selector: 'aw-product-add',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductAddComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
+  public dialogTitle = 'Add Product';
+  public active$ = this.facade.isNewActive$;
+
+  constructor(facade: ProductCrudFacade) {
+    super(facade);
+  }
+  public override initForm(): void {
+    super.initForm();
+    this.addEditForm.patchValue({});
+  }
+
+  public save(): void {
+    if (this.addEditForm.valid) {
+      const val = normalizeRequest<IProduct>(this.addEditForm.value);
+      val.id = undefined;
+      this.facade.saveNewEntity(val);
+    }
+  }
+}
+"
+`;
+
 exports[`imng-module base crud component should work 1`] = `
 "import { OnInit, Component } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
@@ -485,6 +521,44 @@ describe('ProductEditComponent', () => {
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
   });
 });
+"
+`;
+
+exports[`imng-module edit component template should work 1`] = `
+"import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { formGroupPatcher } from 'imng-kendo-data-entry';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
+
+import { ProductBaseEntryComponent } from './base-entry.component';
+import { ProductCrudFacade } from './crud.facade';
+
+@Component({
+  selector: 'aw-product-edit',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductEditComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
+  public dialogTitle = 'Edit Product';
+  public active$ = this.facade.isEditActive$;
+
+  constructor(facade: ProductCrudFacade) {
+    super(facade);
+  }
+  public override initForm(): void {
+    super.initForm();
+    if (this.addEditForm) {
+      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
+    }
+  }
+
+  public save(): void {
+    if (this.addEditForm.valid) {
+      const val = normalizeRequest<IProduct>(this.addEditForm.value);
+      this.facade.updateExistingEntity(val);
+    }
+  }
+}
 "
 `;
 
