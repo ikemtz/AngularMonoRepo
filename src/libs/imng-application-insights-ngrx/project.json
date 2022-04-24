@@ -24,7 +24,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/imng-application-insights-ngrx"],
       "options": {
-        "jestConfig": "libs/imng-application-insights-ngrx/jest.config.js",
+        "jestConfig": "libs/imng-application-insights-ngrx/jest.config.ts",
         "passWithNoTests": true
       }
     },

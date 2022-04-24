@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'imng-ngrx-utils',
-  preset: '../../jest.preset.js',
+  displayName: 'imng-signalr-ngrx',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.imng-ngrx-utils.xml',
+        outputName: './junit.imng-signalr-ngrx.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-ngrx-utils',
+  coverageDirectory: '../../coverage/libs/imng-signalr-ngrx',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

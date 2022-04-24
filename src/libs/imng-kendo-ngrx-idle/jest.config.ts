@@ -1,6 +1,6 @@
 module.exports = {
   displayName: 'imng-kendo-ngrx-idle',
-  preset: '../../jest.preset.js',
+
   reporters: [
     'default',
     [
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };

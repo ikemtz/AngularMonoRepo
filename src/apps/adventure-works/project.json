@@ -99,7 +99,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/adventure-works"],
       "options": {
-        "jestConfig": "apps/adventure-works/jest.config.js",
+        "jestConfig": "apps/adventure-works/jest.config.ts",
         "passWithNoTests": true
       }
     }

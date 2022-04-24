@@ -1,13 +1,13 @@
 module.exports = {
-  displayName: 'imng-kendo-grid-array',
-  preset: '../../jest.preset.js',
+  displayName: 'imng-az-func-configr',
+
   reporters: [
     'default',
     [
       'jest-junit',
       {
         outputDirectory: '.',
-        outputName: './junit.imng-kendo-grid-array.xml',
+        outputName: './junit.imng-az-func-configr.xml',
         uniqueOutputName: true,
       },
     ],
@@ -19,7 +19,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/imng-kendo-grid-array',
+  coverageDirectory: '../../coverage/apps/imng-az-func-configr',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
@@ -29,4 +29,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.ts',
 };
