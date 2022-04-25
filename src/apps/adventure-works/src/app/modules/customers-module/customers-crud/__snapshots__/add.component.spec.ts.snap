@@ -7,9 +7,10 @@ Object {
   "emailAddress": "EMAIL_ADDRESS",
   "id": undefined,
   "name": "NAME",
-  "num": "NUM-NUM-NUM-NUM",
+  "num": "NUM-num-nu",
   "orders": null,
   "phone": "PHONE",
-  "salesPerson": "SALES_PERSON",
+  "salesAgent": "SALES_AGENT",
+  "salesAgentId": 0,
 }
 `;

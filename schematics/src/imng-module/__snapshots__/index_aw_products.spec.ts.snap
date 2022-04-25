@@ -20,7 +20,6 @@ export const saveProductRequest = createPayloadAction<IProduct>('[Products] Save
 export const updateProductRequest = createPayloadAction<IProduct>('[Products] Update Product Request');
 export const deleteProductRequest = createPayloadAction<IProduct>('[Products] Delete Product Request');
 
-
 export const loadProductModelsRequest = createPayloadAction<ODataState>(
     '[Products] Load ProductModels Request');
 export const loadProductModelsSuccess = createPayloadAction<ODataResult<IProductModel>>(
@@ -996,7 +995,7 @@ export const productsFeature = createFeature({
       (state) : State => ({
         ...state,
         loading: true,
-      }),
+      })),
     on(productActionTypes.loadProductModelsSuccess,
       (state, { payload }): State => ({
         ...state,
@@ -1008,8 +1007,7 @@ export const productsFeature = createFeature({
         productCategories: payload.data
       })),
     on(imngEffectError, imngEffectErrorReducer),
-    ),
-)
+  )
 });
 "
 `;

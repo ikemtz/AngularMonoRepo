@@ -1,6 +1,6 @@
 <imng-data-entry-dialog
   [width]="700"
-  [height]="400"
+  [height]="550"
   [parentComponent]="this"
   autoFocusedElement="#num">
   <form novalidate [formGroup]="addEditForm" autocomplete="false" class="row">
@@ -27,7 +27,6 @@
       <input
         id="num"
         type="text"
-        maxlength="15"
         class="form-control"
         [formControlName]="props.NUM"
         [ngClass]="{
@@ -51,7 +50,6 @@
       <input
         id="name"
         type="text"
-        maxlength="512"
         class="form-control"
         [formControlName]="props.NAME" />
     </div>
@@ -60,7 +58,6 @@
       <input
         id="company_name"
         type="text"
-        maxlength="128"
         class="form-control"
         [formControlName]="props.COMPANY_NAME"
         [ngClass]="{
@@ -76,12 +73,25 @@
       </div>
     </div>
     <div class="col-md-6">
-      <label for="sales_person" class="control-label mr-4">Sales Person:</label>
+      <label for="sales_agent_id" class="control-label mr-4"
+        >Sales Agent Id:</label
+      >
       <input
-        id="sales_person"
-        type="text"
+        id="sales_agent_id"
+        type="number"
         class="form-control"
-        [formControlName]="props.SALES_PERSON" />
+        [formControlName]="props.SALES_AGENT_ID"
+        [ngClass]="{
+          'is-invalid':
+            (submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)
+        }" />
+      <div
+        *ngIf="(submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)"
+        class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.SALES_AGENT_ID)?.[RequiredError]">
+          Customer sales agent id is required
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
       <label for="email_address" class="control-label mr-4"
@@ -90,7 +100,6 @@
       <input
         id="email_address"
         type="text"
-        maxlength="250"
         class="form-control"
         [formControlName]="props.EMAIL_ADDRESS" />
     </div>
@@ -99,9 +108,30 @@
       <input
         id="phone"
         type="text"
-        maxlength="25"
         class="form-control"
         [formControlName]="props.PHONE" />
+    </div>
+    <div class="col-md-6">
+      <label for="sales_agent" class="control-label mr-4">Sales Agent:</label>
+      <kendo-multicolumncombobox
+        id="sales_agent"
+        placeholder="Select a sales agent..."
+        [formControlName]="props.SALES_AGENT_ID"
+        [data]="salesAgents$ | async"
+        [textField]="salesAgentProps.NAME"
+        [valueField]="salesAgentProps.ID"
+        [valuePrimitive]="true"
+        [filterable]="true"
+        (filterChange)="handleSalesAgentFilter($event)">
+        <kendo-combobox-column
+          field="name"
+          title="Name"
+          [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column
+          field="loginId"
+          title="Login Id"
+          [width]="100"></kendo-combobox-column>
+      </kendo-multicolumncombobox>
     </div>
   </form>
 </imng-data-entry-dialog>

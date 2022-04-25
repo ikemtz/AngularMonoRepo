@@ -6,10 +6,10 @@ import {
 } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
+import { ICustomer } from '../../../models/webapi';
 
 import { CustomerBaseEntryComponent } from './base-entry.component';
 import { CustomerCrudFacade } from './crud.facade';
-import { ICustomer } from '../../../models/webapi';
 
 @Component({
   selector: 'aw-customer-edit',
@@ -19,7 +19,8 @@ import { ICustomer } from '../../../models/webapi';
 })
 export class CustomerEditComponent
   extends CustomerBaseEntryComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Edit Customer';
   public active$ = this.facade.isEditActive$;
 

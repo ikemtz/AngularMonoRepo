@@ -6,6 +6,7 @@
  * Do not edit.
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
+import { ISalesAgent } from './sales-agent.model';
 import { ICustomerAddress } from './customer-address.model';
 import { IOrder } from './order.model';
 
@@ -14,9 +15,10 @@ export interface ICustomer {
   num?: string;
   name?: string;
   companyName?: string;
-  salesPerson?: string;
+  salesAgentId?: number;
   emailAddress?: string;
   phone?: string;
+  salesAgent?: ISalesAgent;
   customerAddresses?: ICustomerAddress[];
   orders?: IOrder[];
 }

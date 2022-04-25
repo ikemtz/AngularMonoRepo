@@ -6,15 +6,9 @@
  * Do not edit.
  */
 /* tslint:disable */
-export enum CustomerProperties {
+export enum SalesAgentProperties {
   ID = 'id',
-  NUM = 'num',
   NAME = 'name',
-  COMPANY_NAME = 'companyName',
-  SALES_AGENT_ID = 'salesAgentId',
-  EMAIL_ADDRESS = 'emailAddress',
-  PHONE = 'phone',
-  SALES_AGENT = 'salesAgent',
-  CUSTOMER_ADDRESSES = 'customerAddresses',
-  ORDERS = 'orders',
+  LOGIN_ID = 'loginId',
+  CUSTOMERS = 'customers',
 }
