@@ -15,16 +15,13 @@
       </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
-  <kendo-grid-column
-    [field]="props.ID"
-    [width]="100"
-    title="Id"
-    filter="text"
-    [hidden]="true">
+
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.ID] | slice: 0:5"
-        [copyValue]="dataItem[props.ID]"></imng-kendo-copy>
+        [copyValue]="dataItem[props.ID]">
+      </imng-kendo-copy>
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
       <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
@@ -61,12 +58,12 @@
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
-    [field]="props.SALES_PERSON"
+    [field]="props.SALES_AGENT_ID"
     [width]="100"
-    title="Sales Person"
-    filter="text">
+    title="Sales Agent Id"
+    filter="numeric">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Sales Person</span>
+      <span class="h6">Sales Agent Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
@@ -85,6 +82,15 @@
     filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Phone</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.SALES_AGENT"
+    [width]="100"
+    title="Sales Agent"
+    filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Sales Agent</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [width]="50">

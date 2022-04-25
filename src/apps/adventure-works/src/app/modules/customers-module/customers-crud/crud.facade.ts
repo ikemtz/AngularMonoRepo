@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { ODataState } from 'imng-kendo-odata';
 import { customersFeature } from '../+state/customer.reducer';
 import { customerQueries } from '../+state/customer.selectors';
 import * as customerActionTypes from '../+state/customer.actions';
@@ -12,8 +13,9 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
   currentEntity$ = this.store.select(customerQueries.selectCurrentCustomer);
   isEditActive$ = this.store.select(customerQueries.selectIsEditCustomerActive);
   isNewActive$ = this.store.select(customerQueries.selectIsNewCustomerActive);
+  salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
-  constructor(private readonly store: Store) { }
+  constructor(private readonly store: Store) {}
 
   public setCurrentEntity(item: ICustomer): void {
     this.store.dispatch(customerActionTypes.setCurrentCustomer(item));
@@ -29,5 +31,9 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
 
   public updateExistingEntity(item: ICustomer): void {
     this.store.dispatch(customerActionTypes.updateCustomerRequest(item));
+  }
+
+  public loadSalesAgents(state: ODataState): void {
+    this.store.dispatch(customerActionTypes.loadSalesAgentsRequest(state));
   }
 }

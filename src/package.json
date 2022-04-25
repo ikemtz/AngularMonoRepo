@@ -137,7 +137,7 @@
     "ng-packagr": "13.3.1",
     "ngx-bootstrap": "^8.0.0",
     "nx": "14.0.2",
-    "openapi-mermaid": "^2.101.3",
+    "openapi-mermaid": "^2.115.3",
     "openapi-ts-generator": "^4.114.2",
     "postcss": "^8.4.12",
     "postcss-import": "^14.1.0",

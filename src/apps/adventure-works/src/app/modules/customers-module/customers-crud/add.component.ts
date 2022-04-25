@@ -9,6 +9,7 @@ import { normalizeRequest } from 'imng-nrsrx-client-utils';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerBaseEntryComponent } from './base-entry.component';
 import { ICustomer } from '../../../models/webapi';
+
 @Component({
   selector: 'aw-customer-add',
   templateUrl: './add-edit.component.html',
@@ -17,7 +18,8 @@ import { ICustomer } from '../../../models/webapi';
 })
 export class CustomerAddComponent
   extends CustomerBaseEntryComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Add Customer';
   public active$ = this.facade.isNewActive$;
 

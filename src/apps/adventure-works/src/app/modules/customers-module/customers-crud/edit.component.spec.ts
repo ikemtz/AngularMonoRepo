@@ -1,15 +1,20 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
-import { of } from 'rxjs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+  readFirst,
+} from 'imng-ngrx-utils/testing';
 
+import { createMockCustomerFacade } from './add.component.spec';
 import { CustomerEditComponent } from './edit.component';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerProperties, ICustomer } from '../../../models/webapi';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 describe('CustomerEditComponent', () => {
   let component: CustomerEditComponent;
@@ -23,11 +28,11 @@ describe('CustomerEditComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [CustomerEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DropDownsModule],
       providers: [
         {
           provide: CustomerCrudFacade,
-          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
+          useValue: createDataEntryMockFacade(createMockCustomerFacade()),
         },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -51,12 +56,13 @@ describe('CustomerEditComponent', () => {
     component.initForm();
     component.addEditForm.patchValue({
       [CustomerProperties.ID]: 'ID',
-      [CustomerProperties.NUM]: 'NUM-NUM-NUM-NUM',
+      [CustomerProperties.NUM]: 'NUM-num-nu',
       [CustomerProperties.NAME]: 'NAME',
       [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
-      [CustomerProperties.SALES_PERSON]: 'SALES_PERSON',
+      [CustomerProperties.SALES_AGENT_ID]: 0,
       [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
       [CustomerProperties.PHONE]: 'PHONE',
+      [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
     });
     let item: ICustomer | undefined;
     facade.updateExistingEntity = jest.fn((x) => (item = x));
@@ -84,5 +90,11 @@ describe('CustomerEditComponent', () => {
   test('should cancel', () => {
     component.cancel();
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+  });
+
+  test('should support SalesAgent filters', async () => {
+    component.handleSalesAgentFilter('xy');
+    const result = await readFirst(component.salesAgents$);
+    expect(result).toStrictEqual([{ name: 'xyz', loginId: 'xyz' }]);
   });
 });

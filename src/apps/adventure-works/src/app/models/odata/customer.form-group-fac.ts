@@ -24,9 +24,10 @@ export function CustomerFormGroupFac(): FormGroup {
       '',
       Validators.compose([Validators.required, Validators.maxLength(128)]),
     ),
-    salesPerson: new FormControl(''),
+    salesAgentId: new FormControl('', Validators.required),
     emailAddress: new FormControl('', Validators.maxLength(250)),
     phone: new FormControl('', Validators.maxLength(25)),
+    salesAgent: new FormControl(''),
     customerAddresses: new FormArray([]),
     orders: new FormArray([]),
   });

@@ -11,9 +11,10 @@ export enum CustomerProperties {
   NUM = 'num',
   NAME = 'name',
   COMPANY_NAME = 'companyName',
-  SALES_PERSON = 'salesPerson',
+  SALES_AGENT_ID = 'salesAgentId',
   EMAIL_ADDRESS = 'emailAddress',
   PHONE = 'phone',
+  SALES_AGENT = 'salesAgent',
   CUSTOMER_ADDRESSES = 'customerAddresses',
   ORDERS = 'orders',
 }
