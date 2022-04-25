@@ -50,10 +50,9 @@ export const certificationsFeature = createFeature({
       (state) : State => ({
         ...state,
         loading: true,
-      }),
+      })),
     on(imngEffectError, imngEffectErrorReducer),
-    ),
-)
+  )
 });
 "
 `;

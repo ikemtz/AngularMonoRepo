@@ -4,11 +4,11 @@ import { isTruthy } from 'imng-ngrx-utils';
 
 const selectIsEditCustomerActive = createSelector(
   customersFeature.selectCurrentCustomer,
-  entity => isTruthy(entity) && isTruthy((entity as {id: never}).id),
+  (entity) => isTruthy(entity) && isTruthy((entity as { id: never }).id),
 );
 const selectIsNewCustomerActive = createSelector(
   customersFeature.selectCurrentCustomer,
-  entity => isTruthy(entity) && !isTruthy((entity as {id: never}).id),
+  (entity) => isTruthy(entity) && !isTruthy((entity as { id: never }).id),
 );
 export const dataEntryCustomerQueries = {
   selectCurrentCustomer: customersFeature.selectCurrentCustomer,
@@ -17,4 +17,3 @@ export const dataEntryCustomerQueries = {
 };
 
 export const customerQueries = { ...dataEntryCustomerQueries };
-

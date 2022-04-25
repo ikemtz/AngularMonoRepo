@@ -14,6 +14,7 @@ export enum Endpoints {
   productCategories = 'aw-odata/odata/v1/ProductCategories',
   productModels = 'aw-odata/odata/v1/ProductModels',
   products = 'aw-odata/odata/v1/Products',
+  salesAgents = 'aw-odata/odata/v1/SalesAgents',
 }
 export interface IEndpoints {
   readonly customerAddresses: string;
@@ -23,4 +24,5 @@ export interface IEndpoints {
   readonly productCategories: string;
   readonly productModels: string;
   readonly products: string;
+  readonly salesAgents: string;
 }

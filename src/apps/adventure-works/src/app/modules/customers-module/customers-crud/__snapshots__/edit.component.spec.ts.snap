@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CustomerAddComponent should save 1`] = `
+Object {
+  "companyName": "COMPANY_NAME",
+  "customerAddresses": null,
+  "emailAddress": "EMAIL_ADDRESS",
+  "id": undefined,
+  "name": "NAME",
+  "num": "NUM-num-nu",
+  "orders": null,
+  "phone": "PHONE",
+  "salesAgent": "SALES_AGENT",
+  "salesAgentId": 0,
+}
+`;
+
 exports[`CustomerEditComponent should update 1`] = `
 Object {
   "companyName": "COMPANY_NAME",
@@ -7,9 +22,10 @@ Object {
   "emailAddress": "EMAIL_ADDRESS",
   "id": "ID",
   "name": "NAME",
-  "num": "NUM-NUM-NUM-NUM",
+  "num": "NUM-num-nu",
   "orders": null,
   "phone": "PHONE",
-  "salesPerson": "SALES_PERSON",
+  "salesAgent": "SALES_AGENT",
+  "salesAgentId": 0,
 }
 `;

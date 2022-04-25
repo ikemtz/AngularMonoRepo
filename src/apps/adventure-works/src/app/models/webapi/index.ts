@@ -30,3 +30,6 @@ export * from './product-model.properties';
 export * from './product.form-group-fac';
 export * from './product.model';
 export * from './product.properties';
+export * from './sales-agent.form-group-fac';
+export * from './sales-agent.model';
+export * from './sales-agent.properties';
