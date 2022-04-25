@@ -10,7 +10,7 @@ import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pl
 const initialGridState: ODataState = {
   take: 20,
   skip: 0,
-  selectors: [<% swaggerProperties.forEach(function(swaggerProperty){ %>
+  selectors: [<% swaggerProperties.filter(t=> t.htmlInputType !== 'object').forEach(function(swaggerProperty){ %>
     <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
   ],
   sort: [

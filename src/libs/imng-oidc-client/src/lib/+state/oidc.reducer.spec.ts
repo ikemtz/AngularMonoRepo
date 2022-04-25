@@ -24,5 +24,23 @@ describe('Employees Reducer', () => {
       expect(result.isLoading).toBe(true);
       expect(result.isLoggedIn).toBe(false);
     });
+
+    it('onSignOutPopup', () => {
+      const action = oidcActions.signOutPopup({});
+      const result = oidcFeature.reducer(initialState, action);
+      expect(result).toMatchSnapshot();
+    });
+
+    it('onSignInError', () => {
+      const action = oidcActions.signInError(new Error('unit tests'));
+      const result = oidcFeature.reducer(initialState, action);
+      expect(result).toMatchSnapshot();
+    });
+
+    it('onUserFound', () => {
+      const action = oidcActions.userFound({ access_token: null } as never);
+      const result = oidcFeature.reducer(initialState, action);
+      expect(result).toMatchSnapshot();
+    });
   });
 });

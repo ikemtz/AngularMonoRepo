@@ -135,11 +135,8 @@ export const oidcFeature = createFeature({
         ...state,
         identity: payload,
         isLoggedIn: true,
-        audiences: payload.access_token
-          ? jwtDecoder<{ aud?: []; }>(payload.access_token)?.aud
-          : undefined,
-        permissions: jwtDecoder<{ permissions?: []; }>(payload.access_token)
-          ?.permissions,
+        audiences: jwtDecoder<{ aud?: []; }>(payload.access_token)?.aud,
+        permissions: jwtDecoder<{ permissions?: []; }>(payload.access_token)?.permissions,
       })
     ),
     on(oidcActions.userExpired, (state): OidcState => ({

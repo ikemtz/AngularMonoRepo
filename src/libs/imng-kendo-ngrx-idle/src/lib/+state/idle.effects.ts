@@ -3,16 +3,14 @@ import { Actions, createEffect } from '@ngrx/effects';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { timer, Observable } from 'rxjs';
 
-import { State } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { signOutRedirect, onSessionTimingOut } from './idle.actions';
 import { IDLE_CONFIG, IdleConfig } from '../idle-config';
-import { IDLE_FEATURE_KEY } from './idle.reducer';
+import { idleQuery } from './idle.selectors';
 
 @Injectable()
 export class IdleEffects {
-  private loggedInActionPipe$?: Observable<boolean>;
-
-  signOutRedirect$ = createEffect(() => {
+  public signOutRedirect$ = createEffect(() => {
     return this.getLoggedInActionPipe().pipe(
       switchMap(() => timer(this.idleConfig.autoLogoutInMs)),
       map(() => signOutRedirect())
@@ -20,32 +18,23 @@ export class IdleEffects {
   }
   );
 
-  timingOut$ = createEffect(() => {
+  public timingOut$ = createEffect(() => {
     return this.getLoggedInActionPipe().pipe(
       switchMap(() => timer(this.idleConfig.timeoutWarningInMs)),
       map(() => onSessionTimingOut(this.idleConfig))
     );
+  });
+
+  public getLoggedInActionPipe(): Observable<boolean> {
+    return this.actions$.pipe(
+      switchMap(() =>
+        this.store.select(idleQuery.selectLoggedInAndIsNotTimingOut).pipe(filter((val) => val))
+      ));
   }
-  );
 
   constructor(
     @Inject(IDLE_CONFIG) private readonly idleConfig: IdleConfig,
-    private readonly state: State<{
-      oidc: { loggedIn: boolean; };
-      [IDLE_FEATURE_KEY]: { isTimingOut: boolean; };
-    }>,
+    private readonly store: Store,
     private readonly actions$: Actions
   ) { }
-
-  private getLoggedInActionPipe(): Observable<boolean> {
-    this.loggedInActionPipe$ = this.actions$.pipe(
-      switchMap(() =>
-        this.state.pipe(
-          map((s) => s.oidc.loggedIn && !s[IDLE_FEATURE_KEY].isTimingOut)
-        )
-      ),
-      filter((val) => val)
-    );
-    return this.loggedInActionPipe$;
-  }
 }
