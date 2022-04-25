@@ -23,7 +23,6 @@ const initialGridState: ODataState = {
     CustomerProperties.SALES_AGENT_ID,
     CustomerProperties.EMAIL_ADDRESS,
     CustomerProperties.PHONE,
-    CustomerProperties.SALES_AGENT,
   ],
   sort: [{ field: CustomerProperties.NUM, dir: 'asc' }],
   expanders: [
@@ -45,8 +44,8 @@ const initialGridState: ODataState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomerListComponent extends KendoODataComponentBase<
-  ICustomer,
-  CustomerListFacade
+ICustomer,
+CustomerListFacade
 > {
   public readonly props = CustomerProperties;
   public currentItem: ICustomer | undefined;

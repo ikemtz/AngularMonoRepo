@@ -1,7 +1,7 @@
 export * from './lib/imng-oidc-client.module';
 export * from './lib/+state/oidc-user.facade';
 export { OidcUserSelectors } from './lib/+state/oidc-user.selectors';
-export * from './lib/+state/oidc.actions';
+export * as oidcActionTypes from './lib/+state/oidc.actions';
 export * from './lib/+state/oidc.effects';
 export * from './lib/+state/oidc.facade';
 export { OidcState, ErrorState, oidcFeature } from './lib/+state/oidc.reducer';
