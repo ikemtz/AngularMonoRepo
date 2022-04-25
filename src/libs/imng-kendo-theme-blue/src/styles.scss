@@ -1,2 +1,6 @@
 @import './blue.scss';
 @import '../../../node_modules/@progress/kendo-theme-default/scss/all.scss';
+
+.k-input-md {
+  line-height: 2;
+}

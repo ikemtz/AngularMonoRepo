@@ -833,8 +833,6 @@ const initialGridState: ODataState = {
     ProductProperties.SELL_END_DATE,
     ProductProperties.DISCONTINUED_DATE,
     ProductProperties.THUMB_NAIL_PHOTO,
-    ProductProperties.PRODUCT_MODEL,
-    ProductProperties.PRODUCT_CATEGORY,
   ],
   sort: [
     { field: ProductProperties.NAME, dir: 'asc' },

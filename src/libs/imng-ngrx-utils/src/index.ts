@@ -8,3 +8,4 @@ export { Subscriptions } from './lib/subscriptions';
 export { Subscribable } from './lib/subscribable';
 export * from './lib/error-handlers';
 export * from './lib/get-by-id';
+export * from './lib/sleep';
