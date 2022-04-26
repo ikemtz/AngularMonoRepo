@@ -5,32 +5,30 @@ import {
   OnDestroy,
   InjectionToken,
   Inject,
-  Directive,
+  Component,
 } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
-import { GridStateChangeEvent } from 'imng-kendo-grid';
+import { GridStateChangeEvent, KendoGridBaseComponent } from 'imng-kendo-grid';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';
-import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
+import { Subscribable } from 'imng-ngrx-utils';
 import {
   CompositeFilterDescriptor,
   FilterDescriptor,
   isCompositeFilterDescriptor,
 } from '@progress/kendo-data-query';
-import { toLocalTimeStamp } from 'imng-nrsrx-client-utils';
 
 const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>(
   'imng-grid-odata-facade'
 );
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 
-@Directive()
-// eslint-disable-next-line @angular-eslint/component-class-suffix
-export abstract class KendoODataComponentBase<
+@Component({ template: '' })
+export abstract class KendoODataBasedComponent<
   ENTITY,
   FACADE extends IKendoODataGridFacade<ENTITY>
-  > implements OnInit, OnDestroy, Subscribable {
-  public readonly allSubscriptions = new Subscriptions();
+  > extends KendoGridBaseComponent<ENTITY>
+  implements OnInit, OnDestroy, Subscribable {
   /**
    * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
    */
@@ -59,6 +57,7 @@ export abstract class KendoODataComponentBase<
     public readonly router: Router | null = null, //NOSONAR
     public readonly gridRefresh$: Observable<unknown> | null = null
   ) {
+    super();
     if (
       this.router?.routerState?.snapshot?.root.queryParams[
       this.gridStateQueryKey
@@ -133,10 +132,6 @@ export abstract class KendoODataComponentBase<
   public serializeODataState(odataState: ODataState): string {
     return btoa(JSON.stringify(odataState));
   }
-
-  public ngOnDestroy(): void {
-    this.allSubscriptions.unsubscribeAll();
-  }
   /**
    * Will reset filters to initialGrid state passed into the constructor
    */
@@ -203,9 +198,5 @@ export abstract class KendoODataComponentBase<
   }
   public reloadEntities(): void {
     this.facade.reloadEntities();
-  }
-
-  public getExportFileName(exportName: string): string {
-    return `${exportName}-${toLocalTimeStamp()}`;
   }
 }

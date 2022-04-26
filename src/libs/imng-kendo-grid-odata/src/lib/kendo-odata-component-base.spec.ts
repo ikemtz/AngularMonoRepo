@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { KendoODataComponentBase } from './kendo-odata-component-base';
+import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import { ODataGridMockFacade, createODataGridMockFacade } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { FilterDescriptor } from '@progress/kendo-data-query';
 import { ODataState } from 'imng-kendo-odata';
 
-describe('KendoODataComponentBase', () => {
+describe('KendoODataBasedComponent', () => {
   let component: KendoODataGridTestComponent;
   let fixture: ComponentFixture<KendoODataGridTestComponent>;
 
@@ -97,7 +97,7 @@ const initialGridState: ODataState = {
   template: '<h1></h1>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class KendoODataGridTestComponent extends KendoODataComponentBase<object, ODataGridMockFacade> {
+export class KendoODataGridTestComponent extends KendoODataBasedComponent<object, ODataGridMockFacade> {
   props = {};
   constructor() {
     super(createODataGridMockFacade(), initialGridState);

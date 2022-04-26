@@ -4,3 +4,4 @@ export * from './lib/kendo-child-column-component/kendo-child-column-template.co
 export * from './lib/kendo-grid-state-change-event';
 export * from './lib/kendo-has-hidden-columns';
 export * from './lib/kendo-copy-component/kendo-copy.component';
+export * from './lib/kendo-grid-base-component';
