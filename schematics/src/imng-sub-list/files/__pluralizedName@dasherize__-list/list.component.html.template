@@ -1,7 +1,7 @@
 <kendo-grid [height]="375" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="w-100 d-flex justify-content-between">
-      <h6><%= startCasedPluralName %></h6>
+      <h3><%= startCasedPluralName %></h3>
       <imng-kendo-odata-grid-header
         (reloadEntitiesClicked)="reloadEntities()"
         [hideClearFilters]="true"
@@ -32,6 +32,13 @@
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
       <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+<%} else if (swaggerProperty.htmlInputType === 'object') { %>
+  <kendo-grid-column
+    [field]="getRelatedField(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.firstProperty.snakeCaseName.toUpperCase() %>)"
+    [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getRelatedValue(dataItem, props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.firstProperty.snakeCaseName.toUpperCase() %>) }}
     </ng-template>
 <%} else { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">

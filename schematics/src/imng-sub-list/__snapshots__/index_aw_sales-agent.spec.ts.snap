@@ -1,0 +1,527 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imng-sub-list actions should work 1`] = `
+"import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { createPayloadAction } from 'imng-ngrx-utils';
+
+export const loadSalesAgentsRequest = createPayloadAction<{ customerId: string, odataState: ODataState; }>(
+    '[SalesAgents] Load SalesAgents Request');
+export const loadSalesAgentsSuccess = createPayloadAction<{ customerId: string, odataResult: ODataResult<ISalesAgent>; }>(
+    '[SalesAgents] Load SalesAgents Success');
+export const reloadSalesAgentsRequest = createPayloadAction<string>(
+    '[SalesAgents] Reload SalesAgents Request');
+export const reloadSalesAgentsSuccess = createPayloadAction<{ customerId: string, odataResult: ODataResult<ISalesAgent>; }>(
+    '[SalesAgents] Reload SalesAgents Success');
+
+export const deleteSalesAgentRequest = createPayloadAction<{ customerId: string; salesAgent: ISalesAgent; }>(
+    '[SalesAgents] Delete SalesAgent Request'); 
+"
+`;
+
+exports[`imng-sub-list api.service should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SalesAgentApiService extends NrsrxBaseApiClientService<ISalesAgent> {
+  public override url = environment.webApiEnpoints.salesAgents;
+  constructor(http: HttpClient) {
+    super(http);
+  }
+}
+"
+`;
+
+exports[`imng-sub-list effects should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import * as salesAgentActionTypes from './sales-agent.actions';
+import { salesAgentQueries } from './sales-agent.selectors';
+import { SalesAgentApiService } from '../sales-agents-list';
+
+import { environment } from '../../../../environments/environment';
+
+@Injectable()
+export class SalesAgentEffects {
+  constructor(
+    private readonly actions$: Actions,
+    private readonly odataservice: ODataService,
+    private readonly store: Store,
+    private readonly apiService : SalesAgentApiService,
+  ) {}
+
+  loadSalesAgentsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(salesAgentActionTypes.loadSalesAgentsRequest),
+      switchMap((action: ReturnType<typeof salesAgentActionTypes.loadSalesAgentsRequest>) => this.odataservice
+        .fetch<ISalesAgent>(environment.odataEnpoints.salesAgents, action.payload.odataState)
+        .pipe(
+          map(odataResult => salesAgentActionTypes.loadSalesAgentsSuccess({ customerId: action.payload.customerId, odataResult })),
+          handleEffectError(action))));
+  });
+
+  reloadSalesAgentsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(salesAgentActionTypes.reloadSalesAgentsRequest),
+      concatLatestFrom((action: ReturnType<typeof salesAgentActionTypes.reloadSalesAgentsRequest>) =>
+        this.store.select(salesAgentQueries.selectODataState$(action.payload))),
+      switchMap(([action, odataState]) => this.odataservice
+        .fetch<ISalesAgent>(environment.odataEnpoints.salesAgents, odataState, { bustCache: true })
+        .pipe(
+          map(odataResult => salesAgentActionTypes.reloadSalesAgentsSuccess({ customerId: action.payload, odataResult })),
+          handleEffectError(action))));
+  });
+
+  deleteSalesAgentEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(salesAgentActionTypes.deleteSalesAgentRequest),
+      switchMap((action: ReturnType<typeof salesAgentActionTypes.deleteSalesAgentRequest>) => 
+        this.apiService.delete(action.payload.salesAgent).pipe(
+          map(() => salesAgentActionTypes.reloadSalesAgentsRequest(action.payload.customerId)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-sub-list facade should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { PagerSettings } from '@progress/kendo-angular-grid';
+import { IDataDeleteFacade } from 'imng-kendo-data-entry';
+import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
+import { applyFilter, ODataResult, ODataState } from 'imng-kendo-odata';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+
+import * as salesAgentActionTypes from '../+state/sales-agent.actions';
+import { customersFeature } from '../+state/customer.reducer';
+import { salesAgentQueries } from '../+state/sales-agent.selectors';
+
+@Injectable()
+export class SalesAgentListFacade implements IKendoODataGridFacade<ISalesAgent>, IDataDeleteFacade<ISalesAgent> {
+  private _parentGridId = '';
+  public parentGrid$ = new BehaviorSubject<string>('');
+  public get parentGridId() {
+    return this._parentGridId;
+  }
+  public set parentGridId(value: string) {
+    this._parentGridId = value;
+    this.parentGrid$.next(value);
+  }
+
+  loading$ = this.store.select(customersFeature.selectLoading);
+  gridData$: Observable<ODataResult<ISalesAgent>> = this.parentGrid$.pipe(
+    switchMap(x =>
+      this.store.select(salesAgentQueries.selectGridData$(x))));
+  gridPagerSettings$: Observable<false | PagerSettings> = this.parentGrid$.pipe(
+    switchMap(x =>
+      this.store.select(salesAgentQueries.selectGridPagerSettings$(x))));
+  gridODataState$: Observable<ODataState> = this.parentGrid$.pipe(
+    switchMap(x =>
+      this.store.select(salesAgentQueries.selectODataState$(x))));
+
+  constructor(private readonly store: Store) {}
+
+  public loadEntities(odataState: ODataState): void {
+    odataState = applyFilter({ ...odataState },
+      { field: SalesAgentProperties.CUSTOMER_ID, operator: 'eq', value: this.parentGridId });
+    this.store.dispatch(salesAgentActionTypes.loadSalesAgentsRequest({
+      customerId: this.parentGridId, odataState }));
+  }
+
+  public reloadEntities(): void {
+    this.store.dispatch(salesAgentActionTypes.reloadSalesAgentsRequest(this.parentGridId));
+  }
+
+  public deleteExistingEntity(salesAgent: ISalesAgent): void {
+    this.store.dispatch(salesAgentActionTypes.deleteSalesAgentRequest({
+      customerId: this.parentGridId, salesAgent }));
+  }
+}
+"
+`;
+
+exports[`imng-sub-list facade spec should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { NxModule } from '@nrwl/angular';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
+import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
+import { Observable, of } from 'rxjs';
+
+import * as customerActionTypes from '../+state/customer.actions';
+import * as salesAgentActionTypes from '../+state/sales-agent.actions';
+import { SalesAgentEffects } from '../+state/sales-agent.effects';
+import { customersFeature } from '../+state/customer.reducer';
+import { SalesAgentListFacade } from './list.facade';
+import { CustomerEffects } from '../+state/customer.effects';
+import { createCustomer } from '../customers-list/list.facade.spec';
+import { environment } from '../../../../environments/environment';
+
+export const createSalesAgent = () => <ISalesAgent>{
+  [SalesAgentProperties.ID]: 0,
+  [SalesAgentProperties.NAME]: 'NAME',
+  [SalesAgentProperties.LOGIN_ID]: 'LOGIN_ID',
+};
+
+describe('SalesAgentListFacade', () => {
+  let facade: SalesAgentListFacade;
+  let store: Store;
+  let httpClient: HttpClient;
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach(() => {}); //NOSONAR
+
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(customersFeature),
+          EffectsModule.forFeature([CustomerEffects, SalesAgentEffects]),
+        ],
+        providers: [
+          SalesAgentListFacade,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createSalesAgent()]))) } },
+        ],
+      })
+      class CustomFeatureModule {}
+
+      @NgModule({
+        imports: [
+          NxModule.forRoot(),
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(SalesAgentListFacade);
+      httpClient = TestBed.inject(HttpClient);
+      facade.parentGridId = 'CUSTOMER_ID';
+    });
+
+    /**
+     * The initially generated facade::loadEntities() returns an array of (1)
+     */
+    test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      store.dispatch(customerActionTypes.loadCustomersSuccess(
+        createODataResult([
+          { ...createCustomer(), id: 'CUSTOMER_ID' }])));
+      facade.loadEntities({});
+
+      list = await readFirst(facade.gridData$);
+      const loading = await readFirst(facade.loading$);
+      expect(list.data.length).toBe(1);
+      expect(loading).toBe(false);
+
+      const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);
+      expect(gridPagerSettings$).toBe(false);
+
+      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toBeCalledWith(
+        \`customers-odata/odata/v1/SalesAgents?$filter=customerId eq 'CUSTOMER_ID'&$count=true\`);
+
+      facade.reloadEntities();
+      expect(httpClient.get).toBeCalledTimes(2);
+    });
+
+    test('reloadEntities() should return empty list with loaded == true', async () => {
+      let list = await readFirst(facade.gridData$);
+      let isloading = await readFirst(facade.loading$);
+
+      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
+      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      service.fetch = jest.fn(() => response);
+
+      expect(list.data.length).toBe(0);
+      expect(isloading).toBe(true);
+      store.dispatch(customerActionTypes.loadCustomersSuccess(
+        createODataResult([
+          { ...createCustomer(), id: 'CUSTOMER_ID' }])));
+      facade.reloadEntities();
+
+      list = await readFirst(facade.gridData$);
+      isloading = await readFirst(facade.loading$);
+
+      expect(list.data.length).toBe(3);
+      expect(isloading).toBe(false);
+      expect(service.fetch).toBeCalledTimes(1);
+    });
+
+    test('it should get the grid state', async () => {
+      const filteringState: ODataState = {
+        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+      };
+      let state = await readFirst(facade.gridODataState$);
+      expect(state?.count).toBeUndefined();
+
+      store.dispatch(customerActionTypes.loadCustomersSuccess(
+        createODataResult([
+          { ...createCustomer(), id: 'CUSTOMER_ID' }])));
+
+      facade.loadEntities(filteringState);
+
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toStrictEqual(filteringState);
+
+      facade.loadEntities({});
+      state = await readFirst(facade.gridODataState$);
+      expect(state).toMatchSnapshot();
+    });
+
+    /**
+     * Use \`salesAgentsLoaded\` to manually submit list for state management
+     */
+    test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
+      let list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(0);
+      store.dispatch(customerActionTypes.loadCustomersSuccess(
+        createODataResult([
+          { ...createCustomer(), id: 'CUSTOMER_ID' }])));
+      store.dispatch(salesAgentActionTypes.loadSalesAgentsSuccess(
+        { customerId: 'CUSTOMER_ID', odataResult: createODataResult([createSalesAgent(), createSalesAgent()]) }));
+
+      list = await readFirst(facade.gridData$);
+      expect(list.data.length).toBe(2);
+    });
+
+    test('it should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
+    });
+  });
+});
+"
+`;
+
+exports[`imng-sub-list list component should work 1`] = `
+"import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { ODataState } from 'imng-kendo-odata';
+import { SalesAgentListFacade } from './list.facade';
+
+const initialGridState: ODataState = {
+  take: 5,
+  skip: 0,
+  selectors: [
+    SalesAgentProperties.ID,
+    SalesAgentProperties.NAME,
+    SalesAgentProperties.LOGIN_ID,
+  ],
+  sort: [
+    { field: SalesAgentProperties.NAME, dir: 'asc' },
+  ],
+};
+
+@Component({
+  selector: 'aw-sales-agent-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class SalesAgentListComponent extends KendoODataBasedComponent<ISalesAgent, SalesAgentListFacade> {
+  public readonly props = SalesAgentProperties;
+  public currentItem: ISalesAgent | undefined;
+
+  constructor(facade: SalesAgentListFacade) {
+    super(facade, initialGridState);
+  }
+
+  @Input()
+  public set parentGridId(value: string) {
+    this.facade.parentGridId = value;
+  }
+
+  public deleteItem(item: ISalesAgent): void {
+    this.facade.deleteExistingEntity(item);
+  }
+}
+"
+`;
+
+exports[`imng-sub-list list component spec should work 1`] = `
+"import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
+import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+
+import { SalesAgentListComponent } from './list.component';
+import { createSalesAgent } from './list.facade.spec';
+import { SalesAgentListFacade } from './list.facade';
+
+describe('SalesAgentListComponent', () => {
+  let component: SalesAgentListComponent;
+  let fixture: ComponentFixture<SalesAgentListComponent>;
+  let listFacade: SalesAgentListFacade;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [SalesAgentListComponent],
+      imports: [RouterTestingModule],
+      providers: [
+        { provide: SalesAgentListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SalesAgentListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    listFacade = TestBed.inject(SalesAgentListFacade);
+    component.parentGridId = 'CUSTOMER_ID';
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();
+  });
+
+  test('it should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  test('it should handle reload', () => {
+    component.reloadEntities();
+    expect(listFacade.reloadEntities).toBeCalledTimes(1);
+  });
+
+  test('it should handle DeleteItem', () => {
+    const item = createSalesAgent();
+    component.deleteItem(item);
+    expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
+    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
+  });
+});
+"
+`;
+
+exports[`imng-sub-list list html should work 1`] = `
+"<kendo-grid [height]=\\"375\\" kendoGridFocusable [imngODataGrid]=\\"this\\">
+  <ng-template kendoGridToolbarTemplate>
+    <div class=\\"w-100 d-flex justify-content-between\\">
+      <h3>Sales Agents</h3>
+      <imng-kendo-odata-grid-header
+        (reloadEntitiesClicked)=\\"reloadEntities()\\"
+        [hideClearFilters]=\\"true\\"
+        [hasHiddenColumns$]=\\"hasHiddenColumns$\\">
+      </imng-kendo-odata-grid-header>
+    </div>
+  </ng-template>
+
+  <kendo-grid-column [field]=\\"props.ID\\" [width]=\\"100\\" title=\\"Id\\" filter=\\"numeric\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]=\\"props.NAME\\" [width]=\\"100\\" title=\\"Name\\" filter=\\"text\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]=\\"props.LOGIN_ID\\" [width]=\\"100\\" title=\\"Login Id\\" filter=\\"text\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Login Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [width]=\\"25\\">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex=\\"rowIndex\\">
+      <button type=\\"button\\" class=\\"btn btn-sm mr-1\\" (click)=\\"deleteItem(dataItem)\\" placement=\\"left\\" tooltip=\\"Delete\\">
+        <span class=\\"k-icon k-i-delete\\"></span>
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf [fileName]=\\"getExportFileName('SalesAgents')\\" [allPages]=\\"false\\">
+    <kendo-grid-pdf-margin top=\\"1cm\\" left=\\"1cm\\" right=\\"1cm\\" bottom=\\"1cm\\"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+  <kendo-grid-excel [fileName]=\\"getExportFileName('SalesAgents')\\" [fetchData]=\\"excelData\\"></kendo-grid-excel>
+</kendo-grid>
+"
+`;
+
+exports[`imng-sub-list models should work 1`] = `
+"import { PagerSettings } from '@progress/kendo-angular-grid';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+
+export interface IExtCustomer extends ICustomer {
+  salesAgentODataState: ODataState;
+  salesAgentOData: ODataResult<ISalesAgent>;
+  salesAgentPagerSettings: PagerSettings | false;
+}
+"
+`;
+
+exports[`imng-sub-list selectors should work 1`] = `
+"import { createSelector } from '@ngrx/store';
+import { PagerSettings } from '@progress/kendo-angular-grid';
+import { createEmptyODataResult } from 'imng-kendo-odata';
+import { getById } from 'imng-ngrx-utils';
+import { customersFeature } from './customer.reducer';
+
+const selectSalesAgents = (customerId: string) => createSelector(
+  customersFeature.selectGridData,
+  gridData => getById(gridData, customerId) || {
+    salesAgentOData: createEmptyODataResult<ISalesAgent>(),
+    salesAgentODataState: {},
+    salesAgentPagerSettings: false as (false | PagerSettings),
+  },
+);
+
+const selectGridData$ = (customerId: string) => createSelector(
+  selectSalesAgents(customerId),
+  entity => entity.salesAgentOData,
+);
+const selectODataState$ = (customerId: string) => createSelector(
+  selectSalesAgents(customerId),
+  entity => entity.salesAgentODataState,
+);
+const selectGridPagerSettings$ = (customerId: string) => createSelector(
+  selectSalesAgents(customerId),
+  entity => entity.salesAgentPagerSettings || false,
+);
+
+export const salesAgentQueries = {
+  selectSalesAgents,
+  selectGridData$,
+  selectODataState$,
+  selectGridPagerSettings$,
+};
+
+"
+`;
+
+exports[`imng-sub-list tree files should match 1`] = `
+Array [
+  "/test/+state/sales-agent.actions.ts",
+  "/test/+state/sales-agent.effects.ts",
+  "/test/+state/sales-agent.selectors.ts",
+  "/test/models/ext-customer.ts",
+  "/test/sales-agents-list/api.service.ts",
+  "/test/sales-agents-list/index.ts",
+  "/test/sales-agents-list/list.component.html",
+  "/test/sales-agents-list/list.component.scss",
+  "/test/sales-agents-list/list.component.spec.ts",
+  "/test/sales-agents-list/list.component.ts",
+  "/test/sales-agents-list/list.facade.spec.ts",
+  "/test/sales-agents-list/list.facade.ts",
+]
+`;
