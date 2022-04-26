@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
+import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { ProductListFacade } from './list.facade';
@@ -43,7 +43,7 @@ const initialGridState: ODataState = {
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent extends KendoODataComponentBase<IProduct, ProductListFacade> {
+export class ProductListComponent extends KendoODataBasedComponent<IProduct, ProductListFacade> {
   public readonly props = ProductProperties;
   public currentItem: IProduct | undefined;
 
