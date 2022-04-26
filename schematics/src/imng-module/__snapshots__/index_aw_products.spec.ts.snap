@@ -962,7 +962,7 @@ exports[`imng-module list component should work 1`] = `
 "import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
+import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { ProductListFacade } from './list.facade';
@@ -1011,8 +1011,10 @@ const initialGridState: ODataState = {
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent extends KendoODataComponentBase<IProduct, ProductListFacade> {
+export class ProductListComponent extends KendoODataBasedComponent<IProduct, ProductListFacade> {
   public readonly props = ProductProperties;
+  public readonly productModelprops = ProductModelProperties;
+  public readonly productCategoryprops = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
   constructor(facade: ProductListFacade, 
