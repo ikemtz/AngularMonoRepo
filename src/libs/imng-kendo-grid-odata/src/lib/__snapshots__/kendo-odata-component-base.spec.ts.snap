@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KendoODataComponentBase should reset 1`] = `
+exports[`KendoODataBasedComponent should reset 1`] = `
 Object {
   "childFilters": undefined,
   "filter": Object {

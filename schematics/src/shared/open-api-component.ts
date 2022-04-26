@@ -22,4 +22,5 @@ export interface PropertyInfo {
   '$ref'?: string;
   pluralizedName?: string;
   properties?: PropertyInfo[];
+  firstProperty: PropertyInfo | undefined;
 }

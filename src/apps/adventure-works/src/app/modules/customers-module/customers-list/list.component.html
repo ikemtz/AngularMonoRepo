@@ -85,12 +85,15 @@
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
-    [field]="props.SALES_AGENT"
+    [field]="getRelatedField(props.SALES_AGENT, salesAgentProps.NAME)"
     [width]="100"
     title="Sales Agent"
     filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Sales Agent</span>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getRelatedValue(dataItem, props.SALES_AGENT, salesAgentProps.NAME) }}
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [width]="50">

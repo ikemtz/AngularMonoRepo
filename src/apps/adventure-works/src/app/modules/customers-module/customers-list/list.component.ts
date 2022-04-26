@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
+import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { CustomerListFacade } from './list.facade';
@@ -43,11 +43,12 @@ const initialGridState: ODataState = {
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerListComponent extends KendoODataComponentBase<
+export class CustomerListComponent extends KendoODataBasedComponent<
 ICustomer,
 CustomerListFacade
 > {
   public readonly props = CustomerProperties;
+  public readonly salesAgentProps = SalesAgentProperties;
   public currentItem: ICustomer | undefined;
 
   constructor(

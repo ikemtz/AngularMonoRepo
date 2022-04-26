@@ -11,7 +11,7 @@ import { GridComponent } from '@progress/kendo-angular-grid';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { merge } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { KendoODataComponentBase } from './kendo-odata-component-base';
+import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 
@@ -23,7 +23,7 @@ export class ImngODataGridDirective
   public readonly allSubscriptions = new Subscriptions();
   private facade: IKendoODataGridFacade<object>;
 
-  @Input('imngODataGrid') public odataComponent: KendoODataComponentBase<
+  @Input('imngODataGrid') public odataComponent: KendoODataBasedComponent<
     object,
     IKendoODataGridFacade<object>
   >;

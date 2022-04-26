@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { KendoODataComponentBase } from 'imng-kendo-grid-odata';
+import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { OrderLineItemListFacade } from './list.facade';
 import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
@@ -30,7 +30,7 @@ const initialGridState: ODataState = {
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderLineItemListComponent extends KendoODataComponentBase<IOrderLineItem, OrderLineItemListFacade> {
+export class OrderLineItemListComponent extends KendoODataBasedComponent<IOrderLineItem, OrderLineItemListFacade> {
   public readonly props = OrderLineItemProperties;
   public currentItem: IOrderLineItem | undefined;
 
