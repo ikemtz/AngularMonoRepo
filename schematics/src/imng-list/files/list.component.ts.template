@@ -31,7 +31,9 @@ const initialGridState: ODataState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataComponentBase<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
-  public readonly props = <%= classify(singularizedName) %>Properties;
+  public readonly props = <%= classify(singularizedName) %>Properties;<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  public readonly <%= camelize(swaggerProperty.name) %>props = <%= classify(swaggerProperty.name) %>Properties;<% }) %>
+
   public currentItem: I<%= classify(singularizedName) %> | undefined;
 
   constructor(facade: <%= classify(singularizedName) %>ListFacade, 
