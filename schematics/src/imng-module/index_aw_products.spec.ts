@@ -113,19 +113,9 @@ describe(`imng-module`, () => {
     );
   });
   test(`html file should work`, () => {
-    const htmlFile = tree.get(
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/add-edit.component.html`
+    const htmlFile = tree.get(`/test/products-module/products-list/list.component.html`
     );
     const content = htmlFile?.content.toString();
-    expect(content).toContain(
-      `<kendo-datepicker id="sell_start_date" class="form-control" [formControlName]="props.SELL_START_DATE"`
-    ); expect(content).toContain(
-      `[ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SELL_START_DATE) }"></kendo-datepicker>`
-    );
-    expect(content).toContain(
-      `<div *ngIf="formControlErrors(props.SELL_START_DATE)?.[RequiredError]">Product sell start date is required</div>`
-    );
+    expect(content).toMatchSnapshot();
   });
 });
