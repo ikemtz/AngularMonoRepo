@@ -78,6 +78,7 @@ export function processOpenApiDoc(data: any, options: IOptions, host: Tree): Tre
     const component = data.components.schemas[componentName || ''] as OpenApiComponent
     if (component) {
       property.properties = mapProperties(component.properties, options, component).filteredProperties;
+      property.firstProperty = property.properties.find(prop=> prop.name?.toLowerCase() !== 'id' );
       options.hasObjects = true;
     }
   });

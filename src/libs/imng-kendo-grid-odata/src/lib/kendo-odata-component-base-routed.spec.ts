@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { KendoODataComponentBase } from './kendo-odata-component-base';
+import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import {
   ODataGridMockFacade,
   createODataGridMockFacade,
@@ -9,7 +9,7 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { ODataState } from 'imng-kendo-odata';
 import { Router } from '@angular/router';
 
-describe('KendoODataComponentBaseRouted', () => {
+describe('KendoODataBasedComponentRouted', () => {
   let component: KendoODataGridTestComponent;
   let fixture: ComponentFixture<KendoODataGridTestComponent>;
   let router: Router;
@@ -104,9 +104,9 @@ const initialGridState: ODataState = {
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class KendoODataGridTestComponent extends KendoODataComponentBase<
-  object,
-  ODataGridMockFacade
+export class KendoODataGridTestComponent extends KendoODataBasedComponent<
+object,
+ODataGridMockFacade
 > {
   props = {};
   constructor(override readonly router: Router) {
