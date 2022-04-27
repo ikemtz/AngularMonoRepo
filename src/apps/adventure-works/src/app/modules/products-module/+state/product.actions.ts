@@ -22,8 +22,7 @@ export const loadProductModelsRequest = createPayloadAction<ODataState>(
     '[Products] Load ProductModels Request');
 export const loadProductModelsSuccess = createPayloadAction<ODataResult<IProductModel>>(
     '[Products] Load ProductModels Success');
-
 export const loadProductCategoriesRequest = createPayloadAction<ODataState>(
-    '[Productss] Load ProductCategories Request');
+    '[Products] Load ProductCategories Request');
 export const loadProductCategoriesSuccess = createPayloadAction<ODataResult<IProductCategory>>(
-    '[Productss] Load ProductCategories Success');
+    '[Products] Load ProductCategories Success');

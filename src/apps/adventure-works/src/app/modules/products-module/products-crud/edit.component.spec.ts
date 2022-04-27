@@ -1,16 +1,16 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
 
+import { createMockProductFacade } from './add.component.spec';
 import { ProductEditComponent } from './edit.component';
 import { ProductCrudFacade } from './crud.facade';
 import { IProduct, ProductProperties } from '../../../models/webapi';
-import { createMockProductFacade } from './add.component.spec';
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 describe('ProductEditComponent', () => {
   let component: ProductEditComponent;
@@ -24,18 +24,8 @@ describe('ProductEditComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [ProductEditComponent],
-      imports: [
-        ReactiveFormsModule,
-        NoopAnimationsModule,
-        DatePickerModule,
-        DropDownsModule,
-      ],
-      providers: [
-        {
-          provide: ProductCrudFacade,
-          useValue: createDataEntryMockFacade(createMockProductFacade()),
-        },
-      ],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule,],
+      providers: [{ provide: ProductCrudFacade, useValue: createDataEntryMockFacade(createMockProductFacade()) }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -58,7 +48,7 @@ describe('ProductEditComponent', () => {
     component.addEditForm.patchValue({
       [ProductProperties.ID]: 'ID',
       [ProductProperties.NAME]: 'NAME',
-      [ProductProperties.NUM]: 'NUM-num-23',
+      [ProductProperties.NUM]: 'NUM-num-10',
       [ProductProperties.COLOR]: 'COLOR',
       [ProductProperties.STANDARD_COST]: 0,
       [ProductProperties.LIST_PRICE]: 0,
@@ -74,7 +64,7 @@ describe('ProductEditComponent', () => {
       [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
     });
     let item: IProduct | undefined;
-    facade.updateExistingEntity = jest.fn((x) => (item = x));
+    facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
@@ -85,6 +75,7 @@ describe('ProductEditComponent', () => {
       sellEndDate: expect.any(Date),
       discontinuedDate: expect.any(Date),
     });
+
   });
 
   /**
@@ -103,5 +94,17 @@ describe('ProductEditComponent', () => {
   test('should cancel', () => {
     component.cancel();
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+  });
+
+  test('should support ProductModel filters', async () => {
+    component.handleProductModelFilter('xy');
+    const result = await readFirst(component.productModels$);
+    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz', description: 'xyz', }]);
+  });
+
+  test('should support ProductCategory filters', async () => {
+    component.handleProductCategoryFilter('xy');
+    const result = await readFirst(component.productCategories$);
+    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz', }]);
   });
 });

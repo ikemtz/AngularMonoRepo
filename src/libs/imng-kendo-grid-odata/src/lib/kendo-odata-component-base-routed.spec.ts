@@ -8,6 +8,7 @@ import {
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { ODataState } from 'imng-kendo-odata';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 describe('KendoODataBasedComponentRouted', () => {
   let component: KendoODataGridTestComponent;
@@ -16,6 +17,7 @@ describe('KendoODataBasedComponentRouted', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [CommonModule],
       declarations: [KendoODataGridTestComponent],
       providers: [
         {

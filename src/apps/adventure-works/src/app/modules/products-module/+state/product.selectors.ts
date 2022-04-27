@@ -4,11 +4,11 @@ import { isTruthy } from 'imng-ngrx-utils';
 
 const selectIsEditProductActive = createSelector(
   productsFeature.selectCurrentProduct,
-  entity => isTruthy(entity) && isTruthy((entity as {id: never}).id),
+  (entity) => isTruthy(entity) && isTruthy((entity as { id: never; }).id),
 );
 const selectIsNewProductActive = createSelector(
   productsFeature.selectCurrentProduct,
-  entity => isTruthy(entity) && !isTruthy((entity as {id: never}).id),
+  (entity) => isTruthy(entity) && !isTruthy((entity as { id: never; }).id),
 );
 export const dataEntryProductQueries = {
   selectCurrentProduct: productsFeature.selectCurrentProduct,

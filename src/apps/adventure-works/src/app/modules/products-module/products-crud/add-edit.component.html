@@ -1,204 +1,105 @@
-<imng-data-entry-dialog
-  [width]="700"
-  [height]="550"
-  [parentComponent]="this"
-  autoFocusedElement="#name">
+<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#name">
   <form novalidate [formGroup]="addEditForm" autocomplete="false" class="row">
     <div class="col-md-6">
       <label for="id" class="control-label mr-4">Id:</label>
-      <input
-        id="id"
-        type="text"
-        class="form-control"
-        [formControlName]="props.ID"
-        [ngClass]="{
-          'is-invalid': (submitted$ | async) && formControlErrors(props.ID)
-        }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.ID)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">
-          Product id is required
-        </div>
+      <input id="id" type="text" class="form-control" [formControlName]="props.ID"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }" />
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Product id is required</div>
       </div>
     </div>
     <div class="col-md-6">
       <label for="name" class="control-label mr-4">Name:</label>
-      <input
-        id="name"
-        type="text"
-        maxlength="50"
-        class="form-control"
-        [formControlName]="props.NAME"
-        [ngClass]="{
-          'is-invalid': (submitted$ | async) && formControlErrors(props.NAME)
-        }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.NAME)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.NAME)?.[RequiredError]">
-          Product name is required
+      <input id="name" type="text" class="form-control" [formControlName]="props.NAME"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NAME) }" />
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.NAME)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.NAME)?.[RequiredError]">Product name is required</div>
+        <div *ngIf="formControlErrors(props.NAME)?.[MinLengthError]">
+          Product name requires a min length of
+          {{formMinLengthError(props.NAME)?.requiredLength}}, currently only
+          {{formMinLengthError(props.NAME)?.actualLength}}.
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <label for="num" class="control-label mr-4">Num:</label>
-      <input
-        id="num"
-        type="text"
-        maxlength="25"
-        class="form-control"
-        [formControlName]="props.NUM"
-        [ngClass]="{
-          'is-invalid': (submitted$ | async) && formControlErrors(props.NUM)
-        }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.NUM)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">
-          Product num is required
+      <input id="num" type="text" class="form-control" [formControlName]="props.NUM"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }" />
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Product num is required</div>
+        <div *ngIf="formControlErrors(props.NUM)?.[MinLengthError]">
+          Product num requires a min length of
+          {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
+          {{formMinLengthError(props.NUM)?.actualLength}}.
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <label for="color" class="control-label mr-4">Color:</label>
-      <input
-        id="color"
-        type="text"
-        maxlength="15"
-        class="form-control"
-        [formControlName]="props.COLOR" />
-    </div>
-    <div class="col-md-6">
-      <label for="standard_cost" class="control-label mr-4"
-        >Standard Cost:</label
-      >
-      <input
-        id="standard_cost"
-        type="number"
-        class="form-control"
-        [formControlName]="props.STANDARD_COST"
-        [ngClass]="{
-          'is-invalid':
-            (submitted$ | async) && formControlErrors(props.STANDARD_COST)
-        }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.STANDARD_COST)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.STANDARD_COST)?.[RequiredError]">
-          Product standard cost is required
+      <input id="color" type="text" class="form-control" [formControlName]="props.COLOR"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.COLOR) }" />
+        <div *ngIf="(submitted$ | async) && formControlErrors(props.COLOR)" class="invalid-feedback">
+          <div *ngIf="formControlErrors(props.COLOR)?.[MinLengthError]">
+            Product color requires a min length of
+            {{formMinLengthError(props.COLOR)?.requiredLength}}, currently only
+            {{formMinLengthError(props.COLOR)?.actualLength}}.
+          </div>
         </div>
+      </div>
+    <div class="col-md-6">
+      <label for="standard_cost" class="control-label mr-4">Standard Cost:</label>
+      <input id="standard_cost" type="number" class="form-control" [formControlName]="props.STANDARD_COST"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STANDARD_COST) }" />
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.STANDARD_COST)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.STANDARD_COST)?.[RequiredError]">Product standard cost is required</div>
       </div>
     </div>
     <div class="col-md-6">
       <label for="list_price" class="control-label mr-4">List Price:</label>
-      <input
-        id="list_price"
-        type="number"
-        class="form-control"
-        [formControlName]="props.LIST_PRICE"
-        [ngClass]="{
-          'is-invalid':
-            (submitted$ | async) && formControlErrors(props.LIST_PRICE)
-        }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.LIST_PRICE)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.LIST_PRICE)?.[RequiredError]">
-          Product list price is required
-        </div>
+      <input id="list_price" type="number" class="form-control" [formControlName]="props.LIST_PRICE"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.LIST_PRICE) }" />
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.LIST_PRICE)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.LIST_PRICE)?.[RequiredError]">Product list price is required</div>
       </div>
     </div>
     <div class="col-md-6">
       <label for="size" class="control-label mr-4">Size:</label>
-      <input
-        id="size"
-        type="text"
-        maxlength="5"
-        class="form-control"
-        [formControlName]="props.SIZE" />
+      <input id="size" type="text" class="form-control" [formControlName]="props.SIZE" />
     </div>
     <div class="col-md-6">
       <label for="weight" class="control-label mr-4">Weight:</label>
-      <input
-        id="weight"
-        type="number"
-        class="form-control"
-        [formControlName]="props.WEIGHT" />
+      <input id="weight" type="number" class="form-control" [formControlName]="props.WEIGHT" />
     </div>
     <div class="col-md-6">
-      <label for="product_category_id" class="control-label mr-4"
-        >Product Category Id:</label
-      >
-      <input
-        id="product_category_id"
-        type="text"
-        class="form-control"
-        [formControlName]="props.PRODUCT_CATEGORY_ID" />
+      <label for="product_category_id" class="control-label mr-4">Product Category Id:</label>
+      <input id="product_category_id" type="text" class="form-control" [formControlName]="props.PRODUCT_CATEGORY_ID" />
     </div>
     <div class="col-md-6">
-      <label for="product_model_id" class="control-label mr-4"
-        >Product Model Id:</label
-      >
-      <input
-        id="product_model_id"
-        type="text"
-        class="form-control"
-        [formControlName]="props.PRODUCT_MODEL_ID" />
+      <label for="product_model_id" class="control-label mr-4">Product Model Id:</label>
+      <input id="product_model_id" type="text" class="form-control" [formControlName]="props.PRODUCT_MODEL_ID" />
     </div>
     <div class="col-md-6">
-      <label for="sell_start_date" class="control-label mr-4"
-        >Sell Start Date:</label
-      >
-      <kendo-datepicker
-        id="sell_start_date"
-        class="form-control"
-        [formControlName]="props.SELL_START_DATE"
-        [ngClass]="{
-          'is-invalid':
-            (submitted$ | async) && formControlErrors(props.SELL_START_DATE)
-        }"></kendo-datepicker>
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.SELL_START_DATE)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.SELL_START_DATE)?.[RequiredError]">
-          Product sell start date is required
-        </div>
+      <label for="sell_start_date" class="control-label mr-4">Sell Start Date:</label>
+      <kendo-datepicker id="sell_start_date" class="form-control" [formControlName]="props.SELL_START_DATE"
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SELL_START_DATE) }"></kendo-datepicker>
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.SELL_START_DATE)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.SELL_START_DATE)?.[RequiredError]">Product sell start date is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="sell_end_date" class="control-label mr-4"
-        >Sell End Date:</label
-      >
-      <kendo-datepicker
-        id="sell_end_date"
-        class="form-control"
-        [formControlName]="props.SELL_END_DATE"></kendo-datepicker>
+      <label for="sell_end_date" class="control-label mr-4">Sell End Date:</label>
+      <kendo-datepicker id="sell_end_date" class="form-control" [formControlName]="props.SELL_END_DATE"></kendo-datepicker>
     </div>
     <div class="col-md-6">
-      <label for="discontinued_date" class="control-label mr-4"
-        >Discontinued Date:</label
-      >
-      <kendo-datepicker
-        id="discontinued_date"
-        class="form-control"
-        [formControlName]="props.DISCONTINUED_DATE"></kendo-datepicker>
+      <label for="discontinued_date" class="control-label mr-4">Discontinued Date:</label>
+      <kendo-datepicker id="discontinued_date" class="form-control" [formControlName]="props.DISCONTINUED_DATE"></kendo-datepicker>
     </div>
     <div class="col-md-6">
-      <label for="thumb_nail_photo" class="control-label mr-4"
-        >Thumb Nail Photo:</label
-      >
-      <input
-        id="thumb_nail_photo"
-        type="text"
-        maxlength="5000"
-        class="form-control"
-        [formControlName]="props.THUMB_NAIL_PHOTO" />
+      <label for="thumb_nail_photo" class="control-label mr-4">Thumb Nail Photo:</label>
+      <input id="thumb_nail_photo" type="text" class="form-control" [formControlName]="props.THUMB_NAIL_PHOTO" />
     </div>
     <div class="col-md-6">
-      <label for="product_model" class="control-label mr-4"
-        >Product Model:</label
-      >
+      <label for="product_model" class="control-label mr-4">Product Model:</label>
       <kendo-multicolumncombobox
         id="product_model"
         placeholder="Select a product model..."
@@ -209,23 +110,12 @@
         [valuePrimitive]="true"
         [filterable]="true"
         (filterChange)="handleProductModelFilter($event)">
-        <kendo-combobox-column
-          field="name"
-          title="Name"
-          [width]="300"></kendo-combobox-column>
-        <kendo-combobox-column
-          field="description"
-          title="Description"
-          [width]="300"></kendo-combobox-column>
+          <kendo-combobox-column field="name" title="Name" [width]="100"></kendo-combobox-column>
+          <kendo-combobox-column field="description" title="Description" [width]="100"></kendo-combobox-column>
       </kendo-multicolumncombobox>
-      <div *ngIf="formControlErrors(props.PRODUCT_MODEL_ID)?.[RequiredError]">
-        Product model is required
-      </div>
     </div>
     <div class="col-md-6">
-      <label for="product_category" class="control-label mr-4"
-        >Product Category:</label
-      >
+      <label for="product_category" class="control-label mr-4">Product Category:</label>
       <kendo-combobox
         id="product_category"
         placeholder="Select a product category..."
@@ -237,10 +127,6 @@
         [filterable]="true"
         (filterChange)="handleProductCategoryFilter($event)">
       </kendo-combobox>
-      <div
-        *ngIf="formControlErrors(props.PRODUCT_CATEGORY_ID)?.[RequiredError]">
-        Product category is required
-      </div>
     </div>
   </form>
 </imng-data-entry-dialog>

@@ -17,7 +17,7 @@ export class ProductEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private store: Store,
+    private readonly store: Store,
     private readonly productApiService: ProductApiService,
   ) { }
 
@@ -26,7 +26,7 @@ export class ProductEffects {
       ofType(productActionTypes.loadProductsRequest),
       switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataservice
         .fetch<IProduct>(environment.odataEnpoints.products, action.payload, {
-          dateNullableProps: [ProductProperties.SELL_END_DATE]
+          dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
         })
         .pipe(
           map(t => productActionTypes.loadProductsSuccess(t)),
@@ -39,8 +39,8 @@ export class ProductEffects {
       concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
         .fetch<IProduct>(environment.odataEnpoints.products, odataState, {
-          dateNullableProps: [ProductProperties.SELL_END_DATE],
-          bustCache: true
+          bustCache: true,
+          dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
         })
         .pipe(
           map(t => productActionTypes.reloadProductsSuccess(t)),
