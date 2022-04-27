@@ -147,7 +147,7 @@ export abstract class KendoODataBasedComponent<
     }
   }
 
-  public dataStateChange(state: GridStateChangeEvent): void {
+  public dataStateChange(state: GridStateChangeEvent | ODataState): void {
     this.gridDataState = {
       ...state,
       expanders: this.expanders,
