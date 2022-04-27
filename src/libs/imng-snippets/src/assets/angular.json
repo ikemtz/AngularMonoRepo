@@ -2,7 +2,7 @@
   "ComponentMethodsTypeAhead": {
     "prefix": "imng-component-methods-type-ahead",
     "body": [
-      "  public onTypeAheadSelected(match: ImngMatchSelectedEvent<I${1:__ENTITY_NAME__PASCAL_CASE__}>) {",
+      "  public onTypeAheadSelected(match: ImngMatchSelectedEvent<I${1:__ENTITY_NAME__PASCAL_CASE__}> | TypeAheadMatch) {",
       "  }",
       "  public onTypeAheadCleared(noMatches: boolean) {",
       "  }"
