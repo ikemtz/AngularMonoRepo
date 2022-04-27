@@ -1013,8 +1013,8 @@ const initialGridState: ODataState = {
 })
 export class ProductListComponent extends KendoODataBasedComponent<IProduct, ProductListFacade> {
   public readonly props = ProductProperties;
-  public readonly productModelprops = ProductModelProperties;
-  public readonly productCategoryprops = ProductCategoryProperties;
+  public readonly productModelProps = ProductModelProperties;
+  public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
   constructor(facade: ProductListFacade, 
