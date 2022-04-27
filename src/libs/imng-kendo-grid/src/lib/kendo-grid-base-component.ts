@@ -9,14 +9,19 @@ export abstract class KendoGridBaseComponent<ENTITY> implements OnDestroy, Subsc
   public getExportFileName(exportName: string): string {
     return `${exportName}-${toLocalTimeStamp()}`;
   }
-  public getRelatedValue(obj: ENTITY, parentPropertyName: string, valueProperty: string): unknown | undefined {
+  public getRelatedValue(obj: ENTITY, ...segments: string[]): unknown | undefined | null {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const parentProp = (obj as any)?.[parentPropertyName]; //NOSONAR
-    return parentProp?.[valueProperty];
+    let result: any = obj;//NOSONAR
+    segments.forEach(segment => {
+      if (result) {
+        result = result[segment];
+      }
+    });
+    return result;
   }
 
-  public getRelatedField(parentPropertyName: string, valueProperty: string): string {
-    return `${parentPropertyName}/${valueProperty}`;
+  public getRelatedField(...segments: string[]): string {
+    return segments.join('/');
   }
   public ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
