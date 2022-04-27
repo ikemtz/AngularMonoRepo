@@ -24,7 +24,7 @@ describe('KendoGridBaseComponent', () => {
     it('should handle null objects', () => {
       const component = new MockGridComponent();
       const result = component.getRelatedValue(null as never, 'parent1', 'child');
-      expect(result).toBeUndefined();
+      expect(result).toBeNull();
     });
     it('should handle parent nulls', () => {
       const component = new MockGridComponent();
@@ -42,6 +42,10 @@ describe('KendoGridBaseComponent', () => {
       const component = new MockGridComponent();
       const result = component.getRelatedField('parent', 'child');
       expect(result).toBe(`parent/child`);
+    }); it('should work with subChilds', () => {
+      const component = new MockGridComponent();
+      const result = component.getRelatedField('parent', 'child', 'subChild');
+      expect(result).toBe(`parent/child/subChild`);
     });
   });
 });
