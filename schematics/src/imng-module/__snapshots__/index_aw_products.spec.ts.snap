@@ -743,7 +743,9 @@ export class ProductEffects {
     return this.actions$.pipe(
       ofType(productActionTypes.loadProductsRequest),
       switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataservice
-        .fetch<IProduct>(environment.odataEnpoints.products, action.payload)
+        .fetch<IProduct>(environment.odataEnpoints.products, action.payload, {
+          dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
+        })
         .pipe(
           map(t => productActionTypes.loadProductsSuccess(t)),
           handleEffectError(action))));
@@ -754,7 +756,10 @@ export class ProductEffects {
       ofType(productActionTypes.reloadProductsRequest),
       concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IProduct>(environment.odataEnpoints.products, odataState, { bustCache: true })
+        .fetch<IProduct>(environment.odataEnpoints.products, odataState, { 
+          bustCache: true,
+          dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
+        })
         .pipe(
           map(t => productActionTypes.reloadProductsSuccess(t)),
           handleEffectError(action))));
