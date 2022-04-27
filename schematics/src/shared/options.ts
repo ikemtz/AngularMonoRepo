@@ -24,4 +24,5 @@ export interface IOptions {
   /** Ignore: This is for internal schematic use only  */
   hasDates?: boolean;
   hasObjects?: boolean;
+  hasNullableDates?: boolean;
 }

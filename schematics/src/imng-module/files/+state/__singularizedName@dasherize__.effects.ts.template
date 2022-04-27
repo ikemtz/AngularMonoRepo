@@ -24,7 +24,9 @@ export class <%= classify(singularizedName) %>Effects {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request),
       switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>) => this.odataservice
-        .fetch<I<%= classify(name) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, action.payload)
+        .fetch<I<%= classify(name) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, action.payload<% if(hasNullableDates){ %>, {
+          dateNullableProps: [<% swaggerProperties.filter(t=> t.format==='date-time' && !t.required).forEach((swaggerProperty,i,arr) => { %><%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (i !== arr.length-1){%>, <% } }) %>],
+        }<% } %>)
         .pipe(
           map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(t)),
           handleEffectError(action))));
@@ -35,7 +37,10 @@ export class <%= classify(singularizedName) %>Effects {
       ofType(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request),
       concatLatestFrom(() => this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<I<%= classify(singularizedName) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, odataState, { bustCache: true })
+        .fetch<I<%= classify(singularizedName) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, odataState, { 
+          bustCache: true,<% if(hasNullableDates){ %>
+          dateNullableProps: [<% swaggerProperties.filter(t=> t.format==='date-time' && !t.required).forEach((swaggerProperty,i,arr)=> { %><%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (i !== arr.length-1){%>, <% } }) %>],<% } %>
+        })
         .pipe(
           map(t => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success(t)),
           handleEffectError(action))));

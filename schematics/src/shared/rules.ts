@@ -85,6 +85,7 @@ export function processOpenApiDoc(data: any, options: IOptions, host: Tree): Tre
   options.swaggerObjectProperties = mappedProperties.filteredProperties.filter(f => f.$ref);
   options.swaggerProperties = mappedProperties.filteredProperties;
   options.firstProperty = mappedProperties.firstProperty;
+  options.hasNullableDates = options.swaggerProperties.some(t=> t.format ==='date-time' && !t.required);
   return host;
 }
 
