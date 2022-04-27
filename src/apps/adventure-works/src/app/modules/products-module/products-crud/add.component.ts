@@ -1,14 +1,9 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
 import { ProductCrudFacade } from './crud.facade';
 import { ProductBaseEntryComponent } from './base-entry.component';
 import { IProduct } from '../../../models/webapi';
-import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
 @Component({
   selector: 'aw-product-add',
@@ -16,9 +11,7 @@ import { normalizeRequest } from 'imng-nrsrx-client-utils';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductAddComponent
-  extends ProductBaseEntryComponent
-  implements OnInit, OnDestroy {
+export class ProductAddComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Product';
   public active$ = this.facade.isNewActive$;
 

@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
 import { CustomerCrudFacade } from './crud.facade';
@@ -16,10 +11,7 @@ import { ICustomer } from '../../../models/webapi';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerAddComponent
-  extends CustomerBaseEntryComponent
-  implements OnInit, OnDestroy
-{
+export class CustomerAddComponent extends CustomerBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Customer';
   public active$ = this.facade.isNewActive$;
 

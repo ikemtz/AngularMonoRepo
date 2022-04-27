@@ -5,12 +5,7 @@ import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import {
-  ODataState,
-  createODataPayload,
-  createODataResult,
-  ODataService,
-} from 'imng-kendo-odata';
+import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
@@ -21,17 +16,16 @@ import { CustomerListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
 import { CustomerProperties, ICustomer } from '../../../models/odata';
 
-export const createCustomer = () =>
-  <ICustomer>{
-    [CustomerProperties.ID]: 'ID',
-    [CustomerProperties.NUM]: 'NUM',
-    [CustomerProperties.NAME]: 'NAME',
-    [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
-    [CustomerProperties.SALES_AGENT_ID]: 0,
-    [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
-    [CustomerProperties.PHONE]: 'PHONE',
-    [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
-  };
+export const createCustomer = () => <ICustomer>{
+  [CustomerProperties.ID]: 'ID',
+  [CustomerProperties.NUM]: 'NUM',
+  [CustomerProperties.NAME]: 'NAME',
+  [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
+  [CustomerProperties.SALES_AGENT_ID]: 0,
+  [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
+  [CustomerProperties.PHONE]: 'PHONE',
+  [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
+};
 
 describe('CustomerListFacade', () => {
   let facade: CustomerListFacade;
@@ -39,7 +33,7 @@ describe('CustomerListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {}); //NOSONAR
+  beforeEach(() => { }); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -50,15 +44,10 @@ describe('CustomerListFacade', () => {
         ],
         providers: [
           CustomerListFacade,
-          {
-            provide: HttpClient,
-            useValue: {
-              get: jest.fn(() => of(createODataPayload([createCustomer()]))),
-            },
-          },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCustomer()]))) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -68,7 +57,7 @@ describe('CustomerListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -89,9 +78,7 @@ describe('CustomerListFacade', () => {
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith(
-        'aw-odata/odata/v1/Customers?&$count=true',
-      );
+      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/Customers?&$count=true');
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);
@@ -101,16 +88,8 @@ describe('CustomerListFacade', () => {
       let list = await readFirst(facade.gridData$);
       let isloading = await readFirst(facade.loading$);
 
-      const service: {
-        fetch: (
-          endpoint: string,
-          odataState: ODataState,
-        ) => Observable<unknown>;
-      } = TestBed.inject(ODataService);
-      const response = of({
-        data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
-        total: 3,
-      });
+      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
+      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
       service.fetch = jest.fn(() => response);
 
       expect(list.data.length).toBe(0);
@@ -127,10 +106,7 @@ describe('CustomerListFacade', () => {
 
     test('it should get the grid state', async () => {
       const filteringState: ODataState = {
-        filter: {
-          logic: 'and',
-          filters: [{ field: '💩', operator: 'eq', value: '🍑' }],
-        },
+        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
       };
       let state = await readFirst(facade.gridODataState$);
       expect(state?.count).toBeUndefined();
@@ -150,11 +126,7 @@ describe('CustomerListFacade', () => {
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
-      store.dispatch(
-        customerActionTypes.loadCustomersSuccess(
-          createODataResult([createCustomer(), createCustomer()]),
-        ),
-      );
+      store.dispatch(customerActionTypes.loadCustomersSuccess(createODataResult([createCustomer(), createCustomer()])));
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);

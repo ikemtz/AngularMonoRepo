@@ -15,7 +15,7 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
   isNewActive$ = this.store.select(customerQueries.selectIsNewCustomerActive);
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
-  constructor(private readonly store: Store) {}
+  constructor(private readonly store: Store) { }
 
   public setCurrentEntity(item: ICustomer): void {
     this.store.dispatch(customerActionTypes.setCurrentCustomer(item));

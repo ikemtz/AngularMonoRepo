@@ -10,11 +10,12 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
   implements OnInit {
   public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;
-  public readonly productCategoryProps = ProductCategoryProperties;
-  public readonly productCategories$: Observable<IProductCategory[]>;
   public readonly productModels$: Observable<IProductModel[]>;
   public readonly productModelFilter$ = new BehaviorSubject('');
+  public readonly productCategoryProps = ProductCategoryProperties;
+  public readonly productCategories$: Observable<IProductCategory[]>;
   public readonly productCategoryFilter$ = new BehaviorSubject('');
+
   constructor(facade: ProductCrudFacade) {
     super(facade);
     this.productModels$ = facade.productModels$.pipe(
@@ -28,9 +29,9 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
     this.productCategories$ = facade.productCategories$.pipe(
       switchMap(productCategories => this.productCategoryFilter$.pipe(
         map(productCategoryFilter => productCategoryFilter ? productCategories
-          .filter(productCategory =>
+          .filter(productCategory => (
             (productCategory.name && productCategory.name.toLowerCase().indexOf(productCategoryFilter) >= 0)
-          ) : productCategories
+          )) : productCategories
         ))));
   }
 
@@ -57,10 +58,10 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
     this.facade.clearCurrentEntity();
   }
 
-  handleProductModelFilter(value: string) {
+  public handleProductModelFilter(value: string) {
     this.productModelFilter$.next(value.toLowerCase());
   }
-  handleProductCategoryFilter(value: string) {
+  public handleProductCategoryFilter(value: string) {
     this.productCategoryFilter$.next(value.toLowerCase());
   }
 }

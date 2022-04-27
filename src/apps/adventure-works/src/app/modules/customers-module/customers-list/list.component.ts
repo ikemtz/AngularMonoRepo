@@ -6,11 +6,7 @@ import { ODataState } from 'imng-kendo-odata';
 
 import { CustomerListFacade } from './list.facade';
 import { CustomerCrudFacade } from '../customers-crud';
-import {
-  CustomerProperties,
-  ICustomer,
-  SalesAgentProperties,
-} from '../../../models/odata';
+import { CustomerProperties, ICustomer, SalesAgentProperties } from '../../../models/odata';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -24,7 +20,9 @@ const initialGridState: ODataState = {
     CustomerProperties.EMAIL_ADDRESS,
     CustomerProperties.PHONE,
   ],
-  sort: [{ field: CustomerProperties.NUM, dir: 'asc' }],
+  sort: [
+    { field: CustomerProperties.NUM, dir: 'asc' },
+  ],
   expanders: [
     {
       table: CustomerProperties.SALES_AGENT,
@@ -32,9 +30,9 @@ const initialGridState: ODataState = {
         SalesAgentProperties.ID,
         SalesAgentProperties.NAME,
         SalesAgentProperties.LOGIN_ID,
-      ],
+      ]
     },
-  ],
+  ]
 };
 
 @Component({
@@ -43,19 +41,14 @@ const initialGridState: ODataState = {
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerListComponent extends KendoODataBasedComponent<
-ICustomer,
-CustomerListFacade
-> {
+export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, CustomerListFacade> {
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public currentItem: ICustomer | undefined;
 
-  constructor(
-    facade: CustomerListFacade,
+  constructor(facade: CustomerListFacade,
     public readonly crudFacade: CustomerCrudFacade,
-    router: Router,
-  ) {
+    router: Router) {
     super(facade, initialGridState, router);
   }
 

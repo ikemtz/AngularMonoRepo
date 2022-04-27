@@ -1,8 +1,8 @@
 import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
 import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
-
 import { IProduct, IProductCategory, IProductModel } from '../../../models/odata';
+
 import * as productActionTypes from './product.actions';
 export const PRODUCTS_FEATURE_KEY = 'products';
 
@@ -54,8 +54,7 @@ export const productsFeature = createFeature({
       (state): State => ({
         ...state,
         loading: true,
-      }),
-    ),
+      })),
     on(productActionTypes.loadProductModelsSuccess,
       (state, { payload }): State => ({
         ...state,
