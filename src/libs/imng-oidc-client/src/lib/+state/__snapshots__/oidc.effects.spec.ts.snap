@@ -2,7 +2,7 @@
 
 exports[`Oidc Effects removeOidcUser$ should fail because silent_redirect_uri is not configured 1`] = `
 Object {
-  "payload": "Expected exception in unit tests.",
+  "payload": [Error: Expected exception in unit tests.],
   "type": "[Oidc] error",
 }
 `;

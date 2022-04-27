@@ -64,7 +64,7 @@ export function toLocalDate(date: string): Date {
 }
 
 export function getSubGridData<PARENT_ENTITY extends { id?: IdType; }, SUB_ENTITY>(
-  id: IdType,
+  id: IdType | undefined,
   mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[],
 ): (source: Observable<ODataResult<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
   // tslint:disable-next-line: space-before-function-paren
@@ -78,7 +78,7 @@ export function getSubGridData<PARENT_ENTITY extends { id?: IdType; }, SUB_ENTIT
 }
 
 export function getSubData<PARENT_ENTITY extends { id?: IdType; }, SUB_ENTITY>(
-  id: IdType,
+  id: IdType | undefined,
   mappingFunction: (entity: PARENT_ENTITY) => SUB_ENTITY[],
 ): (source: Observable<Array<PARENT_ENTITY>>) => Observable<SUB_ENTITY[]> {
   // tslint:disable-next-line: space-before-function-paren
