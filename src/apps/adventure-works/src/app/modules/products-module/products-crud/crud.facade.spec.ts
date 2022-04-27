@@ -3,7 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -66,7 +65,6 @@ describe('ProductCrudFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
           StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
           EffectsModule.forRoot([]),
           CustomFeatureModule,

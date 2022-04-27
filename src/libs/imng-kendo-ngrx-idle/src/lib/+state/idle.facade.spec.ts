@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { NxModule } from '@nrwl/angular';
-import { mockConsoleError, readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
 
 import { idleFeature } from './idle.reducer';
 import { IdleFacade } from './idle.facade';
@@ -39,7 +38,6 @@ describe('IdleFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
           StoreModule.forRoot({}, { runtimeChecks: {} }),
           EffectsModule.forRoot([]),
           CustomFeatureModule,

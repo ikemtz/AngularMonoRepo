@@ -34,15 +34,15 @@ export class ImngEditableDataGridDirective
   implements OnInit, OnDestroy, Subscribable {
   public readonly allSubscriptions = new Subscriptions();
   // eslint-disable-next-line @typescript-eslint/ban-types
-  _gridDataEntryHelper?: GridDataEntryHelper<{ id: IdType; }>;
+  _gridDataEntryHelper?: GridDataEntryHelper<{ id?: IdType; }>;
   // eslint-disable-next-line @typescript-eslint/ban-types
-  get gridDataEntryHelper(): GridDataEntryHelper<{ id: IdType; }> | undefined {
+  get gridDataEntryHelper(): GridDataEntryHelper<{ id?: IdType; }> | undefined {
     return this._gridDataEntryHelper;
   }
   @Input('imngEditableDataGrid')
   // eslint-disable-next-line @typescript-eslint/ban-types
   set gridDataEntryHelper(
-    value: GridDataEntryHelper<{ id: IdType; }> | undefined
+    value: GridDataEntryHelper<{ id?: IdType; }> | undefined
   ) {
     this._gridDataEntryHelper = value;
     this.allSubscriptions.push(

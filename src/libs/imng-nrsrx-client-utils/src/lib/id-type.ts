@@ -1,4 +1,4 @@
-export type IdType = number | string | Date | undefined;
+export type IdType = number | string | Date;
 
 export function isaNumber(value: unknown): value is number {
   const type = typeof value;

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { NxModule } from '@nrwl/angular';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -52,7 +51,7 @@ describe('OrderCrudFacade', () => {
   let store: Store;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { });
+  beforeEach(() => { }); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -71,7 +70,6 @@ describe('OrderCrudFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
           StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
           EffectsModule.forRoot([]),
           CustomFeatureModule,
