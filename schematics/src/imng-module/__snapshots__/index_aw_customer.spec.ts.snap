@@ -1,0 +1,958 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imng-module actions should work 1`] = `
+"import { createAction } from '@ngrx/store';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { createPayloadAction } from 'imng-ngrx-utils';
+
+export const loadCustomersRequest = createPayloadAction<ODataState>(
+    '[Customers] Load Customers Request');
+export const loadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>>(
+    '[Customers] Load Customers Success');
+export const reloadCustomersRequest = createAction(
+    '[Customers] Reload Customers Request');
+export const reloadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>>(
+    '[Customers] Reload Customers Success');
+
+export const clearCurrentCustomer = createAction('[Customers] Clear Current Customer');
+export const setCurrentCustomer = createPayloadAction<ICustomer>('[Customers] Set Current Customer');
+export const saveCustomerRequest = createPayloadAction<ICustomer>('[Customers] Save Customer Request');
+export const updateCustomerRequest = createPayloadAction<ICustomer>('[Customers] Update Customer Request');
+export const deleteCustomerRequest = createPayloadAction<ICustomer>('[Customers] Delete Customer Request');
+
+export const loadSalesAgentsRequest = createPayloadAction<ODataState>(
+    '[Customers] Load SalesAgents Request');
+export const loadSalesAgentsSuccess = createPayloadAction<ODataResult<ISalesAgent>>(
+    '[Customers] Load SalesAgents Success');
+"
+`;
+
+exports[`imng-module add component spec template should work 1`] = `
+"import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import { of } from 'rxjs';
+
+import { CustomerAddComponent } from './add.component';
+import { CustomerCrudFacade } from './crud.facade';
+
+export function createMockCustomerFacade() {
+  return {
+    currentEntity$: of({}),
+    salesAgents$: of([
+      { name: 'abc',loginId: 'abc', },
+      { name: 'xyz',loginId: 'xyz', },]),
+    loadSalesAgents: jest.fn(),
+  };
+}
+
+describe('CustomerAddComponent', () => {
+  let component: CustomerAddComponent;
+  let fixture: ComponentFixture<CustomerAddComponent>;
+  let facade: CustomerCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
+
+  beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
+    TestBed.configureTestingModule({
+      declarations: [CustomerAddComponent],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DropDownsModule, ],
+      providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade(createMockCustomerFacade()) }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CustomerAddComponent);
+    component = fixture.componentInstance;
+    facade = TestBed.inject(CustomerCrudFacade);
+    fixture.detectChanges();
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
+  });
+
+  test('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  test('should save', () => {
+    component.initForm();
+    component.addEditForm?.patchValue({
+    [CustomerProperties.ID]: 'ID',
+    [CustomerProperties.NUM]: 'NUM',
+    [CustomerProperties.NAME]: 'NAME',
+    [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
+    [CustomerProperties.SALES_AGENT_ID]: 0,
+    [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
+    [CustomerProperties.PHONE]: 'PHONE',
+    [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
+    });
+
+    let item: ICustomer | undefined;
+    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn();
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
+    expect(facade.saveNewEntity).toBeCalledTimes(1);
+    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+
+    expect(item).toMatchSnapshot();
+
+  });
+
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
+  test('should not save', () => {
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
+    expect(facade.saveNewEntity).toBeCalledTimes(0);
+    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
+  });
+
+  test('should cancel', () => {
+    facade.clearCurrentEntity = jest.fn();
+    component.cancel();
+    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+  });
+
+  test('should support SalesAgent filters', async () => {
+    component.handleSalesAgentFilter('xy');
+    const result = await readFirst(component.salesAgents$);
+    expect(result).toStrictEqual([{ name: 'xyz',loginId: 'xyz', }]);
+  });
+});
+"
+`;
+
+exports[`imng-module add component template should work 1`] = `
+"import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
+
+import { CustomerCrudFacade } from './crud.facade';
+import { CustomerBaseEntryComponent } from './base-entry.component';
+
+@Component({
+  selector: 'aw-customer-add',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class CustomerAddComponent extends CustomerBaseEntryComponent implements OnInit, OnDestroy {
+  public dialogTitle = 'Add Customer';
+  public active$ = this.facade.isNewActive$;
+
+  constructor(facade: CustomerCrudFacade) {
+    super(facade);
+  }
+  public override initForm(): void {
+    super.initForm();
+    this.addEditForm.patchValue({});
+  }
+
+  public save(): void {
+    const val = normalizeRequest<ICustomer>(this.addEditForm.value);
+    val.id = undefined;
+    this.facade.saveNewEntity(val);
+  }
+}
+"
+`;
+
+exports[`imng-module base crud component should work 1`] = `
+"import { OnInit, Component } from '@angular/core';
+import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+
+import { CustomerCrudFacade } from './crud.facade';
+
+@Component({ template: '' })
+export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<CustomerCrudFacade>
+  implements OnInit {
+  public readonly props = CustomerProperties;  
+  public readonly salesAgentProps = SalesAgentProperties;
+  public readonly salesAgents$: Observable<ISalesAgent[]>;
+  public readonly salesAgentFilter$ = new BehaviorSubject('');
+
+  constructor(facade: CustomerCrudFacade) {
+    super(facade);
+    this.salesAgents$ = facade.salesAgents$.pipe(
+      switchMap(salesAgents => this.salesAgentFilter$.pipe(
+        map(salesAgentFilter => salesAgentFilter ? salesAgents
+          .filter(salesAgent => (
+            (salesAgent.name && salesAgent.name.toLowerCase().indexOf(salesAgentFilter) >= 0) ||
+            (salesAgent.loginId && salesAgent.loginId.toLowerCase().indexOf(salesAgentFilter) >= 0)
+          )) : salesAgents
+    ))));
+  }
+
+  public ngOnInit(): void {
+    this.initForm();
+    this.facade.loadSalesAgents({ selectors: [
+      SalesAgentProperties.ID,
+      SalesAgentProperties.NAME,
+      SalesAgentProperties.LOGIN_ID,] });
+  }
+
+  public initForm(): void {
+    this.addEditForm = CustomerFormGroupFac();
+  }
+
+  public cancel(): void {
+    this.facade.clearCurrentEntity();
+  }
+
+  public handleSalesAgentFilter(value: string) {
+    this.salesAgentFilter$.next(value.toLowerCase());
+  }
+}
+"
+`;
+
+exports[`imng-module crud facade spec template should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { NxModule } from '@nrwl/angular';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import {
+  testAddSetAndClearCurrentEntity,
+  testEditSetAndClearCurrentEntity,
+  testSaveCurrentEntity,
+  testUpdateCurrentEntity,
+} from 'imng-kendo-data-entry/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
+
+import { CustomerEffects } from '../+state/customer.effects';
+import { customersFeature } from '../+state/customer.reducer';
+import { CustomerCrudFacade } from './crud.facade';
+import { CustomerApiService } from './api.service';
+import { environment } from '../../../../environments/environment';
+
+export const createCustomer = () => 
+  <ICustomer>{
+    [CustomerProperties.ID]: 'ID',
+    [CustomerProperties.NUM]: 'NUM',
+    [CustomerProperties.NAME]: 'NAME',
+    [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
+    [CustomerProperties.SALES_AGENT_ID]: 0,
+    [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
+    [CustomerProperties.PHONE]: 'PHONE',
+    [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
+    };
+
+describe('CustomerCrudFacade', () => {
+  let facade: CustomerCrudFacade;
+  let store: Store;
+  let httpClient: HttpClient;
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach(() => {}); //NOSONAR
+
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(customersFeature),
+          EffectsModule.forFeature([CustomerEffects]),
+        ],
+        providers: [
+          CustomerCrudFacade,
+          CustomerApiService,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCustomer()]))) } },
+        ],
+      })
+      class CustomFeatureModule {}
+
+      @NgModule({
+        imports: [
+          NxModule.forRoot(),
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(CustomerCrudFacade);
+      httpClient = TestBed.inject(HttpClient);
+    });
+
+    test('clearCurrentEntity() should set currentCustomer to null', async () => {
+      let isNewActive = await readFirst(facade.isNewActive$);
+      expect(isNewActive).toBeFalsy();
+
+      facade.clearCurrentEntity();
+      isNewActive = await readFirst(facade.isNewActive$);
+
+      expect(isNewActive).toBeFalsy();
+    });
+
+    test('New Entity Set And Clear CurrentEntity', async () =>
+      testAddSetAndClearCurrentEntity<CustomerCrudFacade>(facade));
+    test('Existing Entity Set And Clear CurrentEntity', async () =>
+      testEditSetAndClearCurrentEntity<CustomerCrudFacade>(facade));
+    test('Save CurrentEntity', async () =>
+      testSaveCurrentEntity<CustomerCrudFacade>(facade, httpClient));
+    test('Update CurrentEntity', async () =>
+      testUpdateCurrentEntity<CustomerCrudFacade>(facade, httpClient));
+
+    test('should load SalesAgents', async () => {
+      facade.loadSalesAgents({});
+      expect(httpClient.get).toBeCalledTimes(1);
+      const result = await readFirst(facade.salesAgents$);
+      expect(result.length).toBe(1);
+    });
+  });
+});
+"
+`;
+
+exports[`imng-module crud facade template should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { ODataState } from 'imng-kendo-odata';
+import { customersFeature } from '../+state/customer.reducer';
+import { customerQueries } from '../+state/customer.selectors';
+import * as customerActionTypes from '../+state/customer.actions';
+
+@Injectable()
+export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
+  loading$ = this.store.select(customersFeature.selectLoading);
+  currentEntity$ = this.store.select(customerQueries.selectCurrentCustomer);
+  isEditActive$ = this.store.select(customerQueries.selectIsEditCustomerActive);
+  isNewActive$ = this.store.select(customerQueries.selectIsNewCustomerActive);
+  salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
+
+  constructor(private readonly store: Store) {}
+
+  public setCurrentEntity(item: ICustomer): void {
+    this.store.dispatch(customerActionTypes.setCurrentCustomer(item));
+  }
+
+  public clearCurrentEntity(): void {
+    this.store.dispatch(customerActionTypes.clearCurrentCustomer());
+  }
+
+  public saveNewEntity(item: ICustomer): void {
+    this.store.dispatch(customerActionTypes.saveCustomerRequest(item));
+  }
+
+  public updateExistingEntity(item: ICustomer): void {
+    this.store.dispatch(customerActionTypes.updateCustomerRequest(item));
+  }
+
+  public loadSalesAgents(state: ODataState): void {
+    this.store.dispatch(customerActionTypes.loadSalesAgentsRequest(state));
+  }
+}
+"
+`;
+
+exports[`imng-module crud html template should work 1`] = `
+"<imng-data-entry-dialog [width]=\\"700\\" [height]=\\"550\\" [parentComponent]=\\"this\\" autoFocusedElement=\\"#num\\">
+  <form novalidate [formGroup]=\\"addEditForm\\" autocomplete=\\"false\\" class=\\"row\\">
+    <div class=\\"col-md-6\\">
+      <label for=\\"id\\" class=\\"control-label mr-4\\">Id:</label>
+      <input id=\\"id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.ID\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.ID)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.ID)?.[RequiredError]\\">Customer id is required</div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"num\\" class=\\"control-label mr-4\\">Num:</label>
+      <input id=\\"num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NUM\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NUM)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.NUM)?.[RequiredError]\\">Customer num is required</div>
+        <div *ngIf=\\"formControlErrors(props.NUM)?.[MinLengthError]\\">
+          Customer num requires a min length of
+          {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
+          {{formMinLengthError(props.NUM)?.actualLength}}.
+        </div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"name\\" class=\\"control-label mr-4\\">Name:</label>
+      <input id=\\"name\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NAME\\" />
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"company_name\\" class=\\"control-label mr-4\\">Company Name:</label>
+      <input id=\\"company_name\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.COMPANY_NAME\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.COMPANY_NAME) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.COMPANY_NAME)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.COMPANY_NAME)?.[RequiredError]\\">Customer company name is required</div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"sales_agent_id\\" class=\\"control-label mr-4\\">Sales Agent Id:</label>
+      <input id=\\"sales_agent_id\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.SALES_AGENT_ID\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SALES_AGENT_ID) }\\" />
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.SALES_AGENT_ID)?.[RequiredError]\\">Customer sales agent id is required</div>
+      </div>
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"email_address\\" class=\\"control-label mr-4\\">Email Address:</label>
+      <input id=\\"email_address\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.EMAIL_ADDRESS\\" />
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"phone\\" class=\\"control-label mr-4\\">Phone:</label>
+      <input id=\\"phone\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.PHONE\\" />
+    </div>
+    <div class=\\"col-md-6\\">
+      <label for=\\"sales_agent\\" class=\\"control-label mr-4\\">Sales Agent:</label>
+      <kendo-multicolumncombobox
+        id=\\"sales_agent\\"
+        placeholder=\\"Select a sales agent...\\"
+        [formControlName]=\\"props.SALES_AGENT_ID\\"
+        [data]=\\"salesAgents$ | async\\"
+        [textField]=\\"salesAgentProps.NAME\\"
+        [valueField]=\\"salesAgentProps.ID\\"
+        [valuePrimitive]=\\"true\\"
+        [filterable]=\\"true\\"
+        (filterChange)=\\"handleSalesAgentFilter($event)\\">
+          <kendo-combobox-column field=\\"name\\" title=\\"Name\\" [width]=\\"100\\"></kendo-combobox-column>
+          <kendo-combobox-column field=\\"loginId\\" title=\\"Login Id\\" [width]=\\"100\\"></kendo-combobox-column>
+      </kendo-multicolumncombobox>
+    </div>
+  </form>
+</imng-data-entry-dialog>
+"
+`;
+
+exports[`imng-module edit component spec template should work 1`] = `
+"import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+
+import { createMockCustomerFacade } from './add.component.spec';
+import { CustomerEditComponent } from './edit.component';
+import { CustomerCrudFacade } from './crud.facade';
+
+describe('CustomerEditComponent', () => {
+  let component: CustomerEditComponent;
+  let fixture: ComponentFixture<CustomerEditComponent>;
+  let facade: CustomerCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
+
+  beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
+    TestBed.configureTestingModule({
+      declarations: [CustomerEditComponent],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DropDownsModule, ],
+      providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade(createMockCustomerFacade()) }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CustomerEditComponent);
+    component = fixture.componentInstance;
+    facade = TestBed.inject(CustomerCrudFacade);
+    fixture.detectChanges();
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
+  });
+
+  test('should update', () => {
+    component.initForm();
+    component.addEditForm.patchValue({
+    [CustomerProperties.ID]: 'ID',
+    [CustomerProperties.NUM]: 'NUM',
+    [CustomerProperties.NAME]: 'NAME',
+    [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
+    [CustomerProperties.SALES_AGENT_ID]: 0,
+    [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
+    [CustomerProperties.PHONE]: 'PHONE',
+    [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
+    });
+    let item: ICustomer | undefined;
+    facade.updateExistingEntity = jest.fn(x => (item = x));
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
+    expect(facade.saveNewEntity).toBeCalledTimes(0);
+    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+
+    expect(item).toMatchSnapshot();
+
+  });
+
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
+  test('should not update', () => {
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
+    expect(facade.saveNewEntity).toBeCalledTimes(0);
+    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    consoleErrorMock.mockRestore();
+  });
+
+  test('should cancel', () => {
+    component.cancel();
+    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+  });
+
+  test('should support SalesAgent filters', async () => {
+    component.handleSalesAgentFilter('xy');
+    const result = await readFirst(component.salesAgents$);
+    expect(result).toStrictEqual([{ name: 'xyz',loginId: 'xyz', }]);
+  });
+});
+"
+`;
+
+exports[`imng-module edit component template should work 1`] = `
+"import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { formGroupPatcher } from 'imng-kendo-data-entry';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
+
+import { CustomerBaseEntryComponent } from './base-entry.component';
+import { CustomerCrudFacade } from './crud.facade';
+
+@Component({
+  selector: 'aw-customer-edit',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class CustomerEditComponent extends CustomerBaseEntryComponent implements OnInit, OnDestroy {
+  public dialogTitle = 'Edit Customer';
+  public active$ = this.facade.isEditActive$;
+
+  constructor(facade: CustomerCrudFacade) {
+    super(facade);
+  }
+  public override initForm(): void {
+    super.initForm();
+    if (this.addEditForm) {
+      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
+    }
+  }
+
+  public save(): void {
+    const val = normalizeRequest<ICustomer>(this.addEditForm.value);
+    this.facade.updateExistingEntity(val);
+  }
+}
+"
+`;
+
+exports[`imng-module effects should work 1`] = `
+"import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import { customersFeature } from './customer.reducer';
+import * as customerActionTypes from './customer.actions';
+import { environment } from '../../../../environments/environment';
+
+import { CustomerApiService } from '../customers-crud';
+
+@Injectable()
+export class CustomerEffects {
+  constructor(
+    private readonly actions$: Actions,
+    private readonly odataservice: ODataService,
+    private readonly store: Store,
+    private readonly customerApiService : CustomerApiService,
+  ) {}
+
+  loadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.loadCustomersRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataservice
+        .fetch<ICustomer>(environment.odataEnpoints.customers, action.payload]})
+        .pipe(
+          map(t => customerActionTypes.loadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  reloadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.reloadCustomersRequest),
+      concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
+      switchMap(([action, odataState]) => this.odataservice
+        .fetch<ICustomer>(environment.odataEnpoints.customers, odataState, { bustCache: true })
+        .pipe(
+          map(t => customerActionTypes.reloadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  saveCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.saveCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.saveCustomerRequest>) => this.customerApiService.post(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+
+  updateCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.updateCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.updateCustomerRequest>) => this.customerApiService.put(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+
+  deleteCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.deleteCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.deleteCustomerRequest>) => this.customerApiService.delete(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+
+  loadSalesAgentsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.loadSalesAgentsRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.loadSalesAgentsRequest>) => this.odataservice
+        .fetch<ISalesAgent>(environment.odataEnpoints.salesAgents, action.payload)
+        .pipe(map(t => customerActionTypes.loadSalesAgentsSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-module html file should work 1`] = `
+"<kendo-grid (detailExpand)=\\"detailExpanded($event)\\" [height]=\\"800\\" kendoGridFocusable [imngODataGrid]=\\"this\\">
+  <ng-template kendoGridToolbarTemplate>
+    <div class=\\"w-100 d-flex justify-content-between\\">
+      <h3>Customers</h3>
+      <imng-kendo-odata-grid-header
+        entityName=\\"Customer\\"
+        (addItemClicked)=\\"addItem()\\"
+        (reloadEntitiesClicked)=\\"reloadEntities()\\"
+        (clearFiltersClicked)=\\"resetFilters()\\"
+        [hasHiddenColumns$]=\\"hasHiddenColumns$\\">
+      </imng-kendo-odata-grid-header>
+    </div>
+  </ng-template>
+
+  <kendo-grid-column [field]=\\"props.ID\\" [width]=\\"100\\" title=\\"Id\\" filter=\\"text\\">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]=\\"dataItem[props.ID] | slice:0:5\\"
+        [copyValue]=\\"dataItem[props.ID]\\">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]=\\"filter\\"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]=\\"props.NUM\\" [width]=\\"100\\" title=\\"Num\\" filter=\\"text\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Num</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]=\\"props.NAME\\" [width]=\\"100\\" title=\\"Name\\" filter=\\"text\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]=\\"props.COMPANY_NAME\\" [width]=\\"100\\" title=\\"Company Name\\" filter=\\"text\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Company Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]=\\"props.SALES_AGENT_ID\\" [width]=\\"100\\" title=\\"Sales Agent Id\\" filter=\\"numeric\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Sales Agent Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]=\\"props.EMAIL_ADDRESS\\" [width]=\\"100\\" title=\\"Email Address\\" filter=\\"text\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Email Address</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]=\\"props.PHONE\\" [width]=\\"100\\" title=\\"Phone\\" filter=\\"text\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Phone</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]=\\"getRelatedField(props.SALES_AGENT, salesAgentProps.NAME)\\"
+    [width]=\\"100\\" title=\\"Sales Agent\\" filter=\\"text\\">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getRelatedValue(dataItem, props.SALES_AGENT, salesAgentProps.NAME) }}
+    </ng-template>
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Sales Agent</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [width]=\\"50\\">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex=\\"rowIndex\\">
+      <button type=\\"button\\" class=\\"btn btn-sm mr-1\\" (click)=\\"editItem(dataItem)\\" placement=\\"left\\" tooltip=\\"Edit\\">
+        <span class=\\"k-icon k-i-edit\\"></span>
+      </button>
+      <button type=\\"button\\" class=\\"btn btn-sm mr-1\\" (click)=\\"deleteItem(dataItem)\\" placement=\\"left\\" tooltip=\\"Delete\\">
+        <span class=\\"k-icon k-i-delete\\"></span>
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf [fileName]=\\"getExportFileName('Customers')\\" [allPages]=\\"false\\">
+    <kendo-grid-pdf-margin top=\\"1cm\\" left=\\"1cm\\" right=\\"1cm\\" bottom=\\"1cm\\"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+  <kendo-grid-excel [fileName]=\\"getExportFileName('Customers')\\" [fetchData]=\\"excelData\\"></kendo-grid-excel>
+</kendo-grid>
+<aw-customer-add *ngIf=\\"crudFacade.isNewActive$ | async\\"></aw-customer-add>
+<aw-customer-edit *ngIf=\\"crudFacade.isEditActive$ | async\\"></aw-customer-edit>
+"
+`;
+
+exports[`imng-module list component should work 1`] = `
+"import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+import { DetailExpandEvent } from '@progress/kendo-angular-grid';
+import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { ODataState } from 'imng-kendo-odata';
+
+import { CustomerListFacade } from './list.facade';
+import { CustomerCrudFacade } from '../customers-crud';
+
+const initialGridState: ODataState = {
+  take: 20,
+  skip: 0,
+  selectors: [
+    CustomerProperties.ID,
+    CustomerProperties.NUM,
+    CustomerProperties.NAME,
+    CustomerProperties.COMPANY_NAME,
+    CustomerProperties.SALES_AGENT_ID,
+    CustomerProperties.EMAIL_ADDRESS,
+    CustomerProperties.PHONE,
+  ],
+  sort: [
+    { field: CustomerProperties.NUM, dir: 'asc' },
+  ],
+  expanders: [
+      { table: CustomerProperties.SALES_AGENT,
+        selectors: [
+          SalesAgentProperties.ID,
+          SalesAgentProperties.NAME,
+          SalesAgentProperties.LOGIN_ID,
+        ]},
+  ]
+};
+
+@Component({
+  selector: 'aw-customer-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, CustomerListFacade> {
+  public readonly props = CustomerProperties;
+  public readonly salesAgentProps = SalesAgentProperties;
+  public currentItem: ICustomer | undefined;
+
+  constructor(facade: CustomerListFacade, 
+    public readonly crudFacade: CustomerCrudFacade,
+    router: Router) {
+    super(facade, initialGridState, router);
+  }
+
+  public addItem(): void {
+    this.crudFacade.setCurrentEntity({});
+  }
+
+  public editItem(item: ICustomer): void {
+    this.crudFacade.setCurrentEntity(item);
+  }
+
+  public deleteItem(item: ICustomer): void {
+    this.facade.deleteExistingEntity(item);
+  }
+
+  public detailExpanded(evt: DetailExpandEvent): void {
+    this.currentItem = evt.dataItem;
+  }
+}
+"
+`;
+
+exports[`imng-module module should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import { DialogModule } from '@progress/kendo-angular-dialog';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
+
+import { CustomersRoutingModule } from './customers.routing';
+import { customersFeature } from './+state/customer.reducer';
+import { CustomerEffects } from './+state/customer.effects';
+
+import { CustomerListComponent, CustomerListFacade } from './customers-list';
+import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, CustomerCrudFacade  } from './customers-crud';
+
+
+@NgModule({
+  declarations: [CustomerListComponent, CustomerAddComponent, CustomerEditComponent ],
+  imports: [
+    CommonModule,
+    GridModule,
+    ExcelModule,
+    PDFModule,
+    DialogModule,
+    DropDownsModule,
+    ImngDataEntryDialogModule,
+    ImngKendoGridFilteringModule,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ReactiveFormsModule,
+    CustomersRoutingModule,
+    StoreModule.forFeature(customersFeature),
+    EffectsModule.forFeature([CustomerEffects]),
+  ],
+  providers: [
+    CustomerListFacade,
+    CustomerCrudFacade,
+    CustomerApiService, 
+  ],
+})
+export class CustomersModule { }
+"
+`;
+
+exports[`imng-module reducers should work 1`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as customerActionTypes from './customer.actions';
+export const CUSTOMERS_FEATURE_KEY = 'customers';
+
+export interface State extends KendoODataGridState<ICustomer> {
+  currentCustomer: ICustomer | undefined;
+  salesAgents: ISalesAgent[];
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentCustomer: undefined,
+  salesAgents: [],
+  loading: true,
+};
+
+export const customersFeature = createFeature({
+  name: CUSTOMERS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(customerActionTypes.loadCustomersRequest, 
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(customerActionTypes.loadCustomersSuccess,
+      customerActionTypes.reloadCustomersSuccess, 
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(customerActionTypes.setCurrentCustomer, 
+      (state, { payload }) : State => 
+        ({ ...state, currentCustomer: payload })),
+    on(customerActionTypes.clearCurrentCustomer, 
+      (state) : State => ({ ...state, currentCustomer: undefined })),
+    on(customerActionTypes.saveCustomerRequest,
+      customerActionTypes.updateCustomerRequest,
+      customerActionTypes.deleteCustomerRequest,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      })),
+    on(customerActionTypes.loadSalesAgentsSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        salesAgents: payload.data
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
+  )
+});
+"
+`;
+
+exports[`imng-module tree files should match 1`] = `
+Array [
+  "/test/customers-module/customers.module.spec.ts",
+  "/test/customers-module/customers.module.ts",
+  "/test/customers-module/customers.routing.ts",
+  "/test/customers-module/+state/customer.actions.ts",
+  "/test/customers-module/+state/customer.effects.ts",
+  "/test/customers-module/+state/customer.reducer.ts",
+  "/test/customers-module/+state/customer.selectors.ts",
+  "/test/customers-module/customers-list/index.ts",
+  "/test/customers-module/customers-list/list.component.html",
+  "/test/customers-module/customers-list/list.component.scss",
+  "/test/customers-module/customers-list/list.component.spec.ts",
+  "/test/customers-module/customers-list/list.component.ts",
+  "/test/customers-module/customers-list/list.facade.spec.ts",
+  "/test/customers-module/customers-list/list.facade.ts",
+  "/test/customers-module/customers-crud/add-edit.component.html",
+  "/test/customers-module/customers-crud/add-edit.component.scss",
+  "/test/customers-module/customers-crud/add.component.spec.ts",
+  "/test/customers-module/customers-crud/add.component.ts",
+  "/test/customers-module/customers-crud/api.service.ts",
+  "/test/customers-module/customers-crud/base-entry.component.ts",
+  "/test/customers-module/customers-crud/crud.facade.spec.ts",
+  "/test/customers-module/customers-crud/crud.facade.ts",
+  "/test/customers-module/customers-crud/edit.component.spec.ts",
+  "/test/customers-module/customers-crud/edit.component.ts",
+  "/test/customers-module/customers-crud/index.ts",
+]
+`;
