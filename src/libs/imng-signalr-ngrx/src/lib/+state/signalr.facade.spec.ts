@@ -5,8 +5,6 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 
-import { NxModule } from '@nrwl/angular';
-
 import { SignalrEffects } from './signalr.effects';
 import { SignalrFacade } from './signalr.facade';
 
@@ -58,7 +56,6 @@ describe('SignalrFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
           StoreModule.forRoot({}),
           EffectsModule.forRoot([]),
           CustomFeatureModule,

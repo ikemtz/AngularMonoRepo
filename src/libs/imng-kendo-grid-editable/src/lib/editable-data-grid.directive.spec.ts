@@ -54,7 +54,7 @@ describe('ImngEditableDataGridDirective', () => {
     expect(directive).toBeTruthy();
     expect(directive.gridDataEntryHelper).toBeFalsy();
     directive.ngOnInit();
-    directive.gridDataEntryHelper = new GridDataEntryHelper(formGroupFac, [
+    directive.gridDataEntryHelper = new GridDataEntryHelper<{ id?: IdType; }>(formGroupFac, [
       { id: 'A💩' as IdType },
       { id: 'B🐂' as IdType },
       { id: 'C🥜' as IdType },
