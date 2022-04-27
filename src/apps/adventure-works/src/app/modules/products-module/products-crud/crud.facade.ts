@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { ODataState } from 'imng-kendo-odata';
 import { productsFeature } from '../+state/product.reducer';
 import { productQueries } from '../+state/product.selectors';
 import * as productActionTypes from '../+state/product.actions';
 import { IProduct } from '../../../models/webapi';
-import { ODataState } from 'imng-kendo-odata';
 
 @Injectable()
 export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
@@ -33,6 +33,7 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
   public updateExistingEntity(item: IProduct): void {
     this.store.dispatch(productActionTypes.updateProductRequest(item));
   }
+
   public loadProductModels(state: ODataState): void {
     this.store.dispatch(productActionTypes.loadProductModelsRequest(state));
   }

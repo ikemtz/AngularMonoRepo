@@ -1,20 +1,13 @@
 import { OnInit, Component } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
-import {
-  CustomerFormGroupFac,
-  CustomerProperties,
-  ISalesAgent,
-  SalesAgentProperties,
-} from '../../../models/webapi';
+import { CustomerFormGroupFac, CustomerProperties, ISalesAgent, SalesAgentProperties } from '../../../models/webapi';
 
 import { CustomerCrudFacade } from './crud.facade';
 
 @Component({ template: '' })
-export abstract class CustomerBaseEntryComponent
-  extends BaseDataEntryComponent<CustomerCrudFacade>
-  implements OnInit
-{
+export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<CustomerCrudFacade>
+  implements OnInit {
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public readonly salesAgents$: Observable<ISalesAgent[]>;
@@ -23,25 +16,13 @@ export abstract class CustomerBaseEntryComponent
   constructor(facade: CustomerCrudFacade) {
     super(facade);
     this.salesAgents$ = facade.salesAgents$.pipe(
-      switchMap((salesAgents) =>
-        this.salesAgentFilter$.pipe(
-          map((salesAgentFilter) =>
-            salesAgentFilter
-              ? salesAgents.filter(
-                  (salesAgent) =>
-                    (salesAgent.name &&
-                      salesAgent.name.toLowerCase().indexOf(salesAgentFilter) >=
-                        0) ||
-                    (salesAgent.loginId &&
-                      salesAgent.loginId
-                        .toLowerCase()
-                        .indexOf(salesAgentFilter) >= 0),
-                )
-              : salesAgents,
-          ),
-        ),
-      ),
-    );
+      switchMap(salesAgents => this.salesAgentFilter$.pipe(
+        map(salesAgentFilter => salesAgentFilter ? salesAgents
+          .filter(salesAgent => (
+            (salesAgent.name && salesAgent.name.toLowerCase().indexOf(salesAgentFilter) >= 0) ||
+            (salesAgent.loginId && salesAgent.loginId.toLowerCase().indexOf(salesAgentFilter) >= 0)
+          )) : salesAgents
+        ))));
   }
 
   public ngOnInit(): void {
@@ -50,8 +31,7 @@ export abstract class CustomerBaseEntryComponent
       selectors: [
         SalesAgentProperties.ID,
         SalesAgentProperties.NAME,
-        SalesAgentProperties.LOGIN_ID,
-      ],
+        SalesAgentProperties.LOGIN_ID,]
     });
   }
 

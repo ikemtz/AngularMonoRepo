@@ -17,8 +17,8 @@ describe('ProductListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductListComponent ],
-      imports: [ RouterTestingModule ],
+      declarations: [ProductListComponent],
+      imports: [RouterTestingModule],
       providers: [
         { provide: ProductListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: ProductCrudFacade, useValue: createDataEntryMockFacade() },

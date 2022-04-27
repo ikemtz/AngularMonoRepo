@@ -4,12 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import {
-  mockConsoleError,
-  mockConsoleGroup,
-  mockConsoleWarn,
-  readFirst,
-} from 'imng-ngrx-utils/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
 
 import { createMockCustomerFacade } from './add.component.spec';
 import { CustomerEditComponent } from './edit.component';
@@ -28,13 +23,8 @@ describe('CustomerEditComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [CustomerEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DropDownsModule],
-      providers: [
-        {
-          provide: CustomerCrudFacade,
-          useValue: createDataEntryMockFacade(createMockCustomerFacade()),
-        },
-      ],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DropDownsModule,],
+      providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade(createMockCustomerFacade()) }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -56,7 +46,7 @@ describe('CustomerEditComponent', () => {
     component.initForm();
     component.addEditForm.patchValue({
       [CustomerProperties.ID]: 'ID',
-      [CustomerProperties.NUM]: 'NUM-num-nu',
+      [CustomerProperties.NUM]: 'NUM-num-23',
       [CustomerProperties.NAME]: 'NAME',
       [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
       [CustomerProperties.SALES_AGENT_ID]: 0,
@@ -65,13 +55,14 @@ describe('CustomerEditComponent', () => {
       [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
     });
     let item: ICustomer | undefined;
-    facade.updateExistingEntity = jest.fn((x) => (item = x));
+    facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
 
     expect(item).toMatchSnapshot();
+
   });
 
   /**
@@ -95,6 +86,6 @@ describe('CustomerEditComponent', () => {
   test('should support SalesAgent filters', async () => {
     component.handleSalesAgentFilter('xy');
     const result = await readFirst(component.salesAgents$);
-    expect(result).toStrictEqual([{ name: 'xyz', loginId: 'xyz' }]);
+    expect(result).toStrictEqual([{ name: 'xyz', loginId: 'xyz', }]);
   });
 });

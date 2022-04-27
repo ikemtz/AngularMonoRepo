@@ -47,7 +47,7 @@ describe('ProductCrudFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {}); //NOSONAR
+  beforeEach(() => { }); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -59,15 +59,10 @@ describe('ProductCrudFacade', () => {
         providers: [
           ProductCrudFacade,
           ProductApiService,
-          {
-            provide: HttpClient,
-            useValue: {
-              get: jest.fn(() => of(createODataPayload([createProduct()]))),
-            },
-          },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createProduct()]))) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -77,7 +72,7 @@ describe('ProductCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

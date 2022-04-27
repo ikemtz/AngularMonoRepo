@@ -32,8 +32,21 @@ const initialGridState: ODataState = {
     { field: ProductProperties.LIST_PRICE, dir: 'desc' },
   ],
   expanders: [
-    { table: ProductProperties.PRODUCT_MODEL, selectors: [ProductModelProperties.NAME] },
-    { table: ProductProperties.PRODUCT_CATEGORY, selectors: [ProductCategoryProperties.NAME] },
+    {
+      table: ProductProperties.PRODUCT_MODEL,
+      selectors: [
+        ProductModelProperties.ID,
+        ProductModelProperties.NAME,
+        ProductModelProperties.DESCRIPTION,
+      ]
+    },
+    {
+      table: ProductProperties.PRODUCT_CATEGORY,
+      selectors: [
+        ProductCategoryProperties.ID,
+        ProductCategoryProperties.NAME,
+      ]
+    },
   ]
 };
 
@@ -45,6 +58,8 @@ const initialGridState: ODataState = {
 })
 export class ProductListComponent extends KendoODataBasedComponent<IProduct, ProductListFacade> {
   public readonly props = ProductProperties;
+  public readonly productModelProps = ProductModelProperties;
+  public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
   constructor(facade: ProductListFacade,
@@ -69,7 +84,7 @@ export class ProductListComponent extends KendoODataBasedComponent<IProduct, Pro
   public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
   }
-  public getFormatSrc(base64Image: string): SafeUrl {
-    return this.domSanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${base64Image}`);
+  public getFormatSrc(base64Image: string, format: string = 'png'): SafeUrl {
+    return this.domSanitizer.bypassSecurityTrustUrl(`data:image/${format};base64, ${base64Image}`);
   }
 }
