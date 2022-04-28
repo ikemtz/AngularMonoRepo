@@ -129,7 +129,7 @@ jobs:
 
       - task: Docker@2
         inputs:
-          containerRegistry: 'Azure Container Registry (NgMono)'
+          containerRegistry: 'Azure Container Registry'
           repository: 'nurse-cron'
           command: 'buildAndPush'
           Dockerfile: 'src/nurse-cron.local.Dockerfile'
