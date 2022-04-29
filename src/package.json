@@ -106,13 +106,13 @@
   },
   "private": false,
   "devDependencies": {
-    "@angular-devkit/build-angular": "^13.3.3",
+    "@angular-devkit/build-angular": "^13.3.4",
     "@angular-eslint/eslint-plugin": "13.2",
     "@angular-eslint/eslint-plugin-template": "13.2",
     "@angular-eslint/template-parser": "13.2",
-    "@angular/cli": "^13.3.3",
-    "@angular/compiler-cli": "^13.3.4",
-    "@angular/language-service": "^13.3.4",
+    "@angular/cli": "^13.3.4",
+    "@angular/compiler-cli": "^13.3.5",
+    "@angular/language-service": "^13.3.5",
     "@nrwl/angular": "14.0.5",
     "@nrwl/cli": "14.0.5",
     "@nrwl/cypress": "14.0.5",
@@ -148,16 +148,16 @@
     "typescript": "4.6.3"
   },
   "dependencies": {
-    "@angular/animations": "^13.3.4",
-    "@angular/common": "^13.3.4",
-    "@angular/compiler": "^13.3.4",
-    "@angular/core": "^13.3.4",
-    "@angular/forms": "^13.3.4",
-    "@angular/localize": "^13.3.4",
-    "@angular/platform-browser": "^13.3.4",
-    "@angular/platform-browser-dynamic": "^13.3.4",
-    "@angular/router": "^13.3.4",
-    "@angular/service-worker": "^13.3.4",
+    "@angular/animations": "^13.3.5",
+    "@angular/common": "^13.3.5",
+    "@angular/compiler": "^13.3.5",
+    "@angular/core": "^13.3.5",
+    "@angular/forms": "^13.3.5",
+    "@angular/localize": "^13.3.5",
+    "@angular/platform-browser": "^13.3.5",
+    "@angular/platform-browser-dynamic": "^13.3.5",
+    "@angular/router": "^13.3.5",
+    "@angular/service-worker": "^13.3.5",
     "@ericblade/quagga2": "^1.6.0",
     "@microsoft/applicationinsights-web": "^2.8.1",
     "@microsoft/signalr": "^6.0.4",
@@ -193,4 +193,3 @@
     "zone.js": "~0.11.4"
   }
 }
-
