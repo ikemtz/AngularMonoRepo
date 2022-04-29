@@ -6,6 +6,7 @@
     "@angular/common": ">=13.x",
     "@angular/core": ">=13.x",
     "@angular/forms": ">=13.x",
+    "@angular/platform-browser": ">=13.x",
     "@ngrx/store": ">=13.x",
     "@progress/kendo-angular-dialog": ">=7.x",
     "imng-ngrx-utils": "*",
