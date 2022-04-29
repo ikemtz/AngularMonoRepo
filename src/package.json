@@ -113,14 +113,14 @@
     "@angular/cli": "^13.3.3",
     "@angular/compiler-cli": "^13.3.4",
     "@angular/language-service": "^13.3.4",
-    "@nrwl/angular": "14.0.3",
-    "@nrwl/cli": "14.0.3",
-    "@nrwl/cypress": "14.0.3",
-    "@nrwl/eslint-plugin-nx": "14.0.3",
-    "@nrwl/jest": "14.0.3",
-    "@nrwl/linter": "14.0.3",
-    "@nrwl/nx-cloud": "13.3.1",
-    "@nrwl/workspace": "14.0.3",
+    "@nrwl/angular": "14.0.5",
+    "@nrwl/cli": "14.0.5",
+    "@nrwl/cypress": "14.0.5",
+    "@nrwl/eslint-plugin-nx": "14.0.5",
+    "@nrwl/jest": "14.0.5",
+    "@nrwl/linter": "14.0.5",
+    "@nrwl/nx-cloud": "14.0.1",
+    "@nrwl/workspace": "14.0.5",
     "@types/jest": "27.4.1",
     "@types/node": "^16.11.31",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
@@ -136,7 +136,7 @@
     "jest-preset-angular": "^11.1.2",
     "ng-packagr": "13.3.1",
     "ngx-bootstrap": "^8.0.0",
-    "nx": "14.0.3",
+    "nx": "14.0.5",
     "openapi-mermaid": "^2.115.3",
     "openapi-ts-generator": "^4.114.2",
     "postcss": "^8.4.12",
@@ -193,3 +193,4 @@
     "zone.js": "~0.11.4"
   }
 }
+
