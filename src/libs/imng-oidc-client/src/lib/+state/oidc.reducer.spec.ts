@@ -8,7 +8,13 @@ describe('Employees Reducer', () => {
     it('getOidcUser', () => {
       const action = oidcActions.getOidcUser();
       const result = oidcFeature.reducer(initialState, action);
-      expect(result.isLoading).toBe(true);
+      expect(result.isLoading).toBe(false);
+    });
+
+    it('onUserLoading', () => {
+      const action = oidcActions.onUserLoading();
+      const result = oidcFeature.reducer(initialState, action);
+      expect(result).toMatchSnapshot();
     });
 
     it('userExpired', () => {

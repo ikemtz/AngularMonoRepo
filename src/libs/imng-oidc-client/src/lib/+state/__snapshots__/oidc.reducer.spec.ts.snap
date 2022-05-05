@@ -55,3 +55,21 @@ Object {
   "userMetadata": undefined,
 }
 `;
+
+exports[`Employees Reducer valid Oidc actions onUserLoading 1`] = `
+Object {
+  "audiences": Array [],
+  "errors": Object {
+    "httpError": undefined,
+    "signInError": undefined,
+    "silentRenewError": undefined,
+  },
+  "identity": undefined,
+  "isExpired": false,
+  "isExpiring": false,
+  "isLoading": true,
+  "isLoggedIn": false,
+  "permissions": Array [],
+  "userMetadata": undefined,
+}
+`;

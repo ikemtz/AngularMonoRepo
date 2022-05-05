@@ -131,7 +131,7 @@ export class OidcFacade {
   }
 
   /**
-   * Convenient function to wait for loaded.
+   * Convenient function to wait for OIDC dependencies to be loaded.
    */
   public waitForAuthenticationLoaded(): Observable<boolean> {
     return this.loading$.pipe(
