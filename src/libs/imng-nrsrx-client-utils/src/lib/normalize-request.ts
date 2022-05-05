@@ -8,12 +8,10 @@ import { isaString } from './id-type';
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function normalizeRequest<T extends object>(payload: T): T {
   for (const x in payload) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const val: any = payload[x];
-    if (isaString(val)) {
-      const newLocal = val.toString() === ''; //NOSONAR
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      payload[x] = (newLocal ? null : payload[x]) as any; //NOSONAR
+    const val: unknown = payload[x];
+    if ((isaString(val) && !val.length) ||
+      (Array.isArray(val) && !val.length)) {
+      payload[x] = null as never;
     }
   }
   return payload;
