@@ -11,7 +11,9 @@ import { DOCUMENT } from '@angular/common';
 export class AuthGuard implements CanActivate, CanActivateChild {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(@Inject(DOCUMENT) private readonly document: any, private readonly oidcFacade: OidcFacade) { } //NOSONAR
-
+  /**
+   * This will automatically attempt to authenticate you when trying to access a protected route.
+   */
   public readonly isLoggedInPipe$ = this.oidcFacade.waitForAuthenticationLoaded().pipe(
     switchMap(() => this.oidcFacade.loggedIn$),
     tap(t => {
