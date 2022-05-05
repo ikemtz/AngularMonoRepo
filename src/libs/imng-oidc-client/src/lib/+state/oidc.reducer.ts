@@ -45,7 +45,12 @@ export const oidcFeature = createFeature({
   name: OIDC_FEATURE_KEY,
   reducer: createReducer(initialState,
     on(oidcActions.getOidcUser,
-      oidcActions.onUserLoading,
+      (state): OidcState => ({
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+      })),
+    on(oidcActions.onUserLoading,
       (state): OidcState => ({
         ...state,
         isLoading: true,

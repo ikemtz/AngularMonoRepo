@@ -83,7 +83,7 @@ describe('OidcFacade', () => {
 
     it('current state should match initial', async () => {
       expect(store).toBeTruthy();
-      expect(await readFirst(facade.loading$)).toBe(true);
+      expect(await readFirst(facade.loading$)).toBe(false);
       expect(await readFirst(facade.expiring$)).toBe(false);
     });
 
