@@ -22,10 +22,6 @@ export function oidcConfigurator(
           ? true
           : oidcClientConfig.automaticSilentRenew,
       metadataUrl: `${oidcClientConfig.authority}/.well-known/openid-configuration`,
-      userStore: new WebStorageStateStore({
-        store: oidcClientConfig.webStorageStateStore || sessionStorage,
-        prefix: 'imng-oidc'
-      }),
     },
     getUserMetadata: oidcClientConfig.getUserMetadata,
     useCallbackFlag:
