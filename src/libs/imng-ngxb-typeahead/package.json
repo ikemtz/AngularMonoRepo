@@ -10,6 +10,7 @@
     "@angular/common": ">=13.x",
     "@angular/core": ">=13.x",
     "@angular/forms": ">=13.x",
+    "@angular/platform-browser": ">=13.x",
     "@progress/kendo-data-query": ">=1.x",
     "ngx-bootstrap": ">=8.x",
     "imng-ngrx-utils": "*",
