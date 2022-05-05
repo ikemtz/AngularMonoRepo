@@ -32,6 +32,7 @@ export interface OidcClientConfig {
   automaticSilentRenew?: boolean;
   getUserMetadata: boolean;
   useCallbackFlag?: boolean;
+  webStorageStateStore?: Storage,
 }
 export const OIDC_CLIENT_CONFIG = new InjectionToken<OidcClientConfig>(
   'oidc-client-config'
