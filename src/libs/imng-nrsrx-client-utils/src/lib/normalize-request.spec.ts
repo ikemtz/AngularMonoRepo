@@ -12,14 +12,16 @@ describe('NormalizeRequest', () => {
       name: '',
       number: 1,
       number2: 0,
-      xyz: null
+      xyz: null,
+      collection: []
     }))
       .toStrictEqual({
         id: '598425a4-e5ed-4b8a-8911-0845e661fbea',
         name: null,
         number: 1,
         number2: 0,
-        xyz: null
+        xyz: null,
+        collection: null
       });
   });
 });
