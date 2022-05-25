@@ -166,7 +166,7 @@
     "@ngrx/store": "^13.1.0",
     "@ngrx/store-devtools": "^13.1.0",
     "@progress/kendo-angular-buttons": "^8.0.0",
-    "@progress/kendo-angular-charts": "^7.0.0",
+    "@progress/kendo-angular-charts": "^7.1.0",
     "@progress/kendo-angular-common": "^3.0.0",
     "@progress/kendo-angular-dateinputs": "^7.0.0",
     "@progress/kendo-angular-dialog": "^7.0.0",
