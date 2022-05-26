@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-kendo-grid-editable",
   "sourceRoot": "libs/imng-kendo-grid-editable/src",
   "prefix": "imng",
   "targets": {

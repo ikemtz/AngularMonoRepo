@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-kendo-ngrx-idle",
   "sourceRoot": "libs/imng-kendo-ngrx-idle/src",
   "prefix": "imng",
   "targets": {

@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-kendo-grid",
   "sourceRoot": "libs/imng-kendo-grid/src",
   "prefix": "imng",
   "targets": {

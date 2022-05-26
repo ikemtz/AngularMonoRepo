@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "apps/imng-inventory",
   "sourceRoot": "apps/imng-inventory/src",
   "prefix": "imng",
   "targets": {
