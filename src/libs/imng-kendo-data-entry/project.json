@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-kendo-data-entry",
   "sourceRoot": "libs/imng-kendo-data-entry/src",
   "prefix": "imng",
   "targets": {
