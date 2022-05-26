@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "apps/adventure-works",
   "sourceRoot": "apps/adventure-works/src",
   "prefix": "aw",
   "targets": {

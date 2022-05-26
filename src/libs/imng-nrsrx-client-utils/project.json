@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-nrsrx-client-utils",
   "sourceRoot": "libs/imng-nrsrx-client-utils/src",
   "prefix": "imng",
   "targets": {

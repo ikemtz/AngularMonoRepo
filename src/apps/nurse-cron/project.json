@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "apps/nurse-cron",
   "sourceRoot": "apps/nurse-cron/src",
   "prefix": "imng",
   "targets": {

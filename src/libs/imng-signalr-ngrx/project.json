@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-signalr-ngrx",
   "sourceRoot": "libs/imng-signalr-ngrx/src",
   "prefix": "imng",
   "targets": {

@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-ngrx-utils",
   "sourceRoot": "libs/imng-ngrx-utils/src",
   "prefix": "imng",
   "targets": {
