@@ -15,9 +15,9 @@ export enum ShippingTypes {
 }
 
 export const shippingTypeValues = [
-  { key: 1, name: 'Other'}
-  { key: 2, name: 'Air'}
-  { key: 3, name: 'Truck'}
-  { key: 4, name: 'Train'}
-  { key: 5, name: 'Cargo Transport'}
+  { key: 1, name: 'Other' },
+  { key: 2, name: 'Air' },
+  { key: 3, name: 'Truck' },
+  { key: 4, name: 'Train' },
+  { key: 5, name: 'Cargo Transport' },
 ];
