@@ -6,7 +6,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { OrderAddComponent } from './add.component';
 import { OrderCrudFacade } from './crud.facade';
-import { IOrder, OrderProperties } from '../../../models/webapi';
+import { IOrder, OrderProperties, ShippingTypes } from '../../../models/webapi';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
@@ -63,7 +63,7 @@ describe('OrderAddComponent', () => {
       [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
       [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
       [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-      [OrderProperties.SHIP_METHOD]: 'SHIP_METHOD',
+      [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Air,
       [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
       [OrderProperties.SUB_TOTAL]: 0,
       [OrderProperties.TAX_AMT]: 0,

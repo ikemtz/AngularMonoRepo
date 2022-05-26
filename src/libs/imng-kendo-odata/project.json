@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-kendo-odata",
   "sourceRoot": "libs/imng-kendo-odata/src",
   "prefix": "imng",
   "targets": {

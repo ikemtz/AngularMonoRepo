@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "apps/imng-az-func-configr",
   "sourceRoot": "apps/imng-az-func-configr/src",
   "prefix": "imng",
   "targets": {

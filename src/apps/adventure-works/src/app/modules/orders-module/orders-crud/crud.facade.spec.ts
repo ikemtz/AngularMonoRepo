@@ -17,7 +17,7 @@ import { ordersFeature } from '../+state/order.reducer';
 import { OrderCrudFacade } from './crud.facade';
 import { OrderApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { IOrder, OrderProperties } from '../../../models/webapi';
+import { IOrder, OrderProperties, ShippingTypes } from '../../../models/webapi';
 
 export const createOrder = () =>
   <IOrder>{
@@ -34,7 +34,7 @@ export const createOrder = () =>
     [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
     [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
     [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-    [OrderProperties.SHIP_METHOD]: 'SHIP_METHOD',
+    [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Air,
     [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
     [OrderProperties.SUB_TOTAL]: 0,
     [OrderProperties.TAX_AMT]: 0,

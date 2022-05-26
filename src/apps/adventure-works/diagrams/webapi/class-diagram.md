@@ -5,6 +5,7 @@ classDiagram
   Customer ..> CustomerAddress
   Customer ..> Order
   CustomerAddress ..> Customer
+  Order ..> ShippingTypes
   Order ..> Customer
   Order ..> OrderAddress
   Order ..> OrderLineItem
@@ -64,7 +65,6 @@ classDiagram
     +uuid: customerId
     +uuid: shipToAddressId
     +uuid: billToAddressId
-    +string: shipMethod
     +string: creditCardApprovalCode
     +number: subTotal
     +number: taxAmt
@@ -75,6 +75,7 @@ classDiagram
     +date: createdOnUtc
     +string: updatedBy
     +date: updatedOnUtc
+    +ShippingTypes: shippingType;
     +Customer: customer;
     +OrderAddress: shipToAddress;
     +OrderAddress: billToAddress;
@@ -157,6 +158,14 @@ classDiagram
     +string: name
     +string: loginId
     +Customer[]: customers;
+  }
+  class ShippingTypes{
+    <<enumeration>>
+    Other
+    Air
+    Truck
+    Train
+    CargoTransport
   }
 ```
 

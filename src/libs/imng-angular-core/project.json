@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-angular-core",
   "sourceRoot": "libs/imng-angular-core/src",
   "prefix": "imng",
   "targets": {
