@@ -1,5 +1,4 @@
 {
-  "root": "apps/imng-az-func-configr-e2e",
   "sourceRoot": "apps/imng-az-func-configr-e2e/src",
   "projectType": "application",
   "targets": {
@@ -17,18 +16,12 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/imng-az-func-configr-e2e/**/*.{js,ts}"
-        ]
+        "lintFilePatterns": ["apps/imng-az-func-configr-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": [
-    "imng-az-func-configr"
-  ]
+  "implicitDependencies": ["imng-az-func-configr"]
 }

@@ -5,11 +5,13 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+
+import { ShippingTypes } from './shipping-types.enum';
 import { ICustomer } from './customer.model';
 import { IOrderAddress } from './order-address.model';
 import { IOrderLineItem } from './order-line-item.model';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IOrder {
   id?: string;
   orderId?: number;
@@ -24,13 +26,13 @@ export interface IOrder {
   customerId?: string;
   shipToAddressId?: string;
   billToAddressId?: string;
-  shipMethod?: string;
   creditCardApprovalCode?: string;
   subTotal?: number;
   taxAmt?: number;
   freight?: number;
   totalDue?: number;
   comment?: string;
+  shippingType?: ShippingTypes;
   customer?: ICustomer;
   shipToAddress?: IOrderAddress;
   billToAddress?: IOrderAddress;
