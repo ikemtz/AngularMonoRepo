@@ -209,15 +209,15 @@
           type="text"
           maxlength="50"
           class="form-control"
-          [formControlName]="props.SHIP_METHOD"
+          [formControlName]="props.SHIPPING_TYPE"
           [ngClass]="{
             'is-invalid':
-              (submitted$ | async) && formControlErrors(props.SHIP_METHOD)
+              (submitted$ | async) && formControlErrors(props.SHIPPING_TYPE)
           }" />
         <div
-          *ngIf="(submitted$ | async) && formControlErrors(props.SHIP_METHOD)"
+          *ngIf="(submitted$ | async) && formControlErrors(props.SHIPPING_TYPE)"
           class="invalid-feedback">
-          <div *ngIf="formControlErrors(props.SHIP_METHOD)?.[RequiredError]">
+          <div *ngIf="formControlErrors(props.SHIPPING_TYPE)?.[RequiredError]">
             Order ship method is required
           </div>
         </div>

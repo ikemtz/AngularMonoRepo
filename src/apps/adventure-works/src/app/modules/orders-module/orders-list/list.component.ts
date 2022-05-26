@@ -25,7 +25,7 @@ const initialGridState: ODataState = {
     OrderProperties.CUSTOMER_ID,
     OrderProperties.SHIP_TO_ADDRESS_ID,
     OrderProperties.BILL_TO_ADDRESS_ID,
-    OrderProperties.SHIP_METHOD,
+    OrderProperties.SHIPPING_TYPE,
     OrderProperties.CREDIT_CARD_APPROVAL_CODE,
     OrderProperties.SUB_TOTAL,
     OrderProperties.TAX_AMT,

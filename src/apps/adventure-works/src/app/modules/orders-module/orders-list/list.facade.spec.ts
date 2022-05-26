@@ -13,7 +13,7 @@ import { OrderEffects } from '../+state/order.effects';
 import { ordersFeature } from '../+state/order.reducer';
 import { OrderListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import { OrderProperties } from '../../../models/odata';
+import { OrderProperties, ShippingTypes } from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
 
 export const createOrder = () => <IExtOrder>{
@@ -30,7 +30,7 @@ export const createOrder = () => <IExtOrder>{
   [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
   [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
   [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-  [OrderProperties.SHIP_METHOD]: 'SHIP_METHOD',
+  [OrderProperties.SHIPPING_TYPE]: ShippingTypes.CargoTransport,
   [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
   [OrderProperties.SUB_TOTAL]: 0,
   [OrderProperties.TAX_AMT]: 0,
