@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-ngxb-typeahead",
   "sourceRoot": "libs/imng-ngxb-typeahead/src",
   "prefix": "imng",
   "targets": {

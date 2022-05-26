@@ -5,9 +5,10 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+
 import { IProduct } from './product.model';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IProductCategory {
   id?: string;
   name?: string;

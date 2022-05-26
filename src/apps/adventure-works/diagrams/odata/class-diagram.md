@@ -7,6 +7,7 @@ classDiagram
   CustomerAddress ..> Customer
   CustomerAddressGuidODataEnvelope ..> CustomerAddress
   CustomerGuidODataEnvelope ..> Customer
+  Order ..> ShippingTypes
   Order ..> Customer
   Order ..> OrderAddress
   Order ..> OrderLineItem
@@ -66,6 +67,65 @@ classDiagram
     +number: count
     +Customer[]: value;
   }
+  class EdmContainerElementKind{
+    <<enumeration>>
+    None
+    EntitySet
+    ActionImport
+    FunctionImport
+    Singleton
+  }
+  class EdmExpressionKind{
+    <<enumeration>>
+    None
+    BinaryConstant
+    BooleanConstant
+    DateTimeOffsetConstant
+    DecimalConstant
+    FloatingConstant
+    GuidConstant
+    IntegerConstant
+    StringConstant
+    DurationConstant
+    Null
+    Record
+    Collection
+    Path
+    If
+    Cast
+    IsType
+    FunctionApplication
+    LabeledExpressionReference
+    Labeled
+    PropertyPath
+    NavigationPropertyPath
+    DateConstant
+    TimeOfDayConstant
+    EnumMember
+    AnnotationPath
+  }
+  class EdmSchemaElementKind{
+    <<enumeration>>
+    None
+    TypeDefinition
+    Term
+    Action
+    EntityContainer
+    Function
+  }
+  class EdmTypeKind{
+    <<enumeration>>
+    None
+    Primitive
+    Entity
+    Complex
+    Collection
+    EntityReference
+    Enum
+    TypeDefinition
+    Untyped
+    Path
+  }
   class Order{
     +uuid: id
     +number: orderId
@@ -80,7 +140,6 @@ classDiagram
     +uuid: customerId
     +uuid: shipToAddressId
     +uuid: billToAddressId
-    +string: shipMethod
     +string: creditCardApprovalCode
     +number: subTotal
     +number: taxAmt
@@ -91,6 +150,7 @@ classDiagram
     +date: createdOnUtc
     +string: updatedBy
     +date: updatedOnUtc
+    +ShippingTypes: shippingType;
     +Customer: customer;
     +OrderAddress: shipToAddress;
     +OrderAddress: billToAddress;
@@ -197,6 +257,14 @@ classDiagram
   class SalesAgentInt32ODataEnvelope{
     +number: count
     +SalesAgent[]: value;
+  }
+  class ShippingTypes{
+    <<enumeration>>
+    Other
+    Air
+    Truck
+    Train
+    CargoTransport
   }
 ```
 
