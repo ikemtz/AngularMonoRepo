@@ -8,7 +8,7 @@ async function generateTsModels() {
     openApiJsonUrl: 'https://awod.ikemtz.com/swagger/v1/swagger.json',
     outputPath: './apps/adventure-works/src/app/models/odata',
     genAngularFormGroups: true,
-    typeFilterCallBack: (val, i, arr) => !val.name.endsWith('ODataEnvelope'),
+    typeFilterCallBack: generator.nrsrxTypeFilterCallBack,
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
       !val.name.startsWith('created') && !val.name.startsWith('updated'),
     pathUrlFormattingCallBack: (val) => 'aw-odata' + val,

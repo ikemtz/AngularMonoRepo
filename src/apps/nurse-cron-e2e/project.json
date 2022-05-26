@@ -1,5 +1,4 @@
 {
-  "root": "apps/nurse-cron-e2e",
   "sourceRoot": "apps/nurse-cron-e2e/src",
   "projectType": "application",
   "targets": {

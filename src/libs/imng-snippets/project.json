@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-snippets",
   "sourceRoot": "libs/imng-snippets/src",
   "prefix": "imng",
   "targets": {

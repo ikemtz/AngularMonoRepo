@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "libs/imng-oidc-client",
   "sourceRoot": "libs/imng-oidc-client/src",
   "prefix": "imng",
   "targets": {
