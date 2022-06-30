@@ -41,11 +41,12 @@ describe('KendoGridBaseComponent', () => {
     it('should work', () => {
       const component = new MockGridComponent();
       const result = component.getRelatedField('parent', 'child');
-      expect(result).toBe(`parent/child`);
+      expect(result).toBe(`parent.child`);
+
     }); it('should work with subChilds', () => {
       const component = new MockGridComponent();
       const result = component.getRelatedField('parent', 'child', 'subChild');
-      expect(result).toBe(`parent/child/subChild`);
+      expect(result).toBe(`parent.child.subChild`);
     });
   });
 });
