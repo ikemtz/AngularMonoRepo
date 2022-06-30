@@ -29,6 +29,7 @@ jobs:
         inputs:
           workingDir: 'src'
           verbose: false
+          customCommand: 'install --legacy-peer-deps'
 
       - task: Bash@3
         displayName: 'running versioneer'
