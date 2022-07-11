@@ -3,6 +3,22 @@
     <div class="col-md-6">
       <label for="<%= underscore(swaggerProperty.name) %>" class="control-label mr-4"><%= swaggerProperty.startCaseName %>:</label><% if (swaggerProperty.htmlInputType === 'checkbox') { %>
       <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
+    </div><%} else if (swaggerProperty.enum){ %>
+      <kendo-combobox
+        id="<%= underscore(swaggerProperty.name) %>"
+        placeholder="Select a <%= swaggerProperty.startCaseName.toLowerCase() %>..."
+        [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
+        [data]="<%= camelize(swaggerProperty.pluralizedName) %>$ | async"
+        textField="key"
+        valueField="name"
+        [valuePrimitive]="true"
+        [filterable]="true"
+        (filterChange)="handle<%= classify(swaggerProperty.name) %>Filter($event)"<% if(swaggerProperty.required) { %>
+        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>) }"<% } %>>
+      </kendo-combobox><% if(swaggerProperty.required) { %>
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)" class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>)?.[RequiredError]"><%= capitalize(decamelize(name)) %> <%= (swaggerProperty.startCaseName).toLowerCase() %> is required</div>
+      </div><% } %>
     </div><%} else if (swaggerProperty.htmlInputType === 'object' && swaggerProperty.properties.length <= 2){ %>
       <kendo-combobox
         id="<%= underscore(swaggerProperty.name) %>"
