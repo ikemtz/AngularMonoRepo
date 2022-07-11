@@ -1,3 +1,4 @@
+import pluralize = require('pluralize');
 import { PropertyInfo, OpenApiComponent, OpenApiDocument } from './open-api-component';
 import { IOptions } from './options';
 import { mapPropertyAttributes } from './rules';
@@ -30,8 +31,9 @@ function mapReferencedProperties(property: PropertyInfo, propertyKey: string, op
   const propTypeNames = prop['$ref']?.split('/');
   if (propTypeNames) {
     const typeName: string = propTypeNames.pop() || '';
+    property.propertyTypeName = typeName;
+    property.pluralizedPropertyTypeName = pluralize(typeName);
     const refComponent = openApiDoc.components.schemas[typeName];
-    property.propertyTypeName = `${typeName}${refComponent.enum ? '' : 'Properties'}`;
     property.enum = refComponent.enum;
   }
 }
