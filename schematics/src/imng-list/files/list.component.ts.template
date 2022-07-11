@@ -14,7 +14,7 @@ const initialGridState: ODataState = {
     <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
   ],
   sort: [
-    { field: <%= classify(singularizedName) %>Properties.<%= firstProperty.snakeCaseName.toUpperCase() %>, dir: 'asc' },
+    { field: <%= classify(singularizedName) %>Properties.<%= firstProperty?.snakeCaseName.toUpperCase() %>, dir: 'asc' },
   ],<% if (hasObjects) { %>
   expanders: [<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
       { table: <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,

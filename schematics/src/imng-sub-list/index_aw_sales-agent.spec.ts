@@ -17,7 +17,7 @@ describe(`imng-sub-list`, () => {
     options = {
       name: `SalesAgent`,
       parentName: 'Customer',
-      openApiJsonUrl: `https://awod.ikemtz.com/swagger/v1/swagger.json`,
+      openApiJsonUrl: `https://awod-ikemtz.azurewebsites.net/swagger/v1/swagger.json`,
       path: `./test`,
       swaggerProperties: [],
       appPrefix: 'aw',
