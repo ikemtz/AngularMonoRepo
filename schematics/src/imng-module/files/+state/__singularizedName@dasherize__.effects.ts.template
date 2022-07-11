@@ -69,7 +69,7 @@ export class <%= classify(singularizedName) %>Effects {
         map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request()),
         handleEffectError(action))));
   });
-<%  if(swaggerObjectProperties){ swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+<%  if(swaggerObjectProperties){ swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   load<%= classify(swaggerProperty.pluralizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request),

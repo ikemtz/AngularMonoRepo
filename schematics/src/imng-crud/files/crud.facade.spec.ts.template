@@ -81,7 +81,7 @@ describe('<%= classify(name) %>CrudFacade', () => {
     test('Save CurrentEntity', async () =>
       testSaveCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));
     test('Update CurrentEntity', async () =>
-      testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+      testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
 
     test('should load <%= classify(swaggerProperty.pluralizedName) %>', async () => {
       facade.load<%= classify(swaggerProperty.pluralizedName) %>({});
