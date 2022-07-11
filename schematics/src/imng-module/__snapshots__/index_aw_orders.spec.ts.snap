@@ -20,10 +20,6 @@ export const saveOrderRequest = createPayloadAction<IOrder>('[Orders] Save Order
 export const updateOrderRequest = createPayloadAction<IOrder>('[Orders] Update Order Request');
 export const deleteOrderRequest = createPayloadAction<IOrder>('[Orders] Delete Order Request');
 
-export const loadShippingTypesRequest = createPayloadAction<ODataState>(
-    '[Orders] Load ShippingTypes Request');
-export const loadShippingTypesSuccess = createPayloadAction<ODataResult<IShippingType>>(
-    '[Orders] Load ShippingTypes Success');
 export const loadCustomersRequest = createPayloadAction<ODataState>(
     '[Orders] Load Customers Request');
 export const loadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>>(
@@ -56,10 +52,6 @@ import { OrderCrudFacade } from './crud.facade';
 export function createMockOrderFacade() {
   return {
     currentEntity$: of({}),
-    shippingTypes$: of([
-      {  },
-      {  },]),
-    loadShippingTypes: jest.fn(),
     customers$: of([
       { id: 'abc',num: 'abc',name: 'abc',companyName: 'abc',emailAddress: 'abc',phone: 'abc', },
       { id: 'xyz',num: 'xyz',name: 'xyz',companyName: 'xyz',emailAddress: 'xyz',phone: 'xyz', },]),
@@ -173,12 +165,6 @@ describe('OrderAddComponent', () => {
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
   });
 
-  test('should support ShippingType filters', async () => {
-    component.handleShippingTypeFilter('xy');
-    const result = await readFirst(component.shippingTypes$);
-    expect(result).toStrictEqual([{  }]);
-  });
-
   test('should support Customer filters', async () => {
     component.handleCustomerFilter('xy');
     const result = await readFirst(component.customers$);
@@ -244,28 +230,19 @@ import { OrderCrudFacade } from './crud.facade';
 @Component({ template: '' })
 export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<OrderCrudFacade>
   implements OnInit {
-  public readonly props = OrderProperties;  
-  public readonly shippingTypeProps = ShippingTypeProperties;
-  public readonly shippingTypes$: Observable<IShippingType[]>;
-  public readonly shippingTypeFilter$ = new BehaviorSubject('');  
+  public readonly props = OrderProperties;
   public readonly customerProps = CustomerProperties;
   public readonly customers$: Observable<ICustomer[]>;
-  public readonly customerFilter$ = new BehaviorSubject('');  
-  public readonly shipToAddressProps = ShipToAddressProperties;
+  public readonly customerFilter$ = new BehaviorSubject('');
+  public readonly shipToAddressProps = OrderAddressProperties;
   public readonly shipToAddresses$: Observable<IShipToAddress[]>;
-  public readonly shipToAddressFilter$ = new BehaviorSubject('');  
-  public readonly billToAddressProps = BillToAddressProperties;
+  public readonly shipToAddressFilter$ = new BehaviorSubject('');
+  public readonly billToAddressProps = OrderAddressProperties;
   public readonly billToAddresses$: Observable<IBillToAddress[]>;
   public readonly billToAddressFilter$ = new BehaviorSubject('');
 
   constructor(facade: OrderCrudFacade) {
     super(facade);
-    this.shippingTypes$ = facade.shippingTypes$.pipe(
-      switchMap(shippingTypes => this.shippingTypeFilter$.pipe(
-        map(shippingTypeFilter => shippingTypeFilter ? shippingTypes
-          .filter(shippingType => (
-          )) : shippingTypes
-    ))));
     this.customers$ = facade.customers$.pipe(
       switchMap(customers => this.customerFilter$.pipe(
         map(customerFilter => customerFilter ? customers
@@ -307,7 +284,6 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
 
   public ngOnInit(): void {
     this.initForm();
-    this.facade.loadShippingTypes({ selectors: [] });
     this.facade.loadCustomers({ selectors: [
       CustomerProperties.ID,
       CustomerProperties.NUM,
@@ -318,21 +294,21 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
       CustomerProperties.PHONE,
       CustomerProperties.SALES_AGENT,] });
     this.facade.loadShipToAddresses({ selectors: [
-      ShipToAddressProperties.ID,
-      ShipToAddressProperties.LINE_1,
-      ShipToAddressProperties.LINE_2,
-      ShipToAddressProperties.CITY,
-      ShipToAddressProperties.STATE_PROVINCE,
-      ShipToAddressProperties.COUNTRY_REGION,
-      ShipToAddressProperties.POSTAL_CODE,] });
+      OrderAddressProperties.ID,
+      OrderAddressProperties.LINE_1,
+      OrderAddressProperties.LINE_2,
+      OrderAddressProperties.CITY,
+      OrderAddressProperties.STATE_PROVINCE,
+      OrderAddressProperties.COUNTRY_REGION,
+      OrderAddressProperties.POSTAL_CODE,] });
     this.facade.loadBillToAddresses({ selectors: [
-      BillToAddressProperties.ID,
-      BillToAddressProperties.LINE_1,
-      BillToAddressProperties.LINE_2,
-      BillToAddressProperties.CITY,
-      BillToAddressProperties.STATE_PROVINCE,
-      BillToAddressProperties.COUNTRY_REGION,
-      BillToAddressProperties.POSTAL_CODE,] });
+      OrderAddressProperties.ID,
+      OrderAddressProperties.LINE_1,
+      OrderAddressProperties.LINE_2,
+      OrderAddressProperties.CITY,
+      OrderAddressProperties.STATE_PROVINCE,
+      OrderAddressProperties.COUNTRY_REGION,
+      OrderAddressProperties.POSTAL_CODE,] });
   }
 
   public initForm(): void {
@@ -343,9 +319,6 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
     this.facade.clearCurrentEntity();
   }
 
-  public handleShippingTypeFilter(value: string) {
-    this.shippingTypeFilter$.next(value.toLowerCase());
-  }
   public handleCustomerFilter(value: string) {
     this.customerFilter$.next(value.toLowerCase());
   }
@@ -466,13 +439,6 @@ describe('OrderCrudFacade', () => {
     test('Update CurrentEntity', async () =>
       testUpdateCurrentEntity<OrderCrudFacade>(facade, httpClient));
 
-    test('should load ShippingTypes', async () => {
-      facade.loadShippingTypes({});
-      expect(httpClient.get).toBeCalledTimes(1);
-      const result = await readFirst(facade.shippingTypes$);
-      expect(result.length).toBe(1);
-    });
-
     test('should load Customers', async () => {
       facade.loadCustomers({});
       expect(httpClient.get).toBeCalledTimes(1);
@@ -513,7 +479,6 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
   currentEntity$ = this.store.select(orderQueries.selectCurrentOrder);
   isEditActive$ = this.store.select(orderQueries.selectIsEditOrderActive);
   isNewActive$ = this.store.select(orderQueries.selectIsNewOrderActive);
-  shippingTypes$ = this.store.select(ordersFeature.selectShippingTypes);
   customers$ = this.store.select(ordersFeature.selectCustomers);
   shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
   billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
@@ -536,9 +501,6 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
     this.store.dispatch(orderActionTypes.updateOrderRequest(item));
   }
 
-  public loadShippingTypes(state: ODataState): void {
-    this.store.dispatch(orderActionTypes.loadShippingTypesRequest(state));
-  }
   public loadCustomers(state: ODataState): void {
     this.store.dispatch(orderActionTypes.loadCustomersRequest(state));
   }
@@ -868,12 +830,6 @@ describe('OrderEditComponent', () => {
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
   });
 
-  test('should support ShippingType filters', async () => {
-    component.handleShippingTypeFilter('xy');
-    const result = await readFirst(component.shippingTypes$);
-    expect(result).toStrictEqual([{  }]);
-  });
-
   test('should support Customer filters', async () => {
     component.handleCustomerFilter('xy');
     const result = await readFirst(component.customers$);
@@ -1002,15 +958,6 @@ export class OrderEffects {
       switchMap((action: ReturnType<typeof orderActionTypes.deleteOrderRequest>) => this.orderApiService.delete(action.payload).pipe(
         map(() => orderActionTypes.reloadOrdersRequest()),
         handleEffectError(action))));
-  });
-
-  loadShippingTypesEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.loadShippingTypesRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadShippingTypesRequest>) => this.odataservice
-        .fetch<IShippingType>(environment.odataEnpoints.shippingTypes, action.payload)
-        .pipe(map(t => orderActionTypes.loadShippingTypesSuccess(t)),
-          handleEffectError(action))));
   });
 
   loadCustomersEffect$ = createEffect(() => {
@@ -1295,9 +1242,6 @@ const initialGridState: ODataState = {
     { field: OrderProperties.ORDER_ID, dir: 'asc' },
   ],
   expanders: [
-      { table: OrderProperties.SHIPPING_TYPE,
-        selectors: [
-        ]},
       { table: OrderProperties.CUSTOMER,
         selectors: [
           CustomerProperties.ID,
@@ -1311,23 +1255,23 @@ const initialGridState: ODataState = {
         ]},
       { table: OrderProperties.SHIP_TO_ADDRESS,
         selectors: [
-          ShipToAddressProperties.ID,
-          ShipToAddressProperties.LINE_1,
-          ShipToAddressProperties.LINE_2,
-          ShipToAddressProperties.CITY,
-          ShipToAddressProperties.STATE_PROVINCE,
-          ShipToAddressProperties.COUNTRY_REGION,
-          ShipToAddressProperties.POSTAL_CODE,
+          OrderAddressProperties.ID,
+          OrderAddressProperties.LINE_1,
+          OrderAddressProperties.LINE_2,
+          OrderAddressProperties.CITY,
+          OrderAddressProperties.STATE_PROVINCE,
+          OrderAddressProperties.COUNTRY_REGION,
+          OrderAddressProperties.POSTAL_CODE,
         ]},
       { table: OrderProperties.BILL_TO_ADDRESS,
         selectors: [
-          BillToAddressProperties.ID,
-          BillToAddressProperties.LINE_1,
-          BillToAddressProperties.LINE_2,
-          BillToAddressProperties.CITY,
-          BillToAddressProperties.STATE_PROVINCE,
-          BillToAddressProperties.COUNTRY_REGION,
-          BillToAddressProperties.POSTAL_CODE,
+          OrderAddressProperties.ID,
+          OrderAddressProperties.LINE_1,
+          OrderAddressProperties.LINE_2,
+          OrderAddressProperties.CITY,
+          OrderAddressProperties.STATE_PROVINCE,
+          OrderAddressProperties.COUNTRY_REGION,
+          OrderAddressProperties.POSTAL_CODE,
         ]},
   ]
 };
@@ -1340,10 +1284,9 @@ const initialGridState: ODataState = {
 })
 export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderListFacade> {
   public readonly props = OrderProperties;
-  public readonly shippingTypeProps = ShippingTypeProperties;
   public readonly customerProps = CustomerProperties;
-  public readonly shipToAddressProps = ShipToAddressProperties;
-  public readonly billToAddressProps = BillToAddressProperties;
+  public readonly shipToAddressProps = OrderAddressProperties;
+  public readonly billToAddressProps = OrderAddressProperties;
   public currentItem: IOrder | undefined;
 
   constructor(facade: OrderListFacade, 
@@ -1433,7 +1376,6 @@ export const ORDERS_FEATURE_KEY = 'orders';
 
 export interface State extends KendoODataGridState<IOrder> {
   currentOrder: IOrder | undefined;
-  shippingTypes: IShippingType[];
   customers: ICustomer[];
   shipToAddresses: IShipToAddress[];
   billToAddresses: IBillToAddress[];
@@ -1442,7 +1384,6 @@ export interface State extends KendoODataGridState<IOrder> {
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
   currentOrder: undefined,
-  shippingTypes: [],
   customers: [],
   shipToAddresses: [],
   billToAddresses: [],
@@ -1481,11 +1422,6 @@ export const ordersFeature = createFeature({
       (state) : State => ({
         ...state,
         loading: true,
-      })),
-    on(orderActionTypes.loadShippingTypesSuccess,
-      (state, { payload }): State => ({
-        ...state,
-        shippingTypes: payload.data
       })),
     on(orderActionTypes.loadCustomersSuccess,
       (state, { payload }): State => ({

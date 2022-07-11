@@ -11,7 +11,7 @@ import {
 } from '@angular-devkit/schematics';
 import { strings, normalize } from '@angular-devkit/core';
 import axios from 'axios';
-import { PropertyInfo, OpenApiComponent } from './open-api-component';
+import { PropertyInfo, OpenApiDocument } from './open-api-component';
 import * as pluralize from 'pluralize';
 import { Observable, from, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,6 +22,7 @@ import * as https from 'https';
 import * as http from 'http';
 import * as findUp from 'find-up';
 import { snakeCase } from 'lodash';
+import { mapProperties } from './map-properties';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
@@ -61,9 +62,8 @@ function getFileNames(openApiJsonFileName: string) {
   return findUp.sync(openApiJsonFileName);
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-export function processOpenApiDoc(data: any, options: IOptions, host: Tree): Tree { //NOSONAR
-  const openApiComponent = data.components.schemas[strings.classify(options.name)] as OpenApiComponent;
+export function processOpenApiDoc(data: OpenApiDocument, options: IOptions, host: Tree): Tree {
+  const openApiComponent = data.components.schemas[strings.classify(options.name)];
   if (!openApiComponent) {
     throw new Error(`OpenApi Component not found in swagger doc: ${options.name}`);
   }
@@ -72,45 +72,24 @@ export function processOpenApiDoc(data: any, options: IOptions, host: Tree): Tre
   };
   options.hasDates = false;
   options.hasObjects = false;
-  const mappedProperties = mapProperties(properties, options, openApiComponent);
+  const mappedProperties = mapProperties(properties, options, openApiComponent, data);
   mappedProperties.filteredProperties.filter(f => f.$ref).forEach(property => {
     const componentName = property.$ref?.split('/').pop();
-    const component = data.components.schemas[componentName || ''] as OpenApiComponent
+    const component = data.components.schemas[componentName || '']
     if (component) {
-      property.properties = mapProperties(component.properties, options, component).filteredProperties;
-      property.firstProperty = property.properties.find(prop=> prop.name?.toLowerCase() !== 'id' );
+      property.properties = mapProperties(component.properties, options, component, data).filteredProperties;
+      property.firstProperty = property.properties.find(prop => prop.name?.toLowerCase() !== 'id');
       options.hasObjects = true;
     }
   });
   options.swaggerObjectProperties = mappedProperties.filteredProperties.filter(f => f.$ref);
   options.swaggerProperties = mappedProperties.filteredProperties;
   options.firstProperty = mappedProperties.firstProperty;
-  options.hasNullableDates = options.swaggerProperties.some(t=> t.format ==='date-time' && !t.required);
+  options.hasNullableDates = options.swaggerProperties.some(t => t.format === 'date-time' && !t.required);
   return host;
 }
 
-function mapProperties(properties: { [key: string]: PropertyInfo; }, options: IOptions, openApiComponent: OpenApiComponent) {
-  const excludedFields = ['createdBy', 'createdOnUtc', 'tenantId', 'updatedBy', 'updatedOnUtc'];
-  let firstProperty: PropertyInfo | undefined;
-  const filteredProperties: PropertyInfo[] = [];
-  for (const propertyKey in properties) {
-    const originalProperty = properties[propertyKey];
-    if (excludedFields.indexOf(propertyKey) < 0 && originalProperty.type !== 'array') {
-      const property = mapPropertyAttributes(options, originalProperty, {
-        ...properties[propertyKey],
-        name: propertyKey,
-        required: (openApiComponent.required ?? []).indexOf(propertyKey) > -1,
-      });
-      if (!firstProperty && propertyKey !== 'id') {
-        firstProperty = property;
-      }
-      filteredProperties.push(property);
-    }
-  }
-  return { firstProperty, filteredProperties };
-}
-
-function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: PropertyInfo) {
+export function mapPropertyAttributes(options: IOptions, source: PropertyInfo, dest: PropertyInfo) {
   if (source.type === 'number' || source.type === 'integer') {
     dest.htmlInputType = 'number';
     dest.filterExpression = 'numeric';

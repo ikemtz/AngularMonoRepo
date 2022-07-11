@@ -13,7 +13,7 @@ import { <%= classify(name) %>CrudFacade } from './crud.facade';<% if (hasObject
 
 export function createMock<%= classify(name) %>Facade() {
   return {
-    currentEntity$: of({}),<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+    currentEntity$: of({}),<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
     <%= camelize(swaggerProperty.pluralizedName) %>$: of([
       { <% swaggerProperty.properties.filter(t=> t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'abc',<% }); %> },
       { <% swaggerProperty.properties.filter(t=> t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> },]),
@@ -98,7 +98,7 @@ describe('<%= classify(name) %>AddComponent', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
-  });<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  });<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
 
   test('should support <%= classify(swaggerProperty.name) %> filters', async () => {
     component.handle<%= classify(swaggerProperty.name) %>Filter('xy');

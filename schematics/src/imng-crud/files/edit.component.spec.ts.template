@@ -82,7 +82,7 @@ describe('<%= classify(name) %>EditComponent', () => {
   test('should cancel', () => {
     component.cancel();
     expect(facade.clearCurrentEntity).toBeCalledTimes(1);
-  });<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  });<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
 
   test('should support <%= classify(swaggerProperty.name) %> filters', async () => {
     component.handle<%= classify(swaggerProperty.name) %>Filter('xy');

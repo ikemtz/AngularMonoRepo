@@ -11,7 +11,7 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
   loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
   currentEntity$ = this.store.select(<%= camelize(singularizedStoreName) %>Queries.selectCurrent<%= classify(name) %>);
   isEditActive$ = this.store.select(<%= camelize(singularizedStoreName) %>Queries.selectIsEdit<%= classify(name) %>Active);
-  isNewActive$ = this.store.select(<%= camelize(singularizedStoreName) %>Queries.selectIsNew<%= classify(name) %>Active);<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  isNewActive$ = this.store.select(<%= camelize(singularizedStoreName) %>Queries.selectIsNew<%= classify(name) %>Active);<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   <%= camelize(swaggerProperty.pluralizedName) %>$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.select<%= classify(swaggerProperty.pluralizedName) %>);<% }); %>
 
   constructor(private readonly store: Store) {}
@@ -31,7 +31,7 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
   public updateExistingEntity(item: I<%= classify(name) %>): void {
     this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.update<%= classify(name) %>Request(item));
   }
-<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   public load<%= classify(swaggerProperty.pluralizedName) %>(state: ODataState): void {
     this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request(state));
   }<% }); %>

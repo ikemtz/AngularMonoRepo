@@ -182,7 +182,7 @@ import { CustomerCrudFacade } from './crud.facade';
 @Component({ template: '' })
 export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<CustomerCrudFacade>
   implements OnInit {
-  public readonly props = CustomerProperties;  
+  public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public readonly salesAgents$: Observable<ISalesAgent[]>;
   public readonly salesAgentFilter$ = new BehaviorSubject('');

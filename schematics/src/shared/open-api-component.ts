@@ -1,6 +1,17 @@
+
+export interface Schemas {
+  [key: string]: OpenApiComponent;
+}
+export interface OpenApiDocument {
+  components: {
+    schemas: Schemas
+  }
+}
+
 export interface OpenApiComponent {
   properties: Properties;
   required?: string[];
+  enum?: [string | number];
 }
 export interface Properties {
   [key: string]: PropertyInfo;
@@ -15,7 +26,7 @@ export interface PropertyInfo {
   readOnly?: boolean;
   required: boolean;
   htmlInputType: 'text' | 'number' | 'checkbox' | 'date' | 'object';
-  snakeCaseName: string; 
+  snakeCaseName: string;
   startCaseName: string;
   maxLength: number;
   testFactoryValue: string;
@@ -23,4 +34,5 @@ export interface PropertyInfo {
   pluralizedName?: string;
   properties?: PropertyInfo[];
   firstProperty: PropertyInfo | undefined;
+  propertyTypeName?: string;
 }

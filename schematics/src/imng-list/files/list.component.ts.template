@@ -16,10 +16,10 @@ const initialGridState: ODataState = {
   sort: [
     { field: <%= classify(singularizedName) %>Properties.<%= firstProperty?.snakeCaseName.toUpperCase() %>, dir: 'asc' },
   ],<% if (hasObjects) { %>
-  expanders: [<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
+  expanders: [<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
       { table: <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,
         selectors: [<% swaggerProperty.properties.forEach(function(subSwaggerProperty){ %>
-          <%= classify(swaggerProperty.name) %>Properties.<%= subSwaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
+          <%= classify(swaggerProperty.propertyTypeName) %>.<%= subSwaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
         ]},<% }) %>
   ]<% } %>
 };
@@ -31,8 +31,8 @@ const initialGridState: ODataState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataBasedComponent<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
-  public readonly props = <%= classify(singularizedName) %>Properties;<% swaggerObjectProperties.forEach(function(swaggerProperty){ %>
-  public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.name) %>Properties;<% }) %>
+  public readonly props = <%= classify(singularizedName) %>Properties;<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.propertyTypeName) %>;<% }) %>
   public currentItem: I<%= classify(singularizedName) %> | undefined;
 
   constructor(facade: <%= classify(singularizedName) %>ListFacade, 

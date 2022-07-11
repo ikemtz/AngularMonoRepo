@@ -209,10 +209,10 @@ import { ProductCrudFacade } from './crud.facade';
 @Component({ template: '' })
 export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<ProductCrudFacade>
   implements OnInit {
-  public readonly props = ProductProperties;  
+  public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;
   public readonly productModels$: Observable<IProductModel[]>;
-  public readonly productModelFilter$ = new BehaviorSubject('');  
+  public readonly productModelFilter$ = new BehaviorSubject('');
   public readonly productCategoryProps = ProductCategoryProperties;
   public readonly productCategories$: Observable<IProductCategory[]>;
   public readonly productCategoryFilter$ = new BehaviorSubject('');
