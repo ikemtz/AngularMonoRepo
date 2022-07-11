@@ -10,7 +10,8 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
   public readonly props = <%= classify(name) %>Properties;<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.propertyTypeName) %>Properties;
   public readonly <%= camelize(swaggerProperty.pluralizedName) %>$: Observable<I<%= classify(swaggerProperty.propertyTypeName) %>[]>;
-  public readonly <%= camelize(swaggerProperty.name) %>Filter$ = new BehaviorSubject('');<% }) %>
+  public readonly <%= camelize(swaggerProperty.name) %>Filter$ = new BehaviorSubject('');<% }) %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
+  public readonly <%= camelize(swaggerProperty.pluralizedName) %>$ = new BehaviorSubject(<%= camelize(swaggerProperty.name) %>Values);<% }) %>
 
   constructor(facade: <%= classify(name) %>CrudFacade) {
     super(facade);<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
@@ -39,5 +40,9 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
 <% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   public handle<%= classify(swaggerProperty.name) %>Filter(value: string) {
     this.<%= camelize(swaggerProperty.name) %>Filter$.next(value.toLowerCase());
+  }<% }) %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
+  public handle<%= classify(swaggerProperty.name) %>Filter(value: string) {
+    this.<%= camelize(swaggerProperty.pluralizedName) %>$.next(<%= camelize(swaggerProperty.name) %>Values.filter(t =>
+      t.name?.toLowerCase().indexOf(value) > -1));
   }<% }) %>
 }

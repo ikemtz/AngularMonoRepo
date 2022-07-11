@@ -240,6 +240,7 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
   public readonly billToAddressProps = OrderAddressProperties;
   public readonly billToAddresses$: Observable<IOrderAddress[]>;
   public readonly billToAddressFilter$ = new BehaviorSubject('');
+  public readonly shippingTypes$ = new BehaviorSubject(shippingTypeValues);
 
   constructor(facade: OrderCrudFacade) {
     super(facade);
@@ -326,6 +327,10 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
   }
   public handleBillToAddressFilter(value: string) {
     this.billToAddressFilter$.next(value.toLowerCase());
+  }
+  public handleShippingTypeFilter(value: string) {
+    this.shippingTypes$.next(shippingTypeValues.filter(t =>
+      t.name?.toLowerCase().indexOf(value) > -1));
   }
 }
 "
@@ -605,10 +610,10 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       <kendo-combobox
         id=\\"shipping_type\\"
         placeholder=\\"Select a shipping type...\\"
-        [formControlName]=\\"props.SHIPPING_TYPE_ID\\"
+        [formControlName]=\\"props.SHIPPING_TYPE\\"
         [data]=\\"shippingTypes$ | async\\"
-        [textField]=\\"shippingTypeProps.\\"
-        [valueField]=\\"shippingTypeProps.ID\\"
+        textField=\\"key\\"
+        valueField=\\"name\\"
         [valuePrimitive]=\\"true\\"
         [filterable]=\\"true\\"
         (filterChange)=\\"handleShippingTypeFilter($event)\\"
