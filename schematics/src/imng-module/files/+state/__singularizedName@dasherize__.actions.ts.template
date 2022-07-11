@@ -19,6 +19,6 @@ export const delete<%= classify(name) %>Request = createPayloadAction<I<%= class
 <% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
 export const load<%= classify(swaggerProperty.pluralizedName) %>Request = createPayloadAction<ODataState>(
     '[<%= classify(pluralizedName) %>] Load <%= classify(swaggerProperty.pluralizedName) %> Request');
-export const load<%= classify(swaggerProperty.pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(swaggerProperty.name) %>>>(
+export const load<%= classify(swaggerProperty.pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(swaggerProperty.propertyTypeName) %>>>(
     '[<%= classify(pluralizedName) %>] Load <%= classify(swaggerProperty.pluralizedName) %> Success');<% }) %>
 <% } %>

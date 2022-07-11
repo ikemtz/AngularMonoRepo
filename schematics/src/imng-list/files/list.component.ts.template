@@ -19,7 +19,7 @@ const initialGridState: ODataState = {
   expanders: [<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
       { table: <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,
         selectors: [<% swaggerProperty.properties.forEach(function(subSwaggerProperty){ %>
-          <%= classify(swaggerProperty.propertyTypeName) %>.<%= subSwaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
+          <%= classify(swaggerProperty.propertyTypeName) %>Properties.<%= subSwaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
         ]},<% }) %>
   ]<% } %>
 };
@@ -32,7 +32,7 @@ const initialGridState: ODataState = {
 })
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataBasedComponent<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
   public readonly props = <%= classify(singularizedName) %>Properties;<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
-  public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.propertyTypeName) %>;<% }) %>
+  public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.propertyTypeName) %>Properties;<% }) %>
   public currentItem: I<%= classify(singularizedName) %> | undefined;
 
   constructor(facade: <%= classify(singularizedName) %>ListFacade, 

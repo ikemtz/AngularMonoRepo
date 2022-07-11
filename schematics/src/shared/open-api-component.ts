@@ -35,4 +35,5 @@ export interface PropertyInfo {
   properties?: PropertyInfo[];
   firstProperty: PropertyInfo | undefined;
   propertyTypeName?: string;
+  pluralizedPropertyTypeName?:string;
 }

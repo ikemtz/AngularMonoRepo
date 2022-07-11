@@ -26,11 +26,11 @@ export const loadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>>(
     '[Orders] Load Customers Success');
 export const loadShipToAddressesRequest = createPayloadAction<ODataState>(
     '[Orders] Load ShipToAddresses Request');
-export const loadShipToAddressesSuccess = createPayloadAction<ODataResult<IShipToAddress>>(
+export const loadShipToAddressesSuccess = createPayloadAction<ODataResult<IOrderAddress>>(
     '[Orders] Load ShipToAddresses Success');
 export const loadBillToAddressesRequest = createPayloadAction<ODataState>(
     '[Orders] Load BillToAddresses Request');
-export const loadBillToAddressesSuccess = createPayloadAction<ODataResult<IBillToAddress>>(
+export const loadBillToAddressesSuccess = createPayloadAction<ODataResult<IOrderAddress>>(
     '[Orders] Load BillToAddresses Success');
 "
 `;
@@ -235,10 +235,10 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
   public readonly customers$: Observable<ICustomer[]>;
   public readonly customerFilter$ = new BehaviorSubject('');
   public readonly shipToAddressProps = OrderAddressProperties;
-  public readonly shipToAddresses$: Observable<IShipToAddress[]>;
+  public readonly shipToAddresses$: Observable<IOrderAddress[]>;
   public readonly shipToAddressFilter$ = new BehaviorSubject('');
   public readonly billToAddressProps = OrderAddressProperties;
-  public readonly billToAddresses$: Observable<IBillToAddress[]>;
+  public readonly billToAddresses$: Observable<IOrderAddress[]>;
   public readonly billToAddressFilter$ = new BehaviorSubject('');
 
   constructor(facade: OrderCrudFacade) {
@@ -250,10 +250,9 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
             (customer.num && customer.num.toLowerCase().indexOf(customerFilter) >= 0) ||
             (customer.name && customer.name.toLowerCase().indexOf(customerFilter) >= 0) ||
             (customer.companyName && customer.companyName.toLowerCase().indexOf(customerFilter) >= 0) ||
-            (customer.salesAgentId && customer.salesAgentId.toLowerCase().indexOf(customerFilter) >= 0) ||
+            (customer.salesAgentId && customer.salesAgentId.toString().toLowerCase().indexOf(customerFilter) >= 0) ||
             (customer.emailAddress && customer.emailAddress.toLowerCase().indexOf(customerFilter) >= 0) ||
-            (customer.phone && customer.phone.toLowerCase().indexOf(customerFilter) >= 0) ||
-            (customer.salesAgent && customer.salesAgent.toLowerCase().indexOf(customerFilter) >= 0)
+            (customer.phone && customer.phone.toLowerCase().indexOf(customerFilter) >= 0)
           )) : customers
     ))));
     this.shipToAddresses$ = facade.shipToAddresses$.pipe(
@@ -973,7 +972,7 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadShipToAddressesRequest),
       switchMap((action: ReturnType<typeof orderActionTypes.loadShipToAddressesRequest>) => this.odataservice
-        .fetch<IShipToAddress>(environment.odataEnpoints.shipToAddresses, action.payload)
+        .fetch<IOrderAddress>(environment.odataEnpoints.orderAddresses, action.payload)
         .pipe(map(t => orderActionTypes.loadShipToAddressesSuccess(t)),
           handleEffectError(action))));
   });
@@ -982,7 +981,7 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadBillToAddressesRequest),
       switchMap((action: ReturnType<typeof orderActionTypes.loadBillToAddressesRequest>) => this.odataservice
-        .fetch<IBillToAddress>(environment.odataEnpoints.billToAddresses, action.payload)
+        .fetch<IOrderAddress>(environment.odataEnpoints.orderAddresses, action.payload)
         .pipe(map(t => orderActionTypes.loadBillToAddressesSuccess(t)),
           handleEffectError(action))));
   });
@@ -1114,10 +1113,12 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
-    [field]=\\"getRelatedField(props.SHIPPING_TYPE, shippingTypeProps.)\\"
-    [width]=\\"100\\" title=\\"Shipping Type\\" filter=\\"text\\">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      {{ getRelatedValue(dataItem, props.SHIPPING_TYPE, shippingTypeProps.) }}
+    [field]=\\"props.SHIPPING_TYPE\\"
+    [width]=\\"100\\"
+    title=\\"Shipping Type\\"
+    filter=\\"text\\">
+    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
+      <span class=\\"h6\\">Shipping Type</span>
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
       <span class=\\"h6\\">Shipping Type</span>
@@ -1377,8 +1378,8 @@ export const ORDERS_FEATURE_KEY = 'orders';
 export interface State extends KendoODataGridState<IOrder> {
   currentOrder: IOrder | undefined;
   customers: ICustomer[];
-  shipToAddresses: IShipToAddress[];
-  billToAddresses: IBillToAddress[];
+  shipToAddresses: IOrderAddress[];
+  billToAddresses: IOrderAddress[];
 }
 
 export const initialState: State = {

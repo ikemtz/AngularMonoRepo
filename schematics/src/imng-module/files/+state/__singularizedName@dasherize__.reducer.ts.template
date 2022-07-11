@@ -7,7 +7,7 @@ export const <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY = '<%= 
 
 export interface State extends KendoODataGridState<I<%= classify(singularizedName) %>> {
   current<%= classify(singularizedName) %>: I<%= classify(singularizedName) %> | undefined;<% if(openApiJsonUrl || openApiJsonFileName){ swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
-  <%= camelize(swaggerProperty.pluralizedName) %>: I<%= classify(swaggerProperty.name) %>[];<% })} %>
+  <%= camelize(swaggerProperty.pluralizedName) %>: I<%= classify(swaggerProperty.propertyTypeName) %>[];<% })} %>
 }
 
 export const initialState: State = {
