@@ -18,7 +18,7 @@ describe(`imng-module`, () => {
     const runner = new SchematicTestRunner(`schematics`, collectionPath);
     options = {
       name: `product`,
-      openApiJsonUrl: `https://awod.ikemtz.com/swagger/v1/swagger.json`,
+      openApiJsonUrl: `https://awod-ikemtz.azurewebsites.net/swagger/v1/swagger.json`,
       path: `./test`,
       swaggerProperties: [],
       appPrefix: 'aw',

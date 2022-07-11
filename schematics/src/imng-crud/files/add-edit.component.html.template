@@ -9,7 +9,7 @@
         placeholder="Select a <%= swaggerProperty.startCaseName.toLowerCase() %>..."
         [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>_ID"
         [data]="<%= camelize(swaggerProperty.pluralizedName) %>$ | async"
-        [textField]="<%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.properties[swaggerProperty.properties.length - 1].snakeCaseName.toUpperCase() %>"
+        [textField]="<%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.properties[swaggerProperty.properties.length - 1]?.snakeCaseName.toUpperCase() %>"
         [valueField]="<%= camelize(swaggerProperty.name) %>Props.ID"
         [valuePrimitive]="true"
         [filterable]="true"
