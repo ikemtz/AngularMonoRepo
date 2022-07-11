@@ -1,0 +1,212 @@
+<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+  <ng-template kendoGridToolbarTemplate>
+    <div class="w-100 d-flex justify-content-between">
+      <h3>Orders</h3>
+      <imng-kendo-odata-grid-header
+        entityName="Order"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (clearFiltersClicked)="resetFilters()"
+        [hasHiddenColumns$]="hasHiddenColumns$">
+      </imng-kendo-odata-grid-header>
+    </div>
+  </ng-template>
+
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.ID] | slice:0:5"
+        [copyValue]="dataItem[props.ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.ORDER_ID" [width]="100" title="Order Id" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Order Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.REVISION_NUM" [width]="100" title="Revision Num" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Revision Num</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.DATE" [width]="100" format="{0:MM/dd/yy}" title="Date" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Date</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.DUE_DATE" [width]="100" format="{0:MM/dd/yy}" title="Due Date" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Due Date</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SHIP_DATE" [width]="100" format="{0:MM/dd/yy}" title="Ship Date" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Ship Date</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.STATUS" [width]="100" title="Status" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Status</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.IS_ONLINE_ORDER" [width]="100" title="Is Online Order" filter="boolean">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <div *ngIf="dataItem.is_online_order">
+        <span class="text-success font-weight-bolder h2" placement="left" tooltip="Active">
+          <span class="k-icon k-i-check-circle"></span>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Is Online Order</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NUM" [width]="100" title="Num" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Num</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.PURCHASE_ORDER_NUM" [width]="100" title="Purchase Order Num" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Purchase Order Num</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.CUSTOMER_ID" [width]="100" title="Customer Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.CUSTOMER_ID] | slice:0:5"
+        [copyValue]="dataItem[props.CUSTOMER_ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Customer Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SHIP_TO_ADDRESS_ID" [width]="100" title="Ship To Address Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.SHIP_TO_ADDRESS_ID] | slice:0:5"
+        [copyValue]="dataItem[props.SHIP_TO_ADDRESS_ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Ship To Address Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.BILL_TO_ADDRESS_ID" [width]="100" title="Bill To Address Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.BILL_TO_ADDRESS_ID] | slice:0:5"
+        [copyValue]="dataItem[props.BILL_TO_ADDRESS_ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Bill To Address Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.SHIPPING_TYPE"
+    [width]="100"
+    title="Shipping Type"
+    filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Shipping Type</span>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Shipping Type</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.CREDIT_CARD_APPROVAL_CODE" [width]="100" title="Credit Card Approval Code" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Credit Card Approval Code</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SUB_TOTAL" [width]="100" title="Sub Total" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Sub Total</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.TAX_AMT" [width]="100" title="Tax Amt" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Tax Amt</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.FREIGHT" [width]="100" title="Freight" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Freight</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.TOTAL_DUE" [width]="100" title="Total Due" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Total Due</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.COMMENT" [width]="100" title="Comment" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Comment</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="getRelatedField(props.CUSTOMER, customerProps.NUM)"
+    [width]="100" title="Customer" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getRelatedValue(dataItem, props.CUSTOMER, customerProps.NUM) }}
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Customer</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="getRelatedField(props.SHIP_TO_ADDRESS, shipToAddressProps.LINE_1)"
+    [width]="100" title="Ship To Address" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getRelatedValue(dataItem, props.SHIP_TO_ADDRESS, shipToAddressProps.LINE_1) }}
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Ship To Address</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="getRelatedField(props.BILL_TO_ADDRESS, billToAddressProps.LINE_1)"
+    [width]="100" title="Bill To Address" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getRelatedValue(dataItem, props.BILL_TO_ADDRESS, billToAddressProps.LINE_1) }}
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6">Bill To Address</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [width]="50">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
+        <span class="k-icon k-i-edit"></span>
+      </button>
+      <button type="button" class="btn btn-sm mr-1" (click)="deleteItem(dataItem)" placement="left" tooltip="Delete">
+        <span class="k-icon k-i-delete"></span>
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf [fileName]="getExportFileName('Orders')" [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+  <kendo-grid-excel [fileName]="getExportFileName('Orders')" [fetchData]="excelData"></kendo-grid-excel>
+</kendo-grid>
+<aw-order-add *ngIf="crudFacade.isNewActive$ | async"></aw-order-add>
+<aw-order-edit *ngIf="crudFacade.isEditActive$ | async"></aw-order-edit>
