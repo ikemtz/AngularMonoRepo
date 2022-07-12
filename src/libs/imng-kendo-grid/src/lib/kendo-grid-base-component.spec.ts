@@ -48,6 +48,17 @@ describe('KendoGridBaseComponent', () => {
       const result = component.getRelatedField('parent', 'child', 'subChild');
       expect(result).toBe(`parent.child.subChild`);
     });
+
+  });
+  it('should getEnumText', () => {
+    const component = new MockGridComponent();
+    const result = component.getEnumText([{ name: 'subChild', displayText: 'Sub Child' }], 'subChild');
+    expect(result).toBe(`Sub Child`);
+  });
+  it('should getEnumText - undefined', () => {
+    const component = new MockGridComponent();
+    const result = component.getEnumText([{ name: 'subChild', displayText: 'Sub Child' }], 'badSubChild');
+    expect(result).toBeUndefined();
   });
 });
 

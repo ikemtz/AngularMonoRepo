@@ -45,8 +45,8 @@
       <imng-multi-select-filter
         [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
-        textField="displayText"
-        valueField="name"
+        [textField]="ENUM_DISPLAY_TEXT"
+        [valueField]="ENUM_NAME"
         [data]="<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>"
         [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"></imng-multi-select-filter>
     </ng-template>

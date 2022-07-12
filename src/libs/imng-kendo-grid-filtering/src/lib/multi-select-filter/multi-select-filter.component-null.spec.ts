@@ -3,7 +3,7 @@ import { FilterService } from '@progress/kendo-angular-grid';
 
 import { MultiSelectFilterComponent } from './multi-select-filter.component';
 
-describe('CheckboxFilterComponent', () => {
+describe('CheckboxFilterComponent on null ODataState', () => {
   let component: MultiSelectFilterComponent;
   let fixture: ComponentFixture<MultiSelectFilterComponent>;
   let filterService: FilterService;
@@ -22,18 +22,13 @@ describe('CheckboxFilterComponent', () => {
     component.isPrimitive = true;
     component.data = ['👌', '🎂', '💩'];
     component.field = '🩲';
-    component.odataState = {
-      filter: {
-        logic: 'and',
-        filters: [{ logic: 'or', filters: [{ field: component.field, operator: 'contains', value: '💩' }] }],
-      },
-    };
+    component.odataState = null;
     component.ngAfterViewInit();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.value).toStrictEqual(['💩']);
+    expect(component.value).toStrictEqual([]);
   });
 
   it('should handle empty filter scenarios', () => {
@@ -44,7 +39,7 @@ describe('CheckboxFilterComponent', () => {
   });
 
   it('isItemSelected should work', () => {
-    expect(component.isItemSelected('💩')).toBeTruthy();
+    expect(component.isItemSelected('💩')).toBe(false);
   });
   it('onInput should work', () => {
     component.onInput({ target: { value: '💩' } });
@@ -60,13 +55,12 @@ describe('CheckboxFilterComponent', () => {
   });
   it('onSelectionChange should work', () => {
     component.onSelectionChange('🎂', { parentNode: {} } as never);
-    expect(component.value).toStrictEqual(['💩', '🎂']);
+    expect(component.value).toStrictEqual(['🎂']);
     expect(filterService.filter).toBeCalledTimes(1);
     expect(filterService.filter).toBeCalledWith({
       filters: [
         {
           filters: [
-            { field: '🩲', operator: 'eq', value: '💩', },
             { field: '🩲', operator: 'eq', value: '🎂', },
           ],
           logic: 'or',
@@ -77,11 +71,14 @@ describe('CheckboxFilterComponent', () => {
   });
   it('onSelectionChange should clear filter', () => {
     component.onSelectionChange('💩', { parentNode: {} } as never);
-    expect(component.value).toStrictEqual([]);
+    expect(component.value).toStrictEqual(["💩"]);
     expect(filterService.filter).toBeCalledTimes(1);
     expect(filterService.filter).toBeCalledWith({
-      filters: [],
-      logic: 'and',
+      filters: [{
+        filters: [{ "field": "🩲", "operator": "eq", "value": "💩", },],
+        logic: "or",
+      },],
+      logic: 'and'
     });
   });
 });
