@@ -118,7 +118,7 @@ describe('OrderAddComponent', () => {
     [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
     [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
     [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-    [OrderProperties.SHIPPING_TYPE]: 'SHIPPING_TYPE',
+    [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Other,
     [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
     [OrderProperties.SUB_TOTAL]: 0,
     [OrderProperties.TAX_AMT]: 0,
@@ -373,7 +373,7 @@ export const createOrder = () =>
     [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
     [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
     [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-    [OrderProperties.SHIPPING_TYPE]: 'SHIPPING_TYPE',
+    [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Other,
     [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
     [OrderProperties.SUB_TOTAL]: 0,
     [OrderProperties.TAX_AMT]: 0,
@@ -790,7 +790,7 @@ describe('OrderEditComponent', () => {
     [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
     [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
     [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-    [OrderProperties.SHIPPING_TYPE]: 'SHIPPING_TYPE',
+    [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Other,
     [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
     [OrderProperties.SUB_TOTAL]: 0,
     [OrderProperties.TAX_AMT]: 0,
@@ -1122,8 +1122,17 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
     [width]=\\"100\\"
     title=\\"Shipping Type\\"
     filter=\\"text\\">
-    <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Shipping Type</span>
+    <ng-template kendoGridFilterMenuTemplate let-column=\\"column\\">
+      <imng-multi-select-filter
+        [isPrimitive]=\\"false\\"
+        [odataState]=\\"facade.gridODataState$ | async\\"
+        textField=\\"displayText\\"
+        valueField=\\"name\\"
+        [data]=\\"shippingTypes\\"
+        [field]=\\"props.SHIPPING_TYPE\\"></imng-multi-select-filter>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getEnumText(shippingTypes, dataItem[props.SHIPPING_TYPE]) }}
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
       <span class=\\"h6\\">Shipping Type</span>
@@ -1237,6 +1246,7 @@ const initialGridState: ODataState = {
     OrderProperties.CUSTOMER_ID,
     OrderProperties.SHIP_TO_ADDRESS_ID,
     OrderProperties.BILL_TO_ADDRESS_ID,
+    OrderProperties.SHIPPING_TYPE,
     OrderProperties.CREDIT_CARD_APPROVAL_CODE,
     OrderProperties.SUB_TOTAL,
     OrderProperties.TAX_AMT,
@@ -1293,6 +1303,7 @@ export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderLi
   public readonly customerProps = CustomerProperties;
   public readonly shipToAddressProps = OrderAddressProperties;
   public readonly billToAddressProps = OrderAddressProperties;
+  public readonly shippingTypes = shippingTypeValues;
   public currentItem: IOrder | undefined;
 
   constructor(facade: OrderListFacade, 
