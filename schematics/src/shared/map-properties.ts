@@ -35,6 +35,10 @@ function mapReferencedProperties(property: PropertyInfo, propertyKey: string, op
     property.pluralizedPropertyTypeName = pluralize(typeName);
     const refComponent = openApiDoc.components.schemas[typeName];
     property.enum = refComponent.enum;
+    if (property.enum){
+      const value = property.enum[0].toString().split(' ').pop();
+      property.testFactoryValue = `${property.pluralizedPropertyTypeName}.${value}`
+    }
   }
 }
 
