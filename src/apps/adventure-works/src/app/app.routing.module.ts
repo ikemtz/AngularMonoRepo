@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'orders',
-    loadChildren: () => import('./modules2/orders-module/orders.module').then(m => m.OrdersModule),
+    loadChildren: () => import('./modules/orders-module/orders.module').then(m => m.OrdersModule),
     canActivateChild: [AuthGuard]
   },
   ...oidcRoutes,
