@@ -23,8 +23,6 @@ jobs:
             npm
           path: $(npm_config_cache)
 
-      - script: cd src/ && npm ci
-
       - task: Npm@1
         displayName: 'npm install'
         inputs:
