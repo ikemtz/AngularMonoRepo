@@ -67,13 +67,14 @@ import { ODataState } from 'imng-kendo-odata';
       .k-multiselect-checkbox {
         pointer-events: none;
       }
+      .k-checkbox {width: 14px; height: 15px;}
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MultiSelectFilterComponent implements AfterViewInit {
   @Input() public isPrimitive = false;
-  @Input() public odataState: ODataState = {};
+  @Input() public odataState: ODataState | null = {};
   @Input() public data: unknown[] = [];
   @Input() public textField: string | undefined = undefined;
   @Input() public valueField: string | undefined = undefined;
@@ -101,7 +102,7 @@ export class MultiSelectFilterComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     this.currentData = this.data;
-    const tempValue = this.odataState.filter?.filters.map(
+    const tempValue = this.odataState?.filter?.filters.map(
       (f: CompositeFilterDescriptor | FilterDescriptor) =>
         (f as CompositeFilterDescriptor).filters
           .filter(
@@ -132,8 +133,8 @@ export class MultiSelectFilterComponent implements AfterViewInit {
       this.value.push(item);
     }
     const currentFilter: CompositeFilterDescriptor = {
-      logic: this.odataState.filter?.logic ?? 'and',
-      filters: this.odataState.filter?.filters
+      logic: this.odataState?.filter?.logic ?? 'and',
+      filters: this.odataState?.filter?.filters
         ? this.odataState.filter.filters
         : [],
     };
