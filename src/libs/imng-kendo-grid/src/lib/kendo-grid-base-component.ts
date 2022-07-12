@@ -23,6 +23,9 @@ export abstract class KendoGridBaseComponent<ENTITY> implements OnDestroy, Subsc
   public getRelatedField(...segments: string[]): string {
     return segments.join('.');
   }
+  public getEnumText(data: { key: number, name: string, displayText: string; }[], nameValue: string): string | undefined {
+    return data.find(f => f.name === nameValue)?.displayText;
+  }
   public ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
   }

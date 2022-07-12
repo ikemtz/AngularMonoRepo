@@ -5,7 +5,8 @@ async function generateTsModels() {
   //Adventure Works OData
   console.log('** Adventure Works OData Models **');
   await generator.generateTsModels({
-    openApiJsonUrl: 'https://awod.ikemtz.com/swagger/v1/swagger.json',
+    openApiJsonUrl:
+      'https://awod-ikemtz.azurewebsites.net/swagger/v1/swagger.json',
     outputPath: './apps/adventure-works/src/app/models/odata',
     genAngularFormGroups: true,
     typeFilterCallBack: generator.nrsrxTypeFilterCallBack,
@@ -15,14 +16,16 @@ async function generateTsModels() {
   });
 
   diagramGenerator.generateDiagrams({
-    openApiJsonUrl: 'https://awod.ikemtz.com/swagger/v1/swagger.json',
+    openApiJsonUrl:
+      'https://awwa-ikemtz.azurewebsites.net/swagger/v1/swagger.json',
     outputPath: './apps/adventure-works/diagrams/odata',
   });
 
   //Adventure Works WebApi
   console.log('** Adventure Works WebApi Models **');
   await generator.generateTsModels({
-    openApiJsonUrl: 'https://awwa.ikemtz.com/swagger/v1/swagger.json',
+    openApiJsonUrl:
+      'https://awwa-ikemtz.azurewebsites.net/swagger/v1/swagger.json',
     outputPath: './apps/adventure-works/src/app/models/webapi',
     genAngularFormGroups: true,
     valuePropertyTypeFilterCallBack: (val, i, arr) =>
@@ -32,7 +35,8 @@ async function generateTsModels() {
   });
 
   diagramGenerator.generateDiagrams({
-    openApiJsonUrl: 'https://awwa.ikemtz.com/swagger/v1/swagger.json',
+    openApiJsonUrl:
+      'https://awwa-ikemtz.azurewebsites.net/swagger/v1/swagger.json',
     outputPath: './apps/adventure-works/diagrams/webapi',
   });
 }
