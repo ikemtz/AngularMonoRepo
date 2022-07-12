@@ -5,27 +5,19 @@ classDiagram
   Customer ..> CustomerAddress
   Customer ..> Order
   CustomerAddress ..> Customer
-  CustomerAddressGuidODataEnvelope ..> CustomerAddress
-  CustomerGuidODataEnvelope ..> Customer
   Order ..> ShippingTypes
   Order ..> Customer
   Order ..> OrderAddress
   Order ..> OrderLineItem
   OrderAddress ..> Order
-  OrderGuidODataEnvelope ..> Order
   OrderLineItem ..> Order
   OrderLineItem ..> Product
-  OrderLineItemGuidODataEnvelope ..> OrderLineItem
   Product ..> ProductModel
   Product ..> ProductCategory
   Product ..> OrderLineItem
   ProductCategory ..> Product
-  ProductCategoryGuidODataEnvelope ..> ProductCategory
-  ProductGuidODataEnvelope ..> Product
   ProductModel ..> Product
-  ProductModelGuidODataEnvelope ..> ProductModel
   SalesAgent ..> Customer
-  SalesAgentInt32ODataEnvelope ..> SalesAgent
 
   class Customer{
     +uuid: id
@@ -58,73 +50,6 @@ classDiagram
     +string: updatedBy
     +date: updatedOnUtc
     +Customer: customer;
-  }
-  class CustomerAddressGuidODataEnvelope{
-    +number: count
-    +CustomerAddress[]: value;
-  }
-  class CustomerGuidODataEnvelope{
-    +number: count
-    +Customer[]: value;
-  }
-  class EdmContainerElementKind{
-    <<enumeration>>
-    None
-    EntitySet
-    ActionImport
-    FunctionImport
-    Singleton
-  }
-  class EdmExpressionKind{
-    <<enumeration>>
-    None
-    BinaryConstant
-    BooleanConstant
-    DateTimeOffsetConstant
-    DecimalConstant
-    FloatingConstant
-    GuidConstant
-    IntegerConstant
-    StringConstant
-    DurationConstant
-    Null
-    Record
-    Collection
-    Path
-    If
-    Cast
-    IsType
-    FunctionApplication
-    LabeledExpressionReference
-    Labeled
-    PropertyPath
-    NavigationPropertyPath
-    DateConstant
-    TimeOfDayConstant
-    EnumMember
-    AnnotationPath
-  }
-  class EdmSchemaElementKind{
-    <<enumeration>>
-    None
-    TypeDefinition
-    Term
-    Action
-    EntityContainer
-    Function
-  }
-  class EdmTypeKind{
-    <<enumeration>>
-    None
-    Primitive
-    Entity
-    Complex
-    Collection
-    EntityReference
-    Enum
-    TypeDefinition
-    Untyped
-    Path
   }
   class Order{
     +uuid: id
@@ -171,10 +96,6 @@ classDiagram
     +Order[]: billToOrders;
     +Order[]: shipToOrders;
   }
-  class OrderGuidODataEnvelope{
-    +number: count
-    +Order[]: value;
-  }
   class OrderLineItem{
     +uuid: id
     +uuid: orderId
@@ -189,10 +110,6 @@ classDiagram
     +date: updatedOnUtc
     +Order: order;
     +Product: product;
-  }
-  class OrderLineItemGuidODataEnvelope{
-    +number: count
-    +OrderLineItem[]: value;
   }
   class Product{
     +uuid: id
@@ -226,14 +143,6 @@ classDiagram
     +date: updatedOnUtc
     +Product[]: products;
   }
-  class ProductCategoryGuidODataEnvelope{
-    +number: count
-    +ProductCategory[]: value;
-  }
-  class ProductGuidODataEnvelope{
-    +number: count
-    +Product[]: value;
-  }
   class ProductModel{
     +uuid: id
     +string: name
@@ -244,19 +153,11 @@ classDiagram
     +date: updatedOnUtc
     +Product[]: products;
   }
-  class ProductModelGuidODataEnvelope{
-    +number: count
-    +ProductModel[]: value;
-  }
   class SalesAgent{
     +number: id
     +string: name
     +string: loginId
     +Customer[]: customers;
-  }
-  class SalesAgentInt32ODataEnvelope{
-    +number: count
-    +SalesAgent[]: value;
   }
   class ShippingTypes{
     <<enumeration>>

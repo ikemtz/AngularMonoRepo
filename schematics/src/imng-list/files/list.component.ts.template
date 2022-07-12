@@ -10,7 +10,7 @@ import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pl
 const initialGridState: ODataState = {
   take: 20,
   skip: 0,
-  selectors: [<% swaggerProperties.filter(t=> t.htmlInputType !== 'object').forEach(function(swaggerProperty){ %>
+  selectors: [<% swaggerProperties.filter(t=> t.htmlInputType !== 'object' || t.enum).forEach(function(swaggerProperty){ %>
     <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
   ],
   sort: [
@@ -32,7 +32,8 @@ const initialGridState: ODataState = {
 })
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataBasedComponent<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
   public readonly props = <%= classify(singularizedName) %>Properties;<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
-  public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.propertyTypeName) %>Properties;<% }) %>
+  public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.propertyTypeName) %>Properties;<% }) %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
+  public readonly <%= camelize(swaggerProperty.pluralizedName) %> = <%= camelize(swaggerProperty.name) %>Values;<% }) %>
   public currentItem: I<%= classify(singularizedName) %> | undefined;
 
   constructor(facade: <%= classify(singularizedName) %>ListFacade, 
