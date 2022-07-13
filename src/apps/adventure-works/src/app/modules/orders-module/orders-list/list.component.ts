@@ -18,7 +18,7 @@ const initialGridState: ODataState = {
     OrderProperties.DATE,
     OrderProperties.DUE_DATE,
     OrderProperties.SHIP_DATE,
-    OrderProperties.STATUS,
+    OrderProperties.STATUS_TYPE,
     OrderProperties.IS_ONLINE_ORDER,
     OrderProperties.NUM,
     OrderProperties.PURCHASE_ORDER_NUM,
