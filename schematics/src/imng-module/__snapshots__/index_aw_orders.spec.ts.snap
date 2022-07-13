@@ -111,7 +111,7 @@ describe('OrderAddComponent', () => {
     [OrderProperties.DATE]: new Date(),
     [OrderProperties.DUE_DATE]: new Date(),
     [OrderProperties.SHIP_DATE]: new Date(),
-    [OrderProperties.STATUS]: 0,
+    [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
     [OrderProperties.IS_ONLINE_ORDER]: true,
     [OrderProperties.NUM]: 'NUM',
     [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
@@ -240,6 +240,7 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
   public readonly billToAddressProps = OrderAddressProperties;
   public readonly billToAddresses$: Observable<IOrderAddress[]>;
   public readonly billToAddressFilter$ = new BehaviorSubject('');
+  public readonly statusTypes$ = new BehaviorSubject(orderStatusTypeValues);
   public readonly shippingTypes$ = new BehaviorSubject(shippingTypeValues);
 
   constructor(facade: OrderCrudFacade) {
@@ -328,6 +329,10 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
   public handleBillToAddressFilter(value: string) {
     this.billToAddressFilter$.next(value.toLowerCase());
   }
+  public handleStatusTypeFilter(value: string) {
+    this.statusTypes$.next(orderStatusTypeValues.filter(t =>
+      t.name?.toLowerCase().indexOf(value) > -1));
+  }
   public handleShippingTypeFilter(value: string) {
     this.shippingTypes$.next(shippingTypeValues.filter(t =>
       t.name?.toLowerCase().indexOf(value) > -1));
@@ -366,7 +371,7 @@ export const createOrder = () =>
     [OrderProperties.DATE]: new Date(),
     [OrderProperties.DUE_DATE]: new Date(),
     [OrderProperties.SHIP_DATE]: new Date(),
-    [OrderProperties.STATUS]: 0,
+    [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
     [OrderProperties.IS_ONLINE_ORDER]: true,
     [OrderProperties.NUM]: 'NUM',
     [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
@@ -566,11 +571,21 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       <kendo-datepicker id=\\"ship_date\\" class=\\"form-control\\" [formControlName]=\\"props.SHIP_DATE\\"></kendo-datepicker>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"status\\" class=\\"control-label mr-4\\">Status:</label>
-      <input id=\\"status\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.STATUS\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STATUS) }\\" />
-      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.STATUS)\\" class=\\"invalid-feedback\\">
-        <div *ngIf=\\"formControlErrors(props.STATUS)?.[RequiredError]\\">Order status is required</div>
+      <label for=\\"status_type\\" class=\\"control-label mr-4\\">Status Type:</label>
+      <kendo-combobox
+        id=\\"status_type\\"
+        placeholder=\\"Select a status type...\\"
+        [formControlName]=\\"props.STATUS_TYPE\\"
+        [data]=\\"statusTypes$ | async\\"
+        [textField]=\\"ENUM_DISPLAY_TEXT\\"
+        [valueField]=\\"ENUM_KEY\\"
+        [valuePrimitive]=\\"true\\"
+        [filterable]=\\"true\\"
+        (filterChange)=\\"handleStatusTypeFilter($event)\\"
+        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STATUS_TYPE) }\\">
+      </kendo-combobox>
+      <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.STATUS_TYPE)\\" class=\\"invalid-feedback\\">
+        <div *ngIf=\\"formControlErrors(props.STATUS_TYPE)?.[RequiredError]\\">Order status type is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
@@ -612,8 +627,8 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         placeholder=\\"Select a shipping type...\\"
         [formControlName]=\\"props.SHIPPING_TYPE\\"
         [data]=\\"shippingTypes$ | async\\"
-        textField=\\"key\\"
-        valueField=\\"name\\"
+        [textField]=\\"ENUM_DISPLAY_TEXT\\"
+        [valueField]=\\"ENUM_KEY\\"
         [valuePrimitive]=\\"true\\"
         [filterable]=\\"true\\"
         (filterChange)=\\"handleShippingTypeFilter($event)\\"
@@ -783,7 +798,7 @@ describe('OrderEditComponent', () => {
     [OrderProperties.DATE]: new Date(),
     [OrderProperties.DUE_DATE]: new Date(),
     [OrderProperties.SHIP_DATE]: new Date(),
-    [OrderProperties.STATUS]: 0,
+    [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
     [OrderProperties.IS_ONLINE_ORDER]: true,
     [OrderProperties.NUM]: 'NUM',
     [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
@@ -1048,9 +1063,25 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <span class=\\"h6\\">Ship Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]=\\"props.STATUS\\" [width]=\\"100\\" title=\\"Status\\" filter=\\"numeric\\">
+  <kendo-grid-column
+    [field]=\\"props.STATUS_TYPE\\"
+    [width]=\\"100\\"
+    title=\\"Status Type\\"
+    filter=\\"text\\">
+    <ng-template kendoGridFilterMenuTemplate let-column=\\"column\\">
+      <imng-multi-select-filter
+        [isPrimitive]=\\"false\\"
+        [odataState]=\\"facade.gridODataState$ | async\\"
+        [textField]=\\"ENUM_DISPLAY_TEXT\\"
+        [valueField]=\\"ENUM_NAME\\"
+        [data]=\\"orderStatusTypes\\"
+        [field]=\\"props.STATUS_TYPE\\"></imng-multi-select-filter>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getEnumText(orderStatusTypes, dataItem[props.STATUS_TYPE]) }}
+    </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Status</span>
+      <span class=\\"h6\\">Status Type</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.IS_ONLINE_ORDER\\" [width]=\\"100\\" title=\\"Is Online Order\\" filter=\\"boolean\\">
@@ -1239,7 +1270,7 @@ const initialGridState: ODataState = {
     OrderProperties.DATE,
     OrderProperties.DUE_DATE,
     OrderProperties.SHIP_DATE,
-    OrderProperties.STATUS,
+    OrderProperties.STATUS_TYPE,
     OrderProperties.IS_ONLINE_ORDER,
     OrderProperties.NUM,
     OrderProperties.PURCHASE_ORDER_NUM,
@@ -1303,6 +1334,7 @@ export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderLi
   public readonly customerProps = CustomerProperties;
   public readonly shipToAddressProps = OrderAddressProperties;
   public readonly billToAddressProps = OrderAddressProperties;
+  public readonly orderStatusTypes = orderStatusTypeValues;
   public readonly shippingTypes = shippingTypeValues;
   public currentItem: IOrder | undefined;
 

@@ -13,7 +13,7 @@ import { OrderEffects } from '../+state/order.effects';
 import { ordersFeature } from '../+state/order.reducer';
 import { OrderListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import { OrderProperties, ShippingTypes } from '../../../models/odata';
+import { OrderProperties, OrderStatusTypes, ShippingTypes } from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
 
 export const createOrder = () => <IExtOrder>{
@@ -23,7 +23,7 @@ export const createOrder = () => <IExtOrder>{
   [OrderProperties.DATE]: new Date(),
   [OrderProperties.DUE_DATE]: new Date(),
   [OrderProperties.SHIP_DATE]: new Date(),
-  [OrderProperties.STATUS]: 0,
+  [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
   [OrderProperties.IS_ONLINE_ORDER]: true,
   [OrderProperties.NUM]: 'NUM',
   [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
