@@ -714,9 +714,6 @@ exports[`imng-module html file should work 1`] = `
   <kendo-grid-column
     [field]=\\"getRelatedField(props.SALES_AGENT, salesAgentProps.NAME)\\"
     [width]=\\"100\\" title=\\"Sales Agent\\" filter=\\"text\\">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      {{ getRelatedValue(dataItem, props.SALES_AGENT, salesAgentProps.NAME) }}
-    </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
       <span class=\\"h6\\">Sales Agent</span>
     </ng-template>
