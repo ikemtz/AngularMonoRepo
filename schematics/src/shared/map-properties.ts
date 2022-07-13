@@ -33,6 +33,7 @@ function mapReferencedProperties(property: PropertyInfo, propertyKey: string, op
     const typeName: string = propTypeNames.pop() || '';
     property.propertyTypeName = typeName;
     property.pluralizedPropertyTypeName = pluralize(typeName);
+    property.singularizedPropertyTypeName = pluralize.singular(typeName);
     const refComponent = openApiDoc.components.schemas[typeName];
     property.enum = refComponent.enum;
     if (property.enum){

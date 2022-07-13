@@ -6,6 +6,7 @@
  * Do not edit.
  */
 
+import { OrderStatusTypes } from './order-status-types.enum';
 import { ShippingTypes } from './shipping-types.enum';
 import { ICustomer } from './customer.model';
 import { IOrderAddress } from './order-address.model';
@@ -19,7 +20,6 @@ export interface IOrder {
   date?: Date;
   dueDate?: Date;
   shipDate?: Date;
-  status?: number;
   isOnlineOrder?: boolean;
   num?: string;
   purchaseOrderNum?: string;
@@ -32,6 +32,7 @@ export interface IOrder {
   freight?: number;
   totalDue?: number;
   comment?: string;
+  statusType?: OrderStatusTypes;
   shippingType?: ShippingTypes;
   customer?: ICustomer;
   shipToAddress?: IOrderAddress;
