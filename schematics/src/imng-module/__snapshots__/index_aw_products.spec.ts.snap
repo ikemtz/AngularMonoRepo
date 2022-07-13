@@ -923,9 +923,6 @@ exports[`imng-module html file should work 1`] = `
   <kendo-grid-column
     [field]=\\"getRelatedField(props.PRODUCT_MODEL, productModelProps.NAME)\\"
     [width]=\\"100\\" title=\\"Product Model\\" filter=\\"text\\">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      {{ getRelatedValue(dataItem, props.PRODUCT_MODEL, productModelProps.NAME) }}
-    </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
       <span class=\\"h6\\">Product Model</span>
     </ng-template>
@@ -933,9 +930,6 @@ exports[`imng-module html file should work 1`] = `
   <kendo-grid-column
     [field]=\\"getRelatedField(props.PRODUCT_CATEGORY, productCategoryProps.NAME)\\"
     [width]=\\"100\\" title=\\"Product Category\\" filter=\\"text\\">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      {{ getRelatedValue(dataItem, props.PRODUCT_CATEGORY, productCategoryProps.NAME) }}
-    </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
       <span class=\\"h6\\">Product Category</span>
     </ng-template>

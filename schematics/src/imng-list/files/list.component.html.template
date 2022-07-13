@@ -57,9 +57,6 @@
   <kendo-grid-column
     [field]="getRelatedField(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.firstProperty?.snakeCaseName.toUpperCase() %>)"
     [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      {{ getRelatedValue(dataItem, props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.firstProperty?.snakeCaseName.toUpperCase() %>) }}
-    </ng-template>
 <%} else { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
 <%} %>    <ng-template class="header" kendoGridHeaderTemplate let-column>
