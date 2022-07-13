@@ -16,7 +16,6 @@ export function OrderFormGroupFac(): FormGroup {
     date: new FormControl('', Validators.required),
     dueDate: new FormControl('', Validators.required),
     shipDate: new FormControl(''),
-    status: new FormControl('', Validators.required),
     isOnlineOrder: new FormControl('', Validators.required),
     num: new FormControl(
       '',
@@ -32,6 +31,7 @@ export function OrderFormGroupFac(): FormGroup {
     freight: new FormControl('', Validators.required),
     totalDue: new FormControl('', Validators.required),
     comment: new FormControl('', Validators.maxLength(500)),
+    statusType: new FormControl('', Validators.required),
     shippingType: new FormControl('', Validators.required),
     customer: new FormControl(''),
     shipToAddress: new FormControl(''),
