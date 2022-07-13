@@ -11,7 +11,7 @@ import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
 const FACADE = new InjectionToken<IBaseDataEntryFacade>(
-  'imng-data-entry-facade'
+  'imng-data-entry-facade',
 );
 
 /**
@@ -28,19 +28,22 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
  */
 @Directive()
 export abstract class BaseDataEntryComponent<
-  FACADE extends IBaseDataEntryFacade
-  > implements OnDestroy, Subscribable {
+  FACADE extends IBaseDataEntryFacade,
+> implements OnDestroy, Subscribable
+{
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
   public readonly MinLengthError = 'minlength';
   public readonly RequiredError = 'required';
+  public readonly ENUM_DISPLAY_TEXT = 'displayText';
+  public readonly ENUM_NAME = 'name';
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
   public abstract props: unknown;
   public addEditForm: FormGroup = new FormGroup({});
   public loading$: Observable<boolean>;
   private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(
-    false as boolean
+    false as boolean,
   );
 
   public get submitted$(): Observable<boolean> {
@@ -89,11 +92,13 @@ export abstract class BaseDataEntryComponent<
   public formControlErrors(controlName: string): ValidationErrors | null {
     return this.formControl(controlName)?.errors;
   }
-  public formMinLengthError(controlName: string): { requiredLength: number, actualLength: number; } | null {
+  public formMinLengthError(
+    controlName: string,
+  ): { requiredLength: number; actualLength: number } | null {
     return this.formControlErrors(controlName)?.[this.MinLengthError];
   }
-  public getFormErrors(): { control: string, error: ValidationErrors; }[] {
-    const errors: { control: string, error: ValidationErrors; }[] = [];
+  public getFormErrors(): { control: string; error: ValidationErrors }[] {
+    const errors: { control: string; error: ValidationErrors }[] = [];
     for (const control of Object.keys(this.addEditForm.controls)) {
       const error = this.formControlErrors(control);
       if (error) {
