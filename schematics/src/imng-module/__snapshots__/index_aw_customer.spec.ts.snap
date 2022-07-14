@@ -666,6 +666,40 @@ exports[`imng-module html file should work 1`] = `
       </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
+  <kendo-grid-column [width]=\\"75\\">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex=\\"rowIndex\\">
+      <kendo-menu title=\\"Actions\\">
+        <kendo-menu-item icon=\\"menu\\">
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type=\\"button\\"
+                class=\\"btn btn-sm mx-3 my-2 text-start\\"
+                (click)=\\"editItem(dataItem)\\"
+                placement=\\"left\\"
+                tooltip=\\"Edit\\">
+                <span class=\\"k-icon k-i-edit\\"></span>
+                Edit
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type=\\"button\\"
+                class=\\"btn btn-sm mx-3 my-2 text-start\\"
+                (click)=\\"deleteItem(dataItem)\\"
+                placement=\\"left\\"
+                tooltip=\\"Delete\\">
+                <span class=\\"k-icon k-i-delete\\"></span>
+                Delete
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+        </kendo-menu-item>
+      </kendo-menu>
+    </ng-template>
+  </kendo-grid-column>
 
   <kendo-grid-column [field]=\\"props.ID\\" [width]=\\"100\\" title=\\"Id\\" filter=\\"text\\">
     <ng-template kendoGridCellTemplate let-dataItem>
@@ -716,16 +750,6 @@ exports[`imng-module html file should work 1`] = `
     [width]=\\"100\\" title=\\"Sales Agent\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
       <span class=\\"h6\\">Sales Agent</span>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [width]=\\"50\\">
-    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex=\\"rowIndex\\">
-      <button type=\\"button\\" class=\\"btn btn-sm mr-1\\" (click)=\\"editItem(dataItem)\\" placement=\\"left\\" tooltip=\\"Edit\\">
-        <span class=\\"k-icon k-i-edit\\"></span>
-      </button>
-      <button type=\\"button\\" class=\\"btn btn-sm mr-1\\" (click)=\\"deleteItem(dataItem)\\" placement=\\"left\\" tooltip=\\"Delete\\">
-        <span class=\\"k-icon k-i-delete\\"></span>
-      </button>
     </ng-template>
   </kendo-grid-column>
 
@@ -819,6 +843,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { MenusModule } from \\"@progress/kendo-angular-menu\\";
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -841,6 +866,7 @@ import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, Custom
     PDFModule,
     DialogModule,
     DropDownsModule,
+    MenusModule,
     ImngDataEntryDialogModule,
     ImngKendoGridFilteringModule,
     ImngKendoGridModule,

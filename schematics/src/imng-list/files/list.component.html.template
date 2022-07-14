@@ -11,6 +11,40 @@
       </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
+  <kendo-grid-column [width]="75">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <kendo-menu title="Actions">
+        <kendo-menu-item icon="menu">
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="editItem(dataItem)"
+                placement="left"
+                tooltip="Edit">
+                <span class="k-icon k-i-edit"></span>
+                Edit
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="deleteItem(dataItem)"
+                placement="left"
+                tooltip="Delete">
+                <span class="k-icon k-i-delete"></span>
+                Delete
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+        </kendo-menu-item>
+      </kendo-menu>
+    </ng-template>
+  </kendo-grid-column>
 <% swaggerProperties.forEach(function(swaggerProperty) {%><% if (swaggerProperty.format === 'date-time' && swaggerProperty.name.toLowerCase().endsWith('utc') ) { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy hh:mm}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
 <%} else if (swaggerProperty.format === 'date-time') { %>
@@ -63,16 +97,6 @@
       <span class="h6"><%= swaggerProperty.startCaseName %></span>
     </ng-template>
   </kendo-grid-column><% }) %>
-  <kendo-grid-column [width]="50">
-    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-      <button type="button" class="btn btn-sm mr-1" (click)="editItem(dataItem)" placement="left" tooltip="Edit">
-        <span class="k-icon k-i-edit"></span>
-      </button>
-      <button type="button" class="btn btn-sm mr-1" (click)="deleteItem(dataItem)" placement="left" tooltip="Delete">
-        <span class="k-icon k-i-delete"></span>
-      </button>
-    </ng-template>
-  </kendo-grid-column>
 
   <kendo-grid-pdf [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [allPages]="false">
     <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>

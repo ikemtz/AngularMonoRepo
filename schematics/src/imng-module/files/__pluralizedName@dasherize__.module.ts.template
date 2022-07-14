@@ -7,6 +7,7 @@ import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid
 import { DialogModule } from '@progress/kendo-angular-dialog';<% if (hasDates) { %>
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';<% } %><% if (hasObjects) { %>
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';<% } %>
+import { MenusModule } from "@progress/kendo-angular-menu";
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -30,6 +31,7 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     DialogModule,<% if (hasDates) { %>
     DateInputsModule,<% } %><% if (hasObjects) { %>
     DropDownsModule,<% } %>
+    MenusModule,
     ImngDataEntryDialogModule,
     ImngKendoGridFilteringModule,
     ImngKendoGridModule,
