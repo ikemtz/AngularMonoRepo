@@ -104,5 +104,10 @@ describe('<%= classify(name) %>AddComponent', () => {
     component.handle<%= classify(swaggerProperty.name) %>Filter('xy');
     const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);
     expect(result).toStrictEqual([{ <% swaggerProperty.properties.filter(t=>  t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> }]);
+  });<% }); %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
+  test('should handle <%= classify(swaggerProperty.name) %> filters', async () => {
+    component.handle<%= classify(swaggerProperty.name) %>Filter('abc-xyz');
+    const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);
+    expect(result).toStrictEqual([]);
   });<% }); %>
 });

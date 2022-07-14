@@ -182,6 +182,16 @@ describe('OrderAddComponent', () => {
     const result = await readFirst(component.billToAddresses$);
     expect(result).toStrictEqual([{ id: 'xyz',line1: 'xyz',line2: 'xyz',city: 'xyz',stateProvince: 'xyz',countryRegion: 'xyz',postalCode: 'xyz', }]);
   });
+  test('should handle StatusType filters', async () => {
+    component.handleStatusTypeFilter('abc-xyz');
+    const result = await readFirst(component.statusTypes$);
+    expect(result).toStrictEqual([]);
+  });
+  test('should handle ShippingType filters', async () => {
+    component.handleShippingTypeFilter('abc-xyz');
+    const result = await readFirst(component.shippingTypes$);
+    expect(result).toStrictEqual([]);
+  });
 });
 "
 `;
@@ -331,11 +341,11 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
   }
   public handleStatusTypeFilter(value: string) {
     this.statusTypes$.next(orderStatusTypeValues.filter(t =>
-      t.name?.toLowerCase().indexOf(value) > -1));
+      t.name.toLowerCase().indexOf(value) > -1));
   }
   public handleShippingTypeFilter(value: string) {
     this.shippingTypes$.next(shippingTypeValues.filter(t =>
-      t.name?.toLowerCase().indexOf(value) > -1));
+      t.name.toLowerCase().indexOf(value) > -1));
   }
 }
 "
@@ -578,7 +588,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         [formControlName]=\\"props.STATUS_TYPE\\"
         [data]=\\"statusTypes$ | async\\"
         [textField]=\\"ENUM_DISPLAY_TEXT\\"
-        [valueField]=\\"ENUM_KEY\\"
+        [valueField]=\\"ENUM_NAME\\"
         [valuePrimitive]=\\"true\\"
         [filterable]=\\"true\\"
         (filterChange)=\\"handleStatusTypeFilter($event)\\"
@@ -628,7 +638,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         [formControlName]=\\"props.SHIPPING_TYPE\\"
         [data]=\\"shippingTypes$ | async\\"
         [textField]=\\"ENUM_DISPLAY_TEXT\\"
-        [valueField]=\\"ENUM_KEY\\"
+        [valueField]=\\"ENUM_NAME\\"
         [valuePrimitive]=\\"true\\"
         [filterable]=\\"true\\"
         (filterChange)=\\"handleShippingTypeFilter($event)\\"
@@ -865,6 +875,16 @@ describe('OrderEditComponent', () => {
     component.handleBillToAddressFilter('xy');
     const result = await readFirst(component.billToAddresses$);
     expect(result).toStrictEqual([{ id: 'xyz',line1: 'xyz',line2: 'xyz',city: 'xyz',stateProvince: 'xyz',countryRegion: 'xyz',postalCode: 'xyz', }]);
+  });
+  test('should handle StatusType filters', async () => {
+    component.handleStatusTypeFilter('abc-xyz');
+    const result = await readFirst(component.statusTypes$);
+    expect(result).toStrictEqual([]);
+  });
+  test('should handle ShippingType filters', async () => {
+    component.handleShippingTypeFilter('abc-xyz');
+    const result = await readFirst(component.shippingTypes$);
+    expect(result).toStrictEqual([]);
   });
 });
 "
