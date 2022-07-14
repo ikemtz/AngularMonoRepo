@@ -10,7 +10,7 @@
         [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
         [data]="<%= camelize(swaggerProperty.pluralizedName) %>$ | async"
         [textField]="ENUM_DISPLAY_TEXT"
-        [valueField]="ENUM_KEY"
+        [valueField]="ENUM_NAME"
         [valuePrimitive]="true"
         [filterable]="true"
         (filterChange)="handle<%= classify(swaggerProperty.name) %>Filter($event)"<% if(swaggerProperty.required) { %>

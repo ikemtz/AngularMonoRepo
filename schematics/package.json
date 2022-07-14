@@ -1,7 +1,7 @@
 {
-  "name": "imng-schematics",
+  "name": "imng-kendo-schematics",
   "version": "0.0.0",
-  "description": "A blank schematics",
+  "description": "A collection of Angular templates facilitating Angular, Kendo, NGRX and imng package integration",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "jest --coverage --env=node",
@@ -18,9 +18,13 @@
     "schematic:module:unt": "npm run build && schematics ./dist/schematics/collection.json:module unit --path=\"./dist/\" --openApiJsonUrl=https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn"
   },
   "keywords": [
-    "schematics"
+    "schematics",
+    "kendo",
+    "Angular",
+    "NGRX",
+    "IMNG"
   ],
-  "author": "",
+  "author": "Isaac Martinez <@ikemtz> (https://www.linkedin.com/in/ikemtz/)",
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {

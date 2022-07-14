@@ -43,6 +43,6 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
   }<% }) %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
   public handle<%= classify(swaggerProperty.name) %>Filter(value: string) {
     this.<%= camelize(swaggerProperty.pluralizedName) %>$.next(<%= camelize(swaggerProperty.singularizedPropertyTypeName) %>Values.filter(t =>
-      t.name?.toLowerCase().indexOf(value) > -1));
+      t.name.toLowerCase().indexOf(value) > -1));
   }<% }) %>
 }

@@ -1,7 +1,7 @@
 {
-  "name": "imng-schematics",
+  "name": "imng-kendo-schematics",
   "version": "0.0.0",
-  "description": "A collection of schematics",
+  "description": "Angular Schematics facilitating Angular, Kendo, NGRX and imng package integration",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "jest",
@@ -9,9 +9,13 @@
     "postbuild": "bash package.sh"
   },
   "keywords": [
-    "schematics"
+    "schematics",
+    "kendo",
+    "Angular",
+    "NGRX",
+    "IMNG"
   ],
-  "author": "@IkeMtz",
+  "author": "Isaac Martinez <@ikemtz> (https://www.linkedin.com/in/ikemtz/)",
   "license": "MIT",
   "schematics": "./schematics/collection.json",
   "peerDependencies": {
