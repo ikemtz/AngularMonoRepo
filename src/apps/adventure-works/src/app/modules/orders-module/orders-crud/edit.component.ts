@@ -1,12 +1,7 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
-import { IOrder } from '../../../models/webapi';
+import { IExtOrder } from '../models/ext-order';
 
 import { OrderBaseEntryComponent } from './base-entry.component';
 import { OrderCrudFacade } from './crud.facade';
@@ -17,9 +12,7 @@ import { OrderCrudFacade } from './crud.facade';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderEditComponent
-  extends OrderBaseEntryComponent
-  implements OnInit, OnDestroy {
+export class OrderEditComponent extends OrderBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Order';
   public active$ = this.facade.isEditActive$;
 
@@ -29,16 +22,12 @@ export class OrderEditComponent
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {
-      this.allSubscriptions.push(
-        this.facade.currentEntity$
-          .pipe(formGroupPatcher(this.addEditForm))
-          .subscribe(),
-      );
+      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
     }
   }
 
   public save(): void {
-    const val = normalizeRequest<IOrder>(this.addEditForm.value);
+    const val = normalizeRequest<IExtOrder>(this.addEditForm.value);
     this.facade.updateExistingEntity(val);
   }
 }
