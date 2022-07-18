@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { JsonEditorOptions } from 'ang-jsoneditor';
 import { ILocalSetting } from './az-setting.model';
@@ -12,7 +12,7 @@ import { ITransformer, transformers } from './transformers';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  public readonly azConfig = new FormControl('');
+  public readonly azConfig = new UntypedFormControl('');
   public readonly editorOptions: JsonEditorOptions;
   public readonly currentTransformer$: Observable<ITransformer>;
   public readonly transformers: ITransformer[];
