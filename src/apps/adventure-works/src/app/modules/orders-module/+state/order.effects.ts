@@ -10,6 +10,7 @@ import * as orderActionTypes from './order.actions';
 import { environment } from '../../../../environments/environment';
 
 import { OrderApiService } from '../orders-crud';
+import { ICustomer, IOrderAddress, OrderProperties } from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
 
 @Injectable()
@@ -17,7 +18,7 @@ export class OrderEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
-    private store: Store,
+    private readonly store: Store,
     private readonly orderApiService: OrderApiService,
   ) { }
 
@@ -25,7 +26,9 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadOrdersRequest),
       switchMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataservice
-        .fetch<IExtOrder>(environment.odataEnpoints.orders, action.payload)
+        .fetch<IExtOrder>(environment.odataEnpoints.orders, action.payload, {
+          dateNullableProps: [OrderProperties.SHIP_DATE],
+        })
         .pipe(
           map(t => orderActionTypes.loadOrdersSuccess(t)),
           handleEffectError(action))));
@@ -36,7 +39,10 @@ export class OrderEffects {
       ofType(orderActionTypes.reloadOrdersRequest),
       concatLatestFrom(() => this.store.select(ordersFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IExtOrder>(environment.odataEnpoints.orders, odataState)
+        .fetch<IExtOrder>(environment.odataEnpoints.orders, odataState, {
+          bustCache: true,
+          dateNullableProps: [OrderProperties.SHIP_DATE],
+        })
         .pipe(
           map(t => orderActionTypes.reloadOrdersSuccess(t)),
           handleEffectError(action))));
@@ -64,5 +70,32 @@ export class OrderEffects {
       switchMap((action: ReturnType<typeof orderActionTypes.deleteOrderRequest>) => this.orderApiService.delete(action.payload).pipe(
         map(() => orderActionTypes.reloadOrdersRequest()),
         handleEffectError(action))));
+  });
+
+  loadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(orderActionTypes.loadCustomersRequest),
+      switchMap((action: ReturnType<typeof orderActionTypes.loadCustomersRequest>) => this.odataservice
+        .fetch<ICustomer>(environment.odataEnpoints.customers, action.payload)
+        .pipe(map(t => orderActionTypes.loadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  loadShipToAddressesEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(orderActionTypes.loadShipToAddressesRequest),
+      switchMap((action: ReturnType<typeof orderActionTypes.loadShipToAddressesRequest>) => this.odataservice
+        .fetch<IOrderAddress>(environment.odataEnpoints.customerAddresses, action.payload)
+        .pipe(map(t => orderActionTypes.loadShipToAddressesSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  loadBillToAddressesEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(orderActionTypes.loadBillToAddressesRequest),
+      switchMap((action: ReturnType<typeof orderActionTypes.loadBillToAddressesRequest>) => this.odataservice
+        .fetch<IOrderAddress>(environment.odataEnpoints.customerAddresses, action.payload)
+        .pipe(map(t => orderActionTypes.loadBillToAddressesSuccess(t)),
+          handleEffectError(action))));
   });
 }

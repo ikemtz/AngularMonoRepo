@@ -1,11 +1,11 @@
 import { formGroupPatcher } from './form-group-patcher';
 import { of } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 describe('formGroupPatcher', () => {
   it('should patch', () => {
-    const formGroup = new FormGroup({
-      id: new FormControl(''),
+    const formGroup = new UntypedFormGroup({
+      id: new UntypedFormControl(''),
     });
     const entity = { id: '🤦‍♂️😂' };
     of(entity)

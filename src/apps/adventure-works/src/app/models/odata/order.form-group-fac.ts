@@ -6,36 +6,36 @@
  * Do not edit.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { UntypedFormControl, UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function OrderFormGroupFac(): FormGroup {
-  return new FormGroup({
-    id: new FormControl(''),
-    orderId: new FormControl('', Validators.required),
-    revisionNum: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required),
-    dueDate: new FormControl('', Validators.required),
-    shipDate: new FormControl(''),
-    isOnlineOrder: new FormControl('', Validators.required),
-    num: new FormControl(
+export function OrderFormGroupFac(): UntypedFormGroup {
+  return new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    orderId: new UntypedFormControl('', Validators.required),
+    revisionNum: new UntypedFormControl('', Validators.required),
+    date: new UntypedFormControl('', Validators.required),
+    dueDate: new UntypedFormControl('', Validators.required),
+    shipDate: new UntypedFormControl(''),
+    isOnlineOrder: new UntypedFormControl('', Validators.required),
+    num: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(25)]),
     ),
-    purchaseOrderNum: new FormControl('', Validators.maxLength(25)),
-    customerId: new FormControl('', Validators.required),
-    shipToAddressId: new FormControl(''),
-    billToAddressId: new FormControl(''),
-    creditCardApprovalCode: new FormControl('', Validators.maxLength(15)),
-    subTotal: new FormControl('', Validators.required),
-    taxAmt: new FormControl('', Validators.required),
-    freight: new FormControl('', Validators.required),
-    totalDue: new FormControl('', Validators.required),
-    comment: new FormControl('', Validators.maxLength(500)),
-    statusType: new FormControl('', Validators.required),
-    shippingType: new FormControl('', Validators.required),
-    customer: new FormControl(''),
-    shipToAddress: new FormControl(''),
-    billToAddress: new FormControl(''),
-    orderLineItems: new FormArray([]),
+    purchaseOrderNum: new UntypedFormControl('', Validators.maxLength(25)),
+    customerId: new UntypedFormControl('', Validators.required),
+    shipToAddressId: new UntypedFormControl(''),
+    billToAddressId: new UntypedFormControl(''),
+    creditCardApprovalCode: new UntypedFormControl('', Validators.maxLength(15)),
+    subTotal: new UntypedFormControl('', Validators.required),
+    taxAmt: new UntypedFormControl('', Validators.required),
+    freight: new UntypedFormControl('', Validators.required),
+    totalDue: new UntypedFormControl('', Validators.required),
+    comment: new UntypedFormControl('', Validators.maxLength(500)),
+    statusType: new UntypedFormControl('', Validators.required),
+    shippingType: new UntypedFormControl('', Validators.required),
+    customer: new UntypedFormControl(''),
+    shipToAddress: new UntypedFormControl(''),
+    billToAddress: new UntypedFormControl(''),
+    orderLineItems: new UntypedFormArray([]),
   });
 }

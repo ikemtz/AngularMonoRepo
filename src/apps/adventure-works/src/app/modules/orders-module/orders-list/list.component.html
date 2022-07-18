@@ -15,6 +15,40 @@
       </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
+  <kendo-grid-column [width]="75">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <kendo-menu title="Actions">
+        <kendo-menu-item icon="menu">
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="editItem(dataItem)"
+                placement="left"
+                tooltip="Edit">
+                <span class="k-icon k-i-edit"></span>
+                Edit
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="deleteItem(dataItem)"
+                placement="left"
+                tooltip="Delete">
+                <span class="k-icon k-i-delete"></span>
+                Delete
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+        </kendo-menu-item>
+      </kendo-menu>
+    </ng-template>
+  </kendo-grid-column>
 
   <kendo-grid-column
     [field]="props.ID"
@@ -84,10 +118,22 @@
   <kendo-grid-column
     [field]="props.STATUS_TYPE"
     [width]="100"
-    title="Status"
-    filter="numeric">
+    title="Status Type"
+    filter="text">
+    <ng-template kendoGridFilterMenuTemplate let-column="column">
+      <imng-multi-select-filter
+        [isPrimitive]="false"
+        [odataState]="facade.gridODataState$ | async"
+        [textField]="ENUM_DISPLAY_TEXT"
+        [valueField]="ENUM_NAME"
+        [data]="orderStatusTypes"
+        [field]="props.STATUS_TYPE"></imng-multi-select-filter>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getEnumText(orderStatusTypes, dataItem[props.STATUS_TYPE]) }}
+    </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Status</span>
+      <span class="h6">Status Type</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
@@ -130,10 +176,22 @@
   <kendo-grid-column
     [field]="props.SHIPPING_TYPE"
     [width]="100"
-    title="Ship Method"
+    title="Shipping Type"
     filter="text">
+    <ng-template kendoGridFilterMenuTemplate let-column="column">
+      <imng-multi-select-filter
+        [isPrimitive]="false"
+        [odataState]="facade.gridODataState$ | async"
+        [textField]="ENUM_DISPLAY_TEXT"
+        [valueField]="ENUM_NAME"
+        [data]="shippingTypes"
+        [field]="props.SHIPPING_TYPE"></imng-multi-select-filter>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getEnumText(shippingTypes, dataItem[props.SHIPPING_TYPE]) }}
+    </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6">Ship<br />Method</span>
+      <span class="h6">Shipping Type</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
@@ -217,26 +275,6 @@
         <div class="col-xs-4 h6">Company Name:</div>
         <div class="col-xs-8">{{ dataItem.customer.companyName }}</div>
       </div>
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column [width]="50">
-    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-      <button
-        type="button"
-        class="btn btn-sm mr-1"
-        (click)="editItem(dataItem)"
-        placement="left"
-        tooltip="Edit">
-        <span class="k-icon k-i-edit"></span>
-      </button>
-      <button
-        type="button"
-        class="btn btn-sm mr-1"
-        (click)="deleteItem(dataItem)"
-        placement="left"
-        tooltip="Delete">
-        <span class="k-icon k-i-delete"></span>
-      </button>
     </ng-template>
   </kendo-grid-column>
   <div *kendoGridDetailTemplate="let dataItem">

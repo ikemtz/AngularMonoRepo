@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
@@ -14,10 +14,10 @@ import { IdType } from 'imng-nrsrx-client-utils';
 
 export class GridDataEntryHelper<T extends { id?: IdType; }> {
   private _editedRowIndex: number | undefined;
-  private _gridFormGroup: FormGroup | undefined;
+  private _gridFormGroup: UntypedFormGroup | undefined;
   private readonly _gridData$: BehaviorSubject<Array<T>>;
   public sortDescriptors$ = new BehaviorSubject<SortDescriptor[]>([]);
-  public get gridFormGroup(): FormGroup | undefined {
+  public get gridFormGroup(): UntypedFormGroup | undefined {
     return this._gridFormGroup;
   }
 
@@ -48,7 +48,7 @@ export class GridDataEntryHelper<T extends { id?: IdType; }> {
     return this.gridData$.pipe(map((t) => this.gridValidationLogic(t)));
   }
   constructor(
-    private readonly formGroupFactory: () => FormGroup,
+    private readonly formGroupFactory: () => UntypedFormGroup,
     private _gridData: T[] = []
   ) {
     this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);

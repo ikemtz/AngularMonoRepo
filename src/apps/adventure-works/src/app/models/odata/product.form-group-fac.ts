@@ -6,12 +6,12 @@
  * Do not edit.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { UntypedFormControl, UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function ProductFormGroupFac(): FormGroup {
-  return new FormGroup({
-    id: new FormControl(''),
-    name: new FormControl(
+export function ProductFormGroupFac(): UntypedFormGroup {
+  return new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    name: new UntypedFormControl(
       '',
       Validators.compose([
         Validators.required,
@@ -19,7 +19,7 @@ export function ProductFormGroupFac(): FormGroup {
         Validators.maxLength(50),
       ]),
     ),
-    num: new FormControl(
+    num: new UntypedFormControl(
       '',
       Validators.compose([
         Validators.required,
@@ -27,22 +27,22 @@ export function ProductFormGroupFac(): FormGroup {
         Validators.maxLength(25),
       ]),
     ),
-    color: new FormControl(
+    color: new UntypedFormControl(
       '',
       Validators.compose([Validators.minLength(3), Validators.maxLength(15)]),
     ),
-    standardCost: new FormControl('', Validators.required),
-    listPrice: new FormControl('', Validators.required),
-    size: new FormControl('', Validators.maxLength(5)),
-    weight: new FormControl(''),
-    productCategoryId: new FormControl(''),
-    productModelId: new FormControl(''),
-    sellStartDate: new FormControl('', Validators.required),
-    sellEndDate: new FormControl(''),
-    discontinuedDate: new FormControl(''),
-    thumbNailPhoto: new FormControl('', Validators.maxLength(5000)),
-    productModel: new FormControl(''),
-    productCategory: new FormControl(''),
-    orderLineItems: new FormArray([]),
+    standardCost: new UntypedFormControl('', Validators.required),
+    listPrice: new UntypedFormControl('', Validators.required),
+    size: new UntypedFormControl('', Validators.maxLength(5)),
+    weight: new UntypedFormControl(''),
+    productCategoryId: new UntypedFormControl(''),
+    productModelId: new UntypedFormControl(''),
+    sellStartDate: new UntypedFormControl('', Validators.required),
+    sellEndDate: new UntypedFormControl(''),
+    discontinuedDate: new UntypedFormControl(''),
+    thumbNailPhoto: new UntypedFormControl('', Validators.maxLength(5000)),
+    productModel: new UntypedFormControl(''),
+    productCategory: new UntypedFormControl(''),
+    orderLineItems: new UntypedFormArray([]),
   });
 }
