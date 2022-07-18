@@ -12,3 +12,5 @@ FROM bitnami/nginx:latest
 EXPOSE 8080
 COPY --from=built /app/dist/apps/adventure-works/ /app
 COPY /apps/adventure-works/nginx.conf /opt/bitnami/nginx/conf/server_blocks/nginx.conf
+ENV ODATA=https://awod-ikemtz.azurewebsites.net/ \
+    WEBAPI=https://awwa-ikemtz.azurewebsites.net/

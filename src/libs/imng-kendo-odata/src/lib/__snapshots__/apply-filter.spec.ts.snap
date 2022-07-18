@@ -28,8 +28,8 @@ Object {
         "filters": Array [
           Object {
             "field": "ABC",
-            "operator": "eq",
-            "value": 2,
+            "operator": "lte",
+            "value": 6,
           },
         ],
         "logic": "and",

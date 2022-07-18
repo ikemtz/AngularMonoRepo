@@ -1,6 +1,7 @@
 import { FilterDescriptor } from '@progress/kendo-data-query';
 import { findMatchingFilters } from './find-filter';
 import { ODataState } from './odata-state';
+import { updateFilter } from './update-filter';
 
 export function applyFilter(odataState: ODataState, filter: FilterDescriptor): ODataState {
   if (!odataState.filter) {
@@ -14,8 +15,7 @@ export function applyFilter(odataState: ODataState, filter: FilterDescriptor): O
     });
   }
   else {
-    matchedFilter.operator = 'eq';
-    matchedFilter.value = filter.value;
+    updateFilter(odataState.filter, filter);
   }
   return odataState;
 }
