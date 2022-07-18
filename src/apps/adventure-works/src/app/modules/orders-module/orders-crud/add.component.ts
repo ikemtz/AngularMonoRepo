@@ -1,14 +1,9 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
 import { OrderCrudFacade } from './crud.facade';
 import { OrderBaseEntryComponent } from './base-entry.component';
-import { IOrder } from '../../../models/webapi';
-import { normalizeRequest } from 'imng-nrsrx-client-utils';
+import { IExtOrder } from '../models/ext-order';
 
 @Component({
   selector: 'aw-order-add',
@@ -16,9 +11,7 @@ import { normalizeRequest } from 'imng-nrsrx-client-utils';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderAddComponent
-  extends OrderBaseEntryComponent
-  implements OnInit, OnDestroy {
+export class OrderAddComponent extends OrderBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Order';
   public active$ = this.facade.isNewActive$;
 
@@ -31,7 +24,7 @@ export class OrderAddComponent
   }
 
   public save(): void {
-    const val = normalizeRequest<IOrder>(this.addEditForm.value);
+    const val = normalizeRequest<IExtOrder>(this.addEditForm.value);
     val.id = undefined;
     this.facade.saveNewEntity(val);
   }

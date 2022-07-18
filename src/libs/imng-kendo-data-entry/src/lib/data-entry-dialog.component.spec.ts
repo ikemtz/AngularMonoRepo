@@ -12,7 +12,7 @@ import {
   DataEntryMockFacade,
   createDataEntryMockFacade,
 } from '../../testing/src/data-entry-mock.facade';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
@@ -79,7 +79,7 @@ export class TestHostComponent
     super(facade);
   }
   public initForm(): void {
-    this.addEditForm = new FormGroup({ id: new FormControl() });
+    this.addEditForm = new UntypedFormGroup({ id: new UntypedFormControl() });
   }
   public save(): void {
     this.saved = true;

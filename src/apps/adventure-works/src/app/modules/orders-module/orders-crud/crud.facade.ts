@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { ODataState } from 'imng-kendo-odata';
 import { ordersFeature } from '../+state/order.reducer';
 import { orderQueries } from '../+state/order.selectors';
 import * as orderActionTypes from '../+state/order.actions';
-import { IOrder } from '../../../models/webapi';
+import { IExtOrder } from '../models/ext-order';
 
 @Injectable()
-export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
+export class OrderCrudFacade implements IDataEntryFacade<IExtOrder> {
   loading$ = this.store.select(ordersFeature.selectLoading);
   currentEntity$ = this.store.select(orderQueries.selectCurrentOrder);
   isEditActive$ = this.store.select(orderQueries.selectIsEditOrderActive);
   isNewActive$ = this.store.select(orderQueries.selectIsNewOrderActive);
+  customers$ = this.store.select(ordersFeature.selectCustomers);
+  shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
+  billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
 
   constructor(private readonly store: Store) { }
 
-  public setCurrentEntity(item: IOrder): void {
+  public setCurrentEntity(item: IExtOrder): void {
     this.store.dispatch(orderActionTypes.setCurrentOrder(item));
   }
 
@@ -23,11 +27,21 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
     this.store.dispatch(orderActionTypes.clearCurrentOrder());
   }
 
-  public saveNewEntity(item: IOrder): void {
+  public saveNewEntity(item: IExtOrder): void {
     this.store.dispatch(orderActionTypes.saveOrderRequest(item));
   }
 
-  public updateExistingEntity(item: IOrder): void {
+  public updateExistingEntity(item: IExtOrder): void {
     this.store.dispatch(orderActionTypes.updateOrderRequest(item));
+  }
+
+  public loadCustomers(state: ODataState): void {
+    this.store.dispatch(orderActionTypes.loadCustomersRequest(state));
+  }
+  public loadShipToAddresses(state: ODataState): void {
+    this.store.dispatch(orderActionTypes.loadShipToAddressesRequest(state));
+  }
+  public loadBillToAddresses(state: ODataState): void {
+    this.store.dispatch(orderActionTypes.loadBillToAddressesRequest(state));
   }
 }

@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`OrderAddComponent should save 1`] = `
+Object {
+  "billToAddress": "BILL_TO_ADDRESS",
+  "billToAddressId": "BILL_TO_ADDRESS_ID",
+  "comment": "COMMENT",
+  "creditCardApprovalCode": "CREDIT_CARD_APP",
+  "customer": "CUSTOMER",
+  "customerId": "CUSTOMER_ID",
+  "date": Any<Date>,
+  "dueDate": Any<Date>,
+  "freight": 0,
+  "id": undefined,
+  "isOnlineOrder": true,
+  "num": "NUM",
+  "orderId": 0,
+  "orderLineItems": null,
+  "purchaseOrderNum": "PURCHASE_ORDER_NUM",
+  "revisionNum": 0,
+  "shipDate": Any<Date>,
+  "shipToAddress": "SHIP_TO_ADDRESS",
+  "shipToAddressId": "SHIP_TO_ADDRESS_ID",
+  "shippingType": 1,
+  "statusType": 0,
+  "subTotal": 0,
+  "taxAmt": 0,
+  "totalDue": 0,
+}
+`;
+
 exports[`OrderEditComponent should update 1`] = `
 Object {
   "billToAddress": "BILL_TO_ADDRESS",
@@ -21,8 +50,8 @@ Object {
   "shipDate": Any<Date>,
   "shipToAddress": "SHIP_TO_ADDRESS",
   "shipToAddressId": "SHIP_TO_ADDRESS_ID",
-  "shippingType": 2,
-  "status": 0,
+  "shippingType": 1,
+  "statusType": 0,
   "subTotal": 0,
   "taxAmt": 0,
   "totalDue": 0,

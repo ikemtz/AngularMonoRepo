@@ -1,7 +1,7 @@
 import { IDataEntryFacade } from './data-entry-facade';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 import { of } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Subscribable } from 'imng-ngrx-utils';
 import { mockConsoleError } from 'imng-ngrx-utils/testing';
 
@@ -81,9 +81,9 @@ export class MockBaseComponent
   props = {};
   save = jest.fn();
   public initForm(): void {
-    this.addEditForm = new FormGroup({
-      id: new FormControl(''),
-      minLenVal: new FormControl('', Validators.minLength(20))
+    this.addEditForm = new UntypedFormGroup({
+      id: new UntypedFormControl(''),
+      minLenVal: new UntypedFormControl('', Validators.minLength(20))
     });
   }
 }

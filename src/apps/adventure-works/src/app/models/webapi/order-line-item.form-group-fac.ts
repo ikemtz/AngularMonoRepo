@@ -6,18 +6,18 @@
  * Do not edit.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { UntypedFormControl, FormArray, UntypedFormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function OrderLineItemFormGroupFac(): FormGroup {
-  return new FormGroup({
-    id: new FormControl(''),
-    orderId: new FormControl('', Validators.required),
-    orderQty: new FormControl('', Validators.required),
-    productId: new FormControl('', Validators.required),
-    unitPrice: new FormControl('', Validators.required),
-    unitPriceDiscount: new FormControl('', Validators.required),
-    lineTotal: new FormControl('', Validators.required),
-    order: new FormControl(''),
-    product: new FormControl(''),
+export function OrderLineItemFormGroupFac(): UntypedFormGroup {
+  return new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    orderId: new UntypedFormControl('', Validators.required),
+    orderQty: new UntypedFormControl('', Validators.required),
+    productId: new UntypedFormControl('', Validators.required),
+    unitPrice: new UntypedFormControl('', Validators.required),
+    unitPriceDiscount: new UntypedFormControl('', Validators.required),
+    lineTotal: new UntypedFormControl('', Validators.required),
+    order: new UntypedFormControl(''),
+    product: new UntypedFormControl(''),
   });
 }
