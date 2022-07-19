@@ -6,17 +6,27 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   {
     path: 'customers',
-    loadChildren: () => import('./modules/customers-module/customers.module').then(m => m.CustomersModule),
-    canActivateChild: [AuthGuard]
-  }, {
+    loadChildren: () =>
+      import('./modules/customers-module/customers.module').then(
+        (m) => m.CustomersModule,
+      ),
+    canActivateChild: [AuthGuard],
+  },
+  {
     path: 'products',
-    loadChildren: () => import('./modules/products-module/products.module').then(m => m.ProductsModule),
-    canActivateChild: [AuthGuard]
+    loadChildren: () =>
+      import('./modules/products-module/products.module').then(
+        (m) => m.ProductsModule,
+      ),
+    canActivateChild: [AuthGuard],
   },
   {
     path: 'orders',
-    loadChildren: () => import('./modules/orders-module/orders.module').then(m => m.OrdersModule),
-    canActivateChild: [AuthGuard]
+    loadChildren: () =>
+      import('./modules/orders-module/orders.module').then(
+        (m) => m.OrdersModule,
+      ),
+    canActivateChild: [AuthGuard],
   },
   ...oidcRoutes,
   { path: '**', component: HomeComponent },
@@ -24,11 +34,11 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
+      initialNavigation: 'enabledBlocking',
       enableTracing: false,
       relativeLinkResolution: 'corrected',
     }),
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

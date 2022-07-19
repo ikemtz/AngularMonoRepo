@@ -57,7 +57,14 @@ describe('OrderListComponent', () => {
   test('it should handle AddItem', () => {
     component.addItem();
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith({});
+    expect(crudFacade.setCurrentEntity).toBeCalledWith({
+      orderLineItemOData: {
+        data: [],
+        total: 0,
+      },
+      orderLineItemODataState: {},
+      orderLineItemPagerSettings: false,
+    });
   });
 
   test('it should handle EditItem', () => {

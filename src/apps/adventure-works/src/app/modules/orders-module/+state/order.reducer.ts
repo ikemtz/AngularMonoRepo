@@ -1,6 +1,6 @@
 import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
-import { IOrder } from '../../../models/odata';
+import { ICustomer, IOrderAddress } from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
 
 import * as orderActionTypes from './order.actions';
@@ -9,12 +9,18 @@ import { findAndModify, imngEffectError, imngEffectErrorReducer } from 'imng-ngr
 export const ORDERS_FEATURE_KEY = 'orders';
 
 export interface State extends KendoODataGridState<IExtOrder> {
-  currentOrder: IOrder | undefined;
+  currentOrder: IExtOrder | undefined;
+  customers: ICustomer[];
+  shipToAddresses: IOrderAddress[];
+  billToAddresses: IOrderAddress[];
 }
 
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
   currentOrder: undefined,
+  customers: [],
+  shipToAddresses: [],
+  billToAddresses: [],
   loading: true,
 };
 
@@ -86,6 +92,21 @@ export const ordersFeature = createFeature({
           }),
           total: state.gridData.total
         },
+      })),
+    on(orderActionTypes.loadCustomersSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        customers: payload.data
+      })),
+    on(orderActionTypes.loadShipToAddressesSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        shipToAddresses: payload.data
+      })),
+    on(orderActionTypes.loadBillToAddressesSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        billToAddresses: payload.data
       })),
     on(imngEffectError, imngEffectErrorReducer),
   )

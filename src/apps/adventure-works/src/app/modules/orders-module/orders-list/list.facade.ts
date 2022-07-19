@@ -7,6 +7,7 @@ import { ODataState } from 'imng-kendo-odata';
 import { ordersFeature } from '../+state/order.reducer';
 import * as orderActionTypes from '../+state/order.actions';
 import { IOrder } from '../../../models/odata';
+import { IExtOrder } from '../models/ext-order';
 
 @Injectable()
 export class OrderListFacade implements IKendoODataGridFacade<IOrder>, IDataDeleteFacade<IOrder> {
@@ -25,7 +26,7 @@ export class OrderListFacade implements IKendoODataGridFacade<IOrder>, IDataDele
     this.store.dispatch(orderActionTypes.reloadOrdersRequest());
   }
 
-  public deleteExistingEntity(entity: IOrder): void {
+  public deleteExistingEntity(entity: IExtOrder): void {
     this.store.dispatch(orderActionTypes.deleteOrderRequest(entity));
   }
 }
