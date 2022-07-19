@@ -6,12 +6,12 @@
  * Do not edit.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { UntypedFormControl, UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function CustomerFormGroupFac(): FormGroup {
-  return new FormGroup({
-    id: new FormControl(''),
-    num: new FormControl(
+export function CustomerFormGroupFac(): UntypedFormGroup {
+  return new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    num: new UntypedFormControl(
       '',
       Validators.compose([
         Validators.required,
@@ -19,16 +19,16 @@ export function CustomerFormGroupFac(): FormGroup {
         Validators.maxLength(15),
       ]),
     ),
-    name: new FormControl('', Validators.maxLength(512)),
-    companyName: new FormControl(
+    name: new UntypedFormControl('', Validators.maxLength(512)),
+    companyName: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(128)]),
     ),
-    salesAgentId: new FormControl('', Validators.required),
-    emailAddress: new FormControl('', Validators.maxLength(250)),
-    phone: new FormControl('', Validators.maxLength(25)),
-    salesAgent: new FormControl(''),
-    customerAddresses: new FormArray([]),
-    orders: new FormArray([]),
+    salesAgentId: new UntypedFormControl('', Validators.required),
+    emailAddress: new UntypedFormControl('', Validators.maxLength(250)),
+    phone: new UntypedFormControl('', Validators.maxLength(25)),
+    salesAgent: new UntypedFormControl(''),
+    customerAddresses: new UntypedFormArray([]),
+    orders: new UntypedFormArray([]),
   });
 }

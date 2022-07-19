@@ -19,6 +19,8 @@ import { OrderListComponent, OrderListFacade } from './orders-list';
 import { OrderAddComponent, OrderEditComponent, OrderApiService, OrderCrudFacade } from './orders-crud';
 import { OrderLineItemEffects } from './+state/order-line-item.effects';
 import { OrderLineItemListComponent, OrderLineItemListFacade } from './order-line-items-list';
+import { MenusModule } from '@progress/kendo-angular-menu';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { OrderLineItemListComponent, OrderLineItemListFacade } from './order-lin
     StoreModule.forFeature(ordersFeature),
     EffectsModule.forFeature([OrderEffects, OrderLineItemEffects]),
     ImngKendoGridFilteringModule,
-    DateInputsModule
+    DateInputsModule,
+    MenusModule,
+    DropDownsModule,
   ],
   providers: [
     OrderListFacade,
