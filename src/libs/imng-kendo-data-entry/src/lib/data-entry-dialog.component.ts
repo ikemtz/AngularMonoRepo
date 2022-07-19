@@ -7,7 +7,7 @@ import {
   ContentChild,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 import { DialogButtonsDirective } from './dialog-buttons.directive';
 
@@ -66,7 +66,7 @@ export class DataEntryDialogComponent implements OnInit {
    */
   public dialogBtnsTemplate?: TemplateRef<unknown>;
   public loading$?: Observable<boolean>;
-  public addEditForm?: FormGroup;
+  public addEditForm?: UntypedFormGroup;
   public submitted = false;
   public dialogTitle?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types

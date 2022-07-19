@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { StateService } from '../state.service';
 import { JsonEditorOptions } from 'ang-jsoneditor';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class JsonViewerComponent implements OnDestroy {
 
-  public readonly devConfig = new FormControl({});
+  public readonly devConfig = new UntypedFormControl({});
   public readonly editorOptions: JsonEditorOptions;
   public readonly outputSubscription: Subscription;
 

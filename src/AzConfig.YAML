@@ -26,8 +26,9 @@ jobs:
       - task: Npm@1
         displayName: 'npm install'
         inputs:
+          command: 'custom'
           workingDir: 'src'
-          verbose: false
+          customCommand: 'install --legacy-peer-deps'
 
       - task: Npm@1
         displayName: 'npm run build:ngrx-utils'

@@ -6,15 +6,15 @@
  * Do not edit.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { UntypedFormControl, UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function ProductCategoryFormGroupFac(): FormGroup {
-  return new FormGroup({
-    id: new FormControl(''),
-    name: new FormControl(
+export function ProductCategoryFormGroupFac(): UntypedFormGroup {
+  return new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    name: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(50)]),
     ),
-    products: new FormArray([]),
+    products: new UntypedFormArray([]),
   });
 }

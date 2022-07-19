@@ -6,7 +6,8 @@ import { ODataState } from 'imng-kendo-odata';
 
 import { OrderListFacade } from './list.facade';
 import { OrderCrudFacade } from '../orders-crud';
-import { CustomerProperties, IOrder, OrderProperties } from '../../../models/odata';
+import { CustomerProperties, IOrder, OrderProperties, orderStatusTypeValues, shippingTypeValues } from '../../../models/odata';
+import { IExtOrder } from '../models/ext-order';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -52,6 +53,8 @@ const initialGridState: ODataState = {
 })
 export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderListFacade> {
   public readonly props = OrderProperties;
+  public readonly orderStatusTypes = orderStatusTypeValues;
+  public readonly shippingTypes = shippingTypeValues;
   public currentItem: IOrder | undefined;
 
   constructor(facade: OrderListFacade,
@@ -61,14 +64,14 @@ export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderLi
   }
 
   public addItem(): void {
-    this.crudFacade.setCurrentEntity({});
+    this.crudFacade.setCurrentEntity({ orderLineItemODataState: {}, orderLineItemOData: { data: [], total: 0 }, orderLineItemPagerSettings: false });
   }
 
-  public editItem(item: IOrder): void {
+  public editItem(item: IExtOrder): void {
     this.crudFacade.setCurrentEntity(item);
   }
 
-  public deleteItem(item: IOrder): void {
+  public deleteItem(item: IExtOrder): void {
     this.facade.deleteExistingEntity(item);
   }
 

@@ -5,7 +5,7 @@ import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/co
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
 import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock.facade';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { DialogButtonsDirective } from './dialog-buttons.directive';
 import { By } from '@angular/platform-browser';
 
@@ -66,7 +66,7 @@ export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacad
     super(facade);
   }
   public initForm(): void {
-    this.addEditForm = new FormGroup({ id: new FormControl() });
+    this.addEditForm = new UntypedFormGroup({ id: new UntypedFormControl() });
   }
   public save(): void {
     this.saved = true;
