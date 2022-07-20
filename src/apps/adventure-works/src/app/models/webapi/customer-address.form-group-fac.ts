@@ -6,37 +6,37 @@
  * Do not edit.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { UntypedFormControl, FormArray, UntypedFormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function CustomerAddressFormGroupFac(): FormGroup {
-  return new FormGroup({
-    id: new FormControl(''),
-    customerId: new FormControl('', Validators.required),
-    addressType: new FormControl(
+export function CustomerAddressFormGroupFac(): UntypedFormGroup {
+  return new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    customerId: new UntypedFormControl('', Validators.required),
+    addressType: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(50)]),
     ),
-    line1: new FormControl(
+    line1: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(60)]),
     ),
-    line2: new FormControl('', Validators.maxLength(60)),
-    city: new FormControl(
+    line2: new UntypedFormControl('', Validators.maxLength(60)),
+    city: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(30)]),
     ),
-    stateProvince: new FormControl(
+    stateProvince: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(50)]),
     ),
-    countryRegion: new FormControl(
+    countryRegion: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(50)]),
     ),
-    postalCode: new FormControl(
+    postalCode: new UntypedFormControl(
       '',
       Validators.compose([Validators.required, Validators.maxLength(15)]),
     ),
-    customer: new FormControl(''),
+    customer: new UntypedFormControl(''),
   });
 }

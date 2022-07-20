@@ -26,5 +26,6 @@
     "imng-snippets": "libs/imng-snippets",
     "nurse-cron": "apps/nurse-cron",
     "nurse-cron-e2e": "apps/nurse-cron-e2e"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
