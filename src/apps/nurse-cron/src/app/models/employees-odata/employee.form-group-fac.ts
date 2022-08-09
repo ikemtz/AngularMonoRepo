@@ -7,6 +7,9 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { IEmployeeCertification } from './employee-certification.model'; //NOSONAR
+import { IEmployeeCompetency } from './employee-competency.model'; //NOSONAR
+import { IEmployeeHealthItem } from './employee-health-item.model'; //NOSONAR
 
 export function EmployeeFormGroupFac(): FormGroup {
   return new FormGroup({

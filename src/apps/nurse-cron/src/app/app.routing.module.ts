@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard, oidcRoutes } from 'imng-oidc-client';
+import { AuthGuard, AuthGuard, oidcRoutes } from 'imng-oidc-client';
 import { HomeComponent } from './home/home.component';
 import { MessagingComponent } from './messaging/messaging.component';
 
 const routes: Routes = [
+  {
+    path: 'employees',
+    loadChildren: () =>
+      import('./modules/employees-module/employees.module').then(
+        (m) => m.EmployeesModule,
+      ),
+    canActivateChild: [AuthGuard],
+  },
   {
     path: 'employees',
     loadChildren: () =>
