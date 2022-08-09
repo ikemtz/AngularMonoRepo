@@ -13,6 +13,7 @@ import * as employeeActionTypes from '../+state/employee.actions';
 import { employeesFeature } from '../+state/employee.reducer';
 import { EmployeeListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
+import { IEmployee, EmployeeProperties } from '../../../models/employees-odata';
 
 export const createEmployee = () => <IEmployee>{
   [EmployeeProperties.ID]: 'ID',
@@ -35,7 +36,7 @@ export const createEmployee = () => <IEmployee>{
   [EmployeeProperties.CERTIFICATION_COUNT]: 0,
   [EmployeeProperties.COMPETENCY_COUNT]: 0,
   [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-    };
+};
 
 describe('EmployeeListFacade', () => {
   let facade: EmployeeListFacade;
@@ -43,7 +44,7 @@ describe('EmployeeListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {}); //NOSONAR
+  beforeEach(() => { }); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -57,7 +58,7 @@ describe('EmployeeListFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createEmployee()]))) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -66,7 +67,7 @@ describe('EmployeeListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -132,7 +133,7 @@ describe('EmployeeListFacade', () => {
     /**
      * Use `employeesLoaded` to manually submit list for state management
      */
-    test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
+    test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
       store.dispatch(employeeActionTypes.loadEmployeesSuccess(createODataResult([createEmployee(), createEmployee()])));

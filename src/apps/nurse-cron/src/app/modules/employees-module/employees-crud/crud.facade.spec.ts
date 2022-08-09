@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -16,8 +17,10 @@ import { employeesFeature } from '../+state/employee.reducer';
 import { EmployeeCrudFacade } from './crud.facade';
 import { EmployeeApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
+import { createODataPayload } from 'imng-kendo-odata';
+import { IEmployee, EmployeeProperties } from '../../../models/employees-odata';
 
-export const createEmployee = () => 
+export const createEmployee = () =>
   <IEmployee>{
     [EmployeeProperties.ID]: 'ID',
     [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
@@ -39,7 +42,7 @@ export const createEmployee = () =>
     [EmployeeProperties.CERTIFICATION_COUNT]: 0,
     [EmployeeProperties.COMPETENCY_COUNT]: 0,
     [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-    };
+  };
 
 describe('EmployeeCrudFacade', () => {
   let facade: EmployeeCrudFacade;
@@ -47,7 +50,7 @@ describe('EmployeeCrudFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {}); //NOSONAR
+  beforeEach(() => { }); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -62,7 +65,7 @@ describe('EmployeeCrudFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createEmployee()]))) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -71,7 +74,7 @@ describe('EmployeeCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
