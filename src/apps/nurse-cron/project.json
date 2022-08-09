@@ -23,7 +23,12 @@
             "output": "/"
           }
         ],
-        "styles": ["apps/nurse-cron/src/styles.scss"],
+        "styles": [
+          {
+            "input": "libs/imng-kendo-theme-blue/dist/styles.css"
+          },
+          "apps/nurse-cron/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -31,8 +36,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1500kb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
@@ -69,7 +74,11 @@
           "browserTarget": "nurse-cron:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "browserTarget": "adventure-works:build",
+        "proxyConfig": "apps/nurse-cron/proxy.conf.js"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

@@ -1,6 +1,6 @@
 {
   "name": "imng-snippets",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "scripts": {
     "build": "vsce package",
     "publish": "vsce package && vsce publish"
@@ -52,7 +52,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "vsce": "2.7.0"
+    "vsce": "^2.7.0"
   },
   "license": "MIT",
   "private": false,

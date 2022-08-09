@@ -3,7 +3,7 @@
 		"prefix": "imng-html-kendo-data-entry-dropdown",
 		"body": [
 			" <div class=\"form-group\">",
-			"      <label [for]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\" class=\"control-label mr-4\">${2:__FIELD_NAME__TITLE_CASE__}</label>",
+			"      <label [for]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\" class=\"control-label me-4\">${2:__FIELD_NAME__TITLE_CASE__}</label>",
 			"      <select class=\"form-control\" [formControlName]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\"",
 			"        [ngClass]=\"{ 'is-invalid': (submitted | async) && formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}) }\">",
 			"        <option [ngValue]=\"null\">-- Select One --</option>",
@@ -31,7 +31,7 @@
 		"prefix": "imng-html-kendo-data-entry-textbox",
 		"body": [
 			"   <div class=\"form-group\">",
-			"      <label [for]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\" class=\"control-label mr-4\">${2:__FIELD_NAME__TITLE_CASE__}</label>",
+			"      <label [for]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\" class=\"control-label me-4\">${2:__FIELD_NAME__TITLE_CASE__}</label>",
 			"      <input type=\"text\" class=\"form-control\" [formControlName]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\"",
 			"        [ngClass]=\"{ 'is-invalid': (submitted | async) && formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}) }\" multiple=\"\" />",
 			"      <div *ngIf=\"(submitted | async) && formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__})\" class=\"invalid-feedback\">",
@@ -45,7 +45,7 @@
 		"prefix": "imng-html-ngxb-type-ahead",
 		"body": [
 			"        <div class=\"form-group\">",
-			"          <label [for]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\" class=\"control-label mr-4\">${2:__FIELD_NAME__TITLE_CASE__}</label>",
+			"          <label [for]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\" class=\"control-label me-4\">${2:__FIELD_NAME__TITLE_CASE__}</label>",
 			"          <input class=\"form-control\" [formControlName]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\"",
 			"            (typeaheadOnSelect)=\"onTypeAheadSelected($event)\" [imngTypeahead]=\"${3:__FIELD_NAME__CAMEL_CASE__}TypeaheadFacade\"",
 			"            (typeaheadLoading)=\"onTypeAheadCleared($event)\"",
