@@ -53,7 +53,7 @@ describe('imng-crud', () => {
       '<div *ngIf="formControlErrors(props.HIRE_DATE)?.[RequiredError]">Employee hire date is required</div>'
     );
     expect(content).toContain(
-      '<label for="hire_date" class="control-label mr-4">Hire Date:</label>'
+      '<label for="hire_date" class="control-label">Hire Date:</label>'
     );
 
     const addComponent = tree.get(

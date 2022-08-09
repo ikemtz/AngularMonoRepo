@@ -1,7 +1,7 @@
 <imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#<%= underscore(firstProperty.name) %>">
   <form novalidate [formGroup]="addEditForm" autocomplete="false" class="row"><% swaggerProperties.forEach(function(swaggerProperty) {%>
     <div class="col-md-6">
-      <label for="<%= underscore(swaggerProperty.name) %>" class="control-label mr-4"><%= swaggerProperty.startCaseName %>:</label><% if (swaggerProperty.htmlInputType === 'checkbox') { %>
+      <label for="<%= underscore(swaggerProperty.name) %>" class="control-label<% if (swaggerProperty.htmlInputType === 'checkbox') { %> me-4 mt-4<% } %>"><%= swaggerProperty.startCaseName %>:</label><% if (swaggerProperty.htmlInputType === 'checkbox') { %>
       <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
     </div><%} else if (swaggerProperty.enum){ %>
       <kendo-combobox
