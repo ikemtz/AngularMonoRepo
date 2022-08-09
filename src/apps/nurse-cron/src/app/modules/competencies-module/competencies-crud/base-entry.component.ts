@@ -1,5 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
+import { CompetencyProperties, CompetencyFormGroupFac } from '../../../models/competencies-odata';
 
 import { CompetencyCrudFacade } from './crud.facade';
 

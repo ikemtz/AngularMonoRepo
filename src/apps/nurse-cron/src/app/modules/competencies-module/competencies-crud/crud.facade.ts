@@ -4,6 +4,7 @@ import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { competenciesFeature } from '../+state/competency.reducer';
 import { competencyQueries } from '../+state/competency.selectors';
 import * as competencyActionTypes from '../+state/competency.actions';
+import { ICompetency } from '../../../models/competencies-odata';
 
 @Injectable()
 export class CompetencyCrudFacade implements IDataEntryFacade<ICompetency> {
@@ -12,7 +13,7 @@ export class CompetencyCrudFacade implements IDataEntryFacade<ICompetency> {
   isEditActive$ = this.store.select(competencyQueries.selectIsEditCompetencyActive);
   isNewActive$ = this.store.select(competencyQueries.selectIsNewCompetencyActive);
 
-  constructor(private readonly store: Store) {}
+  constructor(private readonly store: Store) { }
 
   public setCurrentEntity(item: ICompetency): void {
     this.store.dispatch(competencyActionTypes.setCurrentCompetency(item));

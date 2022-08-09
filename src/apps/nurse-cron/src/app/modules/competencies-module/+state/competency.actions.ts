@@ -1,6 +1,7 @@
 import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
+import { ICompetency } from '../../../models/competencies-odata';
 
 export const loadCompetenciesRequest = createPayloadAction<ODataState>(
     '[Competencies] Load Competencies Request');

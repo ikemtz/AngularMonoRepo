@@ -10,6 +10,7 @@ import * as competencyActionTypes from './competency.actions';
 import { environment } from '../../../../environments/environment';
 
 import { CompetencyApiService } from '../competencies-crud';
+import { ICompetency } from '../../../models/competencies-odata';
 
 @Injectable()
 export class CompetencyEffects {
@@ -17,14 +18,14 @@ export class CompetencyEffects {
     private readonly actions$: Actions,
     private readonly odataservice: ODataService,
     private readonly store: Store,
-    private readonly competencyApiService : CompetencyApiService,
-  ) {}
+    private readonly competencyApiService: CompetencyApiService,
+  ) { }
 
   loadCompetenciesEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(competencyActionTypes.loadCompetenciesRequest),
       switchMap((action: ReturnType<typeof competencyActionTypes.loadCompetenciesRequest>) => this.odataservice
-        .fetch<ICompetency>(environment.odataEnpoints.competencies, action.payload)
+        .fetch<ICompetency>(environment.endPoints.competencies.competenciesOData, action.payload)
         .pipe(
           map(t => competencyActionTypes.loadCompetenciesSuccess(t)),
           handleEffectError(action))));
@@ -35,7 +36,7 @@ export class CompetencyEffects {
       ofType(competencyActionTypes.reloadCompetenciesRequest),
       concatLatestFrom(() => this.store.select(competenciesFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<ICompetency>(environment.odataEnpoints.competencies, odataState, { 
+        .fetch<ICompetency>(environment.endPoints.competencies.competenciesOData, odataState, {
           bustCache: true,
         })
         .pipe(

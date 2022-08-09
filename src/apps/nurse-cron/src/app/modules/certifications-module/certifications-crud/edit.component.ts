@@ -1,22 +1,22 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
-import { ICompetency } from '../../../models/competencies-odata';
+import { ICertification } from '../../../models/certifications-odata';
 
-import { CompetencyBaseEntryComponent } from './base-entry.component';
-import { CompetencyCrudFacade } from './crud.facade';
+import { CertificationBaseEntryComponent } from './base-entry.component';
+import { CertificationCrudFacade } from './crud.facade';
 
 @Component({
-  selector: 'nrcrn-competency-edit',
+  selector: 'nrcrn-certification-edit',
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompetencyEditComponent extends CompetencyBaseEntryComponent implements OnInit, OnDestroy {
-  public dialogTitle = 'Edit Competency';
+export class CertificationEditComponent extends CertificationBaseEntryComponent implements OnInit, OnDestroy {
+  public dialogTitle = 'Edit Certification';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: CompetencyCrudFacade) {
+  constructor(facade: CertificationCrudFacade) {
     super(facade);
   }
   public override initForm(): void {
@@ -27,7 +27,7 @@ export class CompetencyEditComponent extends CompetencyBaseEntryComponent implem
   }
 
   public save(): void {
-    const val = normalizeRequest<ICompetency>(this.addEditForm.value);
+    const val = normalizeRequest<ICertification>(this.addEditForm.value);
     this.facade.updateExistingEntity(val);
   }
 }

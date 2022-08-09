@@ -20,5 +20,19 @@ const PROXY_CONFIG = {
       '^/employees-webapi': '',
     },
   },
+  '/competencies-odata': {
+    ...defaultDebugProxySettings,
+    target: 'https://im-wa-cmpo-nrcrn.azurewebsites.net',
+    pathRewrite: {
+      '^/competencies-odata': '',
+    },
+  },
+  '/competencies-webapi': {
+    ...defaultDebugProxySettings,
+    target: 'https://im-wa-cmpa-nrcrn.azurewebsites.net',
+    pathRewrite: {
+      '^/competencies-webapi': '',
+    },
+  },
 };
 module.exports = PROXY_CONFIG;

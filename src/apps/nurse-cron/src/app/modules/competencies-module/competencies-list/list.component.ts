@@ -6,6 +6,7 @@ import { ODataState } from 'imng-kendo-odata';
 
 import { CompetencyListFacade } from './list.facade';
 import { CompetencyCrudFacade } from '../competencies-crud';
+import { CompetencyProperties, ICompetency } from '../../../models/competencies-odata';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -21,7 +22,7 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'nrcn-competency-list',
+  selector: 'nrcrn-competency-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +31,7 @@ export class CompetencyListComponent extends KendoODataBasedComponent<ICompetenc
   public readonly props = CompetencyProperties;
   public currentItem: ICompetency | undefined;
 
-  constructor(facade: CompetencyListFacade, 
+  constructor(facade: CompetencyListFacade,
     public readonly crudFacade: CompetencyCrudFacade,
     router: Router) {
     super(facade, initialGridState, router);

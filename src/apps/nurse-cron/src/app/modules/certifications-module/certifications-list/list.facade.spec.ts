@@ -8,21 +8,22 @@ import { ODataState, createODataPayload, createODataResult, ODataService } from 
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
-import { CompetencyEffects } from '../+state/competency.effects';
-import * as competencyActionTypes from '../+state/competency.actions';
-import { competenciesFeature } from '../+state/competency.reducer';
-import { CompetencyListFacade } from './list.facade';
+import { CertificationEffects } from '../+state/certification.effects';
+import * as certificationActionTypes from '../+state/certification.actions';
+import { certificationsFeature } from '../+state/certification.reducer';
+import { CertificationListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import { ICompetency, CompetencyProperties } from '../../../models/competencies-odata';
+import { ICertification, CertificationProperties } from '../../../models/certifications-odata';
 
-export const createCompetency = () => <ICompetency>{
-  [CompetencyProperties.ID]: 'ID',
-  [CompetencyProperties.NAME]: 'NAME',
-  [CompetencyProperties.IS_ENABLED]: true,
+export const createCertification = () => <ICertification>{
+  [CertificationProperties.ID]: 'ID',
+  [CertificationProperties.NAME]: 'NAME',
+  [CertificationProperties.IS_ENABLED]: true,
+  [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
 };
 
-describe('CompetencyListFacade', () => {
-  let facade: CompetencyListFacade;
+describe('CertificationListFacade', () => {
+  let facade: CertificationListFacade;
   let store: Store;
   let httpClient: HttpClient;
 
@@ -33,12 +34,12 @@ describe('CompetencyListFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(competenciesFeature),
-          EffectsModule.forFeature([CompetencyEffects]),
+          StoreModule.forFeature(certificationsFeature),
+          EffectsModule.forFeature([CertificationEffects]),
         ],
         providers: [
-          CompetencyListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCompetency()]))) } },
+          CertificationListFacade,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCertification()]))) } },
         ],
       })
       class CustomFeatureModule { }
@@ -54,7 +55,7 @@ describe('CompetencyListFacade', () => {
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
-      facade = TestBed.inject(CompetencyListFacade);
+      facade = TestBed.inject(CertificationListFacade);
       httpClient = TestBed.inject(HttpClient);
     });
 
@@ -71,7 +72,7 @@ describe('CompetencyListFacade', () => {
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('competencies-odata/odata/v1/Competencies?&$count=true');
+      expect(httpClient.get).toBeCalledWith('certifications-odata/odata/v1/Certifications?&$count=true');
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);
@@ -114,12 +115,12 @@ describe('CompetencyListFacade', () => {
     });
 
     /**
-     * Use `competenciesLoaded` to manually submit list for state management
+     * Use `certificationsLoaded` to manually submit list for state management
      */
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
-      store.dispatch(competencyActionTypes.loadCompetenciesSuccess(createODataResult([createCompetency(), createCompetency()])));
+      store.dispatch(certificationActionTypes.loadCertificationsSuccess(createODataResult([createCertification(), createCertification()])));
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);

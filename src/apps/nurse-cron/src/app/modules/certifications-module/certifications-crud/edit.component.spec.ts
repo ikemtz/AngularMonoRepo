@@ -2,54 +2,64 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { of } from 'rxjs';
-import { mockConsoleError } from 'imng-ngrx-utils/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
-import { CompetencyEditComponent } from './edit.component';
-import { CompetencyCrudFacade } from './crud.facade';
-import { CompetencyProperties, ICompetency } from '../../../models/competencies-odata';
+import { CertificationEditComponent } from './edit.component';
+import { CertificationCrudFacade } from './crud.facade';
+import { CertificationProperties, ICertification } from '../../../models/certifications-odata';
 
-describe('CompetencyEditComponent', () => {
-  let component: CompetencyEditComponent;
-  let fixture: ComponentFixture<CompetencyEditComponent>;
-  let facade: CompetencyCrudFacade;
+describe('CertificationEditComponent', () => {
+  let component: CertificationEditComponent;
+  let fixture: ComponentFixture<CertificationEditComponent>;
+  let facade: CertificationCrudFacade;
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;
 
   beforeEach(waitForAsync(() => {
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
-      declarations: [CompetencyEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule,],
-      providers: [{ provide: CompetencyCrudFacade, useValue: createDataEntryMockFacade({ currentEntity$: of({}) }) }],
+      declarations: [CertificationEditComponent],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule,],
+      providers: [{ provide: CertificationCrudFacade, useValue: createDataEntryMockFacade({ currentEntity$: of({}) }) }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CompetencyEditComponent);
+    fixture = TestBed.createComponent(CertificationEditComponent);
     component = fixture.componentInstance;
-    facade = TestBed.inject(CompetencyCrudFacade);
+    facade = TestBed.inject(CertificationCrudFacade);
     fixture.detectChanges();
   });
 
   afterAll(() => {
     component.ngOnDestroy();
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();
   });
 
   test('should update', () => {
     component.initForm();
     component.addEditForm.patchValue({
-      [CompetencyProperties.ID]: 'ID',
-      [CompetencyProperties.NAME]: 'NAME',
-      [CompetencyProperties.IS_ENABLED]: true,
+      [CertificationProperties.ID]: 'ID',
+      [CertificationProperties.NAME]: 'NAME',
+      [CertificationProperties.IS_ENABLED]: true,
+      [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
     });
-    let item: ICompetency | undefined;
+    let item: ICertification | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
 
-    expect(item).toMatchSnapshot();
+    expect(item).toMatchSnapshot({
+      expiresOnUtc: expect.any(Date),
+    });
 
   });
 

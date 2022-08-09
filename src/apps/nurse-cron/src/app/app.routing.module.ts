@@ -17,15 +17,17 @@ const routes: Routes = [
   //  path: 'buildings',
   //  loadChildren: () => import('./modules/buildings-module/buildings.module').then(m => m.BuildingsModule),
   //  canActivateChild: [AuthGuard]
-  //}, {
-  //  path: 'certifications',
-  //  loadChildren: () => import('./modules/certifications-module/certifications.module').then(m => m.CertificationsModule),
-  //  canActivateChild: [AuthGuard]
-  //}, {
-  //  path: 'competencies',
-  //  loadChildren: () => import('./modules/competencies-module/competencies.module').then(m => m.CompetenciesModule),
-  //  canActivateChild: [AuthGuard]
-  //}, {
+  //}, 
+  {
+    path: 'certifications',
+    loadChildren: () => import('./modules/certifications-module/certifications.module').then(m => m.CertificationsModule),
+    canActivateChild: [AuthGuard]
+  }, {
+    path: 'competencies',
+    loadChildren: () => import('./modules/competencies-module/competencies.module').then(m => m.CompetenciesModule),
+    canActivateChild: [AuthGuard]
+  },
+  //{
   //  path: 'health-items',
   //  loadChildren: () => import('./modules/health-items-module/health-items.module').then(m => m.HealthItemsModule),
   //  canActivateChild: [AuthGuard]
@@ -51,4 +53,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

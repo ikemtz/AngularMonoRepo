@@ -13,22 +13,23 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { CompetencyEffects } from '../+state/competency.effects';
-import { competenciesFeature } from '../+state/competency.reducer';
-import { CompetencyCrudFacade } from './crud.facade';
-import { CompetencyApiService } from './api.service';
+import { CertificationEffects } from '../+state/certification.effects';
+import { certificationsFeature } from '../+state/certification.reducer';
+import { CertificationCrudFacade } from './crud.facade';
+import { CertificationApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { ICompetency, CompetencyProperties } from '../../../models/competencies-odata';
+import { ICertification, CertificationProperties } from '../../../models/certifications-odata';
 
-export const createCompetency = () =>
-  <ICompetency>{
-    [CompetencyProperties.ID]: 'ID',
-    [CompetencyProperties.NAME]: 'NAME',
-    [CompetencyProperties.IS_ENABLED]: true,
+export const createCertification = () =>
+  <ICertification>{
+    [CertificationProperties.ID]: 'ID',
+    [CertificationProperties.NAME]: 'NAME',
+    [CertificationProperties.IS_ENABLED]: true,
+    [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
   };
 
-describe('CompetencyCrudFacade', () => {
-  let facade: CompetencyCrudFacade;
+describe('CertificationCrudFacade', () => {
+  let facade: CertificationCrudFacade;
   let store: Store;
   let httpClient: HttpClient;
 
@@ -39,13 +40,13 @@ describe('CompetencyCrudFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(competenciesFeature),
-          EffectsModule.forFeature([CompetencyEffects]),
+          StoreModule.forFeature(certificationsFeature),
+          EffectsModule.forFeature([CertificationEffects]),
         ],
         providers: [
-          CompetencyCrudFacade,
-          CompetencyApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCompetency()]))) } },
+          CertificationCrudFacade,
+          CertificationApiService,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCertification()]))) } },
         ],
       })
       class CustomFeatureModule { }
@@ -62,11 +63,11 @@ describe('CompetencyCrudFacade', () => {
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       store = TestBed.inject(Store);
-      facade = TestBed.inject(CompetencyCrudFacade);
+      facade = TestBed.inject(CertificationCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });
 
-    test('clearCurrentEntity() should set currentCompetency to null', async () => {
+    test('clearCurrentEntity() should set currentCertification to null', async () => {
       let isNewActive = await readFirst(facade.isNewActive$);
       expect(isNewActive).toBeFalsy();
 
@@ -77,12 +78,12 @@ describe('CompetencyCrudFacade', () => {
     });
 
     test('New Entity Set And Clear CurrentEntity', async () =>
-      testAddSetAndClearCurrentEntity<CompetencyCrudFacade>(facade));
+      testAddSetAndClearCurrentEntity<CertificationCrudFacade>(facade));
     test('Existing Entity Set And Clear CurrentEntity', async () =>
-      testEditSetAndClearCurrentEntity<CompetencyCrudFacade>(facade));
+      testEditSetAndClearCurrentEntity<CertificationCrudFacade>(facade));
     test('Save CurrentEntity', async () =>
-      testSaveCurrentEntity<CompetencyCrudFacade>(facade, httpClient));
+      testSaveCurrentEntity<CertificationCrudFacade>(facade, httpClient));
     test('Update CurrentEntity', async () =>
-      testUpdateCurrentEntity<CompetencyCrudFacade>(facade, httpClient));
+      testUpdateCurrentEntity<CertificationCrudFacade>(facade, httpClient));
   });
 });

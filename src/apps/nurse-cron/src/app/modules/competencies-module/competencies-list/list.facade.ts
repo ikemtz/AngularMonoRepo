@@ -6,6 +6,7 @@ import { ODataState } from 'imng-kendo-odata';
 
 import { competenciesFeature } from '../+state/competency.reducer';
 import * as competencyActionTypes from '../+state/competency.actions';
+import { ICompetency } from '../../../models/competencies-odata';
 
 @Injectable()
 export class CompetencyListFacade implements IKendoODataGridFacade<ICompetency>, IDataDeleteFacade<ICompetency> {
@@ -14,7 +15,7 @@ export class CompetencyListFacade implements IKendoODataGridFacade<ICompetency>,
   gridPagerSettings$ = this.store.select(competenciesFeature.selectGridPagerSettings);
   gridODataState$ = this.store.select(competenciesFeature.selectGridODataState);
 
-  constructor(private readonly store: Store) {}
+  constructor(private readonly store: Store) { }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(competencyActionTypes.loadCompetenciesRequest(state));
