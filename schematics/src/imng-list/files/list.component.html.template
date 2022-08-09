@@ -52,9 +52,9 @@
 <%} else if (swaggerProperty.type === 'boolean') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf="dataItem.<%= underscore(swaggerProperty.name) %>">
-        <span class="text-success font-weight-bolder h2" placement="left" tooltip="Active">
-          <span class="k-icon k-i-check-circle"></span>
+      <div *ngIf="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]">
+        <span class="text-success font-weight-bolder h2" tooltip="<%= swaggerProperty.startCaseName %>">
+          <span class="k-icon k-i-check-circle start-50"></span>
         </span>
       </div>
     </ng-template>
@@ -94,7 +94,7 @@
 <%} else { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
 <%} %>    <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6"><%= swaggerProperty.startCaseName %></span>
+      <span class="h6" title="<%= swaggerProperty.startCaseName %>"><%= swaggerProperty.startCaseName %></span>
     </ng-template>
   </kendo-grid-column><% }) %>
 

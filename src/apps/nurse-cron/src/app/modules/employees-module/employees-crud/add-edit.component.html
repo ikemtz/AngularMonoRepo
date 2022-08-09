@@ -1,0 +1,287 @@
+<imng-data-entry-dialog
+  [width]="700"
+  [height]="550"
+  [parentComponent]="this"
+  autoFocusedElement="#last_name">
+  <form novalidate [formGroup]="addEditForm" autocomplete="false" class="row">
+    <div class="col-md-6">
+      <label for="id" class="control-label me-4">Id:</label>
+      <input
+        id="id"
+        type="text"
+        class="form-control"
+        [formControlName]="props.ID"
+        [ngClass]="{
+          'is-invalid': (submitted$ | async) && formControlErrors(props.ID)
+        }" />
+      <div
+        *ngIf="(submitted$ | async) && formControlErrors(props.ID)"
+        class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">
+          Employee id is required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="last_name" class="control-label me-4">Last Name:</label>
+      <input
+        id="last_name"
+        type="text"
+        class="form-control"
+        [formControlName]="props.LAST_NAME"
+        [ngClass]="{
+          'is-invalid':
+            (submitted$ | async) && formControlErrors(props.LAST_NAME)
+        }" />
+      <div
+        *ngIf="(submitted$ | async) && formControlErrors(props.LAST_NAME)"
+        class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.LAST_NAME)?.[RequiredError]">
+          Employee last name is required
+        </div>
+        <div *ngIf="formControlErrors(props.LAST_NAME)?.[MinLengthError]">
+          Employee last name requires a min length of
+          {{ formMinLengthError(props.LAST_NAME)?.requiredLength }}, currently
+          only {{ formMinLengthError(props.LAST_NAME)?.actualLength }}.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="first_name" class="control-label me-4">First Name:</label>
+      <input
+        id="first_name"
+        type="text"
+        class="form-control"
+        [formControlName]="props.FIRST_NAME"
+        [ngClass]="{
+          'is-invalid':
+            (submitted$ | async) && formControlErrors(props.FIRST_NAME)
+        }" />
+      <div
+        *ngIf="(submitted$ | async) && formControlErrors(props.FIRST_NAME)"
+        class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.FIRST_NAME)?.[RequiredError]">
+          Employee first name is required
+        </div>
+        <div *ngIf="formControlErrors(props.FIRST_NAME)?.[MinLengthError]">
+          Employee first name requires a min length of
+          {{ formMinLengthError(props.FIRST_NAME)?.requiredLength }}, currently
+          only {{ formMinLengthError(props.FIRST_NAME)?.actualLength }}.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="birth_date" class="control-label me-4">Birth Date:</label>
+      <kendo-datepicker
+        id="birth_date"
+        class="form-control"
+        [formControlName]="props.BIRTH_DATE"></kendo-datepicker>
+    </div>
+    <div class="col-md-6">
+      <label for="mobile_phone" class="control-label me-4">Mobile Phone:</label>
+      <input
+        id="mobile_phone"
+        type="text"
+        class="form-control"
+        [formControlName]="props.MOBILE_PHONE" />
+    </div>
+    <div class="col-md-6">
+      <label for="home_phone" class="control-label me-4">Home Phone:</label>
+      <input
+        id="home_phone"
+        type="text"
+        class="form-control"
+        [formControlName]="props.HOME_PHONE" />
+    </div>
+    <div class="col-md-6">
+      <label for="photo" class="control-label me-4">Photo:</label>
+      <input
+        id="photo"
+        type="text"
+        class="form-control"
+        [formControlName]="props.PHOTO" />
+    </div>
+    <div class="col-md-6">
+      <label for="email" class="control-label me-4">Email:</label>
+      <input
+        id="email"
+        type="text"
+        class="form-control"
+        [formControlName]="props.EMAIL"
+        [ngClass]="{
+          'is-invalid': (submitted$ | async) && formControlErrors(props.EMAIL)
+        }" />
+      <div
+        *ngIf="(submitted$ | async) && formControlErrors(props.EMAIL)"
+        class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.EMAIL)?.[RequiredError]">
+          Employee email is required
+        </div>
+        <div *ngIf="formControlErrors(props.EMAIL)?.[MinLengthError]">
+          Employee email requires a min length of
+          {{ formMinLengthError(props.EMAIL)?.requiredLength }}, currently only
+          {{ formMinLengthError(props.EMAIL)?.actualLength }}.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="address_line1" class="control-label me-4"
+        >Address Line 1:</label
+      >
+      <input
+        id="address_line1"
+        type="text"
+        class="form-control"
+        [formControlName]="props.ADDRESS_LINE_1" />
+    </div>
+    <div class="col-md-6">
+      <label for="address_line2" class="control-label me-4"
+        >Address Line 2:</label
+      >
+      <input
+        id="address_line2"
+        type="text"
+        class="form-control"
+        [formControlName]="props.ADDRESS_LINE_2" />
+    </div>
+    <div class="col-md-6">
+      <label for="city" class="control-label me-4">City:</label>
+      <input
+        id="city"
+        type="text"
+        class="form-control"
+        [formControlName]="props.CITY" />
+    </div>
+    <div class="col-md-6">
+      <label for="state" class="control-label me-4">State:</label>
+      <input
+        id="state"
+        type="text"
+        class="form-control"
+        [formControlName]="props.STATE" />
+    </div>
+    <div class="col-md-6">
+      <label for="zip" class="control-label me-4">Zip:</label>
+      <input
+        id="zip"
+        type="text"
+        class="form-control"
+        [formControlName]="props.ZIP" />
+    </div>
+    <div class="col-md-6">
+      <label for="is_enabled" class="control-label me-4 mt-4"
+        >Is Enabled:</label
+      >
+      <input
+        id="is_enabled"
+        type="checkbox"
+        [formControlName]="props.IS_ENABLED" />
+    </div>
+    <div class="col-md-6">
+      <label for="hire_date" class="control-label me-4">Hire Date:</label>
+      <kendo-datepicker
+        id="hire_date"
+        class="form-control"
+        [formControlName]="props.HIRE_DATE"
+        [ngClass]="{
+          'is-invalid':
+            (submitted$ | async) && formControlErrors(props.HIRE_DATE)
+        }"></kendo-datepicker>
+      <div
+        *ngIf="(submitted$ | async) && formControlErrors(props.HIRE_DATE)"
+        class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.HIRE_DATE)?.[RequiredError]">
+          Employee hire date is required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="fire_date" class="control-label me-4">Fire Date:</label>
+      <kendo-datepicker
+        id="fire_date"
+        class="form-control"
+        [formControlName]="props.FIRE_DATE"></kendo-datepicker>
+    </div>
+    <div class="col-md-6">
+      <label for="total_hours_of_service" class="control-label me-4"
+        >Total Hours Of Service:</label
+      >
+      <input
+        id="total_hours_of_service"
+        type="number"
+        class="form-control"
+        [formControlName]="props.TOTAL_HOURS_OF_SERVICE" />
+    </div>
+    <div class="col-md-6">
+      <label for="certification_count" class="control-label me-4"
+        >Certification Count:</label
+      >
+      <input
+        id="certification_count"
+        type="number"
+        class="form-control"
+        [formControlName]="props.CERTIFICATION_COUNT"
+        [ngClass]="{
+          'is-invalid':
+            (submitted$ | async) && formControlErrors(props.CERTIFICATION_COUNT)
+        }" />
+      <div
+        *ngIf="
+          (submitted$ | async) && formControlErrors(props.CERTIFICATION_COUNT)
+        "
+        class="invalid-feedback">
+        <div
+          *ngIf="formControlErrors(props.CERTIFICATION_COUNT)?.[RequiredError]">
+          Employee certification count is required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="competency_count" class="control-label me-4"
+        >Competency Count:</label
+      >
+      <input
+        id="competency_count"
+        type="number"
+        class="form-control"
+        [formControlName]="props.COMPETENCY_COUNT"
+        [ngClass]="{
+          'is-invalid':
+            (submitted$ | async) && formControlErrors(props.COMPETENCY_COUNT)
+        }" />
+      <div
+        *ngIf="
+          (submitted$ | async) && formControlErrors(props.COMPETENCY_COUNT)
+        "
+        class="invalid-feedback">
+        <div *ngIf="formControlErrors(props.COMPETENCY_COUNT)?.[RequiredError]">
+          Employee competency count is required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="health_item_count" class="control-label me-4"
+        >Health Item Count:</label
+      >
+      <input
+        id="health_item_count"
+        type="number"
+        class="form-control"
+        [formControlName]="props.HEALTH_ITEM_COUNT"
+        [ngClass]="{
+          'is-invalid':
+            (submitted$ | async) && formControlErrors(props.HEALTH_ITEM_COUNT)
+        }" />
+      <div
+        *ngIf="
+          (submitted$ | async) && formControlErrors(props.HEALTH_ITEM_COUNT)
+        "
+        class="invalid-feedback">
+        <div
+          *ngIf="formControlErrors(props.HEALTH_ITEM_COUNT)?.[RequiredError]">
+          Employee health item count is required
+        </div>
+      </div>
+    </div>
+  </form>
+</imng-data-entry-dialog>

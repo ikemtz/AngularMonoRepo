@@ -17,29 +17,6 @@ classDiagram
   Employee ..> EmployeeCompetency
   Employee ..> EmployeeHealthItem
 
-  class EmployeeCertification{
-    +uuid: id
-    +uuid: employeeId
-    +uuid: certificationId
-    +string: certificationName
-    +date: expiresOnUtc
-  }
-  class EmployeeCompetency{
-    +uuid: id
-    +uuid: employeeId
-    +uuid: competencyId
-    +string: competencyName
-    +date: expiresOnUtc
-    +bool: isEnabled
-  }
-  class EmployeeHealthItem{
-    +uuid: id
-    +uuid: employeeId
-    +uuid: healthItemId
-    +string: healthItemName
-    +date: expiresOnUtc
-    +bool: isEnabled
-  }
   class Employee{
     +uuid: id
     +string: lastName
@@ -68,6 +45,29 @@ classDiagram
     +EmployeeCertification[]: employeeCertifications;
     +EmployeeCompetency[]: employeeCompetencies;
     +EmployeeHealthItem[]: employeeHealthItems;
+  }
+  class EmployeeCertification{
+    +uuid: id
+    +uuid: employeeId
+    +uuid: certificationId
+    +string: certificationName
+    +date: expiresOnUtc
+  }
+  class EmployeeCompetency{
+    +uuid: id
+    +uuid: employeeId
+    +uuid: competencyId
+    +string: competencyName
+    +date: expiresOnUtc
+    +bool: isEnabled
+  }
+  class EmployeeHealthItem{
+    +uuid: id
+    +uuid: employeeId
+    +uuid: healthItemId
+    +string: healthItemName
+    +date: expiresOnUtc
+    +bool: isEnabled
   }
       </div>
     </pre>

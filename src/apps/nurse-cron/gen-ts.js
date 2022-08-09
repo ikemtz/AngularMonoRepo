@@ -54,6 +54,18 @@ async function generateTsModels() {
     genAngularFormGroups: true,
   });
 
+  //Employees
+  console.log('** Employees WebApi Models **');
+  await tsGenerator.generateTsModels({
+    openApiJsonUrl:
+      'https://im-wa-empa-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
+    outputPath: './apps/nurse-cron/src/app/models/employees-api/',
+    typeFilterCallBack: tsGenerator.nrsrxTypeFilterCallBack,
+    valuePropertyTypeFilterCallBack: (val, i, arr) =>
+      !val.name.startsWith('created') && !val.name.startsWith('updated'),
+    genAngularFormGroups: true,
+  });
+
   console.log('** Employees OData Diagrams **');
   await meraidGenerator.generateDiagrams({
     openApiJsonUrl:

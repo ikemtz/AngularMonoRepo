@@ -442,7 +442,7 @@ exports[`imng-sub-list list html should work 1`] = `
   </kendo-grid-column>
   <kendo-grid-column [width]=\\"25\\">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex=\\"rowIndex\\">
-      <button type=\\"button\\" class=\\"btn btn-sm mr-1\\" (click)=\\"deleteItem(dataItem)\\" placement=\\"left\\" tooltip=\\"Delete\\">
+      <button type=\\"button\\" class=\\"btn btn-sm me-1\\" (click)=\\"deleteItem(dataItem)\\" placement=\\"left\\" tooltip=\\"Delete\\">
         <span class=\\"k-icon k-i-delete\\"></span>
       </button>
     </ng-template>
