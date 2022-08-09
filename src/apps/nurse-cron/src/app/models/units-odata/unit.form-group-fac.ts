@@ -7,7 +7,7 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IBuilding } from './building.model'; //NOSONAR
+import { IBuilding } from './building.model';
 
 export function UnitFormGroupFac(): FormGroup {
   return new FormGroup({
