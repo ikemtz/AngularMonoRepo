@@ -10,7 +10,7 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=IMNG-Libs&metric=ncloc)](https://sonarcloud.io/dashboard?id=IMNG-Libs)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=IMNG-Libs&metric=coverage)](https://sonarcloud.io/dashboard?id=IMNG-Libs)
 [![Npm Packages](https://img.shields.io/npm/v/imng-kendo-grid.svg)](npmjs.com/~ikemtz)
-[![npm](https://img.shields.io/npm/dt/imng-kendo-grid)](npmjs.com/~ikemtz)
+[![npm](https://img.shields.io/npm/dt/imng-kendo-grid)](npmjs.com/~ikemtz) [![CodeQL](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml)
 
 ## IMNG Schematics
 
@@ -22,7 +22,7 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=imng-Schematics&metric=ncloc)](https://sonarcloud.io/dashboard?id=imng-Schematics)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=imng-Schematics&metric=coverage)](https://sonarcloud.io/dashboard?id=imng-Schematics)
 [![Npm Packages](https://img.shields.io/npm/v/imng-schematics.svg)](npmjs.com/~ikemtz)
-[![npm](https://img.shields.io/npm/dt/imng-schematics)](npmjs.com/~ikemtz)
+[![npm](https://img.shields.io/npm/dt/imng-schematics)](npmjs.com/~ikemtz) [![CodeQL](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml)
 
 ## AzConfig
 
@@ -33,7 +33,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=AzConfig&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=AzConfig)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=AzConfig&metric=ncloc)](https://sonarcloud.io/dashboard?id=AzConfig)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AzConfig&metric=coverage)](https://sonarcloud.io/dashboard?id=AzConfig)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ikemtz/azconfig)](https://hub.docker.com/repository/docker/ikemtz/azconfig)
+[![Docker Pulls](https://img.shields.io/docker/pulls/ikemtz/azconfig)](https://hub.docker.com/repository/docker/ikemtz/azconfig) [![CodeQL](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml)
 
 Running At: https://azconfig.azurewebsites.net/
 
@@ -48,7 +48,7 @@ Source: https://github.com/ikemtz/AngularMonoRepo/tree/master/src/apps/imng-az-f
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=NurseCron-Angular&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=NurseCron-Angular)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=NurseCron-Angular&metric=ncloc)](https://sonarcloud.io/dashboard?id=NurseCron-Angular)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=NurseCron-Angular&metric=coverage)](https://sonarcloud.io/dashboard?id=NurseCron-Angular)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ikemtz/nurse-cron-angular)](https://hub.docker.com/repository/docker/ikemtz/nurse-cron-angular)
+[![Docker Pulls](https://img.shields.io/docker/pulls/ikemtz/nurse-cron-angular)](https://hub.docker.com/repository/docker/ikemtz/nurse-cron-angular) [![CodeQL](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml)
 
 Running At: https://ikemed.com/
 
