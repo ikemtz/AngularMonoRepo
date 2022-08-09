@@ -537,7 +537,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
 "<imng-data-entry-dialog [width]=\\"700\\" [height]=\\"550\\" [parentComponent]=\\"this\\" autoFocusedElement=\\"#order_id\\">
   <form novalidate [formGroup]=\\"addEditForm\\" autocomplete=\\"false\\" class=\\"row\\">
     <div class=\\"col-md-6\\">
-      <label for=\\"id\\" class=\\"control-label mr-4\\">Id:</label>
+      <label for=\\"id\\" class=\\"control-label\\">Id:</label>
       <input id=\\"id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.ID\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.ID)\\" class=\\"invalid-feedback\\">
@@ -545,7 +545,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"order_id\\" class=\\"control-label mr-4\\">Order Id:</label>
+      <label for=\\"order_id\\" class=\\"control-label\\">Order Id:</label>
       <input id=\\"order_id\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.ORDER_ID\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ORDER_ID) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.ORDER_ID)\\" class=\\"invalid-feedback\\">
@@ -553,7 +553,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"revision_num\\" class=\\"control-label mr-4\\">Revision Num:</label>
+      <label for=\\"revision_num\\" class=\\"control-label\\">Revision Num:</label>
       <input id=\\"revision_num\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.REVISION_NUM\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.REVISION_NUM) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.REVISION_NUM)\\" class=\\"invalid-feedback\\">
@@ -561,7 +561,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"date\\" class=\\"control-label mr-4\\">Date:</label>
+      <label for=\\"date\\" class=\\"control-label\\">Date:</label>
       <kendo-datepicker id=\\"date\\" class=\\"form-control\\" [formControlName]=\\"props.DATE\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DATE) }\\"></kendo-datepicker>
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.DATE)\\" class=\\"invalid-feedback\\">
@@ -569,7 +569,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"due_date\\" class=\\"control-label mr-4\\">Due Date:</label>
+      <label for=\\"due_date\\" class=\\"control-label\\">Due Date:</label>
       <kendo-datepicker id=\\"due_date\\" class=\\"form-control\\" [formControlName]=\\"props.DUE_DATE\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DUE_DATE) }\\"></kendo-datepicker>
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.DUE_DATE)\\" class=\\"invalid-feedback\\">
@@ -577,11 +577,11 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"ship_date\\" class=\\"control-label mr-4\\">Ship Date:</label>
+      <label for=\\"ship_date\\" class=\\"control-label\\">Ship Date:</label>
       <kendo-datepicker id=\\"ship_date\\" class=\\"form-control\\" [formControlName]=\\"props.SHIP_DATE\\"></kendo-datepicker>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"status_type\\" class=\\"control-label mr-4\\">Status Type:</label>
+      <label for=\\"status_type\\" class=\\"control-label\\">Status Type:</label>
       <kendo-combobox
         id=\\"status_type\\"
         placeholder=\\"Select a status type...\\"
@@ -599,11 +599,11 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"is_online_order\\" class=\\"control-label mr-4\\">Is Online Order:</label>
+      <label for=\\"is_online_order\\" class=\\"control-label me-4 mt-4\\">Is Online Order:</label>
       <input id=\\"is_online_order\\" type=\\"checkbox\\" [formControlName]=\\"props.IS_ONLINE_ORDER\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"num\\" class=\\"control-label mr-4\\">Num:</label>
+      <label for=\\"num\\" class=\\"control-label\\">Num:</label>
       <input id=\\"num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NUM\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NUM)\\" class=\\"invalid-feedback\\">
@@ -611,11 +611,11 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"purchase_order_num\\" class=\\"control-label mr-4\\">Purchase Order Num:</label>
+      <label for=\\"purchase_order_num\\" class=\\"control-label\\">Purchase Order Num:</label>
       <input id=\\"purchase_order_num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.PURCHASE_ORDER_NUM\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"customer_id\\" class=\\"control-label mr-4\\">Customer Id:</label>
+      <label for=\\"customer_id\\" class=\\"control-label\\">Customer Id:</label>
       <input id=\\"customer_id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.CUSTOMER_ID\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.CUSTOMER_ID) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.CUSTOMER_ID)\\" class=\\"invalid-feedback\\">
@@ -623,15 +623,15 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"ship_to_address_id\\" class=\\"control-label mr-4\\">Ship To Address Id:</label>
+      <label for=\\"ship_to_address_id\\" class=\\"control-label\\">Ship To Address Id:</label>
       <input id=\\"ship_to_address_id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.SHIP_TO_ADDRESS_ID\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"bill_to_address_id\\" class=\\"control-label mr-4\\">Bill To Address Id:</label>
+      <label for=\\"bill_to_address_id\\" class=\\"control-label\\">Bill To Address Id:</label>
       <input id=\\"bill_to_address_id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.BILL_TO_ADDRESS_ID\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"shipping_type\\" class=\\"control-label mr-4\\">Shipping Type:</label>
+      <label for=\\"shipping_type\\" class=\\"control-label\\">Shipping Type:</label>
       <kendo-combobox
         id=\\"shipping_type\\"
         placeholder=\\"Select a shipping type...\\"
@@ -649,11 +649,11 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"credit_card_approval_code\\" class=\\"control-label mr-4\\">Credit Card Approval Code:</label>
+      <label for=\\"credit_card_approval_code\\" class=\\"control-label\\">Credit Card Approval Code:</label>
       <input id=\\"credit_card_approval_code\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.CREDIT_CARD_APPROVAL_CODE\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"sub_total\\" class=\\"control-label mr-4\\">Sub Total:</label>
+      <label for=\\"sub_total\\" class=\\"control-label\\">Sub Total:</label>
       <input id=\\"sub_total\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.SUB_TOTAL\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SUB_TOTAL) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.SUB_TOTAL)\\" class=\\"invalid-feedback\\">
@@ -661,7 +661,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"tax_amt\\" class=\\"control-label mr-4\\">Tax Amt:</label>
+      <label for=\\"tax_amt\\" class=\\"control-label\\">Tax Amt:</label>
       <input id=\\"tax_amt\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.TAX_AMT\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.TAX_AMT) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.TAX_AMT)\\" class=\\"invalid-feedback\\">
@@ -669,7 +669,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"freight\\" class=\\"control-label mr-4\\">Freight:</label>
+      <label for=\\"freight\\" class=\\"control-label\\">Freight:</label>
       <input id=\\"freight\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.FREIGHT\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.FREIGHT) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.FREIGHT)\\" class=\\"invalid-feedback\\">
@@ -677,7 +677,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"total_due\\" class=\\"control-label mr-4\\">Total Due:</label>
+      <label for=\\"total_due\\" class=\\"control-label\\">Total Due:</label>
       <input id=\\"total_due\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.TOTAL_DUE\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.TOTAL_DUE) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.TOTAL_DUE)\\" class=\\"invalid-feedback\\">
@@ -685,11 +685,11 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"comment\\" class=\\"control-label mr-4\\">Comment:</label>
+      <label for=\\"comment\\" class=\\"control-label\\">Comment:</label>
       <input id=\\"comment\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.COMMENT\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"customer\\" class=\\"control-label mr-4\\">Customer:</label>
+      <label for=\\"customer\\" class=\\"control-label\\">Customer:</label>
       <kendo-multicolumncombobox
         id=\\"customer\\"
         placeholder=\\"Select a customer...\\"
@@ -710,7 +710,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </kendo-multicolumncombobox>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"ship_to_address\\" class=\\"control-label mr-4\\">Ship To Address:</label>
+      <label for=\\"ship_to_address\\" class=\\"control-label\\">Ship To Address:</label>
       <kendo-multicolumncombobox
         id=\\"ship_to_address\\"
         placeholder=\\"Select a ship to address...\\"
@@ -730,7 +730,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </kendo-multicolumncombobox>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"bill_to_address\\" class=\\"control-label mr-4\\">Bill To Address:</label>
+      <label for=\\"bill_to_address\\" class=\\"control-label\\">Bill To Address:</label>
       <kendo-multicolumncombobox
         id=\\"bill_to_address\\"
         placeholder=\\"Select a bill to address...\\"
@@ -1089,32 +1089,32 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <imng-uuid-filter [filter]=\\"filter\\"></imng-uuid-filter>
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Id</span>
+      <span class=\\"h6\\" title=\\"Id\\">Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.ORDER_ID\\" [width]=\\"100\\" title=\\"Order Id\\" filter=\\"numeric\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Order Id</span>
+      <span class=\\"h6\\" title=\\"Order Id\\">Order Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.REVISION_NUM\\" [width]=\\"100\\" title=\\"Revision Num\\" filter=\\"numeric\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Revision Num</span>
+      <span class=\\"h6\\" title=\\"Revision Num\\">Revision Num</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.DATE\\" [width]=\\"100\\" format=\\"{0:MM/dd/yy}\\" title=\\"Date\\" filter=\\"date\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Date</span>
+      <span class=\\"h6\\" title=\\"Date\\">Date</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.DUE_DATE\\" [width]=\\"100\\" format=\\"{0:MM/dd/yy}\\" title=\\"Due Date\\" filter=\\"date\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Due Date</span>
+      <span class=\\"h6\\" title=\\"Due Date\\">Due Date</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.SHIP_DATE\\" [width]=\\"100\\" format=\\"{0:MM/dd/yy}\\" title=\\"Ship Date\\" filter=\\"date\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Ship Date</span>
+      <span class=\\"h6\\" title=\\"Ship Date\\">Ship Date</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
@@ -1135,29 +1135,29 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       {{ getEnumText(orderStatusTypes, dataItem[props.STATUS_TYPE]) }}
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Status Type</span>
+      <span class=\\"h6\\" title=\\"Status Type\\">Status Type</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.IS_ONLINE_ORDER\\" [width]=\\"100\\" title=\\"Is Online Order\\" filter=\\"boolean\\">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf=\\"dataItem.is_online_order\\">
-        <span class=\\"text-success font-weight-bolder h2\\" placement=\\"left\\" tooltip=\\"Active\\">
-          <span class=\\"k-icon k-i-check-circle\\"></span>
+      <div *ngIf=\\"dataItem[props.IS_ONLINE_ORDER]\\">
+        <span class=\\"text-success font-weight-bolder h2\\" tooltip=\\"Is Online Order\\">
+          <span class=\\"k-icon k-i-check-circle start-50\\"></span>
         </span>
       </div>
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Is Online Order</span>
+      <span class=\\"h6\\" title=\\"Is Online Order\\">Is Online Order</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.NUM\\" [width]=\\"100\\" title=\\"Num\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Num</span>
+      <span class=\\"h6\\" title=\\"Num\\">Num</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.PURCHASE_ORDER_NUM\\" [width]=\\"100\\" title=\\"Purchase Order Num\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Purchase Order Num</span>
+      <span class=\\"h6\\" title=\\"Purchase Order Num\\">Purchase Order Num</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.CUSTOMER_ID\\" [width]=\\"100\\" title=\\"Customer Id\\" filter=\\"text\\">
@@ -1171,7 +1171,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <imng-uuid-filter [filter]=\\"filter\\"></imng-uuid-filter>
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Customer Id</span>
+      <span class=\\"h6\\" title=\\"Customer Id\\">Customer Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.SHIP_TO_ADDRESS_ID\\" [width]=\\"100\\" title=\\"Ship To Address Id\\" filter=\\"text\\">
@@ -1185,7 +1185,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <imng-uuid-filter [filter]=\\"filter\\"></imng-uuid-filter>
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Ship To Address Id</span>
+      <span class=\\"h6\\" title=\\"Ship To Address Id\\">Ship To Address Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.BILL_TO_ADDRESS_ID\\" [width]=\\"100\\" title=\\"Bill To Address Id\\" filter=\\"text\\">
@@ -1199,7 +1199,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <imng-uuid-filter [filter]=\\"filter\\"></imng-uuid-filter>
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Bill To Address Id</span>
+      <span class=\\"h6\\" title=\\"Bill To Address Id\\">Bill To Address Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
@@ -1220,58 +1220,58 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       {{ getEnumText(shippingTypes, dataItem[props.SHIPPING_TYPE]) }}
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Shipping Type</span>
+      <span class=\\"h6\\" title=\\"Shipping Type\\">Shipping Type</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.CREDIT_CARD_APPROVAL_CODE\\" [width]=\\"100\\" title=\\"Credit Card Approval Code\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Credit Card Approval Code</span>
+      <span class=\\"h6\\" title=\\"Credit Card Approval Code\\">Credit Card Approval Code</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.SUB_TOTAL\\" [width]=\\"100\\" title=\\"Sub Total\\" filter=\\"numeric\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Sub Total</span>
+      <span class=\\"h6\\" title=\\"Sub Total\\">Sub Total</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.TAX_AMT\\" [width]=\\"100\\" title=\\"Tax Amt\\" filter=\\"numeric\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Tax Amt</span>
+      <span class=\\"h6\\" title=\\"Tax Amt\\">Tax Amt</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.FREIGHT\\" [width]=\\"100\\" title=\\"Freight\\" filter=\\"numeric\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Freight</span>
+      <span class=\\"h6\\" title=\\"Freight\\">Freight</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.TOTAL_DUE\\" [width]=\\"100\\" title=\\"Total Due\\" filter=\\"numeric\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Total Due</span>
+      <span class=\\"h6\\" title=\\"Total Due\\">Total Due</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.COMMENT\\" [width]=\\"100\\" title=\\"Comment\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Comment</span>
+      <span class=\\"h6\\" title=\\"Comment\\">Comment</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
     [field]=\\"getRelatedField(props.CUSTOMER, customerProps.NUM)\\"
     [width]=\\"100\\" title=\\"Customer\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Customer</span>
+      <span class=\\"h6\\" title=\\"Customer\\">Customer</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
     [field]=\\"getRelatedField(props.SHIP_TO_ADDRESS, shipToAddressProps.LINE_1)\\"
     [width]=\\"100\\" title=\\"Ship To Address\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Ship To Address</span>
+      <span class=\\"h6\\" title=\\"Ship To Address\\">Ship To Address</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
     [field]=\\"getRelatedField(props.BILL_TO_ADDRESS, billToAddressProps.LINE_1)\\"
     [width]=\\"100\\" title=\\"Bill To Address\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Bill To Address</span>
+      <span class=\\"h6\\" title=\\"Bill To Address\\">Bill To Address</span>
     </ng-template>
   </kendo-grid-column>
 

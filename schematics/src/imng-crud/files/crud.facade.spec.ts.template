@@ -9,9 +9,9 @@ import {
   testEditSetAndClearCurrentEntity,
   testSaveCurrentEntity,
   testUpdateCurrentEntity,
-} from 'imng-kendo-data-entry/testing';<% if(hasObjects) { %>
+} from 'imng-kendo-data-entry/testing';
 import { createODataPayload } from 'imng-kendo-odata';
-import { of } from 'rxjs';<% } %>
+import { of } from 'rxjs';
 
 import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
 import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';

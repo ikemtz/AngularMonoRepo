@@ -7,8 +7,8 @@
  */
 /* tslint:disable */
 export enum Endpoints {
-  items = '/odata/v1/Schedules',
+  schedules = '/odata/v1/Schedules',
 }
 export interface IEndpoints {
-  readonly items: string;
+  readonly schedules: string;
 }
