@@ -371,7 +371,7 @@ exports[`imng-module crud html template should work 1`] = `
 "<imng-data-entry-dialog [width]=\\"700\\" [height]=\\"550\\" [parentComponent]=\\"this\\" autoFocusedElement=\\"#num\\">
   <form novalidate [formGroup]=\\"addEditForm\\" autocomplete=\\"false\\" class=\\"row\\">
     <div class=\\"col-md-6\\">
-      <label for=\\"id\\" class=\\"control-label mr-4\\">Id:</label>
+      <label for=\\"id\\" class=\\"control-label\\">Id:</label>
       <input id=\\"id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.ID\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.ID)\\" class=\\"invalid-feedback\\">
@@ -379,7 +379,7 @@ exports[`imng-module crud html template should work 1`] = `
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"num\\" class=\\"control-label mr-4\\">Num:</label>
+      <label for=\\"num\\" class=\\"control-label\\">Num:</label>
       <input id=\\"num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NUM\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NUM)\\" class=\\"invalid-feedback\\">
@@ -392,11 +392,11 @@ exports[`imng-module crud html template should work 1`] = `
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"name\\" class=\\"control-label mr-4\\">Name:</label>
+      <label for=\\"name\\" class=\\"control-label\\">Name:</label>
       <input id=\\"name\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NAME\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"company_name\\" class=\\"control-label mr-4\\">Company Name:</label>
+      <label for=\\"company_name\\" class=\\"control-label\\">Company Name:</label>
       <input id=\\"company_name\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.COMPANY_NAME\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.COMPANY_NAME) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.COMPANY_NAME)\\" class=\\"invalid-feedback\\">
@@ -404,7 +404,7 @@ exports[`imng-module crud html template should work 1`] = `
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"sales_agent_id\\" class=\\"control-label mr-4\\">Sales Agent Id:</label>
+      <label for=\\"sales_agent_id\\" class=\\"control-label\\">Sales Agent Id:</label>
       <input id=\\"sales_agent_id\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.SALES_AGENT_ID\\"
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SALES_AGENT_ID) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)\\" class=\\"invalid-feedback\\">
@@ -412,15 +412,15 @@ exports[`imng-module crud html template should work 1`] = `
       </div>
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"email_address\\" class=\\"control-label mr-4\\">Email Address:</label>
+      <label for=\\"email_address\\" class=\\"control-label\\">Email Address:</label>
       <input id=\\"email_address\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.EMAIL_ADDRESS\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"phone\\" class=\\"control-label mr-4\\">Phone:</label>
+      <label for=\\"phone\\" class=\\"control-label\\">Phone:</label>
       <input id=\\"phone\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.PHONE\\" />
     </div>
     <div class=\\"col-md-6\\">
-      <label for=\\"sales_agent\\" class=\\"control-label mr-4\\">Sales Agent:</label>
+      <label for=\\"sales_agent\\" class=\\"control-label\\">Sales Agent:</label>
       <kendo-multicolumncombobox
         id=\\"sales_agent\\"
         placeholder=\\"Select a sales agent...\\"
@@ -712,44 +712,44 @@ exports[`imng-module html file should work 1`] = `
       <imng-uuid-filter [filter]=\\"filter\\"></imng-uuid-filter>
     </ng-template>
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Id</span>
+      <span class=\\"h6\\" title=\\"Id\\">Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.NUM\\" [width]=\\"100\\" title=\\"Num\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Num</span>
+      <span class=\\"h6\\" title=\\"Num\\">Num</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.NAME\\" [width]=\\"100\\" title=\\"Name\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Name</span>
+      <span class=\\"h6\\" title=\\"Name\\">Name</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.COMPANY_NAME\\" [width]=\\"100\\" title=\\"Company Name\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Company Name</span>
+      <span class=\\"h6\\" title=\\"Company Name\\">Company Name</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.SALES_AGENT_ID\\" [width]=\\"100\\" title=\\"Sales Agent Id\\" filter=\\"numeric\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Sales Agent Id</span>
+      <span class=\\"h6\\" title=\\"Sales Agent Id\\">Sales Agent Id</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.EMAIL_ADDRESS\\" [width]=\\"100\\" title=\\"Email Address\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Email Address</span>
+      <span class=\\"h6\\" title=\\"Email Address\\">Email Address</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column [field]=\\"props.PHONE\\" [width]=\\"100\\" title=\\"Phone\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Phone</span>
+      <span class=\\"h6\\" title=\\"Phone\\">Phone</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
     [field]=\\"getRelatedField(props.SALES_AGENT, salesAgentProps.NAME)\\"
     [width]=\\"100\\" title=\\"Sales Agent\\" filter=\\"text\\">
     <ng-template class=\\"header\\" kendoGridHeaderTemplate let-column>
-      <span class=\\"h6\\">Sales Agent</span>
+      <span class=\\"h6\\" title=\\"Sales Agent\\">Sales Agent</span>
     </ng-template>
   </kendo-grid-column>
 
