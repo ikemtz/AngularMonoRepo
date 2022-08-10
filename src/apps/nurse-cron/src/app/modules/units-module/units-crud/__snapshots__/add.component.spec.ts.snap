@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitAddComponent should save 1`] = `
+Object {
+  "building": "BUILDING",
+  "buildingId": "BUILDING_ID",
+  "deletedBy": "DELETED_BY",
+  "deletedOnUtc": Any<Date>,
+  "id": undefined,
+  "name": "NAME",
+  "roomCount": 0,
+}
+`;

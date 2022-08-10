@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScheduleEditComponent should update 1`] = `
+Object {
+  "approvedOnUtc": Any<Date>,
+  "employeeId": "EMPLOYEE_ID",
+  "employeeName": "EMPLOYEE_NAME",
+  "id": "ID",
+  "scheduledHours": 0,
+  "staffingRequirementId": "STAFFING_REQUIREMENT_ID",
+  "startTimeUtc": Any<Date>,
+  "unitId": "UNIT_ID",
+  "unitName": "UNIT_NAME",
+}
+`;

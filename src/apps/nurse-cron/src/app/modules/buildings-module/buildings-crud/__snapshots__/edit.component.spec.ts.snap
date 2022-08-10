@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuildingEditComponent should update 1`] = `
+Object {
+  "addressLine1": "ADDRESS_LINE_1",
+  "addressLine2": "ADDRESS_LINE_2",
+  "cityOrMunicipality": "CITY_OR_MUNICIPALITY",
+  "country": "COU",
+  "deletedBy": "DELETED_BY",
+  "deletedOnUtc": Any<Date>,
+  "gpsData": "GPS_DATA",
+  "id": "ID",
+  "name": "NAME",
+  "postalCode": "POSTAL_CODE",
+  "siteName": "SITE_NAME",
+  "stateOrProvidence": "STATE_OR_PROVIDENCE",
+}
+`;

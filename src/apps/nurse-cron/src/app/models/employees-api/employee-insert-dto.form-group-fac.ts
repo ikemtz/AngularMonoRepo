@@ -7,15 +7,24 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IEmployeeCertification } from './employee-certification.model'; //NOSONAR
-import { IEmployeeCompetency } from './employee-competency.model'; //NOSONAR
-import { IEmployeeHealthItem } from './employee-health-item.model'; //NOSONAR
 
 export function EmployeeInsertDtoFormGroupFac(): FormGroup {
   return new FormGroup({
     id: new FormControl<string | null>(null),
-    firstName: new FormControl<string>('', { validators: Validators.compose([Validators.required, Validators.minLength(1)]), nonNullable: true }),
-    lastName: new FormControl<string>('', { validators: Validators.compose([Validators.required, Validators.minLength(1)]), nonNullable: true }),
+    firstName: new FormControl<string>('', {
+      validators: Validators.compose([
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      nonNullable: true,
+    }),
+    lastName: new FormControl<string>('', {
+      validators: Validators.compose([
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      nonNullable: true,
+    }),
     email: new FormControl<string | null>(null),
     hireDate: new FormControl<Date | null>(null),
     addressLine1: new FormControl<string | null>(null),
