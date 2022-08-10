@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScheduleAddComponent should save 1`] = `
+Object {
+  "approvedOnUtc": Any<Date>,
+  "employeeId": "EMPLOYEE_ID",
+  "employeeName": "EMPLOYEE_NAME",
+  "id": undefined,
+  "scheduledHours": 0,
+  "staffingRequirementId": "STAFFING_REQUIREMENT_ID",
+  "startTimeUtc": Any<Date>,
+  "unitId": "UNIT_ID",
+  "unitName": "UNIT_NAME",
+}
+`;

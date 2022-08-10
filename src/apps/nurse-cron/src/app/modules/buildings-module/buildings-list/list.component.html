@@ -1,0 +1,125 @@
+<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+  <ng-template kendoGridToolbarTemplate>
+    <div class="w-100 d-flex justify-content-between">
+      <h3>Buildings</h3>
+      <imng-kendo-odata-grid-header
+        entityName="Building"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (clearFiltersClicked)="resetFilters()"
+        [hasHiddenColumns$]="hasHiddenColumns$">
+      </imng-kendo-odata-grid-header>
+    </div>
+  </ng-template>
+  <kendo-grid-column [width]="75">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <kendo-menu title="Actions">
+        <kendo-menu-item icon="menu">
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="editItem(dataItem)"
+                placement="left"
+                tooltip="Edit">
+                <span class="k-icon k-i-edit"></span>
+                Edit
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="deleteItem(dataItem)"
+                placement="left"
+                tooltip="Delete">
+                <span class="k-icon k-i-delete"></span>
+                Delete
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+        </kendo-menu-item>
+      </kendo-menu>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.ID] | slice:0:5"
+        [copyValue]="dataItem[props.ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Id">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Name">Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SITE_NAME" [width]="100" title="Site Name" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Site Name">Site Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.ADDRESS_LINE_1" [width]="100" title="Address Line 1" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Address Line 1">Address Line 1</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.ADDRESS_LINE_2" [width]="100" title="Address Line 2" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Address Line 2">Address Line 2</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.CITY_OR_MUNICIPALITY" [width]="100" title="City Or Municipality" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="City Or Municipality">City Or Municipality</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.STATE_OR_PROVIDENCE" [width]="100" title="State Or Providence" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="State Or Providence">State Or Providence</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.POSTAL_CODE" [width]="100" title="Postal Code" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Postal Code">Postal Code</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.COUNTRY" [width]="100" title="Country" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Country">Country</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.GPS_DATA" [width]="100" title="Gps Data" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Gps Data">Gps Data</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.DELETED_BY" [width]="100" title="Deleted By" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Deleted By">Deleted By</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.DELETED_ON_UTC" [width]="100" format="{0:MM/dd/yy hh:mm}" title="Deleted On Utc" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Deleted On Utc">Deleted On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf [fileName]="getExportFileName('Buildings')" [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+  <kendo-grid-excel [fileName]="getExportFileName('Buildings')" [fetchData]="excelData"></kendo-grid-excel>
+</kendo-grid>
+<nrcrn-building-add *ngIf="crudFacade.isNewActive$ | async"></nrcrn-building-add>
+<nrcrn-building-edit *ngIf="crudFacade.isEditActive$ | async"></nrcrn-building-edit>
