@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CertificationAddComponent should save 1`] = `
+Object {
+  "expiresOnUtc": Any<Date>,
+  "id": undefined,
+  "isEnabled": true,
+  "name": "NAME",
+}
+`;

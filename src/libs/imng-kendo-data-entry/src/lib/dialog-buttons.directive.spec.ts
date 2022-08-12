@@ -1,11 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
-import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
-import { DataEntryMockFacade, createDataEntryMockFacade } from '../../testing/src/data-entry-mock.facade';
-import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import {
+  DataEntryMockFacade,
+  createDataEntryMockFacade,
+} from '../../testing/src/data-entry-mock.facade';
+import { FormGroup, FormControl } from '@angular/forms';
 import { DialogButtonsDirective } from './dialog-buttons.directive';
 import { By } from '@angular/platform-browser';
 
@@ -15,10 +22,16 @@ describe('DialogButtonsDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DataEntryDialogComponent, TestHostComponent, DialogButtonsDirective],
+      declarations: [
+        DataEntryDialogComponent,
+        TestHostComponent,
+        DialogButtonsDirective,
+      ],
       imports: [NoopAnimationsModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-      providers: [{ provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() }],
+      providers: [
+        { provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() },
+      ],
     }).compileComponents();
   });
 
@@ -50,7 +63,10 @@ describe('DialogButtonsDirective', () => {
 
 @Component({
   selector: 'imng-thc',
-  template: ` <imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this">
+  template: ` <imng-data-entry-dialog
+    [width]="700"
+    [height]="550"
+    [parentComponent]="this">
     <ng-template [imngDialogBtns] let-coreButtons>
       <button id="y" (click)="coreButtons.cancel()">😈</button>
       <button id="x" (click)="coreButtons.submit()">😇</button>
@@ -62,11 +78,12 @@ export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacad
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   public saved = false;
+  public addEditForm = new FormGroup({ id: new FormControl<string>('') });
   constructor(facade: DataEntryMockFacade) {
     super(facade);
   }
   public initForm(): void {
-    this.addEditForm = new UntypedFormGroup({ id: new UntypedFormControl() });
+    this.addEditForm = new FormGroup({ id: new FormControl<string>('') });
   }
   public save(): void {
     this.saved = true;

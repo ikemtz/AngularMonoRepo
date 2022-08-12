@@ -1,6 +1,6 @@
 import { IdType } from 'imng-nrsrx-client-utils';
 
-export function findAndModify<ENTITY extends { id?: IdType; }>(
+export function findAndModify<ENTITY extends { id?: IdType | null; }>(
   data: ENTITY[],
   lookupId: IdType | undefined,
   modificationLogic: (matchingRecord: ENTITY) => void,

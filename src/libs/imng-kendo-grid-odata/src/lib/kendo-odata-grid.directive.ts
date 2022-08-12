@@ -64,17 +64,17 @@ export class ImngODataGridDirective
         this.odataComponent.dataStateChange(t)
       ),
       this.facade.gridData$.subscribe((t) => {
-        this.gridComponent.data = t;
+        this.gridComponent.data = t || [];
         this.changeDetectorRef.markForCheck();
       }),
       this.facade.gridPagerSettings$.subscribe(
         (t) => (this.gridComponent.pageable = t)
       ),
       this.facade.gridODataState$.pipe(filter((t) => !!t)).subscribe((t) => {
-        this.gridComponent.pageSize = t.take || 20; //NOSONAR
-        this.gridComponent.filter = t.filter || { logic: 'and', filters: [] };
-        this.gridComponent.skip = t.skip || 0;
-        this.gridComponent.sort = t.sort || [];
+        this.gridComponent.pageSize = t?.take || 20; //NOSONAR
+        this.gridComponent.filter = t?.filter || { logic: 'and', filters: [] };
+        this.gridComponent.skip = t?.skip || 0;
+        this.gridComponent.sort = t?.sort || [];
       })
     );
   }

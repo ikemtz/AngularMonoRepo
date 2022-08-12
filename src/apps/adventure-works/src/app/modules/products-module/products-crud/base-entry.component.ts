@@ -1,6 +1,8 @@
 import { OnInit, Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+import { IProductForm } from '../../../models/odata';
 import { IProductCategory, IProductModel, ProductCategoryProperties, ProductFormGroupFac, ProductModelProperties, ProductProperties } from '../../../models/webapi';
 
 import { ProductCrudFacade } from './crud.facade';
@@ -15,6 +17,7 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
   public readonly productCategoryProps = ProductCategoryProperties;
   public readonly productCategories$: Observable<IProductCategory[]>;
   public readonly productCategoryFilter$ = new BehaviorSubject('');
+  public addEditForm: FormGroup<IProductForm>;
 
   constructor(facade: ProductCrudFacade) {
     super(facade);

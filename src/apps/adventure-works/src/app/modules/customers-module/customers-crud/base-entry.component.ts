@@ -1,7 +1,8 @@
 import { OnInit, Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
-import { CustomerFormGroupFac, CustomerProperties, ISalesAgent, SalesAgentProperties } from '../../../models/webapi';
+import { CustomerFormGroupFac, CustomerProperties, ICustomerForm, ISalesAgent, SalesAgentProperties } from '../../../models/webapi';
 
 import { CustomerCrudFacade } from './crud.facade';
 
@@ -12,6 +13,7 @@ export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<
   public readonly salesAgentProps = SalesAgentProperties;
   public readonly salesAgents$: Observable<ISalesAgent[]>;
   public readonly salesAgentFilter$ = new BehaviorSubject('');
+  public addEditForm: FormGroup<ICustomerForm>;
 
   constructor(facade: CustomerCrudFacade) {
     super(facade);

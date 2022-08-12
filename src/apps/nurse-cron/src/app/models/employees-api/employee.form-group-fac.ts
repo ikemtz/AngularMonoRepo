@@ -7,34 +7,114 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IEmployeeCertification } from './employee-certification.model'; //NOSONAR
-import { IEmployeeCompetency } from './employee-competency.model'; //NOSONAR
-import { IEmployeeHealthItem } from './employee-health-item.model'; //NOSONAR
+import { IEmployeeCertificationForm } from './employee-certification.form-group-fac';
+import { IEmployeeCompetencyForm } from './employee-competency.form-group-fac';
+import { IEmployeeHealthItemForm } from './employee-health-item.form-group-fac';
 
-export function EmployeeFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface IEmployeeForm {
+  id: FormControl<string | null>;
+  lastName: FormControl<string>;
+  firstName: FormControl<string>;
+  birthDate: FormControl<Date | null>;
+  mobilePhone: FormControl<string | null>;
+  homePhone: FormControl<string | null>;
+  photo: FormControl<string | null>;
+  email: FormControl<string>;
+  addressLine1: FormControl<string | null>;
+  addressLine2: FormControl<string | null>;
+  city: FormControl<string | null>;
+  state: FormControl<string | null>;
+  zip: FormControl<string | null>;
+  isEnabled: FormControl<boolean>;
+  hireDate: FormControl<Date>;
+  fireDate: FormControl<Date | null>;
+  totalHoursOfService: FormControl<number | null>;
+  certificationCount: FormControl<number>;
+  competencyCount: FormControl<number>;
+  healthItemCount: FormControl<number>;
+  employeeCertifications: FormArray<FormGroup<IEmployeeCertificationForm>>;
+  employeeCompetencies: FormArray<FormGroup<IEmployeeCompetencyForm>>;
+  employeeHealthItems: FormArray<FormGroup<IEmployeeHealthItemForm>>;
+}
+
+export function EmployeeFormGroupFac(): FormGroup<IEmployeeForm> {
+  return new FormGroup<IEmployeeForm>({
     id: new FormControl<string | null>(null),
-    lastName: new FormControl<string>('', { validators: Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(250)]), nonNullable: true }),
-    firstName: new FormControl<string>('', { validators: Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(250)]), nonNullable: true }),
+    lastName: new FormControl<string>('', {
+      validators: Validators.compose([
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(250),
+      ]),
+      nonNullable: true,
+    }),
+    firstName: new FormControl<string>('', {
+      validators: Validators.compose([
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(250),
+      ]),
+      nonNullable: true,
+    }),
     birthDate: new FormControl<Date | null>(null),
-    mobilePhone: new FormControl<string | null>(null, { validators: Validators.maxLength(25) } ),
-    homePhone: new FormControl<string | null>(null, { validators: Validators.maxLength(25) } ),
-    photo: new FormControl<string | null>(null, { validators: Validators.maxLength(4000) } ),
-    email: new FormControl<string>('', { validators: Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(250)]), nonNullable: true }),
-    addressLine1: new FormControl<string | null>(null, { validators: Validators.maxLength(250) } ),
-    addressLine2: new FormControl<string | null>(null, { validators: Validators.maxLength(250) } ),
-    city: new FormControl<string | null>(null, { validators: Validators.maxLength(150) } ),
-    state: new FormControl<string | null>(null, { validators: Validators.maxLength(2) } ),
-    zip: new FormControl<string | null>(null, { validators: Validators.maxLength(10) } ),
-    isEnabled: new FormControl<boolean>(false, { validators: Validators.required, nonNullable: true } ),
-    hireDate: new FormControl<Date>(new Date(), { validators: Validators.required, nonNullable: true } ),
+    mobilePhone: new FormControl<string | null>(null, {
+      validators: Validators.maxLength(25),
+    }),
+    homePhone: new FormControl<string | null>(null, {
+      validators: Validators.maxLength(25),
+    }),
+    photo: new FormControl<string | null>(null, {
+      validators: Validators.maxLength(4000),
+    }),
+    email: new FormControl<string>('', {
+      validators: Validators.compose([
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(250),
+      ]),
+      nonNullable: true,
+    }),
+    addressLine1: new FormControl<string | null>(null, {
+      validators: Validators.maxLength(250),
+    }),
+    addressLine2: new FormControl<string | null>(null, {
+      validators: Validators.maxLength(250),
+    }),
+    city: new FormControl<string | null>(null, {
+      validators: Validators.maxLength(150),
+    }),
+    state: new FormControl<string | null>(null, {
+      validators: Validators.maxLength(2),
+    }),
+    zip: new FormControl<string | null>(null, {
+      validators: Validators.maxLength(10),
+    }),
+    isEnabled: new FormControl<boolean>(false, {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    hireDate: new FormControl<Date>(new Date(), {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
     fireDate: new FormControl<Date | null>(null),
     totalHoursOfService: new FormControl<number | null>(null),
-    certificationCount: new FormControl<number>(0, { validators: Validators.required, nonNullable: true } ),
-    competencyCount: new FormControl<number>(0, { validators: Validators.required, nonNullable: true } ),
-    healthItemCount: new FormControl<number>(0, { validators: Validators.required, nonNullable: true } ),
-    employeeCertifications: new FormArray([]),
-    employeeCompetencies: new FormArray([]),
-    employeeHealthItems: new FormArray([]),
+    certificationCount: new FormControl<number>(0, {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    competencyCount: new FormControl<number>(0, {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    healthItemCount: new FormControl<number>(0, {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    employeeCertifications: new FormArray<
+      FormGroup<IEmployeeCertificationForm>
+    >([]),
+    employeeCompetencies: new FormArray<FormGroup<IEmployeeCompetencyForm>>([]),
+    employeeHealthItems: new FormArray<FormGroup<IEmployeeHealthItemForm>>([]),
   });
 }

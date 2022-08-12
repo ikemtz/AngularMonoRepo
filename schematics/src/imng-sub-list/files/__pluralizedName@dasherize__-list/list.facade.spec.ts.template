@@ -65,7 +65,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
      */
     test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       store.dispatch(<%= camelize(parentName) %>ActionTypes.load<%= classify(pluralizedParentName) %>Success(
         createODataResult([
           { ...create<%= classify(parentName) %>(), id: '<%= snakeCasedParentName %>_ID' }])));
@@ -73,7 +73,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
       list = await readFirst(facade.gridData$);
       const loading = await readFirst(facade.loading$);
-      expect(list.data.length).toBe(1);
+      expect(list.?data.length).toBe(1);
       expect(loading).toBe(false);
 
       const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);
@@ -95,7 +95,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
       service.fetch = jest.fn(() => response);
 
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       expect(isloading).toBe(true);
       store.dispatch(<%= camelize(parentName) %>ActionTypes.load<%= classify(pluralizedParentName) %>Success(
         createODataResult([
@@ -105,7 +105,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       list = await readFirst(facade.gridData$);
       isloading = await readFirst(facade.loading$);
 
-      expect(list.data.length).toBe(3);
+      expect(list?.data.length).toBe(3);
       expect(isloading).toBe(false);
       expect(service.fetch).toBeCalledTimes(1);
     });
@@ -136,7 +136,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
      */
     test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       store.dispatch(<%= camelize(parentName) %>ActionTypes.load<%= classify(pluralizedParentName) %>Success(
         createODataResult([
           { ...create<%= classify(parentName) %>(), id: '<%= snakeCasedParentName %>_ID' }])));
@@ -144,7 +144,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
         { <%= camelize(parentName) %>Id: '<%= snakeCasedParentName %>_ID', odataResult: createODataResult([create<%= classify(singularizedName) %>(), create<%= classify(singularizedName) %>()]) }));
 
       list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(2);
+      expect(list?.data.length).toBe(2);
     });
 
     test('it should handle DeleteItem', async () => {

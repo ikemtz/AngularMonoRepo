@@ -58,6 +58,11 @@ describe(`imng-module`, () => {
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
+  test(`selectors template should work`, () => {
+    const file = tree.get(`/test/products-module/+state/product.selectors.ts`);
+    const content = file?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
   test(`crud html template should work`, () => {
     const file = tree.get(`/test/products-module/products-crud/add-edit.component.html`);
     const content = file?.content.toString();

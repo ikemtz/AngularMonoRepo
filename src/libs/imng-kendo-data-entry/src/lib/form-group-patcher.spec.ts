@@ -1,16 +1,14 @@
 import { formGroupPatcher } from './form-group-patcher';
 import { of } from 'rxjs';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 describe('formGroupPatcher', () => {
   it('should patch', () => {
-    const formGroup = new UntypedFormGroup({
-      id: new UntypedFormControl(''),
+    const formGroup = new FormGroup({
+      id: new FormControl<string>(''),
     });
     const entity = { id: '🤦‍♂️😂' };
-    of(entity)
-      .pipe(formGroupPatcher(formGroup))
-      .subscribe();
+    of(entity).pipe(formGroupPatcher(formGroup)).subscribe();
     expect(formGroup.value).toStrictEqual(entity);
   });
 });

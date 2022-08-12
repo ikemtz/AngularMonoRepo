@@ -7,7 +7,7 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ICompetency {
-  id?: string;
-  name?: string;
-  isEnabled?: boolean;
+  id?: string | null;
+  name?: string | null;
+  isEnabled?: boolean | null;
 }

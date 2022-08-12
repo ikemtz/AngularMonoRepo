@@ -18,6 +18,7 @@ export * from './order-address.properties';
 export * from './order-line-item.form-group-fac';
 export * from './order-line-item.model';
 export * from './order-line-item.properties';
+export * from './order-status-types.enum';
 export * from './order.form-group-fac';
 export * from './order.model';
 export * from './order.properties';

@@ -1,0 +1,20 @@
+<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#name">
+  <form novalidate [formGroup]="addEditForm" autocomplete="false" class="row">
+    <div class="col-md-6">
+      <label for="id" class="control-label">Id:</label>
+      <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
+    </div>
+    <div class="col-md-6">
+      <label for="name" class="control-label">Name:</label>
+      <input id="name" type="text" class="form-control" [formControlName]="props.NAME" />
+    </div>
+    <div class="col-md-6">
+      <label for="is_enabled" class="control-label me-4 mt-4">Is Enabled:</label>
+      <input id="is_enabled" type="checkbox" [formControlName]="props.IS_ENABLED" />
+    </div>
+    <div class="col-md-6">
+      <label for="expires_on_utc" class="control-label">Expires On Utc:</label>
+      <kendo-datepicker id="expires_on_utc" class="form-control" [formControlName]="props.EXPIRES_ON_UTC"></kendo-datepicker>
+    </div>
+  </form>
+</imng-data-entry-dialog>

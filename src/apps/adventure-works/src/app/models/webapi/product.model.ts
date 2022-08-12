@@ -12,21 +12,21 @@ import { IOrderLineItem } from './order-line-item.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IProduct {
-  id?: string;
+  id?: string | null;
   name?: string;
   num?: string;
-  color?: string;
+  color?: string | null;
   standardCost?: number;
   listPrice?: number;
-  size?: string;
-  weight?: number;
-  productCategoryId?: string;
-  productModelId?: string;
+  size?: string | null;
+  weight?: number | null;
+  productCategoryId?: string | null;
+  productModelId?: string | null;
   sellStartDate?: Date;
-  sellEndDate?: Date;
-  discontinuedDate?: Date;
-  thumbNailPhoto?: string;
-  productModel?: IProductModel;
-  productCategory?: IProductCategory;
-  orderLineItems?: IOrderLineItem[];
+  sellEndDate?: Date | null;
+  discontinuedDate?: Date | null;
+  thumbNailPhoto?: string | null;
+  productModel?: IProductModel | null;
+  productCategory?: IProductCategory | null;
+  orderLineItems?: IOrderLineItem[] | null;
 }

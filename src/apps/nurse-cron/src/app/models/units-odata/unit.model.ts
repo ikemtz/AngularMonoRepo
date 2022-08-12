@@ -10,11 +10,11 @@ import { IBuilding } from './building.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IUnit {
-  id?: string;
+  id?: string | null;
   buildingId?: string;
   name?: string;
   roomCount?: number;
-  deletedBy?: string;
-  deletedOnUtc?: Date;
-  building?: IBuilding;
+  deletedBy?: string | null;
+  deletedOnUtc?: Date | null;
+  building?: IBuilding | null;
 }

@@ -12,14 +12,14 @@ import { IOrder } from './order.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ICustomer {
-  id?: string;
+  id?: string | null;
   num?: string;
-  name?: string;
+  name?: string | null;
   companyName?: string;
   salesAgentId?: number;
-  emailAddress?: string;
-  phone?: string;
-  salesAgent?: ISalesAgent;
-  customerAddresses?: ICustomerAddress[];
-  orders?: IOrder[];
+  emailAddress?: string | null;
+  phone?: string | null;
+  salesAgent?: ISalesAgent | null;
+  customerAddresses?: ICustomerAddress[] | null;
+  orders?: IOrder[] | null;
 }

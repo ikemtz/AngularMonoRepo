@@ -8,8 +8,20 @@
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function ScheduleFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface IScheduleForm {
+  id: FormControl<string | null>;
+  unitId: FormControl<string>;
+  unitName: FormControl<string>;
+  employeeId: FormControl<string>;
+  employeeName: FormControl<string>;
+  staffingRequirementId: FormControl<string>;
+  startTimeUtc: FormControl<Date>;
+  scheduledHours: FormControl<number>;
+  approvedOnUtc: FormControl<Date>;
+}
+
+export function ScheduleFormGroupFac(): FormGroup<IScheduleForm> {
+  return new FormGroup<IScheduleForm>({
     id: new FormControl<string | null>(null),
     unitId: new FormControl<string>('', {
       validators: Validators.required,

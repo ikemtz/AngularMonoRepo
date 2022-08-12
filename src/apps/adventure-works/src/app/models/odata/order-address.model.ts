@@ -10,13 +10,13 @@ import { IOrder } from './order.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IOrderAddress {
-  id?: string;
+  id?: string | null;
   line1?: string;
-  line2?: string;
+  line2?: string | null;
   city?: string;
   stateProvince?: string;
   countryRegion?: string;
   postalCode?: string;
-  billToOrders?: IOrder[];
-  shipToOrders?: IOrder[];
+  billToOrders?: IOrder[] | null;
+  shipToOrders?: IOrder[] | null;
 }

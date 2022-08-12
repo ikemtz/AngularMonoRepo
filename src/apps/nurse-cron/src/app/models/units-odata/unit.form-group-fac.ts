@@ -7,10 +7,20 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IBuilding } from './building.model'; //NOSONAR
+import { IBuilding } from './building.model';
 
-export function UnitFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface IUnitForm {
+  id: FormControl<string | null>;
+  buildingId: FormControl<string>;
+  name: FormControl<string>;
+  roomCount: FormControl<number>;
+  deletedBy: FormControl<string | null>;
+  deletedOnUtc: FormControl<Date | null>;
+  building: FormControl<IBuilding | null>;
+}
+
+export function UnitFormGroupFac(): FormGroup<IUnitForm> {
+  return new FormGroup<IUnitForm>({
     id: new FormControl<string | null>(null),
     buildingId: new FormControl<string>('', {
       validators: Validators.required,

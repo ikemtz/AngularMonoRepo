@@ -10,14 +10,14 @@ import { ICustomer } from './customer.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ICustomerAddress {
-  id?: string;
+  id?: string | null;
   customerId?: string;
   addressType?: string;
   line1?: string;
-  line2?: string;
+  line2?: string | null;
   city?: string;
   stateProvince?: string;
   countryRegion?: string;
   postalCode?: string;
-  customer?: ICustomer;
+  customer?: ICustomer | null;
 }

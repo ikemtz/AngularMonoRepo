@@ -23,4 +23,8 @@ export const endPoints = {
         unitsOData: 'units-odata/odata/v1/Units',
         unitsApi: 'units-webapi/api/v1/Units.json',
     },
+    schedules: {
+        schedulesOData: 'schedules-odata/odata/v1/schedules',
+        schedulesApi: 'schedules-webapi/api/v1/schedules.json',
+    },
 };

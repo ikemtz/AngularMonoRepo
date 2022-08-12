@@ -1,16 +1,26 @@
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 declare module '@angular/forms' {
   export interface FormGroup {
-    addTypeAheadControl(controlName?: string, initialValue?: string): FormControl;
+    addTypeAheadControl(
+      controlName?: string,
+      initialValue?: string,
+    ): FormControl;
   }
 }
-UntypedFormGroup.prototype.addTypeAheadControl = function (controlName = 'typeAhead', initialValue = ''): UntypedFormControl {
+FormGroup.prototype.addTypeAheadControl = function (
+  controlName = 'typeAhead',
+  initialValue = '',
+): FormControl<string | null> {
   return addTypeAheadControl(this, controlName, initialValue);
 };
 
-export function addTypeAheadControl(formGroup: UntypedFormGroup, controlName = 'typeAhead', initialValue = ''): UntypedFormControl {
-  const formControl = new UntypedFormControl(initialValue);
+export function addTypeAheadControl(
+  formGroup: FormGroup,
+  controlName = 'typeAhead',
+  initialValue = '',
+): FormControl<string | null> {
+  const formControl = new FormControl<string>(initialValue);
   formGroup.addControl(controlName, formControl);
   return formControl;
 }
