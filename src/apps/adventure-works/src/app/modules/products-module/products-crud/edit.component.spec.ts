@@ -60,8 +60,8 @@ describe('ProductEditComponent', () => {
       [ProductProperties.SELL_END_DATE]: new Date(),
       [ProductProperties.DISCONTINUED_DATE]: new Date(),
       [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
-      [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
-      [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
+      [ProductProperties.PRODUCT_MODEL]: {},
+      [ProductProperties.PRODUCT_CATEGORY]: {},
     });
     let item: IProduct | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));

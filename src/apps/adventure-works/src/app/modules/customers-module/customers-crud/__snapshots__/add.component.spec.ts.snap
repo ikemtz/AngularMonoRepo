@@ -10,7 +10,7 @@ Object {
   "num": "NUM-nu.323",
   "orders": null,
   "phone": "PHONE",
-  "salesAgent": "SALES_AGENT",
+  "salesAgent": Object {},
   "salesAgentId": 0,
 }
 `;

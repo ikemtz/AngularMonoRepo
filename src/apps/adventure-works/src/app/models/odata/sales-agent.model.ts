@@ -10,8 +10,8 @@ import { ICustomer } from './customer.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISalesAgent {
-  id?: number;
+  id?: number | null;
   name?: string;
   loginId?: string;
-  customers?: ICustomer[];
+  customers?: ICustomer[] | null;
 }

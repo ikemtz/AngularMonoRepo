@@ -52,7 +52,7 @@ describe('CustomerEditComponent', () => {
       [CustomerProperties.SALES_AGENT_ID]: 0,
       [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
       [CustomerProperties.PHONE]: 'PHONE',
-      [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
+      [CustomerProperties.SALES_AGENT]: {},
     });
     let item: ICustomer | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));

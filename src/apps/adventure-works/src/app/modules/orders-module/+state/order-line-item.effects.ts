@@ -36,7 +36,7 @@ export class OrderLineItemEffects {
       concatLatestFrom((action: ReturnType<typeof orderLineItemActionTypes.reloadOrderLineItemsRequest>) =>
         this.store.select(orderLineItemQueries.selectODataState$(action.payload))),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IOrderLineItem>(environment.odataEnpoints.orderLineItems, odataState, { bustCache: true })
+        .fetch<IOrderLineItem>(environment.odataEnpoints.orderLineItems, odataState || {}, { bustCache: true })
         .pipe(
           map(odataResult => orderLineItemActionTypes.reloadOrderLineItemsSuccess({ orderId: action.payload, odataResult })),
           handleEffectError(action))));

@@ -73,7 +73,7 @@ describe('OrderLineItemListFacade', () => {
      */
     test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       store.dispatch(orderActionTypes.loadOrdersSuccess(
         createODataResult([
           { ...createOrder(), id: 'ORDER_ID' }])));
@@ -81,7 +81,7 @@ describe('OrderLineItemListFacade', () => {
 
       list = await readFirst(facade.gridData$);
       const loading = await readFirst(facade.loading$);
-      expect(list.data.length).toBe(1);
+      expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
 
       const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);
@@ -103,7 +103,7 @@ describe('OrderLineItemListFacade', () => {
       const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
       service.fetch = jest.fn(() => response);
 
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       expect(isloading).toBe(true);
       store.dispatch(orderActionTypes.loadOrdersSuccess(
         createODataResult([
@@ -113,7 +113,7 @@ describe('OrderLineItemListFacade', () => {
       list = await readFirst(facade.gridData$);
       isloading = await readFirst(facade.loading$);
 
-      expect(list.data.length).toBe(3);
+      expect(list?.data.length).toBe(3);
       expect(isloading).toBe(false);
       expect(service.fetch).toBeCalledTimes(1);
     });
@@ -144,7 +144,7 @@ describe('OrderLineItemListFacade', () => {
      */
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       store.dispatch(orderActionTypes.loadOrdersSuccess(
         createODataResult([
           { ...createOrder(), id: 'ORDER_ID' }])));
@@ -152,7 +152,7 @@ describe('OrderLineItemListFacade', () => {
         { orderId: 'ORDER_ID', odataResult: createODataResult([createOrderLineItem(), createOrderLineItem()]) }));
 
       list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(2);
+      expect(list?.data.length).toBe(2);
     });
 
     test('it should handle DeleteItem', async () => {
