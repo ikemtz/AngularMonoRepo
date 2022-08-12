@@ -5,6 +5,7 @@ classDiagram
   Customer ..> CustomerAddress
   Customer ..> Order
   CustomerAddress ..> Customer
+  Order ..> OrderStatusTypes
   Order ..> ShippingTypes
   Order ..> Customer
   Order ..> OrderAddress
@@ -58,7 +59,6 @@ classDiagram
     +date: date
     +date: dueDate
     +date: shipDate
-    +number: status
     +bool: isOnlineOrder
     +string: num
     +string: purchaseOrderNum
@@ -75,6 +75,7 @@ classDiagram
     +date: createdOnUtc
     +string: updatedBy
     +date: updatedOnUtc
+    +OrderStatusTypes: statusType;
     +ShippingTypes: shippingType;
     +Customer: customer;
     +OrderAddress: shipToAddress;
@@ -110,6 +111,13 @@ classDiagram
     +date: updatedOnUtc
     +Order: order;
     +Product: product;
+  }
+  class OrderStatusTypes{
+    <<enumeration>>
+    Processing
+    WaitingOnShipping
+    InTransit
+    Received
   }
   class Product{
     +uuid: id
