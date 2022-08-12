@@ -1,5 +1,5 @@
 import { GridDataEntryHelper } from './grid-data-entry.helper';
-import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { formGroupFac } from './editable-data-grid.directive.spec';
 import { AddEvent, GridComponent } from '@progress/kendo-angular-grid';
@@ -37,10 +37,10 @@ describe('GridDataEntryHelper<>', () => {
   it('should report valid ', async () => {
     const gridHelper = new GridDataEntryHelper(
       () =>
-        new UntypedFormGroup({
-          id: new UntypedFormControl(''),
+        new FormGroup({
+          id: new FormControl(''),
         }),
-      [{ id: '😎😎' }]
+      [{ id: '😎😎' }],
     );
     expect(await readFirst(gridHelper.isValid$)).toBe(true);
     expect(gridHelper.isValid).toBe(true);
