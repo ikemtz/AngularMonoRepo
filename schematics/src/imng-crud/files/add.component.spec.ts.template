@@ -9,8 +9,13 @@ import { mockConsoleError<% if (hasDates || hasObjects) { %>, mockConsoleGroup, 
 import { of } from 'rxjs';<% } %>
 
 import { <%= classify(name) %>AddComponent } from './add.component';
-import { <%= classify(name) %>CrudFacade } from './crud.facade';<% if (hasObjects) { %>
+import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
+export function create<%= classify(name) %>(): Partial<I<%= classify(name) %>> {
+    return {<% swaggerProperties.forEach(function(swaggerProperty) {%>
+      [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,<% }) %>
+    };
+}<% if (hasObjects) { %>
 export function createMock<%= classify(name) %>Facade() {
   return {
     currentEntity$: of({}),<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
@@ -59,10 +64,7 @@ describe('<%= classify(name) %>AddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue({
-<% swaggerProperties.forEach(function(swaggerProperty)
- {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
-<% }) %>    });
+    component.addEditForm?.patchValue(create<%= classify(name) %>());
 
     let item: I<%= classify(name) %> | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
@@ -77,8 +79,7 @@ describe('<%= classify(name) %>AddComponent', () => {
  {%>      <%= swaggerProperty.name %>: expect.any(Date),
 <% }); %>    });
 <% } else { %>
-    expect(item).toMatchSnapshot();
-<% } %>
+    expect(item).toMatchSnapshot();<% } %>
   });
 
   /**
@@ -103,7 +104,7 @@ describe('<%= classify(name) %>AddComponent', () => {
   test('should support <%= classify(swaggerProperty.name) %> filters', async () => {
     component.handle<%= classify(swaggerProperty.name) %>Filter('xy');
     const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);
-    expect(result).toStrictEqual([{ <% swaggerProperty.properties.filter(t=>  t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> }]);
+    expect(result).toMatchSnapshot();
   });<% }); %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
   test('should handle <%= classify(swaggerProperty.name) %> filters', async () => {
     component.handle<%= classify(swaggerProperty.name) %>Filter('abc-xyz');

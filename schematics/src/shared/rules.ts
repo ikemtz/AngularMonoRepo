@@ -108,8 +108,7 @@ export function mapPropertyAttributes(options: IOptions, source: PropertyInfo, d
     dest.filterExpression = 'text';
     dest.$ref = source.$ref;
     dest.pluralizedName = pluralize(dest.name || '', plural);
-    dest.testFactoryValue = `'${dest.maxLength ?
-      _.snakeCase(dest.name).toUpperCase().substring(0, dest.maxLength) : _.snakeCase(dest.name).toUpperCase()}'`;
+    dest.testFactoryValue = '{}';
   }
   else {
     dest.htmlInputType = 'text';

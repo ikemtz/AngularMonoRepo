@@ -4,7 +4,7 @@ import { isTruthy } from 'imng-ngrx-utils';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 const selectIsEdit<%= classify(name) %>Active = createSelector(
   <%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>,
-  (entity) => isTruthy(entity) && isTruthy(entity?.id));
+  (entity) => isTruthy(entity?.id));
 const selectIsNew<%= classify(name) %>Active = createSelector(
   <%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>,
   (entity) => isTruthy(entity) && !isTruthy(entity?.id));
