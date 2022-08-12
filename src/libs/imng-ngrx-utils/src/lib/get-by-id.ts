@@ -1,6 +1,6 @@
 import { IdType } from 'imng-nrsrx-client-utils';
 
-export function getById<T extends { id?: IdType; }>(
+export function getById<T extends { id?: IdType | null; }>(
   source: { data: T[]; total: number; } | Array<T>,
   id?: IdType,
 ): T | undefined {

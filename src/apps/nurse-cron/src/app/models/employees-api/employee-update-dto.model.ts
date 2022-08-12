@@ -12,22 +12,22 @@ import { IEmployeeHealthItem } from './employee-health-item.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IEmployeeUpdateDto {
-  id?: string;
+  id?: string | null;
   firstName?: string;
-  lastName?: string;
-  email?: string;
-  hireDate?: Date;
-  addressLine1?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
-  homePhone?: string;
-  mobilePhone?: string;
-  photo?: string;
-  birthDate?: Date;
-  fireDate?: Date;
-  isEnabled?: boolean;
-  employeeCertifications?: IEmployeeCertification[];
-  employeeCompetencies?: IEmployeeCompetency[];
-  employeeHealthItems?: IEmployeeHealthItem[];
+  lastName?: string | null;
+  email?: string | null;
+  hireDate?: Date | null;
+  addressLine1?: string | null;
+  city?: string | null;
+  state?: string | null;
+  zip?: string | null;
+  homePhone?: string | null;
+  mobilePhone?: string | null;
+  photo?: string | null;
+  birthDate?: Date | null;
+  fireDate?: Date | null;
+  isEnabled?: boolean | null;
+  employeeCertifications?: IEmployeeCertification[] | null;
+  employeeCompetencies?: IEmployeeCompetency[] | null;
+  employeeHealthItems?: IEmployeeHealthItem[] | null;
 }

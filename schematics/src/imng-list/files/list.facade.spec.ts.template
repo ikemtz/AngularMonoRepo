@@ -61,12 +61,12 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
      */
     test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       facade.loadEntities({});
 
       list = await readFirst(facade.gridData$);
       const loading = await readFirst(facade.loading$);
-      expect(list.data.length).toBe(1);
+      expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
@@ -83,14 +83,14 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
       service.fetch = jest.fn(() => response);
 
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       expect(isloading).toBe(true);
       facade.reloadEntities();
 
       list = await readFirst(facade.gridData$);
       isloading = await readFirst(facade.loading$);
 
-      expect(list.data.length).toBe(3);
+      expect(list?.data.length).toBe(3);
       expect(isloading).toBe(false);
       expect(service.fetch).toBeCalledTimes(1);
     });
@@ -116,11 +116,11 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
      */
     test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(createODataResult([create<%= classify(name) %>(), create<%= classify(name) %>()])));
 
       list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(2);
+      expect(list?.data.length).toBe(2);
     });
 
     test('it should handle DeleteItem', async () => {

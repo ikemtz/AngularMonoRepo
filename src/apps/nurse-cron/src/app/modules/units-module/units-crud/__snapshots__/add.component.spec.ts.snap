@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitAddComponent should save 1`] = `
+Object {
+  "building": Object {},
+  "buildingId": "BUILDING_ID",
+  "deletedBy": "DELETED_BY",
+  "deletedOnUtc": Any<Date>,
+  "id": undefined,
+  "name": "NAME",
+  "roomCount": 0,
+}
+`;
+
+exports[`UnitAddComponent should support Building filters 1`] = `
+Array [
+  Object {
+    "addressLine1": "xyz",
+    "addressLine2": "xyz",
+    "cityOrMunicipality": "xyz",
+    "country": "xyz",
+    "deletedBy": "xyz",
+    "deletedOnUtc": "xyz",
+    "gpsData": "xyz",
+    "id": "xyz",
+    "name": "xyz",
+    "postalCode": "xyz",
+    "siteName": "xyz",
+    "stateOrProvidence": "xyz",
+  },
+]
+`;

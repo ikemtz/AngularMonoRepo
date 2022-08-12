@@ -1,7 +1,7 @@
 import { IDataEntryFacade } from './data-entry-facade';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 import { of } from 'rxjs';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { Subscribable } from 'imng-ngrx-utils';
 import { mockConsoleError } from 'imng-ngrx-utils/testing';
 
@@ -76,14 +76,22 @@ describe('MockBaseComponent', () => {
 
 export class MockBaseComponent
   extends BaseDataEntryComponent<MockFacade>
-  implements Subscribable {
+  implements Subscribable
+{
+  public addEditForm: FormGroup<{
+    id: FormControl<string | null>;
+    minLenVal: FormControl<string | null>;
+  }> = new FormGroup({
+    id: new FormControl<string>(''),
+    minLenVal: new FormControl<string>('', Validators.minLength(20)),
+  });
   dialogTitle = '';
   props = {};
   save = jest.fn();
   public initForm(): void {
-    this.addEditForm = new UntypedFormGroup({
-      id: new UntypedFormControl(''),
-      minLenVal: new UntypedFormControl('', Validators.minLength(20))
+    this.addEditForm = new FormGroup({
+      id: new FormControl<string>(''),
+      minLenVal: new FormControl<string>('', Validators.minLength(20)),
     });
   }
 }

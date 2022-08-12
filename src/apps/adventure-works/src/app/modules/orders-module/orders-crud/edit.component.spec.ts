@@ -66,9 +66,9 @@ describe('OrderEditComponent', () => {
       [OrderProperties.FREIGHT]: 0,
       [OrderProperties.TOTAL_DUE]: 0,
       [OrderProperties.COMMENT]: 'COMMENT',
-      [OrderProperties.CUSTOMER]: 'CUSTOMER',
-      [OrderProperties.SHIP_TO_ADDRESS]: 'SHIP_TO_ADDRESS',
-      [OrderProperties.BILL_TO_ADDRESS]: 'BILL_TO_ADDRESS',
+      [OrderProperties.CUSTOMER]: {},
+      [OrderProperties.SHIP_TO_ADDRESS]: {},
+      [OrderProperties.BILL_TO_ADDRESS]: {},
     });
     let item: IOrder | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));

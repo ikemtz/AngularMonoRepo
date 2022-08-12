@@ -1,4 +1,4 @@
-import { Observable, isObservable } from 'rxjs';
+import { Observable, isObservable, map } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import {
   OnInit,
@@ -106,7 +106,8 @@ export abstract class KendoODataBasedComponent<
       this.loadEntities(this.gridDataState);
     }
     this.loading$ = this.facade.loading$;
-    this.gridDataResult$ = this.facade.gridData$;
+    this.gridDataResult$ = this.facade.gridData$?.pipe(map(gridData =>
+      gridData ? gridData : { total: 0, data: [] }));
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
   }
 

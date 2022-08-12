@@ -45,6 +45,26 @@ import { of } from 'rxjs';
 import { ProductAddComponent } from './add.component';
 import { ProductCrudFacade } from './crud.facade';
 
+export function createProduct(): Partial<IProduct> {
+    return {
+      [ProductProperties.ID]: 'ID',
+      [ProductProperties.NAME]: 'NAME',
+      [ProductProperties.NUM]: 'NUM',
+      [ProductProperties.COLOR]: 'COLOR',
+      [ProductProperties.STANDARD_COST]: 0,
+      [ProductProperties.LIST_PRICE]: 0,
+      [ProductProperties.SIZE]: 'SIZE',
+      [ProductProperties.WEIGHT]: 0,
+      [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
+      [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
+      [ProductProperties.SELL_START_DATE]: new Date(),
+      [ProductProperties.SELL_END_DATE]: new Date(),
+      [ProductProperties.DISCONTINUED_DATE]: new Date(),
+      [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
+      [ProductProperties.PRODUCT_MODEL]: {},
+      [ProductProperties.PRODUCT_CATEGORY]: {},
+    };
+}
 export function createMockProductFacade() {
   return {
     currentEntity$: of({}),
@@ -96,24 +116,7 @@ describe('ProductAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue({
-    [ProductProperties.ID]: 'ID',
-    [ProductProperties.NAME]: 'NAME',
-    [ProductProperties.NUM]: 'NUM',
-    [ProductProperties.COLOR]: 'COLOR',
-    [ProductProperties.STANDARD_COST]: 0,
-    [ProductProperties.LIST_PRICE]: 0,
-    [ProductProperties.SIZE]: 'SIZE',
-    [ProductProperties.WEIGHT]: 0,
-    [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
-    [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
-    [ProductProperties.SELL_START_DATE]: new Date(),
-    [ProductProperties.SELL_END_DATE]: new Date(),
-    [ProductProperties.DISCONTINUED_DATE]: new Date(),
-    [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
-    [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
-    [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
-    });
+    component.addEditForm?.patchValue(createProduct());
 
     let item: IProduct | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
@@ -153,13 +156,13 @@ describe('ProductAddComponent', () => {
   test('should support ProductModel filters', async () => {
     component.handleProductModelFilter('xy');
     const result = await readFirst(component.productModels$);
-    expect(result).toStrictEqual([{ id: 'xyz',name: 'xyz',description: 'xyz', }]);
+    expect(result).toMatchSnapshot();
   });
 
   test('should support ProductCategory filters', async () => {
     component.handleProductCategoryFilter('xy');
     const result = await readFirst(component.productCategories$);
-    expect(result).toStrictEqual([{ id: 'xyz',name: 'xyz', }]);
+    expect(result).toMatchSnapshot();
   });
 });
 "
@@ -201,6 +204,7 @@ export class ProductAddComponent extends ProductBaseEntryComponent implements On
 
 exports[`imng-module base crud component should work 1`] = `
 "import { OnInit, Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
@@ -216,6 +220,7 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
   public readonly productCategoryProps = ProductCategoryProperties;
   public readonly productCategories$: Observable<IProductCategory[]>;
   public readonly productCategoryFilter$ = new BehaviorSubject('');
+  public addEditForm: FormGroup<IProductForm>;
 
   constructor(facade: ProductCrudFacade) {
     super(facade);
@@ -303,8 +308,8 @@ export const createProduct = () =>
     [ProductProperties.SELL_END_DATE]: new Date(),
     [ProductProperties.DISCONTINUED_DATE]: new Date(),
     [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
-    [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
-    [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
+    [ProductProperties.PRODUCT_MODEL]: {},
+    [ProductProperties.PRODUCT_CATEGORY]: {},
     };
 
 describe('ProductCrudFacade', () => {
@@ -574,8 +579,7 @@ import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
-
-import { createMockProductFacade } from './add.component.spec';
+import { createProduct, createMockProductFacade } from './add.component.spec';
 import { ProductEditComponent } from './edit.component';
 import { ProductCrudFacade } from './crud.facade';
 
@@ -612,24 +616,7 @@ describe('ProductEditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue({
-    [ProductProperties.ID]: 'ID',
-    [ProductProperties.NAME]: 'NAME',
-    [ProductProperties.NUM]: 'NUM',
-    [ProductProperties.COLOR]: 'COLOR',
-    [ProductProperties.STANDARD_COST]: 0,
-    [ProductProperties.LIST_PRICE]: 0,
-    [ProductProperties.SIZE]: 'SIZE',
-    [ProductProperties.WEIGHT]: 0,
-    [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
-    [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
-    [ProductProperties.SELL_START_DATE]: new Date(),
-    [ProductProperties.SELL_END_DATE]: new Date(),
-    [ProductProperties.DISCONTINUED_DATE]: new Date(),
-    [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
-    [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
-    [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
-    });
+    component.addEditForm.patchValue(createProduct());
     let item: IProduct | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
@@ -1185,6 +1172,28 @@ export const productsFeature = createFeature({
     on(imngEffectError, imngEffectErrorReducer),
   )
 });
+"
+`;
+
+exports[`imng-module selectors template should work 1`] = `
+"import { createSelector } from '@ngrx/store';
+import { productsFeature } from './product.reducer';
+import { isTruthy } from 'imng-ngrx-utils';
+
+const selectIsEditProductActive = createSelector(
+  productsFeature.selectCurrentProduct,
+  (entity) => isTruthy(entity?.id));
+const selectIsNewProductActive = createSelector(
+  productsFeature.selectCurrentProduct,
+  (entity) => isTruthy(entity) && !isTruthy(entity?.id));
+export const dataEntryProductQueries = {
+  selectCurrentProduct: productsFeature.selectCurrentProduct,
+  selectIsEditProductActive,
+  selectIsNewProductActive,
+};
+
+export const productQueries = { ...dataEntryProductQueries };
+
 "
 `;
 

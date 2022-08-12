@@ -7,7 +7,7 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ISchedule {
-  id?: string;
+  id?: string | null;
   unitId?: string;
   unitName?: string;
   employeeId?: string;

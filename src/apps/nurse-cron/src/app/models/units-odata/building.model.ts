@@ -7,16 +7,16 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IBuilding {
-  id?: string;
+  id?: string | null;
   name?: string;
   siteName?: string;
   addressLine1?: string;
-  addressLine2?: string;
+  addressLine2?: string | null;
   cityOrMunicipality?: string;
   stateOrProvidence?: string;
   postalCode?: string;
-  country?: string;
-  gpsData?: string;
-  deletedBy?: string;
-  deletedOnUtc?: Date;
+  country?: string | null;
+  gpsData?: string | null;
+  deletedBy?: string | null;
+  deletedOnUtc?: Date | null;
 }

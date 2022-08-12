@@ -24,13 +24,13 @@ export class OrderLineItemListFacade implements IKendoODataGridFacade<IOrderLine
   }
 
   loading$ = this.store.select(ordersFeature.selectLoading);
-  gridData$: Observable<ODataResult<IOrderLineItem>> = this.parentGrid$.pipe(
+  gridData$: Observable<ODataResult<IOrderLineItem> | undefined> = this.parentGrid$.pipe(
     switchMap(x =>
       this.store.select(orderLineItemQueries.selectGridData$(x))));
   gridPagerSettings$: Observable<false | PagerSettings> = this.parentGrid$.pipe(
     switchMap(x =>
       this.store.select(orderLineItemQueries.selectGridPagerSettings$(x))));
-  gridODataState$: Observable<ODataState> = this.parentGrid$.pipe(
+  gridODataState$: Observable<ODataState | undefined> = this.parentGrid$.pipe(
     switchMap(x =>
       this.store.select(orderLineItemQueries.selectODataState$(x))));
 

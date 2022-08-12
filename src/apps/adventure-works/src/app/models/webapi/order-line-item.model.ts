@@ -11,13 +11,13 @@ import { IProduct } from './product.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IOrderLineItem {
-  id?: string;
+  id?: string | null;
   orderId?: string;
   orderQty?: number;
   productId?: string;
   unitPrice?: number;
   unitPriceDiscount?: number;
   lineTotal?: number;
-  order?: IOrder;
-  product?: IProduct;
+  order?: IOrder | null;
+  product?: IProduct | null;
 }

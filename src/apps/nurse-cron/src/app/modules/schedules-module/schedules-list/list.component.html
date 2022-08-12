@@ -1,0 +1,137 @@
+<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+  <ng-template kendoGridToolbarTemplate>
+    <div class="w-100 d-flex justify-content-between">
+      <h3>Schedules</h3>
+      <imng-kendo-odata-grid-header
+        entityName="Schedule"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (clearFiltersClicked)="resetFilters()"
+        [hasHiddenColumns$]="hasHiddenColumns$">
+      </imng-kendo-odata-grid-header>
+    </div>
+  </ng-template>
+  <kendo-grid-column [width]="75">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <kendo-menu title="Actions">
+        <kendo-menu-item icon="menu">
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="editItem(dataItem)"
+                placement="left"
+                tooltip="Edit">
+                <span class="k-icon k-i-edit"></span>
+                Edit
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="deleteItem(dataItem)"
+                placement="left"
+                tooltip="Delete">
+                <span class="k-icon k-i-delete"></span>
+                Delete
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+        </kendo-menu-item>
+      </kendo-menu>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.ID] | slice:0:5"
+        [copyValue]="dataItem[props.ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Id">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.UNIT_ID" [width]="100" title="Unit Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.UNIT_ID] | slice:0:5"
+        [copyValue]="dataItem[props.UNIT_ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Unit Id">Unit Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.UNIT_NAME" [width]="100" title="Unit Name" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Unit Name">Unit Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.EMPLOYEE_ID" [width]="100" title="Employee Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.EMPLOYEE_ID] | slice:0:5"
+        [copyValue]="dataItem[props.EMPLOYEE_ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Employee Id">Employee Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.EMPLOYEE_NAME" [width]="100" title="Employee Name" filter="text">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Employee Name">Employee Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.STAFFING_REQUIREMENT_ID" [width]="100" title="Staffing Requirement Id" filter="text">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="dataItem[props.STAFFING_REQUIREMENT_ID] | slice:0:5"
+        [copyValue]="dataItem[props.STAFFING_REQUIREMENT_ID]">
+      </imng-kendo-copy>
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Staffing Requirement Id">Staffing Requirement Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.START_TIME_UTC" [width]="100" format="{0:MM/dd/yy hh:mm}" title="Start Time Utc" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Start Time Utc">Start Time Utc</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SCHEDULED_HOURS" [width]="100" title="Scheduled Hours" filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Scheduled Hours">Scheduled Hours</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.APPROVED_ON_UTC" [width]="100" format="{0:MM/dd/yy hh:mm}" title="Approved On Utc" filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Approved On Utc">Approved On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf [fileName]="getExportFileName('Schedules')" [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  </kendo-grid-pdf>
+  <kendo-grid-excel [fileName]="getExportFileName('Schedules')" [fetchData]="excelData"></kendo-grid-excel>
+</kendo-grid>
+<nrcrn-schedule-add *ngIf="crudFacade.isNewActive$ | async"></nrcrn-schedule-add>
+<nrcrn-schedule-edit *ngIf="crudFacade.isEditActive$ | async"></nrcrn-schedule-edit>

@@ -8,8 +8,15 @@
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function CertificationFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface ICertificationForm {
+  id: FormControl<string | null>;
+  name: FormControl<string | null>;
+  isEnabled: FormControl<boolean | null>;
+  expiresOnUtc: FormControl<Date | null>;
+}
+
+export function CertificationFormGroupFac(): FormGroup<ICertificationForm> {
+  return new FormGroup<ICertificationForm>({
     id: new FormControl<string | null>(null),
     name: new FormControl<string | null>(null),
     isEnabled: new FormControl<boolean | null>(null),

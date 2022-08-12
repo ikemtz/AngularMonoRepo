@@ -1,4 +1,4 @@
-import { UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
@@ -12,16 +12,17 @@ import {
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
 
-export class GridDataEntryHelper<T extends { id?: IdType; }> {
+export class GridDataEntryHelper<T extends { id?: IdType }> {
   private _editedRowIndex: number | undefined;
-  private _gridFormGroup: UntypedFormGroup | undefined;
+  private _gridFormGroup: FormGroup | undefined;
   private readonly _gridData$: BehaviorSubject<Array<T>>;
   public sortDescriptors$ = new BehaviorSubject<SortDescriptor[]>([]);
-  public get gridFormGroup(): UntypedFormGroup | undefined {
+  public get gridFormGroup(): FormGroup | undefined {
     return this._gridFormGroup;
   }
 
-  public get gridData$(): Observable<Array<T>> { //NOSONAR
+  public get gridData$(): Observable<Array<T>> {
+    //NOSONAR
     return this._gridData$.asObservable();
   }
 
@@ -44,12 +45,13 @@ export class GridDataEntryHelper<T extends { id?: IdType; }> {
     return this.gridValidationLogic(this.gridData);
   }
 
-  public get isValid$(): Observable<boolean> { //NOSONAR
+  public get isValid$(): Observable<boolean> {
+    //NOSONAR
     return this.gridData$.pipe(map((t) => this.gridValidationLogic(t)));
   }
   constructor(
-    private readonly formGroupFactory: () => UntypedFormGroup,
-    private _gridData: T[] = []
+    private readonly formGroupFactory: () => FormGroup,
+    private _gridData: T[] = [],
   ) {
     this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
   }
@@ -83,7 +85,7 @@ export class GridDataEntryHelper<T extends { id?: IdType; }> {
 
   private closeEditor(
     grid: GridComponent,
-    rowIndex = this._editedRowIndex
+    rowIndex = this._editedRowIndex,
   ): void {
     grid.closeRow(rowIndex);
     this._editedRowIndex = undefined;

@@ -2,11 +2,11 @@
 
 exports[`OrderAddComponent should save 1`] = `
 Object {
-  "billToAddress": "BILL_TO_ADDRESS",
+  "billToAddress": Object {},
   "billToAddressId": "BILL_TO_ADDRESS_ID",
   "comment": "COMMENT",
   "creditCardApprovalCode": "CREDIT_CARD_APP",
-  "customer": "CUSTOMER",
+  "customer": Object {},
   "customerId": "CUSTOMER_ID",
   "date": Any<Date>,
   "dueDate": Any<Date>,
@@ -19,7 +19,7 @@ Object {
   "purchaseOrderNum": "PURCHASE_ORDER_NUM",
   "revisionNum": 0,
   "shipDate": Any<Date>,
-  "shipToAddress": "SHIP_TO_ADDRESS",
+  "shipToAddress": Object {},
   "shipToAddressId": "SHIP_TO_ADDRESS_ID",
   "shippingType": 1,
   "statusType": 0,

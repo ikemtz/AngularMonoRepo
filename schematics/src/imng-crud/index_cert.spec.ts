@@ -80,7 +80,7 @@ describe(`imng-crud`, () => {
     );
     content = editComponentSpecFile?.content.toString();
     expect(content).toContain(
-      `[${classify(options.name)}Properties.IS_ENABLED]: true,`
+      `import { create${classify(options.name)} } from './add.component.spec';`
     );
   });
 });

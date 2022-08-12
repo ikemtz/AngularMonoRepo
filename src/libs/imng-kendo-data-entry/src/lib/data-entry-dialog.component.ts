@@ -7,7 +7,7 @@ import {
   ContentChild,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 import { DialogButtonsDirective } from './dialog-buttons.directive';
 
@@ -18,8 +18,7 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
       [minWidth]="minWidth ?? width"
       [height]="height"
       (close)="close()"
-      [autoFocusedElement]="autoFocusedElement || ''"
-    >
+      [autoFocusedElement]="autoFocusedElement || ''">
       <kendo-dialog-titlebar class="bg-primary">{{
         dialogTitle
       }}</kendo-dialog-titlebar>
@@ -29,14 +28,15 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
           *ngTemplateOutlet="
             dialogBtnsTemplate || defaultDialogActionsTpl;
             context: dialogActionBtnsCtx
-          "
-        >
+          ">
         </ng-container>
       </kendo-dialog-actions>
     </kendo-dialog>
 
     <ng-template #defaultDialogActionsTpl>
-      <button kendoButton (click)="cancel()" class="btn btn-secondary btn-sm">Cancel</button>
+      <button kendoButton (click)="cancel()" class="btn btn-secondary btn-sm">
+        Cancel
+      </button>
       <button kendoButton (click)="submit()" class="btn btn-primary btn-sm">
         {{ saveButtonText }}
       </button>
@@ -66,7 +66,7 @@ export class DataEntryDialogComponent implements OnInit {
    */
   public dialogBtnsTemplate?: TemplateRef<unknown>;
   public loading$?: Observable<boolean>;
-  public addEditForm?: UntypedFormGroup;
+  public addEditForm?: FormGroup;
   public submitted = false;
   public dialogTitle?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -90,7 +90,8 @@ export class DataEntryDialogComponent implements OnInit {
   public submit(): void {
     this.parentComponent?.onSubmit();
   }
-  get dialogActionBtnsCtx(): object | null { //NOSONAR
+  get dialogActionBtnsCtx(): object | null {
+    //NOSONAR
     return {
       $implicit: { cancel: () => this.cancel(), submit: () => this.submit() },
     };

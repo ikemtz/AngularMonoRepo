@@ -7,7 +7,7 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IPingResult {
-  name?: string;
-  version?: string;
-  build?: string;
+  name?: string | null;
+  version?: string | null;
+  build?: string | null;
 }

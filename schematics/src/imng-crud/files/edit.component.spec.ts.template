@@ -7,8 +7,7 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';<% } %>
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';<% if (!hasObjects) { %>
 import { of } from 'rxjs';<% } %>
 import { mockConsoleError<% if (hasDates || hasObjects) { %>, mockConsoleGroup, mockConsoleWarn<% } %>, readFirst } from 'imng-ngrx-utils/testing';
-<% if (hasObjects) { %>
-import { createMock<%= classify(name) %>Facade } from './add.component.spec';<% } %>
+import { create<%= classify(name) %><% if (hasObjects) { %>, createMock<%= classify(name) %>Facade<% } %> } from './add.component.spec';
 import { <%= classify(name) %>EditComponent } from './edit.component';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
@@ -46,10 +45,7 @@ describe('<%= classify(name) %>EditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue({
-<% swaggerProperties.forEach(function(swaggerProperty)
- {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
-<% }) %>    });
+    component.addEditForm.patchValue(create<%= classify(name) %>());
     let item: I<%= classify(name) %> | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);

@@ -6,7 +6,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { UntypedFormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
@@ -40,7 +40,7 @@ export abstract class BaseDataEntryComponent<
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
   public abstract props: unknown;
-  public addEditForm: UntypedFormGroup = new UntypedFormGroup({});
+  public abstract addEditForm: FormGroup;
   public loading$: Observable<boolean>;
   private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(
     false as boolean,

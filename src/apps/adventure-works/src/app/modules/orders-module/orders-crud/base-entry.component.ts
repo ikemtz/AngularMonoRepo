@@ -1,7 +1,8 @@
 import { OnInit, Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
-import { CustomerProperties, ICustomer, IOrderAddress, OrderAddressProperties, OrderFormGroupFac, OrderProperties, orderStatusTypeValues, shippingTypeValues } from '../../../models/odata';
+import { CustomerProperties, ICustomer, IOrderAddress, IOrderForm, OrderAddressProperties, OrderFormGroupFac, OrderProperties, orderStatusTypeValues, shippingTypeValues } from '../../../models/odata';
 
 import { OrderCrudFacade } from './crud.facade';
 
@@ -20,6 +21,7 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
   public readonly billToAddressFilter$ = new BehaviorSubject('');
   public readonly statusTypes$ = new BehaviorSubject(orderStatusTypeValues);
   public readonly shippingTypes$ = new BehaviorSubject(shippingTypeValues);
+  public addEditForm: FormGroup<IOrderForm>;
 
   constructor(facade: OrderCrudFacade) {
     super(facade);

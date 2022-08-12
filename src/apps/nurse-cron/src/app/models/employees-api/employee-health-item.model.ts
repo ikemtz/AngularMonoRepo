@@ -7,10 +7,10 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IEmployeeHealthItem {
-  id?: string;
-  employeeId?: string;
-  healthItemId?: string;
-  healthItemName?: string;
-  expiresOnUtc?: Date;
-  isEnabled?: boolean;
+  id?: string | null;
+  employeeId?: string | null;
+  healthItemId?: string | null;
+  healthItemName?: string | null;
+  expiresOnUtc?: Date | null;
+  isEnabled?: boolean | null;
 }

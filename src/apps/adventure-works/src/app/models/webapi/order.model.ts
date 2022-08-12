@@ -6,6 +6,7 @@
  * Do not edit.
  */
 
+import { OrderStatusTypes } from './order-status-types.enum';
 import { ShippingTypes } from './shipping-types.enum';
 import { ICustomer } from './customer.model';
 import { IOrderAddress } from './order-address.model';
@@ -13,28 +14,28 @@ import { IOrderLineItem } from './order-line-item.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IOrder {
-  id?: string;
+  id?: string | null;
   orderId?: number;
   revisionNum?: number;
   date?: Date;
   dueDate?: Date;
-  shipDate?: Date;
-  status?: number;
+  shipDate?: Date | null;
   isOnlineOrder?: boolean;
   num?: string;
-  purchaseOrderNum?: string;
+  purchaseOrderNum?: string | null;
   customerId?: string;
-  shipToAddressId?: string;
-  billToAddressId?: string;
-  creditCardApprovalCode?: string;
+  shipToAddressId?: string | null;
+  billToAddressId?: string | null;
+  creditCardApprovalCode?: string | null;
   subTotal?: number;
   taxAmt?: number;
   freight?: number;
   totalDue?: number;
-  comment?: string;
+  comment?: string | null;
+  statusType?: OrderStatusTypes;
   shippingType?: ShippingTypes;
-  customer?: ICustomer;
-  shipToAddress?: IOrderAddress;
-  billToAddress?: IOrderAddress;
-  orderLineItems?: IOrderLineItem[];
+  customer?: ICustomer | null;
+  shipToAddress?: IOrderAddress | null;
+  billToAddress?: IOrderAddress | null;
+  orderLineItems?: IOrderLineItem[] | null;
 }

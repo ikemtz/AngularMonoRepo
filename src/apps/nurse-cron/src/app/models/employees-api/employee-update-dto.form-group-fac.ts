@@ -7,14 +7,41 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IEmployeeCertification } from './employee-certification.model'; //NOSONAR
-import { IEmployeeCompetency } from './employee-competency.model'; //NOSONAR
-import { IEmployeeHealthItem } from './employee-health-item.model'; //NOSONAR
+import { IEmployeeCertificationForm } from './employee-certification.form-group-fac';
+import { IEmployeeCompetencyForm } from './employee-competency.form-group-fac';
+import { IEmployeeHealthItemForm } from './employee-health-item.form-group-fac';
 
-export function EmployeeUpdateDtoFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface IEmployeeUpdateDtoForm {
+  id: FormControl<string | null>;
+  firstName: FormControl<string>;
+  lastName: FormControl<string | null>;
+  email: FormControl<string | null>;
+  hireDate: FormControl<Date | null>;
+  addressLine1: FormControl<string | null>;
+  city: FormControl<string | null>;
+  state: FormControl<string | null>;
+  zip: FormControl<string | null>;
+  homePhone: FormControl<string | null>;
+  mobilePhone: FormControl<string | null>;
+  photo: FormControl<string | null>;
+  birthDate: FormControl<Date | null>;
+  fireDate: FormControl<Date | null>;
+  isEnabled: FormControl<boolean | null>;
+  employeeCertifications: FormArray<FormGroup<IEmployeeCertificationForm>>;
+  employeeCompetencies: FormArray<FormGroup<IEmployeeCompetencyForm>>;
+  employeeHealthItems: FormArray<FormGroup<IEmployeeHealthItemForm>>;
+}
+
+export function EmployeeUpdateDtoFormGroupFac(): FormGroup<IEmployeeUpdateDtoForm> {
+  return new FormGroup<IEmployeeUpdateDtoForm>({
     id: new FormControl<string | null>(null),
-    firstName: new FormControl<string>('', { validators: Validators.compose([Validators.required, Validators.minLength(1)]), nonNullable: true }),
+    firstName: new FormControl<string>('', {
+      validators: Validators.compose([
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      nonNullable: true,
+    }),
     lastName: new FormControl<string | null>(null),
     email: new FormControl<string | null>(null),
     hireDate: new FormControl<Date | null>(null),
@@ -28,8 +55,10 @@ export function EmployeeUpdateDtoFormGroupFac(): FormGroup {
     birthDate: new FormControl<Date | null>(null),
     fireDate: new FormControl<Date | null>(null),
     isEnabled: new FormControl<boolean | null>(null),
-    employeeCertifications: new FormArray([]),
-    employeeCompetencies: new FormArray([]),
-    employeeHealthItems: new FormArray([]),
+    employeeCertifications: new FormArray<
+      FormGroup<IEmployeeCertificationForm>
+    >([]),
+    employeeCompetencies: new FormArray<FormGroup<IEmployeeCompetencyForm>>([]),
+    employeeHealthItems: new FormArray<FormGroup<IEmployeeHealthItemForm>>([]),
   });
 }
