@@ -7,9 +7,9 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IEmployeeCertification {
-  id?: string;
-  employeeId?: string;
-  certificationId?: string;
-  certificationName?: string;
-  expiresOnUtc?: Date;
+  id?: string | null;
+  employeeId?: string | null;
+  certificationId?: string | null;
+  certificationName?: string | null;
+  expiresOnUtc?: Date | null;
 }

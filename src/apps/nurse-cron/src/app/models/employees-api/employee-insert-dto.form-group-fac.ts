@@ -7,9 +7,31 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { IEmployeeCertificationForm } from './employee-certification.form-group-fac';
+import { IEmployeeCompetencyForm } from './employee-competency.form-group-fac';
+import { IEmployeeHealthItemForm } from './employee-health-item.form-group-fac';
 
-export function EmployeeInsertDtoFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface IEmployeeInsertDtoForm {
+  id: FormControl<string | null>;
+  firstName: FormControl<string>;
+  lastName: FormControl<string>;
+  email: FormControl<string | null>;
+  hireDate: FormControl<Date | null>;
+  addressLine1: FormControl<string | null>;
+  city: FormControl<string | null>;
+  state: FormControl<string | null>;
+  zip: FormControl<string | null>;
+  homePhone: FormControl<string | null>;
+  mobilePhone: FormControl<string | null>;
+  photo: FormControl<string | null>;
+  birthDate: FormControl<Date | null>;
+  employeeCertifications: FormArray<FormGroup<IEmployeeCertificationForm>>;
+  employeeCompetencies: FormArray<FormGroup<IEmployeeCompetencyForm>>;
+  employeeHealthItems: FormArray<FormGroup<IEmployeeHealthItemForm>>;
+}
+
+export function EmployeeInsertDtoFormGroupFac(): FormGroup<IEmployeeInsertDtoForm> {
+  return new FormGroup<IEmployeeInsertDtoForm>({
     id: new FormControl<string | null>(null),
     firstName: new FormControl<string>('', {
       validators: Validators.compose([
@@ -35,8 +57,10 @@ export function EmployeeInsertDtoFormGroupFac(): FormGroup {
     mobilePhone: new FormControl<string | null>(null),
     photo: new FormControl<string | null>(null),
     birthDate: new FormControl<Date | null>(null),
-    employeeCertifications: new FormArray([]),
-    employeeCompetencies: new FormArray([]),
-    employeeHealthItems: new FormArray([]),
+    employeeCertifications: new FormArray<
+      FormGroup<IEmployeeCertificationForm>
+    >([]),
+    employeeCompetencies: new FormArray<FormGroup<IEmployeeCompetencyForm>>([]),
+    employeeHealthItems: new FormArray<FormGroup<IEmployeeHealthItemForm>>([]),
   });
 }

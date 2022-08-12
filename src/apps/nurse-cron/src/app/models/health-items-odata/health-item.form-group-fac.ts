@@ -8,8 +8,14 @@
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function HealthItemFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface IHealthItemForm {
+  id: FormControl<string | null>;
+  name: FormControl<string | null>;
+  isEnabled: FormControl<boolean | null>;
+}
+
+export function HealthItemFormGroupFac(): FormGroup<IHealthItemForm> {
+  return new FormGroup<IHealthItemForm>({
     id: new FormControl<string | null>(null),
     name: new FormControl<string | null>(null),
     isEnabled: new FormControl<boolean | null>(null),

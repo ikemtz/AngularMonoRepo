@@ -5,9 +5,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+  readFirst,
+} from 'imng-ngrx-utils/testing';
 
-import { createMockUnitFacade } from './add.component.spec';
+import { createMockUnitFacade, createUnit } from './add.component.spec';
 import { UnitEditComponent } from './edit.component';
 import { UnitCrudFacade } from './crud.facade';
 import { UnitProperties, IUnit } from '../../../models/units-odata';
@@ -24,8 +29,18 @@ describe('UnitEditComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [UnitEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule,],
-      providers: [{ provide: UnitCrudFacade, useValue: createDataEntryMockFacade(createMockUnitFacade()) }],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        DatePickerModule,
+        DropDownsModule,
+      ],
+      providers: [
+        {
+          provide: UnitCrudFacade,
+          useValue: createDataEntryMockFacade(createMockUnitFacade()),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -45,17 +60,9 @@ describe('UnitEditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue({
-      [UnitProperties.ID]: 'ID',
-      [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
-      [UnitProperties.NAME]: 'NAME',
-      [UnitProperties.ROOM_COUNT]: 0,
-      [UnitProperties.DELETED_BY]: 'DELETED_BY',
-      [UnitProperties.DELETED_ON_UTC]: new Date(),
-      [UnitProperties.BUILDING]: 'BUILDING',
-    });
+    component.addEditForm.patchValue(createUnit());
     let item: IUnit | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
@@ -64,7 +71,6 @@ describe('UnitEditComponent', () => {
     expect(item).toMatchSnapshot({
       deletedOnUtc: expect.any(Date),
     });
-
   });
 
   /**
@@ -88,6 +94,21 @@ describe('UnitEditComponent', () => {
   test('should support Building filters', async () => {
     component.handleBuildingFilter('xy');
     const result = await readFirst(component.buildings$);
-    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz', siteName: 'xyz', addressLine1: 'xyz', addressLine2: 'xyz', cityOrMunicipality: 'xyz', stateOrProvidence: 'xyz', postalCode: 'xyz', country: 'xyz', gpsData: 'xyz', deletedBy: 'xyz', deletedOnUtc: 'xyz', }]);
+    expect(result).toStrictEqual([
+      {
+        id: 'xyz',
+        name: 'xyz',
+        siteName: 'xyz',
+        addressLine1: 'xyz',
+        addressLine2: 'xyz',
+        cityOrMunicipality: 'xyz',
+        stateOrProvidence: 'xyz',
+        postalCode: 'xyz',
+        country: 'xyz',
+        gpsData: 'xyz',
+        deletedBy: 'xyz',
+        deletedOnUtc: 'xyz',
+      },
+    ]);
   });
 });

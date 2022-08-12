@@ -1,13 +1,21 @@
 import { OnInit, Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
-import { CompetencyProperties, CompetencyFormGroupFac } from '../../../models/competencies-odata';
+import {
+  CompetencyProperties,
+  CompetencyFormGroupFac,
+  ICompetencyForm,
+} from '../../../models/competencies-odata';
 
 import { CompetencyCrudFacade } from './crud.facade';
 
 @Component({ template: '' })
-export abstract class CompetencyBaseEntryComponent extends BaseDataEntryComponent<CompetencyCrudFacade>
-  implements OnInit {
+export abstract class CompetencyBaseEntryComponent
+  extends BaseDataEntryComponent<CompetencyCrudFacade>
+  implements OnInit
+{
   public readonly props = CompetencyProperties;
+  public addEditForm: FormGroup<ICompetencyForm>;
 
   constructor(facade: CompetencyCrudFacade) {
     super(facade);
@@ -24,5 +32,4 @@ export abstract class CompetencyBaseEntryComponent extends BaseDataEntryComponen
   public cancel(): void {
     this.facade.clearCurrentEntity();
   }
-
 }

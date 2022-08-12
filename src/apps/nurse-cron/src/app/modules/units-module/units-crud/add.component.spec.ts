@@ -5,19 +5,64 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+  readFirst,
+} from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
 import { UnitProperties, IUnit } from '../../../models/units-odata';
 
 import { UnitAddComponent } from './add.component';
 import { UnitCrudFacade } from './crud.facade';
 
+export function createUnit(): Partial<IUnit> {
+  {
+    return {
+      [UnitProperties.ID]: 'ID',
+      [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
+      [UnitProperties.NAME]: 'NAME',
+      [UnitProperties.ROOM_COUNT]: 0,
+      [UnitProperties.DELETED_BY]: 'DELETED_BY',
+      [UnitProperties.DELETED_ON_UTC]: new Date(),
+      [UnitProperties.BUILDING]: {},
+    };
+  }
+}
 export function createMockUnitFacade() {
   return {
     currentEntity$: of({}),
     buildings$: of([
-      { id: 'abc', name: 'abc', siteName: 'abc', addressLine1: 'abc', addressLine2: 'abc', cityOrMunicipality: 'abc', stateOrProvidence: 'abc', postalCode: 'abc', country: 'abc', gpsData: 'abc', deletedBy: 'abc', deletedOnUtc: 'abc', },
-      { id: 'xyz', name: 'xyz', siteName: 'xyz', addressLine1: 'xyz', addressLine2: 'xyz', cityOrMunicipality: 'xyz', stateOrProvidence: 'xyz', postalCode: 'xyz', country: 'xyz', gpsData: 'xyz', deletedBy: 'xyz', deletedOnUtc: 'xyz', },]),
+      {
+        id: 'abc',
+        name: 'abc',
+        siteName: 'abc',
+        addressLine1: 'abc',
+        addressLine2: 'abc',
+        cityOrMunicipality: 'abc',
+        stateOrProvidence: 'abc',
+        postalCode: 'abc',
+        country: 'abc',
+        gpsData: 'abc',
+        deletedBy: 'abc',
+        deletedOnUtc: 'abc',
+      },
+      {
+        id: 'xyz',
+        name: 'xyz',
+        siteName: 'xyz',
+        addressLine1: 'xyz',
+        addressLine2: 'xyz',
+        cityOrMunicipality: 'xyz',
+        stateOrProvidence: 'xyz',
+        postalCode: 'xyz',
+        country: 'xyz',
+        gpsData: 'xyz',
+        deletedBy: 'xyz',
+        deletedOnUtc: 'xyz',
+      },
+    ]),
     loadBuildings: jest.fn(),
   };
 }
@@ -34,8 +79,18 @@ describe('UnitAddComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [UnitAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule,],
-      providers: [{ provide: UnitCrudFacade, useValue: createDataEntryMockFacade(createMockUnitFacade()) }],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        DatePickerModule,
+        DropDownsModule,
+      ],
+      providers: [
+        {
+          provide: UnitCrudFacade,
+          useValue: createDataEntryMockFacade(createMockUnitFacade()),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -59,18 +114,10 @@ describe('UnitAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue({
-      [UnitProperties.ID]: 'ID',
-      [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
-      [UnitProperties.NAME]: 'NAME',
-      [UnitProperties.ROOM_COUNT]: 0,
-      [UnitProperties.DELETED_BY]: 'DELETED_BY',
-      [UnitProperties.DELETED_ON_UTC]: new Date(),
-      [UnitProperties.BUILDING]: 'BUILDING',
-    });
+    component.addEditForm?.patchValue(createUnit());
 
     let item: IUnit | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
@@ -80,7 +127,6 @@ describe('UnitAddComponent', () => {
     expect(item).toMatchSnapshot({
       deletedOnUtc: expect.any(Date),
     });
-
   });
 
   /**
@@ -105,6 +151,6 @@ describe('UnitAddComponent', () => {
   test('should support Building filters', async () => {
     component.handleBuildingFilter('xy');
     const result = await readFirst(component.buildings$);
-    expect(result).toStrictEqual([{ id: 'xyz', name: 'xyz', siteName: 'xyz', addressLine1: 'xyz', addressLine2: 'xyz', cityOrMunicipality: 'xyz', stateOrProvidence: 'xyz', postalCode: 'xyz', country: 'xyz', gpsData: 'xyz', deletedBy: 'xyz', deletedOnUtc: 'xyz', }]);
+    expect(result).toMatchSnapshot();
   });
 });

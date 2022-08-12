@@ -4,7 +4,7 @@ import { isTruthy } from 'imng-ngrx-utils';
 
 const selectIsEditScheduleActive = createSelector(
   schedulesFeature.selectCurrentSchedule,
-  (entity) => isTruthy(entity) && isTruthy(entity?.id));
+  (entity) => isTruthy(entity?.id));
 const selectIsNewScheduleActive = createSelector(
   schedulesFeature.selectCurrentSchedule,
   (entity) => isTruthy(entity) && !isTruthy(entity?.id));

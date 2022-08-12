@@ -8,8 +8,14 @@
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function PingResultFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface IPingResultForm {
+  name: FormControl<string | null>;
+  version: FormControl<string | null>;
+  build: FormControl<string | null>;
+}
+
+export function PingResultFormGroupFac(): FormGroup<IPingResultForm> {
+  return new FormGroup<IPingResultForm>({
     name: new FormControl<string | null>(null),
     version: new FormControl<string | null>(null),
     build: new FormControl<string | null>(null),

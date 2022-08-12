@@ -7,8 +7,8 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ICertification {
-  id?: string;
-  name?: string;
-  isEnabled?: boolean;
-  expiresOnUtc?: Date;
+  id?: string | null;
+  name?: string | null;
+  isEnabled?: boolean | null;
+  expiresOnUtc?: Date | null;
 }

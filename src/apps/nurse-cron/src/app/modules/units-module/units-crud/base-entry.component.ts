@@ -1,37 +1,40 @@
 import { OnInit, Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
-import { UnitProperties, BuildingProperties, IBuilding, UnitFormGroupFac } from '../../../models/units-odata';
+import {
+  UnitProperties,
+  BuildingProperties,
+  IBuilding,
+  UnitFormGroupFac,
+  IUnitForm,
+} from '../../../models/units-odata';
 
 import { UnitCrudFacade } from './crud.facade';
 
 @Component({ template: '' })
-export abstract class UnitBaseEntryComponent extends BaseDataEntryComponent<UnitCrudFacade>
+export abstract class UnitBaseEntryComponent
+  extends BaseDataEntryComponent<UnitCrudFacade>
   implements OnInit {
   public readonly props = UnitProperties;
   public readonly buildingProps = BuildingProperties;
   public readonly buildings$: Observable<IBuilding[]>;
   public readonly buildingFilter$ = new BehaviorSubject('');
+  public addEditForm: FormGroup<IUnitForm>;
 
   constructor(facade: UnitCrudFacade) {
     super(facade);
     this.buildings$ = facade.buildings$.pipe(
-      switchMap(buildings => this.buildingFilter$.pipe(
-        map(buildingFilter => buildingFilter ? buildings
-          .filter(building => (
-            (building.name && building.name.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.siteName && building.siteName.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.addressLine1 && building.addressLine1.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.addressLine2 && building.addressLine2.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.cityOrMunicipality && building.cityOrMunicipality.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.stateOrProvidence && building.stateOrProvidence.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.postalCode && building.postalCode.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.country && building.country.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.gpsData && building.gpsData.toString().toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.deletedBy && building.deletedBy.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.deletedOnUtc && building.deletedOnUtc.toString().toLowerCase().indexOf(buildingFilter) >= 0)
-          )) : buildings
-        ))));
+      switchMap((buildings) => this.buildingFilter$.pipe(
+        map((buildingFilter) => buildingFilter
+          ? buildings.filter((building) => (building.name &&
+            building.name.toLowerCase().indexOf(buildingFilter) >= 0) ||
+            (building.siteName && building.siteName.toLowerCase().indexOf(buildingFilter) >= 0),
+          ) : buildings,
+        ),
+      ),
+      ),
+    );
   }
 
   public ngOnInit(): void {
@@ -49,7 +52,8 @@ export abstract class UnitBaseEntryComponent extends BaseDataEntryComponent<Unit
         BuildingProperties.COUNTRY,
         BuildingProperties.GPS_DATA,
         BuildingProperties.DELETED_BY,
-        BuildingProperties.DELETED_ON_UTC,]
+        BuildingProperties.DELETED_ON_UTC,
+      ],
     });
   }
 

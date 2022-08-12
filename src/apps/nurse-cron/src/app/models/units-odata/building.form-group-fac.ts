@@ -8,8 +8,23 @@
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
 
-export function BuildingFormGroupFac(): FormGroup {
-  return new FormGroup({
+export interface IBuildingForm {
+  id: FormControl<string | null>;
+  name: FormControl<string>;
+  siteName: FormControl<string>;
+  addressLine1: FormControl<string>;
+  addressLine2: FormControl<string | null>;
+  cityOrMunicipality: FormControl<string>;
+  stateOrProvidence: FormControl<string>;
+  postalCode: FormControl<string>;
+  country: FormControl<string | null>;
+  gpsData: FormControl<string | null>;
+  deletedBy: FormControl<string | null>;
+  deletedOnUtc: FormControl<Date | null>;
+}
+
+export function BuildingFormGroupFac(): FormGroup<IBuildingForm> {
+  return new FormGroup<IBuildingForm>({
     id: new FormControl<string | null>(null),
     name: new FormControl<string>('', {
       validators: Validators.compose([
