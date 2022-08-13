@@ -1,7 +1,7 @@
 import { IDataEntryFacade } from './data-entry-facade';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 import { of } from 'rxjs';
-import { Validators, FormControl, FormGroup } from '@angular/forms';
+import { Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Subscribable } from 'imng-ngrx-utils';
 import { mockConsoleError } from 'imng-ngrx-utils/testing';
 
@@ -68,30 +68,56 @@ describe('MockBaseComponent', () => {
     expect(component.isDataInvalid()).toBe(true);
   });
 
+  it('handle required formControlErrors get', () => {
+    component.onSubmit();
+    expect(component.getFormErrors()).toStrictEqual([]);
+    expect(component.isDataInvalid()).toBe(false);
+
+    component.addEditForm?.patchValue({ subItemForm: { id: '😎', minLenVal: null } });
+    component.onSubmit();
+    const result = component.formMinLengthError('minLenVal');
+    expect(result).toMatchSnapshot();
+    expect(component.isDataInvalid()).toBe(true);
+  });
+
   it('should handle negative scenarios', () => {
     expect(component.formControlErrors('bad-name')).toBeUndefined();
     expect(component.formMinLengthError('bad-name')).toBeUndefined();
   });
 });
-
+export interface ISubItemForm {
+  id: FormControl<string | null>;
+  minLenVal: FormControl<string | null>;
+}
+export interface IItemForm extends ISubItemForm {
+  subItemForm: FormGroup<ISubItemForm>;
+  subItemForms: FormArray<FormGroup<ISubItemForm>>;
+}
 export class MockBaseComponent
   extends BaseDataEntryComponent<MockFacade>
-  implements Subscribable
-{
-  public addEditForm: FormGroup<{
-    id: FormControl<string | null>;
-    minLenVal: FormControl<string | null>;
-  }> = new FormGroup({
-    id: new FormControl<string>(''),
-    minLenVal: new FormControl<string>('', Validators.minLength(20)),
-  });
+  implements Subscribable {
+
+  public addEditForm: FormGroup<IItemForm> = this.formGroupFac();
   dialogTitle = '';
   props = {};
   save = jest.fn();
   public initForm(): void {
-    this.addEditForm = new FormGroup({
+    this.addEditForm = this.formGroupFac();
+  }
+
+  public subItemFormGroupFac() {
+    return new FormGroup<ISubItemForm>({
       id: new FormControl<string>(''),
-      minLenVal: new FormControl<string>('', Validators.minLength(20)),
+      minLenVal: new FormControl<string>('asbasdkfjalksjdflkjasdflkjadslfkjads',
+        { validators: Validators.compose([Validators.required, Validators.minLength(20)]), nonNullable: true }),
+    });
+  }
+  public formGroupFac() {
+    return new FormGroup<IItemForm>({
+      id: new FormControl<string>(''),
+      minLenVal: new FormControl<string>('asbasdkfjalksjdflkjasdflkjadslfkjads', Validators.minLength(20)),
+      subItemForm: this.subItemFormGroupFac(),
+      subItemForms: new FormArray([this.subItemFormGroupFac()])
     });
   }
 }
