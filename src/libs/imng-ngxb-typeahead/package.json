@@ -12,7 +12,7 @@
     "@angular/forms": ">=13.x",
     "@angular/platform-browser": ">=13.x",
     "@progress/kendo-data-query": ">=1.x",
-    "ngx-bootstrap": ">=8.x",
+    "ngx-bootstrap": ">=9.x",
     "imng-ngrx-utils": "*",
     "rxjs": "*"
   },
