@@ -6,7 +6,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
+import { AbstractControl, ValidationErrors, FormGroup, FormArray } from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
@@ -29,8 +29,7 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
 @Directive()
 export abstract class BaseDataEntryComponent<
   FACADE extends IBaseDataEntryFacade,
-> implements OnDestroy, Subscribable
-{
+  > implements OnDestroy, Subscribable {
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
   public readonly MinLengthError = 'minlength';
@@ -68,17 +67,18 @@ export abstract class BaseDataEntryComponent<
     this.closeForm();
   }
 
-  public onSubmit(): void {
+  public onSubmit(): boolean {
     this._submitted$.next(true);
 
     // stop here if form is invalid
     if (!this.addEditForm.valid) {
       console.error('form validation errors.'); //NOSONAR
       console.error(JSON.stringify(this.getFormErrors())); //NOSONAR
-      return;
+      return false;
     }
     this.save();
     this.closeForm();
+    return true;
   }
 
   public isDataInvalid(): boolean {
@@ -86,23 +86,34 @@ export abstract class BaseDataEntryComponent<
   }
 
   // convenience getter for easy access to form fields
-  public formControl(controlName: string): AbstractControl {
-    return this.addEditForm.controls[controlName];
+  public formControl(controlName: string, controls: { [key: string]: AbstractControl; } = this.addEditForm.controls): AbstractControl {
+    return controls[controlName];
   }
-  public formControlErrors(controlName: string): ValidationErrors | null {
-    return this.formControl(controlName)?.errors;
+
+  public formControlErrors(control: string | AbstractControl, controls: { [key: string]: AbstractControl; } | AbstractControl[] = this.addEditForm.controls): ValidationErrors | null {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const tempControl = typeof control === 'string' ? (controls as any)[control] : control;
+    if (tempControl?.valid && !tempControl?.errors) {
+      return null;
+    }
+    return tempControl?.errors;
   }
   public formMinLengthError(
     controlName: string,
-  ): { requiredLength: number; actualLength: number } | null {
+  ): { requiredLength: number; actualLength: number; } | null {
     return this.formControlErrors(controlName)?.[this.MinLengthError];
   }
-  public getFormErrors(): { control: string; error: ValidationErrors }[] {
-    const errors: { control: string; error: ValidationErrors }[] = [];
-    for (const control of Object.keys(this.addEditForm.controls)) {
-      const error = this.formControlErrors(control);
+  public getFormErrors(controls: { [key: string]: AbstractControl; } | AbstractControl[] = this.addEditForm.controls, parentControlName?: string): { controlName: string; error: ValidationErrors; }[] {
+    const errors: { controlName: string; error: ValidationErrors; }[] = [];
+    for (const controlName of Object.keys(controls)) {
+      const control = (controls as never)[controlName];
+      const error = this.formControlErrors(control, controls);
       if (error) {
-        errors.push({ control, error });
+        errors.push({ controlName: parentControlName ? `${parentControlName}.${controlName}` : controlName, error });
+      }
+      if ((control as FormArray)?.controls) {
+
+        errors.push(...this.getFormErrors((control as FormArray).controls, parentControlName ? `${parentControlName}.${controlName}` : controlName));
       }
     }
     return errors;
