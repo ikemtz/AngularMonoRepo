@@ -3,7 +3,7 @@
 exports[`MockBaseComponent handle formControlErrors get 1`] = `
 Array [
   Object {
-    "control": "id",
+    "controlName": "id",
     "error": Object {
       "happy": "😎",
     },
@@ -17,3 +17,5 @@ Object {
   "requiredLength": 20,
 }
 `;
+
+exports[`MockBaseComponent handle required formControlErrors get 1`] = `undefined`;
