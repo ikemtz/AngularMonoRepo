@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default {
   displayName: 'imng-nrsrx-client-utils',
 
