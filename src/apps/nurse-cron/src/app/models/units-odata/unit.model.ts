@@ -16,5 +16,5 @@ export interface IUnit {
   roomCount?: number;
   deletedBy?: string | null;
   deletedOnUtc?: Date | null;
-  building?: IBuilding | null;
+  building?: Partial<IBuilding>;
 }

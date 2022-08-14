@@ -14,7 +14,7 @@ export const reloadSalesAgentsSuccess = createPayloadAction<{ customerId: string
     '[SalesAgents] Reload SalesAgents Success');
 
 export const deleteSalesAgentRequest = createPayloadAction<{ customerId: string; salesAgent: ISalesAgent; }>(
-    '[SalesAgents] Delete SalesAgent Request'); 
+    '[SalesAgents] Delete SalesAgent Request');
 "
 `;
 
@@ -84,7 +84,7 @@ export class SalesAgentEffects {
   deleteSalesAgentEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(salesAgentActionTypes.deleteSalesAgentRequest),
-      switchMap((action: ReturnType<typeof salesAgentActionTypes.deleteSalesAgentRequest>) => 
+      switchMap((action: ReturnType<typeof salesAgentActionTypes.deleteSalesAgentRequest>) =>
         this.apiService.delete(action.payload.salesAgent).pipe(
           map(() => salesAgentActionTypes.reloadSalesAgentsRequest(action.payload.customerId)),
           handleEffectError(action))));
@@ -167,14 +167,7 @@ import { SalesAgentEffects } from '../+state/sales-agent.effects';
 import { customersFeature } from '../+state/customer.reducer';
 import { SalesAgentListFacade } from './list.facade';
 import { CustomerEffects } from '../+state/customer.effects';
-import { createCustomer } from '../customers-list/list.facade.spec';
 import { environment } from '../../../../environments/environment';
-
-export const createSalesAgent = () => <ISalesAgent>{
-  [SalesAgentProperties.ID]: 0,
-  [SalesAgentProperties.NAME]: 'NAME',
-  [SalesAgentProperties.LOGIN_ID]: 'LOGIN_ID',
-};
 
 describe('SalesAgentListFacade', () => {
   let facade: SalesAgentListFacade;
@@ -193,7 +186,7 @@ describe('SalesAgentListFacade', () => {
         ],
         providers: [
           SalesAgentListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createSalesAgent()]))) } },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestSalesAgent()]))) } },
         ],
       })
       class CustomFeatureModule {}
@@ -222,7 +215,7 @@ describe('SalesAgentListFacade', () => {
       expect(list?.data.length).toBe(0);
       store.dispatch(customerActionTypes.loadCustomersSuccess(
         createODataResult([
-          { ...createCustomer(), id: 'CUSTOMER_ID' }])));
+          { ...createTestCustomer(), id: 'CUSTOMER_ID' }])));
       facade.loadEntities({});
 
       list = await readFirst(facade.gridData$);
@@ -253,7 +246,7 @@ describe('SalesAgentListFacade', () => {
       expect(isloading).toBe(true);
       store.dispatch(customerActionTypes.loadCustomersSuccess(
         createODataResult([
-          { ...createCustomer(), id: 'CUSTOMER_ID' }])));
+          { ...createTestCustomer(), id: 'CUSTOMER_ID' }])));
       facade.reloadEntities();
 
       list = await readFirst(facade.gridData$);
@@ -273,7 +266,7 @@ describe('SalesAgentListFacade', () => {
 
       store.dispatch(customerActionTypes.loadCustomersSuccess(
         createODataResult([
-          { ...createCustomer(), id: 'CUSTOMER_ID' }])));
+          { ...createTestCustomer(), id: 'CUSTOMER_ID' }])));
 
       facade.loadEntities(filteringState);
 
@@ -288,14 +281,14 @@ describe('SalesAgentListFacade', () => {
     /**
      * Use \`salesAgentsLoaded\` to manually submit list for state management
      */
-    test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
+    test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(0);
       store.dispatch(customerActionTypes.loadCustomersSuccess(
         createODataResult([
-          { ...createCustomer(), id: 'CUSTOMER_ID' }])));
+          { ...createTestCustomer(), id: 'CUSTOMER_ID' }])));
       store.dispatch(salesAgentActionTypes.loadSalesAgentsSuccess(
-        { customerId: 'CUSTOMER_ID', odataResult: createODataResult([createSalesAgent(), createSalesAgent()]) }));
+        { customerId: 'CUSTOMER_ID', odataResult: createODataResult([createTestSalesAgent(), createTestSalesAgent()]) }));
 
       list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(2);
@@ -362,7 +355,6 @@ import { createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { SalesAgentListComponent } from './list.component';
-import { createSalesAgent } from './list.facade.spec';
 import { SalesAgentListFacade } from './list.facade';
 
 describe('SalesAgentListComponent', () => {
@@ -403,7 +395,7 @@ describe('SalesAgentListComponent', () => {
   });
 
   test('it should handle DeleteItem', () => {
-    const item = createSalesAgent();
+    const item = createTestSalesAgent();
     component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
     expect(listFacade.deleteExistingEntity).toBeCalledWith(item);

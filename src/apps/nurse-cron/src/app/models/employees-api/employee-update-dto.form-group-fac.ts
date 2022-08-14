@@ -7,30 +7,10 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IEmployeeCertificationForm } from './employee-certification.form-group-fac';
-import { IEmployeeCompetencyForm } from './employee-competency.form-group-fac';
-import { IEmployeeHealthItemForm } from './employee-health-item.form-group-fac';
-
-export interface IEmployeeUpdateDtoForm {
-  id: FormControl<string | null>;
-  firstName: FormControl<string>;
-  lastName: FormControl<string | null>;
-  email: FormControl<string | null>;
-  hireDate: FormControl<Date | null>;
-  addressLine1: FormControl<string | null>;
-  city: FormControl<string | null>;
-  state: FormControl<string | null>;
-  zip: FormControl<string | null>;
-  homePhone: FormControl<string | null>;
-  mobilePhone: FormControl<string | null>;
-  photo: FormControl<string | null>;
-  birthDate: FormControl<Date | null>;
-  fireDate: FormControl<Date | null>;
-  isEnabled: FormControl<boolean | null>;
-  employeeCertifications: FormArray<FormGroup<IEmployeeCertificationForm>>;
-  employeeCompetencies: FormArray<FormGroup<IEmployeeCompetencyForm>>;
-  employeeHealthItems: FormArray<FormGroup<IEmployeeHealthItemForm>>;
-}
+import { IEmployeeUpdateDtoForm } from './employee-update-dto.form';
+import { IEmployeeCertificationForm } from './employee-certification.form';
+import { IEmployeeCompetencyForm } from './employee-competency.form';
+import { IEmployeeHealthItemForm } from './employee-health-item.form';
 
 export function EmployeeUpdateDtoFormGroupFac(): FormGroup<IEmployeeUpdateDtoForm> {
   return new FormGroup<IEmployeeUpdateDtoForm>({

@@ -7,35 +7,10 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IEmployeeCertificationForm } from './employee-certification.form-group-fac';
-import { IEmployeeCompetencyForm } from './employee-competency.form-group-fac';
-import { IEmployeeHealthItemForm } from './employee-health-item.form-group-fac';
-
-export interface IEmployeeForm {
-  id: FormControl<string | null>;
-  lastName: FormControl<string>;
-  firstName: FormControl<string>;
-  birthDate: FormControl<Date | null>;
-  mobilePhone: FormControl<string | null>;
-  homePhone: FormControl<string | null>;
-  photo: FormControl<string | null>;
-  email: FormControl<string>;
-  addressLine1: FormControl<string | null>;
-  addressLine2: FormControl<string | null>;
-  city: FormControl<string | null>;
-  state: FormControl<string | null>;
-  zip: FormControl<string | null>;
-  isEnabled: FormControl<boolean>;
-  hireDate: FormControl<Date>;
-  fireDate: FormControl<Date | null>;
-  totalHoursOfService: FormControl<number | null>;
-  certificationCount: FormControl<number>;
-  competencyCount: FormControl<number>;
-  healthItemCount: FormControl<number>;
-  employeeCertifications: FormArray<FormGroup<IEmployeeCertificationForm>>;
-  employeeCompetencies: FormArray<FormGroup<IEmployeeCompetencyForm>>;
-  employeeHealthItems: FormArray<FormGroup<IEmployeeHealthItemForm>>;
-}
+import { IEmployeeForm } from './employee.form';
+import { IEmployeeCertificationForm } from './employee-certification.form';
+import { IEmployeeCompetencyForm } from './employee-competency.form';
+import { IEmployeeHealthItemForm } from './employee-health-item.form';
 
 export function EmployeeFormGroupFac(): FormGroup<IEmployeeForm> {
   return new FormGroup<IEmployeeForm>({

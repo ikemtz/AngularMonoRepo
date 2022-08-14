@@ -19,5 +19,5 @@ export interface ICustomerAddress {
   stateProvince?: string;
   countryRegion?: string;
   postalCode?: string;
-  customer?: ICustomer | null;
+  customer?: Partial<ICustomer>;
 }

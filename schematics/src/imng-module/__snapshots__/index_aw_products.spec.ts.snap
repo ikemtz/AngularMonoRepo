@@ -45,26 +45,7 @@ import { of } from 'rxjs';
 import { ProductAddComponent } from './add.component';
 import { ProductCrudFacade } from './crud.facade';
 
-export function createProduct(): Partial<IProduct> {
-    return {
-      [ProductProperties.ID]: 'ID',
-      [ProductProperties.NAME]: 'NAME',
-      [ProductProperties.NUM]: 'NUM',
-      [ProductProperties.COLOR]: 'COLOR',
-      [ProductProperties.STANDARD_COST]: 0,
-      [ProductProperties.LIST_PRICE]: 0,
-      [ProductProperties.SIZE]: 'SIZE',
-      [ProductProperties.WEIGHT]: 0,
-      [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
-      [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
-      [ProductProperties.SELL_START_DATE]: new Date(),
-      [ProductProperties.SELL_END_DATE]: new Date(),
-      [ProductProperties.DISCONTINUED_DATE]: new Date(),
-      [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
-      [ProductProperties.PRODUCT_MODEL]: {},
-      [ProductProperties.PRODUCT_CATEGORY]: {},
-    };
-}
+
 export function createMockProductFacade() {
   return {
     currentEntity$: of({}),
@@ -116,7 +97,9 @@ describe('ProductAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue(createProduct());
+    component.addEditForm?.patchValue(createTestProduct());
+    component.addEditForm.controls.productModel?.patchValue(createTestProductModel());
+    component.addEditForm.controls.productCategory?.patchValue(createTestProductCategory());
 
     let item: IProduct | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
@@ -292,26 +275,6 @@ import { ProductCrudFacade } from './crud.facade';
 import { ProductApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
 
-export const createProduct = () => 
-  <IProduct>{
-    [ProductProperties.ID]: 'ID',
-    [ProductProperties.NAME]: 'NAME',
-    [ProductProperties.NUM]: 'NUM',
-    [ProductProperties.COLOR]: 'COLOR',
-    [ProductProperties.STANDARD_COST]: 0,
-    [ProductProperties.LIST_PRICE]: 0,
-    [ProductProperties.SIZE]: 'SIZE',
-    [ProductProperties.WEIGHT]: 0,
-    [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
-    [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
-    [ProductProperties.SELL_START_DATE]: new Date(),
-    [ProductProperties.SELL_END_DATE]: new Date(),
-    [ProductProperties.DISCONTINUED_DATE]: new Date(),
-    [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
-    [ProductProperties.PRODUCT_MODEL]: {},
-    [ProductProperties.PRODUCT_CATEGORY]: {},
-    };
-
 describe('ProductCrudFacade', () => {
   let facade: ProductCrudFacade;
   let store: Store;
@@ -330,7 +293,7 @@ describe('ProductCrudFacade', () => {
         providers: [
           ProductCrudFacade,
           ProductApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createProduct()]))) } },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestProduct()]))) } },
         ],
       })
       class CustomFeatureModule {}
@@ -579,7 +542,7 @@ import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
-import { createProduct, createMockProductFacade } from './add.component.spec';
+import { createMockProductFacade } from './add.component.spec';
 import { ProductEditComponent } from './edit.component';
 import { ProductCrudFacade } from './crud.facade';
 
@@ -616,7 +579,7 @@ describe('ProductEditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue(createProduct());
+    component.addEditForm.patchValue(createTestProduct());
     let item: IProduct | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
@@ -741,7 +704,7 @@ export class ProductEffects {
       ofType(productActionTypes.reloadProductsRequest),
       concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IProduct>(environment.odataEnpoints.products, odataState, { 
+        .fetch<IProduct>(environment.odataEnpoints.products, odataState, {
           bustCache: true,
           dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
         })
@@ -1025,7 +988,7 @@ export class ProductListComponent extends KendoODataBasedComponent<IProduct, Pro
   public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
-  constructor(facade: ProductListFacade, 
+  constructor(facade: ProductListFacade,
     public readonly crudFacade: ProductCrudFacade,
     router: Router) {
     super(facade, initialGridState, router);
@@ -1130,14 +1093,14 @@ export const productsFeature = createFeature({
   name: PRODUCTS_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(productActionTypes.loadProductsRequest, 
+    on(productActionTypes.loadProductsRequest,
       (state, { payload }) : State => ({
         ...state,
         gridODataState: payload,
         loading: true,
         error: null, })),
     on(productActionTypes.loadProductsSuccess,
-      productActionTypes.reloadProductsSuccess, 
+      productActionTypes.reloadProductsSuccess,
       (state, { payload }) : State => ({
         ...state,
         loading: false,
@@ -1147,10 +1110,10 @@ export const productsFeature = createFeature({
         }),
         gridData: payload,
         error: null, })),
-    on(productActionTypes.setCurrentProduct, 
-      (state, { payload }) : State => 
+    on(productActionTypes.setCurrentProduct,
+      (state, { payload }) : State =>
         ({ ...state, currentProduct: payload })),
-    on(productActionTypes.clearCurrentProduct, 
+    on(productActionTypes.clearCurrentProduct,
       (state) : State => ({ ...state, currentProduct: undefined })),
     on(productActionTypes.saveProductRequest,
       productActionTypes.updateProductRequest,

@@ -12,5 +12,5 @@ import { IProduct } from './product.model';
 export interface IProductCategory {
   id?: string | null;
   name?: string;
-  products?: IProduct[] | null;
+  products?: Partial<IProduct[]>;
 }

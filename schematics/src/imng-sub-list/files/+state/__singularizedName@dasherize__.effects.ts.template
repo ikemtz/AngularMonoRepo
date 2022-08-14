@@ -45,7 +45,7 @@ export class <%= classify(singularizedName) %>Effects {
   delete<%= classify(singularizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request),
-      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) => 
+      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request>) =>
         this.apiService.delete(action.payload.<%= camelize(singularizedName) %>).pipe(
           map(() => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request(action.payload.<%= camelize(parentName) %>Id)),
           handleEffectError(action))));

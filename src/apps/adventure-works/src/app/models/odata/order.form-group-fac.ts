@@ -7,38 +7,14 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
+import { IOrderForm } from './order.form';
 import { OrderStatusTypes } from './order-status-types.enum';
 import { ShippingTypes } from './shipping-types.enum';
-import { ICustomer } from './customer.model';
-import { IOrderAddress } from './order-address.model';
-import { IOrderLineItemForm } from './order-line-item.form-group-fac';
-
-export interface IOrderForm {
-  id: FormControl<string | null>;
-  orderId: FormControl<number>;
-  revisionNum: FormControl<number>;
-  date: FormControl<Date>;
-  dueDate: FormControl<Date>;
-  shipDate: FormControl<Date | null>;
-  isOnlineOrder: FormControl<boolean>;
-  num: FormControl<string>;
-  purchaseOrderNum: FormControl<string | null>;
-  customerId: FormControl<string>;
-  shipToAddressId: FormControl<string | null>;
-  billToAddressId: FormControl<string | null>;
-  creditCardApprovalCode: FormControl<string | null>;
-  subTotal: FormControl<number>;
-  taxAmt: FormControl<number>;
-  freight: FormControl<number>;
-  totalDue: FormControl<number>;
-  comment: FormControl<string | null>;
-  statusType: FormControl<OrderStatusTypes>;
-  shippingType: FormControl<ShippingTypes>;
-  customer: FormControl<ICustomer | null>;
-  shipToAddress: FormControl<IOrderAddress | null>;
-  billToAddress: FormControl<IOrderAddress | null>;
-  orderLineItems: FormArray<FormGroup<IOrderLineItemForm>>;
-}
+import { ICustomerForm } from './customer.form';
+import { CustomerFormGroupFac } from './customer.form-group-fac';
+import { IOrderAddressForm } from './order-address.form';
+import { OrderAddressFormGroupFac } from './order-address.form-group-fac';
+import { IOrderLineItemForm } from './order-line-item.form';
 
 export function OrderFormGroupFac(): FormGroup<IOrderForm> {
   return new FormGroup<IOrderForm>({
@@ -110,9 +86,13 @@ export function OrderFormGroupFac(): FormGroup<IOrderForm> {
       validators: Validators.required,
       nonNullable: true,
     }),
-    customer: new FormControl<ICustomer | null>(null),
-    shipToAddress: new FormControl<IOrderAddress | null>(null),
-    billToAddress: new FormControl<IOrderAddress | null>(null),
+    customer: new FormGroup<ICustomerForm>(CustomerFormGroupFac().controls),
+    shipToAddress: new FormGroup<IOrderAddressForm>(
+      OrderAddressFormGroupFac().controls,
+    ),
+    billToAddress: new FormGroup<IOrderAddressForm>(
+      OrderAddressFormGroupFac().controls,
+    ),
     orderLineItems: new FormArray<FormGroup<IOrderLineItemForm>>([]),
   });
 }

@@ -7,15 +7,7 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-
-export interface IEmployeeHealthItemForm {
-  id: FormControl<string | null>;
-  employeeId: FormControl<string | null>;
-  healthItemId: FormControl<string | null>;
-  healthItemName: FormControl<string | null>;
-  expiresOnUtc: FormControl<Date | null>;
-  isEnabled: FormControl<boolean | null>;
-}
+import { IEmployeeHealthItemForm } from './employee-health-item.form';
 
 export function EmployeeHealthItemFormGroupFac(): FormGroup<IEmployeeHealthItemForm> {
   return new FormGroup<IEmployeeHealthItemForm>({

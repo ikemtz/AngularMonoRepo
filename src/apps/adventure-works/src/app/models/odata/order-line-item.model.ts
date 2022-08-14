@@ -18,6 +18,6 @@ export interface IOrderLineItem {
   unitPrice?: number;
   unitPriceDiscount?: number;
   lineTotal?: number;
-  order?: IOrder | null;
-  product?: IProduct | null;
+  order?: Partial<IOrder>;
+  product?: Partial<IProduct>;
 }

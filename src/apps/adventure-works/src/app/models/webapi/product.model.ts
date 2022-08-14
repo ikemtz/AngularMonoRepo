@@ -26,7 +26,7 @@ export interface IProduct {
   sellEndDate?: Date | null;
   discontinuedDate?: Date | null;
   thumbNailPhoto?: string | null;
-  productModel?: IProductModel | null;
-  productCategory?: IProductCategory | null;
-  orderLineItems?: IOrderLineItem[] | null;
+  productModel?: Partial<IProductModel>;
+  productCategory?: Partial<IProductCategory>;
+  orderLineItems?: Partial<IOrderLineItem[]>;
 }

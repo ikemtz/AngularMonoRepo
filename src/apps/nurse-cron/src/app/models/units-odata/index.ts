@@ -7,8 +7,12 @@
  */
 /* tslint:disable */
 export * from './building.form-group-fac';
+export * from './building.form';
 export * from './building.model';
 export * from './building.properties';
+export * from './building.test-obj-fac';
 export * from './unit.form-group-fac';
+export * from './unit.form';
 export * from './unit.model';
 export * from './unit.properties';
+export * from './unit.test-obj-fac';

@@ -7,5 +7,7 @@
  */
 /* tslint:disable */
 export * from './competency.form-group-fac';
+export * from './competency.form';
 export * from './competency.model';
 export * from './competency.properties';
+export * from './competency.test-obj-fac';
