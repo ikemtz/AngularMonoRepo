@@ -12,24 +12,11 @@ import {
   readFirst,
 } from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
-import { UnitProperties, IUnit } from '../../../models/units-odata';
+import { createTestUnit, IUnit, createTestBuilding } from '../../../models/units-odata';
 
 import { UnitAddComponent } from './add.component';
 import { UnitCrudFacade } from './crud.facade';
 
-export function createUnit(): Partial<IUnit> {
-  {
-    return {
-      [UnitProperties.ID]: 'ID',
-      [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
-      [UnitProperties.NAME]: 'NAME',
-      [UnitProperties.ROOM_COUNT]: 0,
-      [UnitProperties.DELETED_BY]: 'DELETED_BY',
-      [UnitProperties.DELETED_ON_UTC]: new Date(),
-      [UnitProperties.BUILDING]: {},
-    };
-  }
-}
 export function createMockUnitFacade() {
   return {
     currentEntity$: of({}),
@@ -114,7 +101,8 @@ describe('UnitAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue(createUnit());
+    component.addEditForm.patchValue(createTestUnit());
+    component.addEditForm.controls.building?.patchValue(createTestBuilding());
 
     let item: IUnit | undefined;
     facade.saveNewEntity = jest.fn((x) => (item = x));
@@ -126,6 +114,9 @@ describe('UnitAddComponent', () => {
 
     expect(item).toMatchSnapshot({
       deletedOnUtc: expect.any(Date),
+      building: {
+        deletedOnUtc: expect.any(Date),
+      },
     });
   });
 

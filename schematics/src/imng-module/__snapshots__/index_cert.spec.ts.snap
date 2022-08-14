@@ -22,14 +22,14 @@ export const certificationsFeature = createFeature({
   name: CERTIFICATIONS_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(certificationActionTypes.loadCertificationsRequest, 
+    on(certificationActionTypes.loadCertificationsRequest,
       (state, { payload }) : State => ({
         ...state,
         gridODataState: payload,
         loading: true,
         error: null, })),
     on(certificationActionTypes.loadCertificationsSuccess,
-      certificationActionTypes.reloadCertificationsSuccess, 
+      certificationActionTypes.reloadCertificationsSuccess,
       (state, { payload }) : State => ({
         ...state,
         loading: false,
@@ -39,10 +39,10 @@ export const certificationsFeature = createFeature({
         }),
         gridData: payload,
         error: null, })),
-    on(certificationActionTypes.setCurrentCertification, 
-      (state, { payload }) : State => 
+    on(certificationActionTypes.setCurrentCertification,
+      (state, { payload }) : State =>
         ({ ...state, currentCertification: payload })),
-    on(certificationActionTypes.clearCurrentCertification, 
+    on(certificationActionTypes.clearCurrentCertification,
       (state) : State => ({ ...state, currentCertification: undefined })),
     on(certificationActionTypes.saveCertificationRequest,
       certificationActionTypes.updateCertificationRequest,

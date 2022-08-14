@@ -7,5 +7,7 @@
  */
 /* tslint:disable */
 export * from './certification.form-group-fac';
+export * from './certification.form';
 export * from './certification.model';
 export * from './certification.properties';
+export * from './certification.test-obj-fac';

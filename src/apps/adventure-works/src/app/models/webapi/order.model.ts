@@ -34,8 +34,8 @@ export interface IOrder {
   comment?: string | null;
   statusType?: OrderStatusTypes;
   shippingType?: ShippingTypes;
-  customer?: ICustomer | null;
-  shipToAddress?: IOrderAddress | null;
-  billToAddress?: IOrderAddress | null;
-  orderLineItems?: IOrderLineItem[] | null;
+  customer?: Partial<ICustomer>;
+  shipToAddress?: Partial<IOrderAddress>;
+  billToAddress?: Partial<IOrderAddress>;
+  orderLineItems?: Partial<IOrderLineItem[]>;
 }

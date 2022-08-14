@@ -19,7 +19,7 @@ export interface ICustomer {
   salesAgentId?: number;
   emailAddress?: string | null;
   phone?: string | null;
-  salesAgent?: ISalesAgent | null;
-  customerAddresses?: ICustomerAddress[] | null;
-  orders?: IOrder[] | null;
+  salesAgent?: Partial<ISalesAgent>;
+  customerAddresses?: Partial<ICustomerAddress[]>;
+  orders?: Partial<IOrder[]>;
 }

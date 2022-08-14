@@ -13,5 +13,5 @@ export interface ISalesAgent {
   id?: number | null;
   name?: string;
   loginId?: string;
-  customers?: ICustomer[] | null;
+  customers?: Partial<ICustomer[]>;
 }

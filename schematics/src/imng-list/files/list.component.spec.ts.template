@@ -5,7 +5,6 @@ import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kend
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
-import { create<%= classify(singularizedName) %> } from './list.facade.spec';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
 
@@ -44,7 +43,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   });
 
   test('it should handle DetailExpanded', () => {
-    const dataItem = create<%= classify(name) %>();
+    const dataItem = createTest<%= classify(name) %>();
     component.detailExpanded({ dataItem } as never);
     expect(component.currentItem).toEqual(dataItem);
   });
@@ -61,14 +60,14 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   });
 
   test('it should handle EditItem', () => {
-    const item = create<%= classify(singularizedName) %>();
+    const item = createTest<%= classify(singularizedName) %>();
     component.editItem(item);
     expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
     expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
   });
 
   test('it should handle DeleteItem', () => {
-    const item = create<%= classify(singularizedName) %>();
+    const item = createTest<%= classify(singularizedName) %>();
     component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
     expect(listFacade.deleteExistingEntity).toBeCalledWith(item);

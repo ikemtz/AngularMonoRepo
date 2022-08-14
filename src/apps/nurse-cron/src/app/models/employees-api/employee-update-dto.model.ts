@@ -27,7 +27,7 @@ export interface IEmployeeUpdateDto {
   birthDate?: Date | null;
   fireDate?: Date | null;
   isEnabled?: boolean | null;
-  employeeCertifications?: IEmployeeCertification[] | null;
-  employeeCompetencies?: IEmployeeCompetency[] | null;
-  employeeHealthItems?: IEmployeeHealthItem[] | null;
+  employeeCertifications?: Partial<IEmployeeCertification[]>;
+  employeeCompetencies?: Partial<IEmployeeCompetency[]>;
+  employeeHealthItems?: Partial<IEmployeeHealthItem[]>;
 }

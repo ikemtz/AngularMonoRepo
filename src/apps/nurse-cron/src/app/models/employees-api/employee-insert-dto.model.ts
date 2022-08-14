@@ -25,7 +25,7 @@ export interface IEmployeeInsertDto {
   mobilePhone?: string | null;
   photo?: string | null;
   birthDate?: Date | null;
-  employeeCertifications?: IEmployeeCertification[] | null;
-  employeeCompetencies?: IEmployeeCompetency[] | null;
-  employeeHealthItems?: IEmployeeHealthItem[] | null;
+  employeeCertifications?: Partial<IEmployeeCertification[]>;
+  employeeCompetencies?: Partial<IEmployeeCompetency[]>;
+  employeeHealthItems?: Partial<IEmployeeHealthItem[]>;
 }

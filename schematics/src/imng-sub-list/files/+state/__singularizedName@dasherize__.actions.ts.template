@@ -11,5 +11,5 @@ export const reload<%= classify(pluralizedName) %>Success = createPayloadAction<
     '[<%= classify(pluralizedName) %>] Reload <%= classify(pluralizedName) %> Success');
 
 export const delete<%= classify(name) %>Request = createPayloadAction<{ <%= camelize(parentName) %>Id: string; <%= camelize(name) %>: I<%= classify(name) %>; }>(
-    '[<%= classify(pluralizedName) %>] Delete <%= classify(name) %> Request'); 
+    '[<%= classify(pluralizedName) %>] Delete <%= classify(name) %> Request');
 <% } %>

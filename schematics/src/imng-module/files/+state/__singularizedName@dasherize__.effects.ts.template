@@ -37,7 +37,7 @@ export class <%= classify(singularizedName) %>Effects {
       ofType(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request),
       concatLatestFrom(() => this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<I<%= classify(singularizedName) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, odataState, { 
+        .fetch<I<%= classify(singularizedName) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, odataState, {
           bustCache: true,<% if(hasNullableDates){ %>
           dateNullableProps: [<% swaggerProperties.filter(t=> t.format==='date-time' && !t.required).forEach((swaggerProperty,i,arr)=> { %><%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (i !== arr.length-1){%>, <% } }) %>],<% } %>
         })

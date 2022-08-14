@@ -4,9 +4,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+  readFirst,
+} from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
-import { CustomerProperties, ICustomer } from '../../../models/webapi';
+import { ICustomer } from '../../../models/webapi';
+import {
+  createTestCustomer,
+  createTestSalesAgent,
+} from '../../../models/odata';
 
 import { CustomerAddComponent } from './add.component';
 import { CustomerCrudFacade } from './crud.facade';
@@ -15,8 +24,9 @@ export function createMockCustomerFacade() {
   return {
     currentEntity$: of({}),
     salesAgents$: of([
-      { name: 'abc', loginId: 'abc', },
-      { name: 'xyz', loginId: 'xyz', },]),
+      { name: 'abc', loginId: 'abc' },
+      { name: 'xyz', loginId: 'xyz' },
+    ]),
     loadSalesAgents: jest.fn(),
   };
 }
@@ -33,8 +43,13 @@ describe('CustomerAddComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [CustomerAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DropDownsModule,],
-      providers: [{ provide: CustomerCrudFacade, useValue: createDataEntryMockFacade(createMockCustomerFacade()) }],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DropDownsModule],
+      providers: [
+        {
+          provide: CustomerCrudFacade,
+          useValue: createDataEntryMockFacade(createMockCustomerFacade()),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -58,19 +73,13 @@ describe('CustomerAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue({
-      [CustomerProperties.ID]: 'ID',
-      [CustomerProperties.NUM]: 'NUM-nu.323',
-      [CustomerProperties.NAME]: 'NAME',
-      [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
-      [CustomerProperties.SALES_AGENT_ID]: 0,
-      [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
-      [CustomerProperties.PHONE]: 'PHONE',
-      [CustomerProperties.SALES_AGENT]: {},
-    });
+    component.addEditForm.patchValue(createTestCustomer());
+    component.addEditForm.controls.salesAgent?.patchValue(
+      createTestSalesAgent(),
+    );
 
     let item: ICustomer | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
@@ -78,7 +87,6 @@ describe('CustomerAddComponent', () => {
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
 
     expect(item).toMatchSnapshot();
-
   });
 
   /**
@@ -103,6 +111,6 @@ describe('CustomerAddComponent', () => {
   test('should support SalesAgent filters', async () => {
     component.handleSalesAgentFilter('xy');
     const result = await readFirst(component.salesAgents$);
-    expect(result).toStrictEqual([{ name: 'xyz', loginId: 'xyz', }]);
+    expect(result).toStrictEqual([{ name: 'xyz', loginId: 'xyz' }]);
   });
 });

@@ -7,7 +7,6 @@ import * as path from 'path';
 import { IOptions } from '../shared';
 import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 import * as pluralize from 'pluralize';
-import { classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
 
@@ -58,7 +57,7 @@ describe(`imng-crud`, () => {
     );
     content = addComponentSpecFile?.content.toString();
     expect(content).toContain(
-      `[${classify(options.name)}Properties.IS_ENABLED]: true,`
+      `component.addEditForm?.patchValue(createTestCertification())`
     );
 
     const facadeSpecFile = tree.get(
@@ -66,7 +65,7 @@ describe(`imng-crud`, () => {
     );
     content = facadeSpecFile?.content.toString();
     expect(content).toContain(
-      `[${classify(options.name)}Properties.IS_ENABLED]: true,`
+      `useValue: { get: jest.fn(() => of(createODataPayload([createTestCertification()]))) } }`
     );
 
     const editComponent = tree.get(
@@ -80,7 +79,7 @@ describe(`imng-crud`, () => {
     );
     content = editComponentSpecFile?.content.toString();
     expect(content).toContain(
-      `import { create${classify(options.name)} } from './add.component.spec';`
+      `component.addEditForm.patchValue(createTestCertification());`
     );
   });
 });

@@ -19,7 +19,7 @@ export function imngModule(_options: IOptions): Rule {
     };
 
     return chain([
-      getSwaggerDoc(_options), 
+      getSwaggerDoc(_options),
       generateFiles(_options, 'module'),
       _options.openApiJsonUrl || _options.openApiJsonFileName ? schematic('imng-list', listOptions) : noop(),
       _options.openApiJsonUrl || _options.openApiJsonFileName ? schematic('imng-crud', crudOptions) : noop(),

@@ -21,14 +21,14 @@ export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
   name: <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY,
   reducer: createReducer(
     initialState,<% if (openApiJsonUrl || openApiJsonFileName) { %>
-    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request, 
+    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request,
       (state, { payload }) : State => ({
         ...state,
         gridODataState: payload,
         loading: true,
         error: null, })),
     on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success,
-      <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success, 
+      <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success,
       (state, { payload }) : State => ({
         ...state,
         loading: false,
@@ -38,10 +38,10 @@ export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
         }),
         gridData: payload,
         error: null, })),
-    on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>, 
-      (state, { payload }) : State => 
+    on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>,
+      (state, { payload }) : State =>
         ({ ...state, current<%= classify(singularizedName) %>: payload })),
-    on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>, 
+    on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>,
       (state) : State => ({ ...state, current<%= classify(singularizedName) %>: undefined })),
     on(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request,
       <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request,

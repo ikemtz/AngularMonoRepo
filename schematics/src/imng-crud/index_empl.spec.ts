@@ -68,10 +68,7 @@ describe('imng-crud', () => {
     content = addComponentSpecFile?.content.toString();
     expect(content).toMatchSnapshot('addComponentSpecFile');
     expect(content).toContain(
-      `[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`
-    );
-    expect(content).toContain(
-      `[${classify(options.name)}Properties.STATE]: 'ST',`
+      `component.addEditForm?.patchValue(createTestEmployee());`
     );
     expect(content).toContain(`birthDate: expect.any(Date),`);
 
@@ -80,10 +77,7 @@ describe('imng-crud', () => {
     );
     content = facadeSpecFile?.content.toString();
     expect(content).toContain(
-      `[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`
-    );
-    expect(content).toContain(
-      `[${classify(options.name)}Properties.STATE]: 'ST',`
+      `useValue: { get: jest.fn(() => of(createODataPayload([createTestEmployee()]))) } },`
     );
 
     const editComponent = tree.get(
@@ -97,10 +91,7 @@ describe('imng-crud', () => {
     );
     content = editComponentSpecFile?.content.toString();
     expect(content).toContain(
-      `create${classify(options.name)}())`
-    );
-    expect(content).toContain(
-      `import { create${classify(options.name)} } from './add.component.spec';`
+      `createTest${classify(options.name)}())`
     );
     expect(content).toContain(`birthDate: expect.any(Date),`);
   });

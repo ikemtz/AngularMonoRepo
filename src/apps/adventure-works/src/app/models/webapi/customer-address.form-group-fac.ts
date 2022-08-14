@@ -7,20 +7,9 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { ICustomer } from './customer.model';
-
-export interface ICustomerAddressForm {
-  id: FormControl<string | null>;
-  customerId: FormControl<string>;
-  addressType: FormControl<string>;
-  line1: FormControl<string>;
-  line2: FormControl<string | null>;
-  city: FormControl<string>;
-  stateProvince: FormControl<string>;
-  countryRegion: FormControl<string>;
-  postalCode: FormControl<string>;
-  customer: FormControl<ICustomer | null>;
-}
+import { ICustomerAddressForm } from './customer-address.form';
+import { ICustomerForm } from './customer.form';
+import { CustomerFormGroupFac } from './customer.form-group-fac';
 
 export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
   return new FormGroup<ICustomerAddressForm>({
@@ -74,6 +63,6 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
       ]),
       nonNullable: true,
     }),
-    customer: new FormControl<ICustomer | null>(null),
+    customer: new FormGroup<ICustomerForm>(CustomerFormGroupFac().controls),
   });
 }

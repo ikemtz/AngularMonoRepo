@@ -11,12 +11,8 @@ import { of } from 'rxjs';<% } %>
 import { <%= classify(name) %>AddComponent } from './add.component';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
-export function create<%= classify(name) %>(): Partial<I<%= classify(name) %>> {
-    return {<% swaggerProperties.forEach(function(swaggerProperty) {%>
-      [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,<% }) %>
-    };
-}<% if (hasObjects) { %>
-export function createMock<%= classify(name) %>Facade() {
+
+<% if (hasObjects) { %>export function createMock<%= classify(name) %>Facade() {
   return {
     currentEntity$: of({}),<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
     <%= camelize(swaggerProperty.pluralizedName) %>$: of([
@@ -64,7 +60,8 @@ describe('<%= classify(name) %>AddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue(create<%= classify(name) %>());
+    component.addEditForm?.patchValue(createTest<%= classify(name) %>());<% swaggerProperties.filter(t=> t.singularizedPropertyTypeName).forEach(function(swaggerProperty) {%>
+    component.addEditForm.controls.<%= swaggerProperty.name %>?.patchValue(createTest<%= swaggerProperty.singularizedPropertyTypeName %>());<% }) %>
 
     let item: I<%= classify(name) %> | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
