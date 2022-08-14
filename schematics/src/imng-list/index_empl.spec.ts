@@ -59,10 +59,10 @@ describe('imng-list', () => {
     );
     content = facadeSpecFile?.content.toString();
     expect(content).toContain(
-      `[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`
+      `useValue: { get: jest.fn(() => of(createODataPayload([createTestEmployee()]))) } },`
     );
     expect(content).toContain(
-      `[${classify(options.name)}Properties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',`
+      `store.dispatch(employeeActionTypes.loadEmployeesSuccess(createODataResult([createTestEmployee(), createTestEmployee()])));`
     );
   });
 });

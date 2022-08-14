@@ -580,7 +580,7 @@ export class CustomerEffects {
       ofType(customerActionTypes.reloadCustomersRequest),
       concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<ICustomer>(environment.odataEnpoints.customers, odataState, { 
+        .fetch<ICustomer>(environment.odataEnpoints.customers, odataState, {
           bustCache: true,
         })
         .pipe(
@@ -781,7 +781,7 @@ export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, C
   public readonly salesAgentProps = SalesAgentProperties;
   public currentItem: ICustomer | undefined;
 
-  constructor(facade: CustomerListFacade, 
+  constructor(facade: CustomerListFacade,
     public readonly crudFacade: CustomerCrudFacade,
     router: Router) {
     super(facade, initialGridState, router);
@@ -882,14 +882,14 @@ export const customersFeature = createFeature({
   name: CUSTOMERS_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(customerActionTypes.loadCustomersRequest, 
+    on(customerActionTypes.loadCustomersRequest,
       (state, { payload }) : State => ({
         ...state,
         gridODataState: payload,
         loading: true,
         error: null, })),
     on(customerActionTypes.loadCustomersSuccess,
-      customerActionTypes.reloadCustomersSuccess, 
+      customerActionTypes.reloadCustomersSuccess,
       (state, { payload }) : State => ({
         ...state,
         loading: false,
@@ -899,10 +899,10 @@ export const customersFeature = createFeature({
         }),
         gridData: payload,
         error: null, })),
-    on(customerActionTypes.setCurrentCustomer, 
-      (state, { payload }) : State => 
+    on(customerActionTypes.setCurrentCustomer,
+      (state, { payload }) : State =>
         ({ ...state, currentCustomer: payload })),
-    on(customerActionTypes.clearCurrentCustomer, 
+    on(customerActionTypes.clearCurrentCustomer,
       (state) : State => ({ ...state, currentCustomer: undefined })),
     on(customerActionTypes.saveCustomerRequest,
       customerActionTypes.updateCustomerRequest,

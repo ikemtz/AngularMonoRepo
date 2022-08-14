@@ -36,7 +36,7 @@ export class <%= classify(singularizedName) %>ListComponent extends KendoODataBa
   public readonly <%= camelize(swaggerProperty.pluralizedPropertyTypeName) %> = <%= camelize(swaggerProperty.singularizedPropertyTypeName) %>Values;<% }) %>
   public currentItem: I<%= classify(singularizedName) %> | undefined;
 
-  constructor(facade: <%= classify(singularizedName) %>ListFacade, 
+  constructor(facade: <%= classify(singularizedName) %>ListFacade,
     public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade,
     router: Router) {
     super(facade, initialGridState, router);

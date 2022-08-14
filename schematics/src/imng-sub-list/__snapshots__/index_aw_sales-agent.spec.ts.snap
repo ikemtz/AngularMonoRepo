@@ -14,7 +14,7 @@ export const reloadSalesAgentsSuccess = createPayloadAction<{ customerId: string
     '[SalesAgents] Reload SalesAgents Success');
 
 export const deleteSalesAgentRequest = createPayloadAction<{ customerId: string; salesAgent: ISalesAgent; }>(
-    '[SalesAgents] Delete SalesAgent Request'); 
+    '[SalesAgents] Delete SalesAgent Request');
 "
 `;
 
@@ -84,7 +84,7 @@ export class SalesAgentEffects {
   deleteSalesAgentEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(salesAgentActionTypes.deleteSalesAgentRequest),
-      switchMap((action: ReturnType<typeof salesAgentActionTypes.deleteSalesAgentRequest>) => 
+      switchMap((action: ReturnType<typeof salesAgentActionTypes.deleteSalesAgentRequest>) =>
         this.apiService.delete(action.payload.salesAgent).pipe(
           map(() => salesAgentActionTypes.reloadSalesAgentsRequest(action.payload.customerId)),
           handleEffectError(action))));
@@ -281,7 +281,7 @@ describe('SalesAgentListFacade', () => {
     /**
      * Use \`salesAgentsLoaded\` to manually submit list for state management
      */
-    test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
+    test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(0);
       store.dispatch(customerActionTypes.loadCustomersSuccess(

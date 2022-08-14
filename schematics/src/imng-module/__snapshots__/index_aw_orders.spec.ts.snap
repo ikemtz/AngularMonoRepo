@@ -898,7 +898,7 @@ export class OrderEffects {
       ofType(orderActionTypes.reloadOrdersRequest),
       concatLatestFrom(() => this.store.select(ordersFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IOrder>(environment.odataEnpoints.orders, odataState, { 
+        .fetch<IOrder>(environment.odataEnpoints.orders, odataState, {
           bustCache: true,
           dateNullableProps: [OrderProperties.SHIP_DATE],
         })
@@ -1305,7 +1305,7 @@ export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderLi
   public readonly shippingTypes = shippingTypeValues;
   public currentItem: IOrder | undefined;
 
-  constructor(facade: OrderListFacade, 
+  constructor(facade: OrderListFacade,
     public readonly crudFacade: OrderCrudFacade,
     router: Router) {
     super(facade, initialGridState, router);
@@ -1412,14 +1412,14 @@ export const ordersFeature = createFeature({
   name: ORDERS_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(orderActionTypes.loadOrdersRequest, 
+    on(orderActionTypes.loadOrdersRequest,
       (state, { payload }) : State => ({
         ...state,
         gridODataState: payload,
         loading: true,
         error: null, })),
     on(orderActionTypes.loadOrdersSuccess,
-      orderActionTypes.reloadOrdersSuccess, 
+      orderActionTypes.reloadOrdersSuccess,
       (state, { payload }) : State => ({
         ...state,
         loading: false,
@@ -1429,10 +1429,10 @@ export const ordersFeature = createFeature({
         }),
         gridData: payload,
         error: null, })),
-    on(orderActionTypes.setCurrentOrder, 
-      (state, { payload }) : State => 
+    on(orderActionTypes.setCurrentOrder,
+      (state, { payload }) : State =>
         ({ ...state, currentOrder: payload })),
-    on(orderActionTypes.clearCurrentOrder, 
+    on(orderActionTypes.clearCurrentOrder,
       (state) : State => ({ ...state, currentOrder: undefined })),
     on(orderActionTypes.saveOrderRequest,
       orderActionTypes.updateOrderRequest,

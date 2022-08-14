@@ -1,5 +1,5 @@
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
-import { getSwaggerDoc, generateFiles, IOptions } from '../shared'; 
+import { getSwaggerDoc, generateFiles, IOptions } from '../shared';
 
 export function imngCrud(_options: IOptions): Rule {
   return (tree: Tree, _context: SchematicContext) => {

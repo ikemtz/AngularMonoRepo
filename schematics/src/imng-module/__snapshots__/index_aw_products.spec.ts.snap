@@ -704,7 +704,7 @@ export class ProductEffects {
       ofType(productActionTypes.reloadProductsRequest),
       concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IProduct>(environment.odataEnpoints.products, odataState, { 
+        .fetch<IProduct>(environment.odataEnpoints.products, odataState, {
           bustCache: true,
           dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
         })
@@ -988,7 +988,7 @@ export class ProductListComponent extends KendoODataBasedComponent<IProduct, Pro
   public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
-  constructor(facade: ProductListFacade, 
+  constructor(facade: ProductListFacade,
     public readonly crudFacade: ProductCrudFacade,
     router: Router) {
     super(facade, initialGridState, router);
@@ -1093,14 +1093,14 @@ export const productsFeature = createFeature({
   name: PRODUCTS_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(productActionTypes.loadProductsRequest, 
+    on(productActionTypes.loadProductsRequest,
       (state, { payload }) : State => ({
         ...state,
         gridODataState: payload,
         loading: true,
         error: null, })),
     on(productActionTypes.loadProductsSuccess,
-      productActionTypes.reloadProductsSuccess, 
+      productActionTypes.reloadProductsSuccess,
       (state, { payload }) : State => ({
         ...state,
         loading: false,
@@ -1110,10 +1110,10 @@ export const productsFeature = createFeature({
         }),
         gridData: payload,
         error: null, })),
-    on(productActionTypes.setCurrentProduct, 
-      (state, { payload }) : State => 
+    on(productActionTypes.setCurrentProduct,
+      (state, { payload }) : State =>
         ({ ...state, currentProduct: payload })),
-    on(productActionTypes.clearCurrentProduct, 
+    on(productActionTypes.clearCurrentProduct,
       (state) : State => ({ ...state, currentProduct: undefined })),
     on(productActionTypes.saveProductRequest,
       productActionTypes.updateProductRequest,

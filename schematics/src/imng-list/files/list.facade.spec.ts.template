@@ -109,7 +109,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
     /**
      * Use `<%= camelize(pluralizedName) %>Loaded` to manually submit list for state management
      */
-    test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
+    test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(0);
       store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(createODataResult([createTest<%= classify(name) %>(), createTest<%= classify(name) %>()])));
