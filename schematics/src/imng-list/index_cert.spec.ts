@@ -59,10 +59,10 @@ describe('imng-list', () => {
     );
     content = facadeSpecFile?.content.toString();
     expect(content).toContain(
-      `[${classify(options.name)}Properties.IS_ENABLED]: true,`
+      `of(createODataPayload([createTestCertification()]`
     );
     expect(content).toContain(
-      `[${classify(options.name)}Properties.NAME]: 'NAME',`
+      `store.dispatch(certificationActionTypes.loadCertificationsSuccess(createODataResult([createTestCertification(), createTestCertification()])));`
     );
   });
 });

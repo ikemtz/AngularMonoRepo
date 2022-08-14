@@ -5,12 +5,23 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+  readFirst,
+} from 'imng-ngrx-utils/testing';
 
 import { createMockOrderFacade } from './add.component.spec';
 import { OrderEditComponent } from './edit.component';
 import { OrderCrudFacade } from './crud.facade';
-import { OrderProperties, OrderStatusTypes, ShippingTypes, IOrder } from '../../../models/odata';
+import {
+  createTestOrder,
+  createTestOrderAddress,
+  IOrder,
+  createTestCustomer,
+  createTestSalesAgent,
+} from '../../../models/odata';
 
 describe('OrderEditComponent', () => {
   let component: OrderEditComponent;
@@ -24,8 +35,18 @@ describe('OrderEditComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [OrderEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule,],
-      providers: [{ provide: OrderCrudFacade, useValue: createDataEntryMockFacade(createMockOrderFacade()) }],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        DatePickerModule,
+        DropDownsModule,
+      ],
+      providers: [
+        {
+          provide: OrderCrudFacade,
+          useValue: createDataEntryMockFacade(createMockOrderFacade()),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -45,33 +66,19 @@ describe('OrderEditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue({
-      [OrderProperties.ID]: 'ID',
-      [OrderProperties.ORDER_ID]: 0,
-      [OrderProperties.REVISION_NUM]: 0,
-      [OrderProperties.DATE]: new Date(),
-      [OrderProperties.DUE_DATE]: new Date(),
-      [OrderProperties.SHIP_DATE]: new Date(),
-      [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
-      [OrderProperties.IS_ONLINE_ORDER]: true,
-      [OrderProperties.NUM]: 'NUM',
-      [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
-      [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
-      [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
-      [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-      [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Other,
-      [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
-      [OrderProperties.SUB_TOTAL]: 0,
-      [OrderProperties.TAX_AMT]: 0,
-      [OrderProperties.FREIGHT]: 0,
-      [OrderProperties.TOTAL_DUE]: 0,
-      [OrderProperties.COMMENT]: 'COMMENT',
-      [OrderProperties.CUSTOMER]: {},
-      [OrderProperties.SHIP_TO_ADDRESS]: {},
-      [OrderProperties.BILL_TO_ADDRESS]: {},
-    });
+    component.addEditForm.patchValue(createTestOrder());
+    component.addEditForm.controls.billToAddress?.patchValue(
+      createTestOrderAddress(),
+    );
+    component.addEditForm.controls.shipToAddress?.patchValue(
+      createTestOrderAddress(),
+    );
+    component.addEditForm.controls.customer?.patchValue(createTestCustomer());
+    component.addEditForm.controls.customer?.controls.salesAgent?.patchValue(
+      createTestSalesAgent(),
+    );
     let item: IOrder | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
     expect(facade.saveNewEntity).toBeCalledTimes(0);
@@ -82,7 +89,6 @@ describe('OrderEditComponent', () => {
       dueDate: expect.any(Date),
       shipDate: expect.any(Date),
     });
-
   });
 
   /**
@@ -106,19 +112,48 @@ describe('OrderEditComponent', () => {
   test('should support Customer filters', async () => {
     component.handleCustomerFilter('xy');
     const result = await readFirst(component.customers$);
-    expect(result).toStrictEqual([{ id: 'xyz', num: 'xyz', name: 'xyz', companyName: 'xyz', emailAddress: 'xyz', phone: 'xyz', }]);
+    expect(result).toStrictEqual([
+      {
+        id: 'xyz',
+        num: 'xyz',
+        name: 'xyz',
+        companyName: 'xyz',
+        emailAddress: 'xyz',
+        phone: 'xyz',
+      },
+    ]);
   });
 
   test('should support ShipToAddress filters', async () => {
     component.handleShipToAddressFilter('xy');
     const result = await readFirst(component.shipToAddresses$);
-    expect(result).toStrictEqual([{ id: 'xyz', line1: 'xyz', line2: 'xyz', city: 'xyz', stateProvince: 'xyz', countryRegion: 'xyz', postalCode: 'xyz', }]);
+    expect(result).toStrictEqual([
+      {
+        id: 'xyz',
+        line1: 'xyz',
+        line2: 'xyz',
+        city: 'xyz',
+        stateProvince: 'xyz',
+        countryRegion: 'xyz',
+        postalCode: 'xyz',
+      },
+    ]);
   });
 
   test('should support BillToAddress filters', async () => {
     component.handleBillToAddressFilter('xy');
     const result = await readFirst(component.billToAddresses$);
-    expect(result).toStrictEqual([{ id: 'xyz', line1: 'xyz', line2: 'xyz', city: 'xyz', stateProvince: 'xyz', countryRegion: 'xyz', postalCode: 'xyz', }]);
+    expect(result).toStrictEqual([
+      {
+        id: 'xyz',
+        line1: 'xyz',
+        line2: 'xyz',
+        city: 'xyz',
+        stateProvince: 'xyz',
+        countryRegion: 'xyz',
+        postalCode: 'xyz',
+      },
+    ]);
   });
   test('should handle StatusType filters', async () => {
     component.handleStatusTypeFilter('abc-xyz');

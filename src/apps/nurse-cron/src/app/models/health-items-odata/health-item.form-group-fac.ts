@@ -7,12 +7,7 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-
-export interface IHealthItemForm {
-  id: FormControl<string | null>;
-  name: FormControl<string | null>;
-  isEnabled: FormControl<boolean | null>;
-}
+import { IHealthItemForm } from './health-item.form';
 
 export function HealthItemFormGroupFac(): FormGroup<IHealthItemForm> {
   return new FormGroup<IHealthItemForm>({

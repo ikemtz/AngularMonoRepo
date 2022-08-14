@@ -13,5 +13,5 @@ export interface IProductModel {
   id?: string | null;
   name?: string;
   description?: string | null;
-  products?: IProduct[] | null;
+  products?: Partial<IProduct[]>;
 }

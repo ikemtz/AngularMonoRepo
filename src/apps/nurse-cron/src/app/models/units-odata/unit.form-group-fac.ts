@@ -7,17 +7,9 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IBuilding } from './building.model';
-
-export interface IUnitForm {
-  id: FormControl<string | null>;
-  buildingId: FormControl<string>;
-  name: FormControl<string>;
-  roomCount: FormControl<number>;
-  deletedBy: FormControl<string | null>;
-  deletedOnUtc: FormControl<Date | null>;
-  building: FormControl<IBuilding | null>;
-}
+import { IUnitForm } from './unit.form';
+import { IBuildingForm } from './building.form';
+import { BuildingFormGroupFac } from './building.form-group-fac';
 
 export function UnitFormGroupFac(): FormGroup<IUnitForm> {
   return new FormGroup<IUnitForm>({
@@ -42,6 +34,6 @@ export function UnitFormGroupFac(): FormGroup<IUnitForm> {
       validators: Validators.maxLength(250),
     }),
     deletedOnUtc: new FormControl<Date | null>(null),
-    building: new FormControl<IBuilding | null>(null),
+    building: new FormGroup<IBuildingForm>(BuildingFormGroupFac().controls),
   });
 }

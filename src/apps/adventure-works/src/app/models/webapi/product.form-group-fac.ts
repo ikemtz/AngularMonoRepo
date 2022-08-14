@@ -7,29 +7,12 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IProductModel } from './product-model.model';
-import { IProductCategory } from './product-category.model';
-import { IOrderLineItemForm } from './order-line-item.form-group-fac';
-
-export interface IProductForm {
-  id: FormControl<string | null>;
-  name: FormControl<string>;
-  num: FormControl<string>;
-  color: FormControl<string | null>;
-  standardCost: FormControl<number>;
-  listPrice: FormControl<number>;
-  size: FormControl<string | null>;
-  weight: FormControl<number | null>;
-  productCategoryId: FormControl<string | null>;
-  productModelId: FormControl<string | null>;
-  sellStartDate: FormControl<Date>;
-  sellEndDate: FormControl<Date | null>;
-  discontinuedDate: FormControl<Date | null>;
-  thumbNailPhoto: FormControl<string | null>;
-  productModel: FormControl<IProductModel | null>;
-  productCategory: FormControl<IProductCategory | null>;
-  orderLineItems: FormArray<FormGroup<IOrderLineItemForm>>;
-}
+import { IProductForm } from './product.form';
+import { IProductModelForm } from './product-model.form';
+import { ProductModelFormGroupFac } from './product-model.form-group-fac';
+import { IProductCategoryForm } from './product-category.form';
+import { ProductCategoryFormGroupFac } from './product-category.form-group-fac';
+import { IOrderLineItemForm } from './order-line-item.form';
 
 export function ProductFormGroupFac(): FormGroup<IProductForm> {
   return new FormGroup<IProductForm>({
@@ -79,8 +62,12 @@ export function ProductFormGroupFac(): FormGroup<IProductForm> {
     thumbNailPhoto: new FormControl<string | null>(null, {
       validators: Validators.maxLength(5000),
     }),
-    productModel: new FormControl<IProductModel | null>(null),
-    productCategory: new FormControl<IProductCategory | null>(null),
+    productModel: new FormGroup<IProductModelForm>(
+      ProductModelFormGroupFac().controls,
+    ),
+    productCategory: new FormGroup<IProductCategoryForm>(
+      ProductCategoryFormGroupFac().controls,
+    ),
     orderLineItems: new FormArray<FormGroup<IOrderLineItemForm>>([]),
   });
 }

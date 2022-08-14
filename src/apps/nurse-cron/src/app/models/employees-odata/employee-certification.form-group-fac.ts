@@ -7,14 +7,7 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-
-export interface IEmployeeCertificationForm {
-  id: FormControl<string | null>;
-  employeeId: FormControl<string | null>;
-  certificationId: FormControl<string | null>;
-  certificationName: FormControl<string | null>;
-  expiresOnUtc: FormControl<Date | null>;
-}
+import { IEmployeeCertificationForm } from './employee-certification.form';
 
 export function EmployeeCertificationFormGroupFac(): FormGroup<IEmployeeCertificationForm> {
   return new FormGroup<IEmployeeCertificationForm>({

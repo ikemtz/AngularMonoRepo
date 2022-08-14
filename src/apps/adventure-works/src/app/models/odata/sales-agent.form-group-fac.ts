@@ -7,14 +7,8 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { ICustomerForm } from './customer.form-group-fac';
-
-export interface ISalesAgentForm {
-  id: FormControl<number | null>;
-  name: FormControl<string>;
-  loginId: FormControl<string>;
-  customers: FormArray<FormGroup<ICustomerForm>>;
-}
+import { ISalesAgentForm } from './sales-agent.form';
+import { ICustomerForm } from './customer.form';
 
 export function SalesAgentFormGroupFac(): FormGroup<ISalesAgentForm> {
   return new FormGroup<ISalesAgentForm>({

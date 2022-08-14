@@ -40,18 +40,7 @@ import { of } from 'rxjs';
 import { CustomerAddComponent } from './add.component';
 import { CustomerCrudFacade } from './crud.facade';
 
-export function createCustomer(): Partial<ICustomer> {
-    return {
-      [CustomerProperties.ID]: 'ID',
-      [CustomerProperties.NUM]: 'NUM',
-      [CustomerProperties.NAME]: 'NAME',
-      [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
-      [CustomerProperties.SALES_AGENT_ID]: 0,
-      [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
-      [CustomerProperties.PHONE]: 'PHONE',
-      [CustomerProperties.SALES_AGENT]: {},
-    };
-}
+
 export function createMockCustomerFacade() {
   return {
     currentEntity$: of({}),
@@ -99,7 +88,8 @@ describe('CustomerAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue(createCustomer());
+    component.addEditForm?.patchValue(createTestCustomer());
+    component.addEditForm.controls.salesAgent?.patchValue(createTestSalesAgent());
 
     let item: ICustomer | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
@@ -248,18 +238,6 @@ import { CustomerCrudFacade } from './crud.facade';
 import { CustomerApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
 
-export const createCustomer = () => 
-  <ICustomer>{
-    [CustomerProperties.ID]: 'ID',
-    [CustomerProperties.NUM]: 'NUM',
-    [CustomerProperties.NAME]: 'NAME',
-    [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
-    [CustomerProperties.SALES_AGENT_ID]: 0,
-    [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
-    [CustomerProperties.PHONE]: 'PHONE',
-    [CustomerProperties.SALES_AGENT]: {},
-    };
-
 describe('CustomerCrudFacade', () => {
   let facade: CustomerCrudFacade;
   let store: Store;
@@ -278,7 +256,7 @@ describe('CustomerCrudFacade', () => {
         providers: [
           CustomerCrudFacade,
           CustomerApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCustomer()]))) } },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestCustomer()]))) } },
         ],
       })
       class CustomFeatureModule {}
@@ -452,7 +430,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
-import { createCustomer, createMockCustomerFacade } from './add.component.spec';
+import { createMockCustomerFacade } from './add.component.spec';
 import { CustomerEditComponent } from './edit.component';
 import { CustomerCrudFacade } from './crud.facade';
 
@@ -489,7 +467,7 @@ describe('CustomerEditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue(createCustomer());
+    component.addEditForm.patchValue(createTestCustomer());
     let item: ICustomer | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);

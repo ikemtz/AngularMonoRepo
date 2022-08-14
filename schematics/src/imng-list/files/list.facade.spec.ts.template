@@ -14,11 +14,6 @@ import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dashe
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
 
-export const create<%= classify(singularizedName) %> = () => <I<%= classify(singularizedName) %>>{
-<% swaggerProperties.forEach(function(swaggerProperty)
- {%>  [<%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
-<% }) %>    };
-
 describe('<%= classify(singularizedName) %>ListFacade', () => {
   let facade: <%= classify(singularizedName) %>ListFacade;
   let store: Store;
@@ -36,7 +31,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
         ],
         providers: [
           <%= classify(singularizedName) %>ListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([create<%= classify(name) %>()]))) } },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTest<%= classify(name) %>()]))) } },
         ],
       })
       class CustomFeatureModule {}
@@ -117,7 +112,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
     test('gridData$ should return the loaded list; and loaded flag == true', async () => { 
       let list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(0);
-      store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(createODataResult([create<%= classify(name) %>(), create<%= classify(name) %>()])));
+      store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Success(createODataResult([createTest<%= classify(name) %>(), createTest<%= classify(name) %>()])));
 
       list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(2);

@@ -7,21 +7,7 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-
-export interface IBuildingForm {
-  id: FormControl<string | null>;
-  name: FormControl<string>;
-  siteName: FormControl<string>;
-  addressLine1: FormControl<string>;
-  addressLine2: FormControl<string | null>;
-  cityOrMunicipality: FormControl<string>;
-  stateOrProvidence: FormControl<string>;
-  postalCode: FormControl<string>;
-  country: FormControl<string | null>;
-  gpsData: FormControl<string | null>;
-  deletedBy: FormControl<string | null>;
-  deletedOnUtc: FormControl<Date | null>;
-}
+import { IBuildingForm } from './building.form';
 
 export function BuildingFormGroupFac(): FormGroup<IBuildingForm> {
   return new FormGroup<IBuildingForm>({

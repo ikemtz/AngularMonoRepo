@@ -7,14 +7,8 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IProductForm } from './product.form-group-fac';
-
-export interface IProductModelForm {
-  id: FormControl<string | null>;
-  name: FormControl<string>;
-  description: FormControl<string | null>;
-  products: FormArray<FormGroup<IProductForm>>;
-}
+import { IProductModelForm } from './product-model.form';
+import { IProductForm } from './product.form';
 
 export function ProductModelFormGroupFac(): FormGroup<IProductModelForm> {
   return new FormGroup<IProductModelForm>({

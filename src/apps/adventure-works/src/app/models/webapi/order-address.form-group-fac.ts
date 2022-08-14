@@ -7,19 +7,8 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IOrderForm } from './order.form-group-fac';
-
-export interface IOrderAddressForm {
-  id: FormControl<string | null>;
-  line1: FormControl<string>;
-  line2: FormControl<string | null>;
-  city: FormControl<string>;
-  stateProvince: FormControl<string>;
-  countryRegion: FormControl<string>;
-  postalCode: FormControl<string>;
-  billToOrders: FormArray<FormGroup<IOrderForm>>;
-  shipToOrders: FormArray<FormGroup<IOrderForm>>;
-}
+import { IOrderAddressForm } from './order-address.form';
+import { IOrderForm } from './order.form';
 
 export function OrderAddressFormGroupFac(): FormGroup<IOrderAddressForm> {
   return new FormGroup<IOrderAddressForm>({

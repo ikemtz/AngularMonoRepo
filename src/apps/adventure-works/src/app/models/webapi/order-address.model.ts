@@ -17,6 +17,6 @@ export interface IOrderAddress {
   stateProvince?: string;
   countryRegion?: string;
   postalCode?: string;
-  billToOrders?: IOrder[] | null;
-  shipToOrders?: IOrder[] | null;
+  billToOrders?: Partial<IOrder[]>;
+  shipToOrders?: Partial<IOrder[]>;
 }
