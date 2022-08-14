@@ -7,22 +7,11 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { ISalesAgent } from './sales-agent.model';
-import { ICustomerAddressForm } from './customer-address.form-group-fac';
-import { IOrderForm } from './order.form-group-fac';
-
-export interface ICustomerForm {
-  id: FormControl<string | null>;
-  num: FormControl<string>;
-  name: FormControl<string | null>;
-  companyName: FormControl<string>;
-  salesAgentId: FormControl<number>;
-  emailAddress: FormControl<string | null>;
-  phone: FormControl<string | null>;
-  salesAgent: FormControl<ISalesAgent | null>;
-  customerAddresses: FormArray<FormGroup<ICustomerAddressForm>>;
-  orders: FormArray<FormGroup<IOrderForm>>;
-}
+import { ICustomerForm } from './customer.form';
+import { ISalesAgentForm } from './sales-agent.form';
+import { SalesAgentFormGroupFac } from './sales-agent.form-group-fac';
+import { ICustomerAddressForm } from './customer-address.form';
+import { IOrderForm } from './order.form';
 
 export function CustomerFormGroupFac(): FormGroup<ICustomerForm> {
   return new FormGroup<ICustomerForm>({
@@ -55,7 +44,9 @@ export function CustomerFormGroupFac(): FormGroup<ICustomerForm> {
     phone: new FormControl<string | null>(null, {
       validators: Validators.maxLength(25),
     }),
-    salesAgent: new FormControl<ISalesAgent | null>(null),
+    salesAgent: new FormGroup<ISalesAgentForm>(
+      SalesAgentFormGroupFac().controls,
+    ),
     customerAddresses: new FormArray<FormGroup<ICustomerAddressForm>>([]),
     orders: new FormArray<FormGroup<IOrderForm>>([]),
   });

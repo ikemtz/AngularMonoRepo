@@ -5,7 +5,6 @@ import { createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
-import { create<%= classify(singularizedName) %> } from './list.facade.spec';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 
 describe('<%= classify(singularizedName) %>ListComponent', () => {
@@ -46,7 +45,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   });
 
   test('it should handle DeleteItem', () => {
-    const item = create<%= classify(singularizedName) %>();
+    const item = createTest<%= classify(singularizedName) %>();
     component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
     expect(listFacade.deleteExistingEntity).toBeCalledWith(item);

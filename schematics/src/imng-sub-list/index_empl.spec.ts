@@ -60,7 +60,7 @@ describe('imng-sub-list', () => {
     );
     content = facadeSpecFile?.content.toString();
     expect(content).toContain(
-      `[EmployeeCertificationProperties.CERTIFICATION_ID]: 'CERTIFICATION_ID'`
+      `{ ...createTestEmployee(),`
     );
   });
 });

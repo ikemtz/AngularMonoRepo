@@ -7,20 +7,11 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-import { IOrder } from './order.model';
-import { IProduct } from './product.model';
-
-export interface IOrderLineItemForm {
-  id: FormControl<string | null>;
-  orderId: FormControl<string>;
-  orderQty: FormControl<number>;
-  productId: FormControl<string>;
-  unitPrice: FormControl<number>;
-  unitPriceDiscount: FormControl<number>;
-  lineTotal: FormControl<number>;
-  order: FormControl<IOrder | null>;
-  product: FormControl<IProduct | null>;
-}
+import { IOrderLineItemForm } from './order-line-item.form';
+import { IOrderForm } from './order.form';
+import { OrderFormGroupFac } from './order.form-group-fac';
+import { IProductForm } from './product.form';
+import { ProductFormGroupFac } from './product.form-group-fac';
 
 export function OrderLineItemFormGroupFac(): FormGroup<IOrderLineItemForm> {
   return new FormGroup<IOrderLineItemForm>({
@@ -49,7 +40,7 @@ export function OrderLineItemFormGroupFac(): FormGroup<IOrderLineItemForm> {
       validators: Validators.required,
       nonNullable: true,
     }),
-    order: new FormControl<IOrder | null>(null),
-    product: new FormControl<IProduct | null>(null),
+    order: new FormGroup<IOrderForm>(OrderFormGroupFac().controls),
+    product: new FormGroup<IProductForm>(ProductFormGroupFac().controls),
   });
 }

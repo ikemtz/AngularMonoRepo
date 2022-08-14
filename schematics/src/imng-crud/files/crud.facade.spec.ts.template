@@ -19,12 +19,6 @@ import { <%= classify(name) %>CrudFacade } from './crud.facade';
 import { <%= classify(name) %>ApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
 
-export const create<%= classify(name) %> = () => 
-  <I<%= classify(name) %>>{
-<% swaggerProperties.forEach(function(swaggerProperty)
- {%>    [<%= classify(name) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]: <%= swaggerProperty.testFactoryValue %>,
-<% }) %>    };
-
 describe('<%= classify(name) %>CrudFacade', () => {
   let facade: <%= classify(name) %>CrudFacade;
   let store: Store;
@@ -43,7 +37,7 @@ describe('<%= classify(name) %>CrudFacade', () => {
         providers: [
           <%= classify(name) %>CrudFacade,
           <%= classify(name) %>ApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([create<%= classify(name) %>()]))) } },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTest<%= classify(name) %>()]))) } },
         ],
       })
       class CustomFeatureModule {}

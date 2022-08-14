@@ -7,5 +7,7 @@
  */
 /* tslint:disable */
 export * from './health-item.form-group-fac';
+export * from './health-item.form';
 export * from './health-item.model';
 export * from './health-item.properties';
+export * from './health-item.test-obj-fac';

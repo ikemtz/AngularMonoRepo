@@ -49,33 +49,7 @@ import { of } from 'rxjs';
 import { OrderAddComponent } from './add.component';
 import { OrderCrudFacade } from './crud.facade';
 
-export function createOrder(): Partial<IOrder> {
-    return {
-      [OrderProperties.ID]: 'ID',
-      [OrderProperties.ORDER_ID]: 0,
-      [OrderProperties.REVISION_NUM]: 0,
-      [OrderProperties.DATE]: new Date(),
-      [OrderProperties.DUE_DATE]: new Date(),
-      [OrderProperties.SHIP_DATE]: new Date(),
-      [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
-      [OrderProperties.IS_ONLINE_ORDER]: true,
-      [OrderProperties.NUM]: 'NUM',
-      [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
-      [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
-      [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
-      [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-      [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Other,
-      [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
-      [OrderProperties.SUB_TOTAL]: 0,
-      [OrderProperties.TAX_AMT]: 0,
-      [OrderProperties.FREIGHT]: 0,
-      [OrderProperties.TOTAL_DUE]: 0,
-      [OrderProperties.COMMENT]: 'COMMENT',
-      [OrderProperties.CUSTOMER]: {},
-      [OrderProperties.SHIP_TO_ADDRESS]: {},
-      [OrderProperties.BILL_TO_ADDRESS]: {},
-    };
-}
+
 export function createMockOrderFacade() {
   return {
     currentEntity$: of({}),
@@ -131,7 +105,12 @@ describe('OrderAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue(createOrder());
+    component.addEditForm?.patchValue(createTestOrder());
+    component.addEditForm.controls.statusType?.patchValue(createTestOrderStatusType());
+    component.addEditForm.controls.shippingType?.patchValue(createTestShippingType());
+    component.addEditForm.controls.customer?.patchValue(createTestCustomer());
+    component.addEditForm.controls.shipToAddress?.patchValue(createTestOrderAddress());
+    component.addEditForm.controls.billToAddress?.patchValue(createTestOrderAddress());
 
     let item: IOrder | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
@@ -378,33 +357,6 @@ import { OrderCrudFacade } from './crud.facade';
 import { OrderApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
 
-export const createOrder = () => 
-  <IOrder>{
-    [OrderProperties.ID]: 'ID',
-    [OrderProperties.ORDER_ID]: 0,
-    [OrderProperties.REVISION_NUM]: 0,
-    [OrderProperties.DATE]: new Date(),
-    [OrderProperties.DUE_DATE]: new Date(),
-    [OrderProperties.SHIP_DATE]: new Date(),
-    [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
-    [OrderProperties.IS_ONLINE_ORDER]: true,
-    [OrderProperties.NUM]: 'NUM',
-    [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
-    [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
-    [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
-    [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-    [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Other,
-    [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
-    [OrderProperties.SUB_TOTAL]: 0,
-    [OrderProperties.TAX_AMT]: 0,
-    [OrderProperties.FREIGHT]: 0,
-    [OrderProperties.TOTAL_DUE]: 0,
-    [OrderProperties.COMMENT]: 'COMMENT',
-    [OrderProperties.CUSTOMER]: {},
-    [OrderProperties.SHIP_TO_ADDRESS]: {},
-    [OrderProperties.BILL_TO_ADDRESS]: {},
-    };
-
 describe('OrderCrudFacade', () => {
   let facade: OrderCrudFacade;
   let store: Store;
@@ -423,7 +375,7 @@ describe('OrderCrudFacade', () => {
         providers: [
           OrderCrudFacade,
           OrderApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createOrder()]))) } },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestOrder()]))) } },
         ],
       })
       class CustomFeatureModule {}
@@ -768,7 +720,7 @@ import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
-import { createOrder, createMockOrderFacade } from './add.component.spec';
+import { createMockOrderFacade } from './add.component.spec';
 import { OrderEditComponent } from './edit.component';
 import { OrderCrudFacade } from './crud.facade';
 
@@ -805,7 +757,7 @@ describe('OrderEditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue(createOrder());
+    component.addEditForm.patchValue(createTestOrder());
     let item: IOrder | undefined;
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);

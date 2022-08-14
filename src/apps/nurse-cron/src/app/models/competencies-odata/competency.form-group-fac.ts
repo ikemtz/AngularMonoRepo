@@ -7,12 +7,7 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-
-export interface ICompetencyForm {
-  id: FormControl<string | null>;
-  name: FormControl<string | null>;
-  isEnabled: FormControl<boolean | null>;
-}
+import { ICompetencyForm } from './competency.form';
 
 export function CompetencyFormGroupFac(): FormGroup<ICompetencyForm> {
   return new FormGroup<ICompetencyForm>({

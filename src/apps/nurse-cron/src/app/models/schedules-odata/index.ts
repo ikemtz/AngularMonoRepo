@@ -7,5 +7,7 @@
  */
 /* tslint:disable */
 export * from './schedule.form-group-fac';
+export * from './schedule.form';
 export * from './schedule.model';
 export * from './schedule.properties';
+export * from './schedule.test-obj-fac';

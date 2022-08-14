@@ -7,12 +7,7 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-
-export interface IPingResultForm {
-  name: FormControl<string | null>;
-  version: FormControl<string | null>;
-  build: FormControl<string | null>;
-}
+import { IPingResultForm } from './ping-result.form';
 
 export function PingResultFormGroupFac(): FormGroup<IPingResultForm> {
   return new FormGroup<IPingResultForm>({

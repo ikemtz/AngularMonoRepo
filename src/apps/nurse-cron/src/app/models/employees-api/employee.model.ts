@@ -32,7 +32,7 @@ export interface IEmployee {
   certificationCount?: number;
   competencyCount?: number;
   healthItemCount?: number;
-  employeeCertifications?: IEmployeeCertification[] | null;
-  employeeCompetencies?: IEmployeeCompetency[] | null;
-  employeeHealthItems?: IEmployeeHealthItem[] | null;
+  employeeCertifications?: Partial<IEmployeeCertification[]>;
+  employeeCompetencies?: Partial<IEmployeeCompetency[]>;
+  employeeHealthItems?: Partial<IEmployeeHealthItem[]>;
 }

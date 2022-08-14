@@ -7,18 +7,7 @@
  * Do not edit.
  */
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms'; //NOSONAR
-
-export interface IScheduleForm {
-  id: FormControl<string | null>;
-  unitId: FormControl<string>;
-  unitName: FormControl<string>;
-  employeeId: FormControl<string>;
-  employeeName: FormControl<string>;
-  staffingRequirementId: FormControl<string>;
-  startTimeUtc: FormControl<Date>;
-  scheduledHours: FormControl<number>;
-  approvedOnUtc: FormControl<Date>;
-}
+import { IScheduleForm } from './schedule.form';
 
 export function ScheduleFormGroupFac(): FormGroup<IScheduleForm> {
   return new FormGroup<IScheduleForm>({

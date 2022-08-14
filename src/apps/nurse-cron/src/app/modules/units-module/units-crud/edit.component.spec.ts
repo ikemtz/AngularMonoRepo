@@ -12,10 +12,10 @@ import {
   readFirst,
 } from 'imng-ngrx-utils/testing';
 
-import { createMockUnitFacade, createUnit } from './add.component.spec';
+import { createMockUnitFacade } from './add.component.spec';
 import { UnitEditComponent } from './edit.component';
 import { UnitCrudFacade } from './crud.facade';
-import { UnitProperties, IUnit } from '../../../models/units-odata';
+import { createTestUnit, IUnit, createTestBuilding } from '../../../models/units-odata';
 
 describe('UnitEditComponent', () => {
   let component: UnitEditComponent;
@@ -60,7 +60,8 @@ describe('UnitEditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue(createUnit());
+    component.addEditForm.patchValue(createTestUnit());
+    component.addEditForm.controls.building?.patchValue(createTestBuilding());
     let item: IUnit | undefined;
     facade.updateExistingEntity = jest.fn((x) => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
@@ -70,6 +71,9 @@ describe('UnitEditComponent', () => {
 
     expect(item).toMatchSnapshot({
       deletedOnUtc: expect.any(Date),
+      building: {
+        deletedOnUtc: expect.any(Date),
+      },
     });
   });
 

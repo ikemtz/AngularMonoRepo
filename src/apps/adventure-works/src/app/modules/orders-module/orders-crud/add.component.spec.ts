@@ -5,9 +5,20 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+  readFirst,
+} from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
-import { OrderProperties, OrderStatusTypes, ShippingTypes, IOrder } from '../../../models/odata';
+import {
+  IOrder,
+  createTestOrder,
+  createTestCustomer,
+  createTestSalesAgent,
+  createTestOrderAddress,
+} from '../../../models/odata';
 
 import { OrderAddComponent } from './add.component';
 import { OrderCrudFacade } from './crud.facade';
@@ -16,16 +27,65 @@ export function createMockOrderFacade() {
   return {
     currentEntity$: of({}),
     customers$: of([
-      { id: 'abc', num: 'abc', name: 'abc', companyName: 'abc', emailAddress: 'abc', phone: 'abc', },
-      { id: 'xyz', num: 'xyz', name: 'xyz', companyName: 'xyz', emailAddress: 'xyz', phone: 'xyz', },]),
+      {
+        id: 'abc',
+        num: 'abc',
+        name: 'abc',
+        companyName: 'abc',
+        emailAddress: 'abc',
+        phone: 'abc',
+      },
+      {
+        id: 'xyz',
+        num: 'xyz',
+        name: 'xyz',
+        companyName: 'xyz',
+        emailAddress: 'xyz',
+        phone: 'xyz',
+      },
+    ]),
     loadCustomers: jest.fn(),
     shipToAddresses$: of([
-      { id: 'abc', line1: 'abc', line2: 'abc', city: 'abc', stateProvince: 'abc', countryRegion: 'abc', postalCode: 'abc', },
-      { id: 'xyz', line1: 'xyz', line2: 'xyz', city: 'xyz', stateProvince: 'xyz', countryRegion: 'xyz', postalCode: 'xyz', },]),
+      {
+        id: 'abc',
+        line1: 'abc',
+        line2: 'abc',
+        city: 'abc',
+        stateProvince: 'abc',
+        countryRegion: 'abc',
+        postalCode: 'abc',
+      },
+      {
+        id: 'xyz',
+        line1: 'xyz',
+        line2: 'xyz',
+        city: 'xyz',
+        stateProvince: 'xyz',
+        countryRegion: 'xyz',
+        postalCode: 'xyz',
+      },
+    ]),
     loadShipToAddresses: jest.fn(),
     billToAddresses$: of([
-      { id: 'abc', line1: 'abc', line2: 'abc', city: 'abc', stateProvince: 'abc', countryRegion: 'abc', postalCode: 'abc', },
-      { id: 'xyz', line1: 'xyz', line2: 'xyz', city: 'xyz', stateProvince: 'xyz', countryRegion: 'xyz', postalCode: 'xyz', },]),
+      {
+        id: 'abc',
+        line1: 'abc',
+        line2: 'abc',
+        city: 'abc',
+        stateProvince: 'abc',
+        countryRegion: 'abc',
+        postalCode: 'abc',
+      },
+      {
+        id: 'xyz',
+        line1: 'xyz',
+        line2: 'xyz',
+        city: 'xyz',
+        stateProvince: 'xyz',
+        countryRegion: 'xyz',
+        postalCode: 'xyz',
+      },
+    ]),
     loadBillToAddresses: jest.fn(),
   };
 }
@@ -42,8 +102,18 @@ describe('OrderAddComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [OrderAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, DropDownsModule,],
-      providers: [{ provide: OrderCrudFacade, useValue: createDataEntryMockFacade(createMockOrderFacade()) }],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        DatePickerModule,
+        DropDownsModule,
+      ],
+      providers: [
+        {
+          provide: OrderCrudFacade,
+          useValue: createDataEntryMockFacade(createMockOrderFacade()),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -67,34 +137,19 @@ describe('OrderAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue({
-      [OrderProperties.ID]: 'ID',
-      [OrderProperties.ORDER_ID]: 0,
-      [OrderProperties.REVISION_NUM]: 0,
-      [OrderProperties.DATE]: new Date(),
-      [OrderProperties.DUE_DATE]: new Date(),
-      [OrderProperties.SHIP_DATE]: new Date(),
-      [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
-      [OrderProperties.IS_ONLINE_ORDER]: true,
-      [OrderProperties.NUM]: 'NUM',
-      [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
-      [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
-      [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
-      [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-      [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Other,
-      [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
-      [OrderProperties.SUB_TOTAL]: 0,
-      [OrderProperties.TAX_AMT]: 0,
-      [OrderProperties.FREIGHT]: 0,
-      [OrderProperties.TOTAL_DUE]: 0,
-      [OrderProperties.COMMENT]: 'COMMENT',
-      [OrderProperties.CUSTOMER]: {},
-      [OrderProperties.SHIP_TO_ADDRESS]: {},
-      [OrderProperties.BILL_TO_ADDRESS]: {},
-    });
-
+    component.addEditForm.patchValue(createTestOrder());
+    component.addEditForm.controls.billToAddress?.patchValue(
+      createTestOrderAddress(),
+    );
+    component.addEditForm.controls.shipToAddress?.patchValue(
+      createTestOrderAddress(),
+    );
+    component.addEditForm.controls.customer?.patchValue(createTestCustomer());
+    component.addEditForm.controls.customer?.controls.salesAgent?.patchValue(
+      createTestSalesAgent(),
+    );
     let item: IOrder | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
@@ -106,7 +161,6 @@ describe('OrderAddComponent', () => {
       dueDate: expect.any(Date),
       shipDate: expect.any(Date),
     });
-
   });
 
   /**
@@ -131,19 +185,48 @@ describe('OrderAddComponent', () => {
   test('should support Customer filters', async () => {
     component.handleCustomerFilter('xy');
     const result = await readFirst(component.customers$);
-    expect(result).toStrictEqual([{ id: 'xyz', num: 'xyz', name: 'xyz', companyName: 'xyz', emailAddress: 'xyz', phone: 'xyz', }]);
+    expect(result).toStrictEqual([
+      {
+        id: 'xyz',
+        num: 'xyz',
+        name: 'xyz',
+        companyName: 'xyz',
+        emailAddress: 'xyz',
+        phone: 'xyz',
+      },
+    ]);
   });
 
   test('should support ShipToAddress filters', async () => {
     component.handleShipToAddressFilter('xy');
     const result = await readFirst(component.shipToAddresses$);
-    expect(result).toStrictEqual([{ id: 'xyz', line1: 'xyz', line2: 'xyz', city: 'xyz', stateProvince: 'xyz', countryRegion: 'xyz', postalCode: 'xyz', }]);
+    expect(result).toStrictEqual([
+      {
+        id: 'xyz',
+        line1: 'xyz',
+        line2: 'xyz',
+        city: 'xyz',
+        stateProvince: 'xyz',
+        countryRegion: 'xyz',
+        postalCode: 'xyz',
+      },
+    ]);
   });
 
   test('should support BillToAddress filters', async () => {
     component.handleBillToAddressFilter('xy');
     const result = await readFirst(component.billToAddresses$);
-    expect(result).toStrictEqual([{ id: 'xyz', line1: 'xyz', line2: 'xyz', city: 'xyz', stateProvince: 'xyz', countryRegion: 'xyz', postalCode: 'xyz', }]);
+    expect(result).toStrictEqual([
+      {
+        id: 'xyz',
+        line1: 'xyz',
+        line2: 'xyz',
+        city: 'xyz',
+        stateProvince: 'xyz',
+        countryRegion: 'xyz',
+        postalCode: 'xyz',
+      },
+    ]);
   });
   test('should handle StatusType filters', async () => {
     component.handleStatusTypeFilter('abc-xyz');

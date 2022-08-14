@@ -7,10 +7,15 @@ Object {
   "emailAddress": "EMAIL_ADDRESS",
   "id": undefined,
   "name": "NAME",
-  "num": "NUM-nu.323",
+  "num": "NUM_NUM_NUM_NUM",
   "orders": null,
   "phone": "PHONE",
-  "salesAgent": Object {},
+  "salesAgent": Object {
+    "customers": Array [],
+    "id": 0,
+    "loginId": "LOGIN_ID",
+    "name": "NAME",
+  },
   "salesAgentId": 0,
 }
 `;
@@ -22,10 +27,15 @@ Object {
   "emailAddress": "EMAIL_ADDRESS",
   "id": "ID",
   "name": "NAME",
-  "num": "NUM-num-23",
+  "num": "NUM_NUM_NUM_NUM",
   "orders": null,
   "phone": "PHONE",
-  "salesAgent": Object {},
+  "salesAgent": Object {
+    "customers": Array [],
+    "id": 0,
+    "loginId": "LOGIN_ID",
+    "name": "NAME",
+  },
   "salesAgentId": 0,
 }
 `;
