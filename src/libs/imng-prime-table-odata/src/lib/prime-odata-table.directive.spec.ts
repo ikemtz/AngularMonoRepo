@@ -12,7 +12,7 @@ describe('ImngPrimeODataTableDirective', () => {
   let tableComponent: Table;
   let changeDetectorRef: ChangeDetectorRef;
   let directive: ImngPrimeODataTableDirective;
-  let odataComponent: ImngPrimeODataTableBaseComponent<{ id?: string; }, ODataTableMockFacade>;
+  let odataComponent: ImngPrimeODataTableBaseComponent<{ id?: string | null; }, ODataTableMockFacade>;
   let facade: IPrimeODataTableFacade<{ id?: string; }>;
 
   beforeEach(() => {

@@ -18,7 +18,7 @@ import {
   isCompositeFilterDescriptor,
 } from '@progress/kendo-data-query';
 
-const FACADE = new InjectionToken<IPrimeODataTableFacade<{ id?: string; }>>(
+const FACADE = new InjectionToken<IPrimeODataTableFacade<{ id?: string | null; }>>(
   'imng-grid-odata-facade'
 );
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');

@@ -4,11 +4,11 @@ import { IPrimeODataTableFacade } from 'imng-prime-table-odata';
 import { Observable, of } from 'rxjs';
 
 export class ODataTableMockFacade
-  implements IPrimeODataTableFacade<{ id?: string; }>
+  implements IPrimeODataTableFacade<{ id?: string | null; }>
 {
   public loading$: Observable<boolean> = of(false);
   public tableODataQueryState$: Observable<ODataState> = of({});
-  public tableData$: Observable<{ id?: string; }[]> = of([{ id: 'apples' }]);
+  public tableData$: Observable<{ id?: string | null; }[]> = of([{ id: 'apples' }]);
   public totalRecordCount$ = of(1);
   public gridPagerSettings$: Observable<false | PagerSettings> = of({});
   public loadEntities = jest.fn();

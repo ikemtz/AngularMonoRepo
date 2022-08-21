@@ -11,9 +11,9 @@ import { LazyLoadEvent } from 'primeng/api';
 export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
   @Input('imngODataTable') public odataTableComponent: ImngPrimeODataTableBaseComponent<
     object,
-    IPrimeODataTableFacade<{ id?: string; }>
+    IPrimeODataTableFacade<{ id?: string | null; }>
   >;
-  private facade: IPrimeODataTableFacade<{ id?: string; }>;
+  private facade: IPrimeODataTableFacade<{ id?: string | null; }>;
   public readonly allSubscriptions = new Subscriptions();
   constructor(
     public readonly tableComponent: Table,

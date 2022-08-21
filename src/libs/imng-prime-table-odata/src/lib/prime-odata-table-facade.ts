@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { ODataState } from 'imng-kendo-odata';
 
-export interface IPrimeODataTableFacade<Entity extends { id?: string; }> {
+export interface IPrimeODataTableFacade<Entity extends { id?: string | null; }> {
   loading$: Observable<boolean>;
   tableODataQueryState$: Observable<ODataState | undefined>;
   tableData$: Observable<Entity[]>;
