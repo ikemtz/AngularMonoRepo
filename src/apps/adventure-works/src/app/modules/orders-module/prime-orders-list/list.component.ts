@@ -5,7 +5,6 @@ import { ODataState } from 'imng-kendo-odata';
 
 import { PrimeOrderListFacade } from './list.facade';
 import { CustomerProperties, IOrder, OrderProperties, orderStatusTypeValues, shippingTypeValues } from '../../../models/odata';
-import { IExtOrder } from '../models/ext-order';
 import { Observable } from 'rxjs';
 import { ImngPrimeODataTableBaseComponent } from 'imng-prime-table-odata';
 

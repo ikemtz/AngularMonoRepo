@@ -1,10 +1,10 @@
 <p-table [imngODataTable]="this" responsiveLayout="scroll">
   <ng-template pTemplate="header">
     <tr>
-      <th>Num</th>
-      <th>Order Id</th>
-      <th>Date</th>
-      <th>Ship Date</th>
+      <th [id]="props.NUM">Num</th>
+      <th [id]="props.ORDER_ID">Order Id</th>
+      <th [id]="props.DATE">Date</th>
+      <th [id]="props.SHIP_DATE">Ship Date</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-dataItem>
