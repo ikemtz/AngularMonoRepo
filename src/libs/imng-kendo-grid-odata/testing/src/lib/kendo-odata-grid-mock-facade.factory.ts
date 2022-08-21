@@ -1,21 +1,5 @@
-import { Observable, of } from 'rxjs';
-import { PagerSettings } from '@progress/kendo-angular-grid';
-import { ODataState, ODataResult } from 'imng-kendo-odata';
-import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
-
-export class ODataGridMockFacade
-  implements IKendoODataGridFacade<{ id: string }>
-{
-  public loading$: Observable<boolean> = of(false);
-  public gridODataState$: Observable<ODataState> = of({});
-  public gridData$: Observable<ODataResult<{ id: string }>> = of({
-    data: [{ id: 'apples' }],
-    total: 0,
-  });
-  public gridPagerSettings$: Observable<false | PagerSettings> = of({});
-  public loadEntities = jest.fn();
-  public reloadEntities = jest.fn();
-}
+/* istanbul ignore file */
+import { ODataGridMockFacade } from './kendo-odata-grid-mock.facade';
 
 export function createODataGridMockFacade(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

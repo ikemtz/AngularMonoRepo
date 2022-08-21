@@ -29,7 +29,9 @@ export function EmployeeInsertDtoFormGroupFac(): FormGroup<IEmployeeInsertDtoFor
       ]),
       nonNullable: true,
     }),
-    email: new FormControl<string | null>(null),
+    email: new FormControl<string | null>(null, {
+      validators: Validators.email,
+    }),
     hireDate: new FormControl<Date | null>(null),
     addressLine1: new FormControl<string | null>(null),
     city: new FormControl<string | null>(null),

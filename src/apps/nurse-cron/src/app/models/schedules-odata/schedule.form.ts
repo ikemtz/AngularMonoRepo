@@ -9,13 +9,13 @@
 import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 
 export interface IScheduleForm {
-    id?: FormControl<string | null | undefined>;
-    unitId?: FormControl<string | undefined>;
-    unitName?: FormControl<string | undefined>;
-    employeeId?: FormControl<string | undefined>;
-    employeeName?: FormControl<string | undefined>;
-    staffingRequirementId?: FormControl<string | undefined>;
-    startTimeUtc?: FormControl<Date | undefined>;
-    scheduledHours?: FormControl<number | undefined>;
-    approvedOnUtc?: FormControl<Date | undefined>;
+  id?: FormControl<string | null>;
+  unitId?: FormControl<string>;
+  unitName?: FormControl<string>;
+  employeeId?: FormControl<string>;
+  employeeName?: FormControl<string>;
+  staffingRequirementId?: FormControl<string>;
+  startTimeUtc?: FormControl<Date>;
+  scheduledHours?: FormControl<number>;
+  approvedOnUtc?: FormControl<Date>;
 }

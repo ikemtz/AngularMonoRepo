@@ -9,22 +9,22 @@
 import { EmployeeInsertDtoProperties } from './employee-insert-dto.properties';
 
 export function createTestEmployeeInsertDto() {
-    return { 
-      [EmployeeInsertDtoProperties.ID]: 'ID',
-      [EmployeeInsertDtoProperties.FIRST_NAME]: 'FIRST_NAME',
-      [EmployeeInsertDtoProperties.LAST_NAME]: 'LAST_NAME',
-      [EmployeeInsertDtoProperties.EMAIL]: 'EMAIL',
-      [EmployeeInsertDtoProperties.HIRE_DATE]: new Date(),
-      [EmployeeInsertDtoProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
-      [EmployeeInsertDtoProperties.CITY]: 'CITY',
-      [EmployeeInsertDtoProperties.STATE]: 'STATE',
-      [EmployeeInsertDtoProperties.ZIP]: 'ZIP',
-      [EmployeeInsertDtoProperties.HOME_PHONE]: 'HOME_PHONE',
-      [EmployeeInsertDtoProperties.MOBILE_PHONE]: 'MOBILE_PHONE',
-      [EmployeeInsertDtoProperties.PHOTO]: 'PHOTO',
-      [EmployeeInsertDtoProperties.BIRTH_DATE]: new Date(), 
-      [EmployeeInsertDtoProperties.EMPLOYEE_CERTIFICATIONS]: [],
-      [EmployeeInsertDtoProperties.EMPLOYEE_COMPETENCIES]: [],
-      [EmployeeInsertDtoProperties.EMPLOYEE_HEALTH_ITEMS]: [],
-    };
+  return {
+    [EmployeeInsertDtoProperties.ID]: 'ID',
+    [EmployeeInsertDtoProperties.FIRST_NAME]: 'FIRST_NAME',
+    [EmployeeInsertDtoProperties.LAST_NAME]: 'LAST_NAME',
+    [EmployeeInsertDtoProperties.EMAIL]: 'employee-insert-dto@email.org',
+    [EmployeeInsertDtoProperties.HIRE_DATE]: new Date(),
+    [EmployeeInsertDtoProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
+    [EmployeeInsertDtoProperties.CITY]: 'CITY',
+    [EmployeeInsertDtoProperties.STATE]: 'STATE',
+    [EmployeeInsertDtoProperties.ZIP]: 'ZIP',
+    [EmployeeInsertDtoProperties.HOME_PHONE]: 'HOME_PHONE',
+    [EmployeeInsertDtoProperties.MOBILE_PHONE]: 'MOBILE_PHONE',
+    [EmployeeInsertDtoProperties.PHOTO]: 'PHOTO',
+    [EmployeeInsertDtoProperties.BIRTH_DATE]: new Date(),
+    [EmployeeInsertDtoProperties.EMPLOYEE_CERTIFICATIONS]: [],
+    [EmployeeInsertDtoProperties.EMPLOYEE_COMPETENCIES]: [],
+    [EmployeeInsertDtoProperties.EMPLOYEE_HEALTH_ITEMS]: [],
+  };
 }
