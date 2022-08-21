@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImngPrimeODataTableDirective should fire OnInit 1`] = `
+MockTable {
+  "lazy": true,
+  "loading": false,
+  "onLazyLoad": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "thrownError": null,
+  },
+  "paginator": true,
+  "responsiveLayout": "scroll",
+  "rows": 20,
+  "rowsPerPageOptions": undefined,
+  "showCurrentPageReport": true,
+  "styleClass": "p-datatable-gridlines",
+  "totalRecords": 1,
+  "value": Array [
+    Object {
+      "id": "apples",
+    },
+  ],
+}
+`;
+
+exports[`ImngPrimeODataTableDirective should handle lazyload 1`] = `
+MockTable {
+  "lazy": true,
+  "loading": false,
+  "onLazyLoad": Subject {
+    "closed": false,
+    "currentObservers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "thrownError": null,
+  },
+  "paginator": true,
+  "responsiveLayout": "scroll",
+  "rows": 20,
+  "rowsPerPageOptions": undefined,
+  "showCurrentPageReport": true,
+  "styleClass": "p-datatable-gridlines",
+  "totalRecords": 1,
+  "value": Array [
+    Object {
+      "id": "apples",
+    },
+  ],
+}
+`;
