@@ -1,38 +1,33 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
-import { OrderListComponent } from './list.component';
+import { PrimeOrderListComponent } from './list.component';
 import { createOrder } from './list.facade.spec';
-import { OrderListFacade } from './list.facade';
-import { OrderCrudFacade } from '../orders-crud';
+import { PrimeOrderListFacade } from './list.facade';
 
 describe('OrderListComponent', () => {
-  let component: OrderListComponent;
-  let fixture: ComponentFixture<OrderListComponent>;
-  let listFacade: OrderListFacade;
-  let crudFacade: OrderCrudFacade;
+  let component: PrimeOrderListComponent;
+  let fixture: ComponentFixture<PrimeOrderListComponent>;
+  let listFacade: PrimeOrderListFacade;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [OrderListComponent],
+      declarations: [PrimeOrderListComponent],
       imports: [RouterTestingModule],
       providers: [
-        { provide: OrderListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
-        { provide: OrderCrudFacade, useValue: createDataEntryMockFacade() },
+        { provide: PrimeOrderListFacade, useValue: createODataGridMockFacade() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrderListComponent);
+    fixture = TestBed.createComponent(PrimeOrderListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    listFacade = TestBed.inject(OrderListFacade);
-    crudFacade = TestBed.inject(OrderCrudFacade);
+    listFacade = TestBed.inject(PrimeOrderListFacade);
   });
 
   afterAll(() => {
@@ -52,32 +47,5 @@ describe('OrderListComponent', () => {
   test('it should handle reload', () => {
     component.reloadEntities();
     expect(listFacade.reloadEntities).toBeCalledTimes(1);
-  });
-
-  test('it should handle AddItem', () => {
-    component.addItem();
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith({
-      orderLineItemOData: {
-        data: [],
-        total: 0,
-      },
-      orderLineItemODataState: {},
-      orderLineItemPagerSettings: false,
-    });
-  });
-
-  test('it should handle EditItem', () => {
-    const item = createOrder();
-    component.editItem(item);
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
-  });
-
-  test('it should handle DeleteItem', () => {
-    const item = createOrder();
-    component.deleteItem(item);
-    expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
   });
 });

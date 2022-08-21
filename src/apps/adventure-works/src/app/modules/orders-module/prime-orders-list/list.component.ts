@@ -4,7 +4,6 @@ import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { ODataState } from 'imng-kendo-odata';
 
 import { PrimeOrderListFacade } from './list.facade';
-import { OrderCrudFacade } from '../orders-crud';
 import { CustomerProperties, IOrder, OrderProperties, orderStatusTypeValues, shippingTypeValues } from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
 import { Observable } from 'rxjs';
@@ -60,18 +59,9 @@ export class PrimeOrderListComponent extends ImngPrimeODataTableBaseComponent<IO
   public readonly data$: Observable<IOrder[]>;
 
   constructor(facade: PrimeOrderListFacade,
-    public readonly crudFacade: OrderCrudFacade,
     router: Router) {
     super(facade, initialGridState, router);
     this.loading$ = facade.loading$;
-  }
-
-  public addItem(): void {
-    this.crudFacade.setCurrentEntity({ orderLineItemODataState: {}, orderLineItemOData: { data: [], total: 0 }, orderLineItemPagerSettings: false });
-  }
-
-  public editItem(item: IExtOrder): void {
-    this.crudFacade.setCurrentEntity(item);
   }
 
   public detailExpanded(evt: DetailExpandEvent): void {
