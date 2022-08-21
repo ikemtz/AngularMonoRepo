@@ -24,7 +24,7 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     this.tableComponent.responsiveLayout = 'scroll';
     this.tableComponent.paginator = true;
     this.tableComponent.lazy = true;
-    this.tableComponent.styleClass = "p-datatable-gridlines";
+    this.tableComponent.styleClass = 'p-datatable-gridlines';
     this.tableComponent.showCurrentPageReport = true;
     this.tableComponent.rowsPerPageOptions = this.odataTableComponent.rowsPerPageOptions;
     this.allSubscriptions.push(this.facade.tableData$.subscribe((t) => {
