@@ -1,2 +1,2 @@
-export { OrderListComponent } from './list.component';
-export { OrderListFacade } from './list.facade';
+export { PrimeOrderListComponent } from './prime-list.component';
+export { PrimeOrderListFacade } from './prime-list.facade';

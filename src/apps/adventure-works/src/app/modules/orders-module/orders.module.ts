@@ -24,9 +24,8 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 //primeNG
 import { ImngPrimeTableODataModule } from 'imng-prime-table-odata';
-import { PrimeOrderListComponent } from './prime-orders-list/list.component';
-import { PrimeOrderListFacade } from './prime-orders-list/list.facade';
 import { TableModule } from 'primeng/table';
+import { PrimeOrderListComponent, PrimeOrderListFacade } from './prime-orders-list';
 
 @NgModule({
   declarations: [OrderListComponent, OrderAddComponent, OrderEditComponent, OrderLineItemListComponent, PrimeOrderListComponent],

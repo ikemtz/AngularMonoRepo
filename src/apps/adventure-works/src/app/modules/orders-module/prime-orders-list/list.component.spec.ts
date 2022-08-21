@@ -3,9 +3,9 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
-import { PrimeOrderListComponent } from './list.component';
+import { PrimeOrderListComponent } from './prime-list.component';
 import { createOrder } from './list.facade.spec';
-import { PrimeOrderListFacade } from './list.facade';
+import { PrimeOrderListFacade } from './prime-list.facade';
 
 describe('OrderListComponent', () => {
   let component: PrimeOrderListComponent;

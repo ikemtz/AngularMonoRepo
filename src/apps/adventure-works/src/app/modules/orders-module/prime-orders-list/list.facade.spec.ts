@@ -11,7 +11,7 @@ import { Observable, of } from 'rxjs';
 import * as orderActionTypes from '../+state/order.actions';
 import { OrderEffects } from '../+state/order.effects';
 import { ordersFeature } from '../+state/order.reducer';
-import { PrimeOrderListFacade } from './list.facade';
+import { PrimeOrderListFacade } from './prime-list.facade';
 import { environment } from '../../../../environments/environment';
 import { OrderProperties, OrderStatusTypes, ShippingTypes } from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
