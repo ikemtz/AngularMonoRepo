@@ -1,5 +1,12 @@
 {
   "name": "imng-prime-table-odata",
+  "keywords": [
+    "Angular",
+    "NGRX",
+    "PrimeNG",
+    "Table",
+    "OData"
+  ],
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": ">=14",
