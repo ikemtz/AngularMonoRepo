@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/imng-prime-table-odata/src",
+  "prefix": "imng",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/imng-prime-table-odata"],
+      "options": {
+        "project": "libs/imng-prime-table-odata/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/imng-prime-table-odata/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/imng-prime-table-odata/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/imng-prime-table-odata"],
+      "options": {
+        "jestConfig": "libs/imng-prime-table-odata/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/imng-prime-table-odata/**/*.ts",
+          "libs/imng-prime-table-odata/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -51,6 +51,7 @@
       ],
       "imng-nrsrx-client-utils": ["libs/imng-nrsrx-client-utils/src/index.ts"],
       "imng-oidc-client": ["libs/imng-oidc-client/src/index.ts"],
+      "imng-prime-table-odata": ["libs/imng-prime-table-odata/src/index.ts"],
       "imng-signalr-ngrx": ["libs/imng-signalr-ngrx/src/index.ts"]
     }
   },
