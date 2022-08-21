@@ -18,27 +18,8 @@ import { productsFeature } from '../+state/product.reducer';
 import { ProductCrudFacade } from './crud.facade';
 import { ProductApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { IProduct, ProductProperties } from '../../../models/webapi';
+import { createTestProduct } from '../../../models/webapi';
 
-export const createProduct = () =>
-  <IProduct>{
-    [ProductProperties.ID]: 'ID',
-    [ProductProperties.NAME]: 'NAME',
-    [ProductProperties.NUM]: 'NUM',
-    [ProductProperties.COLOR]: 'COLOR',
-    [ProductProperties.STANDARD_COST]: 0,
-    [ProductProperties.LIST_PRICE]: 0,
-    [ProductProperties.SIZE]: 'SIZE',
-    [ProductProperties.WEIGHT]: 0,
-    [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
-    [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
-    [ProductProperties.SELL_START_DATE]: new Date(),
-    [ProductProperties.SELL_END_DATE]: new Date(),
-    [ProductProperties.DISCONTINUED_DATE]: new Date(),
-    [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
-    [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
-    [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
-  };
 
 describe('ProductCrudFacade', () => {
   let facade: ProductCrudFacade;
@@ -58,7 +39,7 @@ describe('ProductCrudFacade', () => {
         providers: [
           ProductCrudFacade,
           ProductApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createProduct()]))) } },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestProduct()]))) } },
         ],
       })
       class CustomFeatureModule { }
