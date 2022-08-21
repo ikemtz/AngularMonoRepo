@@ -12,14 +12,14 @@ import { ICustomerAddressForm } from './customer-address.form';
 import { IOrderForm } from './order.form';
 
 export interface ICustomerForm {
-    id?: FormControl<string | null | undefined>;
-    num?: FormControl<string | undefined>;
-    name?: FormControl<string | null | undefined>;
-    companyName?: FormControl<string | undefined>;
-    salesAgentId?: FormControl<number | undefined>;
-    emailAddress?: FormControl<string | null | undefined>;
-    phone?: FormControl<string | null | undefined>;
-    salesAgent?: FormGroup<ISalesAgentForm>;
-    customerAddresses?: FormArray<FormGroup<ICustomerAddressForm>>;
-    orders?: FormArray<FormGroup<IOrderForm>>;
+  id?: FormControl<string | null>;
+  num?: FormControl<string>;
+  name?: FormControl<string | null>;
+  companyName?: FormControl<string>;
+  salesAgentId?: FormControl<number>;
+  emailAddress?: FormControl<string | null>;
+  phone?: FormControl<string | null>;
+  salesAgent?: FormGroup<ISalesAgentForm>;
+  customerAddresses?: FormArray<FormGroup<ICustomerAddressForm>>;
+  orders?: FormArray<FormGroup<IOrderForm>>;
 }

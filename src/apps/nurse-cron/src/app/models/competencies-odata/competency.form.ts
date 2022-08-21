@@ -9,7 +9,7 @@
 import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 
 export interface ICompetencyForm {
-    id?: FormControl<string | null | undefined>;
-    name?: FormControl<string | null | undefined>;
-    isEnabled?: FormControl<boolean | null | undefined>;
+  id?: FormControl<string | null>;
+  name?: FormControl<string | null>;
+  isEnabled?: FormControl<boolean | null>;
 }

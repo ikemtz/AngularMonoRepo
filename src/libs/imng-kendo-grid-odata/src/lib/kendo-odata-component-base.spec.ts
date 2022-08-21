@@ -80,6 +80,11 @@ describe('KendoODataBasedComponent', () => {
     });
   });
 
+  it('should handle dataStateChange', async () => {
+    component.dataStateChange({});
+    expect(component.facade.loadEntities).toBeCalledTimes(2);
+  });
+
   it('should serialize/deserialize odataState correctly', () => {
     const serializedResult = component.serializeODataState({});
     const deserializedResult = component.deserializeODataState(serializedResult);
