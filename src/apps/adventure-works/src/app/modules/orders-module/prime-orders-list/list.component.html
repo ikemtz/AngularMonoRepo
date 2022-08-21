@@ -5,6 +5,8 @@
       <th [id]="props.ORDER_ID">Order Id</th>
       <th [id]="props.DATE">Date</th>
       <th [id]="props.SHIP_DATE">Ship Date</th>
+      <th [id]="props.PURCHASE_ORDER_NUM">Purchase Order #</th>
+      <th [id]="props.STATUS_TYPE">Status</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-dataItem>
@@ -13,6 +15,8 @@
       <td>{{ dataItem[props.ORDER_ID] }}</td>
       <td>{{ dataItem[props.DATE] | date }}</td>
       <td>{{ dataItem[props.SHIP_DATE] | date }}</td>
+      <td>{{ dataItem[props.PURCHASE_ORDER_NUM] }}</td>
+      <td>{{ dataItem[props.STATUS_TYPE] }}</td>
     </tr>
   </ng-template>
 </p-table>
