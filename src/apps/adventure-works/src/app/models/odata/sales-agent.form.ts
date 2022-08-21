@@ -10,8 +10,8 @@ import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 import { ICustomerForm } from './customer.form';
 
 export interface ISalesAgentForm {
-    id?: FormControl<number | null | undefined>;
-    name?: FormControl<string | undefined>;
-    loginId?: FormControl<string | undefined>;
-    customers?: FormArray<FormGroup<ICustomerForm>>;
+  id?: FormControl<number | null>;
+  name?: FormControl<string>;
+  loginId?: FormControl<string>;
+  customers?: FormArray<FormGroup<ICustomerForm>>;
 }

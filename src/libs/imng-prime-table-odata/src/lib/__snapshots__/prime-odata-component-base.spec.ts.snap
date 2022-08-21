@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KendoODataBasedComponent should export to Excel 1`] = `
+Array [
+  Object {
+    "id": "apples",
+  },
+]
+`;
+
+exports[`KendoODataBasedComponent should reset 1`] = `
+Object {
+  "childFilters": undefined,
+  "filter": Object {
+    "filters": Array [
+      Object {
+        "field": "x",
+        "operator": "eq",
+        "value": 1,
+      },
+    ],
+    "logic": "and",
+  },
+  "inFilters": undefined,
+  "selectors": Array [
+    "x",
+    "y",
+    "z",
+  ],
+  "sort": Array [
+    Object {
+      "dir": "desc",
+      "field": "x",
+    },
+  ],
+}
+`;

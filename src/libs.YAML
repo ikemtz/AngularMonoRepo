@@ -53,7 +53,7 @@ jobs:
             sonar.exclusions=**/node_modules/**,**/testing/**,**/*.spec.ts,src/apps/nurse-cron/src/app/models/**,**/main.ts,**/environment.prod.ts,**/assets/*,**/jest.config.ts
             sonar.tests=src/libs
             sonar.test.inclusions=**/*.spec.ts
-            sonar.javascript.lcov.reportPaths=src/coverage/libs/imng-application-insights-ngrx/lcov.info,src/coverage/libs/imng-kendo-chart-odata/lcov.info,src/coverage/libs/imng-kendo-data-entry/lcov.info,src/coverage/libs/imng-kendo-grid/lcov.info,src/coverage/libs/imng-kendo-grid-array/lcov.info,src/coverage/libs/imng-kendo-grid-editable/lcov.info,src/coverage/libs/imng-kendo-grid-filtering/lcov.info,src/coverage/libs/imng-kendo-grid-odata/lcov.info,src/coverage/libs/imng-kendo-ngrx-idle/lcov.info,src/coverage/libs/imng-kendo-odata/lcov.info,src/coverage/libs/imng-ngrx-utils/lcov.info,src/coverage/libs/imng-ngxb-typeahead/lcov.info,src/coverage/libs/imng-nrsrx-client-utils/lcov.info,src/coverage/libs/imng-oidc-client/lcov.info,src/coverage/libs/imng-signalr-ngrx/lcov.info
+            sonar.javascript.lcov.reportPaths=src/coverage/libs/**/lcov.info
       #           sonar.coverage.exclusions=src/libs/**
       - task: Npm@1
         displayName: 'npm run lint:libs'
@@ -217,6 +217,15 @@ jobs:
           verbose: false
           customCommand: 'run build:core'
 
+      - task: Npm@1
+        displayName: 'npm run nx -- build imng-prime-table-odata --configuration=production'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run nx -- build imng-prime-table-odata --configuration=production'
+
       #Tests
       - task: Npm@1
         displayName: 'npm run test:data-entry'
@@ -352,6 +361,15 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run test:ngrx-idle'
+
+      - task: Npm@1
+        displayName: 'npm run nx -- test imng-prime-table-odata --code-coverage'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run nx -- test imng-prime-table-odata --code-coverage'
 
       - task: SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'

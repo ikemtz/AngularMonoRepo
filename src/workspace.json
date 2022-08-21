@@ -22,6 +22,7 @@
     "imng-ngxb-typeahead": "libs/imng-ngxb-typeahead",
     "imng-nrsrx-client-utils": "libs/imng-nrsrx-client-utils",
     "imng-oidc-client": "libs/imng-oidc-client",
+    "imng-prime-table-odata": "libs/imng-prime-table-odata",
     "imng-signalr-ngrx": "libs/imng-signalr-ngrx",
     "imng-snippets": "libs/imng-snippets",
     "nurse-cron": "apps/nurse-cron",
