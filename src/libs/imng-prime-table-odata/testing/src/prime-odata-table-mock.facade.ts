@@ -1,6 +1,6 @@
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { ODataState } from 'imng-kendo-odata';
-import { IPrimeODataTableFacade } from '../../src/lib/prime-odata-table-facade';
+import { IPrimeODataTableFacade } from 'imng-prime-table-odata';
 import { Observable, of } from 'rxjs';
 
 export class ODataTableMockFacade

@@ -16,7 +16,7 @@
   "compilerOptions": {
     "target": "es2020",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -24,9 +24,10 @@
     "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "strictMetadataEmit": true,
+    "types": ["jest"]
   }
 }
