@@ -11,13 +11,13 @@ import { IOrderForm } from './order.form';
 import { IProductForm } from './product.form';
 
 export interface IOrderLineItemForm {
-    id?: FormControl<string | null | undefined>;
-    orderId?: FormControl<string | undefined>;
-    orderQty?: FormControl<number | undefined>;
-    productId?: FormControl<string | undefined>;
-    unitPrice?: FormControl<number | undefined>;
-    unitPriceDiscount?: FormControl<number | undefined>;
-    lineTotal?: FormControl<number | undefined>;
-    order?: FormGroup<IOrderForm>;
-    product?: FormGroup<IProductForm>;
+  id?: FormControl<string | null>;
+  orderId?: FormControl<string>;
+  orderQty?: FormControl<number>;
+  productId?: FormControl<string>;
+  unitPrice?: FormControl<number>;
+  unitPriceDiscount?: FormControl<number>;
+  lineTotal?: FormControl<number>;
+  order?: FormGroup<IOrderForm>;
+  product?: FormGroup<IProductForm>;
 }

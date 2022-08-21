@@ -22,17 +22,24 @@ import { OrderLineItemListComponent, OrderLineItemListFacade } from './order-lin
 import { MenusModule } from '@progress/kendo-angular-menu';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
+//primeNG
+import { ImngPrimeTableODataModule } from 'imng-prime-table-odata';
+import { PrimeOrderListComponent } from './prime-orders-list/list.component';
+import { PrimeOrderListFacade } from './prime-orders-list/list.facade';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
-  declarations: [OrderListComponent, OrderAddComponent, OrderEditComponent, OrderLineItemListComponent],
+  declarations: [OrderListComponent, OrderAddComponent, OrderEditComponent, OrderLineItemListComponent, PrimeOrderListComponent],
   imports: [
     CommonModule,
     GridModule,
+    TableModule,
     ExcelModule,
     PDFModule,
     DialogModule,
     ImngKendoGridModule,
     ImngKendoGridODataModule,
+    ImngPrimeTableODataModule,
     ImngDataEntryDialogModule,
     ReactiveFormsModule,
     OrdersRoutingModule,
@@ -44,7 +51,7 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
     DropDownsModule,
   ],
   providers: [
-    OrderListFacade,
+    OrderListFacade, PrimeOrderListFacade,
     OrderCrudFacade,
     OrderApiService,
     OrderLineItemListFacade,
