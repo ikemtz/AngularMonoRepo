@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Table } from 'primeng/table';
 import { Subscriptions } from 'imng-ngrx-utils';
-import { ImngPrimeODataTableBaseComponent } from 'imng-prime-table-odata';
+import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { LazyLoadEvent } from 'primeng/api';
 
 @Directive({
@@ -11,9 +11,9 @@ import { LazyLoadEvent } from 'primeng/api';
 export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
   @Input('imngODataTable') public odataTableComponent: ImngPrimeODataTableBaseComponent<
     object,
-    IPrimeODataTableFacade<object>
+    IPrimeODataTableFacade<{ id?: string; }>
   >;
-  private facade: IPrimeODataTableFacade<object>;
+  private facade: IPrimeODataTableFacade<{ id?: string; }>;
   public readonly allSubscriptions = new Subscriptions();
   constructor(
     public readonly tableComponent: Table,
@@ -44,13 +44,10 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
       this.changeDetectorRef.markForCheck();
     }));
     this.allSubscriptions.push(
-      this.tableComponent.onLazyLoad.subscribe((x: LazyLoadEvent) => {
-        console.log(x);
-        this.facade.loadEntities({
-          skip: x.first,
-          take: x.rows,
-        });
-      }));
+      this.tableComponent.onLazyLoad.subscribe((x: LazyLoadEvent) => this.facade.loadEntities({
+        skip: x.first,
+        take: x.rows,
+      })));
   }
 
   ngOnDestroy(): void {

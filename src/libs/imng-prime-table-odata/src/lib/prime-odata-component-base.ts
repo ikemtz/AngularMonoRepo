@@ -17,9 +17,8 @@ import {
   FilterDescriptor,
   isCompositeFilterDescriptor,
 } from '@progress/kendo-data-query';
-import { LazyLoadEvent } from 'primeng/api';
 
-const FACADE = new InjectionToken<IPrimeODataTableFacade<unknown>>(
+const FACADE = new InjectionToken<IPrimeODataTableFacade<{ id?: string; }>>(
   'imng-grid-odata-facade'
 );
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
@@ -147,9 +146,6 @@ export abstract class ImngPrimeODataTableBaseComponent<
       };
       this.loadEntities(this.gridDataState);
     }
-  }
-  public onLazyLoad(event: LazyLoadEvent) {
-    console.log(JSON.stringify(event));
   }
   public dataStateChange(state: GridStateChangeEvent | ODataState): void {
     this.gridDataState = {

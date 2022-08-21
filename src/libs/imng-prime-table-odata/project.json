@@ -32,7 +32,9 @@
       "options": {
         "lintFilePatterns": [
           "libs/imng-prime-table-odata/**/*.ts",
-          "libs/imng-prime-table-odata/**/*.html"
+          "libs/imng-prime-table-odata/**/*.html",
+          "libs/imng-prime-table-odata/testing/**/*.ts",
+          "libs/imng-prime-table-odata/testing/**/*.html"
         ]
       }
     }

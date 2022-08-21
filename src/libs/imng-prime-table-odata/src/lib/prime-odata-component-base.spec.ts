@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { KendoODataBasedComponent } from './kendo-odata-component-base';
-import { ODataGridMockFacade, createODataGridMockFacade } from '../../testing/src';
+import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
+import { ODataTableMockFacade, createODataGridMockFacade } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { FilterDescriptor } from '@progress/kendo-data-query';
 import { ODataState } from 'imng-kendo-odata';
 
 describe('KendoODataBasedComponent', () => {
-  let component: KendoODataGridTestComponent;
-  let fixture: ComponentFixture<KendoODataGridTestComponent>;
+  let component: PrimeODataTableTestComponent;
+  let fixture: ComponentFixture<PrimeODataTableTestComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [KendoODataGridTestComponent],
+      declarations: [PrimeODataTableTestComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KendoODataGridTestComponent);
+    fixture = TestBed.createComponent(PrimeODataTableTestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -29,7 +29,7 @@ describe('KendoODataBasedComponent', () => {
 
   it('should export to Excel', async () => {
     const data = await readFirst(component.excelData());
-    expect(data).toStrictEqual({ data: [{ id: 'apples' }], total: 0 });
+    expect(data).toMatchSnapshot();
   });
 
   it('should reset', async () => {
@@ -46,13 +46,18 @@ describe('KendoODataBasedComponent', () => {
     expect(component.facade.reloadEntities).toBeCalledTimes(1);
   });
 
+  it('should handle dataStateChange', async () => {
+    component.dataStateChange({});
+    expect(component.facade.loadEntities).toBeCalledTimes(2);
+  });
+
   it('should serialize/deserialize odataState filters correctly', () => {
     const tempDate = new Date();
     const serializedResult = component.serializeODataState({
       filter: { logic: 'and', filters: [{ field: 'xyzDate', operator: 'eq', value: tempDate }] },
     });
     const deserializedResult = component.deserializeODataState(serializedResult);
-    expect(tempDate).toEqual((deserializedResult.filter.filters[0] as FilterDescriptor).value);
+    expect(tempDate).toEqual((deserializedResult.filter?.filters[0] as FilterDescriptor).value);
   });
 
   it('should limit odataState sort parameters', () => {
@@ -80,11 +85,6 @@ describe('KendoODataBasedComponent', () => {
     });
   });
 
-  it('should handle dataStateChange', async () => {
-    component.dataStateChange({});
-    expect(component.facade.loadEntities).toBeCalledTimes(2);
-  });
-
   it('should serialize/deserialize odataState correctly', () => {
     const serializedResult = component.serializeODataState({});
     const deserializedResult = component.deserializeODataState(serializedResult);
@@ -102,7 +102,7 @@ const initialGridState: ODataState = {
   template: '<h1></h1>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class KendoODataGridTestComponent extends KendoODataBasedComponent<object, ODataGridMockFacade> {
+class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<object, ODataTableMockFacade> {
   props = {};
   constructor() {
     super(createODataGridMockFacade(), initialGridState);
