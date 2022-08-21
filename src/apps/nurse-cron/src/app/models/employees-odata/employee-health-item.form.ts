@@ -9,10 +9,10 @@
 import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 
 export interface IEmployeeHealthItemForm {
-    id?: FormControl<string | null | undefined>;
-    employeeId?: FormControl<string | null | undefined>;
-    healthItemId?: FormControl<string | null | undefined>;
-    healthItemName?: FormControl<string | null | undefined>;
-    expiresOnUtc?: FormControl<Date | null | undefined>;
-    isEnabled?: FormControl<boolean | null | undefined>;
+  id?: FormControl<string | null>;
+  employeeId?: FormControl<string | null>;
+  healthItemId?: FormControl<string | null>;
+  healthItemName?: FormControl<string | null>;
+  expiresOnUtc?: FormControl<Date | null>;
+  isEnabled?: FormControl<boolean | null>;
 }
