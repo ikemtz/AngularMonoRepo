@@ -39,5 +39,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": ["imng-odata-client"]
 }

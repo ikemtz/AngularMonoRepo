@@ -1,12 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
-import { ODataTableMockFacade, createODataGridMockFacade } from '../../testing/src';
+import {
+  ODataTableMockFacade,
+  createODataGridMockFacade,
+} from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { FilterDescriptor } from '@progress/kendo-data-query';
-import { ODataState } from 'imng-kendo-odata';
+import { Filter, FilterOperators, ODataQuery } from 'imng-odata-client';
 
-describe('KendoODataBasedComponent', () => {
+describe('PrimeODataBasedComponent', () => {
   let component: PrimeODataTableTestComponent;
   let fixture: ComponentFixture<PrimeODataTableTestComponent>;
 
@@ -35,7 +37,12 @@ describe('KendoODataBasedComponent', () => {
   it('should reset', async () => {
     component.gridDataState = {
       ...component.gridDataState,
-      filter: { logic: 'and', filters: [{ field: 'y', operator: 'contains', value: 56 }] },
+      filter: {
+        logic: 'and',
+        filters: [
+          { field: 'y', operator: FilterOperators.Contains, value: 56 },
+        ],
+      },
     };
     component.resetFilters();
     expect(component.gridDataState).toMatchSnapshot();
@@ -51,18 +58,30 @@ describe('KendoODataBasedComponent', () => {
     expect(component.facade.loadEntities).toBeCalledTimes(2);
   });
 
-  it('should serialize/deserialize odataState filters correctly', () => {
+  it('should serialize/deserialize odataQuery filters correctly', () => {
     const tempDate = new Date();
-    const serializedResult = component.serializeODataState({
-      filter: { logic: 'and', filters: [{ field: 'xyzDate', operator: 'eq', value: tempDate }] },
+    const serializedResult = component.serializeODataQuery({
+      filter: {
+        logic: 'and',
+        filters: [
+          {
+            field: 'xyzDate',
+            operator: FilterOperators.EqualTo,
+            value: tempDate,
+          },
+        ],
+      },
     });
-    const deserializedResult = component.deserializeODataState(serializedResult);
-    expect(tempDate).toEqual((deserializedResult.filter?.filters[0] as FilterDescriptor).value);
+    const deserializedResult =
+      component.deserializeODataQuery(serializedResult);
+    expect(tempDate).toEqual(
+      (deserializedResult.filter?.filters[0] as Filter).value,
+    );
   });
 
-  it('should limit odataState sort parameters', () => {
-    const odataState: ODataState = {
-      sort: [
+  it('should limit odataQuery sort parameters', () => {
+    const odataQuery: ODataQuery = {
+      orderBy: [
         { field: 'a', dir: 'asc' },
         { field: 'b', dir: 'asc' },
         { field: 'c', dir: 'asc' },
@@ -72,10 +91,10 @@ describe('KendoODataBasedComponent', () => {
       ],
     };
     component.facade.loadEntities = jest.fn();
-    component.loadEntities(odataState);
+    component.loadEntities(odataQuery);
     expect(component.facade.loadEntities).toBeCalledTimes(1);
     expect(component.facade.loadEntities).toBeCalledWith({
-      sort: [
+      orderBy: [
         { field: 'a', dir: 'asc' },
         { field: 'b', dir: 'asc' },
         { field: 'c', dir: 'asc' },
@@ -85,24 +104,31 @@ describe('KendoODataBasedComponent', () => {
     });
   });
 
-  it('should serialize/deserialize odataState correctly', () => {
-    const serializedResult = component.serializeODataState({});
-    const deserializedResult = component.deserializeODataState(serializedResult);
+  it('should serialize/deserialize odataQuery correctly', () => {
+    const serializedResult = component.serializeODataQuery({});
+    const deserializedResult =
+      component.deserializeODataQuery(serializedResult);
     expect(deserializedResult).toStrictEqual({});
   });
 });
 
-const initialGridState: ODataState = {
-  selectors: ['x', 'y', 'z'],
-  sort: [{ field: 'x', dir: 'desc' }],
-  filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] },
+const initialGridState: ODataQuery = {
+  select: ['x', 'y', 'z'],
+  orderBy: [{ field: 'x', dir: 'desc' }],
+  filter: {
+    logic: 'and',
+    filters: [{ field: 'x', operator: FilterOperators.EqualTo, value: 1 }],
+  },
 };
 @Component({
   selector: 'imng-test-component',
   template: '<h1></h1>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
-class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<object, ODataTableMockFacade> {
+class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
+  object,
+  ODataTableMockFacade
+> {
   props = {};
   constructor() {
     super(createODataGridMockFacade(), initialGridState);

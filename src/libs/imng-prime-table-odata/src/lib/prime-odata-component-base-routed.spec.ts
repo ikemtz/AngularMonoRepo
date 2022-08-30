@@ -6,11 +6,11 @@ import {
   createODataGridMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { ODataState } from 'imng-kendo-odata';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FilterOperators, ODataQuery } from 'imng-odata-client';
 
-describe('KendoODataBasedComponentRouted', () => {
+describe('PrimeODataBasedComponentRouted', () => {
   let component: PrimeODataTableTestComponent;
   let fixture: ComponentFixture<PrimeODataTableTestComponent>;
   let router: Router;
@@ -27,7 +27,7 @@ describe('KendoODataBasedComponentRouted', () => {
               snapshot: {
                 root: {
                   queryParams: {
-                    odataState:
+                    odataQuery:
                       'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
                   },
                 },
@@ -52,7 +52,7 @@ describe('KendoODataBasedComponentRouted', () => {
     expect(router.navigate).toBeCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
-        odataState:
+        odataQuery:
           'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
       },
       queryParamsHandling: 'merge',
@@ -71,7 +71,9 @@ describe('KendoODataBasedComponentRouted', () => {
       ...component.gridDataState,
       filter: {
         logic: 'and',
-        filters: [{ field: 'y', operator: 'contains', value: 56 }],
+        filters: [
+          { field: 'y', operator: FilterOperators.Contains, value: 56 },
+        ],
       },
     };
     component.resetFilters();
@@ -79,8 +81,8 @@ describe('KendoODataBasedComponentRouted', () => {
     expect(router.navigate).toBeCalledTimes(2);
     expect(router.navigate).toHaveBeenNthCalledWith(2, [], {
       queryParams: {
-        odataState:
-          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwiZmlsdGVyIjp7ImxvZ2ljIjoiYW5kIiwiZmlsdGVycyI6W3siZmllbGQiOiJ4Iiwib3BlcmF0b3IiOiJlcSIsInZhbHVlIjoxfV19fQ==',
+        odataQuery:
+          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwiZmlsdGVyIjp7ImxvZ2ljIjoiYW5kIiwiZmlsdGVycyI6W3siZmllbGQiOiJ4IiwidmFsdWUiOjF9XX19',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -88,11 +90,14 @@ describe('KendoODataBasedComponentRouted', () => {
     });
   });
 });
-const initialGridState: ODataState = {
-  selectors: ['x', 'y', 'z'],
-  sort: [{ field: 'x', dir: 'desc' }],
+const initialGridState: ODataQuery = {
+  select: ['x', 'y', 'z'],
+  orderBy: [{ field: 'x', dir: 'desc' }],
   skip: 20,
-  filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] },
+  filter: {
+    logic: 'and',
+    filters: [{ field: 'x', operator: FilterOperators.EqualTo, value: 1 }],
+  },
 };
 @Component({
   selector: 'imng-test-component',
@@ -100,8 +105,8 @@ const initialGridState: ODataState = {
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
-object,
-ODataTableMockFacade
+  object,
+  ODataTableMockFacade
 > {
   props = {};
   constructor(override readonly router: Router) {
