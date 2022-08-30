@@ -2,10 +2,28 @@
   "name": "imng-odata-client",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^14.1.0",
-    "@angular/core": "^14.1.0"
+    "@angular/common": ">=13.x",
+    "@angular/core": ">=13.x",
+    "@angular/router": ">=13.x",
+    "imng-nrsrx-client-utils": "*",
+    "rxjs": "*"
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "keywords": [
+    "Angular",
+    "OData"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+  },
+  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
   }
 }
