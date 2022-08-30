@@ -1,4 +1,4 @@
-export declare enum ComputationOperators {
+export enum ComputationOperators {
   Multiply = 'mul',
   Divide = 'div',
   Add = 'add',
