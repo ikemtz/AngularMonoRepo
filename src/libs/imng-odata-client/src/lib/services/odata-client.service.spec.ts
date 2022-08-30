@@ -162,6 +162,6 @@ describe('ODataClientService', () => {
     );
     expect(queryString).not.toContain('?&');
     expect(queryString).toContain('timestamp');
-    expect(queryString.length).toBe(56);
+    expect(queryString).toHaveLength(55);
   });
 });

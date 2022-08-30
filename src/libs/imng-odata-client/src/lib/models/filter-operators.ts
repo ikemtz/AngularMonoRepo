@@ -3,7 +3,6 @@ import {
   serializeArrayFilter,
   serializeFunctionFilter,
   serializeSimpleFilter,
-  serializeValue,
 } from './filter-serializers';
 
 /**

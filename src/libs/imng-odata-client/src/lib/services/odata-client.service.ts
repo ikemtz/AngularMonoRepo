@@ -26,12 +26,12 @@ export class ODataClientService {
   ): Observable<ODataResult<T> | T[]> {
     const queryStr = this.getODataString(query, options);
     return this.httpClient
-      .get<ODataResult<T> | T[]>(`${odataEndpoint}?${queryStr}`)
+      .get<ODataResult<T> | T[]>(`${odataEndpoint}${queryStr}`)
       .pipe(mapData<T>(options));
   }
 
   public getODataString(query: ODataQuery, options: FetchOptions = {}): string {
-    let queryString = '?';
+    let queryString = '';
     queryString = this.processFilters(query, options, queryString);
     queryString = this.processSelectors(query, queryString);
     queryString = this.processSimpleParameters('top', query, queryString);
@@ -40,7 +40,7 @@ export class ODataClientService {
     queryString = this.processDates(queryString);
     queryString = this.processCount(query, queryString);
     queryString = this.processCacheBusting(options, queryString);
-    queryString = queryString.replace('??', '?').replace('?&', '?');
+    queryString = queryString.substring(1); // removing first &
     return queryString;
   }
   processFilters(
@@ -55,13 +55,14 @@ export class ODataClientService {
     return `&filter=${filterString}`;
   }
   serializeCompositeFilter(filter: CompositeFilter): string {
+    const filterLogicSeperator = ` ${filter.logic} `;
     return `(${filter.filters
       .map((m) =>
         isCompositeFilter(m)
           ? this.serializeCompositeFilter(m)
           : this.serializeFilter(m),
       )
-      .join(` ${filter.logic} `)})`;
+      .join(filterLogicSeperator)})`;
   }
 
   serializeFilter(filter: Filter | ChildFilter): string {
