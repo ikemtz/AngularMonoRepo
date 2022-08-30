@@ -21,6 +21,7 @@
     "imng-ngrx-utils": "libs/imng-ngrx-utils",
     "imng-ngxb-typeahead": "libs/imng-ngxb-typeahead",
     "imng-nrsrx-client-utils": "libs/imng-nrsrx-client-utils",
+    "imng-odata-client": "libs/imng-odata-client",
     "imng-oidc-client": "libs/imng-oidc-client",
     "imng-prime-table-odata": "libs/imng-prime-table-odata",
     "imng-signalr-ngrx": "libs/imng-signalr-ngrx",
