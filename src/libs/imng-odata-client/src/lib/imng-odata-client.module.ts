@@ -7,4 +7,4 @@ import { ODataClientService } from './services/odata-client.service';
   imports: [CommonModule, HttpClientModule],
   providers: [ODataClientService],
 })
-export class ImngOdataModule {}
+export class ImngODataClientModule {}
