@@ -1,5 +1,4 @@
 import { Observable, isObservable, map } from 'rxjs';
-import { PagerSettings } from '@progress/kendo-angular-grid';
 import {
   OnInit,
   OnDestroy,
@@ -7,28 +6,32 @@ import {
   Inject,
   Component,
 } from '@angular/core';
-import { ODataState, Expander } from 'imng-kendo-odata';
-import { GridStateChangeEvent, KendoGridBaseComponent } from 'imng-kendo-grid';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Router } from '@angular/router';
-import { Subscribable } from 'imng-ngrx-utils';
+import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import {
-  CompositeFilterDescriptor,
-  FilterDescriptor,
-  isCompositeFilterDescriptor,
-} from '@progress/kendo-data-query';
+  CompositeFilter,
+  Expander,
+  Filter,
+  isCompositeFilter,
+  ODataQuery,
+} from 'imng-odata-client';
+import { toLocalTimeStamp } from 'imng-nrsrx-client-utils';
 
-const FACADE = new InjectionToken<IPrimeODataTableFacade<{ id?: string | null; }>>(
-  'imng-grid-odata-facade'
-);
-const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
+const FACADE = new InjectionToken<
+  IPrimeODataTableFacade<{ id?: string | null }>
+>('imng-grid-odata-facade');
+const STATE = new InjectionToken<ODataQuery>('imng-grid-odata-odataQuery');
 
 @Component({ template: '' })
 export abstract class ImngPrimeODataTableBaseComponent<
   ENTITY,
-  FACADE extends IPrimeODataTableFacade<ENTITY>
-  > extends KendoGridBaseComponent<ENTITY>
-  implements OnInit, OnDestroy, Subscribable {
+  FACADE extends IPrimeODataTableFacade<ENTITY>,
+> implements OnInit, OnDestroy, Subscribable
+{
+  public readonly allSubscriptions = new Subscriptions();
+  public readonly ENUM_DISPLAY_TEXT = 'displayText';
+  public readonly ENUM_NAME = 'name';
   /**
    * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
    */
@@ -37,42 +40,42 @@ export abstract class ImngPrimeODataTableBaseComponent<
    * This will allow you to provide a visual indicator that some of the columns have been hidden.
    */
   public hasHiddenColumns$: Observable<boolean>;
-  public gridStateQueryKey = 'odataState';
-  public gridDataState: ODataState;
+  public gridStateQueryKey = 'odataQuery';
+  public gridDataState: ODataQuery;
   public gridData$: Observable<ENTITY[]>;
   public loading$: Observable<boolean>;
-  public gridPagerSettings$: Observable<false | PagerSettings>;
+  public gridPagerSettings$: Observable<false>;
   public rowsPerPageOptions: number[] = [10, 20, 50, 100];
   /**
-   * A properties enum to make kendo grid columns definitions type safe
-   * {@example <kendo-grid-column [field]="props.FIELD_NAME">}
+   * A properties enum to make prime table columns definitions type safe
+   * {@example <td>{{ dataItem[props.FIELD_NAME] }}</td>}
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract readonly props: any; //NOSONAR
   protected expanders?: Expander[];
-  protected transformations?: string;
+  protected appliedTransformations?: string;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
-    @Inject(STATE) public readonly state: ODataState | Observable<ODataState>,
+    @Inject(STATE) public readonly state: ODataQuery | Observable<ODataQuery>,
     public readonly router: Router | null = null, //NOSONAR
-    public readonly gridRefresh$: Observable<unknown> | null = null
+    public readonly gridRefresh$: Observable<unknown> | null = null,
   ) {
-    super();
     if (
       this.router?.routerState?.snapshot?.root.queryParams[
-      this.gridStateQueryKey
+        this.gridStateQueryKey
       ]
     ) {
       try {
-        this.gridDataState = this.deserializeODataState(
+        this.gridDataState = this.deserializeODataQuery(
           this.router?.routerState?.snapshot?.root?.queryParams[
-          this.gridStateQueryKey
-          ]
+            this.gridStateQueryKey
+          ],
         );
       } catch (e) {
-        console.error( //NOSONAR
-          `Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`
+        console.error(
+          //NOSONAR
+          `Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`,
         );
       }
     }
@@ -80,24 +83,24 @@ export abstract class ImngPrimeODataTableBaseComponent<
       this.allSubscriptions.push(
         state.subscribe((t) => {
           this.gridDataState = t;
-          this.expanders = t.expanders;
-          this.transformations = t.transformations;
-        })
+          this.expanders = t.expand;
+          this.appliedTransformations = t.apply;
+        }),
       );
     } else {
       this.gridDataState = this.gridDataState
         ? {
-          ...this.gridDataState,
-          selectors: state.selectors,
-          expanders: state.expanders,
-        }
+            ...this.gridDataState,
+            select: state.select,
+            expand: state.expand,
+          }
         : state;
-      this.expanders = state.expanders;
-      this.transformations = state.transformations;
+      this.expanders = state.expand;
+      this.appliedTransformations = state.apply;
     }
     if (gridRefresh$) {
       this.allSubscriptions.push(
-        gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState))
+        gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState)),
       );
     }
   }
@@ -107,31 +110,65 @@ export abstract class ImngPrimeODataTableBaseComponent<
       this.loadEntities(this.gridDataState);
     }
     this.loading$ = this.facade.loading$;
-    this.gridData$ = this.facade.tableData$?.pipe(map(gridData =>
-      gridData ? gridData : []));
+    this.gridData$ = this.facade.tableData$?.pipe(
+      map((gridData) => (gridData ? gridData : [])),
+    );
+  }
+  public ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribeAll();
   }
 
-  public deserializeODataState(stateQueryParam: string): ODataState {
-    const state: ODataState = JSON.parse(atob(stateQueryParam));
+  public getExportFileName(exportName: string): string {
+    return `${exportName}-${toLocalTimeStamp()}`;
+  }
+  public getRelatedValue(
+    obj: ENTITY,
+    ...segments: string[]
+  ): unknown | undefined | null {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let result: any = obj; //NOSONAR
+    segments.forEach((segment) => {
+      if (result) {
+        result = result[segment];
+      }
+    });
+    return result;
+  }
+
+  public getRelatedField(...segments: string[]): string {
+    return segments.join('.');
+  }
+  public getEnumText(
+    data: { name: string; displayText: string }[],
+    nameValue: string,
+  ): string | undefined {
+    return data.find((f) => f.name === nameValue)?.displayText;
+  }
+
+  public deserializeODataQuery(stateQueryParam: string): ODataQuery {
+    const state: ODataQuery = JSON.parse(atob(stateQueryParam));
     state.filter?.filters?.forEach((filter) => this.normalizeFilters(filter));
     return state;
   }
 
-  public normalizeFilters(
-    filter: FilterDescriptor | CompositeFilterDescriptor
-  ) {
-    if (isCompositeFilterDescriptor(filter)) {
-      this.normalizeFilters(filter);
+  /**
+   * This method ensures the proper handling of date filters in an OData query
+   * @param filter
+   */
+  public normalizeFilters(filter: Filter | CompositeFilter) {
+    if (isCompositeFilter(filter)) {
+      filter.filters.forEach(this.normalizeFilters);
     } else if (
-      (filter?.field as string)?.toUpperCase().endsWith('DATE') ||
-      (filter?.field as string)?.toUpperCase().endsWith('UTC')
+      filter?.field?.toUpperCase() === 'DATE' ||
+      filter?.field?.toUpperCase().endsWith('DATE') ||
+      filter?.field?.toUpperCase().endsWith('UTC')
     ) {
-      filter.value = new Date(filter.value);
+      filter.value = new Date(filter.value as never);
     }
   }
 
-  public serializeODataState(odataState: ODataState): string {
-    return btoa(JSON.stringify(odataState));
+  public serializeODataQuery(odataQuery: ODataQuery): string {
+    return btoa(JSON.stringify(odataQuery));
   }
   /**
    * Will reset filters to initialGrid state passed into the constructor
@@ -141,55 +178,52 @@ export abstract class ImngPrimeODataTableBaseComponent<
       this.gridDataState = {
         ...this.gridDataState,
         filter: this.state.filter,
-        inFilters: this.state.inFilters,
-        childFilters: this.state.childFilters,
       };
       this.loadEntities(this.gridDataState);
     }
   }
-  public dataStateChange(state: GridStateChangeEvent | ODataState): void {
+  public dataStateChange(state: ODataQuery): void {
     this.gridDataState = {
       ...state,
-      expanders: this.expanders,
-      transformations: this.transformations,
+      expand: this.expanders,
+      apply: this.appliedTransformations,
     };
     this.loadEntities(this.gridDataState);
   }
 
-  public excelData = (): Observable<ENTITY[]> =>
-    this.gridData$;
+  public excelData = (): Observable<ENTITY[]> => this.gridData$;
 
-  public loadEntities(odataState: ODataState): void {
-    odataState = this.validateSortParameters(odataState);
-    this.gridDataState = odataState;
-    this.expanders = odataState.expanders;
-    this.transformations = odataState.transformations;
+  public loadEntities(odataQuery: ODataQuery): void {
+    odataQuery = this.validateSortParameters(odataQuery);
+    this.gridDataState = odataQuery;
+    this.expanders = odataQuery.expand;
+    this.appliedTransformations = odataQuery.apply;
     this.facade.loadEntities(this.gridDataState);
-    this.updateRouterState(odataState);
+    this.updateRouterState(odataQuery);
   }
 
-  public validateSortParameters(state: ODataState): ODataState {
-    if (state.sort && (state.sort?.length || 0) > this.maxSortedColumnCount) {
+  public validateSortParameters(state: ODataQuery): ODataQuery {
+    if (state.orderBy && state.orderBy?.length > this.maxSortedColumnCount) {
       state = {
         ...state,
-        sort: state.sort.slice(0, this.maxSortedColumnCount),
+        orderBy: state.orderBy.slice(0, this.maxSortedColumnCount),
       };
       console.warn(
-        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`
+        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
       ); //NOSONAR
     }
     return state;
   }
 
-  public updateRouterState(state: ODataState): void {
+  public updateRouterState(state: ODataQuery): void {
     if (this.router) {
       const tempState = { ...state };
-      delete tempState.selectors;
-      delete tempState.expanders;
+      delete tempState.select;
+      delete tempState.expand;
       this.router.navigate([], {
         relativeTo: this.router.routerState.root,
         queryParams: {
-          [this.gridStateQueryKey]: this.serializeODataState(tempState),
+          [this.gridStateQueryKey]: this.serializeODataQuery(tempState),
         },
         skipLocationChange: false,
         queryParamsHandling: 'merge',

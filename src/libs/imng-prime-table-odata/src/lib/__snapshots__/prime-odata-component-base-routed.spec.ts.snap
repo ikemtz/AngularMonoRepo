@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KendoODataBasedComponentRouted should export to Excel 1`] = `
+exports[`PrimeODataBasedComponentRouted should export to Excel 1`] = `
 Array [
   Object {
     "id": "apples",
@@ -8,22 +8,20 @@ Array [
 ]
 `;
 
-exports[`KendoODataBasedComponentRouted should reset 1`] = `
+exports[`PrimeODataBasedComponentRouted should reset 1`] = `
 Object {
-  "childFilters": undefined,
-  "expanders": undefined,
+  "expand": undefined,
   "filter": Object {
     "filters": Array [
       Object {
         "field": "x",
-        "operator": "eq",
+        "operator": [Function],
         "value": 1,
       },
     ],
     "logic": "and",
   },
-  "inFilters": undefined,
-  "selectors": Array [
+  "select": Array [
     "x",
     "y",
     "z",

@@ -5,6 +5,6 @@ import { ODataClientService } from './services/odata-client.service';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
-  providers: [ODataClientService]
+  providers: [ODataClientService],
 })
-export class ImngOdataModule { }
+export class ImngOdataModule {}
