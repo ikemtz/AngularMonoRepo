@@ -91,8 +91,8 @@ describe('KendoGridBaseComponent', () => {
     const component = new MockGridComponent();
     const result = component.getRelatedValue(
       { id: '1', parent: { child: 'unit-test' } },
-      'subItem',
-      'name',
+      'parent',
+      'child',
     );
     expect(result).toBe('unit-test');
   });

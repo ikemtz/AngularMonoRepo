@@ -150,6 +150,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
     state.filter?.filters?.forEach((filter) => this.normalizeFilters(filter));
     return state;
   }
+
   /**
    * This method ensures the proper handling of date filters in an OData query
    * @param filter

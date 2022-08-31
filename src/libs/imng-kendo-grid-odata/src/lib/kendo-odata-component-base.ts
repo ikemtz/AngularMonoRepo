@@ -19,16 +19,18 @@ import {
 } from '@progress/kendo-data-query';
 
 const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>(
-  'imng-grid-odata-facade'
+  'imng-grid-odata-facade',
 );
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 
 @Component({ template: '' })
 export abstract class KendoODataBasedComponent<
-  ENTITY,
-  FACADE extends IKendoODataGridFacade<ENTITY>
-  > extends KendoGridBaseComponent<ENTITY>
-  implements OnInit, OnDestroy, Subscribable {
+    ENTITY,
+    FACADE extends IKendoODataGridFacade<ENTITY>,
+  >
+  extends KendoGridBaseComponent<ENTITY>
+  implements OnInit, OnDestroy, Subscribable
+{
   /**
    * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
    */
@@ -55,23 +57,24 @@ export abstract class KendoODataBasedComponent<
     @Inject(FACADE) public readonly facade: FACADE,
     @Inject(STATE) public readonly state: ODataState | Observable<ODataState>,
     public readonly router: Router | null = null, //NOSONAR
-    public readonly gridRefresh$: Observable<unknown> | null = null
+    public readonly gridRefresh$: Observable<unknown> | null = null,
   ) {
     super();
     if (
       this.router?.routerState?.snapshot?.root.queryParams[
-      this.gridStateQueryKey
+        this.gridStateQueryKey
       ]
     ) {
       try {
         this.gridDataState = this.deserializeODataState(
           this.router?.routerState?.snapshot?.root?.queryParams[
-          this.gridStateQueryKey
-          ]
+            this.gridStateQueryKey
+          ],
         );
       } catch (e) {
-        console.error( //NOSONAR
-          `Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`
+        console.error(
+          //NOSONAR
+          `Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`,
         );
       }
     }
@@ -81,22 +84,22 @@ export abstract class KendoODataBasedComponent<
           this.gridDataState = t;
           this.expanders = t.expanders;
           this.transformations = t.transformations;
-        })
+        }),
       );
     } else {
       this.gridDataState = this.gridDataState
         ? {
-          ...this.gridDataState,
-          selectors: state.selectors,
-          expanders: state.expanders,
-        }
+            ...this.gridDataState,
+            selectors: state.selectors,
+            expanders: state.expanders,
+          }
         : state;
       this.expanders = state.expanders;
       this.transformations = state.transformations;
     }
     if (gridRefresh$) {
       this.allSubscriptions.push(
-        gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState))
+        gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState)),
       );
     }
   }
@@ -106,8 +109,9 @@ export abstract class KendoODataBasedComponent<
       this.loadEntities(this.gridDataState);
     }
     this.loading$ = this.facade.loading$;
-    this.gridDataResult$ = this.facade.gridData$?.pipe(map(gridData =>
-      gridData ? gridData : { total: 0, data: [] }));
+    this.gridDataResult$ = this.facade.gridData$?.pipe(
+      map((gridData) => (gridData ? gridData : { total: 0, data: [] })),
+    );
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
   }
 
@@ -117,11 +121,15 @@ export abstract class KendoODataBasedComponent<
     return state;
   }
 
+  /**
+   * This method ensures the proper handling of date filters in an OData query
+   * @param filter
+   */
   public normalizeFilters(
-    filter: FilterDescriptor | CompositeFilterDescriptor
+    filter: FilterDescriptor | CompositeFilterDescriptor,
   ) {
     if (isCompositeFilterDescriptor(filter)) {
-      this.normalizeFilters(filter);
+      filter.filters.forEach(this.normalizeFilters);
     } else if (
       (filter?.field as string)?.toUpperCase().endsWith('DATE') ||
       (filter?.field as string)?.toUpperCase().endsWith('UTC')
@@ -176,7 +184,7 @@ export abstract class KendoODataBasedComponent<
         sort: state.sort.slice(0, this.maxSortedColumnCount),
       };
       console.warn(
-        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`
+        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
       ); //NOSONAR
     }
     return state;
