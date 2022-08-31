@@ -26,7 +26,7 @@ export class ODataClientService {
   ): Observable<ODataResult<T>> {
     const queryStr = this.getODataString(query, options);
     return this.httpClient
-      .get<ODataResult<T> | T[]>(`${odataEndpoint}${queryStr}`)
+      .get<ODataResult<T> | T[]>(`${odataEndpoint}?${queryStr}`)
       .pipe(mapData<T>(options));
   }
 
