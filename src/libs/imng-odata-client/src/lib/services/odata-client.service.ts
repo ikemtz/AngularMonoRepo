@@ -23,7 +23,7 @@ export class ODataClientService {
     odataEndpoint: string,
     query: ODataQuery,
     options: FetchOptions = {},
-  ): Observable<ODataResult<T> | T[]> {
+  ): Observable<ODataResult<T>> {
     const queryStr = this.getODataString(query, options);
     return this.httpClient
       .get<ODataResult<T> | T[]>(`${odataEndpoint}${queryStr}`)
