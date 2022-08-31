@@ -6,6 +6,12 @@
     "build": {
       "executor": "@nrwl/angular:package",
       "outputs": ["dist/libs/imng-prime-table-odata"],
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "options": {
         "project": "libs/imng-prime-table-odata/ng-package.json"
       },
