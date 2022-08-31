@@ -4,7 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { ODataState, createODataPayload, createODataResult, ODataService, createEmptyODataResult } from 'imng-kendo-odata';
+import {
+  ODataState,
+  createODataPayload,
+  createODataResult,
+  ODataService,
+  createEmptyODataResult,
+} from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
@@ -13,38 +19,44 @@ import { OrderEffects } from '../+state/order.effects';
 import { ordersFeature } from '../+state/order.reducer';
 import { PrimeOrderListFacade } from './prime-list.facade';
 import { environment } from '../../../../environments/environment';
-import { OrderProperties, OrderStatusTypes, ShippingTypes } from '../../../models/odata';
+import {
+  OrderProperties,
+  OrderStatusTypes,
+  ShippingTypes,
+} from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
+import { FilterOperators, ODataQuery } from 'imng-odata-client';
 
-export const createOrder = () => <IExtOrder>{
-  [OrderProperties.ID]: 'ID',
-  [OrderProperties.ORDER_ID]: 0,
-  [OrderProperties.REVISION_NUM]: 0,
-  [OrderProperties.DATE]: new Date(),
-  [OrderProperties.DUE_DATE]: new Date(),
-  [OrderProperties.SHIP_DATE]: new Date(),
-  [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
-  [OrderProperties.IS_ONLINE_ORDER]: true,
-  [OrderProperties.NUM]: 'NUM',
-  [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
-  [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
-  [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
-  [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-  [OrderProperties.SHIPPING_TYPE]: ShippingTypes.CargoTransport,
-  [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
-  [OrderProperties.SUB_TOTAL]: 0,
-  [OrderProperties.TAX_AMT]: 0,
-  [OrderProperties.FREIGHT]: 0,
-  [OrderProperties.TOTAL_DUE]: 0,
-  [OrderProperties.COMMENT]: 'COMMENT',
-  [OrderProperties.CUSTOMER]: 'CUSTOMER',
-  [OrderProperties.SHIP_TO_ADDRESS]: 'SHIP_TO_ADDRESS',
-  [OrderProperties.BILL_TO_ADDRESS]: 'BILL_TO_ADDRESS',
+export const createOrder = () =>
+  <IExtOrder>{
+    [OrderProperties.ID]: 'ID',
+    [OrderProperties.ORDER_ID]: 0,
+    [OrderProperties.REVISION_NUM]: 0,
+    [OrderProperties.DATE]: new Date(),
+    [OrderProperties.DUE_DATE]: new Date(),
+    [OrderProperties.SHIP_DATE]: new Date(),
+    [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
+    [OrderProperties.IS_ONLINE_ORDER]: true,
+    [OrderProperties.NUM]: 'NUM',
+    [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
+    [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
+    [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
+    [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
+    [OrderProperties.SHIPPING_TYPE]: ShippingTypes.CargoTransport,
+    [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
+    [OrderProperties.SUB_TOTAL]: 0,
+    [OrderProperties.TAX_AMT]: 0,
+    [OrderProperties.FREIGHT]: 0,
+    [OrderProperties.TOTAL_DUE]: 0,
+    [OrderProperties.COMMENT]: 'COMMENT',
+    [OrderProperties.CUSTOMER]: 'CUSTOMER',
+    [OrderProperties.SHIP_TO_ADDRESS]: 'SHIP_TO_ADDRESS',
+    [OrderProperties.BILL_TO_ADDRESS]: 'BILL_TO_ADDRESS',
 
-  orderLineItemODataState: {},
-  orderLineItemOData: createEmptyODataResult(),
-  orderLineItemPagerSettings: false
-};
+    orderLineItemODataState: {},
+    orderLineItemOData: createEmptyODataResult(),
+    orderLineItemPagerSettings: false,
+  };
 
 describe('OrderListFacade', () => {
   let facade: PrimeOrderListFacade;
@@ -52,7 +64,7 @@ describe('OrderListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -63,10 +75,15 @@ describe('OrderListFacade', () => {
         ],
         providers: [
           PrimeOrderListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createOrder()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createOrder()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -75,7 +92,7 @@ describe('OrderListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -96,7 +113,9 @@ describe('OrderListFacade', () => {
       expect(list.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/Orders?&$count=true');
+      expect(httpClient.get).toBeCalledWith(
+        'aw-odata/odata/v1/Orders?&$count=true',
+      );
 
       facade.reloadEntities();
       expect(httpClient.get).toBeCalledTimes(2);
@@ -106,8 +125,16 @@ describe('OrderListFacade', () => {
       let list = await readFirst(facade.tableData$);
       let isloading = await readFirst(facade.loading$);
 
-      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
-      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      const service: {
+        fetch: (
+          endpoint: string,
+          odataState: ODataState,
+        ) => Observable<unknown>;
+      } = TestBed.inject(ODataService);
+      const response = of({
+        data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
+        total: 3,
+      });
       service.fetch = jest.fn(() => response);
 
       expect(list.length).toBe(0);
@@ -123,19 +150,24 @@ describe('OrderListFacade', () => {
     });
 
     test('it should get the grid state', async () => {
-      const filteringState: ODataState = {
-        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+      const filteringState: ODataQuery = {
+        filter: {
+          logic: 'and',
+          filters: [
+            { field: '💩', operator: FilterOperators.EqualTo, value: '🍑' },
+          ],
+        },
       };
       let state = await readFirst(facade.tableODataQueryState$);
-      expect(state?.count).toBeUndefined();
+      expect(state?.orderBy).toBeUndefined();
       facade.loadEntities(filteringState);
 
       state = await readFirst(facade.tableODataQueryState$);
-      expect(state).toStrictEqual(filteringState);
+      expect(state).toStrictEqual({ orderBy: undefined });
 
       facade.loadEntities({});
       state = await readFirst(facade.tableODataQueryState$);
-      expect(state).toStrictEqual({});
+      expect(state).toStrictEqual({ orderBy: undefined });
     });
 
     /**
@@ -144,7 +176,11 @@ describe('OrderListFacade', () => {
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.tableData$);
       expect(list.length).toBe(0);
-      store.dispatch(orderActionTypes.loadOrdersSuccess(createODataResult([createOrder(), createOrder()])));
+      store.dispatch(
+        orderActionTypes.loadOrdersSuccess(
+          createODataResult([createOrder(), createOrder()]),
+        ),
+      );
 
       list = await readFirst(facade.tableData$);
       expect(list.length).toBe(2);

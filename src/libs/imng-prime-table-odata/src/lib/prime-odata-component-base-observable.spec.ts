@@ -6,15 +6,28 @@ import {
   createODataGridMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { Filter, FilterOperators, ODataQuery } from 'imng-odata-client';
+import {
+  CompositeFilter,
+  Filter,
+  FilterOperators,
+  ODataQuery,
+} from 'imng-odata-client';
+import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
-describe('PrimeODataBasedComponent', () => {
+describe('PrimeODataBasedComponent Observable State', () => {
   let component: PrimeODataTableTestComponent;
   let fixture: ComponentFixture<PrimeODataTableTestComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [PrimeODataTableTestComponent],
+      providers: [
+        {
+          provide: Router,
+          useValue: { navigate: jest.fn(), routerState: { root: {} } },
+        },
+      ],
     }).compileComponents();
   });
 
@@ -26,7 +39,7 @@ describe('PrimeODataBasedComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.router).toBeFalsy();
+    expect(component.router).toBeTruthy();
   });
 
   it('should export to Excel', async () => {
@@ -56,6 +69,70 @@ describe('PrimeODataBasedComponent', () => {
   it('should handle dataStateChange', async () => {
     component.dataStateChange({});
     expect(component.facade.loadEntities).toBeCalledTimes(2);
+  });
+
+  it('should handle getExportFileName', async () => {
+    const result = component.getExportFileName('unit-test');
+    expect(result).toHaveLength(28);
+  });
+
+  it('should handle getRelatedValue', () => {
+    const result = component.getRelatedValue(
+      { subItem: { name: 'unit-test' } },
+      'subItem',
+      'name',
+    );
+    expect(result).toBe('unit-test');
+  });
+
+  it('should handle getRelatedField', () => {
+    const result = component.getRelatedField('subItem', 'name');
+    expect(result).toBe('subItem.name');
+  });
+
+  it('should handle getEnumText with matching result', () => {
+    const data = [
+      { name: 'val1', displayText: 'value 1' },
+      { name: 'val2', displayText: 'value 2' },
+    ];
+    const result = component.getEnumText(data, 'val1');
+    expect(result).toBe('value 1');
+  });
+
+  it('should handle getEnumText with no result', () => {
+    const data = [
+      { name: 'val1', displayText: 'value 1' },
+      { name: 'val2', displayText: 'value 2' },
+    ];
+    const result = component.getEnumText(data, 'val3');
+    expect(result).toBeUndefined();
+  });
+
+  it('should normalizeFilters CompositeFilter', () => {
+    const filter: CompositeFilter = {
+      logic: 'and',
+      filters: [
+        { field: 'Date', operator: FilterOperators.EqualTo, value: '1/1/2022' },
+        {
+          field: 'DateUtc',
+          operator: FilterOperators.EqualTo,
+          value: '1/1/2022',
+        },
+        {
+          field: 'BeginDate',
+          operator: FilterOperators.EqualTo,
+          value: '1/1/2022',
+        },
+      ],
+    };
+    component.normalizeFilters(filter);
+    expect(filter).toMatchSnapshot({
+      filters: [
+        { value: expect.any(Date) },
+        { value: expect.any(Date) },
+        { value: expect.any(Date) },
+      ],
+    });
   });
 
   it('should serialize/deserialize odataQuery filters correctly', () => {
@@ -130,7 +207,7 @@ class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
   ODataTableMockFacade
 > {
   props = {};
-  constructor() {
-    super(createODataGridMockFacade(), initialGridState);
+  constructor(router: Router) {
+    super(createODataGridMockFacade(), of(initialGridState), router, of(true));
   }
 }

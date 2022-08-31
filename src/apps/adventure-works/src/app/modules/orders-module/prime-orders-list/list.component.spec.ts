@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { PrimeOrderListComponent } from './prime-list.component';
-import { createOrder } from './list.facade.spec';
 import { PrimeOrderListFacade } from './prime-list.facade';
 
 describe('OrderListComponent', () => {
@@ -17,9 +16,12 @@ describe('OrderListComponent', () => {
       declarations: [PrimeOrderListComponent],
       imports: [RouterTestingModule],
       providers: [
-        { provide: PrimeOrderListFacade, useValue: createODataGridMockFacade() },
+        {
+          provide: PrimeOrderListFacade,
+          useValue: createODataGridMockFacade(),
+        },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -36,12 +38,6 @@ describe('OrderListComponent', () => {
 
   test('it should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  test('it should handle DetailExpanded', () => {
-    const dataItem = createOrder();
-    component.detailExpanded({ dataItem } as never);
-    expect(component.currentItem).toEqual(dataItem);
   });
 
   test('it should handle reload', () => {

@@ -218,15 +218,6 @@ jobs:
           customCommand: 'run build:core'
 
       - task: Npm@1
-        displayName: 'npm run nx -- build imng-prime-table-odata --configuration=production'
-        continueOnError: true
-        inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run nx -- build imng-prime-table-odata --configuration=production'
-
-      - task: Npm@1
         displayName: 'npm run nx -- build imng-odata-client --configuration=production'
         continueOnError: true
         inputs:
@@ -234,6 +225,15 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run nx -- build imng-odata-client --configuration=production'
+
+      - task: Npm@1
+        displayName: 'npm run nx -- build imng-prime-table-odata --configuration=production'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run nx -- build imng-prime-table-odata --configuration=production'
 
       #Tests
       - task: Npm@1
@@ -372,15 +372,6 @@ jobs:
           customCommand: 'run test:ngrx-idle'
 
       - task: Npm@1
-        displayName: 'npm run nx -- test imng-prime-table-odata --code-coverage'
-        continueOnError: true
-        inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run nx -- test imng-prime-table-odata --code-coverage'
-
-      - task: Npm@1
         displayName: 'npm run nx -- test imng-odata-client --code-coverage'
         continueOnError: true
         inputs:
@@ -388,6 +379,15 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run nx -- test imng-odata-client --code-coverage'
+
+      - task: Npm@1
+        displayName: 'npm run nx -- test imng-prime-table-odata --code-coverage'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run nx -- test imng-prime-table-odata --code-coverage'
 
       - task: SonarCloudAnalyze@1
         displayName: 'Run Code Analysis'
