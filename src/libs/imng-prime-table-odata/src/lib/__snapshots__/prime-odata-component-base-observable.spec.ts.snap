@@ -8,6 +8,29 @@ Array [
 ]
 `;
 
+exports[`PrimeODataBasedComponent Observable State should normalizeFilters CompositeFilter 1`] = `
+Object {
+  "filters": Array [
+    Object {
+      "field": "Date",
+      "operator": [Function],
+      "value": Any<Date>,
+    },
+    Object {
+      "field": "DateUtc",
+      "operator": [Function],
+      "value": Any<Date>,
+    },
+    Object {
+      "field": "BeginDate",
+      "operator": [Function],
+      "value": Any<Date>,
+    },
+  ],
+  "logic": "and",
+}
+`;
+
 exports[`PrimeODataBasedComponent Observable State should reset 1`] = `
 Object {
   "filter": Object {

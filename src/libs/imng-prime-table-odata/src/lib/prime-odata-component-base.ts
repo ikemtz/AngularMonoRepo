@@ -150,11 +150,15 @@ export abstract class ImngPrimeODataTableBaseComponent<
     state.filter?.filters?.forEach((filter) => this.normalizeFilters(filter));
     return state;
   }
-
+  /**
+   * This method ensures the proper handling of date filters in an OData query
+   * @param filter
+   */
   public normalizeFilters(filter: Filter | CompositeFilter) {
     if (isCompositeFilter(filter)) {
-      this.normalizeFilters(filter);
+      filter.filters.forEach(this.normalizeFilters);
     } else if (
+      filter?.field?.toUpperCase() === 'DATE' ||
       filter?.field?.toUpperCase().endsWith('DATE') ||
       filter?.field?.toUpperCase().endsWith('UTC')
     ) {
@@ -198,10 +202,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
   }
 
   public validateSortParameters(state: ODataQuery): ODataQuery {
-    if (
-      state.orderBy &&
-      (state.orderBy?.length || 0) > this.maxSortedColumnCount
-    ) {
+    if (state.orderBy && state.orderBy?.length > this.maxSortedColumnCount) {
       state = {
         ...state,
         orderBy: state.orderBy.slice(0, this.maxSortedColumnCount),
