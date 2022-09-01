@@ -52,7 +52,7 @@ export class ODataClientService {
       return queryString;
     }
     const filterString = this.serializeCompositeFilter(query.filter);
-    return `&filter=${filterString}`;
+    return `&$filter=${filterString}`;
   }
   serializeCompositeFilter(filter: CompositeFilter): string {
     const filterLogicSeperator = ` ${filter.logic} `;
@@ -68,7 +68,7 @@ export class ODataClientService {
   serializeFilter(filter: Filter | ChildFilter): string {
     if (isChildFilter(filter)) {
       const childFieldName = `o/${filter.field}`;
-      return `${filter.childTable}/${filter.linqOperation}(o:${filter.operator(
+      return `${filter.childTable}/${filter.linqOperation}(o: ${filter.operator(
         childFieldName,
         filter.value as never,
       )} )`;
