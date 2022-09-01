@@ -2,6 +2,8 @@
 
 exports[`ODataClientService should serialize ODataQueries with ODataResults 1`] = `"imng.com?$select=A,b,890&$top=123&$skip=456&$count=true"`;
 
+exports[`ODataClientService should serialize ODataQueries with an empty Filter 1`] = `"$select=A,b,890&$top=123&$skip=456&$count=true"`;
+
 exports[`ODataClientService should serialize ODataQueries with array results 1`] = `"imng.com?$select=A,b,890&$top=123&$skip=456&$count=true"`;
 
 exports[`ODataClientService should serialize ODataQueries with null results 1`] = `"imng.com?$select=A,b,890&$top=123&$skip=456"`;
