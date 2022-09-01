@@ -48,7 +48,7 @@ export class ODataClientService {
     _options: FetchOptions,
     queryString: string,
   ): string {
-    if (!query.filter) {
+    if (!query.filter || !query.filter.filters.length) {
       return queryString;
     }
     const filterString = this.serializeCompositeFilter(query.filter);
