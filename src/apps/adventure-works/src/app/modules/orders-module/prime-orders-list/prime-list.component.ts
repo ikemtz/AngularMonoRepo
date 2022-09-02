@@ -20,7 +20,7 @@ const initialGridState: ODataQuery = {
     OrderProperties.NUM,
     OrderProperties.PURCHASE_ORDER_NUM,
   ],
-  orderBy: [{ field: OrderProperties.ORDER_ID, dir: 'asc' }],
+  orderBy: [{ field: OrderProperties.NUM, dir: 'asc' }],
 };
 
 @Component({

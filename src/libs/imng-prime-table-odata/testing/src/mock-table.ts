@@ -3,4 +3,5 @@ import { Subject } from 'rxjs';
 
 export class MockTable {
   public onLazyLoad = new Subject<LazyLoadEvent>();
+  public onFilter = new Subject<unknown>();
 }
