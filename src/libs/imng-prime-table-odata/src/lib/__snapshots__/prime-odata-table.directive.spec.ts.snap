@@ -4,6 +4,14 @@ exports[`ImngPrimeODataTableDirective should fire OnInit 1`] = `
 MockTable {
   "lazy": true,
   "loading": false,
+  "onFilter": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": null,
@@ -35,10 +43,13 @@ MockTable {
     "thrownError": null,
   },
   "paginator": true,
+  "resizableColumns": true,
   "responsiveLayout": "scroll",
+  "rowHover": true,
   "rows": 20,
   "rowsPerPageOptions": undefined,
   "showCurrentPageReport": true,
+  "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
   "value": Array [
@@ -53,6 +64,20 @@ exports[`ImngPrimeODataTableDirective should handle lazyload 1`] = `
 MockTable {
   "lazy": true,
   "loading": false,
+  "multiSortMeta": Array [
+    Object {
+      "field": "x",
+      "order": 1,
+    },
+  ],
+  "onFilter": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": Array [
@@ -106,10 +131,13 @@ MockTable {
     "thrownError": null,
   },
   "paginator": true,
+  "resizableColumns": true,
   "responsiveLayout": "scroll",
+  "rowHover": true,
   "rows": 20,
   "rowsPerPageOptions": undefined,
   "showCurrentPageReport": true,
+  "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
   "value": Array [
