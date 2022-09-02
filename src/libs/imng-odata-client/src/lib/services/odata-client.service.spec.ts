@@ -163,6 +163,10 @@ describe('ODataClientService', () => {
       top: 123,
       skip: 456,
       expand: [{ table: 'xyz', select: ['id', 'abc'] }],
+      orderBy: [
+        { field: 'xyz', direction: 'desc' },
+        { field: 'id', direction: 'asc' },
+      ],
     });
     expect(queryString).not.toContain('?&');
     expect(queryString).not.toContain('timestamp');

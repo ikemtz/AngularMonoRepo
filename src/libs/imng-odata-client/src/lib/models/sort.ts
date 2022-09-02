@@ -13,5 +13,5 @@ export interface Sort {
    * - `asc`
    * - `desc`
    */
-  dir?: 'asc' | 'desc';
+  direction?: 'asc' | 'desc';
 }
