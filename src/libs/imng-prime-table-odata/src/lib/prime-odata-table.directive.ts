@@ -45,10 +45,6 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     this.tableComponent.rowsPerPageOptions =
       this.odataTableComponent.rowsPerPageOptions;
     this.allSubscriptions.push(
-      this.tableComponent.onFilter.subscribe((t) => {
-        console.log(t);
-        this.facade.loadEntities(t);
-      }),
       this.facade.tableData$.subscribe((t) => {
         this.tableComponent.value = t || [];
         this.changeDetectorRef.markForCheck();

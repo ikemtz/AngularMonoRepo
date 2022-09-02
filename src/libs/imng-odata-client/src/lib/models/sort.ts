@@ -10,8 +10,8 @@ export interface Sort {
    * The sort direction. If no direction is set, the descriptor will be skipped during processing.
    *
    * The available values are:
-   * - `asc`
-   * - `desc`
+   * - `asc` => ascending
+   * - `desc` => descending
    */
-  direction?: 'asc' | 'desc';
+  dir?: 'asc' | 'desc';
 }

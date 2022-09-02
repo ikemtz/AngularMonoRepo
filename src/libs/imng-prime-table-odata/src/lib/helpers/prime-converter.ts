@@ -6,7 +6,7 @@ export function loadRequestConverter(val: LazyLoadEvent): ODataQuery {
     orderBy: val.multiSortMeta?.map(
       (x): Sort => ({
         field: x.field,
-        direction: x.order === -1 ? 'desc' : 'asc',
+        dir: x.order === -1 ? 'desc' : 'asc',
       }),
     ),
     skip: val.first,

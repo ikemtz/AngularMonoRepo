@@ -49,7 +49,7 @@ export class ODataClientService {
       return queryString;
     }
     const sortString = query.orderBy
-      .map((m) => `${m.field}${m.direction === 'desc' ? ' desc' : ''}`)
+      .map((m) => `${m.field}${m.dir === 'desc' ? ' desc' : ''}`)
       .join(',');
     return `&$orderby=${sortString}`;
   }

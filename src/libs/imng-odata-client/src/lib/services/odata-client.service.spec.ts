@@ -164,8 +164,8 @@ describe('ODataClientService', () => {
       skip: 456,
       expand: [{ table: 'xyz', select: ['id', 'abc'] }],
       orderBy: [
-        { field: 'xyz', direction: 'desc' },
-        { field: 'id', direction: 'asc' },
+        { field: 'xyz', dir: 'desc' },
+        { field: 'id', dir: 'asc' },
       ],
     });
     expect(queryString).not.toContain('?&');
