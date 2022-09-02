@@ -2,18 +2,24 @@ import { ChangeDetectorRef } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
-import { MockTable, createODataGridMockFacade, ODataTableMockFacade } from '../../testing/src';
+import {
+  MockTable,
+  createODataGridMockFacade,
+  ODataTableMockFacade,
+} from '../../testing/src';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
 
 describe('ImngPrimeODataTableDirective', () => {
-
   let tableComponent: Table;
   let changeDetectorRef: ChangeDetectorRef;
   let directive: ImngPrimeODataTableDirective;
-  let odataComponent: ImngPrimeODataTableBaseComponent<{ id?: string | null; }, ODataTableMockFacade>;
-  let facade: IPrimeODataTableFacade<{ id?: string; }>;
+  let odataComponent: ImngPrimeODataTableBaseComponent<
+    { id?: string | null },
+    ODataTableMockFacade
+  >;
+  let facade: IPrimeODataTableFacade<{ id?: string }>;
 
   beforeEach(() => {
     tableComponent = new MockTable() as Table;
@@ -21,7 +27,10 @@ describe('ImngPrimeODataTableDirective', () => {
     odataComponent = {
       facade: createODataGridMockFacade(),
     } as never;
-    directive = new ImngPrimeODataTableDirective(tableComponent, changeDetectorRef);
+    directive = new ImngPrimeODataTableDirective(
+      tableComponent,
+      changeDetectorRef,
+    );
     directive.odataTableComponent = odataComponent;
     facade = directive.odataTableComponent.facade;
   });
@@ -37,7 +46,10 @@ describe('ImngPrimeODataTableDirective', () => {
   });
   it('should handle lazyload', () => {
     directive.ngOnInit();
-    (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({ first: 20 });
+    (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({
+      first: 20,
+      multiSortMeta: [{ field: 'x', order: 1 }],
+    });
     expect(tableComponent).toMatchSnapshot();
     expect(facade.loadEntities).toBeCalledTimes(1);
   });

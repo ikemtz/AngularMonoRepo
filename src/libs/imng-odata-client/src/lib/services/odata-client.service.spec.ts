@@ -153,6 +153,26 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
+  it('should serialize ODataQueries with an empty Filter', () => {
+    const queryString = service.getODataString({
+      select: ['A', 'b', '890'],
+      filter: {
+        logic: 'and',
+        filters: [],
+      },
+      top: 123,
+      skip: 456,
+      expand: [{ table: 'xyz', select: ['id', 'abc'] }],
+      orderBy: [
+        { field: 'xyz', dir: 'desc' },
+        { field: 'id', dir: 'asc' },
+      ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain('timestamp');
+    expect(queryString).toMatchSnapshot();
+  });
+
   it('should serialize ODataQueries with cacheBusting', () => {
     const queryString = service.getODataString(
       {

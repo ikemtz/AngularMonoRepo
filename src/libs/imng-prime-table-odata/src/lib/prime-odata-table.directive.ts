@@ -9,7 +9,11 @@ import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Table } from 'primeng/table';
 import { Subscriptions } from 'imng-ngrx-utils';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, SortMeta } from 'primeng/api';
+import {
+  handleMultiColumnSorting,
+  loadRequestConverter,
+} from './helpers/prime-converter';
 
 @Directive({
   selector: '[imngODataTable]',
@@ -21,6 +25,7 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     IPrimeODataTableFacade<{ id?: string | null }>
   >;
   private facade: IPrimeODataTableFacade<{ id?: string | null }>;
+  private sortState: SortMeta[] = [];
   public readonly allSubscriptions = new Subscriptions();
   constructor(
     public readonly tableComponent: Table,
@@ -33,7 +38,10 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     this.tableComponent.paginator = true;
     this.tableComponent.lazy = true;
     this.tableComponent.styleClass = 'p-datatable-gridlines';
+    this.tableComponent.sortMode = 'multiple';
     this.tableComponent.showCurrentPageReport = true;
+    this.tableComponent.rowHover = true;
+    this.tableComponent.resizableColumns = true;
     this.tableComponent.rowsPerPageOptions =
       this.odataTableComponent.rowsPerPageOptions;
     this.allSubscriptions.push(
@@ -61,12 +69,11 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
       }),
     );
     this.allSubscriptions.push(
-      this.tableComponent.onLazyLoad.subscribe((x: LazyLoadEvent) =>
-        this.facade.loadEntities({
-          skip: x.first,
-          top: x.rows,
-        }),
-      ),
+      this.tableComponent.onLazyLoad.subscribe((x: LazyLoadEvent) => {
+        this.tableComponent.multiSortMeta = this.sortState =
+          handleMultiColumnSorting(x, this.sortState);
+        this.facade.loadEntities(loadRequestConverter(x));
+      }),
     );
   }
 
