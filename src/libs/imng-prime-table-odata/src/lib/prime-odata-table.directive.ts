@@ -9,11 +9,9 @@ import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Table } from 'primeng/table';
 import { Subscriptions } from 'imng-ngrx-utils';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
-import { LazyLoadEvent, SortMeta } from 'primeng/api';
-import {
-  handleMultiColumnSorting,
-  loadRequestConverter,
-} from './helpers/prime-converter';
+import { FilterMetadata, LazyLoadEvent, SortMeta } from 'primeng/api';
+import { handleMultiColumnSorting } from './helpers/handle-multi-column-sorting';
+import { Filter } from 'imng-odata-client';
 
 @Directive({
   selector: '[imngODataTable]',
@@ -58,21 +56,34 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     );
     this.allSubscriptions.push(
       this.facade.totalRecordCount$.subscribe((t) => {
-        this.tableComponent.totalRecords = t;
+        this.tableComponent.totalRecords = t || 0;
         this.changeDetectorRef.markForCheck();
       }),
     );
     this.allSubscriptions.push(
-      this.facade.tableODataQueryState$.subscribe((t) => {
-        this.tableComponent.rows = t?.top || 20;
+      this.facade.tableState$.subscribe((t) => {
+        this.tableComponent.rows = t?.rows || 20;
         this.changeDetectorRef.markForCheck();
+        if (t.filters) {
+          const newFilters = { ...t.filters };
+          Object.keys(newFilters).forEach((x) => {
+            if (t.filters?.[x]) {
+              newFilters[x] = [
+                ...(t.filters[x] as FilterMetadata[]).map((m) => ({ ...m })),
+              ] as FilterMetadata;
+            }
+          });
+          this.tableComponent.filters = newFilters;
+        }
       }),
     );
     this.allSubscriptions.push(
       this.tableComponent.onLazyLoad.subscribe((x: LazyLoadEvent) => {
-        this.tableComponent.multiSortMeta = this.sortState =
-          handleMultiColumnSorting(x, this.sortState);
-        this.facade.loadEntities(loadRequestConverter(x));
+        this.tableComponent.multiSortMeta =
+          this.sortState =
+          x.multiSortMeta =
+            handleMultiColumnSorting(x, this.sortState);
+        this.facade.loadEntities(x);
       }),
     );
   }

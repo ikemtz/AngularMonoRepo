@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { getFilterOperator } from '../helpers/get-filter-operator';
 import {
   ChildFilter,
   CompositeFilter,
@@ -19,7 +20,7 @@ import { mapData } from '../operators/map-data';
 export class ODataClientService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  public fetch<T>(
+  public fetch<T extends object>(
     odataEndpoint: string,
     query: ODataQuery,
     options: FetchOptions = {},
@@ -45,13 +46,13 @@ export class ODataClientService {
     return queryString;
   }
   processOrderBy(query: ODataQuery, queryString: string): string {
-    if (!query.orderBy) {
+    if (!query.orderBy || !query.orderBy.length) {
       return queryString;
     }
     const sortString = query.orderBy
-      .map((m) => `${m.field}${m.dir === 'desc' ? ' desc' : ''}`)
+      .map((m) => `${m.field}${m.dir === 'desc' ? '+desc' : ''}`)
       .join(',');
-    return `&$orderby=${sortString}`;
+    return `${queryString}&$orderby=${sortString}`;
   }
   processFilters(
     query: ODataQuery,
@@ -62,28 +63,31 @@ export class ODataClientService {
       return queryString;
     }
     const filterString = this.serializeCompositeFilter(query.filter);
-    return `&$filter=${filterString}`;
+    return `${queryString}&$filter=${filterString}`;
   }
   serializeCompositeFilter(filter: CompositeFilter): string {
-    const filterLogicSeperator = ` ${filter.logic} `;
+    const filterLogicSeperator = `+${filter.logic}+`;
     return `(${filter.filters
       .map((m) =>
         isCompositeFilter(m)
           ? this.serializeCompositeFilter(m)
           : this.serializeFilter(m),
       )
+      .filter((m) => m)
       .join(filterLogicSeperator)})`;
   }
 
-  serializeFilter(filter: Filter | ChildFilter): string {
+  public serializeFilter(filter: Filter | ChildFilter): string {
+    const odataStringFunction =
+      filter.operator.toODataString ||
+      getFilterOperator(filter.operator.name).toODataString;
     if (isChildFilter(filter)) {
       const childFieldName = `o/${filter.field}`;
-      return `${filter.childTable}/${filter.linqOperation}(o: ${filter.operator(
-        childFieldName,
-        filter.value as never,
-      )} )`;
+      return `${filter.childTable}/${
+        filter.linqOperation
+      }(o: ${odataStringFunction(childFieldName, filter.value as never)} )`;
     } else {
-      return filter.operator(filter.field, filter.value as never);
+      return odataStringFunction(filter.field, filter.value as never);
     }
   }
   processSimpleParameters(
@@ -92,14 +96,14 @@ export class ODataClientService {
     queryString: string,
   ): string {
     if (query[parameterName]) {
-      return queryString + `&$${parameterName}=${query[parameterName]}`;
+      return `${queryString}&$${parameterName}=${query[parameterName]}`;
     }
     return queryString;
   }
   processCacheBusting(options: FetchOptions, queryString: string): string {
     if (options.bustCache) {
       const timeStamp = new Date().toISOString().replace(/[-:.TZ]/g, '');
-      return queryString + `&timestamp=${timeStamp}`;
+      return `${queryString}&timestamp=${timeStamp}`;
     }
     return queryString;
   }
@@ -108,7 +112,7 @@ export class ODataClientService {
     if (query.count === false) {
       return queryString;
     }
-    return queryString + '&$count=true';
+    return `${queryString}&$count=true`;
   }
 
   public processDates(queryString: string): string {
@@ -158,7 +162,7 @@ export class ODataClientService {
 
   public processSelectors(state: ODataQuery, queryString: string): string {
     if (state.select && state.select.length > 0) {
-      return queryString + `&$select=${state.select.join()}`;
+      return `${queryString}&$select=${state.select.join()}`;
     }
     return queryString;
   }

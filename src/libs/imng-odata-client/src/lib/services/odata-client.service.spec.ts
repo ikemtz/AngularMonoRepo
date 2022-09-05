@@ -106,18 +106,19 @@ describe('ODataClientService', () => {
       filter: {
         logic: 'and',
         filters: [
-          { field: 'A', operator: FilterOperators.EqualTo, value: 1 },
-          { field: 'b', operator: FilterOperators.GreaterThan, value: '2' },
+          { field: 'A', operator: FilterOperators.equals, value: 1 },
+          { field: 'b', operator: FilterOperators.greaterThan, value: '2' },
+          { field: 'b', operator: FilterOperators.notNull, value: '2' },
           {
             field: 'b',
-            operator: FilterOperators.GreaterThanOrEqual,
+            operator: FilterOperators.greaterThanOrEquals,
             value: '2',
           },
-          { field: 'b', operator: FilterOperators.In, value: ['2', 3] },
-          { field: 'b', operator: FilterOperators.LessThan, value: '2' },
+          { field: 'b', operator: FilterOperators.in, value: ['2', 3] },
+          { field: 'b', operator: FilterOperators.lessThan, value: '2' },
           {
             field: 'b',
-            operator: FilterOperators.LessThanOrEqual,
+            operator: FilterOperators.lessThanOrEquals,
             value: '2',
           },
           {
@@ -125,10 +126,10 @@ describe('ODataClientService', () => {
             filters: [
               {
                 field: 'subX',
-                operator: FilterOperators.StartsWith,
+                operator: FilterOperators.startsWith,
                 value: 'b',
               },
-              { field: 'subY', operator: FilterOperators.IsNull },
+              { field: 'subY', operator: FilterOperators.isNull },
               {
                 logic: 'or',
                 filters: [
@@ -136,7 +137,7 @@ describe('ODataClientService', () => {
                     childTable: 'sub-z',
                     linqOperation: 'all',
                     field: 'sub-sub-Z',
-                    operator: FilterOperators.IsNull,
+                    operator: FilterOperators.isNull,
                   },
                 ],
               },

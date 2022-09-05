@@ -4,14 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import {
-  ODataState,
-  createODataPayload,
-  createODataResult,
-  ODataService,
-  createEmptyODataResult,
-} from 'imng-kendo-odata';
-import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
 import * as orderActionTypes from '../+state/order.actions';
@@ -19,44 +11,13 @@ import { OrderEffects } from '../+state/order.effects';
 import { ordersFeature } from '../+state/order.reducer';
 import { PrimeOrderListFacade } from './prime-list.facade';
 import { environment } from '../../../../environments/environment';
+import { createTestOrder, IOrder } from '../../../models/odata';
 import {
-  OrderProperties,
-  OrderStatusTypes,
-  ShippingTypes,
-} from '../../../models/odata';
-import { IExtOrder } from '../models/ext-order';
-import { FilterOperators, ODataQuery } from 'imng-odata-client';
-
-export const createOrder = () =>
-  <IExtOrder>{
-    [OrderProperties.ID]: 'ID',
-    [OrderProperties.ORDER_ID]: 0,
-    [OrderProperties.REVISION_NUM]: 0,
-    [OrderProperties.DATE]: new Date(),
-    [OrderProperties.DUE_DATE]: new Date(),
-    [OrderProperties.SHIP_DATE]: new Date(),
-    [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
-    [OrderProperties.IS_ONLINE_ORDER]: true,
-    [OrderProperties.NUM]: 'NUM',
-    [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
-    [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
-    [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
-    [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-    [OrderProperties.SHIPPING_TYPE]: ShippingTypes.CargoTransport,
-    [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
-    [OrderProperties.SUB_TOTAL]: 0,
-    [OrderProperties.TAX_AMT]: 0,
-    [OrderProperties.FREIGHT]: 0,
-    [OrderProperties.TOTAL_DUE]: 0,
-    [OrderProperties.COMMENT]: 'COMMENT',
-    [OrderProperties.CUSTOMER]: 'CUSTOMER',
-    [OrderProperties.SHIP_TO_ADDRESS]: 'SHIP_TO_ADDRESS',
-    [OrderProperties.BILL_TO_ADDRESS]: 'BILL_TO_ADDRESS',
-
-    orderLineItemODataState: {},
-    orderLineItemOData: createEmptyODataResult(),
-    orderLineItemPagerSettings: false,
-  };
+  ODataClientService,
+  ODataQuery,
+  createODataResult,
+} from 'imng-odata-client';
+import { PrimeTableState } from 'imng-prime-table-odata';
 
 describe('OrderListFacade', () => {
   let facade: PrimeOrderListFacade;
@@ -78,7 +39,7 @@ describe('OrderListFacade', () => {
           {
             provide: HttpClient,
             useValue: {
-              get: jest.fn(() => of(createODataPayload([createOrder()]))),
+              get: jest.fn(() => of(createODataResult([createTestOrder()]))),
             },
           },
         ],
@@ -114,7 +75,7 @@ describe('OrderListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith(
-        'aw-odata/odata/v1/Orders?&$count=true',
+        'aw-odata/odata/v1/Orders?$count=true',
       );
 
       facade.reloadEntities();
@@ -128,12 +89,12 @@ describe('OrderListFacade', () => {
       const service: {
         fetch: (
           endpoint: string,
-          odataState: ODataState,
+          odataQuery: ODataQuery,
         ) => Observable<unknown>;
-      } = TestBed.inject(ODataService);
+      } = TestBed.inject(ODataClientService);
       const response = of({
-        data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
-        total: 3,
+        value: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
+        count: 3,
       });
       service.fetch = jest.fn(() => response);
 
@@ -150,24 +111,21 @@ describe('OrderListFacade', () => {
     });
 
     test('it should get the grid state', async () => {
-      const filteringState: ODataQuery = {
-        filter: {
-          logic: 'and',
-          filters: [
-            { field: '💩', operator: FilterOperators.EqualTo, value: '🍑' },
-          ],
-        },
+      const filteringState: PrimeTableState = {
+        filters: { '💩': { operator: 'eq', value: '🍑' } },
       };
-      let state = await readFirst(facade.tableODataQueryState$);
-      expect(state?.orderBy).toBeUndefined();
+      let state = await readFirst(facade.tableState$);
+      expect(state?.multiSortMeta).toBeUndefined();
       facade.loadEntities(filteringState);
 
-      state = await readFirst(facade.tableODataQueryState$);
-      expect(state).toStrictEqual({ orderBy: undefined });
+      state = await readFirst(facade.tableState$);
+      expect(state).toStrictEqual({
+        filters: { '💩': { operator: 'eq', value: '🍑' } },
+      });
 
       facade.loadEntities({});
-      state = await readFirst(facade.tableODataQueryState$);
-      expect(state).toStrictEqual({ orderBy: undefined });
+      state = await readFirst(facade.tableState$);
+      expect(state).toStrictEqual({});
     });
 
     /**
@@ -178,16 +136,12 @@ describe('OrderListFacade', () => {
       expect(list.length).toBe(0);
       store.dispatch(
         orderActionTypes.loadOrdersSuccess(
-          createODataResult([createOrder(), createOrder()]),
+          createODataResult<IOrder>([createTestOrder(), createTestOrder()]),
         ),
       );
 
       list = await readFirst(facade.tableData$);
       expect(list.length).toBe(2);
-    });
-
-    test('it should handle DeleteItem', async () => {
-      await testDeleteCurrentEntity(facade, httpClient);
     });
   });
 });

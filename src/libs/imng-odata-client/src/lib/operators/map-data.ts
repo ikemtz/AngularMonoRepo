@@ -2,7 +2,7 @@ import { MILLI_SECS_PER_SEC } from 'imng-nrsrx-client-utils';
 import { map } from 'rxjs';
 import { FetchOptions, ODataResult } from '../models';
 
-export const mapData = <T>(options: FetchOptions) =>
+export const mapData = <T extends object>(options: FetchOptions) =>
   map((response: ODataResult<T> | T[]): ODataResult<T> => {
     if (!response) {
       return { value: [], count: 0 };
@@ -18,10 +18,17 @@ export const mapData = <T>(options: FetchOptions) =>
         } as ODataResult<T>);
   });
 
-export function parseDatesInCollection<T>(collection: Array<T>, options: FetchOptions): Array<T> {
+export function parseDatesInCollection<T extends object>(
+  collection: Array<T>,
+  options: FetchOptions,
+): Array<T> {
   if (collection.length > 0) {
-    const utcProps = Object.keys(collection[0]).filter((x) => x.endsWith('Utc'));
-    const dateProps = Object.keys(collection[0]).filter((x) => x.endsWith('Date') || x === 'date');
+    const utcProps = Object.keys(collection[0]).filter((x) =>
+      x.endsWith('Utc'),
+    );
+    const dateProps = Object.keys(collection[0]).filter(
+      (x) => x.endsWith('Date') || x === 'date',
+    );
 
     options.utcNullableProps?.forEach((t) => {
       if (utcProps.indexOf(t) === -1) {
@@ -46,5 +53,7 @@ export function parseDatesInCollection<T>(collection: Array<T>, options: FetchOp
 }
 export function toLocalDate(date: string): Date {
   const dt = new Date(date);
-  return new Date(dt.getTime() + Math.abs(dt.getTimezoneOffset() * MILLI_SECS_PER_SEC));
+  return new Date(
+    dt.getTime() + Math.abs(dt.getTimezoneOffset() * MILLI_SECS_PER_SEC),
+  );
 }

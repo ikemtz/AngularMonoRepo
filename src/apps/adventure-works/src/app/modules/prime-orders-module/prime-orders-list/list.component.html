@@ -2,22 +2,45 @@
   <ng-template pTemplate="header">
     <tr>
       <th [pSortableColumn]="props.NUM" [id]="props.NUM">
-        Num<p-sortIcon [field]="props.NUM"></p-sortIcon>
+        Num
+        <p-sortIcon [field]="props.NUM"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          [field]="props.NUM"
+          display="menu"></p-columnFilter>
       </th>
       <th [pSortableColumn]="props.ORDER_ID" [id]="props.ORDER_ID">
-        Order Id<p-sortIcon [field]="props.ORDER_ID"></p-sortIcon>
+        Order Id
+        <p-sortIcon [field]="props.ORDER_ID"></p-sortIcon>
+        <p-columnFilter
+          type="numeric"
+          [field]="props.ORDER_ID"
+          display="menu"></p-columnFilter>
       </th>
       <th [pSortableColumn]="props.DATE" [id]="props.DATE">
-        Date<p-sortIcon [field]="props.DATE"></p-sortIcon>
+        Date
+        <p-sortIcon [field]="props.DATE"></p-sortIcon>
+        <p-columnFilter
+          type="date"
+          [field]="props.DATE"
+          display="menu"></p-columnFilter>
       </th>
       <th [pSortableColumn]="props.SHIP_DATE" [id]="props.SHIP_DATE">
         Ship Date<p-sortIcon [field]="props.SHIP_DATE"></p-sortIcon>
+        <p-columnFilter
+          type="date"
+          [field]="props.SHIP_DATE"
+          display="menu"></p-columnFilter>
       </th>
       <th
         [pSortableColumn]="props.PURCHASE_ORDER_NUM"
         [id]="props.PURCHASE_ORDER_NUM">
         Purchase Order #<p-sortIcon
           [field]="props.PURCHASE_ORDER_NUM"></p-sortIcon>
+        <p-columnFilter
+          type="text"
+          [field]="props.PURCHASE_ORDER_NUM"
+          display="menu"></p-columnFilter>
       </th>
       <th [pSortableColumn]="props.STATUS_TYPE" [id]="props.STATUS_TYPE">
         Status<p-sortIcon [field]="props.STATUS_TYPE"></p-sortIcon>

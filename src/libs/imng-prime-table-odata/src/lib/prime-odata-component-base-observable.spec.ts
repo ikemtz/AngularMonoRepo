@@ -8,12 +8,12 @@ import {
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   CompositeFilter,
-  Filter,
   FilterOperators,
   ODataQuery,
 } from 'imng-odata-client';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { FilterMetadata } from 'primeng/api';
 
 describe('PrimeODataBasedComponent Observable State', () => {
   let component: PrimeODataTableTestComponent;
@@ -48,17 +48,14 @@ describe('PrimeODataBasedComponent Observable State', () => {
   });
 
   it('should reset', async () => {
-    component.gridDataState = {
-      ...component.gridDataState,
-      filter: {
-        logic: 'and',
-        filters: [
-          { field: 'y', operator: FilterOperators.Contains, value: 56 },
-        ],
+    component.tableState = {
+      ...component.tableState,
+      filters: {
+        y: { operator: 'contains', value: 56 },
       },
     };
     component.resetFilters();
-    expect(component.gridDataState).toMatchSnapshot();
+    expect(component.tableState).toMatchSnapshot();
   });
 
   it('should reload', async () => {
@@ -112,15 +109,15 @@ describe('PrimeODataBasedComponent Observable State', () => {
     const filter: CompositeFilter = {
       logic: 'and',
       filters: [
-        { field: 'Date', operator: FilterOperators.EqualTo, value: '1/1/2022' },
+        { field: 'Date', operator: FilterOperators.equals, value: '1/1/2022' },
         {
           field: 'DateUtc',
-          operator: FilterOperators.EqualTo,
+          operator: FilterOperators.equals,
           value: '1/1/2022',
         },
         {
           field: 'BeginDate',
-          operator: FilterOperators.EqualTo,
+          operator: FilterOperators.equals,
           value: '1/1/2022',
         },
       ],
@@ -137,22 +134,18 @@ describe('PrimeODataBasedComponent Observable State', () => {
 
   it('should serialize/deserialize odataQuery filters correctly', () => {
     const tempDate = new Date();
-    const serializedResult = component.serializeODataQuery({
-      filter: {
-        logic: 'and',
-        filters: [
-          {
-            field: 'xyzDate',
-            operator: FilterOperators.EqualTo,
-            value: tempDate,
-          },
-        ],
+    const serializedResult = component.serializeTableState({
+      filters: {
+        xyzDate: {
+          operator: 'eq',
+          value: tempDate,
+        },
       },
     });
     const deserializedResult =
-      component.deserializeODataQuery(serializedResult);
+      component.deserializeTableState(serializedResult);
     expect(tempDate).toEqual(
-      (deserializedResult.filter?.filters[0] as Filter).value,
+      new Date((deserializedResult.filters['xyzDate'] as FilterMetadata).value),
     );
   });
 
@@ -177,14 +170,15 @@ describe('PrimeODataBasedComponent Observable State', () => {
         { field: 'c', dir: 'asc' },
         { field: 'd', dir: 'asc' },
         { field: 'e', dir: 'asc' },
+        { field: 'f', dir: 'asc' },
       ],
     });
   });
 
   it('should serialize/deserialize odataQuery correctly', () => {
-    const serializedResult = component.serializeODataQuery({});
+    const serializedResult = component.serializeTableState({});
     const deserializedResult =
-      component.deserializeODataQuery(serializedResult);
+      component.deserializeTableState(serializedResult);
     expect(deserializedResult).toStrictEqual({});
   });
 });
@@ -194,7 +188,7 @@ const initialGridState: ODataQuery = {
   orderBy: [{ field: 'x', dir: 'desc' }],
   filter: {
     logic: 'and',
-    filters: [{ field: 'x', operator: FilterOperators.EqualTo, value: 1 }],
+    filters: [{ field: 'x', operator: FilterOperators.equals, value: 1 }],
   },
 };
 @Component({
