@@ -11,7 +11,6 @@ import { Subscriptions } from 'imng-ngrx-utils';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { FilterMetadata, LazyLoadEvent, SortMeta } from 'primeng/api';
 import { handleMultiColumnSorting } from './helpers/handle-multi-column-sorting';
-import { Filter } from 'imng-odata-client';
 
 @Directive({
   selector: '[imngODataTable]',
@@ -37,7 +36,10 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     this.tableComponent.lazy = true;
     this.tableComponent.styleClass = 'p-datatable-gridlines';
     this.tableComponent.sortMode = 'multiple';
+    this.tableComponent.sortMode = 'multiple';
     this.tableComponent.showCurrentPageReport = true;
+    this.tableComponent.rowHover = true;
+    this.tableComponent.resizableColumns = true;
     this.tableComponent.rowHover = true;
     this.tableComponent.resizableColumns = true;
     this.tableComponent.rowsPerPageOptions =

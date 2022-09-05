@@ -35,6 +35,7 @@ export class ODataClientService {
     let queryString = '';
     queryString = this.processFilters(query, options, queryString);
     queryString = this.processOrderBy(query, queryString);
+    queryString = this.processOrderBy(query, queryString);
     queryString = this.processSelectors(query, queryString);
     queryString = this.processSimpleParameters('top', query, queryString);
     queryString = this.processSimpleParameters('skip', query, queryString);
@@ -59,7 +60,11 @@ export class ODataClientService {
     _options: FetchOptions,
     queryString: string,
   ): string {
-    if (!query.filter || !query.filter.filters.length) {
+    if (
+      !query.filter ||
+      !query.filter.filters.length ||
+      !query.filter.filters.length
+    ) {
       return queryString;
     }
     const filterString = this.serializeCompositeFilter(query.filter);
