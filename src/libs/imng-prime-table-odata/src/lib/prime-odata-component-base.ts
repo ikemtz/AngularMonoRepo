@@ -211,7 +211,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
       multiSortMeta = multiSortMeta.slice(0, this.maxSortedColumnCount);
 
       console.warn(
-        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
+        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current table. MAX-Sorted-Column-Count`,
       ); //NOSONAR
     }
     return multiSortMeta || [];

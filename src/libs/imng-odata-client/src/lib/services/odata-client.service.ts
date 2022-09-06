@@ -77,7 +77,7 @@ export class ODataClientService {
           ? this.serializeCompositeFilter(m)
           : this.serializeFilter(m),
       )
-      .filter((m) => m)
+      .filter((m) => m && m !== '()')
       .join(filterLogicSeperator)})`;
   }
 

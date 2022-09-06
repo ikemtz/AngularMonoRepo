@@ -21,15 +21,11 @@ export function toODataQuery(val: PrimeTableState): ODataQuery {
 
   if (val.filters) {
     const filters = Object.keys(val.filters || {})
-      .map((key) => {
-        if (val.filters && val.filters[key]) {
-          return {
-            key,
-            collection: val.filters[key] || [],
-          };
-        }
-        return { key, collection: [] };
-      })
+      .map((key) => ({
+        key,
+        collection: val.filters?.[key] || [],
+      }))
+      .filter((t) => t.collection?.filter((t) => t.value).length)
       .map(
         (t): CompositeFilter => ({
           logic: t.collection?.every((e) => e.operator === 'and')
