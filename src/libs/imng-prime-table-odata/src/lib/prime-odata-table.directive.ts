@@ -66,7 +66,6 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     this.allSubscriptions.push(
       this.facade.tableState$.subscribe((t) => {
         this.tableComponent.rows = t?.rows || 20;
-        this.changeDetectorRef.markForCheck();
         if (t.filters) {
           const newFilters = { ...t.filters };
           Object.keys(newFilters).forEach((x) => {
@@ -75,6 +74,10 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
             }
           });
           this.tableComponent.filters = newFilters;
+          this.tableComponent.multiSortMeta = t.multiSortMeta.map((m) => ({
+            ...m,
+          }));
+          this.changeDetectorRef.markForCheck();
         }
       }),
     );

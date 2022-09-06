@@ -105,6 +105,8 @@ const initialGridState: ODataQuery = {
 };
 @Component({
   selector: 'imng-test-component',
+  standalone: true,
+  imports: [CommonModule],
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types
