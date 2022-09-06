@@ -14,14 +14,15 @@ import {
   Expander,
   Filter,
   isCompositeFilter,
-  ODataQuery,
 } from 'imng-odata-client';
 import { toLocalTimeStamp } from 'imng-nrsrx-client-utils';
+import { PrimeTableState } from './models/prime-odata-table-state';
+import { SortMeta } from 'primeng/api';
 
 const FACADE = new InjectionToken<
   IPrimeODataTableFacade<{ id?: string | null }>
->('imng-grid-odata-facade');
-const STATE = new InjectionToken<ODataQuery>('imng-grid-odata-odataQuery');
+>('imng-prime-table-odata-facade');
+const STATE = new InjectionToken<PrimeTableState>('imng-prime-table-state');
 
 @Component({ template: '' })
 export abstract class ImngPrimeODataTableBaseComponent<
@@ -40,11 +41,10 @@ export abstract class ImngPrimeODataTableBaseComponent<
    * This will allow you to provide a visual indicator that some of the columns have been hidden.
    */
   public hasHiddenColumns$: Observable<boolean>;
-  public gridStateQueryKey = 'odataQuery';
-  public gridDataState: ODataQuery;
-  public gridData$: Observable<ENTITY[]>;
+  public tableStateQueryKey = 'odataQuery';
+  public tableState: PrimeTableState;
+  public tableData$: Observable<ENTITY[]>;
   public loading$: Observable<boolean>;
-  public gridPagerSettings$: Observable<false>;
   public rowsPerPageOptions: number[] = [10, 20, 50, 100];
   /**
    * A properties enum to make prime table columns definitions type safe
@@ -57,40 +57,41 @@ export abstract class ImngPrimeODataTableBaseComponent<
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
-    @Inject(STATE) public readonly state: ODataQuery | Observable<ODataQuery>,
+    @Inject(STATE)
+    private readonly state: PrimeTableState | Observable<PrimeTableState>,
     public readonly router: Router | null = null, //NOSONAR
-    public readonly gridRefresh$: Observable<unknown> | null = null,
+    public readonly tableRefresh$: Observable<unknown> | null = null,
   ) {
     if (
       this.router?.routerState?.snapshot?.root.queryParams[
-        this.gridStateQueryKey
+        this.tableStateQueryKey
       ]
     ) {
       try {
-        this.gridDataState = this.deserializeODataQuery(
+        this.tableState = this.deserializeTableState(
           this.router?.routerState?.snapshot?.root?.queryParams[
-            this.gridStateQueryKey
+            this.tableStateQueryKey
           ],
         );
       } catch (e) {
         console.error(
           //NOSONAR
-          `Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`,
+          `Exception thrown while deserializing query string parameter: ${this.tableStateQueryKey}.`,
         );
       }
     }
     if (isObservable(state)) {
       this.allSubscriptions.push(
         state.subscribe((t) => {
-          this.gridDataState = t;
+          this.tableState = t;
           this.expanders = t.expand;
           this.appliedTransformations = t.apply;
         }),
       );
     } else {
-      this.gridDataState = this.gridDataState
+      this.tableState = this.tableState
         ? {
-            ...this.gridDataState,
+            ...this.tableState,
             select: state.select,
             expand: state.expand,
           }
@@ -98,20 +99,20 @@ export abstract class ImngPrimeODataTableBaseComponent<
       this.expanders = state.expand;
       this.appliedTransformations = state.apply;
     }
-    if (gridRefresh$) {
+    if (tableRefresh$) {
       this.allSubscriptions.push(
-        gridRefresh$.subscribe(() => this.loadEntities(this.gridDataState)),
+        tableRefresh$.subscribe(() => this.loadEntities(this.tableState)),
       );
     }
   }
 
   public ngOnInit(): void {
-    if (!this.gridRefresh$) {
-      this.loadEntities(this.gridDataState);
+    if (!this.tableRefresh$) {
+      this.loadEntities(this.tableState);
     }
     this.loading$ = this.facade.loading$;
-    this.gridData$ = this.facade.tableData$?.pipe(
-      map((gridData) => (gridData ? gridData : [])),
+    this.tableData$ = this.facade.tableData$?.pipe(
+      map((table) => (table ? table : [])),
     );
   }
   public ngOnDestroy(): void {
@@ -145,10 +146,8 @@ export abstract class ImngPrimeODataTableBaseComponent<
     return data.find((f) => f.name === nameValue)?.displayText;
   }
 
-  public deserializeODataQuery(stateQueryParam: string): ODataQuery {
-    const state: ODataQuery = JSON.parse(atob(stateQueryParam));
-    state.filter?.filters?.forEach((filter) => this.normalizeFilters(filter));
-    return state;
+  public deserializeTableState(stateQueryParam: string): PrimeTableState {
+    return JSON.parse(atob(stateQueryParam));
   }
 
   /**
@@ -167,55 +166,58 @@ export abstract class ImngPrimeODataTableBaseComponent<
     }
   }
 
-  public serializeODataQuery(odataQuery: ODataQuery): string {
-    return btoa(JSON.stringify(odataQuery));
+  public serializeTableState(primeTableState: PrimeTableState): string {
+    return btoa(JSON.stringify(primeTableState));
   }
   /**
    * Will reset filters to initialGrid state passed into the constructor
    */
   public resetFilters(): void {
     if (!isObservable(this.state)) {
-      this.gridDataState = {
-        ...this.gridDataState,
-        filter: this.state.filter,
+      this.tableState = {
+        ...this.state,
+        filters: this.state.filters,
       };
-      this.loadEntities(this.gridDataState);
+      this.loadEntities(this.tableState);
     }
   }
-  public dataStateChange(state: ODataQuery): void {
-    this.gridDataState = {
-      ...state,
+  public dataStateChange(primeTableState: PrimeTableState): void {
+    this.tableState = {
+      ...primeTableState,
       expand: this.expanders,
       apply: this.appliedTransformations,
     };
-    this.loadEntities(this.gridDataState);
+    this.loadEntities(this.tableState);
   }
 
-  public excelData = (): Observable<ENTITY[]> => this.gridData$;
+  public excelData = (): Observable<ENTITY[]> => this.tableData$;
 
-  public loadEntities(odataQuery: ODataQuery): void {
-    odataQuery = this.validateSortParameters(odataQuery);
-    this.gridDataState = odataQuery;
-    this.expanders = odataQuery.expand;
-    this.appliedTransformations = odataQuery.apply;
-    this.facade.loadEntities(this.gridDataState);
-    this.updateRouterState(odataQuery);
+  public loadEntities(primeTableState: PrimeTableState): void {
+    primeTableState.multiSortMeta = this.validateSortParameters(
+      primeTableState.multiSortMeta,
+    );
+    this.tableState = primeTableState;
+    this.expanders = primeTableState.expand;
+    this.appliedTransformations = primeTableState.apply;
+    this.facade.loadEntities(primeTableState);
+    this.updateRouterState(primeTableState);
   }
 
-  public validateSortParameters(state: ODataQuery): ODataQuery {
-    if (state.orderBy && state.orderBy?.length > this.maxSortedColumnCount) {
-      state = {
-        ...state,
-        orderBy: state.orderBy.slice(0, this.maxSortedColumnCount),
-      };
+  public validateSortParameters(multiSortMeta?: SortMeta[]): SortMeta[] {
+    if (
+      multiSortMeta?.length &&
+      multiSortMeta?.length > this.maxSortedColumnCount
+    ) {
+      multiSortMeta = multiSortMeta.slice(0, this.maxSortedColumnCount);
+
       console.warn(
         `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
       ); //NOSONAR
     }
-    return state;
+    return multiSortMeta || [];
   }
 
-  public updateRouterState(state: ODataQuery): void {
+  public updateRouterState(state: PrimeTableState): void {
     if (this.router) {
       const tempState = { ...state };
       delete tempState.select;
@@ -223,7 +225,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
       this.router.navigate([], {
         relativeTo: this.router.routerState.root,
         queryParams: {
-          [this.gridStateQueryKey]: this.serializeODataQuery(tempState),
+          [this.tableStateQueryKey]: this.serializeTableState(tempState),
         },
         skipLocationChange: false,
         queryParamsHandling: 'merge',

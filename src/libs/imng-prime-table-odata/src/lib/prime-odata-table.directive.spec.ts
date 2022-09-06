@@ -1,12 +1,13 @@
 import { ChangeDetectorRef } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { FilterMetadata, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import {
   MockTable,
   createODataGridMockFacade,
   ODataTableMockFacade,
 } from '../../testing/src';
+import { PrimeTableState } from './models/prime-odata-table-state';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
@@ -25,7 +26,10 @@ describe('ImngPrimeODataTableDirective', () => {
     tableComponent = new MockTable() as Table;
     changeDetectorRef = {} as ChangeDetectorRef;
     odataComponent = {
-      facade: createODataGridMockFacade(),
+      facade: createODataGridMockFacade({
+        tableState$: new Subject<PrimeTableState>(),
+      }),
+      validateSortParameters: (x) => x,
     } as never;
     directive = new ImngPrimeODataTableDirective(
       tableComponent,
@@ -49,9 +53,29 @@ describe('ImngPrimeODataTableDirective', () => {
     (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({
       first: 20,
       multiSortMeta: [{ field: 'x', order: 1 }],
+      filters: {
+        xyz: [
+          { value: '💩💩', operator: 'and', matchMode: 'contains' },
+        ] as FilterMetadata,
+      },
     });
     expect(tableComponent).toMatchSnapshot();
     expect(facade.loadEntities).toBeCalledTimes(1);
+  });
+
+  it('should handle tableState Changes', () => {
+    directive.ngOnInit();
+    (
+      odataComponent.facade.tableState$ as unknown as Subject<PrimeTableState>
+    ).next({
+      first: 20,
+      multiSortMeta: [{ field: 'x', order: 1 }],
+      filters: {
+        xyz: [{ value: '💩💩', operator: 'and', matchMode: 'contains' }],
+      },
+    });
+    expect(tableComponent).toMatchSnapshot();
+    expect(facade.loadEntities).toBeCalledTimes(0);
   });
   it('should fire destory', () => {
     directive.ngOnInit();

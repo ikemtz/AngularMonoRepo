@@ -28,6 +28,14 @@ const routes: Routes = [
       ),
     canActivateChild: [AuthGuard],
   },
+  {
+    path: 'prime-orders',
+    loadChildren: () =>
+      import('./modules/prime-orders-module/orders.module').then(
+        (m) => m.OrdersModule,
+      ),
+    canActivateChild: [AuthGuard],
+  },
   ...oidcRoutes,
   { path: '**', component: HomeComponent },
 ];

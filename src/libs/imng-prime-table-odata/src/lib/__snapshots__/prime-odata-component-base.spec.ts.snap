@@ -10,20 +10,19 @@ Array [
 
 exports[`PrimeODataBasedComponent should reset 1`] = `
 Object {
-  "filter": Object {
-    "filters": Array [
+  "filters": Object {
+    "x": Array [
       Object {
-        "field": "x",
-        "operator": [Function],
+        "matchMode": "equals",
+        "operator": "and",
         "value": 1,
       },
     ],
-    "logic": "and",
   },
-  "orderBy": Array [
+  "multiSortMeta": Array [
     Object {
-      "dir": "desc",
       "field": "x",
+      "order": 1,
     },
   ],
   "select": Array [

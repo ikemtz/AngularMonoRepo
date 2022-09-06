@@ -6,14 +6,10 @@ import {
   createODataGridMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import {
-  CompositeFilter,
-  Filter,
-  FilterOperators,
-  ODataQuery,
-} from 'imng-odata-client';
+import { CompositeFilter, FilterOperators } from 'imng-odata-client';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { PrimeTableState } from './models/prime-odata-table-state';
 
 describe('PrimeODataBasedComponent Observable State', () => {
   let component: PrimeODataTableTestComponent;
@@ -48,17 +44,14 @@ describe('PrimeODataBasedComponent Observable State', () => {
   });
 
   it('should reset', async () => {
-    component.gridDataState = {
-      ...component.gridDataState,
-      filter: {
-        logic: 'and',
-        filters: [
-          { field: 'y', operator: FilterOperators.Contains, value: 56 },
-        ],
+    component.tableState = {
+      ...component.tableState,
+      filters: {
+        y: [{ operator: 'contains', value: 56 }],
       },
     };
     component.resetFilters();
-    expect(component.gridDataState).toMatchSnapshot();
+    expect(component.tableState).toMatchSnapshot();
   });
 
   it('should reload', async () => {
@@ -112,15 +105,15 @@ describe('PrimeODataBasedComponent Observable State', () => {
     const filter: CompositeFilter = {
       logic: 'and',
       filters: [
-        { field: 'Date', operator: FilterOperators.EqualTo, value: '1/1/2022' },
+        { field: 'Date', operator: FilterOperators.equals, value: '1/1/2022' },
         {
           field: 'DateUtc',
-          operator: FilterOperators.EqualTo,
+          operator: FilterOperators.equals,
           value: '1/1/2022',
         },
         {
           field: 'BeginDate',
-          operator: FilterOperators.EqualTo,
+          operator: FilterOperators.equals,
           value: '1/1/2022',
         },
       ],
@@ -137,65 +130,58 @@ describe('PrimeODataBasedComponent Observable State', () => {
 
   it('should serialize/deserialize odataQuery filters correctly', () => {
     const tempDate = new Date();
-    const serializedResult = component.serializeODataQuery({
-      filter: {
-        logic: 'and',
-        filters: [
+    const serializedResult = component.serializeTableState({
+      filters: {
+        xyzDate: [
           {
-            field: 'xyzDate',
-            operator: FilterOperators.EqualTo,
+            operator: 'eq',
             value: tempDate,
           },
         ],
       },
     });
     const deserializedResult =
-      component.deserializeODataQuery(serializedResult);
-    expect(tempDate).toEqual(
-      (deserializedResult.filter?.filters[0] as Filter).value,
-    );
+      component.deserializeTableState(serializedResult);
+    expect(deserializedResult.filters['xyzDate'].length).toBe(1);
   });
 
   it('should limit odataQuery sort parameters', () => {
-    const odataQuery: ODataQuery = {
-      orderBy: [
-        { field: 'a', dir: 'asc' },
-        { field: 'b', dir: 'asc' },
-        { field: 'c', dir: 'asc' },
-        { field: 'd', dir: 'asc' },
-        { field: 'e', dir: 'asc' },
-        { field: 'f', dir: 'asc' },
+    const primeTableState: PrimeTableState = {
+      multiSortMeta: [
+        { field: 'a', order: 1 },
+        { field: 'b', order: 1 },
+        { field: 'c', order: 1 },
+        { field: 'd', order: 1 },
+        { field: 'e', order: 1 },
+        { field: 'f', order: 1 },
       ],
     };
     component.facade.loadEntities = jest.fn();
-    component.loadEntities(odataQuery);
+    component.loadEntities(primeTableState);
     expect(component.facade.loadEntities).toBeCalledTimes(1);
     expect(component.facade.loadEntities).toBeCalledWith({
-      orderBy: [
-        { field: 'a', dir: 'asc' },
-        { field: 'b', dir: 'asc' },
-        { field: 'c', dir: 'asc' },
-        { field: 'd', dir: 'asc' },
-        { field: 'e', dir: 'asc' },
+      multiSortMeta: [
+        { field: 'a', order: 1 },
+        { field: 'b', order: 1 },
+        { field: 'c', order: 1 },
+        { field: 'd', order: 1 },
+        { field: 'e', order: 1 },
       ],
     });
   });
 
   it('should serialize/deserialize odataQuery correctly', () => {
-    const serializedResult = component.serializeODataQuery({});
+    const serializedResult = component.serializeTableState({});
     const deserializedResult =
-      component.deserializeODataQuery(serializedResult);
+      component.deserializeTableState(serializedResult);
     expect(deserializedResult).toStrictEqual({});
   });
 });
 
-const initialGridState: ODataQuery = {
+const initialGridState: PrimeTableState = {
   select: ['x', 'y', 'z'],
-  orderBy: [{ field: 'x', dir: 'desc' }],
-  filter: {
-    logic: 'and',
-    filters: [{ field: 'x', operator: FilterOperators.EqualTo, value: 1 }],
-  },
+  multiSortMeta: [{ field: 'x', order: 1 }],
+  filters: { x: [{ matchMode: 'equals', operator: 'and', value: 1 }] },
 };
 @Component({
   selector: 'imng-test-component',
