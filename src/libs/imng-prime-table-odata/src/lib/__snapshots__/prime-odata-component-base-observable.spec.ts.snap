@@ -63,6 +63,7 @@ Object {
       },
     ],
   },
+  "multiSortMeta": undefined,
   "orderBy": Array [
     Object {
       "dir": "desc",

@@ -17,8 +17,7 @@ describe('PrimeODataBasedComponentRouted', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule],
-      declarations: [PrimeODataTableTestComponent],
+      imports: [CommonModule, PrimeODataTableTestComponent],
       providers: [
         {
           provide: Router,
@@ -70,6 +69,10 @@ describe('PrimeODataBasedComponentRouted', () => {
     component.tableState = {
       ...component.tableState,
       filters: { y: [{ operator: 'contains', value: 56 }] },
+      multiSortMeta: [
+        { field: 'y', order: 1 },
+        { field: 'z', order: -1 },
+      ],
     };
     component.resetFilters();
     expect(component.tableState).toMatchSnapshot();

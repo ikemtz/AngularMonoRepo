@@ -17,6 +17,7 @@ import {
 } from 'imng-odata-client';
 import { toLocalTimeStamp } from 'imng-nrsrx-client-utils';
 import { PrimeTableState } from './models/prime-odata-table-state';
+import { SortMeta } from 'primeng/api';
 
 const FACADE = new InjectionToken<
   IPrimeODataTableFacade<{ id?: string | null }>
@@ -192,7 +193,9 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public excelData = (): Observable<ENTITY[]> => this.tableData$;
 
   public loadEntities(primeTableState: PrimeTableState): void {
-    primeTableState = this.validateSortParameters(primeTableState);
+    primeTableState.multiSortMeta = this.validateSortParameters(
+      primeTableState.multiSortMeta,
+    );
     this.tableState = primeTableState;
     this.expanders = primeTableState.expand;
     this.appliedTransformations = primeTableState.apply;
@@ -200,25 +203,18 @@ export abstract class ImngPrimeODataTableBaseComponent<
     this.updateRouterState(primeTableState);
   }
 
-  public validateSortParameters(
-    primeTableState: PrimeTableState,
-  ): PrimeTableState {
+  public validateSortParameters(multiSortMeta?: SortMeta[]): SortMeta[] {
     if (
-      primeTableState.multiSortMeta &&
-      primeTableState.multiSortMeta?.length > this.maxSortedColumnCount
+      multiSortMeta?.length &&
+      multiSortMeta?.length > this.maxSortedColumnCount
     ) {
-      primeTableState = {
-        ...primeTableState,
-        multiSortMeta: primeTableState.multiSortMeta.slice(
-          0,
-          this.maxSortedColumnCount,
-        ),
-      };
+      multiSortMeta = multiSortMeta.slice(0, this.maxSortedColumnCount);
+
       console.warn(
-        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current table. MAX-Sorted-Column-Count`,
+        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
       ); //NOSONAR
     }
-    return primeTableState;
+    return multiSortMeta;
   }
 
   public updateRouterState(state: PrimeTableState): void {

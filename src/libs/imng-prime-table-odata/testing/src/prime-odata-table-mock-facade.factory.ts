@@ -9,6 +9,7 @@ export function createODataGridMockFacade(
   if (!mockFacade) {
     return localFacade;
   }
+  mockFacade.tableData$ = mockFacade.tableData$ || localFacade.tableData$;
   mockFacade.loading$ = mockFacade.loading$ || localFacade.loading$;
   mockFacade.tableState$ = mockFacade.tableState$ || localFacade.tableState$;
   mockFacade.totalRecordCount$ =

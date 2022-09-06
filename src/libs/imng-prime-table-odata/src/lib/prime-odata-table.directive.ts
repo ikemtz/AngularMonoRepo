@@ -83,6 +83,9 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     );
     this.allSubscriptions.push(
       this.tableComponent.onLazyLoad.subscribe((x: LazyLoadEvent) => {
+        x.multiSortMeta = this.odataTableComponent.validateSortParameters(
+          x.multiSortMeta,
+        );
         this.tableComponent.multiSortMeta =
           this.sortState =
           x.multiSortMeta =

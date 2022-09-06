@@ -24,6 +24,7 @@ Object {
     "logic": "and",
   },
   "filters": undefined,
+  "multiSortMeta": undefined,
   "orderBy": Array [
     Object {
       "dir": "desc",
