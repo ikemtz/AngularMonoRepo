@@ -4,7 +4,7 @@ import {
   serializeArrayFilter,
   serializeFunctionFilter,
   serializeSimpleFilter,
-} from './filter-serializers';
+} from '../helpers/filter-serializers';
 
 export interface IFilterOperators {
   [key: string]: IFilterOperator;
@@ -76,7 +76,7 @@ export class FilterOperators {
   public static readonly notIn: IFilterOperator = {
     name: 'notIn',
     toODataString: (field: string, values?: IdType[]): string =>
-      serializeArrayFilter(field, 'not in', values),
+      serializeArrayFilter(field, 'not+in', values),
   };
   /**
    * The `is not null` operator.
@@ -84,14 +84,14 @@ export class FilterOperators {
 
   public static readonly notNull: IFilterOperator = {
     name: 'notNull',
-    toODataString: (field: string): string => `${field} ne null`,
+    toODataString: (field: string): string => `${field}+ne+null`,
   };
   /**
    * The `is null` operator.
    */
   public static readonly isNull: IFilterOperator = {
     name: 'isNull',
-    toODataString: (field: string): string => `${field} eq null`,
+    toODataString: (field: string): string => `${field}+eq+null`,
   };
   /**
    * The `contains` operator.
@@ -107,7 +107,7 @@ export class FilterOperators {
   public static readonly notContains: IFilterOperator = {
     name: 'notContains',
     toODataString: (field: string, value?: IdType): string =>
-      serializeFunctionFilter(field, 'not contains', value),
+      serializeFunctionFilter(field, 'not+contains', value),
   };
   /**
    * The `ends with` operator.
@@ -123,7 +123,7 @@ export class FilterOperators {
   public static readonly notEndsWith: IFilterOperator = {
     name: 'notEndsWith',
     toODataString: (field: string, value?: IdType): string =>
-      serializeFunctionFilter(field, 'not endswith', value),
+      serializeFunctionFilter(field, 'not+endswith', value),
   };
   /**
    * The `startswith` operator.
@@ -139,7 +139,7 @@ export class FilterOperators {
   public static readonly notStartsWith: IFilterOperator = {
     name: 'notStartsWith',
     toODataString: (field: string, value?: IdType): string =>
-      serializeFunctionFilter(field, 'not startswith', value),
+      serializeFunctionFilter(field, 'not+startswith', value),
   };
   /**
    * The `empty` operator.

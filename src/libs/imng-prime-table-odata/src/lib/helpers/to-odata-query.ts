@@ -24,11 +24,11 @@ export function toODataQuery(val: LazyLoadEvent): ODataQuery {
       .map((key) => {
         if (val.filters && val.filters[key]) {
           return {
-            key: key,
+            key,
             collection: (val.filters[key] as FilterMetadata[]) || [],
           };
         }
-        return { key: key, collection: [] };
+        return { key, collection: [] };
       })
       .map(
         (t): CompositeFilter => ({
@@ -45,7 +45,7 @@ export function toODataQuery(val: LazyLoadEvent): ODataQuery {
         }),
       );
     if (filters?.length) {
-      query.filter = { logic: 'and', filters: filters };
+      query.filter = { logic: 'and', filters };
     }
   }
   return query;

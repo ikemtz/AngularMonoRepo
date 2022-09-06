@@ -1,6 +1,5 @@
-import { filterOperators } from '../models/filter-operators';
+import { filterOperators } from '../models';
 import { IFilterOperator } from '../models/filter-operator';
 
-export function getFilterOperator(operatorName?: string): IFilterOperator {
-  return filterOperators[operatorName || ''];
-}
+export const getFilterOperator = (operatorName: string): IFilterOperator =>
+  filterOperators[operatorName];
