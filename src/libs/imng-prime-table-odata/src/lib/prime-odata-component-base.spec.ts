@@ -6,7 +6,7 @@ import {
   createODataGridMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { Filter, FilterOperators, ODataQuery } from 'imng-odata-client';
+import { FilterOperators, ODataQuery } from 'imng-odata-client';
 
 describe('PrimeODataBasedComponent', () => {
   let component: PrimeODataTableTestComponent;
@@ -35,17 +35,14 @@ describe('PrimeODataBasedComponent', () => {
   });
 
   it('should reset', async () => {
-    component.gridDataState = {
-      ...component.gridDataState,
-      filter: {
-        logic: 'and',
-        filters: [
-          { field: 'y', operator: FilterOperators.Contains, value: 56 },
-        ],
+    component.tableState = {
+      ...component.tableState,
+      filters: {
+        y: [{ operator: 'contains', value: 56 }],
       },
     };
     component.resetFilters();
-    expect(component.gridDataState).toMatchSnapshot();
+    expect(component.tableState).toMatchSnapshot();
   });
 
   it('should reload', async () => {
@@ -60,23 +57,19 @@ describe('PrimeODataBasedComponent', () => {
 
   it('should serialize/deserialize odataQuery filters correctly', () => {
     const tempDate = new Date();
-    const serializedResult = component.serializeODataQuery({
-      filter: {
-        logic: 'and',
-        filters: [
+    const serializedResult = component.serializeTableState({
+      filters: {
+        xyzDate: [
           {
-            field: 'xyzDate',
-            operator: FilterOperators.EqualTo,
+            operator: 'eq',
             value: tempDate,
           },
         ],
       },
     });
     const deserializedResult =
-      component.deserializeODataQuery(serializedResult);
-    expect(tempDate).toEqual(
-      (deserializedResult.filter?.filters[0] as Filter).value,
-    );
+      component.deserializeTableState(serializedResult);
+    expect(deserializedResult.filters['xyzDate'].length).toBe(1);
   });
 
   it('should limit odataQuery sort parameters', () => {
@@ -100,14 +93,15 @@ describe('PrimeODataBasedComponent', () => {
         { field: 'c', dir: 'asc' },
         { field: 'd', dir: 'asc' },
         { field: 'e', dir: 'asc' },
+        { field: 'f', dir: 'asc' },
       ],
     });
   });
 
   it('should serialize/deserialize odataQuery correctly', () => {
-    const serializedResult = component.serializeODataQuery({});
+    const serializedResult = component.serializeTableState({});
     const deserializedResult =
-      component.deserializeODataQuery(serializedResult);
+      component.deserializeTableState(serializedResult);
     expect(deserializedResult).toStrictEqual({});
   });
 });
@@ -117,7 +111,7 @@ const initialGridState: ODataQuery = {
   orderBy: [{ field: 'x', dir: 'desc' }],
   filter: {
     logic: 'and',
-    filters: [{ field: 'x', operator: FilterOperators.EqualTo, value: 1 }],
+    filters: [{ field: 'x', operator: FilterOperators.equals, value: 1 }],
   },
 };
 @Component({

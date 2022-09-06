@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`toODataQuery should convert empty State 1`] = `
+Object {
+  "orderBy": undefined,
+  "skip": undefined,
+  "top": undefined,
+}
+`;
+
+exports[`toODataQuery should convert typical State 1`] = `
+Object {
+  "filter": Object {
+    "filters": Array [
+      Object {
+        "filters": Array [
+          Object {
+            "field": "abc",
+            "operator": Object {
+              "name": "equals",
+              "toODataString": [Function],
+            },
+            "value": "xyz",
+          },
+        ],
+        "logic": "or",
+      },
+    ],
+    "logic": "and",
+  },
+  "orderBy": Array [
+    Object {
+      "dir": "asc",
+      "field": "abc",
+    },
+    Object {
+      "dir": "desc",
+      "field": "xyz",
+    },
+  ],
+  "skip": undefined,
+  "top": undefined,
+}
+`;

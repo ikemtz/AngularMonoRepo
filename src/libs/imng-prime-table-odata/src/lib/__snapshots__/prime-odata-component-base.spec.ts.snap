@@ -14,12 +14,16 @@ Object {
     "filters": Array [
       Object {
         "field": "x",
-        "operator": [Function],
+        "operator": Object {
+          "name": "equals",
+          "toODataString": [Function],
+        },
         "value": 1,
       },
     ],
     "logic": "and",
   },
+  "filters": undefined,
   "orderBy": Array [
     Object {
       "dir": "desc",

@@ -67,22 +67,26 @@ describe('PrimeODataBasedComponentRouted', () => {
   });
 
   it('should reset', async () => {
-    component.gridDataState = {
-      ...component.gridDataState,
-      filter: {
-        logic: 'and',
-        filters: [
-          { field: 'y', operator: FilterOperators.Contains, value: 56 },
-        ],
-      },
+    component.tableState = {
+      ...component.tableState,
+      filters: { y: [{ operator: 'contains', value: 56 }] },
     };
     component.resetFilters();
-    expect(component.gridDataState).toMatchSnapshot();
+    expect(component.tableState).toMatchSnapshot();
     expect(router.navigate).toBeCalledTimes(2);
+    expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
+      queryParams: {
+        odataQuery:
+          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
+      },
+      queryParamsHandling: 'merge',
+      relativeTo: undefined,
+      skipLocationChange: false,
+    });
     expect(router.navigate).toHaveBeenNthCalledWith(2, [], {
       queryParams: {
         odataQuery:
-          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwiZmlsdGVyIjp7ImxvZ2ljIjoiYW5kIiwiZmlsdGVycyI6W3siZmllbGQiOiJ4IiwidmFsdWUiOjF9XX19',
+          'eyJvcmRlckJ5IjpbeyJmaWVsZCI6IngiLCJkaXIiOiJkZXNjIn1dLCJza2lwIjoyMCwiZmlsdGVyIjp7ImxvZ2ljIjoiYW5kIiwiZmlsdGVycyI6W3siZmllbGQiOiJ4Iiwib3BlcmF0b3IiOnsibmFtZSI6ImVxdWFscyJ9LCJ2YWx1ZSI6MX1dfX0=',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -96,7 +100,7 @@ const initialGridState: ODataQuery = {
   skip: 20,
   filter: {
     logic: 'and',
-    filters: [{ field: 'x', operator: FilterOperators.EqualTo, value: 1 }],
+    filters: [{ field: 'x', operator: FilterOperators.equals, value: 1 }],
   },
 };
 @Component({

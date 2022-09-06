@@ -40,6 +40,11 @@
           [ngClass]="{ active: router.url.startsWith('/orders') }">
           <a class="nav-link" [routerLink]="['/orders']">Sale Orders</a>
         </li>
+        <li
+          class="nav-item mt-1"
+          [ngClass]="{ active: router.url.startsWith('/prime-orders') }">
+          <a class="nav-link" [routerLink]="['/prime-orders']">Prime Orders</a>
+        </li>
         <li dropdown class="nav-item dropdown ms-4 bg-dark text-white rounded">
           <a
             dropdownToggle
