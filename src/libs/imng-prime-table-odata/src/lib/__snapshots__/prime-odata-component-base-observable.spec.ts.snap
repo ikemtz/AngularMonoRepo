@@ -13,17 +13,26 @@ Object {
   "filters": Array [
     Object {
       "field": "Date",
-      "operator": [Function],
+      "operator": Object {
+        "name": "equals",
+        "toODataString": [Function],
+      },
       "value": Any<Date>,
     },
     Object {
       "field": "DateUtc",
-      "operator": [Function],
+      "operator": Object {
+        "name": "equals",
+        "toODataString": [Function],
+      },
       "value": Any<Date>,
     },
     Object {
       "field": "BeginDate",
-      "operator": [Function],
+      "operator": Object {
+        "name": "equals",
+        "toODataString": [Function],
+      },
       "value": Any<Date>,
     },
   ],
@@ -36,13 +45,25 @@ Object {
   "filter": Object {
     "filters": Array [
       Object {
-        "field": "y",
-        "operator": [Function],
-        "value": 56,
+        "field": "x",
+        "operator": Object {
+          "name": "equals",
+          "toODataString": [Function],
+        },
+        "value": 1,
       },
     ],
     "logic": "and",
   },
+  "filters": Object {
+    "y": Array [
+      Object {
+        "operator": "contains",
+        "value": 56,
+      },
+    ],
+  },
+  "multiSortMeta": undefined,
   "orderBy": Array [
     Object {
       "dir": "desc",

@@ -10,29 +10,32 @@ Array [
 
 exports[`PrimeODataBasedComponentRouted should reset 1`] = `
 Object {
-  "expand": undefined,
   "filter": Object {
     "filters": Array [
       Object {
         "field": "x",
-        "operator": [Function],
+        "operator": Object {
+          "name": "equals",
+          "toODataString": [Function],
+        },
         "value": 1,
       },
     ],
     "logic": "and",
   },
+  "filters": undefined,
+  "multiSortMeta": undefined,
+  "orderBy": Array [
+    Object {
+      "dir": "desc",
+      "field": "x",
+    },
+  ],
   "select": Array [
     "x",
     "y",
     "z",
   ],
-  "skip": 0,
-  "sort": Array [
-    Object {
-      "dir": "asc",
-      "field": "id",
-    },
-  ],
-  "take": 20,
+  "skip": 20,
 }
 `;

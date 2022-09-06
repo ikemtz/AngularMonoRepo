@@ -14,12 +14,17 @@ Object {
     "filters": Array [
       Object {
         "field": "x",
-        "operator": [Function],
+        "operator": Object {
+          "name": "equals",
+          "toODataString": [Function],
+        },
         "value": 1,
       },
     ],
     "logic": "and",
   },
+  "filters": undefined,
+  "multiSortMeta": undefined,
   "orderBy": Array [
     Object {
       "dir": "desc",
