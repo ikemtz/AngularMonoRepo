@@ -13,17 +13,26 @@ Object {
   "filters": Array [
     Object {
       "field": "Date",
-      "operator": [Function],
+      "operator": Object {
+        "name": "equals",
+        "toODataString": [Function],
+      },
       "value": Any<Date>,
     },
     Object {
       "field": "DateUtc",
-      "operator": [Function],
+      "operator": Object {
+        "name": "equals",
+        "toODataString": [Function],
+      },
       "value": Any<Date>,
     },
     Object {
       "field": "BeginDate",
-      "operator": [Function],
+      "operator": Object {
+        "name": "equals",
+        "toODataString": [Function],
+      },
       "value": Any<Date>,
     },
   ],
@@ -33,20 +42,18 @@ Object {
 
 exports[`PrimeODataBasedComponent Observable State should reset 1`] = `
 Object {
-  "filter": Object {
-    "filters": Array [
+  "filters": Object {
+    "y": Array [
       Object {
-        "field": "y",
-        "operator": [Function],
+        "operator": "contains",
         "value": 56,
       },
     ],
-    "logic": "and",
   },
-  "orderBy": Array [
+  "multiSortMeta": Array [
     Object {
-      "dir": "desc",
       "field": "x",
+      "order": 1,
     },
   ],
   "select": Array [

@@ -8,7 +8,7 @@ import {
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FilterOperators, ODataQuery } from 'imng-odata-client';
+import { PrimeTableState } from './models/prime-odata-table-state';
 
 describe('PrimeODataBasedComponentRouted', () => {
   let component: PrimeODataTableTestComponent;
@@ -17,8 +17,7 @@ describe('PrimeODataBasedComponentRouted', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule],
-      declarations: [PrimeODataTableTestComponent],
+      imports: [CommonModule, PrimeODataTableTestComponent],
       providers: [
         {
           provide: Router,
@@ -53,7 +52,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
         odataQuery:
-          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
+          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwibXVsdGlTb3J0TWV0YSI6W119',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -67,22 +66,30 @@ describe('PrimeODataBasedComponentRouted', () => {
   });
 
   it('should reset', async () => {
-    component.gridDataState = {
-      ...component.gridDataState,
-      filter: {
-        logic: 'and',
-        filters: [
-          { field: 'y', operator: FilterOperators.Contains, value: 56 },
-        ],
-      },
+    component.tableState = {
+      ...component.tableState,
+      filters: { y: [{ operator: 'contains', value: 56 }] },
+      multiSortMeta: [
+        { field: 'y', order: 1 },
+        { field: 'z', order: -1 },
+      ],
     };
     component.resetFilters();
-    expect(component.gridDataState).toMatchSnapshot();
+    expect(component.tableState).toMatchSnapshot();
     expect(router.navigate).toBeCalledTimes(2);
+    expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
+      queryParams: {
+        odataQuery:
+          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwibXVsdGlTb3J0TWV0YSI6W119',
+      },
+      queryParamsHandling: 'merge',
+      relativeTo: undefined,
+      skipLocationChange: false,
+    });
     expect(router.navigate).toHaveBeenNthCalledWith(2, [], {
       queryParams: {
         odataQuery:
-          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwiZmlsdGVyIjp7ImxvZ2ljIjoiYW5kIiwiZmlsdGVycyI6W3siZmllbGQiOiJ4IiwidmFsdWUiOjF9XX19',
+          'eyJtdWx0aVNvcnRNZXRhIjpbeyJmaWVsZCI6IngiLCJvcmRlciI6MX1dLCJmaXJzdCI6MjAsImZpbHRlcnMiOnsieCI6W3sibWF0Y2hNb2RlIjoiZXF1YWxzIiwib3BlcmF0b3IiOiJhbGwiLCJ2YWx1ZSI6MX1dfX0=',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -90,17 +97,16 @@ describe('PrimeODataBasedComponentRouted', () => {
     });
   });
 });
-const initialGridState: ODataQuery = {
+const initialGridState: PrimeTableState = {
   select: ['x', 'y', 'z'],
-  orderBy: [{ field: 'x', dir: 'desc' }],
-  skip: 20,
-  filter: {
-    logic: 'and',
-    filters: [{ field: 'x', operator: FilterOperators.EqualTo, value: 1 }],
-  },
+  multiSortMeta: [{ field: 'x', order: 1 }],
+  first: 20,
+  filters: { x: [{ matchMode: 'equals', operator: 'all', value: 1 }] },
 };
 @Component({
   selector: 'imng-test-component',
+  standalone: true,
+  imports: [CommonModule],
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
 // eslint-disable-next-line @typescript-eslint/ban-types

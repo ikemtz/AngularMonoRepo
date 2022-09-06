@@ -2,10 +2,14 @@
 
 exports[`ODataClientService should serialize ODataQueries with ODataResults 1`] = `"imng.com?$select=A,b,890&$top=123&$skip=456&$count=true"`;
 
-exports[`ODataClientService should serialize ODataQueries with an empty Filter 1`] = `"$orderby=xyz desc,id&$select=A,b,890&$top=123&$skip=456&$count=true"`;
+exports[`ODataClientService should serialize ODataQueries with a date Filter 1`] = `"$filter=(xyz+eq+2022-03-02)&$orderby=xyz+desc,id&$select=A,b,890&$top=123&$skip=456&$count=true"`;
+
+exports[`ODataClientService should serialize ODataQueries with a guid Filter 1`] = `"$filter=(xyz+eq+12345678-1234-1234-1234-1234567890ab)&$orderby=xyz+desc,id&$top=123&$skip=456&$count=true"`;
+
+exports[`ODataClientService should serialize ODataQueries with an empty Filter 1`] = `"$orderby=xyz+desc,id&$select=A,b,890&$top=123&$skip=456&$count=true"`;
 
 exports[`ODataClientService should serialize ODataQueries with array results 1`] = `"imng.com?$select=A,b,890&$top=123&$skip=456&$count=true"`;
 
 exports[`ODataClientService should serialize ODataQueries with null results 1`] = `"imng.com?$select=A,b,890&$top=123&$skip=456"`;
 
-exports[`ODataClientService should serialize ODataQueries with string Filters 1`] = `"$filter=(A eq 1 and b gt '2' and b ge '2' and b in ('2',3) and b lt '2' and b le '2' and (startswith(subX,'b') or subY eq null or (sub-z/all(o: o/sub-sub-Z eq null ))))&$select=A,b,890&$top=123&$skip=456&$count=true"`;
+exports[`ODataClientService should serialize ODataQueries with string Filters 1`] = `"$filter=(A+eq+1+and+b+gt+'2'+and+b+ne+null+and+b+ge+'2'+and+b+in+('2',3)+and+b+lt+'2'+and+b+le+'2'+and+(startswith(subX,'b')+or+subY+eq+null+or+(sub-z/all(o: o/sub-sub-Z+eq+null ))))&$select=A,b,890&$top=123&$skip=456&$count=true"`;

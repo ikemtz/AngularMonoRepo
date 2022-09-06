@@ -1,11 +1,11 @@
-import { ODataQuery } from 'imng-odata-client';
 import { Observable } from 'rxjs';
+import { PrimeTableState } from './models/prime-odata-table-state';
 
 export interface IPrimeODataTableFacade<Entity extends { id?: string | null }> {
   loading$: Observable<boolean>;
-  tableODataQueryState$: Observable<ODataQuery | undefined>;
+  tableState$: Observable<PrimeTableState>;
   tableData$: Observable<Entity[]>;
-  totalRecordCount$: Observable<number>;
-  loadEntities(query: ODataQuery): void;
-  reloadEntities(query?: ODataQuery): void;
+  totalRecordCount$: Observable<number | undefined>;
+  loadEntities(primeTableState: PrimeTableState): void;
+  reloadEntities(primeTableState?: PrimeTableState): void;
 }
