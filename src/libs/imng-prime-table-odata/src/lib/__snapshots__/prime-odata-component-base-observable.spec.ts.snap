@@ -42,19 +42,6 @@ Object {
 
 exports[`PrimeODataBasedComponent Observable State should reset 1`] = `
 Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
-        "field": "x",
-        "operator": Object {
-          "name": "equals",
-          "toODataString": [Function],
-        },
-        "value": 1,
-      },
-    ],
-    "logic": "and",
-  },
   "filters": Object {
     "y": Array [
       Object {
@@ -63,11 +50,10 @@ Object {
       },
     ],
   },
-  "multiSortMeta": undefined,
-  "orderBy": Array [
+  "multiSortMeta": Array [
     Object {
-      "dir": "desc",
       "field": "x",
+      "order": 1,
     },
   ],
   "select": Array [

@@ -1,18 +1,4 @@
-import { ODataQuery, Sort } from 'imng-odata-client';
 import { LazyLoadEvent, SortMeta } from 'primeng/api';
-
-export function loadRequestConverter(val: LazyLoadEvent): ODataQuery {
-  return {
-    orderBy: val.multiSortMeta?.map(
-      (x): Sort => ({
-        field: x.field,
-        dir: x.order === -1 ? 'desc' : 'asc',
-      }),
-    ),
-    skip: val.first,
-    top: val.rows,
-  };
-}
 
 export function handleMultiColumnSorting(
   val: LazyLoadEvent,

@@ -214,7 +214,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
         `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
       ); //NOSONAR
     }
-    return multiSortMeta;
+    return multiSortMeta || [];
   }
 
   public updateRouterState(state: PrimeTableState): void {

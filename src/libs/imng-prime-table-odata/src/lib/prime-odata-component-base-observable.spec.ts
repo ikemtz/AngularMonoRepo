@@ -6,13 +6,10 @@ import {
   createODataGridMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import {
-  CompositeFilter,
-  FilterOperators,
-  ODataQuery,
-} from 'imng-odata-client';
+import { CompositeFilter, FilterOperators } from 'imng-odata-client';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { PrimeTableState } from './models/prime-odata-table-state';
 
 describe('PrimeODataBasedComponent Observable State', () => {
   let component: PrimeODataTableTestComponent;
@@ -149,27 +146,26 @@ describe('PrimeODataBasedComponent Observable State', () => {
   });
 
   it('should limit odataQuery sort parameters', () => {
-    const odataQuery: ODataQuery = {
-      orderBy: [
-        { field: 'a', dir: 'asc' },
-        { field: 'b', dir: 'asc' },
-        { field: 'c', dir: 'asc' },
-        { field: 'd', dir: 'asc' },
-        { field: 'e', dir: 'asc' },
-        { field: 'f', dir: 'asc' },
+    const primeTableState: PrimeTableState = {
+      multiSortMeta: [
+        { field: 'a', order: 1 },
+        { field: 'b', order: 1 },
+        { field: 'c', order: 1 },
+        { field: 'd', order: 1 },
+        { field: 'e', order: 1 },
+        { field: 'f', order: 1 },
       ],
     };
     component.facade.loadEntities = jest.fn();
-    component.loadEntities(odataQuery);
+    component.loadEntities(primeTableState);
     expect(component.facade.loadEntities).toBeCalledTimes(1);
     expect(component.facade.loadEntities).toBeCalledWith({
-      orderBy: [
-        { field: 'a', dir: 'asc' },
-        { field: 'b', dir: 'asc' },
-        { field: 'c', dir: 'asc' },
-        { field: 'd', dir: 'asc' },
-        { field: 'e', dir: 'asc' },
-        { field: 'f', dir: 'asc' },
+      multiSortMeta: [
+        { field: 'a', order: 1 },
+        { field: 'b', order: 1 },
+        { field: 'c', order: 1 },
+        { field: 'd', order: 1 },
+        { field: 'e', order: 1 },
       ],
     });
   });
@@ -182,13 +178,10 @@ describe('PrimeODataBasedComponent Observable State', () => {
   });
 });
 
-const initialGridState: ODataQuery = {
+const initialGridState: PrimeTableState = {
   select: ['x', 'y', 'z'],
-  orderBy: [{ field: 'x', dir: 'desc' }],
-  filter: {
-    logic: 'and',
-    filters: [{ field: 'x', operator: FilterOperators.equals, value: 1 }],
-  },
+  multiSortMeta: [{ field: 'x', order: 1 }],
+  filters: { x: [{ matchMode: 'equals', operator: 'and', value: 1 }] },
 };
 @Component({
   selector: 'imng-test-component',

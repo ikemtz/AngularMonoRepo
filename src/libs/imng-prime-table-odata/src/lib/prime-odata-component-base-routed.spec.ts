@@ -8,7 +8,7 @@ import {
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FilterOperators, ODataQuery } from 'imng-odata-client';
+import { PrimeTableState } from './models/prime-odata-table-state';
 
 describe('PrimeODataBasedComponentRouted', () => {
   let component: PrimeODataTableTestComponent;
@@ -52,7 +52,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
         odataQuery:
-          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
+          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwibXVsdGlTb3J0TWV0YSI6W119',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -80,7 +80,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
         odataQuery:
-          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
+          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwibXVsdGlTb3J0TWV0YSI6W119',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -89,7 +89,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     expect(router.navigate).toHaveBeenNthCalledWith(2, [], {
       queryParams: {
         odataQuery:
-          'eyJvcmRlckJ5IjpbeyJmaWVsZCI6IngiLCJkaXIiOiJkZXNjIn1dLCJza2lwIjoyMCwiZmlsdGVyIjp7ImxvZ2ljIjoiYW5kIiwiZmlsdGVycyI6W3siZmllbGQiOiJ4Iiwib3BlcmF0b3IiOnsibmFtZSI6ImVxdWFscyJ9LCJ2YWx1ZSI6MX1dfX0=',
+          'eyJtdWx0aVNvcnRNZXRhIjpbeyJmaWVsZCI6IngiLCJvcmRlciI6MX1dLCJmaXJzdCI6MjAsImZpbHRlcnMiOnsieCI6W3sibWF0Y2hNb2RlIjoiZXF1YWxzIiwib3BlcmF0b3IiOiJhbGwiLCJ2YWx1ZSI6MX1dfX0=',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -97,14 +97,11 @@ describe('PrimeODataBasedComponentRouted', () => {
     });
   });
 });
-const initialGridState: ODataQuery = {
+const initialGridState: PrimeTableState = {
   select: ['x', 'y', 'z'],
-  orderBy: [{ field: 'x', dir: 'desc' }],
-  skip: 20,
-  filter: {
-    logic: 'and',
-    filters: [{ field: 'x', operator: FilterOperators.equals, value: 1 }],
-  },
+  multiSortMeta: [{ field: 'x', order: 1 }],
+  first: 20,
+  filters: { x: [{ matchMode: 'equals', operator: 'all', value: 1 }] },
 };
 @Component({
   selector: 'imng-test-component',

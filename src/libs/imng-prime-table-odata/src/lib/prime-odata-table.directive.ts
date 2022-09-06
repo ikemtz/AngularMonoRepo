@@ -74,9 +74,10 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
             }
           });
           this.tableComponent.filters = newFilters;
-          this.tableComponent.multiSortMeta = t.multiSortMeta.map((m) => ({
-            ...m,
-          }));
+          this.tableComponent.multiSortMeta =
+            t.multiSortMeta?.map((m) => ({
+              ...m,
+            })) || [];
           this.changeDetectorRef.markForCheck();
         }
       }),
