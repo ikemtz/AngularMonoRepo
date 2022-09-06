@@ -5,9 +5,9 @@ import {
   ODataQuery,
   Sort,
 } from 'imng-odata-client';
-import { FilterMetadata, LazyLoadEvent } from 'primeng/api';
+import { PrimeTableState } from '../models/prime-odata-table-state';
 
-export function toODataQuery(val: LazyLoadEvent): ODataQuery {
+export function toODataQuery(val: PrimeTableState): ODataQuery {
   const query: ODataQuery = {
     orderBy: val.multiSortMeta?.map(
       (x): Sort => ({
@@ -25,7 +25,7 @@ export function toODataQuery(val: LazyLoadEvent): ODataQuery {
         if (val.filters && val.filters[key]) {
           return {
             key,
-            collection: (val.filters[key] as FilterMetadata[]) || [],
+            collection: val.filters[key] || [],
           };
         }
         return { key, collection: [] };
@@ -38,7 +38,7 @@ export function toODataQuery(val: LazyLoadEvent): ODataQuery {
           filters: t.collection.map(
             (m): Filter => ({
               field: t.key,
-              operator: getFilterOperator(m.matchMode),
+              operator: getFilterOperator(m.matchMode || 'eq'),
               value: m.value,
             }),
           ),

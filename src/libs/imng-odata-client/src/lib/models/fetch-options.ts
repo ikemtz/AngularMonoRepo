@@ -1,6 +1,6 @@
 export interface FetchOptions {
   /**
-   * Collection of child table properties that are rendered on a grid
+   * Collection of child table properties that are rendered on the table
    */
   boundChildTableProperties?: BoundChildTableProperty[];
   /**

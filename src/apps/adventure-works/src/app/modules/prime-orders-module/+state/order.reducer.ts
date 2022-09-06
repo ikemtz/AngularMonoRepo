@@ -23,7 +23,7 @@ export const ordersFeature = createFeature({
       orderActionTypes.loadOrdersRequest,
       (state, { payload }): State => ({
         ...state,
-        gridState: payload,
+        tableState: payload,
         loading: true,
         error: null,
       }),
@@ -34,7 +34,7 @@ export const ordersFeature = createFeature({
       (state, { payload }): State => ({
         ...state,
         loading: false,
-        gridData: payload.value,
+        tableData: payload.value,
         totalRecordCount: payload.count,
         error: null,
       }),

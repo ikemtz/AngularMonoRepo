@@ -83,8 +83,8 @@ export class ODataClientService {
 
   public serializeFilter(filter: Filter | ChildFilter): string {
     const odataStringFunction =
-      filter.operator.toODataString ||
-      getFilterOperator(filter.operator.name).toODataString;
+      filter.operator?.toODataString ||
+      getFilterOperator(filter.operator?.name || 'equals').toODataString;
     if (isChildFilter(filter)) {
       const childFieldName = `o/${filter.field}`;
       return `${filter.childTable}/${

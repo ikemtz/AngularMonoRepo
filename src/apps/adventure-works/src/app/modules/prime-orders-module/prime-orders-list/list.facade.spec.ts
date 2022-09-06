@@ -112,7 +112,7 @@ describe('OrderListFacade', () => {
 
     test('it should get the grid state', async () => {
       const filteringState: PrimeTableState = {
-        filters: { '💩': { operator: 'eq', value: '🍑' } },
+        filters: { '💩': [{ operator: 'eq', value: '🍑' }] },
       };
       let state = await readFirst(facade.tableState$);
       expect(state?.multiSortMeta).toBeUndefined();
@@ -120,7 +120,7 @@ describe('OrderListFacade', () => {
 
       state = await readFirst(facade.tableState$);
       expect(state).toStrictEqual({
-        filters: { '💩': { operator: 'eq', value: '🍑' } },
+        filters: { '💩': [{ operator: 'eq', value: '🍑' }] },
       });
 
       facade.loadEntities({});

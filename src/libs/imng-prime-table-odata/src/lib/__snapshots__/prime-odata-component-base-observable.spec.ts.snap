@@ -56,10 +56,12 @@ Object {
     "logic": "and",
   },
   "filters": Object {
-    "y": Object {
-      "operator": "contains",
-      "value": 56,
-    },
+    "y": Array [
+      Object {
+        "operator": "contains",
+        "value": 56,
+      },
+    ],
   },
   "orderBy": Array [
     Object {

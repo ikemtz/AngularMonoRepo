@@ -154,6 +154,57 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
+  it('should serialize ODataQueries with a guid Filter', () => {
+    const queryString = service.getODataString({
+      filter: {
+        logic: 'and',
+        filters: [
+          {
+            field: 'xyz',
+            operator: FilterOperators.equals,
+            value: '12345678-1234-1234-1234-1234567890ab',
+          },
+        ],
+      },
+      top: 123,
+      skip: 456,
+      expand: [{ table: 'xyz', select: ['id', 'abc'] }],
+      orderBy: [
+        { field: 'xyz', dir: 'desc' },
+        { field: 'id', dir: 'asc' },
+      ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain('timestamp');
+    expect(queryString).toMatchSnapshot();
+  });
+
+  it('should serialize ODataQueries with a date Filter', () => {
+    const queryString = service.getODataString({
+      select: ['A', 'b', '890'],
+      filter: {
+        logic: 'and',
+        filters: [
+          {
+            field: 'xyz',
+            operator: FilterOperators.equals,
+            value: new Date(2022, 2, 2),
+          },
+        ],
+      },
+      top: 123,
+      skip: 456,
+      expand: [{ table: 'xyz', select: ['id', 'abc'] }],
+      orderBy: [
+        { field: 'xyz', dir: 'desc' },
+        { field: 'id', dir: 'asc' },
+      ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain('timestamp');
+    expect(queryString).toMatchSnapshot();
+  });
+
   it('should serialize ODataQueries with an empty Filter', () => {
     const queryString = service.getODataString({
       select: ['A', 'b', '890'],

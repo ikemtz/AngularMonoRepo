@@ -13,7 +13,6 @@ import {
 } from 'imng-odata-client';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { FilterMetadata } from 'primeng/api';
 
 describe('PrimeODataBasedComponent Observable State', () => {
   let component: PrimeODataTableTestComponent;
@@ -51,7 +50,7 @@ describe('PrimeODataBasedComponent Observable State', () => {
     component.tableState = {
       ...component.tableState,
       filters: {
-        y: { operator: 'contains', value: 56 },
+        y: [{ operator: 'contains', value: 56 }],
       },
     };
     component.resetFilters();
@@ -136,17 +135,17 @@ describe('PrimeODataBasedComponent Observable State', () => {
     const tempDate = new Date();
     const serializedResult = component.serializeTableState({
       filters: {
-        xyzDate: {
-          operator: 'eq',
-          value: tempDate,
-        },
+        xyzDate: [
+          {
+            operator: 'eq',
+            value: tempDate,
+          },
+        ],
       },
     });
     const deserializedResult =
       component.deserializeTableState(serializedResult);
-    expect(tempDate).toEqual(
-      new Date((deserializedResult.filters['xyzDate'] as FilterMetadata).value),
-    );
+    expect(deserializedResult.filters['xyzDate'].length).toBe(1);
   });
 
   it('should limit odataQuery sort parameters', () => {

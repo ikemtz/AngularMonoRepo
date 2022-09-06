@@ -44,7 +44,7 @@ export class OrderEffects {
   reloadOrdersEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(orderActionTypes.reloadOrdersRequest),
-      concatLatestFrom(() => this.store.select(ordersFeature.selectGridState)),
+      concatLatestFrom(() => this.store.select(ordersFeature.selectTableState)),
       switchMap(([action, odataState]) =>
         this.odataservice
           .fetch<IOrder>(

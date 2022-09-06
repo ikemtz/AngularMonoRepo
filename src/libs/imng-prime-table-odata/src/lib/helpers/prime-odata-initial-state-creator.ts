@@ -4,10 +4,10 @@ export function createPrimeODataGridInitialState<
   TEntity,
 >(): PrimeODataTableState<TEntity> {
   return {
-    gridData: [],
+    tableData: [],
     totalRecordCount: 0,
     loading: true,
-    gridState: {},
+    tableState: {},
     error: undefined,
   };
 }

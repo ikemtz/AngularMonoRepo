@@ -9,8 +9,9 @@ import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Table } from 'primeng/table';
 import { Subscriptions } from 'imng-ngrx-utils';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
-import { FilterMetadata, LazyLoadEvent, SortMeta } from 'primeng/api';
+import { LazyLoadEvent, SortMeta } from 'primeng/api';
 import { handleMultiColumnSorting } from './helpers/handle-multi-column-sorting';
+import { PrimeTableState } from './models/prime-odata-table-state';
 
 @Directive({
   selector: '[imngODataTable]',
@@ -70,9 +71,7 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
           const newFilters = { ...t.filters };
           Object.keys(newFilters).forEach((x) => {
             if (t.filters?.[x]) {
-              newFilters[x] = [
-                ...(t.filters[x] as FilterMetadata[]).map((m) => ({ ...m })),
-              ] as FilterMetadata;
+              newFilters[x] = [...t.filters[x].map((m) => ({ ...m }))];
             }
           });
           this.tableComponent.filters = newFilters;
@@ -85,7 +84,7 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
           this.sortState =
           x.multiSortMeta =
             handleMultiColumnSorting(x, this.sortState);
-        this.facade.loadEntities(x);
+        this.facade.loadEntities(x as PrimeTableState);
       }),
     );
   }

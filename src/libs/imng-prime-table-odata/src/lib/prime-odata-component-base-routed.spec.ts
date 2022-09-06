@@ -69,7 +69,7 @@ describe('PrimeODataBasedComponentRouted', () => {
   it('should reset', async () => {
     component.tableState = {
       ...component.tableState,
-      filters: { y: { operator: 'contains', value: 56 } },
+      filters: { y: [{ operator: 'contains', value: 56 }] },
     };
     component.resetFilters();
     expect(component.tableState).toMatchSnapshot();

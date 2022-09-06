@@ -14,15 +14,14 @@ import {
   Expander,
   Filter,
   isCompositeFilter,
-  ODataQuery,
 } from 'imng-odata-client';
 import { toLocalTimeStamp } from 'imng-nrsrx-client-utils';
 import { PrimeTableState } from './models/prime-odata-table-state';
 
 const FACADE = new InjectionToken<
   IPrimeODataTableFacade<{ id?: string | null }>
->('imng-grid-odata-facade');
-const STATE = new InjectionToken<ODataQuery>('imng-grid-odata-odataQuery');
+>('imng-prime-table-odata-facade');
+const STATE = new InjectionToken<PrimeTableState>('imng-prime-table-state');
 
 @Component({ template: '' })
 export abstract class ImngPrimeODataTableBaseComponent<
@@ -45,7 +44,6 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public tableState: PrimeTableState;
   public tableData$: Observable<ENTITY[]>;
   public loading$: Observable<boolean>;
-  public gridPagerSettings$: Observable<false>;
   public rowsPerPageOptions: number[] = [10, 20, 50, 100];
   /**
    * A properties enum to make prime table columns definitions type safe
@@ -61,7 +59,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
     @Inject(STATE)
     private readonly state: PrimeTableState | Observable<PrimeTableState>,
     public readonly router: Router | null = null, //NOSONAR
-    public readonly gridRefresh$: Observable<unknown> | null = null,
+    public readonly tableRefresh$: Observable<unknown> | null = null,
   ) {
     if (
       this.router?.routerState?.snapshot?.root.queryParams[
@@ -100,20 +98,20 @@ export abstract class ImngPrimeODataTableBaseComponent<
       this.expanders = state.expand;
       this.appliedTransformations = state.apply;
     }
-    if (gridRefresh$) {
+    if (tableRefresh$) {
       this.allSubscriptions.push(
-        gridRefresh$.subscribe(() => this.loadEntities(this.tableState)),
+        tableRefresh$.subscribe(() => this.loadEntities(this.tableState)),
       );
     }
   }
 
   public ngOnInit(): void {
-    if (!this.gridRefresh$) {
+    if (!this.tableRefresh$) {
       this.loadEntities(this.tableState);
     }
     this.loading$ = this.facade.loading$;
     this.tableData$ = this.facade.tableData$?.pipe(
-      map((gridData) => (gridData ? gridData : [])),
+      map((table) => (table ? table : [])),
     );
   }
   public ngOnDestroy(): void {
@@ -217,7 +215,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
         ),
       };
       console.warn(
-        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current grid. MAX-Sorted-Column-Count`,
+        `You have exceeded the limit of ${this.maxSortedColumnCount} sorted columns for the current table. MAX-Sorted-Column-Count`,
       ); //NOSONAR
     }
     return primeTableState;

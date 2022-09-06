@@ -1,10 +1,10 @@
 import { createAction } from '@ngrx/store';
 import { createPayloadAction } from 'imng-ngrx-utils';
 import { ODataResult } from 'imng-odata-client';
-import { LazyLoadEvent } from 'primeng/api';
+import { PrimeTableState } from 'imng-prime-table-odata';
 import { IOrder } from '../../../models/odata';
 
-export const loadOrdersRequest = createPayloadAction<LazyLoadEvent>(
+export const loadOrdersRequest = createPayloadAction<PrimeTableState>(
   '[Orders] Load Orders Request',
 );
 export const loadOrdersSuccess = createPayloadAction<ODataResult<IOrder>>(

@@ -1,15 +1,24 @@
 import { Computation, Expander } from 'imng-odata-client';
-import { LazyLoadEvent } from 'primeng/api';
+import { FilterMetadata, SortMeta } from 'primeng/api';
 
 export interface PrimeODataTableState<Entity> {
-  gridData: Array<Entity>;
+  tableData: Array<Entity>;
   totalRecordCount: number | undefined;
   loading: boolean;
-  gridState: PrimeTableState;
+  tableState: PrimeTableState;
   /** Last known error (if any) */
   error: unknown | undefined;
 }
-export interface PrimeTableState extends LazyLoadEvent {
+export interface PrimeTableState {
+  first?: number;
+  last?: number;
+  rows?: number;
+  multiSortMeta?: SortMeta[];
+  globalFilter?: string[];
+
+  filters?: {
+    [s: string]: FilterMetadata[];
+  };
   expand?: Array<Expander>;
   /**
    * Specifies the list of properties to retrieve
