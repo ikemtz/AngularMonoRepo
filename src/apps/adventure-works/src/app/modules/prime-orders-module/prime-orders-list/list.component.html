@@ -1,7 +1,7 @@
 <p-table [imngODataTable]="this" responsiveLayout="scroll">
   <ng-template pTemplate="header">
     <tr>
-      <th [pSortableColumn]="props.NUM" [id]="props.NUM">
+      <th [pSortableColumn]="props.NUM" [id]="props.NUM" pResizableColumn>
         Num
         <p-sortIcon [field]="props.NUM"></p-sortIcon>
         <p-columnFilter
@@ -9,7 +9,10 @@
           [field]="props.NUM"
           display="menu"></p-columnFilter>
       </th>
-      <th [pSortableColumn]="props.ORDER_ID" [id]="props.ORDER_ID">
+      <th
+        [pSortableColumn]="props.ORDER_ID"
+        [id]="props.ORDER_ID"
+        pResizableColumn>
         Order Id
         <p-sortIcon [field]="props.ORDER_ID"></p-sortIcon>
         <p-columnFilter
@@ -17,7 +20,7 @@
           [field]="props.ORDER_ID"
           display="menu"></p-columnFilter>
       </th>
-      <th [pSortableColumn]="props.DATE" [id]="props.DATE">
+      <th [pSortableColumn]="props.DATE" [id]="props.DATE" pResizableColumn>
         Date
         <p-sortIcon [field]="props.DATE"></p-sortIcon>
         <p-columnFilter
@@ -25,7 +28,10 @@
           [field]="props.DATE"
           display="menu"></p-columnFilter>
       </th>
-      <th [pSortableColumn]="props.SHIP_DATE" [id]="props.SHIP_DATE">
+      <th
+        [pSortableColumn]="props.SHIP_DATE"
+        [id]="props.SHIP_DATE"
+        pResizableColumn>
         Ship Date<p-sortIcon [field]="props.SHIP_DATE"></p-sortIcon>
         <p-columnFilter
           type="date"
@@ -34,7 +40,8 @@
       </th>
       <th
         [pSortableColumn]="props.PURCHASE_ORDER_NUM"
-        [id]="props.PURCHASE_ORDER_NUM">
+        [id]="props.PURCHASE_ORDER_NUM"
+        pResizableColumn>
         Purchase Order #<p-sortIcon
           [field]="props.PURCHASE_ORDER_NUM"></p-sortIcon>
         <p-columnFilter
@@ -42,7 +49,10 @@
           [field]="props.PURCHASE_ORDER_NUM"
           display="menu"></p-columnFilter>
       </th>
-      <th [pSortableColumn]="props.STATUS_TYPE" [id]="props.STATUS_TYPE">
+      <th
+        [pSortableColumn]="props.STATUS_TYPE"
+        [id]="props.STATUS_TYPE"
+        pResizableColumn>
         Status<p-sortIcon [field]="props.STATUS_TYPE"></p-sortIcon>
       </th>
     </tr>
