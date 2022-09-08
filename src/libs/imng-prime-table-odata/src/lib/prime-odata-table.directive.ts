@@ -37,12 +37,10 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     this.tableComponent.lazy = true;
     this.tableComponent.styleClass = 'p-datatable-gridlines';
     this.tableComponent.sortMode = 'multiple';
-    this.tableComponent.sortMode = 'multiple';
     this.tableComponent.showCurrentPageReport = true;
     this.tableComponent.rowHover = true;
     this.tableComponent.resizableColumns = true;
-    this.tableComponent.rowHover = true;
-    this.tableComponent.resizableColumns = true;
+    this.tableComponent.reorderableColumns = true;
     this.tableComponent.rowsPerPageOptions =
       this.odataTableComponent.rowsPerPageOptions;
     this.allSubscriptions.push(
