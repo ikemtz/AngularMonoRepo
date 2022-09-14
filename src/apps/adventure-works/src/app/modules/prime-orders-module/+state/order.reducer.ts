@@ -4,7 +4,7 @@ import { IOrder } from '../../../models/odata';
 import * as orderActionTypes from './order.actions';
 import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 import {
-  createPrimeODataGridInitialState,
+  createPrimeODataTableInitialState,
   PrimeODataTableState,
 } from 'imng-prime-table-odata';
 export const ORDERS_FEATURE_KEY = 'orders';
@@ -12,7 +12,7 @@ export const ORDERS_FEATURE_KEY = 'orders';
 export type State = PrimeODataTableState<IOrder>;
 
 export const initialState: State = {
-  ...createPrimeODataGridInitialState(),
+  ...createPrimeODataTableInitialState(),
 };
 
 export const ordersFeature = createFeature({
