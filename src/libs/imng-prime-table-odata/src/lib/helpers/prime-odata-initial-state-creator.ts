@@ -1,6 +1,6 @@
 import { PrimeODataTableState } from '../models/prime-odata-table-state';
 
-export function createPrimeODataGridInitialState<
+export function createPrimeODataTableInitialState<
   TEntity,
 >(): PrimeODataTableState<TEntity> {
   return {
