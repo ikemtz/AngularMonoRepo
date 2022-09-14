@@ -5,10 +5,12 @@ import { getFilterOperator } from '../helpers/get-filter-operator';
 import {
   ChildFilter,
   CompositeFilter,
+  Expander,
   FetchOptions,
   Filter,
   isChildFilter,
   isCompositeFilter,
+  isExpander,
   ODataQuery,
   ODataResult,
 } from '../models';
@@ -36,6 +38,7 @@ export class ODataClientService {
     queryString = this.processFilters(query, options, queryString);
     queryString = this.processOrderBy(query, queryString);
     queryString = this.processSelectors(query, queryString);
+    queryString = this.processExpanders(query, queryString);
     queryString = this.processSimpleParameters('top', query, queryString);
     queryString = this.processSimpleParameters('skip', query, queryString);
     queryString = this.processGuids(queryString);
@@ -45,6 +48,51 @@ export class ODataClientService {
     queryString = queryString.substring(1); // removing first &
     return queryString;
   }
+
+  public processExpanders(query: ODataQuery, queryString: string): string {
+    if (query.expand && query.expand.length > 0) {
+      const expansionStrings = query.expand.map((element) =>
+        this.getExpansionString(element),
+      );
+      queryString += `&$expand=${expansionStrings.join(',')}`;
+    }
+    return queryString;
+  }
+
+  public getExpansionString(element: Expander): string {
+    let result = '';
+    if (!element) {
+      return result;
+    }
+    if (typeof element === 'string') {
+      result += element;
+    } else {
+      result += `${element.table}(`;
+      if (element.select && element.select.length > 0) {
+        result += `$select=${element.select.join()};`;
+      }
+      if (element.filter || element.orderBy) {
+        const query: ODataQuery = {
+          orderBy: element.orderBy,
+          filter: element.filter,
+        };
+        result += `${this.getODataString(query).replace(/&/g, ';')};`;
+      }
+      if (element.expand) {
+        const expanders = element.expand.map((expander) => {
+          if (isExpander(expander)) {
+            return this.getExpansionString(expander);
+          }
+          return expander;
+        });
+        result += `$expand=${expanders.join(',')};`;
+      }
+      result += ')';
+      result = result.replace(/\(\)/, '').replace(/;\)/, ')');
+    }
+    return result;
+  }
+
   processOrderBy(query: ODataQuery, queryString: string): string {
     if (!query.orderBy || !query.orderBy.length) {
       return queryString;
