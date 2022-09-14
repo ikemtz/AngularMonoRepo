@@ -76,7 +76,7 @@ export class ODataClientService {
           orderBy: element.orderBy,
           filter: element.filter,
         };
-        result += `${this.getODataString(query).replace('&', ';')};`;
+        result += this.getODataString(query).replace('&', ';') + ';';
       }
       if (element.expand) {
         const expanders = element.expand.map((expander) => {
