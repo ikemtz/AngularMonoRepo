@@ -691,7 +691,7 @@ export class ProductEffects {
     return this.actions$.pipe(
       ofType(productActionTypes.loadProductsRequest),
       switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataservice
-        .fetch<IProduct>(environment.odataEnpoints.products, action.payload, {
+        .fetch<IProduct>(environment.odataEndpoints.products, action.payload, {
           dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
         })
         .pipe(
@@ -704,7 +704,7 @@ export class ProductEffects {
       ofType(productActionTypes.reloadProductsRequest),
       concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IProduct>(environment.odataEnpoints.products, odataState, {
+        .fetch<IProduct>(environment.odataEndpoints.products, odataState, {
           bustCache: true,
           dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
         })
@@ -741,7 +741,7 @@ export class ProductEffects {
     return this.actions$.pipe(
       ofType(productActionTypes.loadProductModelsRequest),
       switchMap((action: ReturnType<typeof productActionTypes.loadProductModelsRequest>) => this.odataservice
-        .fetch<IProductModel>(environment.odataEnpoints.productModels, action.payload)
+        .fetch<IProductModel>(environment.odataEndpoints.productModels, action.payload)
         .pipe(map(t => productActionTypes.loadProductModelsSuccess(t)),
           handleEffectError(action))));
   });
@@ -750,7 +750,7 @@ export class ProductEffects {
     return this.actions$.pipe(
       ofType(productActionTypes.loadProductCategoriesRequest),
       switchMap((action: ReturnType<typeof productActionTypes.loadProductCategoriesRequest>) => this.odataservice
-        .fetch<IProductCategory>(environment.odataEnpoints.productCategories, action.payload)
+        .fetch<IProductCategory>(environment.odataEndpoints.productCategories, action.payload)
         .pipe(map(t => productActionTypes.loadProductCategoriesSuccess(t)),
           handleEffectError(action))));
   });

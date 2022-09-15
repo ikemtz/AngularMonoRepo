@@ -15,12 +15,12 @@ import {
   Filter,
   isCompositeFilter,
 } from 'imng-odata-client';
-import { toLocalTimeStamp } from 'imng-nrsrx-client-utils';
+import { IdType, toLocalTimeStamp } from 'imng-nrsrx-client-utils';
 import { PrimeTableState } from './models/prime-odata-table-state';
 import { SortMeta } from 'primeng/api';
 
 const FACADE = new InjectionToken<
-  IPrimeODataTableFacade<{ id?: string | null }>
+  IPrimeODataTableFacade<{ id?: IdType | null }>
 >('imng-prime-table-odata-facade');
 const STATE = new InjectionToken<PrimeTableState>('imng-prime-table-state');
 

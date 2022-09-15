@@ -24,7 +24,7 @@ export class <%= classify(singularizedName) %>Effects {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request),
       switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>) => this.odataservice
-        .fetch<I<%= classify(name) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, action.payload.odataState)
+        .fetch<I<%= classify(name) %>>(environment.odataEndpoints.<%= camelize(pluralizedName) %>, action.payload.odataState)
         .pipe(
           map(odataResult => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success({ <%= camelize(parentName) %>Id: action.payload.<%= camelize(parentName) %>Id, odataResult })),
           handleEffectError(action))));
@@ -36,7 +36,7 @@ export class <%= classify(singularizedName) %>Effects {
       concatLatestFrom((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request>) =>
         this.store.select(<%= camelize(singularizedName) %>Queries.selectODataState$(action.payload))),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<I<%= classify(singularizedName) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, odataState, { bustCache: true })
+        .fetch<I<%= classify(singularizedName) %>>(environment.odataEndpoints.<%= camelize(pluralizedName) %>, odataState, { bustCache: true })
         .pipe(
           map(odataResult => <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success({ <%= camelize(parentName) %>Id: action.payload, odataResult })),
           handleEffectError(action))));

@@ -1,7 +1,8 @@
 import { ChangeDetectorRef } from '@angular/core';
+import { IdType } from 'imng-nrsrx-client-utils';
 import { FilterMetadata, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   MockTable,
   createODataGridMockFacade,
@@ -17,10 +18,10 @@ describe('ImngPrimeODataTableDirective', () => {
   let changeDetectorRef: ChangeDetectorRef;
   let directive: ImngPrimeODataTableDirective;
   let odataComponent: ImngPrimeODataTableBaseComponent<
-    { id?: string | null },
+    { id?: IdType | null },
     ODataTableMockFacade
   >;
-  let facade: IPrimeODataTableFacade<{ id?: string }>;
+  let facade: IPrimeODataTableFacade<{ id?: IdType | null }>;
 
   beforeEach(() => {
     tableComponent = new MockTable() as Table;

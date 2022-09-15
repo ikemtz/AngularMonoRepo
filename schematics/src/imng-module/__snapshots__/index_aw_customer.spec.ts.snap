@@ -383,6 +383,11 @@ exports[`imng-module crud html template should work 1`] = `
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.COMPANY_NAME) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.COMPANY_NAME)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.COMPANY_NAME)?.[RequiredError]\\">Customer company name is required</div>
+        <div *ngIf=\\"formControlErrors(props.COMPANY_NAME)?.[MinLengthError]\\">
+          Customer company name requires a min length of
+          {{formMinLengthError(props.COMPANY_NAME)?.requiredLength}}, currently only
+          {{formMinLengthError(props.COMPANY_NAME)?.actualLength}}.
+        </div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
@@ -569,7 +574,7 @@ export class CustomerEffects {
     return this.actions$.pipe(
       ofType(customerActionTypes.loadCustomersRequest),
       switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataservice
-        .fetch<ICustomer>(environment.odataEnpoints.customers, action.payload)
+        .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload)
         .pipe(
           map(t => customerActionTypes.loadCustomersSuccess(t)),
           handleEffectError(action))));
@@ -580,7 +585,7 @@ export class CustomerEffects {
       ofType(customerActionTypes.reloadCustomersRequest),
       concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<ICustomer>(environment.odataEnpoints.customers, odataState, {
+        .fetch<ICustomer>(environment.odataEndpoints.customers, odataState, {
           bustCache: true,
         })
         .pipe(
@@ -616,7 +621,7 @@ export class CustomerEffects {
     return this.actions$.pipe(
       ofType(customerActionTypes.loadSalesAgentsRequest),
       switchMap((action: ReturnType<typeof customerActionTypes.loadSalesAgentsRequest>) => this.odataservice
-        .fetch<ISalesAgent>(environment.odataEnpoints.salesAgents, action.payload)
+        .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, action.payload)
         .pipe(map(t => customerActionTypes.loadSalesAgentsSuccess(t)),
           handleEffectError(action))));
   });
