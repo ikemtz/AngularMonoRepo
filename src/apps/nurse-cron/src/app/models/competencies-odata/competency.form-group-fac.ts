@@ -11,8 +11,8 @@ import { ICompetencyForm } from './competency.form';
 
 export function CompetencyFormGroupFac(): FormGroup<ICompetencyForm> {
   return new FormGroup<ICompetencyForm>({
-    id: new FormControl<string | null>(null),
-    name: new FormControl<string | null>(null),
-    isEnabled: new FormControl<boolean | null>(null),
+    id: new FormControl<string | null | undefined>(null),
+    name: new FormControl<string | null | undefined>(null),
+    isEnabled: new FormControl<boolean | null | undefined>(null),
   });
 }

@@ -14,7 +14,7 @@ import { IEmployeeHealthItemForm } from './employee-health-item.form';
 
 export function EmployeeUpdateDtoFormGroupFac(): FormGroup<IEmployeeUpdateDtoForm> {
   return new FormGroup<IEmployeeUpdateDtoForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     firstName: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
@@ -22,19 +22,19 @@ export function EmployeeUpdateDtoFormGroupFac(): FormGroup<IEmployeeUpdateDtoFor
       ]),
       nonNullable: true,
     }),
-    lastName: new FormControl<string | null>(null),
-    email: new FormControl<string | null>(null),
-    hireDate: new FormControl<Date | null>(null),
-    addressLine1: new FormControl<string | null>(null),
-    city: new FormControl<string | null>(null),
-    state: new FormControl<string | null>(null),
-    zip: new FormControl<string | null>(null),
-    homePhone: new FormControl<string | null>(null),
-    mobilePhone: new FormControl<string | null>(null),
-    photo: new FormControl<string | null>(null),
-    birthDate: new FormControl<Date | null>(null),
-    fireDate: new FormControl<Date | null>(null),
-    isEnabled: new FormControl<boolean | null>(null),
+    lastName: new FormControl<string | null | undefined>(null),
+    email: new FormControl<string | null | undefined>(null),
+    hireDate: new FormControl<Date | null | undefined>(null),
+    addressLine1: new FormControl<string | null | undefined>(null),
+    city: new FormControl<string | null | undefined>(null),
+    state: new FormControl<string | null | undefined>(null),
+    zip: new FormControl<string | null | undefined>(null),
+    homePhone: new FormControl<string | null | undefined>(null),
+    mobilePhone: new FormControl<string | null | undefined>(null),
+    photo: new FormControl<string | null | undefined>(null),
+    birthDate: new FormControl<Date | null | undefined>(null),
+    fireDate: new FormControl<Date | null | undefined>(null),
+    isEnabled: new FormControl<boolean | null | undefined>(null),
     employeeCertifications: new FormArray<
       FormGroup<IEmployeeCertificationForm>
     >([]),

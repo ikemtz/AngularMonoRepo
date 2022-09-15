@@ -10,14 +10,14 @@ import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 import { ICustomerForm } from './customer.form';
 
 export interface ICustomerAddressForm {
-  id?: FormControl<string | null>;
-  customerId?: FormControl<string>;
-  addressType?: FormControl<string>;
-  line1?: FormControl<string>;
-  line2?: FormControl<string | null>;
-  city?: FormControl<string>;
-  stateProvince?: FormControl<string>;
-  countryRegion?: FormControl<string>;
-  postalCode?: FormControl<string>;
-  customer?: FormGroup<ICustomerForm>;
+  id: FormControl<string | null | undefined>;
+  customerId: FormControl<string>;
+  addressType: FormControl<string>;
+  line1: FormControl<string>;
+  line2: FormControl<string | null | undefined>;
+  city: FormControl<string>;
+  stateProvince: FormControl<string>;
+  countryRegion: FormControl<string>;
+  postalCode: FormControl<string>;
+  customer: FormGroup<ICustomerForm>;
 }

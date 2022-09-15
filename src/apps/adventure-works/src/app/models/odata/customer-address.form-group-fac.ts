@@ -13,7 +13,7 @@ import { CustomerFormGroupFac } from './customer.form-group-fac';
 
 export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
   return new FormGroup<ICustomerAddressForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     customerId: new FormControl<string>('', {
       validators: Validators.required,
       nonNullable: true,
@@ -21,6 +21,7 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
     addressType: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(50),
       ]),
       nonNullable: true,
@@ -28,16 +29,18 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
     line1: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(60),
       ]),
       nonNullable: true,
     }),
-    line2: new FormControl<string | null>(null, {
+    line2: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(60),
     }),
     city: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(30),
       ]),
       nonNullable: true,
@@ -45,6 +48,7 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
     stateProvince: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(50),
       ]),
       nonNullable: true,
@@ -52,6 +56,7 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
     countryRegion: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(50),
       ]),
       nonNullable: true,
@@ -59,6 +64,7 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
     postalCode: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(15),
       ]),
       nonNullable: true,

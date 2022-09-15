@@ -11,8 +11,8 @@ import { IPingResultForm } from './ping-result.form';
 
 export function PingResultFormGroupFac(): FormGroup<IPingResultForm> {
   return new FormGroup<IPingResultForm>({
-    name: new FormControl<string | null>(null),
-    version: new FormControl<string | null>(null),
-    build: new FormControl<string | null>(null),
+    name: new FormControl<string | null | undefined>(null),
+    version: new FormControl<string | null | undefined>(null),
+    build: new FormControl<string | null | undefined>(null),
   });
 }

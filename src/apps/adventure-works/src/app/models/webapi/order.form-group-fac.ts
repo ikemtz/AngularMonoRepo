@@ -18,7 +18,7 @@ import { IOrderLineItemForm } from './order-line-item.form';
 
 export function OrderFormGroupFac(): FormGroup<IOrderForm> {
   return new FormGroup<IOrderForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     orderId: new FormControl<number>(0, {
       validators: Validators.required,
       nonNullable: true,
@@ -35,7 +35,7 @@ export function OrderFormGroupFac(): FormGroup<IOrderForm> {
       validators: Validators.required,
       nonNullable: true,
     }),
-    shipDate: new FormControl<Date | null>(null),
+    shipDate: new FormControl<Date | null | undefined>(null),
     isOnlineOrder: new FormControl<boolean>(false, {
       validators: Validators.required,
       nonNullable: true,
@@ -43,20 +43,21 @@ export function OrderFormGroupFac(): FormGroup<IOrderForm> {
     num: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(25),
       ]),
       nonNullable: true,
     }),
-    purchaseOrderNum: new FormControl<string | null>(null, {
+    purchaseOrderNum: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(25),
     }),
     customerId: new FormControl<string>('', {
       validators: Validators.required,
       nonNullable: true,
     }),
-    shipToAddressId: new FormControl<string | null>(null),
-    billToAddressId: new FormControl<string | null>(null),
-    creditCardApprovalCode: new FormControl<string | null>(null, {
+    shipToAddressId: new FormControl<string | null | undefined>(null),
+    billToAddressId: new FormControl<string | null | undefined>(null),
+    creditCardApprovalCode: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(15),
     }),
     subTotal: new FormControl<number>(0, {
@@ -75,7 +76,7 @@ export function OrderFormGroupFac(): FormGroup<IOrderForm> {
       validators: Validators.required,
       nonNullable: true,
     }),
-    comment: new FormControl<string | null>(null, {
+    comment: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(500),
     }),
     statusType: new FormControl<OrderStatusTypes>(OrderStatusTypes.Processing, {

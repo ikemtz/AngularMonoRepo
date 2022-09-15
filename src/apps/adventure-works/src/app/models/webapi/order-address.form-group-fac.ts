@@ -12,20 +12,22 @@ import { IOrderForm } from './order.form';
 
 export function OrderAddressFormGroupFac(): FormGroup<IOrderAddressForm> {
   return new FormGroup<IOrderAddressForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     line1: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(60),
       ]),
       nonNullable: true,
     }),
-    line2: new FormControl<string | null>(null, {
+    line2: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(60),
     }),
     city: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(100),
       ]),
       nonNullable: true,
@@ -33,6 +35,7 @@ export function OrderAddressFormGroupFac(): FormGroup<IOrderAddressForm> {
     stateProvince: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(50),
       ]),
       nonNullable: true,
@@ -40,6 +43,7 @@ export function OrderAddressFormGroupFac(): FormGroup<IOrderAddressForm> {
     countryRegion: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(50),
       ]),
       nonNullable: true,
@@ -47,6 +51,7 @@ export function OrderAddressFormGroupFac(): FormGroup<IOrderAddressForm> {
     postalCode: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(15),
       ]),
       nonNullable: true,

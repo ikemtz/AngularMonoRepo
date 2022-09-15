@@ -12,10 +12,11 @@ import { IProductForm } from './product.form';
 
 export function ProductCategoryFormGroupFac(): FormGroup<IProductCategoryForm> {
   return new FormGroup<IProductCategoryForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     name: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(50),
       ]),
       nonNullable: true,

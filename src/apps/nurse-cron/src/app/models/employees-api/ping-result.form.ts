@@ -9,7 +9,7 @@
 import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 
 export interface IPingResultForm {
-  name?: FormControl<string | null>;
-  version?: FormControl<string | null>;
-  build?: FormControl<string | null>;
+  name: FormControl<string | null | undefined>;
+  version: FormControl<string | null | undefined>;
+  build: FormControl<string | null | undefined>;
 }

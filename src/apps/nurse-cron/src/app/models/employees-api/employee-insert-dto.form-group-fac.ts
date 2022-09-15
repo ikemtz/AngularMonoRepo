@@ -14,7 +14,7 @@ import { IEmployeeHealthItemForm } from './employee-health-item.form';
 
 export function EmployeeInsertDtoFormGroupFac(): FormGroup<IEmployeeInsertDtoForm> {
   return new FormGroup<IEmployeeInsertDtoForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     firstName: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
@@ -29,18 +29,18 @@ export function EmployeeInsertDtoFormGroupFac(): FormGroup<IEmployeeInsertDtoFor
       ]),
       nonNullable: true,
     }),
-    email: new FormControl<string | null>(null, {
+    email: new FormControl<string | null | undefined>(null, {
       validators: Validators.email,
     }),
-    hireDate: new FormControl<Date | null>(null),
-    addressLine1: new FormControl<string | null>(null),
-    city: new FormControl<string | null>(null),
-    state: new FormControl<string | null>(null),
-    zip: new FormControl<string | null>(null),
-    homePhone: new FormControl<string | null>(null),
-    mobilePhone: new FormControl<string | null>(null),
-    photo: new FormControl<string | null>(null),
-    birthDate: new FormControl<Date | null>(null),
+    hireDate: new FormControl<Date | null | undefined>(null),
+    addressLine1: new FormControl<string | null | undefined>(null),
+    city: new FormControl<string | null | undefined>(null),
+    state: new FormControl<string | null | undefined>(null),
+    zip: new FormControl<string | null | undefined>(null),
+    homePhone: new FormControl<string | null | undefined>(null),
+    mobilePhone: new FormControl<string | null | undefined>(null),
+    photo: new FormControl<string | null | undefined>(null),
+    birthDate: new FormControl<Date | null | undefined>(null),
     employeeCertifications: new FormArray<
       FormGroup<IEmployeeCertificationForm>
     >([]),

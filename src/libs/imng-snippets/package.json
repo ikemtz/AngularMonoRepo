@@ -1,6 +1,6 @@
 {
   "name": "imng-snippets",
-  "version": "0.3.7",
+  "version": "0.3.9",
   "scripts": {
     "build": "vsce package",
     "publish": "vsce package && vsce publish"
@@ -12,6 +12,7 @@
   "categories": [
     "Snippets"
   ],
+  "icon": "icon.png",
   "contributes": {
     "snippets": [
       {

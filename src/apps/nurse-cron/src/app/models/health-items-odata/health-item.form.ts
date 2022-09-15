@@ -9,7 +9,7 @@
 import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 
 export interface IHealthItemForm {
-  id?: FormControl<string | null>;
-  name?: FormControl<string | null>;
-  isEnabled?: FormControl<boolean | null>;
+  id: FormControl<string | null | undefined>;
+  name: FormControl<string | null | undefined>;
+  isEnabled: FormControl<boolean | null | undefined>;
 }
