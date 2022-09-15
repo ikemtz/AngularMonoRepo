@@ -11,11 +11,11 @@ import { IEmployeeCompetencyForm } from './employee-competency.form';
 
 export function EmployeeCompetencyFormGroupFac(): FormGroup<IEmployeeCompetencyForm> {
   return new FormGroup<IEmployeeCompetencyForm>({
-    id: new FormControl<string | null>(null),
-    employeeId: new FormControl<string | null>(null),
-    competencyId: new FormControl<string | null>(null),
-    competencyName: new FormControl<string | null>(null),
-    expiresOnUtc: new FormControl<Date | null>(null),
-    isEnabled: new FormControl<boolean | null>(null),
+    id: new FormControl<string | null | undefined>(null),
+    employeeId: new FormControl<string | null | undefined>(null),
+    competencyId: new FormControl<string | null | undefined>(null),
+    competencyName: new FormControl<string | null | undefined>(null),
+    expiresOnUtc: new FormControl<Date | null | undefined>(null),
+    isEnabled: new FormControl<boolean | null | undefined>(null),
   });
 }

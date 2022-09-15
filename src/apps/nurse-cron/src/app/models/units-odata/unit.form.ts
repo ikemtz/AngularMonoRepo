@@ -10,11 +10,11 @@ import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 import { IBuildingForm } from './building.form';
 
 export interface IUnitForm {
-  id?: FormControl<string | null>;
-  buildingId?: FormControl<string>;
-  name?: FormControl<string>;
-  roomCount?: FormControl<number>;
-  deletedBy?: FormControl<string | null>;
-  deletedOnUtc?: FormControl<Date | null>;
-  building?: FormGroup<IBuildingForm>;
+  id: FormControl<string | null | undefined>;
+  buildingId: FormControl<string>;
+  name: FormControl<string>;
+  roomCount: FormControl<number>;
+  deletedBy: FormControl<string | null | undefined>;
+  deletedOnUtc: FormControl<Date | null | undefined>;
+  building: FormGroup<IBuildingForm>;
 }

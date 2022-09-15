@@ -12,21 +12,21 @@ import { IProductCategoryForm } from './product-category.form';
 import { IOrderLineItemForm } from './order-line-item.form';
 
 export interface IProductForm {
-  id?: FormControl<string | null>;
-  name?: FormControl<string>;
-  num?: FormControl<string>;
-  color?: FormControl<string | null>;
-  standardCost?: FormControl<number>;
-  listPrice?: FormControl<number>;
-  size?: FormControl<string | null>;
-  weight?: FormControl<number | null>;
-  productCategoryId?: FormControl<string | null>;
-  productModelId?: FormControl<string | null>;
-  sellStartDate?: FormControl<Date>;
-  sellEndDate?: FormControl<Date | null>;
-  discontinuedDate?: FormControl<Date | null>;
-  thumbNailPhoto?: FormControl<string | null>;
-  productModel?: FormGroup<IProductModelForm>;
-  productCategory?: FormGroup<IProductCategoryForm>;
-  orderLineItems?: FormArray<FormGroup<IOrderLineItemForm>>;
+  id: FormControl<string | null | undefined>;
+  name: FormControl<string>;
+  num: FormControl<string>;
+  color: FormControl<string | null | undefined>;
+  standardCost: FormControl<number>;
+  listPrice: FormControl<number>;
+  size: FormControl<string | null | undefined>;
+  weight: FormControl<number | null | undefined>;
+  productCategoryId: FormControl<string | null | undefined>;
+  productModelId: FormControl<string | null | undefined>;
+  sellStartDate: FormControl<Date>;
+  sellEndDate: FormControl<Date | null | undefined>;
+  discontinuedDate: FormControl<Date | null | undefined>;
+  thumbNailPhoto: FormControl<string | null | undefined>;
+  productModel: FormGroup<IProductModelForm>;
+  productCategory: FormGroup<IProductCategoryForm>;
+  orderLineItems: FormArray<FormGroup<IOrderLineItemForm>>;
 }

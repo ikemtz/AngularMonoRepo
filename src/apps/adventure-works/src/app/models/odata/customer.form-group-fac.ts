@@ -15,7 +15,7 @@ import { IOrderForm } from './order.form';
 
 export function CustomerFormGroupFac(): FormGroup<ICustomerForm> {
   return new FormGroup<ICustomerForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     num: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
@@ -24,12 +24,13 @@ export function CustomerFormGroupFac(): FormGroup<ICustomerForm> {
       ]),
       nonNullable: true,
     }),
-    name: new FormControl<string | null>(null, {
+    name: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(512),
     }),
     companyName: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(128),
       ]),
       nonNullable: true,
@@ -38,10 +39,10 @@ export function CustomerFormGroupFac(): FormGroup<ICustomerForm> {
       validators: Validators.required,
       nonNullable: true,
     }),
-    emailAddress: new FormControl<string | null>(null, {
+    emailAddress: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(250),
     }),
-    phone: new FormControl<string | null>(null, {
+    phone: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(25),
     }),
     salesAgent: new FormGroup<ISalesAgentForm>(

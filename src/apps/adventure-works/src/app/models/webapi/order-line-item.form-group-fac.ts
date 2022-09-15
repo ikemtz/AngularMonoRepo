@@ -15,7 +15,7 @@ import { ProductFormGroupFac } from './product.form-group-fac';
 
 export function OrderLineItemFormGroupFac(): FormGroup<IOrderLineItemForm> {
   return new FormGroup<IOrderLineItemForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     orderId: new FormControl<string>('', {
       validators: Validators.required,
       nonNullable: true,

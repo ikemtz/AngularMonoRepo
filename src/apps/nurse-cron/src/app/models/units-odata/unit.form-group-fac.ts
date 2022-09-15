@@ -13,7 +13,7 @@ import { BuildingFormGroupFac } from './building.form-group-fac';
 
 export function UnitFormGroupFac(): FormGroup<IUnitForm> {
   return new FormGroup<IUnitForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     buildingId: new FormControl<string>('', {
       validators: Validators.required,
       nonNullable: true,
@@ -30,10 +30,10 @@ export function UnitFormGroupFac(): FormGroup<IUnitForm> {
       validators: Validators.required,
       nonNullable: true,
     }),
-    deletedBy: new FormControl<string | null>(null, {
+    deletedBy: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(250),
     }),
-    deletedOnUtc: new FormControl<Date | null>(null),
+    deletedOnUtc: new FormControl<Date | null | undefined>(null),
     building: new FormGroup<IBuildingForm>(BuildingFormGroupFac().controls),
   });
 }

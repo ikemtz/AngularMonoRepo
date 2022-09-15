@@ -16,7 +16,7 @@ import { IOrderLineItemForm } from './order-line-item.form';
 
 export function ProductFormGroupFac(): FormGroup<IProductForm> {
   return new FormGroup<IProductForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     name: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
@@ -33,7 +33,7 @@ export function ProductFormGroupFac(): FormGroup<IProductForm> {
       ]),
       nonNullable: true,
     }),
-    color: new FormControl<string | null>(null, {
+    color: new FormControl<string | null | undefined>(null, {
       validators: Validators.compose([
         Validators.minLength(3),
         Validators.maxLength(15),
@@ -47,19 +47,19 @@ export function ProductFormGroupFac(): FormGroup<IProductForm> {
       validators: Validators.required,
       nonNullable: true,
     }),
-    size: new FormControl<string | null>(null, {
+    size: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(5),
     }),
-    weight: new FormControl<number | null>(null),
-    productCategoryId: new FormControl<string | null>(null),
-    productModelId: new FormControl<string | null>(null),
+    weight: new FormControl<number | null | undefined>(null),
+    productCategoryId: new FormControl<string | null | undefined>(null),
+    productModelId: new FormControl<string | null | undefined>(null),
     sellStartDate: new FormControl<Date>(new Date(), {
       validators: Validators.required,
       nonNullable: true,
     }),
-    sellEndDate: new FormControl<Date | null>(null),
-    discontinuedDate: new FormControl<Date | null>(null),
-    thumbNailPhoto: new FormControl<string | null>(null, {
+    sellEndDate: new FormControl<Date | null | undefined>(null),
+    discontinuedDate: new FormControl<Date | null | undefined>(null),
+    thumbNailPhoto: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(5000),
     }),
     productModel: new FormGroup<IProductModelForm>(

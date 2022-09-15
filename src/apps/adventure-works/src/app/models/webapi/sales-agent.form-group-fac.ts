@@ -12,10 +12,11 @@ import { ICustomerForm } from './customer.form';
 
 export function SalesAgentFormGroupFac(): FormGroup<ISalesAgentForm> {
   return new FormGroup<ISalesAgentForm>({
-    id: new FormControl<number | null>(null),
+    id: new FormControl<number | null | undefined>(null),
     name: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(256),
       ]),
       nonNullable: true,
@@ -23,6 +24,7 @@ export function SalesAgentFormGroupFac(): FormGroup<ISalesAgentForm> {
     loginId: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(256),
       ]),
       nonNullable: true,
