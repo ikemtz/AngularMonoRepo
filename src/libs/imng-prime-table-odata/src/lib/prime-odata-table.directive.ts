@@ -12,6 +12,7 @@ import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { LazyLoadEvent, SortMeta } from 'primeng/api';
 import { handleMultiColumnSorting } from './helpers/handle-multi-column-sorting';
 import { PrimeTableState } from './models/prime-odata-table-state';
+import { IdType } from 'imng-nrsrx-client-utils';
 
 @Directive({
   selector: '[imngODataTable]',
@@ -20,9 +21,9 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
   @Input('imngODataTable')
   public odataTableComponent: ImngPrimeODataTableBaseComponent<
     object,
-    IPrimeODataTableFacade<{ id?: string | null }>
+    IPrimeODataTableFacade<{ id?: IdType | null }>
   >;
-  private facade: IPrimeODataTableFacade<{ id?: string | null }>;
+  private facade: IPrimeODataTableFacade<{ id?: IdType | null }>;
   private sortState: SortMeta[] = [];
   public readonly allSubscriptions = new Subscriptions();
   constructor(

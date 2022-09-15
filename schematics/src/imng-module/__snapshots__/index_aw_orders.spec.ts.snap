@@ -565,6 +565,11 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NUM)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.NUM)?.[RequiredError]\\">Order num is required</div>
+        <div *ngIf=\\"formControlErrors(props.NUM)?.[MinLengthError]\\">
+          Order num requires a min length of
+          {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
+          {{formMinLengthError(props.NUM)?.actualLength}}.
+        </div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
@@ -885,7 +890,7 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadOrdersRequest),
       switchMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataservice
-        .fetch<IOrder>(environment.odataEnpoints.orders, action.payload, {
+        .fetch<IOrder>(environment.odataEndpoints.orders, action.payload, {
           dateNullableProps: [OrderProperties.SHIP_DATE],
         })
         .pipe(
@@ -898,7 +903,7 @@ export class OrderEffects {
       ofType(orderActionTypes.reloadOrdersRequest),
       concatLatestFrom(() => this.store.select(ordersFeature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<IOrder>(environment.odataEnpoints.orders, odataState, {
+        .fetch<IOrder>(environment.odataEndpoints.orders, odataState, {
           bustCache: true,
           dateNullableProps: [OrderProperties.SHIP_DATE],
         })
@@ -935,7 +940,7 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadCustomersRequest),
       switchMap((action: ReturnType<typeof orderActionTypes.loadCustomersRequest>) => this.odataservice
-        .fetch<ICustomer>(environment.odataEnpoints.customers, action.payload)
+        .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload)
         .pipe(map(t => orderActionTypes.loadCustomersSuccess(t)),
           handleEffectError(action))));
   });
@@ -944,7 +949,7 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadShipToAddressesRequest),
       switchMap((action: ReturnType<typeof orderActionTypes.loadShipToAddressesRequest>) => this.odataservice
-        .fetch<IOrderAddress>(environment.odataEnpoints.orderAddresses, action.payload)
+        .fetch<IOrderAddress>(environment.odataEndpoints.orderAddresses, action.payload)
         .pipe(map(t => orderActionTypes.loadShipToAddressesSuccess(t)),
           handleEffectError(action))));
   });
@@ -953,7 +958,7 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadBillToAddressesRequest),
       switchMap((action: ReturnType<typeof orderActionTypes.loadBillToAddressesRequest>) => this.odataservice
-        .fetch<IOrderAddress>(environment.odataEnpoints.orderAddresses, action.payload)
+        .fetch<IOrderAddress>(environment.odataEndpoints.orderAddresses, action.payload)
         .pipe(map(t => orderActionTypes.loadBillToAddressesSuccess(t)),
           handleEffectError(action))));
   });

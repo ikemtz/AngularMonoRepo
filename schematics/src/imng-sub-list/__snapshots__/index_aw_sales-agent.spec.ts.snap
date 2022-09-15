@@ -28,7 +28,7 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root',
 })
 export class SalesAgentApiService extends NrsrxBaseApiClientService<ISalesAgent> {
-  public override url = environment.webApiEnpoints.salesAgents;
+  public override url = environment.webApiEndpoints.salesAgents;
   constructor(http: HttpClient) {
     super(http);
   }
@@ -63,7 +63,7 @@ export class SalesAgentEffects {
     return this.actions$.pipe(
       ofType(salesAgentActionTypes.loadSalesAgentsRequest),
       switchMap((action: ReturnType<typeof salesAgentActionTypes.loadSalesAgentsRequest>) => this.odataservice
-        .fetch<ISalesAgent>(environment.odataEnpoints.salesAgents, action.payload.odataState)
+        .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, action.payload.odataState)
         .pipe(
           map(odataResult => salesAgentActionTypes.loadSalesAgentsSuccess({ customerId: action.payload.customerId, odataResult })),
           handleEffectError(action))));
@@ -75,7 +75,7 @@ export class SalesAgentEffects {
       concatLatestFrom((action: ReturnType<typeof salesAgentActionTypes.reloadSalesAgentsRequest>) =>
         this.store.select(salesAgentQueries.selectODataState$(action.payload))),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<ISalesAgent>(environment.odataEnpoints.salesAgents, odataState, { bustCache: true })
+        .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, odataState, { bustCache: true })
         .pipe(
           map(odataResult => salesAgentActionTypes.reloadSalesAgentsSuccess({ customerId: action.payload, odataResult })),
           handleEffectError(action))));

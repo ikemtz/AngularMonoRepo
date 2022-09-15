@@ -24,7 +24,7 @@ export class <%= classify(singularizedName) %>Effects {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request),
       switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>) => this.odataservice
-        .fetch<I<%= classify(name) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, action.payload<% if(hasNullableDates){ %>, {
+        .fetch<I<%= classify(name) %>>(environment.odataEndpoints.<%= camelize(pluralizedName) %>, action.payload<% if(hasNullableDates){ %>, {
           dateNullableProps: [<% swaggerProperties.filter(t=> t.format==='date-time' && !t.required).forEach((swaggerProperty,i,arr) => { %><%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (i !== arr.length-1){%>, <% } }) %>],
         }<% } %>)
         .pipe(
@@ -37,7 +37,7 @@ export class <%= classify(singularizedName) %>Effects {
       ofType(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request),
       concatLatestFrom(() => this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState)),
       switchMap(([action, odataState]) => this.odataservice
-        .fetch<I<%= classify(singularizedName) %>>(environment.odataEnpoints.<%= camelize(pluralizedName) %>, odataState, {
+        .fetch<I<%= classify(singularizedName) %>>(environment.odataEndpoints.<%= camelize(pluralizedName) %>, odataState, {
           bustCache: true,<% if(hasNullableDates){ %>
           dateNullableProps: [<% swaggerProperties.filter(t=> t.format==='date-time' && !t.required).forEach((swaggerProperty,i,arr)=> { %><%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (i !== arr.length-1){%>, <% } }) %>],<% } %>
         })
@@ -74,7 +74,7 @@ export class <%= classify(singularizedName) %>Effects {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request),
       switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request>) => this.odataservice
-        .fetch<I<%= classify(swaggerProperty.propertyTypeName) %>>(environment.odataEnpoints.<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>, action.payload)
+        .fetch<I<%= classify(swaggerProperty.propertyTypeName) %>>(environment.odataEndpoints.<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>, action.payload)
         .pipe(map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Success(t)),
           handleEffectError(action))));
   });

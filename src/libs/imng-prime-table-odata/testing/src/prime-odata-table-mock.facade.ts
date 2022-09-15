@@ -1,3 +1,4 @@
+import { IdType } from 'imng-nrsrx-client-utils';
 import {
   IPrimeODataTableFacade,
   PrimeTableState,
@@ -5,11 +6,11 @@ import {
 import { Observable, of } from 'rxjs';
 
 export class ODataTableMockFacade
-  implements IPrimeODataTableFacade<{ id?: string | null }>
+  implements IPrimeODataTableFacade<{ id?: IdType | null }>
 {
   public loading$: Observable<boolean> = of(false);
   public tableState$: Observable<PrimeTableState> = of({});
-  public tableData$: Observable<{ id?: string | null }[]> = of([
+  public tableData$: Observable<{ id?: IdType | null }[]> = of([
     { id: 'apples' },
   ]);
   public totalRecordCount$ = of(1);
