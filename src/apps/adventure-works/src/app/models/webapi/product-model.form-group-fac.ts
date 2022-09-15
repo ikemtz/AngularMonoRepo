@@ -12,15 +12,16 @@ import { IProductForm } from './product.form';
 
 export function ProductModelFormGroupFac(): FormGroup<IProductModelForm> {
   return new FormGroup<IProductModelForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     name: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
+        Validators.minLength(1),
         Validators.maxLength(50),
       ]),
       nonNullable: true,
     }),
-    description: new FormControl<string | null>(null, {
+    description: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(500),
     }),
     products: new FormArray<FormGroup<IProductForm>>([]),

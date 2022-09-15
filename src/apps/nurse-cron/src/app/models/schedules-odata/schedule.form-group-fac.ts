@@ -11,7 +11,7 @@ import { IScheduleForm } from './schedule.form';
 
 export function ScheduleFormGroupFac(): FormGroup<IScheduleForm> {
   return new FormGroup<IScheduleForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     unitId: new FormControl<string>('', {
       validators: Validators.required,
       nonNullable: true,

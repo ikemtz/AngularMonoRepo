@@ -14,7 +14,7 @@ import { IEmployeeHealthItemForm } from './employee-health-item.form';
 
 export function EmployeeFormGroupFac(): FormGroup<IEmployeeForm> {
   return new FormGroup<IEmployeeForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     lastName: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
@@ -31,14 +31,14 @@ export function EmployeeFormGroupFac(): FormGroup<IEmployeeForm> {
       ]),
       nonNullable: true,
     }),
-    birthDate: new FormControl<Date | null>(null),
-    mobilePhone: new FormControl<string | null>(null, {
+    birthDate: new FormControl<Date | null | undefined>(null),
+    mobilePhone: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(25),
     }),
-    homePhone: new FormControl<string | null>(null, {
+    homePhone: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(25),
     }),
-    photo: new FormControl<string | null>(null, {
+    photo: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(4000),
     }),
     email: new FormControl<string>('', {
@@ -49,19 +49,19 @@ export function EmployeeFormGroupFac(): FormGroup<IEmployeeForm> {
       ]),
       nonNullable: true,
     }),
-    addressLine1: new FormControl<string | null>(null, {
+    addressLine1: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(250),
     }),
-    addressLine2: new FormControl<string | null>(null, {
+    addressLine2: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(250),
     }),
-    city: new FormControl<string | null>(null, {
+    city: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(150),
     }),
-    state: new FormControl<string | null>(null, {
+    state: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(2),
     }),
-    zip: new FormControl<string | null>(null, {
+    zip: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(10),
     }),
     isEnabled: new FormControl<boolean>(false, {
@@ -72,8 +72,8 @@ export function EmployeeFormGroupFac(): FormGroup<IEmployeeForm> {
       validators: Validators.required,
       nonNullable: true,
     }),
-    fireDate: new FormControl<Date | null>(null),
-    totalHoursOfService: new FormControl<number | null>(null),
+    fireDate: new FormControl<Date | null | undefined>(null),
+    totalHoursOfService: new FormControl<number | null | undefined>(null),
     certificationCount: new FormControl<number>(0, {
       validators: Validators.required,
       nonNullable: true,

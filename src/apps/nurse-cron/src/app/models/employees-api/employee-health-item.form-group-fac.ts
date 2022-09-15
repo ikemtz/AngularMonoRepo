@@ -11,11 +11,11 @@ import { IEmployeeHealthItemForm } from './employee-health-item.form';
 
 export function EmployeeHealthItemFormGroupFac(): FormGroup<IEmployeeHealthItemForm> {
   return new FormGroup<IEmployeeHealthItemForm>({
-    id: new FormControl<string | null>(null),
-    employeeId: new FormControl<string | null>(null),
-    healthItemId: new FormControl<string | null>(null),
-    healthItemName: new FormControl<string | null>(null),
-    expiresOnUtc: new FormControl<Date | null>(null),
-    isEnabled: new FormControl<boolean | null>(null),
+    id: new FormControl<string | null | undefined>(null),
+    employeeId: new FormControl<string | null | undefined>(null),
+    healthItemId: new FormControl<string | null | undefined>(null),
+    healthItemName: new FormControl<string | null | undefined>(null),
+    expiresOnUtc: new FormControl<Date | null | undefined>(null),
+    isEnabled: new FormControl<boolean | null | undefined>(null),
   });
 }

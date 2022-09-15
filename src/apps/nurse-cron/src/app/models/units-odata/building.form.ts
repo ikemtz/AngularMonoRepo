@@ -9,16 +9,16 @@
 import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 
 export interface IBuildingForm {
-  id?: FormControl<string | null>;
-  name?: FormControl<string>;
-  siteName?: FormControl<string>;
-  addressLine1?: FormControl<string>;
-  addressLine2?: FormControl<string | null>;
-  cityOrMunicipality?: FormControl<string>;
-  stateOrProvidence?: FormControl<string>;
-  postalCode?: FormControl<string>;
-  country?: FormControl<string | null>;
-  gpsData?: FormControl<string | null>;
-  deletedBy?: FormControl<string | null>;
-  deletedOnUtc?: FormControl<Date | null>;
+  id: FormControl<string | null | undefined>;
+  name: FormControl<string>;
+  siteName: FormControl<string>;
+  addressLine1: FormControl<string>;
+  addressLine2: FormControl<string | null | undefined>;
+  cityOrMunicipality: FormControl<string>;
+  stateOrProvidence: FormControl<string>;
+  postalCode: FormControl<string>;
+  country: FormControl<string | null | undefined>;
+  gpsData: FormControl<string | null | undefined>;
+  deletedBy: FormControl<string | null | undefined>;
+  deletedOnUtc: FormControl<Date | null | undefined>;
 }

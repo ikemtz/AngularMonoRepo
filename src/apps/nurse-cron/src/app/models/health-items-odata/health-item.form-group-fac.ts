@@ -11,8 +11,8 @@ import { IHealthItemForm } from './health-item.form';
 
 export function HealthItemFormGroupFac(): FormGroup<IHealthItemForm> {
   return new FormGroup<IHealthItemForm>({
-    id: new FormControl<string | null>(null),
-    name: new FormControl<string | null>(null),
-    isEnabled: new FormControl<boolean | null>(null),
+    id: new FormControl<string | null | undefined>(null),
+    name: new FormControl<string | null | undefined>(null),
+    isEnabled: new FormControl<boolean | null | undefined>(null),
   });
 }

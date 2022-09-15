@@ -10,7 +10,7 @@ import { FormControl, FormArray, FormGroup } from '@angular/forms'; //NOSONAR
 import { IProductForm } from './product.form';
 
 export interface IProductCategoryForm {
-  id?: FormControl<string | null>;
-  name?: FormControl<string>;
-  products?: FormArray<FormGroup<IProductForm>>;
+  id: FormControl<string | null | undefined>;
+  name: FormControl<string>;
+  products: FormArray<FormGroup<IProductForm>>;
 }

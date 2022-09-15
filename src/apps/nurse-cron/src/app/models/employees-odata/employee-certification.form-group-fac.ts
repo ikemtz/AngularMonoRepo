@@ -11,10 +11,10 @@ import { IEmployeeCertificationForm } from './employee-certification.form';
 
 export function EmployeeCertificationFormGroupFac(): FormGroup<IEmployeeCertificationForm> {
   return new FormGroup<IEmployeeCertificationForm>({
-    id: new FormControl<string | null>(null),
-    employeeId: new FormControl<string | null>(null),
-    certificationId: new FormControl<string | null>(null),
-    certificationName: new FormControl<string | null>(null),
-    expiresOnUtc: new FormControl<Date | null>(null),
+    id: new FormControl<string | null | undefined>(null),
+    employeeId: new FormControl<string | null | undefined>(null),
+    certificationId: new FormControl<string | null | undefined>(null),
+    certificationName: new FormControl<string | null | undefined>(null),
+    expiresOnUtc: new FormControl<Date | null | undefined>(null),
   });
 }

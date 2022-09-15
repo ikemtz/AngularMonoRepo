@@ -11,7 +11,7 @@ import { IBuildingForm } from './building.form';
 
 export function BuildingFormGroupFac(): FormGroup<IBuildingForm> {
   return new FormGroup<IBuildingForm>({
-    id: new FormControl<string | null>(null),
+    id: new FormControl<string | null | undefined>(null),
     name: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
@@ -36,7 +36,7 @@ export function BuildingFormGroupFac(): FormGroup<IBuildingForm> {
       ]),
       nonNullable: true,
     }),
-    addressLine2: new FormControl<string | null>(null, {
+    addressLine2: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(250),
     }),
     cityOrMunicipality: new FormControl<string>('', {
@@ -63,13 +63,13 @@ export function BuildingFormGroupFac(): FormGroup<IBuildingForm> {
       ]),
       nonNullable: true,
     }),
-    country: new FormControl<string | null>(null, {
+    country: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(3),
     }),
-    gpsData: new FormControl<string | null>(null),
-    deletedBy: new FormControl<string | null>(null, {
+    gpsData: new FormControl<string | null | undefined>(null),
+    deletedBy: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(250),
     }),
-    deletedOnUtc: new FormControl<Date | null>(null),
+    deletedOnUtc: new FormControl<Date | null | undefined>(null),
   });
 }
