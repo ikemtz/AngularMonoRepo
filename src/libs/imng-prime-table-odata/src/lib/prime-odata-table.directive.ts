@@ -20,9 +20,9 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
   @Input('imngODataTable')
   public odataTableComponent: ImngPrimeODataTableBaseComponent<
     object,
-    IPrimeODataTableFacade<{ id?: string | null }>
+    IPrimeODataTableFacade<{ id?: string | number | null }>
   >;
-  private facade: IPrimeODataTableFacade<{ id?: string | null }>;
+  private facade: IPrimeODataTableFacade<{ id?: string | number | null }>;
   private sortState: SortMeta[] = [];
   public readonly allSubscriptions = new Subscriptions();
   constructor(
