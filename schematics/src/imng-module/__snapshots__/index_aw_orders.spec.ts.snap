@@ -565,6 +565,11 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NUM)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.NUM)?.[RequiredError]\\">Order num is required</div>
+        <div *ngIf=\\"formControlErrors(props.NUM)?.[MinLengthError]\\">
+          Order num requires a min length of
+          {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
+          {{formMinLengthError(props.NUM)?.actualLength}}.
+        </div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
