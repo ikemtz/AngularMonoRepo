@@ -565,7 +565,7 @@ import { CustomerApiService } from '../customers-crud';
 export class CustomerEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly odataservice: ODataService,
+    private readonly odataService: ODataService,
     private readonly store: Store,
     private readonly customerApiService : CustomerApiService,
   ) {}
@@ -573,7 +573,7 @@ export class CustomerEffects {
   loadCustomersEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(customerActionTypes.loadCustomersRequest),
-      switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataService
         .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload)
         .pipe(
           map(t => customerActionTypes.loadCustomersSuccess(t)),
@@ -584,7 +584,7 @@ export class CustomerEffects {
     return this.actions$.pipe(
       ofType(customerActionTypes.reloadCustomersRequest),
       concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
-      switchMap(([action, odataState]) => this.odataservice
+      switchMap(([action, odataState]) => this.odataService
         .fetch<ICustomer>(environment.odataEndpoints.customers, odataState, {
           bustCache: true,
         })
@@ -620,7 +620,7 @@ export class CustomerEffects {
   loadSalesAgentsEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(customerActionTypes.loadSalesAgentsRequest),
-      switchMap((action: ReturnType<typeof customerActionTypes.loadSalesAgentsRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof customerActionTypes.loadSalesAgentsRequest>) => this.odataService
         .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, action.payload)
         .pipe(map(t => customerActionTypes.loadSalesAgentsSuccess(t)),
           handleEffectError(action))));

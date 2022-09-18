@@ -16,7 +16,7 @@ import { ODataClientService } from 'imng-odata-client';
 export class OrderEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly odataservice: ODataClientService,
+    private readonly odataService: ODataClientService,
     private readonly store: Store,
   ) {}
 
@@ -25,7 +25,7 @@ export class OrderEffects {
       ofType(orderActionTypes.loadOrdersRequest),
       switchMap(
         (action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) =>
-          this.odataservice
+          this.odataService
             .fetch<IOrder>(
               environment.odataEnpoints.orders,
               toODataQuery(action.payload),
@@ -46,7 +46,7 @@ export class OrderEffects {
       ofType(orderActionTypes.reloadOrdersRequest),
       concatLatestFrom(() => this.store.select(ordersFeature.selectTableState)),
       switchMap(([action, odataState]) =>
-        this.odataservice
+        this.odataService
           .fetch<IOrder>(
             environment.odataEnpoints.orders,
             toODataQuery(odataState),
