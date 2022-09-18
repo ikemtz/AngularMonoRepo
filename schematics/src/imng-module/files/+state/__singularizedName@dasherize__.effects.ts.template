@@ -15,7 +15,7 @@ import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pl
 export class <%= classify(singularizedName) %>Effects {
   constructor(
     private readonly actions$: Actions,
-    private readonly odataservice: ODataService,
+    private readonly odataService: ODataService,
     private readonly store: Store,
     private readonly <%= camelize(singularizedName) %>ApiService : <%= classify(singularizedName) %>ApiService,
   ) {}
@@ -23,7 +23,7 @@ export class <%= classify(singularizedName) %>Effects {
   load<%= classify(pluralizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request),
-      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>) => this.odataservice
+      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request>) => this.odataService
         .fetch<I<%= classify(name) %>>(environment.odataEndpoints.<%= camelize(pluralizedName) %>, action.payload<% if(hasNullableDates){ %>, {
           dateNullableProps: [<% swaggerProperties.filter(t=> t.format==='date-time' && !t.required).forEach((swaggerProperty,i,arr) => { %><%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (i !== arr.length-1){%>, <% } }) %>],
         }<% } %>)
@@ -36,7 +36,7 @@ export class <%= classify(singularizedName) %>Effects {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request),
       concatLatestFrom(() => this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState)),
-      switchMap(([action, odataState]) => this.odataservice
+      switchMap(([action, odataState]) => this.odataService
         .fetch<I<%= classify(singularizedName) %>>(environment.odataEndpoints.<%= camelize(pluralizedName) %>, odataState, {
           bustCache: true,<% if(hasNullableDates){ %>
           dateNullableProps: [<% swaggerProperties.filter(t=> t.format==='date-time' && !t.required).forEach((swaggerProperty,i,arr)=> { %><%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (i !== arr.length-1){%>, <% } }) %>],<% } %>
@@ -73,7 +73,7 @@ export class <%= classify(singularizedName) %>Effects {
   load<%= classify(swaggerProperty.pluralizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request),
-      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request>) => this.odataservice
+      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request>) => this.odataService
         .fetch<I<%= classify(swaggerProperty.propertyTypeName) %>>(environment.odataEndpoints.<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>, action.payload)
         .pipe(map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Success(t)),
           handleEffectError(action))));

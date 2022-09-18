@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 
 export async function testLoadSeriesData<TFacade extends IChartODataFacade>(
   facade: TFacade,
-  odataservice: ODataService
+  odataService: ODataService,
 ): Promise<void> {
   let seriesData = await readFirst(facade.seriesData$);
   expect(seriesData).toStrictEqual([]);
@@ -15,9 +15,9 @@ export async function testLoadSeriesData<TFacade extends IChartODataFacade>(
     data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
     total: 3,
   });
-  odataservice.fetch = jest.fn(() => response);
+  odataService.fetch = jest.fn(() => response);
   facade.loadSeriesData({});
   seriesData = await readFirst(facade.seriesData$);
   expect(seriesData).toBeTruthy();
-  expect(odataservice.fetch).toBeCalledTimes(1);
+  expect(odataService.fetch).toBeCalledTimes(1);
 }

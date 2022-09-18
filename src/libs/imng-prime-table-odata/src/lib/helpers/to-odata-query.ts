@@ -9,6 +9,7 @@ import { PrimeTableState } from '../models/prime-odata-table-state';
 
 export function toODataQuery(val: PrimeTableState): ODataQuery {
   const query: ODataQuery = {
+    ...val,
     orderBy: val.multiSortMeta?.map(
       (x): Sort => ({
         field: x.field,

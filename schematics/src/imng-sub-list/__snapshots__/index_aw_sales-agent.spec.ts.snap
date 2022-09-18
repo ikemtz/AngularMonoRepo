@@ -54,7 +54,7 @@ import { environment } from '../../../../environments/environment';
 export class SalesAgentEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly odataservice: ODataService,
+    private readonly odataService: ODataService,
     private readonly store: Store,
     private readonly apiService : SalesAgentApiService,
   ) {}
@@ -62,7 +62,7 @@ export class SalesAgentEffects {
   loadSalesAgentsEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(salesAgentActionTypes.loadSalesAgentsRequest),
-      switchMap((action: ReturnType<typeof salesAgentActionTypes.loadSalesAgentsRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof salesAgentActionTypes.loadSalesAgentsRequest>) => this.odataService
         .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, action.payload.odataState)
         .pipe(
           map(odataResult => salesAgentActionTypes.loadSalesAgentsSuccess({ customerId: action.payload.customerId, odataResult })),
@@ -74,7 +74,7 @@ export class SalesAgentEffects {
       ofType(salesAgentActionTypes.reloadSalesAgentsRequest),
       concatLatestFrom((action: ReturnType<typeof salesAgentActionTypes.reloadSalesAgentsRequest>) =>
         this.store.select(salesAgentQueries.selectODataState$(action.payload))),
-      switchMap(([action, odataState]) => this.odataservice
+      switchMap(([action, odataState]) => this.odataService
         .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, odataState, { bustCache: true })
         .pipe(
           map(odataResult => salesAgentActionTypes.reloadSalesAgentsSuccess({ customerId: action.payload, odataResult })),
