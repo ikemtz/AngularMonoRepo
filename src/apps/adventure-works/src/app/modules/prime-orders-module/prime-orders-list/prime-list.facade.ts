@@ -11,7 +11,7 @@ import {
 
 @Injectable()
 export class PrimeOrderListFacade implements IPrimeODataTableFacade<IOrder> {
-  loading$ = this.store.select(ordersFeature.selectLoading);
+  activeEffectCount$ = this.store.select(ordersFeature.selectActiveEffectCount);
   tableData$ = this.store.select(ordersFeature.selectTableData);
   totalRecordCount$ = this.store.select(ordersFeature.selectTotalRecordCount);
   tableState$ = this.store.select(ordersFeature.selectTableState);

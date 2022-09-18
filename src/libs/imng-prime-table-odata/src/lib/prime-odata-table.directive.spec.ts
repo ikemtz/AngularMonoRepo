@@ -8,7 +8,7 @@ import {
   createODataGridMockFacade,
   ODataTableMockFacade,
 } from '../../testing/src';
-import { PrimeTableState } from './models/prime-odata-table-state';
+import { PrimeTableState } from './models/prime-table-state';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
@@ -63,6 +63,28 @@ describe('ImngPrimeODataTableDirective', () => {
     expect(tableComponent).toMatchSnapshot();
     expect(facade.loadEntities).toBeCalledTimes(1);
   });
+  it('should handle lazyload no sorting', () => {
+    directive.ngOnInit();
+    (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({
+      first: 20,
+      filters: {
+        xyz: [
+          { value: '💩💩', operator: 'and', matchMode: 'contains' },
+        ] as FilterMetadata,
+      },
+    });
+    expect(tableComponent).toMatchSnapshot();
+    expect(facade.loadEntities).toBeCalledTimes(1);
+  });
+  it('should handle lazyload no filters', () => {
+    directive.ngOnInit();
+    (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({
+      first: 20,
+      multiSortMeta: [{ field: 'x', order: 1 }],
+    });
+    expect(tableComponent).toMatchSnapshot();
+    expect(facade.loadEntities).toBeCalledTimes(1);
+  });
 
   it('should handle tableState Changes', () => {
     directive.ngOnInit();
@@ -71,6 +93,32 @@ describe('ImngPrimeODataTableDirective', () => {
     ).next({
       first: 20,
       multiSortMeta: [{ field: 'x', order: 1 }],
+      filters: {
+        xyz: [{ value: '💩💩', operator: 'and', matchMode: 'contains' }],
+      },
+    });
+    expect(tableComponent).toMatchSnapshot();
+    expect(facade.loadEntities).toBeCalledTimes(0);
+  });
+
+  it('should handle tableState Changes no filters', () => {
+    directive.ngOnInit();
+    (
+      odataComponent.facade.tableState$ as unknown as Subject<PrimeTableState>
+    ).next({
+      first: 20,
+      multiSortMeta: [{ field: 'x', order: 1 }],
+    });
+    expect(tableComponent).toMatchSnapshot();
+    expect(facade.loadEntities).toBeCalledTimes(0);
+  });
+
+  it('should handle tableState Changes no sorting', () => {
+    directive.ngOnInit();
+    (
+      odataComponent.facade.tableState$ as unknown as Subject<PrimeTableState>
+    ).next({
+      first: 20,
       filters: {
         xyz: [{ value: '💩💩', operator: 'and', matchMode: 'contains' }],
       },

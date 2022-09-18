@@ -2,9 +2,10 @@ import { createReducer, on, createFeature } from '@ngrx/store';
 import { IOrder } from '../../../models/odata';
 
 import * as orderActionTypes from './order.actions';
-import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+import { imngEffectError } from 'imng-ngrx-utils';
 import {
   createPrimeODataTableInitialState,
+  imngPrimeEffectErrorReducer,
   PrimeODataTableState,
 } from 'imng-prime-table-odata';
 export const ORDERS_FEATURE_KEY = 'orders';
@@ -24,7 +25,15 @@ export const ordersFeature = createFeature({
       (state, { payload }): State => ({
         ...state,
         tableState: payload,
-        loading: true,
+        activeEffectCount: state.activeEffectCount + 1,
+        error: null,
+      }),
+    ),
+    on(
+      orderActionTypes.reloadOrdersRequest,
+      (state): State => ({
+        ...state,
+        activeEffectCount: state.activeEffectCount + 1,
         error: null,
       }),
     ),
@@ -33,12 +42,12 @@ export const ordersFeature = createFeature({
       orderActionTypes.reloadOrdersSuccess,
       (state, { payload }): State => ({
         ...state,
-        loading: false,
+        activeEffectCount: state.activeEffectCount - 1,
         tableData: payload.value,
         totalRecordCount: payload.count,
         error: null,
       }),
     ),
-    on(imngEffectError, imngEffectErrorReducer),
+    on(imngEffectError, imngPrimeEffectErrorReducer),
   ),
 });
