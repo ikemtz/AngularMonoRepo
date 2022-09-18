@@ -193,14 +193,14 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public excelData = (): Observable<ENTITY[]> => this.tableData$;
 
   public loadEntities(primeTableState: PrimeTableState): void {
-    primeTableState.multiSortMeta = this.validateSortParameters(
-      primeTableState.multiSortMeta,
-    );
-    this.tableState = primeTableState;
+    this.tableState = {
+      ...primeTableState,
+      multiSortMeta: this.validateSortParameters(primeTableState.multiSortMeta),
+    };
     this.expanders = primeTableState.expand;
     this.appliedTransformations = primeTableState.apply;
-    this.facade.loadEntities(primeTableState);
-    this.updateRouterState(primeTableState);
+    this.facade.loadEntities(this.tableState);
+    this.updateRouterState(this.tableState);
   }
 
   public validateSortParameters(multiSortMeta?: SortMeta[]): SortMeta[] {

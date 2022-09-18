@@ -16,55 +16,104 @@ import { IHealthItem } from '../../../models/health-items-odata';
 export class HealthItemEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly odataservice: ODataService,
+    private readonly odataService: ODataService,
     private readonly store: Store,
     private readonly healthItemApiService: HealthItemApiService,
-  ) { }
+  ) {}
 
   loadHealthItemsEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(healthItemActionTypes.loadHealthItemsRequest),
-      switchMap((action: ReturnType<typeof healthItemActionTypes.loadHealthItemsRequest>) => this.odataservice
-        .fetch<IHealthItem>(environment.endPoints.healthItems.healthItemsOData, action.payload)
-        .pipe(
-          map(t => healthItemActionTypes.loadHealthItemsSuccess(t)),
-          handleEffectError(action))));
+      switchMap(
+        (
+          action: ReturnType<
+            typeof healthItemActionTypes.loadHealthItemsRequest
+          >,
+        ) =>
+          this.odataService
+            .fetch<IHealthItem>(
+              environment.endPoints.healthItems.healthItemsOData,
+              action.payload,
+            )
+            .pipe(
+              map((t) => healthItemActionTypes.loadHealthItemsSuccess(t)),
+              handleEffectError(action),
+            ),
+      ),
+    );
   });
 
   reloadHealthItemsEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(healthItemActionTypes.reloadHealthItemsRequest),
-      concatLatestFrom(() => this.store.select(healthItemsFeature.selectGridODataState)),
-      switchMap(([action, odataState]) => this.odataservice
-        .fetch<IHealthItem>(environment.endPoints.healthItems.healthItemsOData, odataState, {
-          bustCache: true,
-        })
-        .pipe(
-          map(t => healthItemActionTypes.reloadHealthItemsSuccess(t)),
-          handleEffectError(action))));
+      concatLatestFrom(() =>
+        this.store.select(healthItemsFeature.selectGridODataState),
+      ),
+      switchMap(([action, odataState]) =>
+        this.odataService
+          .fetch<IHealthItem>(
+            environment.endPoints.healthItems.healthItemsOData,
+            odataState,
+            {
+              bustCache: true,
+            },
+          )
+          .pipe(
+            map((t) => healthItemActionTypes.reloadHealthItemsSuccess(t)),
+            handleEffectError(action),
+          ),
+      ),
+    );
   });
 
   saveHealthItemEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(healthItemActionTypes.saveHealthItemRequest),
-      switchMap((action: ReturnType<typeof healthItemActionTypes.saveHealthItemRequest>) => this.healthItemApiService.post(action.payload).pipe(
-        map(() => healthItemActionTypes.reloadHealthItemsRequest()),
-        handleEffectError(action))));
+      switchMap(
+        (
+          action: ReturnType<
+            typeof healthItemActionTypes.saveHealthItemRequest
+          >,
+        ) =>
+          this.healthItemApiService.post(action.payload).pipe(
+            map(() => healthItemActionTypes.reloadHealthItemsRequest()),
+            handleEffectError(action),
+          ),
+      ),
+    );
   });
 
   updateHealthItemEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(healthItemActionTypes.updateHealthItemRequest),
-      switchMap((action: ReturnType<typeof healthItemActionTypes.updateHealthItemRequest>) => this.healthItemApiService.put(action.payload).pipe(
-        map(() => healthItemActionTypes.reloadHealthItemsRequest()),
-        handleEffectError(action))));
+      switchMap(
+        (
+          action: ReturnType<
+            typeof healthItemActionTypes.updateHealthItemRequest
+          >,
+        ) =>
+          this.healthItemApiService.put(action.payload).pipe(
+            map(() => healthItemActionTypes.reloadHealthItemsRequest()),
+            handleEffectError(action),
+          ),
+      ),
+    );
   });
 
   deleteHealthItemEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(healthItemActionTypes.deleteHealthItemRequest),
-      switchMap((action: ReturnType<typeof healthItemActionTypes.deleteHealthItemRequest>) => this.healthItemApiService.delete(action.payload).pipe(
-        map(() => healthItemActionTypes.reloadHealthItemsRequest()),
-        handleEffectError(action))));
+      switchMap(
+        (
+          action: ReturnType<
+            typeof healthItemActionTypes.deleteHealthItemRequest
+          >,
+        ) =>
+          this.healthItemApiService.delete(action.payload).pipe(
+            map(() => healthItemActionTypes.reloadHealthItemsRequest()),
+            handleEffectError(action),
+          ),
+      ),
+    );
   });
 }

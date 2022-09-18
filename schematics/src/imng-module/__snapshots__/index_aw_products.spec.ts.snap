@@ -682,7 +682,7 @@ import { ProductApiService } from '../products-crud';
 export class ProductEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly odataservice: ODataService,
+    private readonly odataService: ODataService,
     private readonly store: Store,
     private readonly productApiService : ProductApiService,
   ) {}
@@ -690,7 +690,7 @@ export class ProductEffects {
   loadProductsEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(productActionTypes.loadProductsRequest),
-      switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataService
         .fetch<IProduct>(environment.odataEndpoints.products, action.payload, {
           dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
         })
@@ -703,7 +703,7 @@ export class ProductEffects {
     return this.actions$.pipe(
       ofType(productActionTypes.reloadProductsRequest),
       concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
-      switchMap(([action, odataState]) => this.odataservice
+      switchMap(([action, odataState]) => this.odataService
         .fetch<IProduct>(environment.odataEndpoints.products, odataState, {
           bustCache: true,
           dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE],
@@ -740,7 +740,7 @@ export class ProductEffects {
   loadProductModelsEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(productActionTypes.loadProductModelsRequest),
-      switchMap((action: ReturnType<typeof productActionTypes.loadProductModelsRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductModelsRequest>) => this.odataService
         .fetch<IProductModel>(environment.odataEndpoints.productModels, action.payload)
         .pipe(map(t => productActionTypes.loadProductModelsSuccess(t)),
           handleEffectError(action))));
@@ -749,7 +749,7 @@ export class ProductEffects {
   loadProductCategoriesEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(productActionTypes.loadProductCategoriesRequest),
-      switchMap((action: ReturnType<typeof productActionTypes.loadProductCategoriesRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductCategoriesRequest>) => this.odataService
         .fetch<IProductCategory>(environment.odataEndpoints.productCategories, action.payload)
         .pipe(map(t => productActionTypes.loadProductCategoriesSuccess(t)),
           handleEffectError(action))));

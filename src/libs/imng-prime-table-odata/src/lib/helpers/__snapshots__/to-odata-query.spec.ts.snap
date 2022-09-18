@@ -28,6 +28,25 @@ Object {
     ],
     "logic": "and",
   },
+  "filters": Object {
+    "abc": Array [
+      Object {
+        "matchMode": "equals",
+        "operator": "all",
+        "value": "xyz",
+      },
+    ],
+  },
+  "multiSortMeta": Array [
+    Object {
+      "field": "abc",
+      "order": 1,
+    },
+    Object {
+      "field": "xyz",
+      "order": -1,
+    },
+  ],
   "orderBy": Array [
     Object {
       "dir": "asc",

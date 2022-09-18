@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { PrimeOrderListFacade } from './prime-list.facade';
 import { IOrder, OrderProperties } from '../../../models/odata';
 import { Observable } from 'rxjs';
-import { ImngPrimeODataTableBaseComponent } from 'imng-prime-table-odata';
-import { ODataQuery } from 'imng-odata-client';
+import {
+  ImngPrimeODataTableBaseComponent,
+  PrimeTableState,
+} from 'imng-prime-table-odata';
 
-const initialGridState: ODataQuery = {
-  top: 20,
-  skip: 0,
+const initialGridState: PrimeTableState = {
+  rows: 10,
+  first: 0,
   select: [
     OrderProperties.ID,
     OrderProperties.ORDER_ID,
@@ -20,7 +22,7 @@ const initialGridState: ODataQuery = {
     OrderProperties.NUM,
     OrderProperties.PURCHASE_ORDER_NUM,
   ],
-  orderBy: [{ field: OrderProperties.NUM, dir: 'asc' }],
+  multiSortMeta: [{ field: OrderProperties.NUM, order: 1 }],
 };
 
 @Component({

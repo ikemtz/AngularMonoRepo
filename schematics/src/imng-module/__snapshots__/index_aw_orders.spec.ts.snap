@@ -881,7 +881,7 @@ import { OrderApiService } from '../orders-crud';
 export class OrderEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly odataservice: ODataService,
+    private readonly odataService: ODataService,
     private readonly store: Store,
     private readonly orderApiService : OrderApiService,
   ) {}
@@ -889,7 +889,7 @@ export class OrderEffects {
   loadOrdersEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadOrdersRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataService
         .fetch<IOrder>(environment.odataEndpoints.orders, action.payload, {
           dateNullableProps: [OrderProperties.SHIP_DATE],
         })
@@ -902,7 +902,7 @@ export class OrderEffects {
     return this.actions$.pipe(
       ofType(orderActionTypes.reloadOrdersRequest),
       concatLatestFrom(() => this.store.select(ordersFeature.selectGridODataState)),
-      switchMap(([action, odataState]) => this.odataservice
+      switchMap(([action, odataState]) => this.odataService
         .fetch<IOrder>(environment.odataEndpoints.orders, odataState, {
           bustCache: true,
           dateNullableProps: [OrderProperties.SHIP_DATE],
@@ -939,7 +939,7 @@ export class OrderEffects {
   loadCustomersEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadCustomersRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadCustomersRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof orderActionTypes.loadCustomersRequest>) => this.odataService
         .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload)
         .pipe(map(t => orderActionTypes.loadCustomersSuccess(t)),
           handleEffectError(action))));
@@ -948,7 +948,7 @@ export class OrderEffects {
   loadShipToAddressesEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadShipToAddressesRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadShipToAddressesRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof orderActionTypes.loadShipToAddressesRequest>) => this.odataService
         .fetch<IOrderAddress>(environment.odataEndpoints.orderAddresses, action.payload)
         .pipe(map(t => orderActionTypes.loadShipToAddressesSuccess(t)),
           handleEffectError(action))));
@@ -957,7 +957,7 @@ export class OrderEffects {
   loadBillToAddressesEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(orderActionTypes.loadBillToAddressesRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadBillToAddressesRequest>) => this.odataservice
+      switchMap((action: ReturnType<typeof orderActionTypes.loadBillToAddressesRequest>) => this.odataService
         .fetch<IOrderAddress>(environment.odataEndpoints.orderAddresses, action.payload)
         .pipe(map(t => orderActionTypes.loadBillToAddressesSuccess(t)),
           handleEffectError(action))));
