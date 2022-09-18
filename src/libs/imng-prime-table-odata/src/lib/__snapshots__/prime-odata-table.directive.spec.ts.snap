@@ -399,6 +399,12 @@ exports[`ImngPrimeODataTableDirective should handle tableState Changes no filter
 MockTable {
   "lazy": true,
   "loading": false,
+  "multiSortMeta": Array [
+    Object {
+      "field": "x",
+      "order": 1,
+    },
+  ],
   "onFilter": Subject {
     "closed": false,
     "currentObservers": null,

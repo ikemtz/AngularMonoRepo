@@ -67,20 +67,24 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
         this.tableComponent.rows = newTableState?.rows || 20;
         if (newTableState.filters) {
           const newFilters: { [s: string]: FilterMetadata[] } = {};
-          Object.keys(newTableState.filters).forEach((newFilterKey) => {
-            newFilters[newFilterKey] = [
-              ...newTableState.filters[newFilterKey].map((filterMetadata) => ({
-                ...filterMetadata,
-              })),
-            ];
-          });
+          Object.keys(newTableState.filters)
+            .filter((newFilterKey) => newTableState.filters?.[newFilterKey])
+            .forEach((newFilterKey) => {
+              newFilters[newFilterKey] = [
+                ...(newTableState.filters?.[newFilterKey].map(
+                  (filterMetadata) => ({
+                    ...filterMetadata,
+                  }),
+                ) || []),
+              ];
+            });
           this.tableComponent.filters = newFilters;
-          this.tableComponent.multiSortMeta =
-            newTableState.multiSortMeta?.map((m) => ({
-              ...m,
-            })) || [];
-          this.changeDetectorRef.markForCheck();
         }
+        this.tableComponent.multiSortMeta =
+          newTableState.multiSortMeta?.map((sort) => ({
+            ...sort,
+          })) || [];
+        this.changeDetectorRef.markForCheck();
       }),
     );
     this.allSubscriptions.push(
