@@ -8,3 +8,5 @@ export * from './lib/helpers/prime-odata-initial-state-creator';
 export * from './lib/helpers/handle-multi-column-sorting';
 
 export * from './lib/models/prime-odata-table-state';
+export * from './lib/imng-prime-effect-error-reducer';
+export * from './lib/models/prime-table-state';

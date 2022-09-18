@@ -17,4 +17,21 @@ describe('toODataQuery', () => {
     });
     expect(result).toMatchSnapshot();
   });
+  it('should convert with no filters', () => {
+    const result = toODataQuery({
+      multiSortMeta: [
+        { field: 'abc', order: 1 },
+        { field: 'xyz', order: -1 },
+      ],
+    });
+    expect(result).toMatchSnapshot();
+  });
+  it('should convert no sorting', () => {
+    const result = toODataQuery({
+      filters: {
+        abc: [{ operator: 'all', matchMode: 'equals', value: 'xyz' }],
+      },
+    });
+    expect(result).toMatchSnapshot();
+  });
 });

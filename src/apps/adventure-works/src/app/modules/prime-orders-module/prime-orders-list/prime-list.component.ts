@@ -41,6 +41,6 @@ export class PrimeOrderListComponent extends ImngPrimeODataTableBaseComponent<
 
   constructor(facade: PrimeOrderListFacade, router: Router) {
     super(facade, initialGridState, router);
-    this.loading$ = facade.loading$;
+    this.activeEffectCount$ = facade.activeEffectCount$;
   }
 }

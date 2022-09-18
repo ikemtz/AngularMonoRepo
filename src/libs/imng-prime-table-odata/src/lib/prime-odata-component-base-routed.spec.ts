@@ -8,7 +8,7 @@ import {
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { PrimeTableState } from './models/prime-odata-table-state';
+import { PrimeTableState } from './models/prime-table-state';
 
 describe('PrimeODataBasedComponentRouted', () => {
   let component: PrimeODataTableTestComponent;

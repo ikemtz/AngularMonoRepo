@@ -70,9 +70,9 @@ describe('OrderListFacade', () => {
       facade.loadEntities({});
 
       list = await readFirst(facade.tableData$);
-      const loading = await readFirst(facade.loading$);
+      const activeEffectCount = await readFirst(facade.activeEffectCount$);
       expect(list.length).toBe(1);
-      expect(loading).toBe(false);
+      expect(activeEffectCount).toBe(0);
       expect(httpClient.get).toBeCalledTimes(1);
       expect(httpClient.get).toBeCalledWith(
         'aw-odata/odata/v1/Orders?$count=true',
@@ -84,7 +84,7 @@ describe('OrderListFacade', () => {
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
       let list = await readFirst(facade.tableData$);
-      let isloading = await readFirst(facade.loading$);
+      let activeEffectCount = await readFirst(facade.activeEffectCount$);
 
       const service: {
         fetch: (
@@ -99,14 +99,14 @@ describe('OrderListFacade', () => {
       service.fetch = jest.fn(() => response);
 
       expect(list.length).toBe(0);
-      expect(isloading).toBe(true);
+      expect(activeEffectCount).toBe(0);
       facade.reloadEntities();
 
       list = await readFirst(facade.tableData$);
-      isloading = await readFirst(facade.loading$);
+      activeEffectCount = await readFirst(facade.activeEffectCount$);
 
       expect(list.length).toBe(3);
-      expect(isloading).toBe(false);
+      expect(activeEffectCount).toBe(0);
       expect(service.fetch).toBeCalledTimes(1);
     });
 
