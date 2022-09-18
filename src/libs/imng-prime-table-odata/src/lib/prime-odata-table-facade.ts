@@ -1,9 +1,9 @@
 import { IdType } from 'imng-nrsrx-client-utils';
 import { Observable } from 'rxjs';
-import { PrimeTableState } from './models/prime-odata-table-state';
+import { PrimeTableState } from './models/prime-table-state';
 
 export interface IPrimeODataTableFacade<Entity extends { id?: IdType | null }> {
-  loading$: Observable<boolean>;
+  activeEffectCount$: Observable<number>;
   tableState$: Observable<PrimeTableState>;
   tableData$: Observable<Entity[]>;
   totalRecordCount$: Observable<number | undefined>;

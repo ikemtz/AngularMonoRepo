@@ -9,9 +9,9 @@ import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Table } from 'primeng/table';
 import { Subscriptions } from 'imng-ngrx-utils';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
-import { LazyLoadEvent, SortMeta } from 'primeng/api';
+import { FilterMetadata, LazyLoadEvent, SortMeta } from 'primeng/api';
 import { handleMultiColumnSorting } from './helpers/handle-multi-column-sorting';
-import { PrimeTableState } from './models/prime-odata-table-state';
+import { PrimeTableState } from './models/prime-table-state';
 import { IdType } from 'imng-nrsrx-client-utils';
 
 @Directive({
@@ -51,8 +51,8 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
       }),
     );
     this.allSubscriptions.push(
-      this.facade.loading$.subscribe((t) => {
-        this.tableComponent.loading = t;
+      this.facade.activeEffectCount$.subscribe((t) => {
+        this.tableComponent.loading = t > 0;
         this.changeDetectorRef.markForCheck();
       }),
     );
@@ -63,18 +63,20 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
       }),
     );
     this.allSubscriptions.push(
-      this.facade.tableState$.subscribe((t) => {
-        this.tableComponent.rows = t?.rows || 20;
-        if (t.filters) {
-          const newFilters = { ...t.filters };
-          Object.keys(newFilters).forEach((x) => {
-            if (t.filters?.[x]) {
-              newFilters[x] = [...t.filters[x].map((m) => ({ ...m }))];
-            }
+      this.facade.tableState$.subscribe((newTableState) => {
+        this.tableComponent.rows = newTableState?.rows || 20;
+        if (newTableState.filters) {
+          const newFilters: { [s: string]: FilterMetadata[] } = {};
+          Object.keys(newTableState.filters).forEach((newFilterKey) => {
+            newFilters[newFilterKey] = [
+              ...newTableState.filters[newFilterKey].map((filterMetadata) => ({
+                ...filterMetadata,
+              })),
+            ];
           });
           this.tableComponent.filters = newFilters;
           this.tableComponent.multiSortMeta =
-            t.multiSortMeta?.map((m) => ({
+            newTableState.multiSortMeta?.map((m) => ({
               ...m,
             })) || [];
           this.changeDetectorRef.markForCheck();

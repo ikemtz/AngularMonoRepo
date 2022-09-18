@@ -148,6 +148,177 @@ MockTable {
 }
 `;
 
+exports[`ImngPrimeODataTableDirective should handle lazyload no filters 1`] = `
+MockTable {
+  "lazy": true,
+  "loading": false,
+  "multiSortMeta": Array [
+    Object {
+      "field": "x",
+      "order": 1,
+    },
+  ],
+  "onFilter": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "onLazyLoad": Subject {
+    "closed": false,
+    "currentObservers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "thrownError": null,
+  },
+  "paginator": true,
+  "reorderableColumns": true,
+  "resizableColumns": true,
+  "responsiveLayout": "scroll",
+  "rowHover": true,
+  "rowsPerPageOptions": undefined,
+  "showCurrentPageReport": true,
+  "sortMode": "multiple",
+  "styleClass": "p-datatable-gridlines",
+  "totalRecords": 1,
+  "value": Array [
+    Object {
+      "id": "apples",
+    },
+  ],
+}
+`;
+
+exports[`ImngPrimeODataTableDirective should handle lazyload no sorting 1`] = `
+MockTable {
+  "lazy": true,
+  "loading": false,
+  "multiSortMeta": Array [],
+  "onFilter": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "onLazyLoad": Subject {
+    "closed": false,
+    "currentObservers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "thrownError": null,
+  },
+  "paginator": true,
+  "reorderableColumns": true,
+  "resizableColumns": true,
+  "responsiveLayout": "scroll",
+  "rowHover": true,
+  "rowsPerPageOptions": undefined,
+  "showCurrentPageReport": true,
+  "sortMode": "multiple",
+  "styleClass": "p-datatable-gridlines",
+  "totalRecords": 1,
+  "value": Array [
+    Object {
+      "id": "apples",
+    },
+  ],
+}
+`;
+
 exports[`ImngPrimeODataTableDirective should handle tableState Changes 1`] = `
 MockTable {
   "filters": Object {
@@ -167,6 +338,138 @@ MockTable {
       "order": 1,
     },
   ],
+  "onFilter": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "onLazyLoad": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "thrownError": null,
+  },
+  "paginator": true,
+  "reorderableColumns": true,
+  "resizableColumns": true,
+  "responsiveLayout": "scroll",
+  "rowHover": true,
+  "rows": 20,
+  "rowsPerPageOptions": undefined,
+  "showCurrentPageReport": true,
+  "sortMode": "multiple",
+  "styleClass": "p-datatable-gridlines",
+  "totalRecords": 1,
+  "value": Array [
+    Object {
+      "id": "apples",
+    },
+  ],
+}
+`;
+
+exports[`ImngPrimeODataTableDirective should handle tableState Changes no filters 1`] = `
+MockTable {
+  "lazy": true,
+  "loading": false,
+  "onFilter": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [],
+    "thrownError": null,
+  },
+  "onLazyLoad": Subject {
+    "closed": false,
+    "currentObservers": null,
+    "hasError": false,
+    "isStopped": false,
+    "observers": Array [
+      SafeSubscriber {
+        "_finalizers": Array [
+          Subscription {
+            "_finalizers": null,
+            "_parentage": [Circular],
+            "closed": false,
+            "initialTeardown": [Function],
+          },
+        ],
+        "_parentage": null,
+        "closed": false,
+        "destination": ConsumerObserver {
+          "partialObserver": Object {
+            "complete": undefined,
+            "error": undefined,
+            "next": [Function],
+          },
+        },
+        "initialTeardown": undefined,
+        "isStopped": false,
+      },
+    ],
+    "thrownError": null,
+  },
+  "paginator": true,
+  "reorderableColumns": true,
+  "resizableColumns": true,
+  "responsiveLayout": "scroll",
+  "rowHover": true,
+  "rows": 20,
+  "rowsPerPageOptions": undefined,
+  "showCurrentPageReport": true,
+  "sortMode": "multiple",
+  "styleClass": "p-datatable-gridlines",
+  "totalRecords": 1,
+  "value": Array [
+    Object {
+      "id": "apples",
+    },
+  ],
+}
+`;
+
+exports[`ImngPrimeODataTableDirective should handle tableState Changes no sorting 1`] = `
+MockTable {
+  "filters": Object {
+    "xyz": Array [
+      Object {
+        "matchMode": "contains",
+        "operator": "and",
+        "value": "💩💩",
+      },
+    ],
+  },
+  "lazy": true,
+  "loading": false,
+  "multiSortMeta": Array [],
   "onFilter": Subject {
     "closed": false,
     "currentObservers": null,

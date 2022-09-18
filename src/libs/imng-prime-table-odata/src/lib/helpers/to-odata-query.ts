@@ -5,7 +5,7 @@ import {
   ODataQuery,
   Sort,
 } from 'imng-odata-client';
-import { PrimeTableState } from '../models/prime-odata-table-state';
+import { PrimeTableState } from '../models/prime-table-state';
 
 export function toODataQuery(val: PrimeTableState): ODataQuery {
   const query: ODataQuery = {

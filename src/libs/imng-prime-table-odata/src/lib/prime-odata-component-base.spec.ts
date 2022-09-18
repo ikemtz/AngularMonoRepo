@@ -6,7 +6,7 @@ import {
   createODataGridMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { PrimeTableState } from './models/prime-odata-table-state';
+import { PrimeTableState } from './models/prime-table-state';
 
 describe('PrimeODataBasedComponent', () => {
   let component: PrimeODataTableTestComponent;

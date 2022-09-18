@@ -9,7 +9,7 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { CompositeFilter, FilterOperators } from 'imng-odata-client';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { PrimeTableState } from './models/prime-odata-table-state';
+import { PrimeTableState } from './models/prime-table-state';
 
 describe('PrimeODataBasedComponent Observable State', () => {
   let component: PrimeODataTableTestComponent;
