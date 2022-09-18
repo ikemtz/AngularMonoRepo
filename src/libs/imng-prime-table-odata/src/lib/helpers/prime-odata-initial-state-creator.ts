@@ -6,7 +6,7 @@ export function createPrimeODataTableInitialState<
   return {
     tableData: [],
     totalRecordCount: 0,
-    loading: true,
+    activeEffectCount: 0,
     tableState: {},
     error: undefined,
   };

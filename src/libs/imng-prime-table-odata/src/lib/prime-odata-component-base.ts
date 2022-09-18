@@ -16,7 +16,7 @@ import {
   isCompositeFilter,
 } from 'imng-odata-client';
 import { IdType, toLocalTimeStamp } from 'imng-nrsrx-client-utils';
-import { PrimeTableState } from './models/prime-odata-table-state';
+import { PrimeTableState } from './models/prime-table-state';
 import { SortMeta } from 'primeng/api';
 
 const FACADE = new InjectionToken<
@@ -44,7 +44,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public tableStateQueryKey = 'odataQuery';
   public tableState: PrimeTableState;
   public tableData$: Observable<ENTITY[]>;
-  public loading$: Observable<boolean>;
+  public activeEffectCount$: Observable<number>;
   public rowsPerPageOptions: number[] = [10, 20, 50, 100];
   /**
    * A properties enum to make prime table columns definitions type safe
@@ -110,7 +110,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
     if (!this.tableRefresh$) {
       this.loadEntities(this.tableState);
     }
-    this.loading$ = this.facade.loading$;
+    this.activeEffectCount$ = this.facade.activeEffectCount$;
     this.tableData$ = this.facade.tableData$?.pipe(
       map((table) => (table ? table : [])),
     );

@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 export class ODataTableMockFacade
   implements IPrimeODataTableFacade<{ id?: IdType | null }>
 {
-  public loading$: Observable<boolean> = of(false);
+  public activeEffectCount$: Observable<number> = of(0);
   public tableState$: Observable<PrimeTableState> = of({});
   public tableData$: Observable<{ id?: IdType | null }[]> = of([
     { id: 'apples' },
