@@ -15,7 +15,11 @@ import {
   Filter,
   isCompositeFilter,
 } from 'imng-odata-client';
-import { IdType, toLocalTimeStamp } from 'imng-nrsrx-client-utils';
+import {
+  getRelatedValue,
+  IdType,
+  toLocalTimeStamp,
+} from 'imng-nrsrx-client-utils';
 import { PrimeTableState } from './models/prime-table-state';
 import { SortMeta } from 'primeng/api';
 
@@ -54,6 +58,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public abstract readonly props: any; //NOSONAR
   protected expanders?: Expander[];
   protected appliedTransformations?: string;
+  public readonly getRelatedValue = getRelatedValue<ENTITY>;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
@@ -121,19 +126,6 @@ export abstract class ImngPrimeODataTableBaseComponent<
 
   public getExportFileName(exportName: string): string {
     return `${exportName}-${toLocalTimeStamp()}`;
-  }
-  public getRelatedValue(
-    obj: ENTITY,
-    ...segments: string[]
-  ): unknown | undefined | null {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let result: any = obj; //NOSONAR
-    segments.forEach((segment) => {
-      if (result) {
-        result = result[segment];
-      }
-    });
-    return result;
   }
 
   public getRelatedField(...segments: string[]): string {
