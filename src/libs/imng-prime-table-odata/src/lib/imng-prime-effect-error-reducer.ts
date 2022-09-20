@@ -1,9 +1,10 @@
+import { decrementActiveEffectCount } from './helpers/crement-active-effect-count';
+
 export function imngPrimeEffectErrorReducer<
   T extends { activeEffectCount: number; error: unknown },
 >(state: T, effectError: { payload: { error: Error } }): T {
   return {
-    ...state,
-    activeEffectCount: state.activeEffectCount - 1,
+    ...decrementActiveEffectCount(state),
     error: effectError.payload.error,
   };
 }

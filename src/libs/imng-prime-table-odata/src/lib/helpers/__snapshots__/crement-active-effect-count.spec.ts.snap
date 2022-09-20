@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`decrementActiveEffectCount should handle below zero 1`] = `
+Object {
+  "activeEffectCount": 0,
+  "prop1": "😈",
+}
+`;
+
+exports[`decrementActiveEffectCount should handle zero 1`] = `
+Object {
+  "activeEffectCount": 0,
+  "prop1": "😈",
+}
+`;
+
+exports[`decrementActiveEffectCount should work 1`] = `
+Object {
+  "activeEffectCount": 18,
+  "prop1": "😈",
+}
+`;
+
+exports[`incrementActiveEffectCount should work 1`] = `
+Object {
+  "activeEffectCount": 10,
+  "prop1": "😈",
+}
+`;
