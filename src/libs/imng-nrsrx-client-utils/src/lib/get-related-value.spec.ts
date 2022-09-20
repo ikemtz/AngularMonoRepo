@@ -10,6 +10,21 @@ describe('getRelatedValue', () => {
     expect(xResult).toEqual(1);
     expect(yResult).toEqual('2');
   });
+  it('should work objects', () => {
+    const obj = {
+      parent: { child: { subChild: { x: 1, y: '2', z: [{ a: '1' }] } } },
+    };
+
+    const zResult: { a: string }[] = getRelatedValue(
+      obj,
+      'parent',
+      'child',
+      'subChild',
+      'z',
+    );
+
+    expect(zResult).toStrictEqual([{ a: '1' }]);
+  });
   it('should handle invalid paths', () => {
     const obj = { parent: { child: { subChild: { x: 1, y: '2' } } } };
 
