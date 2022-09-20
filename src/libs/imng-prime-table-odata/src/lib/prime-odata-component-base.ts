@@ -58,7 +58,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public abstract readonly props: any; //NOSONAR
   protected expanders?: Expander[];
   protected appliedTransformations?: string;
-  public readonly getRelatedValue = getRelatedValue<ENTITY>;
+  public readonly getRelatedValue = getRelatedValue;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
