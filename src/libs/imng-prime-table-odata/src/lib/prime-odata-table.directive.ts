@@ -42,6 +42,8 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     this.tableComponent.rowHover = true;
     this.tableComponent.resizableColumns = true;
     this.tableComponent.reorderableColumns = true;
+    this.tableComponent.currentPageReportTemplate =
+      'Showing {first} to {last} of {totalRecords} entries';
     this.tableComponent.rowsPerPageOptions =
       this.odataTableComponent.rowsPerPageOptions;
     this.allSubscriptions.push(

@@ -2,6 +2,7 @@
 
 exports[`ImngPrimeODataTableDirective should fire OnInit 1`] = `
 MockTable {
+  "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "lazy": true,
   "loading": false,
   "onFilter": Subject {
@@ -62,6 +63,7 @@ MockTable {
 
 exports[`ImngPrimeODataTableDirective should handle lazyload 1`] = `
 MockTable {
+  "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "lazy": true,
   "loading": false,
   "multiSortMeta": Array [
@@ -150,6 +152,7 @@ MockTable {
 
 exports[`ImngPrimeODataTableDirective should handle lazyload no filters 1`] = `
 MockTable {
+  "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "lazy": true,
   "loading": false,
   "multiSortMeta": Array [
@@ -238,6 +241,7 @@ MockTable {
 
 exports[`ImngPrimeODataTableDirective should handle lazyload no sorting 1`] = `
 MockTable {
+  "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "lazy": true,
   "loading": false,
   "multiSortMeta": Array [],
@@ -321,6 +325,7 @@ MockTable {
 
 exports[`ImngPrimeODataTableDirective should handle tableState Changes 1`] = `
 MockTable {
+  "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "filters": Object {
     "xyz": Array [
       Object {
@@ -397,6 +402,7 @@ MockTable {
 
 exports[`ImngPrimeODataTableDirective should handle tableState Changes no filters 1`] = `
 MockTable {
+  "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "lazy": true,
   "loading": false,
   "multiSortMeta": Array [
@@ -464,6 +470,7 @@ MockTable {
 
 exports[`ImngPrimeODataTableDirective should handle tableState Changes no sorting 1`] = `
 MockTable {
+  "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "filters": Object {
     "xyz": Array [
       Object {
