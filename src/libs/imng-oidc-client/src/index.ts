@@ -1,11 +1,11 @@
 export * from './lib/imng-oidc-client.module';
 export { OidcUserFacade } from './lib/+state/oidc-user.facade';
-export { oidcUserSelectors as OidcUserSelectors } from './lib/+state/oidc-user.selectors';
+export { oidcUserSelectors } from './lib/+state/oidc-user.selectors';
 export * as oidcActionTypes from './lib/+state/oidc.actions';
 export * from './lib/+state/oidc.effects';
 export * from './lib/+state/oidc.facade';
 export { OidcState, ErrorState, oidcFeature } from './lib/+state/oidc.reducer';
-export { oidcSelectors as oidcQuery } from './lib/+state/oidc.selectors';
+export { oidcSelectors } from './lib/+state/oidc.selectors';
 export * from './lib/models/arguments.model';
 export {
   OidcClientConfig,
