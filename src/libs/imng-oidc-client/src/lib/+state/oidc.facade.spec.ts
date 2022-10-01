@@ -53,7 +53,7 @@ describe('OidcFacade', () => {
           { provide: Router, useValue: { navigateByUrl: jest.fn() } },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -62,7 +62,7 @@ describe('OidcFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -100,7 +100,7 @@ describe('OidcFacade', () => {
       };
       const getUserMock = jest.fn(() => of(oidcUser as any));
       const removeUserMock = jest.fn(
-        () => new Promise<void>((resolve) => resolve())
+        () => new Promise<void>((resolve) => resolve()),
       );
       service.OidcUserManager.getUser = getUserMock as never;
       service.OidcUserManager.removeUser = removeUserMock;
@@ -109,21 +109,22 @@ describe('OidcFacade', () => {
       expect(getResult).toMatchSnapshot('identity');
       expect(await readFirst(facade.waitForAuthenticationLoaded())).toBe(true);
       expect(await readFirst(facade.permissions$)).toMatchSnapshot(
-        'permissions'
+        'permissions',
       );
       expect(await readFirst(facade.userMetadata$)).toMatchSnapshot(
-        'userMetadata'
+        'userMetadata',
       );
       expect(await readFirst(oidcUserFacade.permissions$)).toMatchSnapshot(
-        'user_permissions'
+        'user_permissions',
       );
+      expect(await readFirst(oidcUserFacade.scope$)).toMatchSnapshot('scope');
       expect(await readFirst(oidcUserFacade.email$)).toMatchSnapshot('email');
       expect(await readFirst(oidcUserFacade.profilePicture$)).toMatchSnapshot(
-        'profilePicture'
+        'profilePicture',
       );
 
       expect(
-        await readFirst(oidcUserFacade.hasPermissions(['requiredPermission']))
+        await readFirst(oidcUserFacade.hasPermissions(['requiredPermission'])),
       ).toBe(false);
       expect(getUserMock).toBeCalledTimes(1);
     });
@@ -140,7 +141,7 @@ describe('OidcFacade', () => {
       };
       const getUserMock = jest.fn(() => of(oidcUser as any));
       const removeUserMock = jest.fn(
-        () => new Promise<void>((resolve) => resolve())
+        () => new Promise<void>((resolve) => resolve()),
       );
       service.OidcUserManager.getUser = getUserMock as never;
       service.OidcUserManager.removeUser = removeUserMock;
@@ -149,21 +150,21 @@ describe('OidcFacade', () => {
       expect(getResult).toMatchSnapshot('identity');
       expect(await readFirst(facade.waitForAuthenticationLoaded())).toBe(true);
       expect(await readFirst(facade.permissions$)).toMatchSnapshot(
-        'permissions'
+        'permissions',
       );
       expect(await readFirst(facade.userMetadata$)).toMatchSnapshot(
-        'userMetadata'
+        'userMetadata',
       );
       expect(await readFirst(oidcUserFacade.permissions$)).toMatchSnapshot(
-        'user_permissions'
+        'user_permissions',
       );
       expect(await readFirst(oidcUserFacade.email$)).toMatchSnapshot('email');
       expect(await readFirst(oidcUserFacade.profilePicture$)).toMatchSnapshot(
-        'profilePicture'
+        'profilePicture',
       );
 
       expect(
-        await readFirst(oidcUserFacade.hasPermissions(['requiredPermission']))
+        await readFirst(oidcUserFacade.hasPermissions(['requiredPermission'])),
       ).toBe(false);
       expect(getUserMock).toBeCalledTimes(1);
 
@@ -184,7 +185,7 @@ describe('OidcFacade', () => {
         toStorageString: jest.fn(),
       };
       const removeUserMock = jest.fn(
-        () => new Promise<void>((resolve) => resolve())
+        () => new Promise<void>((resolve) => resolve()),
       );
       service.OidcUserManager.removeUser = removeUserMock as never;
       facade.addUserLoaded(oidcUser as any);
@@ -192,7 +193,7 @@ describe('OidcFacade', () => {
       expect(getResult).toBeUndefined();
       expect(await readFirst(facade.waitForAuthenticationLoaded())).toBe(true);
       expect(await readFirst(oidcUserFacade.profile$)).toMatchSnapshot(
-        'profile'
+        'profile',
       );
 
       facade.addUserSignedOut();
@@ -240,10 +241,10 @@ describe('OidcFacade', () => {
         oidcActions.setHttpError(
           new HttpErrorResponse({
             error: new Error(
-              'this is an expected error during unit tests, do not be alarmed!'
+              'this is an expected error during unit tests, do not be alarmed!',
             ),
-          })
-        )
+          }),
+        ),
       );
       const initialresult: any = await readFirst(facade.httpError$);
       expect(initialresult).toMatchSnapshot();
@@ -256,7 +257,7 @@ describe('OidcFacade', () => {
 
     it('should handle clearingSilentRenewErrors', async () => {
       const exception = new Error(
-        'this is an expected error during unit tests, do not be alarmed!'
+        'this is an expected error during unit tests, do not be alarmed!',
       );
       facade.addSilentRenewError(exception);
       const initialresult: any = await readFirst(facade.silentRenewError$);
