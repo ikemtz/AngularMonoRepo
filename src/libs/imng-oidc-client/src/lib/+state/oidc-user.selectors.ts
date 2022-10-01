@@ -9,7 +9,7 @@ const selectProfile = createSelector(
   (identity?: IOidcUser) => identity?.profile as OidcUserProfile,
 );
 
-const selectScope = createSelector(
+const selectScopes = createSelector(
   oidcSelectors.selectIdentity,
   (identity?: IOidcUser) => identity?.scope?.split(' ') || identity?.scopes,
 );
@@ -23,7 +23,7 @@ const selectProfilePicture = createSelector(
 );
 
 export const oidcUserSelectors = {
-  getScope: selectScope,
+  getScopes: selectScopes,
   getProfile: selectProfile,
   getEmail: selectEmail,
   getProfilePicture: selectProfilePicture,

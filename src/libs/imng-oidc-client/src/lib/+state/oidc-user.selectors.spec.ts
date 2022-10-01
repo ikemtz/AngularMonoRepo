@@ -25,7 +25,7 @@ describe('OIDC User Selector', () => {
   });
 
   it('getScope', () => {
-    const results = oidcUserSelectors.getScope(state);
+    const results = oidcUserSelectors.getScopes(state);
     expect(results).toStrictEqual(['🌎', 'group1', 'group2', 'email', 'pic']);
   });
 
@@ -40,7 +40,7 @@ describe('OIDC User Selector', () => {
         },
       },
     };
-    const results = oidcUserSelectors.getScope(state);
+    const results = oidcUserSelectors.getScopes(state);
     expect(results).toStrictEqual(['🌎', 'group1', 'group2', 'email', 'pic']);
   });
 });

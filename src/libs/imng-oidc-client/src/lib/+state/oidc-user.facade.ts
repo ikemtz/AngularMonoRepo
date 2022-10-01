@@ -13,8 +13,8 @@ export class OidcUserFacade {
   profile$: Observable<OidcUserProfile> = this.store.select(
     oidcUserSelectors.getProfile,
   );
-  scope$: Observable<string[] | undefined> = this.store.select(
-    oidcUserSelectors.getScope,
+  scopes$: Observable<string[] | undefined> = this.store.select(
+    oidcUserSelectors.getScopes,
   );
   email$: Observable<string | undefined> = this.store.select(
     oidcUserSelectors.getEmail,
