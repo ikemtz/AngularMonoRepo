@@ -117,7 +117,7 @@ describe('OidcFacade', () => {
       expect(await readFirst(oidcUserFacade.permissions$)).toMatchSnapshot(
         'user_permissions',
       );
-      expect(await readFirst(oidcUserFacade.scope$)).toMatchSnapshot('scope');
+      expect(await readFirst(oidcUserFacade.scopes$)).toMatchSnapshot('scope');
       expect(await readFirst(oidcUserFacade.email$)).toMatchSnapshot('email');
       expect(await readFirst(oidcUserFacade.profilePicture$)).toMatchSnapshot(
         'profilePicture',
