@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { OidcUserSelectors } from './oidc-user.selectors';
+import { oidcUserSelectors } from './oidc-user.selectors';
 import { OidcUserProfile } from '../models/oidc-user-profile';
 import { map } from 'rxjs/operators';
 
@@ -9,31 +9,34 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class OidcUserFacade {
-  constructor(private readonly store: Store) { }
+  constructor(private readonly store: Store) {}
   profile$: Observable<OidcUserProfile> = this.store.select(
-    OidcUserSelectors.getProfile
+    oidcUserSelectors.getProfile,
+  );
+  scope$: Observable<string[] | undefined> = this.store.select(
+    oidcUserSelectors.getScope,
   );
   email$: Observable<string | undefined> = this.store.select(
-    OidcUserSelectors.getEmail
+    oidcUserSelectors.getEmail,
   );
   profilePicture$: Observable<string | undefined> = this.store.select(
-    OidcUserSelectors.getProfilePicture
+    oidcUserSelectors.getProfilePicture,
   );
   permissions$: Observable<string[] | undefined> = this.store.select(
-    OidcUserSelectors.getPermissions
+    oidcUserSelectors.getPermissions,
   );
 
   public hasPermissions(
-    requiredPermissions: Array<string>
+    requiredPermissions: Array<string>,
   ): Observable<boolean> {
     return this.permissions$.pipe(
       map(
         (t) =>
           -1 <
           requiredPermissions.findIndex(
-            (f) => -1 < (t?.findIndex((i) => i === f) || -1)
-          )
-      )
+            (f) => -1 < (t?.findIndex((i) => i === f) || -1),
+          ),
+      ),
     );
   }
 }

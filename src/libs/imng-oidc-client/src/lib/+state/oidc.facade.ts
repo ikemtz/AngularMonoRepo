@@ -9,7 +9,7 @@ import {
 } from 'oidc-client';
 import { Observable } from 'rxjs';
 import { filter, take, map } from 'rxjs/operators';
-import { oidcQuery } from './oidc.selectors';
+import { oidcSelectors } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
 import { RequestArugments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
@@ -23,46 +23,52 @@ import { IOidcUser } from '../models/oidc-user';
 export class OidcFacade {
   constructor(
     private readonly store: Store,
-    private readonly oidcService: OidcService
+    private readonly oidcService: OidcService,
   ) {
     this.registerDefaultEvents();
   }
 
-  loading$: Observable<boolean> = this.store.select(oidcQuery.selectIsLoading);
+  loading$: Observable<boolean> = this.store.select(
+    oidcSelectors.selectIsLoading,
+  );
   expiring$: Observable<boolean> = this.store.select(
-    oidcQuery.selectIsExpiring
+    oidcSelectors.selectIsExpiring,
   );
   expired$: Observable<boolean> = this.store.select(
-    oidcQuery.selectIsExpired
+    oidcSelectors.selectIsExpired,
   );
-  loggedIn$: Observable<boolean> = this.store.select(oidcQuery.selectIsLoggedIn);
+  loggedIn$: Observable<boolean> = this.store.select(
+    oidcSelectors.selectIsLoggedIn,
+  );
   identity$: Observable<IOidcUser | undefined> = this.store.select(
-    oidcQuery.selectIdentity
+    oidcSelectors.selectIdentity,
   );
   accessToken$: Observable<string | undefined> = this.store.select(
-    oidcQuery.selectAccessToken
+    oidcSelectors.selectAccessToken,
   );
   httpError$: Observable<HttpErrorResponse | undefined> = this.store.select(
-    oidcQuery.selectHttpError
+    oidcSelectors.selectHttpError,
   );
   signInError$: Observable<unknown> = this.store.select(
-    oidcQuery.selectSignInError
+    oidcSelectors.selectSignInError,
   );
   silentRenewError$: Observable<unknown> = this.store.select(
-    oidcQuery.selectSilentRenewError
+    oidcSelectors.selectSilentRenewError,
   );
-  hasErrors$: Observable<boolean> = this.store.select(oidcQuery.selectHasErrors);
+  hasErrors$: Observable<boolean> = this.store.select(
+    oidcSelectors.selectHasErrors,
+  );
   permissions$: Observable<string[] | undefined> = this.store.select(
-    oidcQuery.selectPermissions
+    oidcSelectors.selectPermissions,
   );
   audiences$: Observable<string[] | null | undefined> = this.store.select(
-    oidcQuery.selectAudiences
+    oidcSelectors.selectAudiences,
   );
   expiresAt$: Observable<Date | null> = this.store.select(
-    oidcQuery.selectExpiresAt
+    oidcSelectors.selectExpiresAt,
   );
   userMetadata$: Observable<unknown> = this.store.select(
-    oidcQuery.selectUserMetadata
+    oidcSelectors.selectUserMetadata,
   );
 
   // default bindings to events
@@ -101,7 +107,7 @@ export class OidcFacade {
   public addUserSignedOut(): void {
     this.oidcService.removeOidcUser();
     this.store.dispatch(oidcActions.onUserSignedOut());
-  };
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public addUserSessionChanged(): void {
@@ -110,7 +116,7 @@ export class OidcFacade {
 
   public clearErrors(): void {
     this.store.dispatch(oidcActions.clearErrors());
-  };
+  }
 
   // OIDC Methods
 
@@ -137,7 +143,7 @@ export class OidcFacade {
     return this.loading$.pipe(
       filter((loading) => loading === false),
       take(1),
-      map(() => true)
+      map(() => true),
     );
   }
 
@@ -163,11 +169,11 @@ export class OidcFacade {
 
   public getSigninUrl(args?: RequestArugments): Observable<SigninRequest> {
     return this.oidcService.getSigninUrl(args);
-  };
+  }
 
   getSignoutUrl(args?: RequestArugments): Observable<SignoutRequest> {
     return this.oidcService.getSignoutUrl(args);
-  };
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerEvent(event: OidcEvent, callback: (...ev: unknown[]) => void): void {
@@ -185,7 +191,7 @@ export class OidcFacade {
     this.registerEvent(OidcEvent.UserSignedOut, this.addUserSignedOut);
     this.registerEvent(
       OidcEvent.UserSessionChanged,
-      this.addUserSessionChanged
+      this.addUserSessionChanged,
     );
   }
 }

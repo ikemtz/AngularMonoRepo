@@ -42,6 +42,8 @@ exports[`OidcFacade used in NgModule should getOidcUser with no metaData: permis
 
 exports[`OidcFacade used in NgModule should getOidcUser with no metaData: profilePicture 1`] = `undefined`;
 
+exports[`OidcFacade used in NgModule should getOidcUser with no metaData: scope 1`] = `undefined`;
+
 exports[`OidcFacade used in NgModule should getOidcUser with no metaData: user_permissions 1`] = `undefined`;
 
 exports[`OidcFacade used in NgModule should getOidcUser with no metaData: userMetadata 1`] = `undefined`;
