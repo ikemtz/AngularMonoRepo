@@ -5,42 +5,42 @@ import { IOidcUser } from '../models/oidc-user';
 
 const selectAccessToken = createSelector(
   oidcFeature.selectIdentity,
-  (user?: IOidcUser) => (user || { access_token: undefined }).access_token
+  (user?: IOidcUser) => (user || { access_token: undefined }).access_token,
 );
 
 // errors
 const selectOidcErrorState = createSelector(
   oidcFeature.selectErrors,
-  (errors) => errors
+  (errors) => errors,
 );
 
 const selectHasErrors = createSelector(
   selectOidcErrorState,
   (state: ErrorState) =>
-    !!state.httpError || !!state.signInError || !!state.silentRenewError
+    !!state.httpError || !!state.signInError || !!state.silentRenewError,
 );
 
 const selectSignInError = createSelector(
   selectOidcErrorState,
-  (errors: ErrorState) => errors.signInError
+  (errors: ErrorState) => errors.signInError,
 );
 
 const selectSilentRenewError = createSelector(
   selectOidcErrorState,
-  (errors: ErrorState) => errors.silentRenewError
+  (errors: ErrorState) => errors.silentRenewError,
 );
 
 const selectHttpError = createSelector(
   selectOidcErrorState,
-  (errors: ErrorState) => errors.httpError
+  (errors: ErrorState) => errors.httpError,
 );
 
-const selectExpiresAt = createSelector(oidcFeature.selectIdentity, (state?: IOidcUser) =>
-  state?.expires_at ? new Date(state.expires_at * 1000) : null //NOSONAR
+const selectExpiresAt = createSelector(
+  oidcFeature.selectIdentity,
+  (state?: IOidcUser) =>
+    state?.expires_at ? new Date(state.expires_at * 1000) : null, //NOSONAR
 );
-;
-
-export const oidcQuery = {
+export const oidcSelectors = {
   selectExpiresAt,
   selectPermissions: oidcFeature.selectPermissions,
   selectIsLoading: oidcFeature.selectIsLoading,

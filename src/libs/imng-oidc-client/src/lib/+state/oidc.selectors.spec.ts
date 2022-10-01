@@ -1,4 +1,4 @@
-import { oidcQuery } from './oidc.selectors';
+import { oidcSelectors } from './oidc.selectors';
 import { OIDC_FEATURE_KEY } from './oidc.reducer';
 
 describe('OIDC Selectors', () => {
@@ -26,7 +26,7 @@ describe('OIDC Selectors', () => {
 
   describe('OIDC Selectors', () => {
     it('getAccessToken', () => {
-      const results = oidcQuery.selectAccessToken(state);
+      const results = oidcSelectors.selectAccessToken(state);
       expect(results).toBe('🔑');
     });
   });
