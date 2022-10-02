@@ -8,5 +8,5 @@ export const formGroupPatcher =
     source.pipe(
       filter((t) => !!t),
       take(1),
-      tap((t) => addEditForm.patchValue(t)),
+      tap((t) => addEditForm.patchValue(t as { [key: string]: unknown })),
     );
