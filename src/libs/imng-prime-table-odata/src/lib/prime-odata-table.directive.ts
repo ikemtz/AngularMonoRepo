@@ -6,13 +6,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
-import { Table } from 'primeng/table';
 import { Subscriptions } from 'imng-ngrx-utils';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { FilterMetadata, LazyLoadEvent, SortMeta } from 'primeng/api';
 import { handleMultiColumnSorting } from './helpers/handle-multi-column-sorting';
 import { PrimeTableState } from './models/prime-table-state';
 import { IdType } from 'imng-nrsrx-client-utils';
+import { Table } from 'primeng/table';
 
 @Directive({
   selector: '[imngODataTable]',

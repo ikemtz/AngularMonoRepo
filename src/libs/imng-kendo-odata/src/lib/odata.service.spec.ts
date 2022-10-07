@@ -3,7 +3,7 @@ import { ODataService } from './odata.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { ODataState } from './odata-state';
-import { readFirst } from 'imng-ngrx-utils/testing'
+import { readFirst } from 'imng-ngrx-utils/testing';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 describe('ODataService', () => {
@@ -30,13 +30,25 @@ describe('ODataService', () => {
       inFilters: [
         {
           field: 'field1',
-          values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7', 1],
+          values: [
+            'x',
+            'y',
+            '1fd57024-3299-4523-b910-725fab258015',
+            '2b837a73-1d01-4414-ae92-c047a0ff0fe7',
+            1,
+          ],
         },
       ],
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -60,11 +72,17 @@ describe('ODataService', () => {
           values: ['xyz', 1, new Date(2021, 11, 30, 0, 0, 0, 0)],
         },
       ],
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
     };
     const expectedRequestedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('xyz',1,2021-12-30T`;
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(requestedUrl.startsWith(expectedRequestedUrlStart)).toBe(true);
@@ -76,10 +94,16 @@ describe('ODataService', () => {
     const gridState: ODataState = {
       selectors: ['id', 'name'],
       inFilters: [{ field: 'field1', values: [1, 2, 6, 4] }],
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -97,10 +121,18 @@ describe('ODataService', () => {
         {
           field: 'field1',
           logic: 'and',
-          values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
+          values: [
+            'x',
+            'y',
+            '1fd57024-3299-4523-b910-725fab258015',
+            '2b837a73-1d01-4414-ae92-c047a0ff0fe7',
+          ],
         },
       ],
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
       filter: {
         logic: 'and',
         filters: [
@@ -110,7 +142,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -128,10 +163,18 @@ describe('ODataService', () => {
         {
           field: 'field1',
           logic: 'or',
-          values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
+          values: [
+            'x',
+            'y',
+            '1fd57024-3299-4523-b910-725fab258015',
+            '2b837a73-1d01-4414-ae92-c047a0ff0fe7',
+          ],
         },
       ],
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
       filter: {
         logic: 'and',
         filters: [
@@ -141,7 +184,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -159,11 +205,23 @@ describe('ODataService', () => {
         {
           field: 'field1',
           logic: 'or',
-          values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
+          values: [
+            'x',
+            'y',
+            '1fd57024-3299-4523-b910-725fab258015',
+            '2b837a73-1d01-4414-ae92-c047a0ff0fe7',
+          ],
         },
-        { field: 'field2', logic: 'or', values: ['a', 'b', 't', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'] },
+        {
+          field: 'field2',
+          logic: 'or',
+          values: ['a', 'b', 't', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
+        },
       ],
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
       filter: {
         logic: 'and',
         filters: [
@@ -173,7 +231,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -191,7 +252,10 @@ describe('ODataService', () => {
         {
           table: 'parentTable',
           expanders: ['grandParentTable'],
-          filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
+          filter: {
+            logic: 'and',
+            filters: [{ field: 'id', operator: 'eq', value: 'abc' }],
+          },
           selectors: ['id', 'field2'],
           sort: [{ field: 'xyz', dir: 'desc' }],
         },
@@ -205,7 +269,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -222,8 +289,13 @@ describe('ODataService', () => {
       expanders: [
         {
           table: 'parentTable',
-          expanders: [{ table: 'grandParentTable', sort: [{ field: 'def', dir: 'asc' }] }],
-          filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
+          expanders: [
+            { table: 'grandParentTable', sort: [{ field: 'def', dir: 'asc' }] },
+          ],
+          filter: {
+            logic: 'and',
+            filters: [{ field: 'id', operator: 'eq', value: 'abc' }],
+          },
           selectors: ['id', 'field2'],
           sort: [{ field: 'xyz', dir: 'desc' }],
         },
@@ -237,7 +309,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -255,11 +330,23 @@ describe('ODataService', () => {
         {
           table: 'parentTable',
           expanders: [
-            { table: 'grandParentTableA', sort: [{ field: 'def', dir: 'asc' }] },
-            { table: 'grandParentTableB', sort: [{ field: 'ghi', dir: 'desc' }] },
-            { table: 'grandParentTableC', sort: [{ field: 'rst', dir: 'asc' }] },
+            {
+              table: 'grandParentTableA',
+              sort: [{ field: 'def', dir: 'asc' }],
+            },
+            {
+              table: 'grandParentTableB',
+              sort: [{ field: 'ghi', dir: 'desc' }],
+            },
+            {
+              table: 'grandParentTableC',
+              sort: [{ field: 'rst', dir: 'asc' }],
+            },
           ],
-          filter: { logic: 'and', filters: [{ field: 'id', operator: 'eq', value: 'abc' }] },
+          filter: {
+            logic: 'and',
+            filters: [{ field: 'id', operator: 'eq', value: 'abc' }],
+          },
           selectors: ['id', 'field2'],
           sort: [{ field: 'xyz', dir: 'desc' }],
         },
@@ -273,7 +360,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -297,7 +387,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -322,10 +415,16 @@ describe('ODataService', () => {
           },
         ],
       },
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -358,10 +457,16 @@ describe('ODataService', () => {
           },
         ],
       },
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -388,7 +493,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -414,7 +522,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -430,7 +541,9 @@ describe('ODataService', () => {
       return of(mockDataFactory()) as never;
     });
     const gridState: ODataState = {};
-    await readFirst(service.fetch('//idunno.com', gridState, { bustCache: true }));
+    await readFirst(
+      service.fetch('//idunno.com', gridState, { bustCache: true }),
+    );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(requestUrl).toContain('&timestamp=');
   });
@@ -459,7 +572,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -521,7 +637,10 @@ describe('ODataService', () => {
       },
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -533,10 +652,14 @@ describe('ODataService', () => {
   it('should support transformation operations', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {
-      transformations: 'groupby((columnName),aggregate(id with countdistinct as rowCount))',
+      transformations:
+        'groupby((columnName),aggregate(id with countdistinct as rowCount))',
     };
     const result = await readFirst(
-      service.fetch('//idunno.com', gridState, { utcNullableProps: ['fireDate'], dateNullableProps: ['fireDate'] }),
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
     );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
@@ -557,7 +680,11 @@ describe('ODataService', () => {
       },
     ] as CompositeFilterDescriptor[];
     const gridState: ODataState = {
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+        { table: 'a' },
+      ],
       selectors: ['id', 'name'],
       sort: [{ field: 'a.b', dir: 'asc' }],
       filter: { logic: 'or', filters: compositeFilter },
@@ -585,13 +712,21 @@ describe('ODataService', () => {
         filters: [
           { field: 'a.b', operator: 'eq', value: '123' },
           { field: 'a.d', operator: 'eq', value: 123 },
-          { field: 'a.d', operator: 'eq', value: new Date(2021, 11, 30, 0, 0, 0, 0) },
+          {
+            field: 'a.d',
+            operator: 'eq',
+            value: new Date(2021, 11, 30, 0, 0, 0, 0),
+          },
         ],
       },
     ] as CompositeFilterDescriptor[];
     const expectedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
     const gridState: ODataState = {
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }, { table: 'a' }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+        { table: 'a' },
+      ],
       selectors: ['id', 'name'],
       sort: [{ field: 'a.b', dir: 'asc' }],
       filter: { logic: 'or', filters: compositeFilter },
@@ -609,12 +744,20 @@ describe('ODataService', () => {
   it('should support byPrimaryKey operations', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {
-      expanders: [{ table: 'childTable2' }, { table: 'childTable1', selectors: ['id', 'name'] }],
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
       selectors: ['id', 'name'],
       inFilters: [
         {
           field: 'field1',
-          values: ['x', 'y', '1fd57024-3299-4523-b910-725fab258015', '2b837a73-1d01-4414-ae92-c047a0ff0fe7'],
+          values: [
+            'x',
+            'y',
+            '1fd57024-3299-4523-b910-725fab258015',
+            '2b837a73-1d01-4414-ae92-c047a0ff0fe7',
+          ],
         },
       ],
       childFilters: {
@@ -630,12 +773,17 @@ describe('ODataService', () => {
         ],
       },
     };
-    const result = await readFirst(service.fetchByPrimaryKey('//idunno.com', 'xyz', gridState));
+    const result = await readFirst(
+      service.fetchByPrimaryKey('//idunno.com', 'xyz', gridState),
+    );
     expect(httpClient.get).toBeCalledTimes(1);
     expect(httpClient.get).toBeCalledWith(
       `//idunno.com?$filter=id eq 'xyz'&$expand=childTable2,childTable1($select=id,name)&$select=id,name`,
     );
-    expect(result).toMatchSnapshot(jestPropertyMatcher.data[0]);
+    expect(result).toMatchSnapshot({
+      ...jestPropertyMatcher.data[0],
+      id: '537c0e1c-221f-4756-9869-2bf71abadd47',
+    });
   });
 });
 
@@ -685,6 +833,10 @@ const mockDataFactory = () => ({
 const jestPropertyMatcher = {
   data: [
     { birthDate: expect.any(Date), hireDate: expect.any(Date) },
-    { birthDate: expect.any(Date), fireDate: expect.any(Date), hireDate: expect.any(Date) },
+    {
+      birthDate: expect.any(Date),
+      fireDate: expect.any(Date),
+      hireDate: expect.any(Date),
+    },
   ],
 };

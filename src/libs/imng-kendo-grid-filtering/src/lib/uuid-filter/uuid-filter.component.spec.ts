@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ColumnComponent, FilterService } from '@progress/kendo-angular-grid';
 import { UuidFilterComponent } from './uuid-filter.component';
@@ -11,7 +12,9 @@ describe('UuidFilterComponent', () => {
       declarations: [UuidFilterComponent],
       providers: [
         { provide: FilterService, useValue: {} },
-        { provide: ColumnComponent, useValue: {} }]
+        { provide: ColumnComponent, useValue: {} },
+      ],
+      schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 
