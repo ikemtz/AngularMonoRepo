@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Expander, isComputation, isExpander, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
-import { isaDate, isaNumber } from 'imng-nrsrx-client-utils';
+import { IdType, isaDate, isaNumber } from 'imng-nrsrx-client-utils';
 import { FetchOptions } from './fetch-options';
 import { translateChildFilterExpression } from './translate-child-filter-expression';
 import { processChildFilterDescriptors } from './transform-child-filters';
@@ -16,22 +16,44 @@ import { ODataPayload } from './odata-payload';
   providedIn: 'root',
 })
 export class ODataService {
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {}
 
-  public fetch<T>(odataEndpoint: string, state: ODataState, options: FetchOptions = {}): Observable<ODataResult<T>> {
+  public fetch<ENTITY extends { id?: IdType | null | undefined }>(
+    odataEndpoint: string,
+    state: ODataState,
+    options: FetchOptions = {},
+  ): Observable<ODataResult<ENTITY>> {
     let tempState = { ...state };
-    options.boundChildTableProperties?.forEach((prop) => (tempState = translateChildFilterExpression(tempState, prop)));
-    tempState = translateChildSortingExpression(tempState, options.boundChildTableProperties);
+    options.boundChildTableProperties?.forEach(
+      (prop) => (tempState = translateChildFilterExpression(tempState, prop)),
+    );
+    tempState = translateChildSortingExpression(
+      tempState,
+      options.boundChildTableProperties,
+    );
     const countClause = tempState.count === false ? '' : '&$count=true';
     const cacheBustClause =
-      options.bustCache === true ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}` : '';
-    const queryStr = `${this.getODataString(tempState)}${countClause}${cacheBustClause}`;
+      options.bustCache === true
+        ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}`
+        : '';
+    const queryStr = `${this.getODataString(
+      tempState,
+    )}${countClause}${cacheBustClause}`;
     return this.http
-      .get<ODataPayload<T> | T[]>(`${odataEndpoint}?${queryStr}`)
-      .pipe(mapToExtDataResult<T>(options.utcNullableProps || [], options.dateNullableProps || []));
+      .get<ODataPayload<ENTITY> | ENTITY[]>(`${odataEndpoint}?${queryStr}`)
+      .pipe(
+        mapToExtDataResult<ENTITY>(
+          options.utcNullableProps || [],
+          options.dateNullableProps || [],
+        ),
+      );
   }
 
-  public fetchByPrimaryKey<T>(odataEndpoint: string, id: string, state?: ODataState): Observable<T> {
+  public fetchByPrimaryKey<ENTITY extends { id?: IdType | null | undefined }>(
+    odataEndpoint: string,
+    id: string,
+    state?: ODataState,
+  ): Observable<ENTITY> {
     const request: ODataState = {
       expanders: state?.expanders,
       selectors: state?.selectors,
@@ -42,7 +64,9 @@ export class ODataService {
     };
 
     const queryStr = this.getODataString(request);
-    return this.http.get<ODataPayload<T> | T[]>(`${odataEndpoint}?${queryStr}`).pipe(mapToExtDataResult<T>(), firstRecord<T>());
+    return this.http
+      .get<ODataPayload<ENTITY> | ENTITY[]>(`${odataEndpoint}?${queryStr}`)
+      .pipe(mapToExtDataResult<ENTITY>(), firstRecord<ENTITY>());
   }
 
   public getODataString(state: ODataState): string {
@@ -66,7 +90,8 @@ export class ODataService {
   }
 
   public processDates(queryString: string): string {
-    const dateRegex = /Date [e-t]{2} \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/g;
+    const dateRegex =
+      /Date [e-t]{2} \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/g;
     let m: RegExpExecArray | null;
     const dateMatches: string[] = [];
     while ((m = dateRegex.exec(queryString)) !== null) {
@@ -79,13 +104,18 @@ export class ODataService {
       });
     }
     dateMatches.forEach(
-      (date) => (queryString = queryString.replace(date, date.replace(/T\d{2}:\d{2}:\d{2}.\d{3}Z/g, ''))),
+      (date) =>
+        (queryString = queryString.replace(
+          date,
+          date.replace(/T\d{2}:\d{2}:\d{2}.\d{3}Z/g, ''),
+        )),
     );
     return queryString;
   }
 
   public processGuids(queryString: string): string {
-    const guidRegex = /'[\dA-F]{8}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{12}'/gi;
+    const guidRegex =
+      /'[\dA-F]{8}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{4}-?[\dA-F]{12}'/gi;
     let m: RegExpExecArray | null;
     const guidMatches: string[] = [];
     while ((m = guidRegex.exec(queryString)) !== null) {
@@ -97,7 +127,10 @@ export class ODataService {
         guidMatches.push(match);
       });
     }
-    guidMatches.forEach((guid) => (queryString = queryString.replace(guid, guid.replace(/'/g, ''))));
+    guidMatches.forEach(
+      (guid) =>
+        (queryString = queryString.replace(guid, guid.replace(/'/g, ''))),
+    );
     return queryString;
   }
 
@@ -110,7 +143,9 @@ export class ODataService {
 
   public processExpanders(state: ODataState, queryString: string): string {
     if (state.expanders && state.expanders.length > 0) {
-      const expansionStrings = state.expanders.map((element) => this.getExpansionString(element));
+      const expansionStrings = state.expanders.map((element) =>
+        this.getExpansionString(element),
+      );
       queryString += `&$expand=${expansionStrings.join(',')}`;
     }
     return queryString;
@@ -170,7 +205,10 @@ export class ODataService {
       if (!queryString || queryString.trim().length === 0) {
         queryString = `$filter=${inFilterString}`;
       } else if (queryString.match(/\$filter=/)) {
-        queryString = queryString.replace(/\$filter=/, `$filter=${inFilterString} ${inFilter.logic || 'and'} `);
+        queryString = queryString.replace(
+          /\$filter=/,
+          `$filter=${inFilterString} ${inFilter.logic || 'and'} `,
+        );
       } else {
         queryString = `${queryString}&$filter=${inFilterString}`;
       }
@@ -180,9 +218,13 @@ export class ODataService {
 
   public processComputations(state: ODataState, queryString: string): string {
     if (state.compute) {
-      const computeStrings: string[] = state.compute.filter((f) => !isComputation(f)).map((f) => f.toString());
+      const computeStrings: string[] = state.compute
+        .filter((f) => !isComputation(f))
+        .map((f) => f.toString());
       computeStrings.push(
-        ...state.compute.filter(isComputation).map((f) => `${f.fieldA} ${f.operator} ${f.fieldB} as ${f.alias}`),
+        ...state.compute
+          .filter(isComputation)
+          .map((f) => `${f.fieldA} ${f.operator} ${f.fieldB} as ${f.alias}`),
       );
       queryString = `$compute=${computeStrings.join(',')}${queryString}`;
     }

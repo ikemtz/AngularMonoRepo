@@ -30,7 +30,7 @@ const STATE = new InjectionToken<PrimeTableState>('imng-prime-table-state');
 
 @Component({ template: '' })
 export abstract class ImngPrimeODataTableBaseComponent<
-  ENTITY,
+  ENTITY extends { id?: IdType | null | undefined },
   FACADE extends IPrimeODataTableFacade<ENTITY>,
 > implements OnInit, OnDestroy, Subscribable
 {
