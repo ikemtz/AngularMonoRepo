@@ -2,6 +2,7 @@
 
 exports[`toODataQuery should convert empty State 1`] = `
 Object {
+  "filter": undefined,
   "orderBy": undefined,
   "skip": undefined,
   "top": undefined,
@@ -28,16 +29,44 @@ Object {
     ],
     "logic": "and",
   },
-  "filters": Object {
-    "abc": Array [
+  "orderBy": undefined,
+  "skip": undefined,
+  "top": undefined,
+}
+`;
+
+exports[`toODataQuery should convert state with Child Filter 1`] = `
+Object {
+  "filter": Object {
+    "filters": Array [
       Object {
-        "matchMode": "equals",
-        "operator": "all",
-        "value": "xyz",
+        "filters": Array [
+          Object {
+            "childTable": "abc/bdf",
+            "field": "xyz",
+            "linqOperation": "any",
+            "operator": Object {
+              "name": "equals",
+              "toODataString": [Function],
+            },
+            "value": "123",
+          },
+        ],
+        "logic": "or",
       },
     ],
+    "logic": "and",
   },
-  "orderBy": undefined,
+  "orderBy": Array [
+    Object {
+      "dir": "asc",
+      "field": "abc",
+    },
+    Object {
+      "dir": "desc",
+      "field": "xyz",
+    },
+  ],
   "skip": undefined,
   "top": undefined,
 }
@@ -63,25 +92,6 @@ Object {
     ],
     "logic": "and",
   },
-  "filters": Object {
-    "abc": Array [
-      Object {
-        "matchMode": "equals",
-        "operator": "all",
-        "value": "xyz",
-      },
-    ],
-  },
-  "multiSortMeta": Array [
-    Object {
-      "field": "abc",
-      "order": 1,
-    },
-    Object {
-      "field": "xyz",
-      "order": -1,
-    },
-  ],
   "orderBy": Array [
     Object {
       "dir": "asc",
@@ -99,16 +109,7 @@ Object {
 
 exports[`toODataQuery should convert with no filters 1`] = `
 Object {
-  "multiSortMeta": Array [
-    Object {
-      "field": "abc",
-      "order": 1,
-    },
-    Object {
-      "field": "xyz",
-      "order": -1,
-    },
-  ],
+  "filter": undefined,
   "orderBy": Array [
     Object {
       "dir": "asc",

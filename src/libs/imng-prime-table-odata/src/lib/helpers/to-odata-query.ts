@@ -1,7 +1,9 @@
 import {
+  ChildFilter,
   CompositeFilter,
   Filter,
   getFilterOperator,
+  isCompositeFilter,
   ODataQuery,
   Sort,
 } from 'imng-odata-client';
@@ -45,5 +47,31 @@ export function toODataQuery(val: PrimeTableState): ODataQuery {
       query.filter = { logic: 'and', filters };
     }
   }
+  delete (query as { filters: undefined }).filters;
+  delete (query as { multiSortMeta: undefined }).multiSortMeta;
+  query.filter = transformPrimeChildFilters(query.filter);
   return query;
+}
+
+export function transformPrimeChildFilters(
+  filter: CompositeFilter,
+): CompositeFilter {
+  if (filter) {
+    filter.filters = filter.filters.map((x) => {
+      if (isCompositeFilter(x)) {
+        return transformPrimeChildFilters(x);
+      } else if (x.field.indexOf('/') > 0) {
+        const fieldSegments = x.field.split('/');
+        return <ChildFilter>{
+          ...x,
+          childTable: fieldSegments[0].replace('.', '/'),
+          field: fieldSegments.filter((v, i) => i > 0).join('/'),
+          linqOperation: 'any',
+        };
+      } else {
+        return x;
+      }
+    });
+  }
+  return filter;
 }

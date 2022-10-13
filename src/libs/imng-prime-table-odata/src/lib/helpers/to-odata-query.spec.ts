@@ -17,6 +17,20 @@ describe('toODataQuery', () => {
     });
     expect(result).toMatchSnapshot();
   });
+  it('should convert state with Child Filter', () => {
+    const result = toODataQuery({
+      multiSortMeta: [
+        { field: 'abc', order: 1 },
+        { field: 'xyz', order: -1 },
+      ],
+      filters: {
+        ['abc.bdf/xyz']: [
+          { operator: 'all', matchMode: 'equals', value: '123' },
+        ],
+      },
+    });
+    expect(result).toMatchSnapshot();
+  });
   it('should convert with no filters', () => {
     const result = toODataQuery({
       multiSortMeta: [
