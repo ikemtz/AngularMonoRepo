@@ -129,7 +129,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
   }
 
   public getRelatedField(...segments: string[]): string {
-    return segments.join('.');
+    return segments.join('/');
   }
   public getEnumText(
     data: { name: string; displayText: string }[],
