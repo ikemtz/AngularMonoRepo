@@ -80,7 +80,7 @@ describe('PrimeODataBasedComponent Observable State', () => {
 
   it('should handle getRelatedField', () => {
     const result = component.getRelatedField('subItem', 'name');
-    expect(result).toBe('subItem.name');
+    expect(result).toBe('subItem/name');
   });
 
   it('should handle getEnumText with matching result', () => {
