@@ -10,3 +10,4 @@ export * from './lib/default-proxy-settings';
 export * from './lib/is-null-or-undefined';
 export * from './lib/num-pad';
 export * from './lib/get-related-value';
+export * from './lib/get-related-field';
