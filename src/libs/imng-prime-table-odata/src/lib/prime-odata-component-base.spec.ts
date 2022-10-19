@@ -50,6 +50,37 @@ describe('PrimeODataBasedComponent', () => {
     expect(component.facade.reloadEntities).toBeCalledTimes(1);
   });
 
+  it('should getRelatedField null', async () => {
+    const result = component.getRelatedField();
+    expect(result).toBeNull();
+  });
+
+  it('should getRelatedField parent', async () => {
+    const result = component.getRelatedField({
+      seperator: '.',
+      segments: ['x', 'y', 'z'],
+    });
+    expect(result).toBe('x.y.z');
+  });
+
+  it('should getRelatedField child using interface', async () => {
+    const result = component.getRelatedField({
+      seperator: '/',
+      segments: ['x', 'y', 'z'],
+    });
+    expect(result).toBe('x/y/z');
+  });
+
+  it('should getRelatedField child', async () => {
+    const result = component.getRelatedField('x', 'y', 'z');
+    expect(result).toBe('x/y/z');
+  });
+
+  it('should getRelatedField mixed', async () => {
+    const result = component.getRelatedField('x.d', 'y', 'z');
+    expect(result).toBe('x.d/y/z');
+  });
+
   it('should handle dataStateChange', async () => {
     component.dataStateChange({});
     expect(component.facade.loadEntities).toBeCalledTimes(2);

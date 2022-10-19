@@ -49,17 +49,17 @@ export function toODataQuery(val: PrimeTableState): ODataQuery {
   }
   delete (query as { filters: undefined }).filters;
   delete (query as { multiSortMeta: undefined }).multiSortMeta;
-  query.filter = transformPrimeChildFilters(query.filter);
+  query.filter = transformPrimeRelatedTableFilters(query.filter);
   return query;
 }
 
-export function transformPrimeChildFilters(
+export function transformPrimeRelatedTableFilters(
   filter: CompositeFilter,
 ): CompositeFilter {
   if (filter) {
     filter.filters = filter.filters.map((x) => {
       if (isCompositeFilter(x)) {
-        return transformPrimeChildFilters(x);
+        return transformPrimeRelatedTableFilters(x);
       } else if (x.field.indexOf('/') > 0) {
         const fieldSegments = x.field.split('/');
         return <ChildFilter>{

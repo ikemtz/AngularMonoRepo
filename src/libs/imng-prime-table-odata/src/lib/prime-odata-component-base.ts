@@ -131,7 +131,13 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public getExportFileName(exportName: string): string {
     return `${exportName}-${toLocalTimeStamp()}`;
   }
-
+  /**
+   * Naming convetion:
+   * . => Parent table navigation separator
+   * / => Child table navigation separator
+   * @param segments
+   * @returns
+   */
   public getRelatedField(
     ...segments: (string | IRelatedFieldOptions)[]
   ): string {
