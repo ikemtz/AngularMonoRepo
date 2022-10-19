@@ -17,8 +17,11 @@ import {
 } from 'imng-odata-client';
 import {
   getRelatedValue,
+  getRelatedField,
   IdType,
   toLocalTimeStamp,
+  IRelatedFieldOptions,
+  isRelatedFieldOptions,
 } from 'imng-nrsrx-client-utils';
 import { PrimeTableState } from './models/prime-table-state';
 import { SortMeta } from 'primeng/api';
@@ -120,6 +123,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
       map((table) => (table ? table : [])),
     );
   }
+
   public ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
   }
@@ -127,10 +131,26 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public getExportFileName(exportName: string): string {
     return `${exportName}-${toLocalTimeStamp()}`;
   }
-
-  public getRelatedField(...segments: string[]): string {
-    return segments.join('/');
+  /**
+   * Naming convetion:
+   * . => Parent table navigation separator
+   * / => Child table navigation separator
+   * @param segments
+   * @returns
+   */
+  public getRelatedField(
+    ...segments: (string | IRelatedFieldOptions)[]
+  ): string {
+    if (!segments.length) {
+      return null;
+    }
+    const initialSegment = segments[0];
+    if (isRelatedFieldOptions(initialSegment)) {
+      return getRelatedField(initialSegment);
+    }
+    return getRelatedField({ segments: segments.map((m) => m.toString()) });
   }
+
   public getEnumText(
     data: { name: string; displayText: string }[],
     nameValue: string,
