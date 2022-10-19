@@ -68,9 +68,10 @@ export function transformPrimeChildFilters(
           field: fieldSegments.filter((v, i) => i > 0).join('/'),
           linqOperation: 'any',
         };
-      } else {
-        return x;
+      } else if (x.field.indexOf('.') > 0) {
+        x.field = x.field.replace(/\./g, '/');
       }
+      return x;
     });
   }
   return filter;
