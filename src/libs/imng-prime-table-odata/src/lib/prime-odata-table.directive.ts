@@ -46,6 +46,7 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
       'Showing {first} to {last} of {totalRecords} entries';
     this.tableComponent.rowsPerPageOptions =
       this.odataTableComponent.rowsPerPageOptions;
+
     this.allSubscriptions.push(
       this.facade.tableData$.subscribe((t) => {
         this.tableComponent.value = t || [];
@@ -97,6 +98,18 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
             this.odataTableComponent.validateSortParameters(
               handleMultiColumnSorting(x, this.sortState),
             );
+        if (x.globalFilter && x.filters?.['global']) {
+          const globalFilter = x.filters['global'];
+          this.tableComponent.globalFilterFields?.forEach((field) => {
+            const filterVal = x.filters?.[field] as FilterMetadata[];
+            if (filterVal.length === 1) {
+              filterVal[0].value = globalFilter.value;
+              filterVal[0].matchMode = globalFilter.matchMode;
+              filterVal[0].operator = 'or';
+            }
+          });
+          delete x.filters['global'];
+        }
         this.facade.loadEntities(x as PrimeTableState);
       }),
     );

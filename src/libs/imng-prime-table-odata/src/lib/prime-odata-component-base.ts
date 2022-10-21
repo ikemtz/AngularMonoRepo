@@ -48,7 +48,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
    * This will allow you to provide a visual indicator that some of the columns have been hidden.
    */
   public hasHiddenColumns$: Observable<boolean>;
-  public tableStateQueryKey = 'odataQuery';
+  public tableStateQueryKey = 'tableState';
   public tableState: PrimeTableState;
   public tableData$: Observable<ENTITY[]>;
   public activeEffectCount$: Observable<number>;
@@ -140,7 +140,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
    */
   public getRelatedField(
     ...segments: (string | IRelatedFieldOptions)[]
-  ): string {
+  ): string | null {
     if (!segments.length) {
       return null;
     }

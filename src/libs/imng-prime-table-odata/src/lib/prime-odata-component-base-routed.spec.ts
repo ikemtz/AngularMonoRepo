@@ -26,7 +26,7 @@ describe('PrimeODataBasedComponentRouted', () => {
               snapshot: {
                 root: {
                   queryParams: {
-                    odataQuery:
+                    tableState:
                       'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XX0=',
                   },
                 },
@@ -51,7 +51,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     expect(router.navigate).toBeCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
-        odataQuery:
+        tableState:
           'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwibXVsdGlTb3J0TWV0YSI6W119',
       },
       queryParamsHandling: 'merge',
@@ -79,7 +79,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     expect(router.navigate).toBeCalledTimes(2);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
-        odataQuery:
+        tableState:
           'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwibXVsdGlTb3J0TWV0YSI6W119',
       },
       queryParamsHandling: 'merge',
@@ -88,7 +88,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     });
     expect(router.navigate).toHaveBeenNthCalledWith(2, [], {
       queryParams: {
-        odataQuery:
+        tableState:
           'eyJtdWx0aVNvcnRNZXRhIjpbeyJmaWVsZCI6IngiLCJvcmRlciI6MX1dLCJmaXJzdCI6MjAsImZpbHRlcnMiOnsieCI6W3sibWF0Y2hNb2RlIjoiZXF1YWxzIiwib3BlcmF0b3IiOiJhbGwiLCJ2YWx1ZSI6MX1dfX0=',
       },
       queryParamsHandling: 'merge',

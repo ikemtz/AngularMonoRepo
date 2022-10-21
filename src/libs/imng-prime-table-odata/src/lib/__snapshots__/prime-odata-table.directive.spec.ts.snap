@@ -64,6 +64,9 @@ MockTable {
 exports[`ImngPrimeODataTableDirective should handle lazyload 1`] = `
 MockTable {
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "globalFilterFields": Array [
+    "xyz",
+  ],
   "lazy": true,
   "loading": false,
   "multiSortMeta": Array [

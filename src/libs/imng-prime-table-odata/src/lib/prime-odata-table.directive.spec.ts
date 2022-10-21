@@ -51,6 +51,7 @@ describe('ImngPrimeODataTableDirective', () => {
   });
   it('should handle lazyload', () => {
     directive.ngOnInit();
+    tableComponent.globalFilterFields = ['xyz'];
     (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({
       first: 20,
       multiSortMeta: [{ field: 'x', order: 1 }],
@@ -58,7 +59,9 @@ describe('ImngPrimeODataTableDirective', () => {
         xyz: [
           { value: '💩💩', operator: 'and', matchMode: 'contains' },
         ] as FilterMetadata,
+        global: [{ operator: 'or', matchMode: 'contains' }] as FilterMetadata,
       },
+      globalFilter: 'b',
     });
     expect(tableComponent).toMatchSnapshot();
     expect(facade.loadEntities).toBeCalledTimes(1);
