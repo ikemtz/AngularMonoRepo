@@ -106,6 +106,41 @@ Object {
 }
 `;
 
+exports[`toODataQuery should convert state with parent Filters 1`] = `
+Object {
+  "filter": Object {
+    "filters": Array [
+      Object {
+        "filters": Array [
+          Object {
+            "field": "abc/bdf/xyz",
+            "operator": Object {
+              "name": "equals",
+              "toODataString": [Function],
+            },
+            "value": "123",
+          },
+        ],
+        "logic": "or",
+      },
+    ],
+    "logic": "and",
+  },
+  "orderBy": Array [
+    Object {
+      "dir": "asc",
+      "field": "abc",
+    },
+    Object {
+      "dir": "desc",
+      "field": "xyz",
+    },
+  ],
+  "skip": undefined,
+  "top": undefined,
+}
+`;
+
 exports[`toODataQuery should convert typical State 1`] = `
 Object {
   "filter": Object {
