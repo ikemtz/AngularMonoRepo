@@ -24,11 +24,15 @@ export function toODataQuery(val: PrimeTableState): ODataQuery {
 
   if (val.filters) {
     const filters = Object.keys(val.filters || {})
+      .filter((key) => val.filters?.[key].some((e) => e.value))
       .map((key) => ({
         key,
         collection: val.filters?.[key] || [],
       }))
-      .filter((t) => t.collection?.filter((t) => t.value).length)
+      .filter(
+        (metaData) =>
+          metaData.collection?.filter((filter) => filter.value).length,
+      )
       .map(
         (t): CompositeFilter => ({
           logic: t.collection?.every((e) => e.operator === 'and')
@@ -44,12 +48,17 @@ export function toODataQuery(val: PrimeTableState): ODataQuery {
         }),
       );
     if (filters?.length) {
-      query.filter = { logic: 'and', filters };
+      query.filter = {
+        logic: filters.some((e) => e.logic === 'or') ? 'or' : 'and',
+        filters,
+      };
     }
   }
   delete (query as { filters: undefined }).filters;
   delete (query as { multiSortMeta: undefined }).multiSortMeta;
-  query.filter = transformPrimeRelatedTableFilters(query.filter);
+  if (query.filter) {
+    query.filter = transformPrimeRelatedTableFilters(query.filter);
+  }
   return query;
 }
 
