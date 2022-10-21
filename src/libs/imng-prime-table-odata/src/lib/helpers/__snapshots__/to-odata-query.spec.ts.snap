@@ -2,7 +2,6 @@
 
 exports[`toODataQuery should convert empty State 1`] = `
 Object {
-  "filter": undefined,
   "orderBy": undefined,
   "skip": undefined,
   "top": undefined,
@@ -27,7 +26,7 @@ Object {
         "logic": "or",
       },
     ],
-    "logic": "and",
+    "logic": "or",
   },
   "orderBy": undefined,
   "skip": undefined,
@@ -55,7 +54,7 @@ Object {
         "logic": "or",
       },
     ],
-    "logic": "and",
+    "logic": "or",
   },
   "orderBy": Array [
     Object {
@@ -90,7 +89,7 @@ Object {
         "logic": "or",
       },
     ],
-    "logic": "and",
+    "logic": "or",
   },
   "orderBy": Array [
     Object {
@@ -125,7 +124,7 @@ Object {
         "logic": "or",
       },
     ],
-    "logic": "and",
+    "logic": "or",
   },
   "orderBy": Array [
     Object {
@@ -144,7 +143,6 @@ Object {
 
 exports[`toODataQuery should convert with no filters 1`] = `
 Object {
-  "filter": undefined,
   "orderBy": Array [
     Object {
       "dir": "asc",
