@@ -1,0 +1,23 @@
+<div class="d-flex flex-row-reverse">
+  <button
+    pButton
+    label="Clear"
+    class="btn btn-outline-secondary ms-2"
+    (click)="dataTable.clear()">
+    <em class="pi pi-filter-slash"></em>
+    Clear
+  </button>
+  <div class="input-group w-25">
+    <input
+      type="text"
+      class="form-control"
+      #globalFilter
+      pInputText
+      (keyup)="dataTable.filterGlobal(globalFilter.value, 'contains')"
+      placeholder="Search keyword" />
+    <button pButton label="Clear" class="btn btn-outline-secondary">
+      <em class="pi pi-search"></em>
+      Search
+    </button>
+  </div>
+</div>
