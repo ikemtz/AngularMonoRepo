@@ -11,3 +11,4 @@ export * from './lib/models/prime-odata-table-state';
 export * from './lib/imng-prime-effect-error-reducer';
 export * from './lib/models/prime-table-state';
 export * from './lib/helpers/crement-active-effect-count';
+export * from './lib/search-caption/search-caption.component';
