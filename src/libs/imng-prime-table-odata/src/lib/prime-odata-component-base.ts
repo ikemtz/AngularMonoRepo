@@ -140,7 +140,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
    */
   public getRelatedField(
     ...segments: (string | IRelatedFieldOptions)[]
-  ): string | null {
+  ): string {
     if (!segments.length) {
       return null;
     }
