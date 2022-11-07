@@ -68,6 +68,12 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
     this.allSubscriptions.push(
       this.facade.tableState$.subscribe((newTableState) => {
         this.tableComponent.rows = newTableState?.rows || 20;
+        if (
+          newTableState.first &&
+          this.tableComponent.first !== newTableState.first
+        ) {
+          this.tableComponent.first = newTableState.first;
+        }
         if (newTableState.filters) {
           const newFilters: { [s: string]: FilterMetadata[] } = {};
           Object.keys(newTableState.filters)

@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
 import {
   MockTable,
-  createODataGridMockFacade,
+  createODataTableMockFacade,
   ODataTableMockFacade,
 } from '../../testing/src';
 import { PrimeTableState } from './models/prime-table-state';
@@ -27,7 +27,7 @@ describe('ImngPrimeODataTableDirective', () => {
     tableComponent = new MockTable() as Table;
     changeDetectorRef = {} as ChangeDetectorRef;
     odataComponent = {
-      facade: createODataGridMockFacade({
+      facade: createODataTableMockFacade({
         tableState$: new Subject<PrimeTableState>(),
       }),
       validateSortParameters: (x) => x,

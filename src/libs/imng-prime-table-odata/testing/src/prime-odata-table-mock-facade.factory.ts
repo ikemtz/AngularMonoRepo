@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import { ODataTableMockFacade } from './prime-odata-table-mock.facade';
 
-export function createODataGridMockFacade(
+export function createODataTableMockFacade(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mockFacade?: ODataTableMockFacade | any,
 ): ODataTableMockFacade {
