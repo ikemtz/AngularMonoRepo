@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import {
   ODataTableMockFacade,
-  createODataGridMockFacade,
+  createODataTableMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { Router } from '@angular/router';
@@ -51,8 +51,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     expect(router.navigate).toBeCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
-        tableState:
-          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwibXVsdGlTb3J0TWV0YSI6W119',
+        tableState: 'e30=',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -76,20 +75,10 @@ describe('PrimeODataBasedComponentRouted', () => {
     };
     component.resetFilters();
     expect(component.tableState).toMatchSnapshot();
-    expect(router.navigate).toBeCalledTimes(2);
+    expect(router.navigate).toBeCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
-        tableState:
-          'eyJ0YWtlIjoyMCwic2tpcCI6MCwic29ydCI6W3siZmllbGQiOiJpZCIsImRpciI6ImFzYyJ9XSwibXVsdGlTb3J0TWV0YSI6W119',
-      },
-      queryParamsHandling: 'merge',
-      relativeTo: undefined,
-      skipLocationChange: false,
-    });
-    expect(router.navigate).toHaveBeenNthCalledWith(2, [], {
-      queryParams: {
-        tableState:
-          'eyJtdWx0aVNvcnRNZXRhIjpbeyJmaWVsZCI6IngiLCJvcmRlciI6MX1dLCJmaXJzdCI6MjAsImZpbHRlcnMiOnsieCI6W3sibWF0Y2hNb2RlIjoiZXF1YWxzIiwib3BlcmF0b3IiOiJhbGwiLCJ2YWx1ZSI6MX1dfX0=',
+        tableState: 'e30=',
       },
       queryParamsHandling: 'merge',
       relativeTo: undefined,
@@ -116,6 +105,6 @@ export class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseCompone
 > {
   props = {};
   constructor(override readonly router: Router) {
-    super(createODataGridMockFacade(), initialGridState, router);
+    super(createODataTableMockFacade(), initialGridState, router);
   }
 }
