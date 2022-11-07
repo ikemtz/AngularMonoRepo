@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import {
   ODataTableMockFacade,
-  createODataGridMockFacade,
+  createODataTableMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { CompositeFilter, FilterOperators } from 'imng-odata-client';
@@ -194,6 +194,6 @@ class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
 > {
   props = {};
   constructor(router: Router) {
-    super(createODataGridMockFacade(), of(initialGridState), router, of(true));
+    super(createODataTableMockFacade(), of(initialGridState), router, of(true));
   }
 }

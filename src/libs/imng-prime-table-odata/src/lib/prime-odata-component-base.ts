@@ -1,4 +1,4 @@
-import { Observable, isObservable, map } from 'rxjs';
+import { Observable, isObservable, map, tap, distinct } from 'rxjs';
 import {
   OnInit,
   OnDestroy,
@@ -122,6 +122,18 @@ export abstract class ImngPrimeODataTableBaseComponent<
     this.tableData$ = this.facade.tableData$?.pipe(
       map((table) => (table ? table : [])),
     );
+    this.allSubscriptions.push(
+      this.facade.tableState$
+        .pipe(
+          distinct(),
+          tap((t) => {
+            if (this.router) {
+              this.updateRouterState(t);
+            }
+          }),
+        )
+        .subscribe(),
+    );
   }
 
   public ngOnDestroy(): void {
@@ -140,7 +152,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
    */
   public getRelatedField(
     ...segments: (string | IRelatedFieldOptions)[]
-  ): string {
+  ): string | null {
     if (!segments.length) {
       return null;
     }
@@ -212,7 +224,6 @@ export abstract class ImngPrimeODataTableBaseComponent<
     this.expanders = primeTableState.expand;
     this.appliedTransformations = primeTableState.apply;
     this.facade.loadEntities(this.tableState);
-    this.updateRouterState(this.tableState);
   }
 
   public validateSortParameters(multiSortMeta?: SortMeta[]): SortMeta[] {

@@ -338,6 +338,7 @@ MockTable {
       },
     ],
   },
+  "first": 20,
   "lazy": true,
   "loading": false,
   "multiSortMeta": Array [
@@ -406,6 +407,7 @@ MockTable {
 exports[`ImngPrimeODataTableDirective should handle tableState Changes no filters 1`] = `
 MockTable {
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "first": 20,
   "lazy": true,
   "loading": false,
   "multiSortMeta": Array [
@@ -483,6 +485,7 @@ MockTable {
       },
     ],
   },
+  "first": 20,
   "lazy": true,
   "loading": false,
   "multiSortMeta": Array [],

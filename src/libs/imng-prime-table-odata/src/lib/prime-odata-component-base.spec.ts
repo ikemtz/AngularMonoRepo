@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import {
   ODataTableMockFacade,
-  createODataGridMockFacade,
+  createODataTableMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { PrimeTableState } from './models/prime-table-state';
@@ -152,6 +152,6 @@ class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
 > {
   props = {};
   constructor() {
-    super(createODataGridMockFacade(), initialGridState);
+    super(createODataTableMockFacade(), initialGridState);
   }
 }
