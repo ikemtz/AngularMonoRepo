@@ -113,7 +113,7 @@
     "@angular/cli": "~14.2.0",
     "@angular/compiler-cli": "14.2.0",
     "@angular/language-service": "14.2.0",
-    "@nrwl/angular": "14.6.0",
+    "@nrwl/angular": "14.8.6",
     "@nrwl/cli": "14.6.0",
     "@nrwl/cypress": "14.6.0",
     "@nrwl/eslint-plugin-nx": "14.6.0",
