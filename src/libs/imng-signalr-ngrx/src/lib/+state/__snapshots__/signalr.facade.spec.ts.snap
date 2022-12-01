@@ -5,6 +5,7 @@ Object {
   "signalr": Object {
     "isConnected": false,
     "lastReceivedMessage": undefined,
+    "notificationPermission": undefined,
     "receivedMessages": Array [],
   },
 }
@@ -18,6 +19,7 @@ Object {
       "data": "😎",
       "methodName": "helloWorld",
     },
+    "notificationPermission": undefined,
     "receivedMessages": Array [
       Object {
         "data": "😎",
@@ -33,6 +35,7 @@ Object {
   "signalr": Object {
     "isConnected": true,
     "lastReceivedMessage": undefined,
+    "notificationPermission": undefined,
     "receivedMessages": Array [],
   },
 }
