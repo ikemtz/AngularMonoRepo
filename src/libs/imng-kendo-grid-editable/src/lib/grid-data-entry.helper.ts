@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import {
   EditEvent,
   CancelEvent,
@@ -11,12 +11,14 @@ import {
 } from '@progress/kendo-angular-grid';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
+import { Subscriptions } from 'imng-ngrx-utils';
 
 export class GridDataEntryHelper<TENTITY extends { id?: IdType }> {
   private _editedRowIndex: number | undefined;
   private _gridFormGroup: FormGroup | undefined;
   private readonly _gridData$: BehaviorSubject<Array<TENTITY>>;
   public sortDescriptors$ = new BehaviorSubject<SortDescriptor[]>([]);
+  public readonly subscriptions: Subscriptions;
   public get gridFormGroup(): FormGroup | undefined {
     return this._gridFormGroup;
   }
@@ -52,10 +54,13 @@ export class GridDataEntryHelper<TENTITY extends { id?: IdType }> {
   constructor(
     private readonly formGroupFactory: () => FormGroup,
     private _gridData: TENTITY[] = [],
-    private readonly preSaveLogic: (entity: TENTITY) => TENTITY = (entity) =>
-      entity,
+    private readonly preSaveLogic: (
+      entity: TENTITY,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+    ) => Observable<TENTITY> | void = () => {},
   ) {
     this._gridData$ = new BehaviorSubject<Array<TENTITY>>(_gridData);
+    this.subscriptions = new Subscriptions();
   }
 
   public addItems(...items: TENTITY[]): TENTITY[] {
@@ -99,13 +104,25 @@ export class GridDataEntryHelper<TENTITY extends { id?: IdType }> {
   }
 
   public saveHandler(saveEvent: SaveEvent): void {
-    const result: TENTITY = this.preSaveLogic(saveEvent.formGroup.value);
+    const result: TENTITY = saveEvent.formGroup.value;
+    const resultPipe = this.preSaveLogic(result);
+    if (isObservable(resultPipe)) {
+      this.subscriptions.push(
+        resultPipe
+          .pipe(tap((record) => this.updateRecord(record, saveEvent)))
+          .subscribe(),
+      );
+    } else {
+      this.updateRecord(result, saveEvent);
+    }
+  }
+  public updateRecord(record: TENTITY, saveEvent: SaveEvent) {
     const tempGrid: TENTITY[] = this.gridData.map((t) => ({ ...t }));
     if (saveEvent.isNew) {
-      result.id = undefined;
-      tempGrid.push(result);
+      record.id = undefined;
+      tempGrid.push(record);
     } else {
-      tempGrid.splice(saveEvent.rowIndex, 1, result);
+      tempGrid.splice(saveEvent.rowIndex, 1, record);
     }
     this.gridData = tempGrid;
     this._gridData$.next(this.gridData);
