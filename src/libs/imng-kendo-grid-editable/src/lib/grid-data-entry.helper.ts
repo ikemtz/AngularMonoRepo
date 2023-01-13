@@ -52,6 +52,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   constructor(
     private readonly formGroupFactory: () => FormGroup,
     private _gridData: T[] = [],
+    private readonly preSaveLogic: (entity: T) => T = (x) => x,
   ) {
     this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
   }
@@ -97,7 +98,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   }
 
   public saveHandler(saveEvent: SaveEvent): void {
-    const result: T = saveEvent.formGroup.value;
+    const result: T = this.preSaveLogic(saveEvent.formGroup.value);
     const tempGrid: T[] = this.gridData.map((t) => ({ ...t }));
     if (saveEvent.isNew) {
       result.id = undefined;

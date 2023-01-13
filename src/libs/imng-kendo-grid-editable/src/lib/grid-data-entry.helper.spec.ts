@@ -48,11 +48,11 @@ describe('GridDataEntryHelper<>', () => {
   });
 
   it('should handle saving edited records ', async () => {
-    const gridHelper = new GridDataEntryHelper(formGroupFac, [
-      { id: '💩' },
-      { id: '🐂' },
-      { id: '🥜' },
-    ]);
+    const gridHelper = new GridDataEntryHelper(
+      formGroupFac,
+      [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }],
+      (x) => ({ ...x, value: 123 }),
+    );
 
     gridHelper.saveHandler({
       formGroup: formGroupFac(),
