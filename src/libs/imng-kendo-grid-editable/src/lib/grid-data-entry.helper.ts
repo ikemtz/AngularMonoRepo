@@ -12,25 +12,25 @@ import {
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
 
-export class GridDataEntryHelper<T extends { id?: IdType }> {
+export class GridDataEntryHelper<TENTITY extends { id?: IdType }> {
   private _editedRowIndex: number | undefined;
   private _gridFormGroup: FormGroup | undefined;
-  private readonly _gridData$: BehaviorSubject<Array<T>>;
+  private readonly _gridData$: BehaviorSubject<Array<TENTITY>>;
   public sortDescriptors$ = new BehaviorSubject<SortDescriptor[]>([]);
   public get gridFormGroup(): FormGroup | undefined {
     return this._gridFormGroup;
   }
 
-  public get gridData$(): Observable<Array<T>> {
+  public get gridData$(): Observable<Array<TENTITY>> {
     //NOSONAR
     return this._gridData$.asObservable();
   }
 
-  public get gridData(): Array<T> {
+  public get gridData(): Array<TENTITY> {
     return this._gridData;
   }
 
-  public set gridData(value: Array<T>) {
+  public set gridData(value: Array<TENTITY>) {
     if (value) {
       this._gridData = [...value];
       this._gridData$.next(this._gridData);
@@ -51,12 +51,14 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   }
   constructor(
     private readonly formGroupFactory: () => FormGroup,
-    private _gridData: T[] = [],
+    private _gridData: TENTITY[] = [],
+    private readonly preSaveLogic: (entity: TENTITY) => TENTITY = (entity) =>
+      entity,
   ) {
-    this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
+    this._gridData$ = new BehaviorSubject<Array<TENTITY>>(_gridData);
   }
 
-  public addItems(...items: T[]): T[] {
+  public addItems(...items: TENTITY[]): TENTITY[] {
     if (items) {
       this._gridData.push(...items);
       this._gridData$.next(this._gridData);
@@ -64,7 +66,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
     return this._gridData;
   }
 
-  public removeItems(...items: T[]): T[] {
+  public removeItems(...items: TENTITY[]): TENTITY[] {
     if (items) {
       items.forEach((f) => {
         this._gridData = this.gridData.filter((t) => t !== f);
@@ -97,8 +99,8 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   }
 
   public saveHandler(saveEvent: SaveEvent): void {
-    const result: T = saveEvent.formGroup.value;
-    const tempGrid: T[] = this.gridData.map((t) => ({ ...t }));
+    const result: TENTITY = this.preSaveLogic(saveEvent.formGroup.value);
+    const tempGrid: TENTITY[] = this.gridData.map((t) => ({ ...t }));
     if (saveEvent.isNew) {
       result.id = undefined;
       tempGrid.push(result);
@@ -129,7 +131,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public gridValidationLogic(_data: Array<T>): boolean {
+  public gridValidationLogic(_data: Array<TENTITY>): boolean {
     return this._gridData.length > 0 && !this._gridFormGroup;
   }
 }
