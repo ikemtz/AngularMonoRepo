@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { formGroupFac } from './editable-data-grid.directive.spec';
 import { AddEvent, GridComponent } from '@progress/kendo-angular-grid';
+import { of } from 'rxjs';
 
 export const gridComponentMockFac = () =>
   ({
@@ -51,7 +52,7 @@ describe('GridDataEntryHelper<>', () => {
     const gridHelper = new GridDataEntryHelper(
       formGroupFac,
       [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }],
-      (x) => ({ ...x, value: 123 }),
+      (x) => of({ ...x, value: 123 }),
     );
 
     gridHelper.saveHandler({
