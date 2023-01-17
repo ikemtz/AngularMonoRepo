@@ -81,6 +81,11 @@ export class GridDataEntryHelper<TENTITY extends { id?: IdType }> {
     return this._gridData;
   }
 
+  public clearData(): void {
+    this._gridData = [];
+    this._gridData$.next(this._gridData);
+  }
+
   public editHandler(editEvent: EditEvent): void {
     this.closeEditor(editEvent.sender, editEvent.rowIndex);
 
