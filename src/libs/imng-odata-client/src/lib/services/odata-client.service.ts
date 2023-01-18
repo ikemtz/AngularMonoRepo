@@ -85,9 +85,10 @@ export class ODataClientService {
       }
       result += ')';
       result = result
-        .replace(/\(;\)$/, '')
-        .replace(/\(\)/, '')
-        .replace(/;\)/, ')');
+        .replace(/\(;\$expand=/, '($expand=') //Replaces empty expand "(;$expand=" with "($expand="
+        .replace(/\$expand=;?\)$/, ')') //Replaces empty expand ";$expand=;)" or ";$expand=)" with ")"
+        .replace(/\(;\)$/, '') //Removes empty expansion clause "(;)"
+        .replace(/;\)$/, ')'); //Replaces ";)" with ")"
     }
     return result;
   }
