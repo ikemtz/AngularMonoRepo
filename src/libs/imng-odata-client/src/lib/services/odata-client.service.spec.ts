@@ -298,6 +298,19 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
+  it('should serialize ODataQueries simple nested expander', () => {
+    const queryString = service.getODataString({
+      expand: [
+        {
+          table: 'xyz',
+          expand: [{ table: 'abc' }],
+        },
+      ],
+    });
+    expect(queryString).not.toContain('()');
+    expect(queryString).toMatchSnapshot();
+  });
+
   it('should serialize ODataQueries with a date Filter', () => {
     const queryString = service.getODataString({
       select: ['A', 'b', '890'],
