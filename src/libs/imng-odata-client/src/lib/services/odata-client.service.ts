@@ -84,7 +84,10 @@ export class ODataClientService {
         result += `$expand=${expanders.join(',')};`;
       }
       result += ')';
-      result = result.replace(/\(\)/, '').replace(/;\)/, ')');
+      result = result
+        .replace(/\(;\)$/, '')
+        .replace(/\(\)/, '')
+        .replace(/;\)/, ')');
     }
     return result;
   }
