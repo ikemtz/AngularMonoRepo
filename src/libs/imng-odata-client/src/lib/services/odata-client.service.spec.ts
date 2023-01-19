@@ -311,6 +311,30 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
+  it('should serialize ODataQueries with nocount', () => {
+    const queryString = service.getODataString({
+      count: false,
+      expand: [
+        {
+          table: 'xyz',
+          expand: [{ table: 'abc' }],
+          filter: {
+            logic: 'and',
+            filters: [
+              {
+                field: 'xyz',
+                operator: FilterOperators.equals,
+                value: new Date(2022, 2, 2),
+              },
+            ],
+          },
+        },
+      ],
+    });
+    expect(queryString).not.toContain('count');
+    expect(queryString).toMatchSnapshot();
+  });
+
   it('should serialize ODataQueries with a date Filter', () => {
     const queryString = service.getODataString({
       select: ['A', 'b', '890'],
