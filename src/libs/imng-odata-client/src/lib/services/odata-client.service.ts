@@ -68,16 +68,12 @@ export class ODataClientService {
       result += element;
     } else {
       result += `${element.table}(`;
-      if (element.select && element.select.length > 0) {
-        result += `$select=${element.select.join()};`;
-      }
-      if (element.filter || element.orderBy) {
-        const query: ODataQuery = {
-          orderBy: element.orderBy,
-          filter: element.filter,
-        };
-        result += `${this.getODataString(query).replace(/&/g, ';')};`;
-      }
+      const query: ODataQuery = {
+        ...element,
+        count: element.count || false,
+        expand: undefined,
+      };
+      result += `${this.getODataString(query).replace(/&/g, ';')};`;
       if (element.expand) {
         const expanders = element.expand.map((expander) => {
           if (isExpander(expander)) {
@@ -88,7 +84,11 @@ export class ODataClientService {
         result += `$expand=${expanders.join(',')};`;
       }
       result += ')';
-      result = result.replace(/\(\)/, '').replace(/;\)/, ')');
+      result = result
+        .replace(/\(;\$expand=/, '($expand=') //Replaces empty expand "(;$expand=" with "($expand="
+        .replace(/\$expand=;?\)$/, ')') //Replaces empty expand ";$expand=;)" or ";$expand=)" with ")"
+        .replace(/\(;\)$/, '') //Removes empty expansion clause "(;)"
+        .replace(/;\)$/, ')'); //Replaces ";)" with ")"
     }
     return result;
   }
@@ -137,7 +137,10 @@ export class ODataClientService {
       const childFieldName = `o/${filter.field}`;
       return `${filter.childTable}/${
         filter.linqOperation
-      }(o: ${odataStringFunction(childFieldName, filter.value as never)} )`;
+      }(o: ${odataStringFunction(
+        childFieldName,
+        filter.value as never,
+      )} )`.replace(/\s\)/gm, '');
     } else {
       return odataStringFunction(filter.field, filter.value as never);
     }
