@@ -137,10 +137,7 @@ export class ODataClientService {
       const childFieldName = `o/${filter.field}`;
       return `${filter.childTable}/${
         filter.linqOperation
-      }(o: ${odataStringFunction(
-        childFieldName,
-        filter.value as never,
-      )} )`.replace(/\s\)/gm, '');
+      }(o: ${odataStringFunction(childFieldName, filter.value as never)})`;
     } else {
       return odataStringFunction(filter.field, filter.value as never);
     }

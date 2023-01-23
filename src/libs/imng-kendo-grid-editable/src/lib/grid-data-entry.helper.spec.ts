@@ -88,6 +88,20 @@ describe('GridDataEntryHelper<>', () => {
     expect(newRec.test).toBe('👍');
   });
 
+  it('should clearData', async () => {
+    const gridHelper = new GridDataEntryHelper(formGroupFac, [
+      { id: '💩', test: 'i' },
+      { id: '🐂' },
+      { id: '🥜' },
+    ]);
+
+    let result = await readFirst(gridHelper.gridData$);
+    expect(result.length).toBe(3);
+    gridHelper.clearData();
+    result = await readFirst(gridHelper.gridData$);
+    expect(result.length).toBe(0);
+  });
+
   it('should editHandler', async () => {
     const gridHelper = new GridDataEntryHelper(formGroupFac, [
       { id: '💩' },
