@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
-import { FilterOperators, ODataResult } from '../models';
+import { filterOperators, FilterOperators, ODataResult } from '../models';
 
 import { ODataClientService } from './odata-client.service';
 
@@ -351,6 +351,43 @@ describe('ODataClientService', () => {
         { field: 'xyz', dir: 'desc' },
         { field: 'id', dir: 'asc' },
       ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain('timestamp');
+    expect(queryString).toMatchSnapshot();
+  });
+
+  it('should serialize ODataQueries with a contains Filter', () => {
+    const queryString = service.getODataString({
+      filter: {
+        logic: 'and',
+        filters: [
+          {
+            logic: 'and',
+            filters: [
+              {
+                childTable: 'sub-z',
+                linqOperation: 'all',
+                field: 'x',
+                operator: FilterOperators.contains,
+                value: 'z',
+              },
+            ],
+          },
+          {
+            logic: 'and',
+            filters: [
+              {
+                childTable: 'sub-z',
+                linqOperation: 'all',
+                field: 'y',
+                operator: FilterOperators.contains,
+                value: 'z',
+              },
+            ],
+          },
+        ],
+      },
     });
     expect(queryString).not.toContain('?&');
     expect(queryString).not.toContain('timestamp');
