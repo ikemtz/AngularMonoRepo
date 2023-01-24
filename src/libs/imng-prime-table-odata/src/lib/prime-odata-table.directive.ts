@@ -20,7 +20,7 @@ import { IdType } from 'imng-nrsrx-client-utils';
 export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
   @Input('imngODataTable')
   public odataTableComponent: ImngPrimeODataTableBaseComponent<
-    object,
+    { id?: IdType | null },
     IPrimeODataTableFacade<{ id?: IdType | null }>
   >;
   private facade: IPrimeODataTableFacade<{ id?: IdType | null }>;

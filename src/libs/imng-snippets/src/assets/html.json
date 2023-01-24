@@ -41,24 +41,6 @@
 		],
 		"description": "HTML Kendo Data Entry Textbox with Field Validation"
 	},
-	"HtmlNgxbTypeAhead": {
-		"prefix": "imng-html-ngxb-type-ahead",
-		"body": [
-			"        <div class=\"form-group\">",
-			"          <label [for]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\" class=\"control-label me-4\">${2:__FIELD_NAME__TITLE_CASE__}</label>",
-			"          <input class=\"form-control\" [formControlName]=\"props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}\"",
-			"            (typeaheadOnSelect)=\"onTypeAheadSelected($event)\" [imngTypeahead]=\"${3:__FIELD_NAME__CAMEL_CASE__}TypeaheadFacade\"",
-			"            (typeaheadLoading)=\"onTypeAheadCleared($event)\"",
-			"            [ngClass]=\"{ 'is-invalid': (submitted | async) && (formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}) || formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__})) }\" />",
-			"          <div class=\"invalid-feedback\"",
-			"            *ngIf=\"(submitted | async) && (formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}) || formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}))\">",
-			"            <div *ngIf=\"(formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__}) || formControlErrors(props.${1:__FIELD_NAME__UPPER_SNAKE_CASE__})).required\">",
-			"              ${2:__FIELD_NAME__TITLE_CASE__} Is Required</div>",
-			"          </div>",
-			"        </div>"
-		],
-		"description": "HTML Kendo Data Entry Typeahead Textbox with Field Validation"
-	},
 	"HtmlKendoGridHeader": {
   	"prefix": "imng-kendo-html-grid-header",
   	"body": [

@@ -1,4 +1,5 @@
 {
+  "name": "imng-kendo-data-entry",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-kendo-data-entry/src",
@@ -6,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-kendo-data-entry"],
+      "outputs": ["{workspaceRoot}/dist/libs/imng-kendo-data-entry"],
       "options": {
         "project": "libs/imng-kendo-data-entry/ng-package.json"
       },
@@ -28,7 +29,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-kendo-data-entry"],
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-data-entry"],
       "options": {
         "jestConfig": "libs/imng-kendo-data-entry/jest.config.ts",
         "passWithNoTests": true
