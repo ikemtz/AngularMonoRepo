@@ -1,4 +1,5 @@
 {
+  "name": "imng-kendo-grid",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-kendo-grid/src",
@@ -6,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-kendo-grid"],
+      "outputs": ["{workspaceRoot}/dist/libs/imng-kendo-grid"],
       "options": {
         "project": "libs/imng-kendo-grid/ng-package.json"
       },
@@ -28,7 +29,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-kendo-grid"],
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-grid"],
       "options": {
         "jestConfig": "libs/imng-kendo-grid/jest.config.ts",
         "passWithNoTests": true

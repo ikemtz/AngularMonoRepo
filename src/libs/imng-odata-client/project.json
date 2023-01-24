@@ -1,11 +1,12 @@
 {
+  "name": "imng-odata-client",
   "projectType": "library",
   "sourceRoot": "libs/imng-odata-client/src",
   "prefix": "imng",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-odata-client"],
+      "outputs": ["{workspaceRoot}/dist/libs/imng-odata-client"],
       "options": {
         "project": "libs/imng-odata-client/ng-package.json"
       },
@@ -21,7 +22,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-odata-client"],
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-odata-client"],
       "options": {
         "jestConfig": "libs/imng-odata-client/jest.config.ts",
         "passWithNoTests": true
