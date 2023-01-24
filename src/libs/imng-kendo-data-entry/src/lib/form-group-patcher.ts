@@ -3,7 +3,7 @@ import { take, tap, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 export const formGroupPatcher =
-  <TEntity>(addEditForm: FormGroup) =>
+  <TEntity extends Record<string, unknown>>(addEditForm: FormGroup) =>
   (source: Observable<TEntity>) =>
     source.pipe(
       filter((t) => !!t),

@@ -1,11 +1,12 @@
 {
+  "name": "imng-prime-table-odata",
   "projectType": "library",
   "sourceRoot": "libs/imng-prime-table-odata/src",
   "prefix": "imng",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-prime-table-odata"],
+      "outputs": ["{workspaceRoot}/dist/libs/imng-prime-table-odata"],
       "dependsOn": [
         {
           "target": "build",
@@ -27,7 +28,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-prime-table-odata"],
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-prime-table-odata"],
       "options": {
         "jestConfig": "libs/imng-prime-table-odata/jest.config.ts",
         "passWithNoTests": true
