@@ -1,4 +1,5 @@
 {
+  "name": "adventure-works",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/adventure-works/src",
@@ -100,7 +101,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/adventure-works"],
+      "outputs": ["{workspaceRoot}/coverage/apps/adventure-works"],
       "options": {
         "jestConfig": "apps/adventure-works/jest.config.ts",
         "passWithNoTests": true
