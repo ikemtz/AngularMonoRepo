@@ -7,12 +7,14 @@ import {
   PDFModule,
 } from '@progress/kendo-angular-grid';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { IconsModule } from '@progress/kendo-angular-icons';
 
 @NgModule({
   declarations: [ImngODataGridDirective],
   imports: [
     CommonModule,
     GridModule,
+    IconsModule,
     PDFModule,
     ExcelModule,
     ImngKendoGridModule,
