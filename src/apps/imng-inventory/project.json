@@ -1,4 +1,5 @@
 {
+  "name": "imng-inventory",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/imng-inventory/src",
@@ -83,7 +84,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/imng-inventory"],
+      "outputs": ["{workspaceRoot}/coverage/apps/imng-inventory"],
       "options": {
         "jestConfig": "apps/imng-inventory/jest.config.ts",
         "passWithNoTests": true

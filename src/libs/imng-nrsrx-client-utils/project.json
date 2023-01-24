@@ -1,4 +1,5 @@
 {
+  "name": "imng-nrsrx-client-utils",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-nrsrx-client-utils/src",
@@ -6,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-nrsrx-client-utils"],
+      "outputs": ["{workspaceRoot}/dist/libs/imng-nrsrx-client-utils"],
       "options": {
         "project": "libs/imng-nrsrx-client-utils/ng-package.json"
       },
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-nrsrx-client-utils"],
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-nrsrx-client-utils"],
       "options": {
         "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.ts",
         "passWithNoTests": true

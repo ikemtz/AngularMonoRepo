@@ -1,4 +1,5 @@
 {
+  "name": "imng-snippets",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-snippets/src",
@@ -6,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-snippets"],
+      "outputs": ["{workspaceRoot}/dist/libs/imng-snippets"],
       "options": {
         "project": "libs/imng-snippets/ng-package.json"
       },
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-snippets"],
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-snippets"],
       "options": {
         "jestConfig": "libs/imng-snippets/jest.config.ts",
         "passWithNoTests": true
