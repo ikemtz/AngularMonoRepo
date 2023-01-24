@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Expander, isComputation, isExpander, ODataState } from './odata-state';
 import { ODataResult } from './odata-result';
 import { firstRecord, mapToExtDataResult } from './odata-rxjs-operators';
-import { isaDate, isaNumber } from 'imng-nrsrx-client-utils';
+import { IdType, isaDate, isaNumber } from 'imng-nrsrx-client-utils';
 import { FetchOptions } from './fetch-options';
 import { translateChildFilterExpression } from './translate-child-filter-expression';
 import { processChildFilterDescriptors } from './transform-child-filters';
@@ -18,7 +18,7 @@ import { ODataPayload } from './odata-payload';
 export class ODataService {
   constructor(private readonly http: HttpClient) {}
 
-  public fetch<T extends Record<string, unknown>>(
+  public fetch<T extends { id?: IdType | null }>(
     odataEndpoint: string,
     state: ODataState,
     options: FetchOptions = {},
@@ -49,7 +49,7 @@ export class ODataService {
       );
   }
 
-  public fetchByPrimaryKey<T extends Record<string, unknown>>(
+  public fetchByPrimaryKey<T extends { id?: IdType | null }>(
     odataEndpoint: string,
     id: string,
     state?: ODataState,
