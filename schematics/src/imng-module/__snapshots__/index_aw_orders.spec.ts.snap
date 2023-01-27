@@ -492,43 +492,40 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
 
 exports[`imng-module AdventureWorks Orders crud html template should work 1`] = `
 "<imng-data-entry-dialog [width]=\\"700\\" [height]=\\"550\\" [parentComponent]=\\"this\\" autoFocusedElement=\\"#order_id\\">
-  <form novalidate [formGroup]=\\"addEditForm\\" autocomplete=\\"false\\" class=\\"row\\">
+  <form id=\\"imng-form\\" novalidate [formGroup]=\\"addEditForm\\" autocomplete=\\"false\\" class=\\"row\\">
     <div class=\\"col-md-6\\">
       <label for=\\"id\\" class=\\"control-label\\">Id:</label>
-      <input id=\\"id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.ID\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }\\" />
+      <input id=\\"id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.ID\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.ID)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.ID)?.[RequiredError]\\">Order id is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"order_id\\" class=\\"control-label\\">Order Id:</label>
-      <input id=\\"order_id\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.ORDER_ID\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ORDER_ID) }\\" />
+      <input id=\\"order_id\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.ORDER_ID\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.ORDER_ID)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.ORDER_ID)?.[RequiredError]\\">Order order id is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"revision_num\\" class=\\"control-label\\">Revision Num:</label>
-      <input id=\\"revision_num\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.REVISION_NUM\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.REVISION_NUM) }\\" />
+      <input id=\\"revision_num\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.REVISION_NUM\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.REVISION_NUM)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.REVISION_NUM)?.[RequiredError]\\">Order revision num is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"date\\" class=\\"control-label\\">Date:</label>
-      <kendo-datepicker id=\\"date\\" class=\\"form-control\\" [formControlName]=\\"props.DATE\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DATE) }\\"></kendo-datepicker>
+      <kendo-datepicker id=\\"date\\" class=\\"form-control\\" [formControlName]=\\"props.DATE\\">
+      </kendo-datepicker>
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.DATE)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.DATE)?.[RequiredError]\\">Order date is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"due_date\\" class=\\"control-label\\">Due Date:</label>
-      <kendo-datepicker id=\\"due_date\\" class=\\"form-control\\" [formControlName]=\\"props.DUE_DATE\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DUE_DATE) }\\"></kendo-datepicker>
+      <kendo-datepicker id=\\"due_date\\" class=\\"form-control\\" [formControlName]=\\"props.DUE_DATE\\">
+      </kendo-datepicker>
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.DUE_DATE)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.DUE_DATE)?.[RequiredError]\\">Order due date is required</div>
       </div>
@@ -548,8 +545,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         [valueField]=\\"ENUM_NAME\\"
         [valuePrimitive]=\\"true\\"
         [filterable]=\\"true\\"
-        (filterChange)=\\"handleStatusTypeFilter($event)\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STATUS_TYPE) }\\">
+        (filterChange)=\\"handleStatusTypeFilter($event)\\">
       </kendo-combobox>
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.STATUS_TYPE)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.STATUS_TYPE)?.[RequiredError]\\">Order status type is required</div>
@@ -561,8 +557,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"num\\" class=\\"control-label\\">Num:</label>
-      <input id=\\"num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NUM\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }\\" />
+      <input id=\\"num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NUM\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NUM)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.NUM)?.[RequiredError]\\">Order num is required</div>
         <div *ngIf=\\"formControlErrors(props.NUM)?.[MinLengthError]\\">
@@ -578,8 +573,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"customer_id\\" class=\\"control-label\\">Customer Id:</label>
-      <input id=\\"customer_id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.CUSTOMER_ID\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.CUSTOMER_ID) }\\" />
+      <input id=\\"customer_id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.CUSTOMER_ID\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.CUSTOMER_ID)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.CUSTOMER_ID)?.[RequiredError]\\">Order customer id is required</div>
       </div>
@@ -603,8 +597,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         [valueField]=\\"ENUM_NAME\\"
         [valuePrimitive]=\\"true\\"
         [filterable]=\\"true\\"
-        (filterChange)=\\"handleShippingTypeFilter($event)\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SHIPPING_TYPE) }\\">
+        (filterChange)=\\"handleShippingTypeFilter($event)\\">
       </kendo-combobox>
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.SHIPPING_TYPE)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.SHIPPING_TYPE)?.[RequiredError]\\">Order shipping type is required</div>
@@ -616,32 +609,28 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"sub_total\\" class=\\"control-label\\">Sub Total:</label>
-      <input id=\\"sub_total\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.SUB_TOTAL\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SUB_TOTAL) }\\" />
+      <input id=\\"sub_total\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.SUB_TOTAL\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.SUB_TOTAL)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.SUB_TOTAL)?.[RequiredError]\\">Order sub total is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"tax_amt\\" class=\\"control-label\\">Tax Amt:</label>
-      <input id=\\"tax_amt\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.TAX_AMT\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.TAX_AMT) }\\" />
+      <input id=\\"tax_amt\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.TAX_AMT\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.TAX_AMT)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.TAX_AMT)?.[RequiredError]\\">Order tax amt is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"freight\\" class=\\"control-label\\">Freight:</label>
-      <input id=\\"freight\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.FREIGHT\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.FREIGHT) }\\" />
+      <input id=\\"freight\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.FREIGHT\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.FREIGHT)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.FREIGHT)?.[RequiredError]\\">Order freight is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"total_due\\" class=\\"control-label\\">Total Due:</label>
-      <input id=\\"total_due\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.TOTAL_DUE\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.TOTAL_DUE) }\\" />
+      <input id=\\"total_due\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.TOTAL_DUE\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.TOTAL_DUE)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.TOTAL_DUE)?.[RequiredError]\\">Order total due is required</div>
       </div>
