@@ -34,10 +34,19 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
     </kendo-dialog>
 
     <ng-template #defaultDialogActionsTpl>
-      <button kendoButton (click)="cancel()" class="btn btn-secondary btn-sm">
+      <button
+        type="cancel"
+        kendoButton
+        (click)="cancel()"
+        class="btn btn-secondary btn-sm">
         Cancel
       </button>
-      <button kendoButton (click)="submit()" class="btn btn-primary btn-sm">
+      <button
+        form="imng-form"
+        type="submit"
+        kendoButton
+        (click)="submit()"
+        class="btn btn-primary btn-sm">
         {{ saveButtonText }}
       </button>
     </ng-template>`,
