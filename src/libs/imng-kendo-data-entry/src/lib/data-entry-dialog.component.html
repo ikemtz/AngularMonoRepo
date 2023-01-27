@@ -17,13 +17,11 @@
     </ng-container>
   </kendo-dialog-actions>
 </kendo-dialog>
-
+<!-- Do not reference this if you're looking to define your own buttons
+      Instead look at ./dialog-buttons.directive.spec.ts as an example.
+ -->
 <ng-template #defaultDialogActionsTpl>
-  <button
-    type="cancel"
-    kendoButton
-    (click)="cancel()"
-    class="btn btn-secondary btn-sm">
+  <button kendoButton (click)="cancel()" class="btn btn-secondary btn-sm">
     Cancel
   </button>
   <button

@@ -32,13 +32,8 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
         </ng-container>
       </kendo-dialog-actions>
     </kendo-dialog>
-
     <ng-template #defaultDialogActionsTpl>
-      <button
-        type="cancel"
-        kendoButton
-        (click)="cancel()"
-        class="btn btn-secondary btn-sm">
+      <button kendoButton (click)="cancel()" class="btn btn-secondary btn-sm">
         Cancel
       </button>
       <button
@@ -62,7 +57,7 @@ export class DataEntryDialogComponent implements OnInit {
   @Input() public autoFocusedElement?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public parentComponent?: BaseDataEntryComponent<any>; //NOSONAR
-  @Input() public saveButtonText = 'Save';
+  public saveButtonText: string = 'Save';
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
   /**
    * Example Usage:
@@ -88,6 +83,7 @@ export class DataEntryDialogComponent implements OnInit {
     this.dialogTitle = this.parentComponent.dialogTitle;
     this.loading$ = this.parentComponent.loading$;
     this.addEditForm = this.parentComponent.addEditForm;
+    this.saveButtonText = this.parentComponent.saveButtonText;
   }
 
   public close(): void {
