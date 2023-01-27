@@ -39,6 +39,7 @@ export abstract class BaseDataEntryComponent<
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
 
+  public formId = 'imng-form';
   public saveButtonText = 'Save';
   public readonly MinLengthError = 'minlength';
   public readonly RequiredError = 'required';

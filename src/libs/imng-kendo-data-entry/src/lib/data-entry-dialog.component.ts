@@ -37,7 +37,7 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
         Cancel
       </button>
       <button
-        form="imng-form"
+        [attr.form]="formId"
         type="submit"
         kendoButton
         (click)="submit()"
@@ -71,6 +71,7 @@ export class DataEntryDialogComponent implements OnInit {
   public dialogBtnsTemplate?: TemplateRef<unknown>;
   public loading$?: Observable<boolean>;
   public addEditForm?: FormGroup;
+  public formId = 'imng-form';
   public submitted = false;
   public dialogTitle?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -84,6 +85,7 @@ export class DataEntryDialogComponent implements OnInit {
     this.loading$ = this.parentComponent.loading$;
     this.addEditForm = this.parentComponent.addEditForm;
     this.saveButtonText = this.parentComponent.saveButtonText;
+    this.formId = this.parentComponent.formId;
   }
 
   public close(): void {
