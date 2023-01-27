@@ -17,7 +17,7 @@ describe('imng-crud', () => {
     const options: IOptions = {
       name: 'employee',
       openApiJsonUrl:
-        'https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
+        'https://raw.githubusercontent.com/ikemtz/AngularMonoRepo/master/schematics/open-api-docs/nrcrn-empl-odata.json',
       path: './test',
       swaggerProperties: [],
       storeName: 'employees',

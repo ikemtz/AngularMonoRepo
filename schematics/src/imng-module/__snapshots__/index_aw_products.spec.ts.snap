@@ -399,19 +399,17 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
 
 exports[`imng-module crud html template should work 1`] = `
 "<imng-data-entry-dialog [width]=\\"700\\" [height]=\\"550\\" [parentComponent]=\\"this\\" autoFocusedElement=\\"#name\\">
-  <form novalidate [formGroup]=\\"addEditForm\\" autocomplete=\\"false\\" class=\\"row\\">
+  <form id=\\"imng-form\\" novalidate [formGroup]=\\"addEditForm\\" autocomplete=\\"false\\" class=\\"row\\">
     <div class=\\"col-md-6\\">
       <label for=\\"id\\" class=\\"control-label\\">Id:</label>
-      <input id=\\"id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.ID\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }\\" />
+      <input id=\\"id\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.ID\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.ID)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.ID)?.[RequiredError]\\">Product id is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"name\\" class=\\"control-label\\">Name:</label>
-      <input id=\\"name\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NAME\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NAME) }\\" />
+      <input id=\\"name\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NAME\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NAME)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.NAME)?.[RequiredError]\\">Product name is required</div>
         <div *ngIf=\\"formControlErrors(props.NAME)?.[MinLengthError]\\">
@@ -423,8 +421,7 @@ exports[`imng-module crud html template should work 1`] = `
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"num\\" class=\\"control-label\\">Num:</label>
-      <input id=\\"num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NUM\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }\\" />
+      <input id=\\"num\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.NUM\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.NUM)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.NUM)?.[RequiredError]\\">Product num is required</div>
         <div *ngIf=\\"formControlErrors(props.NUM)?.[MinLengthError]\\">
@@ -436,8 +433,7 @@ exports[`imng-module crud html template should work 1`] = `
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"color\\" class=\\"control-label\\">Color:</label>
-      <input id=\\"color\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.COLOR\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.COLOR) }\\" />
+      <input id=\\"color\\" type=\\"text\\" class=\\"form-control\\" [formControlName]=\\"props.COLOR\\" />
         <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.COLOR)\\" class=\\"invalid-feedback\\">
           <div *ngIf=\\"formControlErrors(props.COLOR)?.[MinLengthError]\\">
             Product color requires a min length of
@@ -448,16 +444,14 @@ exports[`imng-module crud html template should work 1`] = `
       </div>
     <div class=\\"col-md-6\\">
       <label for=\\"standard_cost\\" class=\\"control-label\\">Standard Cost:</label>
-      <input id=\\"standard_cost\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.STANDARD_COST\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STANDARD_COST) }\\" />
+      <input id=\\"standard_cost\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.STANDARD_COST\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.STANDARD_COST)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.STANDARD_COST)?.[RequiredError]\\">Product standard cost is required</div>
       </div>
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"list_price\\" class=\\"control-label\\">List Price:</label>
-      <input id=\\"list_price\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.LIST_PRICE\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.LIST_PRICE) }\\" />
+      <input id=\\"list_price\\" type=\\"number\\" class=\\"form-control\\" [formControlName]=\\"props.LIST_PRICE\\" />
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.LIST_PRICE)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.LIST_PRICE)?.[RequiredError]\\">Product list price is required</div>
       </div>
@@ -480,8 +474,8 @@ exports[`imng-module crud html template should work 1`] = `
     </div>
     <div class=\\"col-md-6\\">
       <label for=\\"sell_start_date\\" class=\\"control-label\\">Sell Start Date:</label>
-      <kendo-datepicker id=\\"sell_start_date\\" class=\\"form-control\\" [formControlName]=\\"props.SELL_START_DATE\\"
-        [ngClass]=\\"{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SELL_START_DATE) }\\"></kendo-datepicker>
+      <kendo-datepicker id=\\"sell_start_date\\" class=\\"form-control\\" [formControlName]=\\"props.SELL_START_DATE\\">
+      </kendo-datepicker>
       <div *ngIf=\\"(submitted$ | async) && formControlErrors(props.SELL_START_DATE)\\" class=\\"invalid-feedback\\">
         <div *ngIf=\\"formControlErrors(props.SELL_START_DATE)?.[RequiredError]\\">Product sell start date is required</div>
       </div>

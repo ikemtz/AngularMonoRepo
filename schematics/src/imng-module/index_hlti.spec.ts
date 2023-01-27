@@ -20,7 +20,7 @@ describe('imng-module', () => {
     const options: IOptions = {
       name: 'healthItem',
       openApiJsonUrl:
-        'https://im-wa-hlto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
+        'https://raw.githubusercontent.com/ikemtz/AngularMonoRepo/master/schematics/open-api-docs/nrcrn-hlth-odata.json',
       path: './test',
       swaggerProperties: [],
       storeName: 'healthItems',

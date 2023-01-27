@@ -69,7 +69,13 @@ describe('DialogButtonsDirective', () => {
     [parentComponent]="this">
     <ng-template [imngDialogBtns] let-coreButtons>
       <button id="y" (click)="coreButtons.cancel()">😈</button>
-      <button id="x" (click)="coreButtons.submit()">😇</button>
+      <button
+        type="submit"
+        form="imng-form"
+        id="x"
+        (click)="coreButtons.submit()">
+        {{ saveButtonText }}
+      </button>
     </ng-template>
   </imng-data-entry-dialog>`,
 })

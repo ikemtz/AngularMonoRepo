@@ -1,8 +1,9 @@
 <kendo-dialog
   [width]="width"
+  [minWidth]="minWidth ?? width"
   [height]="height"
   (close)="close()"
-  [autoFocusedElement]="autoFocusedElement">
+  [autoFocusedElement]="autoFocusedElement || ''">
   <kendo-dialog-titlebar class="bg-primary">{{
     dialogTitle
   }}</kendo-dialog-titlebar>
@@ -16,16 +17,19 @@
     </ng-container>
   </kendo-dialog-actions>
 </kendo-dialog>
-
+<!-- Do not reference this if you're looking to define your own buttons
+      Instead look at ./dialog-buttons.directive.spec.ts as an example.
+ -->
 <ng-template #defaultDialogActionsTpl>
-  <button kendoButton id="btnCancel" class="k-button" (click)="cancel()">
+  <button kendoButton (click)="cancel()" class="btn btn-secondary btn-sm">
     Cancel
   </button>
   <button
+    form="imng-form"
+    type="submit"
     kendoButton
-    id="btnSave"
-    class="k-button k-primary"
-    (click)="submit()">
+    (click)="submit()"
+    class="btn btn-primary btn-sm">
     {{ saveButtonText }}
   </button>
 </ng-template>
