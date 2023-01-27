@@ -31,7 +31,7 @@
     "lint:aw": "nx workspace-lint && nx lint adventure-works",
     "lint:ivtr": "nx workspace-lint && nx lint imng-inventory",
     "lint:azc": "nx workspace-lint && nx lint imng-az-func-configr",
-    "lint:libs": "nx workspace-lint && nx run-many --target=lint --projects=imng-application-insights-ngrx,imng-kendo-chart-odata,imng-kendo-data-entry,imng-kendo-grid,imng-kendo-grid-array,imng-kendo-grid-editable,imng-kendo-grid-filtering,imng-kendo-grid-odata,imng-kendo-ngrx-idle,imng-kendo-odata,imng-ngrx-utils,imng-ngxb-typeahead,imng-nrsrx-client-utils,imng-oidc-client,imng-signalr-ngrx",
+    "lint:libs": "nx workspace-lint && nx run-many --target=lint --projects=imng-angular-core,imng-application-insights-ngrx,imng-kendo-chart-odata,imng-kendo-data-entry,imng-kendo-grid,imng-kendo-grid-array,imng-kendo-grid-editable,imng-kendo-grid-filtering,imng-kendo-grid-odata,imng-kendo-ngrx-idle,imng-kendo-odata,imng-ngrx-utils,imng-ngxb-typeahead,imng-nrsrx-client-utils,imng-odata-client,imng-oidc-client,imng-prime-table-odata,imng-signalr-ngrx,imng-snippets",
     "e2e": "nx e2e",
     "gen:ts:nrcrn": "node ./apps/nurse-cron/gen-ts.js && npm run format:write",
     "gen:ts:aw": "node ./apps/adventure-works/gen-ts.js && npm run format:write",
