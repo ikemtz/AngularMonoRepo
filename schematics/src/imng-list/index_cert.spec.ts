@@ -17,7 +17,7 @@ describe('imng-list', () => {
     const options: IOptions = {
       name: 'certification',
       openApiJsonUrl:
-        'https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
+        'https://raw.githubusercontent.com/ikemtz/AngularMonoRepo/master/schematics/open-api-docs/nrcrn-cert-odata.json',
       path: './test',
       swaggerProperties: [],
       storeName: 'certifications',
