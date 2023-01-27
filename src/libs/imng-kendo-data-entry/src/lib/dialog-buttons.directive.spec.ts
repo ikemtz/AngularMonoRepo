@@ -71,7 +71,7 @@ describe('DialogButtonsDirective', () => {
       <button id="y" (click)="coreButtons.cancel()">😈</button>
       <button
         type="submit"
-        form="imng-form"
+        [attr.form]="formId"
         id="x"
         (click)="coreButtons.submit()">
         {{ saveButtonText }}
