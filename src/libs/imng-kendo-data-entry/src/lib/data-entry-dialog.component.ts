@@ -57,7 +57,7 @@ export class DataEntryDialogComponent implements OnInit {
   @Input() public autoFocusedElement?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public parentComponent?: BaseDataEntryComponent<any>; //NOSONAR
-  public saveButtonText = 'Save';
+  @Input() public saveButtonText?: string;
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
   /**
    * Example Usage:
@@ -84,7 +84,7 @@ export class DataEntryDialogComponent implements OnInit {
     this.dialogTitle = this.parentComponent.dialogTitle;
     this.loading$ = this.parentComponent.loading$;
     this.addEditForm = this.parentComponent.addEditForm;
-    this.saveButtonText = this.parentComponent.saveButtonText;
+    this.saveButtonText ??= this.parentComponent.saveButtonText;
     this.formId = this.parentComponent.formId;
   }
 
