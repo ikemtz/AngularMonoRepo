@@ -104,6 +104,7 @@ describe('DataEntryDialog', () => {
   });
 
   it('should create', () => {
+    component.ngOnInit();
     expect(component).toMatchSnapshot();
   });
 

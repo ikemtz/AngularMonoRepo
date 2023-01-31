@@ -71,7 +71,7 @@ export class DataEntryDialogComponent implements OnInit {
   public dialogBtnsTemplate?: TemplateRef<unknown>;
   public loading$?: Observable<boolean>;
   public addEditForm?: FormGroup;
-  public formId = 'imng-form';
+  public formId?: string;
   public submitted = false;
   public dialogTitle?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -84,8 +84,8 @@ export class DataEntryDialogComponent implements OnInit {
     this.dialogTitle = this.parentComponent.dialogTitle;
     this.loading$ = this.parentComponent.loading$;
     this.addEditForm = this.parentComponent.addEditForm;
-    this.saveButtonText ??= this.parentComponent.saveButtonText;
-    this.formId = this.parentComponent.formId;
+    this.saveButtonText ??= this.parentComponent.saveButtonText ?? 'Save';
+    this.formId ??= this.parentComponent.formId ?? 'imng-form';
   }
 
   public close(): void {
