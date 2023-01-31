@@ -2,8 +2,11 @@
 
 exports[`DataEntryDialog should create 1`] = `
 DataEntryDialogComponent {
+  "addEditForm": "🐎",
+  "dialogTitle": "🔥",
   "formId": "imng-form",
   "height": 600,
+  "loading$": "💩",
   "parentComponent": Object {
     "addEditForm": "🐎",
     "closeForm": [MockFunction],
