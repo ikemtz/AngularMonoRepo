@@ -80,7 +80,7 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
             .filter((newFilterKey) => newTableState.filters?.[newFilterKey])
             .forEach((newFilterKey) => {
               newFilters[newFilterKey] = [
-                ...(newTableState.filters?.[newFilterKey].map(
+                ...(newTableState.filters?.[newFilterKey]?.map(
                   (filterMetadata) => ({
                     ...filterMetadata,
                   }),
