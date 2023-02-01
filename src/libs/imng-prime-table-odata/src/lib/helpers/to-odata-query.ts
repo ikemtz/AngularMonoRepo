@@ -24,7 +24,7 @@ export function toODataQuery(val: PrimeTableState): ODataQuery {
 
   if (val.filters) {
     const filters = Object.keys(val.filters || {})
-      .filter((key) => val.filters?.[key].some((e) => e.value))
+      .filter((key) => val.filters?.[key]?.some((e) => e.value))
       .map((key) => ({
         key,
         collection: val.filters?.[key] || [],
