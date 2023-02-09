@@ -8,9 +8,9 @@ import { isaString } from './id-type';
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function normalizeRequest<T extends object>(payload: T): T {
   for (const x in payload) {
-    const val: unknown = payload[x];
+    let val: unknown = payload[x];
     if (isaString(val)) {
-      val?.trim();
+      payload[x] = val = val?.trim() as never;
     }
     if (
       (isaString(val) && !val.length) ||
