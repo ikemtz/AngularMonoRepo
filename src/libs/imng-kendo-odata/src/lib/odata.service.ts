@@ -212,10 +212,9 @@ export class ODataService {
           return `'${m}'`;
         })
         .join(',');
-      const inFilterString =
-        `(${inFilter.field} in (${inVals})` +
-        (isNotIn ? ' eq false' : '') +
-        `)`;
+      const inFilterString = `(${inFilter.field} in (${inVals})${
+        isNotIn ? ' eq false' : ''
+      }))`;
       if (!queryString || queryString.trim().length === 0) {
         queryString = `$filter=${inFilterString}`;
       } else if (queryString.match(/\$filter=/)) {
