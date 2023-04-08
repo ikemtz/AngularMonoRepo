@@ -1,4 +1,5 @@
 {
+  "name": "imng-application-insights-ngrx",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-application-insights-ngrx/src",
@@ -6,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-application-insights-ngrx"],
+      "outputs": ["{workspaceRoot}/dist/libs/imng-application-insights-ngrx"],
       "options": {
         "project": "libs/imng-application-insights-ngrx/ng-package.json"
       },
@@ -22,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-application-insights-ngrx"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/imng-application-insights-ngrx"
+      ],
       "options": {
         "jestConfig": "libs/imng-application-insights-ngrx/jest.config.ts",
         "passWithNoTests": true
