@@ -1,4 +1,5 @@
 {
+  "name": "nurse-cron",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/nurse-cron/src",
@@ -97,7 +98,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/nurse-cron"],
+      "outputs": ["{workspaceRoot}/coverage/apps/nurse-cron"],
       "options": {
         "jestConfig": "apps/nurse-cron/jest.config.ts",
         "passWithNoTests": true
