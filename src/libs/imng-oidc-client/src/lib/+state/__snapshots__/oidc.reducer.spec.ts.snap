@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Employees Reducer valid Oidc actions onSignInError 1`] = `
-{
-  "audiences": [],
-  "errors": {
+Object {
+  "audiences": Array [],
+  "errors": Object {
     "httpError": undefined,
     "signInError": [Error: unit tests],
     "silentRenewError": undefined,
@@ -13,15 +13,15 @@ exports[`Employees Reducer valid Oidc actions onSignInError 1`] = `
   "isExpiring": false,
   "isLoading": false,
   "isLoggedIn": false,
-  "permissions": [],
+  "permissions": Array [],
   "userMetadata": undefined,
 }
 `;
 
 exports[`Employees Reducer valid Oidc actions onSignOutPopup 1`] = `
-{
-  "audiences": [],
-  "errors": {
+Object {
+  "audiences": Array [],
+  "errors": Object {
     "httpError": undefined,
     "signInError": undefined,
     "silentRenewError": undefined,
@@ -31,20 +31,20 @@ exports[`Employees Reducer valid Oidc actions onSignOutPopup 1`] = `
   "isExpiring": false,
   "isLoading": true,
   "isLoggedIn": false,
-  "permissions": [],
+  "permissions": Array [],
   "userMetadata": null,
 }
 `;
 
 exports[`Employees Reducer valid Oidc actions onUserFound 1`] = `
-{
+Object {
   "audiences": undefined,
-  "errors": {
+  "errors": Object {
     "httpError": undefined,
     "signInError": undefined,
     "silentRenewError": undefined,
   },
-  "identity": {
+  "identity": Object {
     "access_token": null,
   },
   "isExpired": false,
@@ -57,9 +57,9 @@ exports[`Employees Reducer valid Oidc actions onUserFound 1`] = `
 `;
 
 exports[`Employees Reducer valid Oidc actions onUserLoading 1`] = `
-{
-  "audiences": [],
-  "errors": {
+Object {
+  "audiences": Array [],
+  "errors": Object {
     "httpError": undefined,
     "signInError": undefined,
     "silentRenewError": undefined,
@@ -69,7 +69,7 @@ exports[`Employees Reducer valid Oidc actions onUserLoading 1`] = `
   "isExpiring": false,
   "isLoading": true,
   "isLoggedIn": false,
-  "permissions": [],
+  "permissions": Array [],
   "userMetadata": undefined,
 }
 `;
