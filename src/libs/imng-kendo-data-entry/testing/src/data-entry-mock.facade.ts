@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -17,7 +17,7 @@ export class DataEntryMockFacade implements IDataEntryFacade<unknown> {
 
 export function createDataEntryMockFacade(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  mockFacade?: IDataEntryFacade<unknown> | any
+  mockFacade?: IDataEntryFacade<unknown> | any,
 ): IDataEntryFacade<unknown> {
   const localFacade = new DataEntryMockFacade();
   if (!mockFacade) {
