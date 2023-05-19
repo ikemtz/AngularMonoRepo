@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { JsonViewerComponent } from './json-viewer/json-viewer.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [AppComponent, JsonViewerComponent],
@@ -15,6 +16,7 @@ import { JsonViewerComponent } from './json-viewer/json-viewer.component';
     BrowserAnimationsModule,
     NgJsonEditorModule,
     ReactiveFormsModule,
+    BsDropdownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

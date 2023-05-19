@@ -7,12 +7,12 @@
     "TypeAhead"
   ],
   "peerDependencies": {
-    "@angular/common": ">=13.x",
-    "@angular/core": ">=13.x",
-    "@angular/forms": ">=13.x",
-    "@angular/platform-browser": ">=13.x",
+    "@angular/common": ">=12 <=16",
+    "@angular/core": ">=12 <=16",
+    "@angular/forms": ">=12 <=16",
+    "@angular/platform-browser": ">=12 <=16",
     "@progress/kendo-data-query": ">=1.x",
-    "ngx-bootstrap": ">=9.x",
+    "ngx-bootstrap": ">=10.x",
     "imng-ngrx-utils": "*",
     "rxjs": "*"
   },
