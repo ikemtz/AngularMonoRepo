@@ -24,12 +24,7 @@
             "output": "/"
           }
         ],
-        "styles": [
-          {
-            "input": "libs/imng-kendo-theme-blue/dist/styles.css"
-          },
-          "apps/nurse-cron/src/styles.scss"
-        ],
+        "styles": ["apps/nurse-cron/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
