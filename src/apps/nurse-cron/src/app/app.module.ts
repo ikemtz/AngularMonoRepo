@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ImngOidcClientModule } from 'imng-oidc-client';
 import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImngSignalrNgrxModule } from 'imng-signalr-ngrx';
 import { MessagingComponent } from './messaging/messaging.component';
@@ -36,6 +37,7 @@ import { environment } from '../environments/environment';
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
     ImngSignalrNgrxModule.forRoot(environment.signalr),
     BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
     ImngNgrxIdleModule.forRoot(environment.idleConfig),
   ],
   providers: [ODataService],
