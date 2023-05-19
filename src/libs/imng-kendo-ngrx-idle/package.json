@@ -8,12 +8,12 @@
     "Idle"
   ],
   "peerDependencies": {
-    "@angular/common": ">=15.x",
-    "@angular/core": ">=15.x",
-    "@ngrx/effects": ">=15.x",
-    "@ngrx/store": ">=15.x",
-    "@progress/kendo-angular-dialog": ">=12.x",
-    "@progress/kendo-angular-buttons": ">=12.x",
+    "@angular/common": ">=12 <=16",
+    "@angular/core": ">=12 <=16",
+    "@ngrx/effects": ">=12 <=16",
+    "@ngrx/store": ">=12 <=16",
+    "@progress/kendo-angular-dialog": ">=7 <=12",
+    "@progress/kendo-angular-buttons": ">=8 <=12",
     "imng-oidc-client": "*",
     "imng-ngrx-utils": "*",
     "rxjs": "*"
