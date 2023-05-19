@@ -11,19 +11,23 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [AppComponent, JsonViewerComponent],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     BrowserAnimationsModule,
     NgJsonEditorModule,
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })],
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

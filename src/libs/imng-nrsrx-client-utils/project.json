@@ -1,12 +1,13 @@
 {
+  "name": "imng-nrsrx-client-utils",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-nrsrx-client-utils/src",
   "prefix": "imng",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-nrsrx-client-utils"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/imng-nrsrx-client-utils"],
       "options": {
         "project": "libs/imng-nrsrx-client-utils/ng-package.json"
       },
@@ -21,15 +22,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-nrsrx-client-utils"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-nrsrx-client-utils"],
       "options": {
         "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/imng-nrsrx-client-utils/src/**/*.ts",

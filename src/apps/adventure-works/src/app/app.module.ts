@@ -26,7 +26,7 @@ import { environment } from '../environments/environment';
       {
         metaReducers: [],
         runtimeChecks: environment.runtimeChecks,
-      }
+      },
     ),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ name: 'AdventureWorks' }),
@@ -41,4 +41,4 @@ import { environment } from '../environments/environment';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

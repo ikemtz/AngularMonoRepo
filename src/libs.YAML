@@ -182,15 +182,6 @@ jobs:
           customCommand: 'run build:ngrx-utils'
 
       - task: Npm@1
-        displayName: 'npm run build:theme-blue'
-        continueOnError: true
-        inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run build:theme-blue'
-
-      - task: Npm@1
         displayName: 'npm run build:signalr'
         continueOnError: true
         inputs:
@@ -309,15 +300,6 @@ jobs:
           customCommand: 'run test:grid-filt'
 
       - task: Npm@1
-        displayName: 'npm run test:type-ahead'
-        continueOnError: true
-        inputs:
-          command: custom
-          workingDir: 'src'
-          verbose: false
-          customCommand: 'run test:type-ahead'
-
-      - task: Npm@1
         displayName: 'npm run test:oidc-client'
         continueOnError: true
         inputs:
@@ -325,6 +307,15 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run test:oidc-client'
+
+      - task: Npm@1
+        displayName: 'npm run test:type-ahead'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:type-ahead'
 
       - task: Npm@1
         displayName: 'npm run test:app-insight'

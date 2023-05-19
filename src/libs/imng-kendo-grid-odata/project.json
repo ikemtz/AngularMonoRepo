@@ -1,16 +1,17 @@
 {
+  "name": "imng-kendo-grid-odata",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-kendo-grid-odata/src",
   "prefix": "imng",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-kendo-grid-odata"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/imng-kendo-grid-odata"],
       "dependsOn": [
         {
           "target": "build",
-          "projects": "dependencies"
+          "dependencies": true
         }
       ],
       "options": {
@@ -27,15 +28,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-kendo-grid-odata"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-grid-odata"],
       "options": {
         "jestConfig": "libs/imng-kendo-grid-odata/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/imng-kendo-grid-odata/src/**/*.ts",

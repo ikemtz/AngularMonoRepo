@@ -1,4 +1,5 @@
 {
+  "name": "adventure-works",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/adventure-works/src",
@@ -24,9 +25,6 @@
           }
         ],
         "styles": [
-          {
-            "input": "libs/imng-kendo-theme-blue/dist/styles.css"
-          },
           "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
           "node_modules/primeng/resources/primeng.min.css",
           "node_modules/primeicons/primeicons.css",
@@ -90,7 +88,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/adventure-works/src/**/*.ts",
@@ -99,8 +97,8 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/adventure-works"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/adventure-works"],
       "options": {
         "jestConfig": "apps/adventure-works/jest.config.ts",
         "passWithNoTests": true
