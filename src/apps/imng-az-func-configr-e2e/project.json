@@ -1,10 +1,11 @@
 {
+  "name": "imng-az-func-configr-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/imng-az-func-configr-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
-      "executor": "@nrwl/cypress:cypress",
+      "executor": "@nx/cypress:cypress",
       "options": {
         "cypressConfig": "apps/imng-az-func-configr-e2e/cypress.json",
         "devServerTarget": "imng-az-func-configr:serve:development"
@@ -16,7 +17,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/imng-az-func-configr-e2e/**/*.{js,ts}"]
