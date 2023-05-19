@@ -1,12 +1,13 @@
 {
+  "name": "imng-snippets",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-snippets/src",
   "prefix": "imng",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-snippets"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/imng-snippets"],
       "options": {
         "project": "libs/imng-snippets/ng-package.json"
       },
@@ -21,15 +22,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-snippets"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-snippets"],
       "options": {
         "jestConfig": "libs/imng-snippets/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/imng-snippets/src/**/*.ts",
