@@ -1,4 +1,5 @@
 {
+  "name": "adventure-works",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/adventure-works/src",
@@ -90,7 +91,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/adventure-works/src/**/*.ts",
@@ -99,8 +100,8 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/adventure-works"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/adventure-works"],
       "options": {
         "jestConfig": "apps/adventure-works/jest.config.ts",
         "passWithNoTests": true

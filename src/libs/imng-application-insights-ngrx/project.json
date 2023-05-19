@@ -1,12 +1,13 @@
 {
+  "name": "imng-application-insights-ngrx",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-application-insights-ngrx/src",
   "prefix": "imng",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-application-insights-ngrx"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/imng-application-insights-ngrx"],
       "options": {
         "project": "libs/imng-application-insights-ngrx/ng-package.json"
       },
@@ -21,15 +22,17 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-application-insights-ngrx"],
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/imng-application-insights-ngrx"
+      ],
       "options": {
         "jestConfig": "libs/imng-application-insights-ngrx/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/imng-application-insights-ngrx/src/**/*.ts",

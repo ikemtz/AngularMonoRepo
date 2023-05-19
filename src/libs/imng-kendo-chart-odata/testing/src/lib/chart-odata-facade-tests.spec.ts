@@ -1,6 +1,6 @@
 import { testLoadSeriesData } from '.';
 import { BehaviorSubject, Observable } from 'rxjs';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ChartSeriesDataPoint } from 'imng-kendo-chart-odata';
 import { GroupResult } from '@progress/kendo-data-query';
 

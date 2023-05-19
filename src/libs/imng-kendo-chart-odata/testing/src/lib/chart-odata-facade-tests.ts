@@ -1,5 +1,5 @@
 import { readFirst } from 'imng-ngrx-utils/testing';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { IChartODataFacade } from 'imng-kendo-chart-odata';
 import { ODataResult, ODataService } from 'imng-kendo-odata';
 import { Observable, of } from 'rxjs';
