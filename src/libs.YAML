@@ -309,13 +309,13 @@ jobs:
           customCommand: 'run test:oidc-client'
 
       - task: Npm@1
-          displayName: 'npm run test:type-ahead'
-          continueOnError: true
-          inputs:
-            command: custom
-            workingDir: 'src'
-            verbose: false
-            customCommand: 'run test:type-ahead'
+        displayName: 'npm run test:type-ahead'
+        continueOnError: true
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run test:type-ahead'
 
       - task: Npm@1
         displayName: 'npm run test:app-insight'
