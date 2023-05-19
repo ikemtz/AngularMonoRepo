@@ -1,10 +1,16 @@
-import { State, FilterDescriptor, CompositeFilterDescriptor, SortDescriptor } from '@progress/kendo-data-query';
+import {
+  State,
+  FilterDescriptor,
+  CompositeFilterDescriptor,
+  SortDescriptor,
+} from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
 
 export interface ODataState extends State {
   expanders?: Array<Expander>;
   selectors?: string[];
   inFilters?: InFilter[];
+  notInFilters?: InFilter[];
   childFilters?: CompositeChildFilterDescriptor;
   count?: boolean;
   transformations?: string;
@@ -27,7 +33,8 @@ export interface InFilter {
   values: IdType[];
 }
 
-export interface CompositeChildFilterDescriptor extends CompositeFilterDescriptor {
+export interface CompositeChildFilterDescriptor
+  extends CompositeFilterDescriptor {
   filters: Array<CompositeChildFilterDescriptor | ChildFilterDescriptor>;
 }
 
@@ -47,6 +54,8 @@ export interface Expander {
 export function isExpander(source: string | Expander): source is Expander {
   return !!(source as Expander)?.table;
 }
-export function isComputation(source: string | Computation): source is Computation {
+export function isComputation(
+  source: string | Computation,
+): source is Computation {
   return !!(source as Computation)?.operator;
 }
