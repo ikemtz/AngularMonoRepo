@@ -1,7 +1,7 @@
-/* eslint-disable */
-export default {
-  displayName: 'imng-kendo-grid',
+import type { Config } from 'jest';
 
+const config: Config = {
+  displayName: 'imng-kendo-grid',
   reporters: [
     'default',
     [
@@ -14,15 +14,16 @@ export default {
     ],
   ],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-    },
-  },
+  globals: {},
   coverageDirectory: '../../coverage/libs/imng-kendo-grid',
   transform: {
-    '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
+    '^.+\\.(ts|mjs|js|html)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
+    ],
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   snapshotSerializers: [
@@ -32,3 +33,5 @@ export default {
   ],
   preset: '../../jest.preset.js',
 };
+
+export default config;

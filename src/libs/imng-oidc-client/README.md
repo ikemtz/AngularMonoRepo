@@ -16,7 +16,7 @@ Open up your angular.json and navigate to the node for your project. Let's assum
 "MyAngularProject": {
       "projectType": "application",
       "schematics": {
-        "@nrwl/angular:component": {
+        "@nx/angular:component": {
           "style": "scss"
         }
       },

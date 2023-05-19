@@ -1,5 +1,6 @@
-/* eslint-disable */
-export default {
+import type { Config } from 'jest';
+
+const config: Config = {
   displayName: 'imng-kendo-chart-odata',
 
   reporters: [
@@ -9,20 +10,20 @@ export default {
       {
         outputDirectory: '.',
         outputName: './junit.imng-kendo-chart-odata.xml',
-        uniqueOutputName: true,
       },
     ],
   ],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-    },
-  },
+  globals: {},
   coverageDirectory: '../../coverage/libs/imng-kendo-chart-odata',
   transform: {
-    '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
+    '^.+\\.(ts|mjs|js|html)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
+    ],
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   snapshotSerializers: [
@@ -32,3 +33,5 @@ export default {
   ],
   preset: '../../jest.preset.js',
 };
+
+export default config;

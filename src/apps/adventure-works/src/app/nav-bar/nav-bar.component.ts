@@ -14,11 +14,15 @@ export class NavBarComponent {
   public readonly loggedIn$: Observable<boolean>;
   public readonly profilePicture$: Observable<string | undefined>;
   public collapsed = true;
+  public items = [
+    { text: 'Support', path: '/oidc/support' },
+    { text: 'Logout' },
+  ];
 
   constructor(
     private readonly oidcFacade: OidcFacade,
     private readonly oidcUserFacade: OidcUserFacade,
-    public readonly router: Router
+    public readonly router: Router,
   ) {
     this.identity$ = this.oidcFacade.identity$;
     this.email$ = this.oidcUserFacade.email$;
