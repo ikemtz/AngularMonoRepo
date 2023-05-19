@@ -88,7 +88,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/nurse-cron/src/**/*.ts",
@@ -97,7 +97,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/nurse-cron"],
       "options": {
         "jestConfig": "apps/nurse-cron/jest.config.ts",

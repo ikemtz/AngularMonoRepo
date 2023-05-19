@@ -6,7 +6,7 @@
   "prefix": "imng",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-nrsrx-client-utils"],
       "options": {
         "project": "libs/imng-nrsrx-client-utils/ng-package.json"
@@ -22,7 +22,7 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-nrsrx-client-utils"],
       "options": {
         "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.ts",
@@ -30,7 +30,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/imng-nrsrx-client-utils/src/**/*.ts",
