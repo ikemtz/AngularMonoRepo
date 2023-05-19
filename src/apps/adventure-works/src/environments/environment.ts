@@ -19,6 +19,7 @@ export const environment = {
     audience: 'AdventureWorks',
     response_type: 'code',
     getUserMetadata: true,
+    scope: 'openid email profile',
   },
   idleConfig: {
     timeoutWarningInMs: 540000, //9 minutes
