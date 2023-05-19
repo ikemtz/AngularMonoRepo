@@ -1,7 +1,17 @@
-/* eslint-disable */
-export default {
-  displayName: 'imng-snippets',
+import type { Config } from 'jest';
 
+const config: Config = {
+  displayName: 'imng-snippets',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: '.',
+        outputName: './junit.imng-snippets.xml',
+      },
+    ],
+  ],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
   coverageDirectory: '../../coverage/libs/imng-snippets',
@@ -22,3 +32,5 @@ export default {
   ],
   preset: '../../jest.preset.js',
 };
+
+export default config;

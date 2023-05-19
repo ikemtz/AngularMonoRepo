@@ -178,6 +178,7 @@
     "@progress/kendo-angular-l10n": "^12.1.0",
     "@progress/kendo-angular-label": "^12.1.0",
     "@progress/kendo-angular-menu": "^12.1.0",
+    "@progress/kendo-angular-navigation": "^12.1.0",
     "@progress/kendo-angular-pdf-export": "^12.1.0",
     "@progress/kendo-angular-popup": "^12.1.0",
     "@progress/kendo-angular-treeview": "^12.1.0",

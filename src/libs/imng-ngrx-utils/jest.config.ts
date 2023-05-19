@@ -1,7 +1,7 @@
-/* eslint-disable */
-export default {
-  displayName: 'imng-ngrx-utils',
+import type { Config } from 'jest';
 
+const config: Config = {
+  displayName: 'imng-ngrx-utils',
   reporters: [
     'default',
     [
@@ -9,7 +9,6 @@ export default {
       {
         outputDirectory: '.',
         outputName: './junit.imng-ngrx-utils.xml',
-        uniqueOutputName: true,
       },
     ],
   ],
@@ -33,3 +32,5 @@ export default {
   ],
   preset: '../../jest.preset.js',
 };
+
+export default config;

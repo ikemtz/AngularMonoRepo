@@ -1,7 +1,7 @@
-/* eslint-disable */
-export default {
+import type { Config } from 'jest';
+
+const config: Config = {
   displayName: 'imng-prime-table-odata',
-  preset: '../../jest.preset.js',
   reporters: [
     'default',
     [
@@ -9,7 +9,6 @@ export default {
       {
         outputDirectory: '.',
         outputName: './junit.imng-prime-table-odata.xml',
-        uniqueOutputName: true,
       },
     ],
   ],
@@ -31,4 +30,7 @@ export default {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  preset: '../../jest.preset.js',
 };
+
+export default config;

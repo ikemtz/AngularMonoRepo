@@ -1,5 +1,6 @@
-/* eslint-disable */
-export default {
+import type { Config } from 'jest';
+
+const config: Config = {
   displayName: 'imng-kendo-chart-odata',
 
   reporters: [
@@ -9,7 +10,6 @@ export default {
       {
         outputDirectory: '.',
         outputName: './junit.imng-kendo-chart-odata.xml',
-        uniqueOutputName: true,
       },
     ],
   ],
@@ -33,3 +33,5 @@ export default {
   ],
   preset: '../../jest.preset.js',
 };
+
+export default config;
