@@ -24,7 +24,7 @@ import { ODataPayload } from './odata-payload';
 export class ODataService {
   constructor(private readonly http: HttpClient) {}
 
-  public fetch<T>(
+  public fetch<T extends object>(
     odataEndpoint: string,
     state: ODataState,
     options: FetchOptions = {},
@@ -55,7 +55,7 @@ export class ODataService {
       );
   }
 
-  public fetchByPrimaryKey<T>(
+  public fetchByPrimaryKey<T extends object>(
     odataEndpoint: string,
     id: string,
     state?: ODataState,
