@@ -1,4 +1,5 @@
 import { IdType } from 'imng-nrsrx-client-utils';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   IPrimeODataTableFacade,
   PrimeTableState,

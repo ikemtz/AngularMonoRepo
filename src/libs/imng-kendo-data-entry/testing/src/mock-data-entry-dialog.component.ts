@@ -1,5 +1,5 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { FormControl, FormGroup } from '@angular/forms';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { DataEntryMockFacade } from './data-entry-mock.facade';
 
