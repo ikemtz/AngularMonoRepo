@@ -1,16 +1,17 @@
 {
+  "name": "imng-kendo-grid-editable",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-kendo-grid-editable/src",
   "prefix": "imng",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-kendo-grid-editable"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/imng-kendo-grid-editable"],
       "dependsOn": [
         {
           "target": "build",
-          "projects": "dependencies"
+          "dependencies": true
         }
       ],
       "options": {
@@ -27,15 +28,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-kendo-grid-editable"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-grid-editable"],
       "options": {
         "jestConfig": "libs/imng-kendo-grid-editable/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/imng-kendo-grid-editable/src/**/*.ts",

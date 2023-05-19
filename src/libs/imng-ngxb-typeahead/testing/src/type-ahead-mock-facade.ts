@@ -1,4 +1,5 @@
 import { of, Observable } from 'rxjs';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ImngTypeAheadFacade } from 'imng-ngxb-typeahead';
 
 export class TypeAheadMockFacade implements ImngTypeAheadFacade<object> {
@@ -10,7 +11,7 @@ export class TypeAheadMockFacade implements ImngTypeAheadFacade<object> {
 }
 
 export function createTypeAheadMockFacade(
-  mockFacade?: TypeAheadMockFacade
+  mockFacade?: TypeAheadMockFacade,
 ): TypeAheadMockFacade {
   const localFacade = new TypeAheadMockFacade();
   if (!mockFacade) {

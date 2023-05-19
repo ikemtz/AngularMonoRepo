@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ImngTypeAheadFacade } from 'imng-ngxb-typeahead';
 import { ODataService } from 'imng-kendo-odata';
 import { of } from 'rxjs';
@@ -7,7 +7,7 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 
 export function testLoadMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
   facade: TFacade,
-  httpClient: HttpClient
+  httpClient: HttpClient,
 ): void {
   const getSpy = jest.spyOn(httpClient, 'get');
   facade.loadMatches('🎂 🍩 😡');
@@ -15,10 +15,10 @@ export function testLoadMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
 }
 
 export async function testOdataMatches<
-  TFacade extends ImngTypeAheadFacade<unknown>
+  TFacade extends ImngTypeAheadFacade<unknown>,
 >(facade: TFacade, oDataService: ODataService): Promise<void> {
   oDataService.fetch = jest.fn(() =>
-    of({ data: [{ id: '👼', name: '👿🕺' }], total: 500 })
+    of({ data: [{ id: '👼', name: '👿🕺' }], total: 500 }),
   ) as never;
 
   facade.loadMatches('🎂 🍩 😡');

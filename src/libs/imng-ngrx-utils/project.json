@@ -1,16 +1,17 @@
 {
+  "name": "imng-ngrx-utils",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-ngrx-utils/src",
   "prefix": "imng",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-ngrx-utils"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/imng-ngrx-utils"],
       "dependsOn": [
         {
           "target": "build",
-          "projects": "dependencies"
+          "dependencies": true
         }
       ],
       "options": {
@@ -27,15 +28,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-ngrx-utils"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-ngrx-utils"],
       "options": {
         "jestConfig": "libs/imng-ngrx-utils/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/imng-ngrx-utils/src/**/*.ts",
