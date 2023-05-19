@@ -1,4 +1,5 @@
 import { Observable, of } from 'rxjs';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   IChartODataFacade,
   ChartSeriesDataPoint,
@@ -14,7 +15,7 @@ export class ChartODataMockFacade implements IChartODataFacade {
 
 export function createChartODataMockFacade(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  mockFacade?: IChartODataFacade | any
+  mockFacade?: IChartODataFacade | any,
 ): IChartODataFacade {
   const localFacade = new ChartODataMockFacade();
   if (!mockFacade) {
