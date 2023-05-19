@@ -7,7 +7,12 @@ import { ODataState } from 'imng-kendo-odata';
 
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
-import { IProduct, ProductCategoryProperties, ProductModelProperties, ProductProperties } from '../../../models/odata';
+import {
+  IProduct,
+  ProductCategoryProperties,
+  ProductModelProperties,
+  ProductProperties,
+} from '../../../models/odata';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -28,9 +33,7 @@ const initialGridState: ODataState = {
     ProductProperties.DISCONTINUED_DATE,
     ProductProperties.THUMB_NAIL_PHOTO,
   ],
-  sort: [
-    { field: ProductProperties.LIST_PRICE, dir: 'desc' },
-  ],
+  sort: [{ field: ProductProperties.LIST_PRICE, dir: 'desc' }],
   expanders: [
     {
       table: ProductProperties.PRODUCT_MODEL,
@@ -38,16 +41,13 @@ const initialGridState: ODataState = {
         ProductModelProperties.ID,
         ProductModelProperties.NAME,
         ProductModelProperties.DESCRIPTION,
-      ]
+      ],
     },
     {
       table: ProductProperties.PRODUCT_CATEGORY,
-      selectors: [
-        ProductCategoryProperties.ID,
-        ProductCategoryProperties.NAME,
-      ]
+      selectors: [ProductCategoryProperties.ID, ProductCategoryProperties.NAME],
     },
-  ]
+  ],
 };
 
 @Component({
@@ -56,16 +56,21 @@ const initialGridState: ODataState = {
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent extends KendoODataBasedComponent<IProduct, ProductListFacade> {
+export class ProductListComponent extends KendoODataBasedComponent<
+  IProduct,
+  ProductListFacade
+> {
   public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;
   public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
-  constructor(facade: ProductListFacade,
+  constructor(
+    facade: ProductListFacade,
     public readonly crudFacade: ProductCrudFacade,
     router: Router,
-    private domSanitizer: DomSanitizer) {
+    private domSanitizer: DomSanitizer,
+  ) {
     super(facade, initialGridState, router);
   }
 
@@ -84,7 +89,10 @@ export class ProductListComponent extends KendoODataBasedComponent<IProduct, Pro
   public detailExpanded(evt: DetailExpandEvent): void {
     this.currentItem = evt.dataItem;
   }
-  public getFormatSrc(base64Image: string, format: string = 'png'): SafeUrl {
-    return this.domSanitizer.bypassSecurityTrustUrl(`data:image/${format};base64, ${base64Image}`);
+
+  public getFormatSrc(base64Image: string, format = 'png'): SafeUrl {
+    return this.domSanitizer.bypassSecurityTrustUrl(
+      `data:image/${format};base64, ${base64Image}`,
+    );
   }
 }

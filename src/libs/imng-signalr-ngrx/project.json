@@ -1,16 +1,17 @@
 {
+  "name": "imng-signalr-ngrx",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/imng-signalr-ngrx/src",
   "prefix": "imng",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/imng-signalr-ngrx"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/imng-signalr-ngrx"],
       "dependsOn": [
         {
           "target": "build",
-          "projects": "dependencies"
+          "dependencies": true
         }
       ],
       "options": {
@@ -27,15 +28,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/imng-signalr-ngrx"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/imng-signalr-ngrx"],
       "options": {
         "jestConfig": "libs/imng-signalr-ngrx/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/imng-signalr-ngrx/src/**/*.ts",

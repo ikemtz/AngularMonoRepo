@@ -6,8 +6,8 @@
     "Utils"
   ],
   "peerDependencies": {
-    "@angular/common": ">=13.x",
-    "@angular/core": ">=13.x",
+    "@angular/common": ">=15.x",
+    "@angular/core": ">=15.x",
     "rxjs": "*"
   },
   "dependencies": {
