@@ -5,7 +5,6 @@ import {
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
-import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
 
@@ -22,9 +21,7 @@ describe(`imng-sub-list`, () => {
       swaggerProperties: [],
       appPrefix: 'aw',
     };
-    tree = await readFirst(
-      runner.runSchematicAsync(`imng-sub-list`, options, Tree.empty())
-    );
+    tree = await runner.runSchematic(`imng-sub-list`, options, Tree.empty());
   })
   test(`tree files should match`, () => {
     expect(tree.files).toMatchSnapshot();
