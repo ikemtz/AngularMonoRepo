@@ -1,12 +1,11 @@
-import { Tree } from '@angular-devkit/schematics';
+import { Tree } from "@angular-devkit/schematics";
 import {
   SchematicTestRunner,
   UnitTestTree,
-} from '@angular-devkit/schematics/testing';
-import * as path from 'path';
-import { IOptions } from '../shared';
-import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
-import * as pluralize from 'pluralize';
+} from "@angular-devkit/schematics/testing";
+import * as path from "path";
+import { IOptions } from "../shared";
+import * as pluralize from "pluralize";
 
 const collectionPath = path.join(__dirname, `../collection.json`);
 
@@ -16,14 +15,16 @@ describe(`imng-crud`, () => {
     const options: IOptions = {
       name: `certification`,
       openApiJsonUrl: `https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json`,
-      openApiJsonFileName: '../../open-api-docs/nrcrn-cert-odata.json',
+      openApiJsonFileName: "../../open-api-docs/nrcrn-cert-odata.json",
       path: `./test`,
       swaggerProperties: [],
       storeName: `certifications`,
       appPrefix: `nrcrn`,
     };
-    const tree: UnitTestTree = await readFirst(
-      runner.runSchematicAsync(`imng-crud`, options, Tree.empty())
+    const tree: UnitTestTree = await runner.runSchematic(
+      `imng-crud`,
+      options,
+      Tree.empty()
     );
 
     expect(tree.files).toEqual([

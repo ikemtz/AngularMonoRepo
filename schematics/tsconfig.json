@@ -15,6 +15,7 @@
     "outDir": "dist/schematics",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
+    "strictPropertyInitialization": false,
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
