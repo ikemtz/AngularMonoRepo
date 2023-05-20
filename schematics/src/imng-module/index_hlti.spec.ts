@@ -7,8 +7,7 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
-import { IOptions } from '../shared';
-import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
+import { IOptions } from '../shared'; 
 import * as pluralize from 'pluralize';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
@@ -26,9 +25,7 @@ describe('imng-module', () => {
       storeName: 'healthItems',
       appPrefix: 'nrcrn',
     };
-    const tree: UnitTestTree = await readFirst(
-      runner.runSchematicAsync('imng-module', options, Tree.empty())
-    );
+    const tree: UnitTestTree = await runner.runSchematic('imng-module', options, Tree.empty());
 
     expect(tree.files).toEqual([
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(

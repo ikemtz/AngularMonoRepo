@@ -19,8 +19,8 @@ import { IOptions } from './options';
 import _ = require('lodash');
 import * as fs from 'fs';
 import * as https from 'https';
-import * as http from 'http';
-import * as findUp from 'find-up';
+import * as http from 'http'; 
+import { findUpSync } from './findup-sync';
 import { snakeCase } from 'lodash';
 import { mapProperties } from './map-properties';
 
@@ -59,7 +59,7 @@ function getFileNames(openApiJsonFileName: string) {
   if (fs.existsSync(`${__dirname}/${openApiJsonFileName}`)) {
     return `${__dirname}/${openApiJsonFileName}`;
   }
-  return findUp.sync(openApiJsonFileName);
+  return findUpSync(openApiJsonFileName);
 }
 
 export function processOpenApiDoc(data: OpenApiDocument, options: IOptions, host: Tree): Tree {
