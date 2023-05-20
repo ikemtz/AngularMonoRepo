@@ -130,14 +130,6 @@
     },
     {
       "cli": "nx",
-      "version": "16.0.0-beta.1",
-      "description": "Replace @nx/eslint-plugin with @nx/eslint-plugin",
-      "implementation": "./src/migrations/update-16-0-0-add-nx-packages/update-16-0-0-add-nx-packages",
-      "package": "@nx/eslint-plugin",
-      "name": "update-16-0-0-add-nx-packages"
-    },
-    {
-      "cli": "nx",
       "version": "14.6.1-beta.0",
       "description": "Change Cypress e2e and component testing presets to use __filename instead of __dirname and include a devServerTarget for component testing.",
       "factory": "./src/migrations/update-14-6-1/update-cypress-configs-presets",
@@ -201,6 +193,38 @@
       "name": "update-16-2-0-normalize-tsconfigs"
     },
     {
+      "cli": "nx",
+      "version": "16.0.0-beta.1",
+      "description": "Replace @nx/eslint-plugin with @nx/eslint-plugin",
+      "implementation": "./src/migrations/update-16-0-0-add-nx-packages/update-16-0-0-add-nx-packages",
+      "package": "@nx/eslint-plugin",
+      "name": "update-16-0-0-add-nx-packages"
+    },
+    {
+      "version": "14.5.5-beta.0",
+      "cli": "nx",
+      "description": "Exclude jest.config.ts from tsconfig where missing.",
+      "factory": "./src/migrations/update-14-0-0/update-jest-config-ext",
+      "package": "@nx/jest",
+      "name": "exclude-jest-config-from-ts-config"
+    },
+    {
+      "version": "14.6.0-beta.0",
+      "cli": "nx",
+      "description": "Update jest configs to support jest 28 changes (https://jestjs.io/docs/upgrading-to-jest28#configuration-options)",
+      "factory": "./src/migrations/update-14-6-0/update-configs-jest-28",
+      "package": "@nx/jest",
+      "name": "update-configs-jest-28"
+    },
+    {
+      "version": "14.6.0-beta.0",
+      "cli": "nx",
+      "description": "Update jest test files to support jest 28 changes (https://jestjs.io/docs/upgrading-to-jest28)",
+      "factory": "./src/migrations/update-14-6-0/update-tests-jest-28",
+      "package": "@nx/jest",
+      "name": "update-tests-jest-28"
+    },
+    {
       "version": "15.0.0-beta.0",
       "cli": "nx",
       "description": "Stop hashing jest spec files and config files for build targets and dependent tasks",
@@ -242,6 +266,28 @@
     },
     {
       "cli": "nx",
+      "version": "14.5.2-beta.0",
+      "requires": {
+        "@angular/core": ">=14.1.0"
+      },
+      "description": "Update the @angular/cli package version to ~14.1.0.",
+      "factory": "./src/migrations/update-14-5-2/update-angular-cli",
+      "package": "@nx/angular",
+      "name": "update-angular-cli-version-14-1-0"
+    },
+    {
+      "cli": "nx",
+      "version": "14.6.0-beta.0",
+      "requires": {
+        "@angular/core": ">=14.2.0"
+      },
+      "description": "Update the @angular/cli package version to ~14.2.0.",
+      "factory": "./src/migrations/update-14-6-0/update-angular-cli",
+      "package": "@nx/angular",
+      "name": "update-angular-cli-version-14-2-0"
+    },
+    {
+      "cli": "nx",
       "version": "15.0.0-beta.0",
       "description": "Rename @nx/angular:webpack-server executor to @nx/angular:webpack-dev-server",
       "factory": "./src/migrations/update-14-8-0/rename-webpack-server",
@@ -263,6 +309,94 @@
       "factory": "./src/migrations/update-15-0-0/add-karma-inputs",
       "package": "@nx/angular",
       "name": "add-karma-inputs"
+    },
+    {
+      "cli": "nx",
+      "version": "15.2.0-beta.0",
+      "requires": {
+        "@angular/core": ">=15.0.0"
+      },
+      "description": "Update the @angular/cli package version to ~15.0.0.",
+      "factory": "./src/migrations/update-15-2-0/update-angular-cli",
+      "package": "@nx/angular",
+      "name": "update-angular-cli-version-15-0-0"
+    },
+    {
+      "cli": "nx",
+      "version": "15.2.0-beta.0",
+      "requires": {
+        "@angular/core": ">=15.0.0"
+      },
+      "description": "Remove browserslist config as it's handled by build-angular",
+      "factory": "./src/migrations/update-15-2-0/remove-browserlist-config",
+      "package": "@nx/angular",
+      "name": "remove-browserlist-config"
+    },
+    {
+      "cli": "nx",
+      "version": "15.2.0-beta.0",
+      "requires": {
+        "@angular/core": ">=15.0.0"
+      },
+      "description": "Update typescript target to ES2022",
+      "factory": "./src/migrations/update-15-2-0/update-typescript-target",
+      "package": "@nx/angular",
+      "name": "update-typescript-target"
+    },
+    {
+      "cli": "nx",
+      "version": "15.2.0-beta.0",
+      "requires": {
+        "@angular/core": ">=15.0.0"
+      },
+      "description": "Remove bundleDependencies from server targets",
+      "factory": "./src/migrations/update-15-2-0/update-workspace-config",
+      "package": "@nx/angular",
+      "name": "update-workspace-config"
+    },
+    {
+      "cli": "nx",
+      "version": "15.2.0-beta.0",
+      "requires": {
+        "@angular/core": ">=15.0.0"
+      },
+      "description": "Remove exported `@angular/platform-server` `renderModule` method. The `renderModule` method is now exported by the Angular CLI.",
+      "factory": "./src/migrations/update-15-2-0/remove-platform-server-exports",
+      "package": "@nx/angular",
+      "name": "update-platform-server-exports"
+    },
+    {
+      "cli": "nx",
+      "version": "15.2.0-beta.0",
+      "requires": {
+        "@angular/core": ">=15.0.0"
+      },
+      "description": "Remove no longer needed require calls in Karma builder main file.",
+      "factory": "./src/migrations/update-15-2-0/update-karma-main-file",
+      "package": "@nx/angular",
+      "name": "update-karma-main-file"
+    },
+    {
+      "cli": "nx",
+      "version": "15.5.0-beta.0",
+      "requires": {
+        "@angular/core": ">=15.1.0"
+      },
+      "description": "Update the @angular/cli package version to ~15.1.0.",
+      "factory": "./src/migrations/update-15-5-0/update-angular-cli",
+      "package": "@nx/angular",
+      "name": "update-angular-cli-version-15-1-0"
+    },
+    {
+      "cli": "nx",
+      "version": "15.8.0-beta.4",
+      "requires": {
+        "@angular/core": ">=15.2.0"
+      },
+      "description": "Update the @angular/cli package version to ~15.2.0.",
+      "factory": "./src/migrations/update-15-8-0/update-angular-cli",
+      "package": "@nx/angular",
+      "name": "update-angular-cli-version-15-2-0"
     },
     {
       "cli": "nx",
@@ -311,6 +445,93 @@
       "implementation": "./src/migrations/update-16-0-0/remove-karma-defaults",
       "package": "@nx/angular",
       "name": "remove-karma-defaults-from-generators"
+    },
+    {
+      "cli": "nx",
+      "version": "16.1.0-beta.1",
+      "requires": {
+        "@angular/core": ">=15.0.0"
+      },
+      "description": "Remove exported `@angular/platform-server` `renderModule` method. The `renderModule` method is now exported by the Angular CLI.",
+      "factory": "./src/migrations/update-16-1-0/remove-render-module-platform-server-exports",
+      "package": "@nx/angular",
+      "name": "remove-render-module-platform-server-exports"
+    },
+    {
+      "cli": "nx",
+      "version": "16.1.0-beta.1",
+      "requires": {
+        "@angular/core": ">=16.0.0-rc.4"
+      },
+      "description": "Remove 'ngcc' invocation if exists from the 'postinstall' script in package.json.",
+      "factory": "./src/migrations/update-16-1-0/remove-ngcc-invocation",
+      "package": "@nx/angular",
+      "name": "remove-ngcc-invocation"
+    },
+    {
+      "cli": "nx",
+      "version": "16.1.0-beta.1",
+      "requires": {
+        "@angular/core": ">=16.0.0-rc.4"
+      },
+      "description": "Extract the app config for standalone apps",
+      "factory": "./src/migrations/update-16-1-0/extract-standalone-config-from-bootstrap",
+      "package": "@nx/angular",
+      "name": "extract-app-config-for-standalone"
+    },
+    {
+      "cli": "nx",
+      "version": "16.1.0-beta.1",
+      "requires": {
+        "@angular/core": ">=16.0.0-rc.4"
+      },
+      "description": "Update server executors' configuration to disable 'buildOptimizer' for non optimized builds.",
+      "factory": "./src/migrations/update-16-1-0/update-server-executor-config",
+      "package": "@nx/angular",
+      "name": "update-server-executor-config"
+    },
+    {
+      "cli": "nx",
+      "version": "16.1.0-beta.1",
+      "requires": {
+        "@angular/core": ">=16.0.0"
+      },
+      "description": "Update the @angular/cli package version to ~16.0.0.",
+      "factory": "./src/migrations/update-16-1-0/update-angular-cli",
+      "package": "@nx/angular",
+      "name": "update-angular-cli-version-16-0-0"
+    },
+    {
+      "cli": "nx",
+      "version": "16.2.0-beta.0",
+      "requires": {
+        "@ngrx/store": ">=16.0.0"
+      },
+      "description": "Switch the data persistence operator imports to '@ngrx/router-store/data-persistence'.",
+      "factory": "./src/migrations/update-16-2-0/switch-data-persistence-operators-imports-to-ngrx-router-store",
+      "package": "@nx/angular",
+      "name": "switch-data-persistence-operators-imports-to-ngrx-router-store"
+    },
+    {
+      "description": "The road to v16.0-beta",
+      "version": "16.0.0-beta",
+      "factory": "./16_0_0-beta/index",
+      "package": "@ngrx/store",
+      "name": "ngrx-store-migration-16-0-0-beta"
+    },
+    {
+      "version": "16.0.0",
+      "description": "As of Angular v16, the `moduleId` property of `@Component` is deprecated as it no longer has any effect.",
+      "factory": "./migrations/remove-module-id/bundle",
+      "package": "@angular/core",
+      "name": "migration-v16-remove-module-id"
+    },
+    {
+      "version": "16.0.0",
+      "description": "In Angular version 15.2, the guard and resolver interfaces (CanActivate, Resolve, etc) were deprecated. This migration removes imports and 'implements' clauses that contain them.",
+      "factory": "./migrations/guard-and-resolve-interfaces/bundle",
+      "package": "@angular/core",
+      "name": "migration-v16-guard-and-resolve-interfaces"
     }
   ]
 }
