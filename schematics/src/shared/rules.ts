@@ -9,7 +9,7 @@ import {
   Tree,
   url,
 } from '@angular-devkit/schematics';
-import { strings, normalize } from '@angular-devkit/core';
+import { strings, normalize, FileDoesNotExistException } from '@angular-devkit/core';
 import axios from 'axios';
 import { PropertyInfo, OpenApiDocument } from './open-api-component';
 import * as pluralize from 'pluralize';
@@ -19,8 +19,7 @@ import { IOptions } from './options';
 import _ = require('lodash');
 import * as fs from 'fs';
 import * as https from 'https';
-import * as http from 'http'; 
-import { findUpSync } from './findup-sync';
+import * as http from 'http';
 import { snakeCase } from 'lodash';
 import { mapProperties } from './map-properties';
 
@@ -56,10 +55,11 @@ export function getSwaggerDoc(options: IOptions): Rule {
 }
 
 function getFileNames(openApiJsonFileName: string) {
-  if (fs.existsSync(`${__dirname}/${openApiJsonFileName}`)) {
-    return `${__dirname}/${openApiJsonFileName}`;
+  const fileName = `${__dirname}/${openApiJsonFileName}`;
+  if (fs.existsSync(fileName)) {
+    return fileName;
   }
-  return findUpSync(openApiJsonFileName);
+  throw new FileDoesNotExistException(fileName)
 }
 
 export function processOpenApiDoc(data: OpenApiDocument, options: IOptions, host: Tree): Tree {
