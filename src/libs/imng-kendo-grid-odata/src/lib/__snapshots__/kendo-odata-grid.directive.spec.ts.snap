@@ -8,11 +8,11 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
-  "data": Object {
-    "data": Array [],
+  "data": {
+    "data": [],
     "total": 0,
   },
   "dataStateChange": EventEmitter_ {
@@ -21,7 +21,7 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
   "filterChange": EventEmitter_ {
@@ -30,7 +30,7 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
   "filterable": "menu",
@@ -42,7 +42,7 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
   "reorderable": true,
@@ -53,10 +53,10 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
-  "sortable": Object {
+  "sortable": {
     "allowUnsort": true,
     "mode": "multiple",
   },
@@ -71,19 +71,19 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
-  "data": Object {},
+  "data": {},
   "dataStateChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [
+    "observers": [
       SafeSubscriber {
-        "_finalizers": Array [
+        "_finalizers": [
           Subscription {
             "_finalizers": null,
             "_parentage": [Circular],
@@ -94,7 +94,7 @@ MockGridComponent {
         "_parentage": null,
         "closed": false,
         "destination": ConsumerObserver {
-          "partialObserver": Object {
+          "partialObserver": {
             "complete": undefined,
             "error": [Function],
             "next": [Function],
@@ -106,8 +106,8 @@ MockGridComponent {
     ],
     "thrownError": null,
   },
-  "filter": Object {
-    "filters": Array [],
+  "filter": {
+    "filters": [],
     "logic": "and",
   },
   "filterChange": EventEmitter_ {
@@ -116,7 +116,7 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
   "filterable": "menu",
@@ -128,7 +128,7 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
   "pageSize": 20,
@@ -136,17 +136,17 @@ MockGridComponent {
   "reorderable": true,
   "resizable": true,
   "skip": 0,
-  "sort": Array [],
+  "sort": [],
   "sortChange": EventEmitter_ {
     "__isAsync": false,
     "closed": false,
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
-  "sortable": Object {
+  "sortable": {
     "allowUnsort": true,
     "mode": "multiple",
   },
@@ -161,11 +161,11 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
-  "data": Object {
-    "data": Array [],
+  "data": {
+    "data": [],
     "total": 0,
   },
   "dataStateChange": EventEmitter_ {
@@ -174,7 +174,7 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
   "filterChange": EventEmitter_ {
@@ -183,7 +183,7 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
   "filterable": "menu",
@@ -195,7 +195,7 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
   "reorderable": true,
@@ -206,10 +206,10 @@ MockGridComponent {
     "currentObservers": null,
     "hasError": false,
     "isStopped": false,
-    "observers": Array [],
+    "observers": [],
     "thrownError": null,
   },
-  "sortable": Object {
+  "sortable": {
     "allowUnsort": true,
     "mode": "multiple",
   },

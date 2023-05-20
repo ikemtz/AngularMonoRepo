@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OrderLineItemListFacade used in NgModule it should get the grid state 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
-        "filters": Array [
-          Object {
+{
+  "filter": {
+    "filters": [
+      {
+        "filters": [
+          {
             "field": "orderId",
             "operator": "eq",
             "value": "ORDER_ID",

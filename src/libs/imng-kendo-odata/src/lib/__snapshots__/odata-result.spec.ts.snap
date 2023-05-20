@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`odata-result.ts createEmptyODataResult should work 1`] = `
-Object {
-  "data": Array [],
+{
+  "data": [],
   "total": 0,
 }
 `;
 
 exports[`odata-result.ts createODataResult should work 1`] = `
-Object {
-  "data": Array [
+{
+  "data": [
     1,
     2,
     3,
@@ -20,7 +20,7 @@ Object {
 `;
 
 exports[`odata-result.ts createODataResult should work with nulls 1`] = `
-Object {
+{
   "data": null,
   "total": undefined,
 }

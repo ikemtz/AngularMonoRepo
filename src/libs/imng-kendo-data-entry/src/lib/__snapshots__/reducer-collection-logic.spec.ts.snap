@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Reducer Collection Logic should addStateCollectionItem 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "u",
     "val": "z",
   },
-  Object {
+  {
     "id": "x",
     "val": "y",
   },
-  Object {
+  {
     "id": "a",
     "val": "b",
   },
@@ -18,8 +18,8 @@ Array [
 `;
 
 exports[`Reducer Collection Logic should removeStateCollectionItem 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "a",
     "val": "b",
   },
@@ -27,12 +27,12 @@ Array [
 `;
 
 exports[`Reducer Collection Logic should removeStateCollectionItem with no match 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "x",
     "val": "y",
   },
-  Object {
+  {
     "id": "a",
     "val": "b",
   },
@@ -40,12 +40,12 @@ Array [
 `;
 
 exports[`Reducer Collection Logic should updateStateCollectionItem 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "x",
     "val": "z",
   },
-  Object {
+  {
     "id": "a",
     "val": "b",
   },
@@ -53,12 +53,12 @@ Array [
 `;
 
 exports[`Reducer Collection Logic should updateStateCollectionItem with no match 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "x",
     "val": "y",
   },
-  Object {
+  {
     "id": "a",
     "val": "b",
   },

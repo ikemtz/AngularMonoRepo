@@ -1,15 +1,10 @@
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OidcFacade } from '../+state/oidc.facade';
 import { switchMap, tap } from 'rxjs/operators';
 import { OidcUserFacade } from '../+state/oidc-user.facade';
 
-export abstract class PermissionsGuard implements CanActivate {
+export abstract class PermissionsGuard  {
   constructor(
     private readonly oidcFacade: OidcFacade,
     private readonly oidcUserFacade: OidcUserFacade,

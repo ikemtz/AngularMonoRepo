@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matchAndSpread should work 1`] = `
-Array [
-  Object {
-    "collection": Array [
+[
+  {
+    "collection": [
       "😎",
       "🐱‍👤",
     ],
     "id": 123,
     "singleValue": "😎😎😉",
   },
-  Object {
-    "collection": Array [
+  {
+    "collection": [
       "a",
       "b",
       "c",
