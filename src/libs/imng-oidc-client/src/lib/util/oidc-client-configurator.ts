@@ -8,12 +8,10 @@ export function oidcConfigurator(
 ): OidcLibraryConfig {
   return {
     oidc_config: {
-      authority: oidcClientConfig.authority,
-      client_id: oidcClientConfig.client_id,
+      ...oidcClientConfig,
       extraQueryParams: { audience: oidcClientConfig.audience },
       redirect_uri: `${document.location.origin}/callback.html`,
       response_type: oidcClientConfig.response_type || 'id_token token',
-      scope: oidcClientConfig.scope,
       post_logout_redirect_uri: `${document.location.origin}/signout-callback.html`,
       silent_redirect_uri: `${document.location.origin}/renew-callback.html`,
       automaticSilentRenew: isNullOrUndefined(
