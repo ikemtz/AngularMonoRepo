@@ -1,44 +1,44 @@
-import { Tree } from '@angular-devkit/schematics';
+import { Tree } from "@angular-devkit/schematics";
 import {
   SchematicTestRunner,
   UnitTestTree,
-} from '@angular-devkit/schematics/testing';
-import * as path from 'path';
-import { IOptions } from '../shared';
-import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
-import * as pluralize from 'pluralize';
-import { classify } from '@angular-devkit/core/src/utils/strings';
+} from "@angular-devkit/schematics/testing";
+import * as path from "path";
+import { IOptions } from "../shared";
+import * as pluralize from "pluralize";
+import { classify } from "@angular-devkit/core/src/utils/strings";
 
-const collectionPath = path.join(__dirname, '../collection.json');
+const collectionPath = path.join(__dirname, "../collection.json");
 
-describe('imng-crud', () => {
-  test('generation works', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+describe("imng-crud", () => {
+  test("generation works", async () => {
+    const runner = new SchematicTestRunner("schematics", collectionPath);
     const options: IOptions = {
-      name: 'employee',
+      name: "employee",
       openApiJsonUrl:
-        'https://raw.githubusercontent.com/ikemtz/AngularMonoRepo/master/schematics/open-api-docs/nrcrn-empl-odata.json',
-      path: './test',
+        "https://raw.githubusercontent.com/ikemtz/AngularMonoRepo/master/schematics/open-api-docs/nrcrn-empl-odata.json",
+      path: "./test",
       swaggerProperties: [],
-      storeName: 'employees',
-      appPrefix: 'nrcrn',
+      storeName: "employees",
+      appPrefix: "nrcrn",
     };
-    const tree: UnitTestTree = await readFirst(
-      runner.runSchematicAsync('imng-crud', options, Tree.empty())
+    const tree: UnitTestTree = await runner.runSchematic(
+      "imng-crud",
+      options,
+      Tree.empty()
     );
-
     expect(tree.files).toEqual([
-      '/test/employees-crud/add-edit.component.html',
-      '/test/employees-crud/add-edit.component.scss',
-      '/test/employees-crud/add.component.spec.ts',
-      '/test/employees-crud/add.component.ts',
-      '/test/employees-crud/api.service.ts',
-      '/test/employees-crud/base-entry.component.ts',
-      '/test/employees-crud/crud.facade.spec.ts',
-      '/test/employees-crud/crud.facade.ts',
-      '/test/employees-crud/edit.component.spec.ts',
-      '/test/employees-crud/edit.component.ts',
-      '/test/employees-crud/index.ts',
+      "/test/employees-crud/add-edit.component.html",
+      "/test/employees-crud/add-edit.component.scss",
+      "/test/employees-crud/add.component.spec.ts",
+      "/test/employees-crud/add.component.ts",
+      "/test/employees-crud/api.service.ts",
+      "/test/employees-crud/base-entry.component.ts",
+      "/test/employees-crud/crud.facade.spec.ts",
+      "/test/employees-crud/crud.facade.ts",
+      "/test/employees-crud/edit.component.spec.ts",
+      "/test/employees-crud/edit.component.ts",
+      "/test/employees-crud/index.ts",
     ]);
 
     const htmlFile = tree.get(
@@ -46,9 +46,7 @@ describe('imng-crud', () => {
     );
     let content = htmlFile?.content.toString();
     expect(content).toContain('[formControlName]="props.ADDRESS_LINE_1"');
-    expect(content).toContain(
-      '<kendo-datepicker id="hire_date"'
-    );
+    expect(content).toContain('<kendo-datepicker id="hire_date"');
     expect(content).toContain(
       '<div *ngIf="formControlErrors(props.HIRE_DATE)?.[RequiredError]">Employee hire date is required</div>'
     );
@@ -66,7 +64,7 @@ describe('imng-crud', () => {
       `/test/${pluralize(options.name)}-crud/add.component.spec.ts`
     );
     content = addComponentSpecFile?.content.toString();
-    expect(content).toMatchSnapshot('addComponentSpecFile');
+    expect(content).toMatchSnapshot("addComponentSpecFile");
     expect(content).toContain(
       `component.addEditForm?.patchValue(createTestEmployee());`
     );
@@ -87,12 +85,10 @@ describe('imng-crud', () => {
     expect(content).toContain(`'${options.appPrefix}-${options.name}-edit'`);
 
     const editComponentSpecFile = tree.get(
-      '/test/employees-crud/edit.component.spec.ts'
+      "/test/employees-crud/edit.component.spec.ts"
     );
     content = editComponentSpecFile?.content.toString();
-    expect(content).toContain(
-      `createTest${classify(options.name)}())`
-    );
+    expect(content).toContain(`createTest${classify(options.name)}())`);
     expect(content).toContain(`birthDate: expect.any(Date),`);
   });
 });
