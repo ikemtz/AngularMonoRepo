@@ -7,11 +7,11 @@
     "NGRX"
   ],
   "peerDependencies": {
-    "@angular/common": ">=12 <=16",
-    "@angular/core": ">=12 <=16",
-    "@ngrx/store": ">=12 <=16",
-    "@ngrx/effects": ">=12 <=16",
-    "@microsoft/signalr": ">=7.x",
+    "@angular/common": "13 - 16",
+    "@angular/core": "13 - 16",
+    "@ngrx/store": "13 - 16",
+    "@ngrx/effects": "13 - 16",
+    "@microsoft/signalr": "6 -7",
     "imng-ngrx-utils": "*",
     "imng-oidc-client": "*"
   },

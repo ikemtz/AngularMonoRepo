@@ -8,11 +8,11 @@
     "Idle"
   ],
   "peerDependencies": {
-    "@angular/common": ">=12 <=16",
-    "@angular/core": ">=12 <=16",
-    "@ngrx/effects": ">=12 <=16",
-    "@ngrx/store": ">=12 <=16",
-    "@progress/kendo-angular-dialog": ">=7 <=12",
+    "@angular/common": "13 - 16",
+    "@angular/core": "13 - 16",
+    "@ngrx/effects": "13 - 16",
+    "@ngrx/store": "13 - 16",
+    "@progress/kendo-angular-dialog": "7 - 12",
     "@progress/kendo-angular-buttons": ">=8 <=12",
     "imng-oidc-client": "*",
     "imng-ngrx-utils": "*",

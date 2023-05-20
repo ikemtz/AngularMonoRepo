@@ -7,10 +7,10 @@
     "TypeAhead"
   ],
   "peerDependencies": {
-    "@angular/common": ">=12 <=16",
-    "@angular/core": ">=12 <=16",
-    "@angular/forms": ">=12 <=16",
-    "@angular/platform-browser": ">=12 <=16",
+    "@angular/common": "13 - 16",
+    "@angular/core": "13 - 16",
+    "@angular/forms": "13 - 16",
+    "@angular/platform-browser": "13 - 16",
     "@progress/kendo-data-query": ">=1.x",
     "ngx-bootstrap": ">=10.x",
     "imng-ngrx-utils": "*",
