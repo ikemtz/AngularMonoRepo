@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`oidcConfigurator should handle falses 1`] = `
-Object {
+{
   "getUserMetadata": false,
-  "oidc_config": Object {
+  "oidc_config": {
     "audience": "aud",
     "authority": "auth",
     "automaticSilentRenew": false,
     "client_id": "client",
-    "extraQueryParams": Object {
+    "extraQueryParams": {
       "audience": "aud",
     },
     "getUserMetadata": false,
@@ -25,14 +25,14 @@ Object {
 `;
 
 exports[`oidcConfigurator should handle trues 1`] = `
-Object {
+{
   "getUserMetadata": true,
-  "oidc_config": Object {
+  "oidc_config": {
     "audience": "aud",
     "authority": "auth",
     "automaticSilentRenew": true,
     "client_id": "client",
-    "extraQueryParams": Object {
+    "extraQueryParams": {
       "audience": "aud",
     },
     "getUserMetadata": true,
@@ -49,14 +49,14 @@ Object {
 `;
 
 exports[`oidcConfigurator should handle undefined 1`] = `
-Object {
+{
   "getUserMetadata": false,
-  "oidc_config": Object {
+  "oidc_config": {
     "audience": "aud",
     "authority": "auth",
     "automaticSilentRenew": true,
     "client_id": "client",
-    "extraQueryParams": Object {
+    "extraQueryParams": {
       "audience": "aud",
     },
     "getUserMetadata": false,

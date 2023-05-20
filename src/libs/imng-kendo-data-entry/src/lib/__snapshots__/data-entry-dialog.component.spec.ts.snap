@@ -7,7 +7,7 @@ DataEntryDialogComponent {
   "formId": "imng-form",
   "height": 600,
   "loading$": "💩",
-  "parentComponent": Object {
+  "parentComponent": {
     "addEditForm": "🐎",
     "closeForm": [MockFunction],
     "dialogTitle": "🔥",

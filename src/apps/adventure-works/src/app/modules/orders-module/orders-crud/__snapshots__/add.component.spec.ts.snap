@@ -1,32 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OrderAddComponent should save 1`] = `
-Object {
-  "billToAddress": Object {
-    "billToOrders": Array [],
+{
+  "billToAddress": {
+    "billToOrders": [],
     "city": "CITY",
     "countryRegion": "COUNTRY_REGION",
     "id": "ID",
     "line1": "LINE_1",
     "line2": "LINE_2",
     "postalCode": "POSTAL_CODE",
-    "shipToOrders": Array [],
+    "shipToOrders": [],
     "stateProvince": "STATE_PROVINCE",
   },
   "billToAddressId": "BILL_TO_ADDRESS_ID",
   "comment": "COMMENT",
   "creditCardApprovalCode": "CREDIT_CARD_APP",
-  "customer": Object {
+  "customer": {
     "companyName": "COMPANY_NAME",
-    "customerAddresses": Array [],
+    "customerAddresses": [],
     "emailAddress": "EMAIL_ADDRESS",
     "id": "ID",
     "name": "NAME",
     "num": "NUM_NUM_NUM_NUM",
-    "orders": Array [],
+    "orders": [],
     "phone": "PHONE",
-    "salesAgent": Object {
-      "customers": Array [],
+    "salesAgent": {
+      "customers": [],
       "id": 0,
       "loginId": "LOGIN_ID",
       "name": "NAME",
@@ -45,15 +45,15 @@ Object {
   "purchaseOrderNum": "PURCHASE_ORDER_NUM",
   "revisionNum": 0,
   "shipDate": Any<Date>,
-  "shipToAddress": Object {
-    "billToOrders": Array [],
+  "shipToAddress": {
+    "billToOrders": [],
     "city": "CITY",
     "countryRegion": "COUNTRY_REGION",
     "id": "ID",
     "line1": "LINE_1",
     "line2": "LINE_2",
     "postalCode": "POSTAL_CODE",
-    "shipToOrders": Array [],
+    "shipToOrders": [],
     "stateProvince": "STATE_PROVINCE",
   },
   "shipToAddressId": "SHIP_TO_ADDRESS_ID",

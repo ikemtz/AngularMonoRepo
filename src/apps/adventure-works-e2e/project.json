@@ -7,8 +7,9 @@
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/adventure-works-e2e/cypress.json",
-        "devServerTarget": "adventure-works:serve:development"
+        "cypressConfig": "apps/adventure-works-e2e/cypress.config.ts",
+        "devServerTarget": "adventure-works:serve:development",
+        "testingType": "e2e"
       },
       "configurations": {
         "production": {

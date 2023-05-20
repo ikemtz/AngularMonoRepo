@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrimeODataBasedComponentRouted should export to Excel 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "apples",
   },
 ]
 `;
 
 exports[`PrimeODataBasedComponentRouted should reset 1`] = `
-Object {
-  "filters": Object {
-    "x": Array [
-      Object {
+{
+  "filters": {
+    "x": [
+      {
         "matchMode": "equals",
         "operator": "all",
         "value": 1,
@@ -20,13 +20,13 @@ Object {
     ],
   },
   "first": 20,
-  "multiSortMeta": Array [
-    Object {
+  "multiSortMeta": [
+    {
       "field": "x",
       "order": 1,
     },
   ],
-  "select": Array [
+  "select": [
     "x",
     "y",
     "z",
