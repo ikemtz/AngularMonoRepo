@@ -29,7 +29,7 @@
   "schematics": "./src/collection.json",
   "dependencies": {
     "@angular-devkit/core": "^14.1.2",
-    "@angular-devkit/schematics": "^14.1.2",
+    "@angular-devkit/schematics": "^14.2.11",
     "axios": "^0.27.2",
     "find-up": "^5.0.0",
     "lodash": "^4.17.21",
