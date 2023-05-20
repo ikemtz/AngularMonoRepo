@@ -1,35 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PrimeODataBasedComponent Observable State should export to Excel 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "apples",
   },
 ]
 `;
 
 exports[`PrimeODataBasedComponent Observable State should normalizeFilters CompositeFilter 1`] = `
-Object {
-  "filters": Array [
-    Object {
+{
+  "filters": [
+    {
       "field": "Date",
-      "operator": Object {
+      "operator": {
         "name": "equals",
         "toODataString": [Function],
       },
       "value": Any<Date>,
     },
-    Object {
+    {
       "field": "DateUtc",
-      "operator": Object {
+      "operator": {
         "name": "equals",
         "toODataString": [Function],
       },
       "value": Any<Date>,
     },
-    Object {
+    {
       "field": "BeginDate",
-      "operator": Object {
+      "operator": {
         "name": "equals",
         "toODataString": [Function],
       },
@@ -41,22 +41,22 @@ Object {
 `;
 
 exports[`PrimeODataBasedComponent Observable State should reset 1`] = `
-Object {
-  "filters": Object {
-    "y": Array [
-      Object {
+{
+  "filters": {
+    "y": [
+      {
         "operator": "contains",
         "value": 56,
       },
     ],
   },
-  "multiSortMeta": Array [
-    Object {
+  "multiSortMeta": [
+    {
       "field": "x",
       "order": 1,
     },
   ],
-  "select": Array [
+  "select": [
     "x",
     "y",
     "z",

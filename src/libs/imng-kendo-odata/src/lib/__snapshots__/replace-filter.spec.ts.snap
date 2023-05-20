@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`removeMatchingFilters should not remove 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
-        "filters": Array [
-          Object {
+{
+  "filter": {
+    "filters": [
+      {
+        "filters": [
+          {
             "field": "y",
             "operator": "eq",
             "value": 2,
           },
-          Object {
+          {
             "field": "z",
             "operator": "eq",
             "value": 2,
@@ -26,10 +26,10 @@ Object {
 `;
 
 exports[`removeMatchingFilters should remove 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
+{
+  "filter": {
+    "filters": [
+      {
         "field": "z",
         "operator": "eq",
         "value": 2,
@@ -41,12 +41,12 @@ Object {
 `;
 
 exports[`removeMatchingFilters should remove sub filters 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
-        "filters": Array [
-          Object {
+{
+  "filter": {
+    "filters": [
+      {
+        "filters": [
+          {
             "field": "z",
             "operator": "eq",
             "value": 2,
@@ -54,14 +54,14 @@ Object {
         ],
         "logic": "and",
       },
-      Object {
-        "filters": Array [
-          Object {
+      {
+        "filters": [
+          {
             "field": "a",
             "operator": "eq",
             "value": 2,
           },
-          Object {
+          {
             "field": "b",
             "operator": "eq",
             "value": 2,
@@ -69,14 +69,14 @@ Object {
         ],
         "logic": "and",
       },
-      Object {
-        "filters": Array [
-          Object {
+      {
+        "filters": [
+          {
             "field": "e",
             "operator": "eq",
             "value": 2,
           },
-          Object {
+          {
             "field": "f",
             "operator": "eq",
             "value": 2,
@@ -91,9 +91,9 @@ Object {
 `;
 
 exports[`removeMatchingFilters should work with non-filtered odata states 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [],
+{
+  "filter": {
+    "filters": [],
     "logic": "and",
   },
 }

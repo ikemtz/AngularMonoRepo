@@ -1,56 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RxJs Operators findById handle undefined datasets 1`] = `Object {}`;
+exports[`RxJs Operators findById handle undefined datasets 1`] = `{}`;
 
-exports[`RxJs Operators findById handle undefined objects 1`] = `Object {}`;
+exports[`RxJs Operators findById handle undefined objects 1`] = `{}`;
 
-exports[`RxJs Operators firstRecord handle undefined datasets 1`] = `Object {}`;
+exports[`RxJs Operators firstRecord handle undefined datasets 1`] = `{}`;
 
-exports[`RxJs Operators firstRecord handle undefined objects 1`] = `Object {}`;
+exports[`RxJs Operators firstRecord handle undefined objects 1`] = `{}`;
 
 exports[`RxJs Operators getSubData should function 1`] = `
-Array [
-  Object {
+[
+  {
     "val": "abc",
   },
-  Object {
+  {
     "val": 456,
   },
 ]
 `;
 
 exports[`RxJs Operators getSubGridData should function 1`] = `
-Array [
-  Object {
+[
+  {
     "val": "abc",
   },
-  Object {
+  {
     "val": 456,
   },
 ]
 `;
 
 exports[`RxJs Operators mapToExtDataResult should function 1`] = `
-Object {
-  "data": Array [
-    Object {
+{
+  "data": [
+    {
       "id": 1,
-      "subData": Array [
-        Object {
+      "subData": [
+        {
           "val": "xyz",
         },
-        Object {
+        {
           "val": 123,
         },
       ],
     },
-    Object {
+    {
       "id": 2,
-      "subData": Array [
-        Object {
+      "subData": [
+        {
           "val": "abc",
         },
-        Object {
+        {
           "val": 456,
         },
       ],
@@ -61,26 +61,26 @@ Object {
 `;
 
 exports[`RxJs Operators mapToExtDataResult should handle Arrays 1`] = `
-Object {
-  "data": Array [
-    Object {
+{
+  "data": [
+    {
       "id": 1,
-      "subData": Array [
-        Object {
+      "subData": [
+        {
           "val": "xyz",
         },
-        Object {
+        {
           "val": 123,
         },
       ],
     },
-    Object {
+    {
       "id": 2,
-      "subData": Array [
-        Object {
+      "subData": [
+        {
           "val": "abc",
         },
-        Object {
+        {
           "val": 456,
         },
       ],
@@ -91,31 +91,31 @@ Object {
 `;
 
 exports[`RxJs Operators mapToExtDataResult should handle null 1`] = `
-Object {
-  "data": Array [],
+{
+  "data": [],
   "total": 0,
 }
 `;
 
 exports[`RxJs Operators should be created 1`] = `
-Array [
-  Object {
+[
+  {
     "val": "abc",
   },
-  Object {
+  {
     "val": 456,
   },
 ]
 `;
 
 exports[`RxJs Operators should findById 1`] = `
-Object {
+{
   "id": 2,
-  "subData": Array [
-    Object {
+  "subData": [
+    {
       "val": "abc",
     },
-    Object {
+    {
       "val": 456,
     },
   ],
@@ -123,13 +123,13 @@ Object {
 `;
 
 exports[`RxJs Operators should match firstRecord 1`] = `
-Object {
+{
   "id": 1,
-  "subData": Array [
-    Object {
+  "subData": [
+    {
       "val": "xyz",
     },
-    Object {
+    {
       "val": 123,
     },
   ],

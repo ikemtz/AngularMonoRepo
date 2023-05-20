@@ -7,8 +7,9 @@
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/imng-inventory-e2e/cypress.json",
-        "devServerTarget": "imng-inventory:serve:development"
+        "cypressConfig": "apps/imng-inventory-e2e/cypress.config.ts",
+        "devServerTarget": "imng-inventory:serve:development",
+        "testingType": "e2e"
       },
       "configurations": {
         "production": {

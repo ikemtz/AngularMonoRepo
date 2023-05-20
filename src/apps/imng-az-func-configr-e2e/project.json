@@ -7,8 +7,9 @@
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/imng-az-func-configr-e2e/cypress.json",
-        "devServerTarget": "imng-az-func-configr:serve:development"
+        "cypressConfig": "apps/imng-az-func-configr-e2e/cypress.config.ts",
+        "devServerTarget": "imng-az-func-configr:serve:development",
+        "testingType": "e2e"
       },
       "configurations": {
         "production": {

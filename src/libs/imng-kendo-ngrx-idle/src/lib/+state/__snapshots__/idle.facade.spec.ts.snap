@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IdleFacade used in NgModule should signout 1`] = `
-Object {
-  "idle": Object {
+{
+  "idle": {
     "isTimingOut": false,
     "timeoutSpanInMs": undefined,
   },
-  "oidc": Object {
+  "oidc": {
     "audiences": undefined,
-    "errors": Object {
+    "errors": {
       "httpError": undefined,
       "signInError": undefined,
       "silentRenewError": undefined,

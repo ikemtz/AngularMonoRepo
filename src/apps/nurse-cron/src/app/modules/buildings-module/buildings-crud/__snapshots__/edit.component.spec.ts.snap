@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BuildingEditComponent should update 1`] = `
-Object {
+{
   "addressLine1": "ADDRESS_LINE_1",
   "addressLine2": "ADDRESS_LINE_2",
   "cityOrMunicipality": "CITY_OR_MUNICIPALITY",

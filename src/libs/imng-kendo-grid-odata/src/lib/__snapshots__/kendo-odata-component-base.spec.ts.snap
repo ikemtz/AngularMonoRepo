@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KendoODataBasedComponent should normalizeFilters CompositeFilter 1`] = `
-Object {
-  "filters": Array [
-    Object {
+{
+  "filters": [
+    {
       "field": "Date",
       "operator": "eq",
       "value": Any<Date>,
     },
-    Object {
+    {
       "field": "DateUtc",
       "operator": "eq",
       "value": Any<Date>,
     },
-    Object {
+    {
       "field": "BeginDate",
       "operator": "eq",
       "value": Any<Date>,
@@ -24,11 +24,11 @@ Object {
 `;
 
 exports[`KendoODataBasedComponent should reset 1`] = `
-Object {
+{
   "childFilters": undefined,
-  "filter": Object {
-    "filters": Array [
-      Object {
+  "filter": {
+    "filters": [
+      {
         "field": "x",
         "operator": "eq",
         "value": 1,
@@ -37,13 +37,13 @@ Object {
     "logic": "and",
   },
   "inFilters": undefined,
-  "selectors": Array [
+  "selectors": [
     "x",
     "y",
     "z",
   ],
-  "sort": Array [
-    Object {
+  "sort": [
+    {
       "dir": "desc",
       "field": "x",
     },
