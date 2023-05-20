@@ -8,10 +8,10 @@
     "DataGrid"
   ],
   "peerDependencies": {
-    "@angular/common": ">=12 <=16",
-    "@angular/core": ">=12 <=16",
-    "@angular/forms": ">=12 <=16",
-    "@progress/kendo-angular-grid": ">=7 <=12",
+    "@angular/common": "13 - 16",
+    "@angular/core": "13 - 16",
+    "@angular/forms": "13 - 16",
+    "@progress/kendo-angular-grid": "7 - 12",
     "@progress/kendo-data-query": ">=1.x",
     "imng-ngrx-utils": "*",
     "imng-nrsrx-client-utils": "*",

@@ -10,10 +10,10 @@
   ],
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">=12 <=16",
-    "@angular/core": ">=12 <=16",
+    "@angular/common": "13 - 16",
+    "@angular/core": "13 - 16",
     "@progress/kendo-data-query": ">=1.x",
-    "@progress/kendo-angular-charts": ">=7 <=12",
+    "@progress/kendo-angular-charts": "7 - 12",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
   },
