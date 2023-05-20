@@ -6,9 +6,9 @@
     "NGRX"
   ],
   "peerDependencies": {
-    "@angular/common": "13 - 16",
-    "@angular/core": "13 - 16",
-    "@ngrx/store": "13 - 16",
+    "@angular/common": ">=13",
+    "@angular/core": ">=13",
+    "@ngrx/store": ">=13",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
   },
