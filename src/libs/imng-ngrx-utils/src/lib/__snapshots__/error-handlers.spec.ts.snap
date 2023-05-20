@@ -8,8 +8,8 @@ ZoneAwarePromise {
 `;
 
 exports[`error handlers imngEffectError should work 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "action": [Function],
     "error": [Error: should-work],
   },
@@ -18,7 +18,7 @@ Object {
 `;
 
 exports[`error handlers imngEffectErrorReducer should work 1`] = `
-Object {
+{
   "error": [Error: should-work],
   "loading": false,
 }

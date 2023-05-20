@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`toODataQuery should convert empty State 1`] = `
-Object {
+{
   "orderBy": undefined,
   "skip": undefined,
   "top": undefined,
@@ -9,14 +9,14 @@ Object {
 `;
 
 exports[`toODataQuery should convert no sorting 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
-        "filters": Array [
-          Object {
+{
+  "filter": {
+    "filters": [
+      {
+        "filters": [
+          {
             "field": "abc",
-            "operator": Object {
+            "operator": {
               "name": "equals",
               "toODataString": [Function],
             },
@@ -35,16 +35,16 @@ Object {
 `;
 
 exports[`toODataQuery should convert state with Child Filter 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
-        "filters": Array [
-          Object {
+{
+  "filter": {
+    "filters": [
+      {
+        "filters": [
+          {
             "childTable": "abc/bdf",
             "field": "xyz",
             "linqOperation": "any",
-            "operator": Object {
+            "operator": {
               "name": "equals",
               "toODataString": [Function],
             },
@@ -56,12 +56,12 @@ Object {
     ],
     "logic": "or",
   },
-  "orderBy": Array [
-    Object {
+  "orderBy": [
+    {
       "dir": "asc",
       "field": "abc",
     },
-    Object {
+    {
       "dir": "desc",
       "field": "xyz",
     },
@@ -72,14 +72,14 @@ Object {
 `;
 
 exports[`toODataQuery should convert state with parent Filters 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
-        "filters": Array [
-          Object {
+{
+  "filter": {
+    "filters": [
+      {
+        "filters": [
+          {
             "field": "abc/bdf/xyz",
-            "operator": Object {
+            "operator": {
               "name": "equals",
               "toODataString": [Function],
             },
@@ -91,12 +91,12 @@ Object {
     ],
     "logic": "or",
   },
-  "orderBy": Array [
-    Object {
+  "orderBy": [
+    {
       "dir": "asc",
       "field": "abc",
     },
-    Object {
+    {
       "dir": "desc",
       "field": "xyz",
     },
@@ -107,14 +107,14 @@ Object {
 `;
 
 exports[`toODataQuery should convert typical State 1`] = `
-Object {
-  "filter": Object {
-    "filters": Array [
-      Object {
-        "filters": Array [
-          Object {
+{
+  "filter": {
+    "filters": [
+      {
+        "filters": [
+          {
             "field": "abc",
-            "operator": Object {
+            "operator": {
               "name": "equals",
               "toODataString": [Function],
             },
@@ -126,12 +126,12 @@ Object {
     ],
     "logic": "or",
   },
-  "orderBy": Array [
-    Object {
+  "orderBy": [
+    {
       "dir": "asc",
       "field": "abc",
     },
-    Object {
+    {
       "dir": "desc",
       "field": "xyz",
     },
@@ -142,13 +142,13 @@ Object {
 `;
 
 exports[`toODataQuery should convert with no filters 1`] = `
-Object {
-  "orderBy": Array [
-    Object {
+{
+  "orderBy": [
+    {
       "dir": "asc",
       "field": "abc",
     },
-    Object {
+    {
       "dir": "desc",
       "field": "xyz",
     },

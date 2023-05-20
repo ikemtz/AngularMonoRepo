@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`updateFilter should update filters 1`] = `
-Object {
-  "filters": Array [
-    Object {
+{
+  "filters": [
+    {
       "field": "y",
       "operator": "eq",
       "value": 2,
     },
-    Object {
+    {
       "field": "z",
       "operator": "eq",
       "value": 2,
     },
-    Object {
+    {
       "field": "b",
       "operator": "eq",
       "value": "xyz",
@@ -24,26 +24,26 @@ Object {
 `;
 
 exports[`updateFilter should update subFilters 1`] = `
-Object {
-  "filters": Array [
-    Object {
+{
+  "filters": [
+    {
       "field": "y",
       "operator": "eq",
       "value": 2,
     },
-    Object {
+    {
       "field": "z",
       "operator": "eq",
       "value": 2,
     },
-    Object {
-      "filters": Array [
-        Object {
+    {
+      "filters": [
+        {
           "field": "a",
           "operator": "eq",
           "value": 2,
         },
-        Object {
+        {
           "field": "b",
           "operator": "eq",
           "value": 2,

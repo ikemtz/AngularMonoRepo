@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CustomerAddComponent should save 1`] = `
-Object {
+{
   "companyName": "COMPANY_NAME",
   "customerAddresses": null,
   "emailAddress": "EMAIL_ADDRESS",
@@ -10,8 +10,8 @@ Object {
   "num": "NUM_NUM_NUM_NUM",
   "orders": null,
   "phone": "PHONE",
-  "salesAgent": Object {
-    "customers": Array [],
+  "salesAgent": {
+    "customers": [],
     "id": 0,
     "loginId": "LOGIN_ID",
     "name": "NAME",
