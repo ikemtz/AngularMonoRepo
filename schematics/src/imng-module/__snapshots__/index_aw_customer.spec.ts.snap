@@ -351,18 +351,18 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
 
 exports[`imng-module crud html template should work 1`] = `
 "<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#num">
-  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row">
+  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row needs-validation">
     <div class="col-md-6">
       <label for="id" class="control-label">Id:</label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback">
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Customer id is required</div>
       </div>
     </div>
     <div class="col-md-6">
       <label for="num" class="control-label">Num:</label>
       <input id="num" type="text" class="form-control" [formControlName]="props.NUM" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback">
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Customer num is required</div>
         <div *ngIf="formControlErrors(props.NUM)?.[MinLengthError]">
           Customer num requires a min length of
@@ -378,7 +378,7 @@ exports[`imng-module crud html template should work 1`] = `
     <div class="col-md-6">
       <label for="company_name" class="control-label">Company Name:</label>
       <input id="company_name" type="text" class="form-control" [formControlName]="props.COMPANY_NAME" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.COMPANY_NAME)" class="invalid-feedback">
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.COMPANY_NAME)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.COMPANY_NAME)?.[RequiredError]">Customer company name is required</div>
         <div *ngIf="formControlErrors(props.COMPANY_NAME)?.[MinLengthError]">
           Customer company name requires a min length of
@@ -390,7 +390,7 @@ exports[`imng-module crud html template should work 1`] = `
     <div class="col-md-6">
       <label for="sales_agent_id" class="control-label">Sales Agent Id:</label>
       <input id="sales_agent_id" type="number" class="form-control" [formControlName]="props.SALES_AGENT_ID" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)" class="invalid-feedback">
+      <div *ngIf="(submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.SALES_AGENT_ID)?.[RequiredError]">Customer sales agent id is required</div>
       </div>
     </div>
