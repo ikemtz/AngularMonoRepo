@@ -5,6 +5,7 @@ exports[`SignalrFacade used in NgModule should handle received messages: post-cl
   "signalr": {
     "isConnected": false,
     "lastReceivedMessage": undefined,
+    "notificationPermission": undefined,
     "receivedMessages": [],
   },
 }
@@ -18,6 +19,7 @@ exports[`SignalrFacade used in NgModule should handle received messages: pre-cle
       "data": "😎",
       "methodName": "helloWorld",
     },
+    "notificationPermission": undefined,
     "receivedMessages": [
       {
         "data": "😎",
@@ -33,6 +35,7 @@ exports[`SignalrFacade used in NgModule should handle reconnect 1`] = `
   "signalr": {
     "isConnected": true,
     "lastReceivedMessage": undefined,
+    "notificationPermission": undefined,
     "receivedMessages": [],
   },
 }
