@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { formGroupFac } from './editable-data-grid.directive.spec';
 import { AddEvent, GridComponent } from '@progress/kendo-angular-grid';
+import { of } from 'rxjs';
 
 export const gridComponentMockFac = () =>
   ({
@@ -48,11 +49,11 @@ describe('GridDataEntryHelper<>', () => {
   });
 
   it('should handle saving edited records ', async () => {
-    const gridHelper = new GridDataEntryHelper(formGroupFac, [
-      { id: '💩' },
-      { id: '🐂' },
-      { id: '🥜' },
-    ]);
+    const gridHelper = new GridDataEntryHelper(
+      formGroupFac,
+      [{ id: '💩' }, { id: '🐂' }, { id: '🥜' }],
+      (x) => of({ ...x, value: 123 }),
+    );
 
     gridHelper.saveHandler({
       formGroup: formGroupFac(),
@@ -85,6 +86,20 @@ describe('GridDataEntryHelper<>', () => {
     const newRec = result[3];
     expect(newRec.id).toBeUndefined();
     expect(newRec.test).toBe('👍');
+  });
+
+  it('should clearData', async () => {
+    const gridHelper = new GridDataEntryHelper(formGroupFac, [
+      { id: '💩', test: 'i' },
+      { id: '🐂' },
+      { id: '🥜' },
+    ]);
+
+    let result = await readFirst(gridHelper.gridData$);
+    expect(result.length).toBe(3);
+    gridHelper.clearData();
+    result = await readFirst(gridHelper.gridData$);
+    expect(result.length).toBe(0);
   });
 
   it('should editHandler', async () => {

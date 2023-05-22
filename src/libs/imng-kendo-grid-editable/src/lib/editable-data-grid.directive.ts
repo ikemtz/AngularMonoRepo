@@ -1,10 +1,4 @@
-import {
-  Directive,
-  ChangeDetectorRef,
-  OnInit,
-  Input,
-  OnDestroy,
-} from '@angular/core';
+import { Directive, OnInit, Input, OnDestroy } from '@angular/core';
 import {
   GridComponent,
   EditEvent,
@@ -31,53 +25,51 @@ import { IdType } from 'imng-nrsrx-client-utils';
   selector: '[imngEditableDataGrid]',
 })
 export class ImngEditableDataGridDirective
-  implements OnInit, OnDestroy, Subscribable {
+  implements OnInit, OnDestroy, Subscribable
+{
   public readonly allSubscriptions = new Subscriptions();
   // eslint-disable-next-line @typescript-eslint/ban-types
-  _gridDataEntryHelper?: GridDataEntryHelper<{ id?: IdType; }>;
+  _gridDataEntryHelper?: GridDataEntryHelper<{ id?: IdType }>;
   // eslint-disable-next-line @typescript-eslint/ban-types
-  get gridDataEntryHelper(): GridDataEntryHelper<{ id?: IdType; }> | undefined {
+  get gridDataEntryHelper(): GridDataEntryHelper<{ id?: IdType }> | undefined {
     return this._gridDataEntryHelper;
   }
   @Input('imngEditableDataGrid')
   // eslint-disable-next-line @typescript-eslint/ban-types
   set gridDataEntryHelper(
-    value: GridDataEntryHelper<{ id?: IdType; }> | undefined
+    value: GridDataEntryHelper<{ id?: IdType }> | undefined,
   ) {
     this._gridDataEntryHelper = value;
     this.allSubscriptions.push(
       this.gridDataEntryHelper?.sortDescriptors$
         .pipe(
-          tap((sortDescriptor) => (this.gridComponent.sort = sortDescriptor))
+          tap((sortDescriptor) => (this.gridComponent.sort = sortDescriptor)),
         )
-        .subscribe()
+        .subscribe(),
     );
   }
-  constructor(
-    public readonly gridComponent: GridComponent,
-    private readonly changeDetectorRef: ChangeDetectorRef
-  ) { }
+  constructor(public readonly gridComponent: GridComponent) {}
 
   ngOnInit(): void {
     this.allSubscriptions.push(
       this.gridComponent.edit.subscribe((t: EditEvent) =>
-        this.gridDataEntryHelper?.editHandler(t)
+        this.gridDataEntryHelper?.editHandler(t),
       ),
       this.gridComponent.cancel.subscribe((t: CancelEvent) =>
-        this.gridDataEntryHelper?.cancelHandler(t)
+        this.gridDataEntryHelper?.cancelHandler(t),
       ),
       this.gridComponent.save.subscribe((t: SaveEvent) =>
-        this.gridDataEntryHelper?.saveHandler(t)
+        this.gridDataEntryHelper?.saveHandler(t),
       ),
       this.gridComponent.remove.subscribe((t: RemoveEvent) =>
-        this.gridDataEntryHelper?.removeHandler(t)
+        this.gridDataEntryHelper?.removeHandler(t),
       ),
       this.gridComponent.add.subscribe((t: AddEvent) =>
-        this.gridDataEntryHelper?.addHandler(t)
+        this.gridDataEntryHelper?.addHandler(t),
       ),
       this.gridComponent.sortChange.subscribe((t: SortDescriptor[]) =>
-        this.gridDataEntryHelper?.sortHandler(t)
-      )
+        this.gridDataEntryHelper?.sortHandler(t),
+      ),
     );
     this.gridComponent.reorderable = true;
     this.gridComponent.resizable = true;

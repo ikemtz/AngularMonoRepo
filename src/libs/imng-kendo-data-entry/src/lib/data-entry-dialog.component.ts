@@ -32,12 +32,21 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
         </ng-container>
       </kendo-dialog-actions>
     </kendo-dialog>
-
     <ng-template #defaultDialogActionsTpl>
-      <button kendoButton (click)="cancel()" class="btn btn-secondary btn-sm">
+      <button
+        name="imngCancelDataEntry"
+        kendoButton
+        (click)="cancel()"
+        class="btn btn-secondary btn-sm">
         Cancel
       </button>
-      <button kendoButton (click)="submit()" class="btn btn-primary btn-sm">
+      <button
+        name="imngSubmitDataEntry"
+        [attr.form]="formId"
+        type="submit"
+        kendoButton
+        (click)="submit()"
+        class="btn btn-primary btn-sm">
         {{ saveButtonText }}
       </button>
     </ng-template>`,
@@ -53,7 +62,7 @@ export class DataEntryDialogComponent implements OnInit {
   @Input() public autoFocusedElement?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public parentComponent?: BaseDataEntryComponent<any>; //NOSONAR
-  @Input() public saveButtonText = 'Save';
+  @Input() public saveButtonText?: string;
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
   /**
    * Example Usage:
@@ -67,6 +76,7 @@ export class DataEntryDialogComponent implements OnInit {
   public dialogBtnsTemplate?: TemplateRef<unknown>;
   public loading$?: Observable<boolean>;
   public addEditForm?: FormGroup;
+  public formId?: string;
   public submitted = false;
   public dialogTitle?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -79,6 +89,8 @@ export class DataEntryDialogComponent implements OnInit {
     this.dialogTitle = this.parentComponent.dialogTitle;
     this.loading$ = this.parentComponent.loading$;
     this.addEditForm = this.parentComponent.addEditForm;
+    this.saveButtonText ??= this.parentComponent.saveButtonText ?? 'Save';
+    this.formId ??= this.parentComponent.formId ?? 'imng-form';
   }
 
   public close(): void {

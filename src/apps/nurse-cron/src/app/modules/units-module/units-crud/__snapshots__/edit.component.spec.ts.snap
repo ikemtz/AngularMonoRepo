@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UnitAddComponent should save 1`] = `
-Object {
-  "building": Object {
+{
+  "building": {
     "addressLine1": "ADDRESS_LINE_1",
     "addressLine2": "ADDRESS_LINE_2",
     "cityOrMunicipality": "CITY_OR_MUNICIPALITY",
@@ -26,8 +26,8 @@ Object {
 `;
 
 exports[`UnitAddComponent should support Building filters 1`] = `
-Array [
-  Object {
+[
+  {
     "addressLine1": "xyz",
     "addressLine2": "xyz",
     "cityOrMunicipality": "xyz",
@@ -45,8 +45,8 @@ Array [
 `;
 
 exports[`UnitEditComponent should update 1`] = `
-Object {
-  "building": Object {
+{
+  "building": {
     "addressLine1": "ADDRESS_LINE_1",
     "addressLine2": "ADDRESS_LINE_2",
     "cityOrMunicipality": "CITY_OR_MUNICIPALITY",

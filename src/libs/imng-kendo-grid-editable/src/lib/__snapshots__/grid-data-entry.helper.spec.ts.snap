@@ -1,68 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GridDataEntryHelper<> should editHandler 1`] = `
-Object {
+{
   "id": "🐂🤏",
   "test": "👍",
 }
 `;
 
 exports[`GridDataEntryHelper<> should handle add 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "💩",
   },
-  Object {
+  {
     "id": "🐂",
   },
-  Object {
+  {
     "id": "🥜",
   },
-  Object {
+  {
     "id": "🐂",
   },
 ]
 `;
 
 exports[`GridDataEntryHelper<> should handle remove 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "💩",
   },
-  Object {
+  {
     "id": "🐂",
   },
 ]
 `;
 
 exports[`GridDataEntryHelper<> should handle saving edited records  1`] = `
-Array [
-  Object {
+[
+  {
     "id": "💩",
   },
-  Object {
+  {
     "id": "🐂🤏",
     "test": "👍",
+    "value": 123,
   },
-  Object {
+  {
     "id": "🥜",
   },
 ]
 `;
 
 exports[`GridDataEntryHelper<> should handle saving new records  1`] = `
-Array [
-  Object {
+[
+  {
     "id": "💩",
     "test": "i",
   },
-  Object {
+  {
     "id": "🐂",
   },
-  Object {
+  {
     "id": "🥜",
   },
-  Object {
+  {
     "id": undefined,
     "test": "👍",
   },
@@ -70,39 +71,39 @@ Array [
 `;
 
 exports[`GridDataEntryHelper<> should handle sorting: asc 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "A",
   },
-  Object {
+  {
     "id": "B",
   },
-  Object {
+  {
     "id": "C",
   },
 ]
 `;
 
 exports[`GridDataEntryHelper<> should handle sorting: desc 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "C",
   },
-  Object {
+  {
     "id": "B",
   },
-  Object {
+  {
     "id": "A",
   },
 ]
 `;
 
 exports[`GridDataEntryHelper<> should removeHandler 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "💩",
   },
-  Object {
+  {
     "id": "🐂",
   },
 ]

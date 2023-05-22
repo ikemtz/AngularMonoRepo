@@ -5,7 +5,6 @@ import { GridDataEntryHelper } from './grid-data-entry.helper';
 import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { GridComponent } from '@progress/kendo-angular-grid';
-import { ChangeDetectorRef } from '@angular/core';
 import { IdType } from 'imng-nrsrx-client-utils';
 
 const gridComponent = {
@@ -24,33 +23,21 @@ export const formGroupFac = () =>
 
 describe('ImngEditableDataGridDirective', () => {
   it('should create an instance', () => {
-    const changeDetectorRef = {} as ChangeDetectorRef;
-    const directive = new ImngEditableDataGridDirective(
-      gridComponent,
-      changeDetectorRef,
-    );
+    const directive = new ImngEditableDataGridDirective(gridComponent);
     dir();
     expect(directive).toBeTruthy();
     directive.ngOnInit();
   });
 
   it('should destroy an instance', () => {
-    const changeDetectorRef = {} as ChangeDetectorRef;
-    const directive = new ImngEditableDataGridDirective(
-      gridComponent,
-      changeDetectorRef,
-    );
+    const directive = new ImngEditableDataGridDirective(gridComponent);
     expect(directive).toBeTruthy();
     directive.ngOnInit();
     directive.ngOnDestroy();
   });
 
   it('should set sorting properly', async () => {
-    const changeDetectorRef = {} as ChangeDetectorRef;
-    const directive = new ImngEditableDataGridDirective(
-      gridComponent,
-      changeDetectorRef,
-    );
+    const directive = new ImngEditableDataGridDirective(gridComponent);
     expect(directive).toBeTruthy();
     expect(directive.gridDataEntryHelper).toBeFalsy();
     directive.ngOnInit();

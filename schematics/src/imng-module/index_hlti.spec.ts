@@ -7,8 +7,7 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
-import { IOptions } from '../shared';
-import { readFirst } from '@nrwl/angular/testing/src/testing-utils';
+import { IOptions } from '../shared'; 
 import * as pluralize from 'pluralize';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
@@ -20,15 +19,13 @@ describe('imng-module', () => {
     const options: IOptions = {
       name: 'healthItem',
       openApiJsonUrl:
-        'https://im-wa-hlto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
+        'https://raw.githubusercontent.com/ikemtz/AngularMonoRepo/master/schematics/open-api-docs/nrcrn-hlth-odata.json',
       path: './test',
       swaggerProperties: [],
       storeName: 'healthItems',
       appPrefix: 'nrcrn',
     };
-    const tree: UnitTestTree = await readFirst(
-      runner.runSchematicAsync('imng-module', options, Tree.empty())
-    );
+    const tree: UnitTestTree = await runner.runSchematic('imng-module', options, Tree.empty());
 
     expect(tree.files).toEqual([
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(

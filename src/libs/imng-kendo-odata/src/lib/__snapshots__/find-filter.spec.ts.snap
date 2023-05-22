@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`findFilter should find 1`] = `
-Object {
+{
   "field": "y",
   "operator": "eq",
   "value": 2,
@@ -9,7 +9,7 @@ Object {
 `;
 
 exports[`findFilter should find sub filters 1`] = `
-Object {
+{
   "field": "y",
   "operator": "eq",
   "value": 2,

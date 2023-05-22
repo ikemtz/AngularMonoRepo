@@ -10,8 +10,10 @@ exports[`DialogButtonsDirective should handle cancel 1`] = `
 
 exports[`DialogButtonsDirective should handle submit 1`] = `
 <button
+  form="imng-form"
   id="x"
+  type="submit"
 >
-  😇
+   Save 
 </button>
 `;

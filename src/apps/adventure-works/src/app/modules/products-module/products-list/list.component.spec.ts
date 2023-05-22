@@ -1,13 +1,17 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
+import {
+  createDataEntryMockFacade,
+  createDataDeleteMockFacade,
+} from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { ProductListComponent } from './list.component';
 import { createProduct } from './list.facade.spec';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
+import { DomSanitizer } from '@angular/platform-browser';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -20,10 +24,13 @@ describe('ProductListComponent', () => {
       declarations: [ProductListComponent],
       imports: [RouterTestingModule],
       providers: [
-        { provide: ProductListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
+        {
+          provide: ProductListFacade,
+          useValue: createODataGridMockFacade(createDataDeleteMockFacade()),
+        },
         { provide: ProductCrudFacade, useValue: createDataEntryMockFacade() },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -72,5 +79,13 @@ describe('ProductListComponent', () => {
     component.deleteItem(item);
     expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
     expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
+  });
+
+  test('it should getFormatSrc', () => {
+    const result = component.getFormatSrc(
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+      'png',
+    );
+    expect(result).toMatchSnapshot();
   });
 });

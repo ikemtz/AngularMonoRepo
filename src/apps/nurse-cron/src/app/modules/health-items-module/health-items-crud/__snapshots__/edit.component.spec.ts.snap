@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HealthItemEditComponent should update 1`] = `
-Object {
+{
   "id": "ID",
   "isEnabled": true,
   "name": "NAME",

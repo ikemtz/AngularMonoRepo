@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
-import { FilterOperators, ODataResult } from '../models';
+import { filterOperators, FilterOperators, ODataResult } from '../models';
 
 import { ODataClientService } from './odata-client.service';
 
@@ -252,6 +252,65 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
+  it('should serialize ODataQueries without expander counts', () => {
+    const queryString = service.getODataString({
+      expand: [
+        {
+          table: 'xyz',
+          select: ['id', 'abc'],
+          count: false,
+          top: 1,
+          orderBy: [{ field: 'x', dir: 'desc' }],
+        },
+      ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain(';$count=true');
+    expect(queryString).toMatchSnapshot();
+  });
+
+  it('should serialize ODataQueries with expander counts', () => {
+    const queryString = service.getODataString({
+      expand: [
+        {
+          table: 'xyz',
+          select: ['id', 'abc'],
+          count: true,
+          top: 1,
+          orderBy: [{ field: 'x', dir: 'desc' }],
+        },
+      ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).toContain(';$count=true');
+    expect(queryString).toMatchSnapshot();
+  });
+
+  it('should serialize ODataQueries simple expander', () => {
+    const queryString = service.getODataString({
+      expand: [
+        {
+          table: 'xyz',
+        },
+      ],
+    });
+    expect(queryString).not.toContain('()');
+    expect(queryString).toMatchSnapshot();
+  });
+
+  it('should serialize ODataQueries simple nested expander', () => {
+    const queryString = service.getODataString({
+      expand: [
+        {
+          table: 'xyz',
+          expand: [{ table: 'abc' }],
+        },
+      ],
+    });
+    expect(queryString).not.toContain('()');
+    expect(queryString).toMatchSnapshot();
+  });
+
   it('should serialize ODataQueries with a date Filter', () => {
     const queryString = service.getODataString({
       select: ['A', 'b', '890'],
@@ -292,6 +351,43 @@ describe('ODataClientService', () => {
         { field: 'xyz', dir: 'desc' },
         { field: 'id', dir: 'asc' },
       ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain('timestamp');
+    expect(queryString).toMatchSnapshot();
+  });
+
+  it('should serialize ODataQueries with a contains Filter', () => {
+    const queryString = service.getODataString({
+      filter: {
+        logic: 'and',
+        filters: [
+          {
+            logic: 'and',
+            filters: [
+              {
+                childTable: 'sub-z',
+                linqOperation: 'all',
+                field: 'x',
+                operator: FilterOperators.contains,
+                value: 'z',
+              },
+            ],
+          },
+          {
+            logic: 'and',
+            filters: [
+              {
+                childTable: 'sub-z',
+                linqOperation: 'all',
+                field: 'y',
+                operator: FilterOperators.contains,
+                value: 'z',
+              },
+            ],
+          },
+        ],
+      },
     });
     expect(queryString).not.toContain('?&');
     expect(queryString).not.toContain('timestamp');

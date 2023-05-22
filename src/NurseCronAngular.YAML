@@ -1,4 +1,4 @@
-name: 4.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+name: 6.$(Year:yy).$(DayOfYear)$(Rev:.rr)
 pool:
   vmImage: ubuntu-latest
 variables:
@@ -130,8 +130,8 @@ jobs:
 
       - task: Docker@2
         inputs:
-          containerRegistry: 'Azure Container Registry'
-          repository: 'nurse-cron'
+          containerRegistry: 'IkeMtz Docker Hub'
+          repository: 'ikemtz/nurse-cron'
           command: 'buildAndPush'
           Dockerfile: 'src/nurse-cron.local.Dockerfile'
           buildContext: 'src/'

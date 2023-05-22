@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, isObservable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import {
   EditEvent,
   CancelEvent,
@@ -11,26 +11,28 @@ import {
 } from '@progress/kendo-angular-grid';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
+import { Subscriptions } from 'imng-ngrx-utils';
 
-export class GridDataEntryHelper<T extends { id?: IdType }> {
+export class GridDataEntryHelper<TENTITY extends { id?: IdType }> {
   private _editedRowIndex: number | undefined;
   private _gridFormGroup: FormGroup | undefined;
-  private readonly _gridData$: BehaviorSubject<Array<T>>;
+  private readonly _gridData$: BehaviorSubject<Array<TENTITY>>;
   public sortDescriptors$ = new BehaviorSubject<SortDescriptor[]>([]);
+  public readonly subscriptions: Subscriptions;
   public get gridFormGroup(): FormGroup | undefined {
     return this._gridFormGroup;
   }
 
-  public get gridData$(): Observable<Array<T>> {
+  public get gridData$(): Observable<Array<TENTITY>> {
     //NOSONAR
     return this._gridData$.asObservable();
   }
 
-  public get gridData(): Array<T> {
+  public get gridData(): Array<TENTITY> {
     return this._gridData;
   }
 
-  public set gridData(value: Array<T>) {
+  public set gridData(value: Array<TENTITY>) {
     if (value) {
       this._gridData = [...value];
       this._gridData$.next(this._gridData);
@@ -51,12 +53,17 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   }
   constructor(
     private readonly formGroupFactory: () => FormGroup,
-    private _gridData: T[] = [],
+    private _gridData: TENTITY[] = [],
+    private readonly preSaveLogic: (
+      entity: TENTITY,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+    ) => Observable<TENTITY> | void = () => {},
   ) {
-    this._gridData$ = new BehaviorSubject<Array<T>>(_gridData);
+    this._gridData$ = new BehaviorSubject<Array<TENTITY>>(_gridData);
+    this.subscriptions = new Subscriptions();
   }
 
-  public addItems(...items: T[]): T[] {
+  public addItems(...items: TENTITY[]): TENTITY[] {
     if (items) {
       this._gridData.push(...items);
       this._gridData$.next(this._gridData);
@@ -64,7 +71,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
     return this._gridData;
   }
 
-  public removeItems(...items: T[]): T[] {
+  public removeItems(...items: TENTITY[]): TENTITY[] {
     if (items) {
       items.forEach((f) => {
         this._gridData = this.gridData.filter((t) => t !== f);
@@ -72,6 +79,11 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
       this._gridData$.next(this._gridData);
     }
     return this._gridData;
+  }
+
+  public clearData(): void {
+    this._gridData = [];
+    this._gridData$.next(this._gridData);
   }
 
   public editHandler(editEvent: EditEvent): void {
@@ -97,13 +109,25 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   }
 
   public saveHandler(saveEvent: SaveEvent): void {
-    const result: T = saveEvent.formGroup.value;
-    const tempGrid: T[] = this.gridData.map((t) => ({ ...t }));
-    if (saveEvent.isNew) {
-      result.id = undefined;
-      tempGrid.push(result);
+    const result: TENTITY = saveEvent.formGroup.value;
+    const resultPipe = this.preSaveLogic(result);
+    if (isObservable(resultPipe)) {
+      this.subscriptions.push(
+        resultPipe
+          .pipe(tap((record) => this.updateRecord(record, saveEvent)))
+          .subscribe(),
+      );
     } else {
-      tempGrid.splice(saveEvent.rowIndex, 1, result);
+      this.updateRecord(result, saveEvent);
+    }
+  }
+  public updateRecord(record: TENTITY, saveEvent: SaveEvent) {
+    const tempGrid: TENTITY[] = this.gridData.map((t) => ({ ...t }));
+    if (saveEvent.isNew) {
+      record.id = undefined;
+      tempGrid.push(record);
+    } else {
+      tempGrid.splice(saveEvent.rowIndex, 1, record);
     }
     this.gridData = tempGrid;
     this._gridData$.next(this.gridData);
@@ -129,7 +153,7 @@ export class GridDataEntryHelper<T extends { id?: IdType }> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public gridValidationLogic(_data: Array<T>): boolean {
+  public gridValidationLogic(_data: Array<TENTITY>): boolean {
     return this._gridData.length > 0 && !this._gridFormGroup;
   }
 }

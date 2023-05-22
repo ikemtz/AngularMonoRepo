@@ -1,13 +1,15 @@
 {
+  "name": "imng-inventory-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/imng-inventory-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
-      "executor": "@nrwl/cypress:cypress",
+      "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/imng-inventory-e2e/cypress.json",
-        "devServerTarget": "imng-inventory:serve:development"
+        "cypressConfig": "apps/imng-inventory-e2e/cypress.config.ts",
+        "devServerTarget": "imng-inventory:serve:development",
+        "testingType": "e2e"
       },
       "configurations": {
         "production": {
@@ -16,7 +18,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/imng-inventory-e2e/**/*.{js,ts}"]

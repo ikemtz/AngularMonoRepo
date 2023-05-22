@@ -28,7 +28,7 @@ import { environment } from '../environments/environment';
       {
         metaReducers: [],
         runtimeChecks: environment.runtimeChecks,
-      }
+      },
     ),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ name: 'Nurse-CRON' }),

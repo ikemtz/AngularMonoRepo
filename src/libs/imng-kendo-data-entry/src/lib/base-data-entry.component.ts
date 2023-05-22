@@ -1,12 +1,17 @@
 import {
-  Directive,
+  Component,
   Inject,
   InjectionToken,
   Input,
   OnDestroy,
 } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { AbstractControl, ValidationErrors, FormGroup, FormArray } from '@angular/forms';
+import {
+  AbstractControl,
+  ValidationErrors,
+  FormGroup,
+  FormArray,
+} from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
@@ -26,12 +31,16 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
  *
  * @class BaseDataEntryComponent>
  */
-@Directive()
+@Component({ template: '' })
 export abstract class BaseDataEntryComponent<
   FACADE extends IBaseDataEntryFacade,
-  > implements OnDestroy, Subscribable {
+> implements OnDestroy, Subscribable
+{
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
+
+  public formId = 'imng-form';
+  public saveButtonText = 'Save';
   public readonly MinLengthError = 'minlength';
   public readonly RequiredError = 'required';
   public readonly ENUM_DISPLAY_TEXT = 'displayText';
@@ -41,13 +50,10 @@ export abstract class BaseDataEntryComponent<
   public abstract props: unknown;
   public abstract addEditForm: FormGroup;
   public loading$: Observable<boolean>;
-  private readonly _submitted$: BehaviorSubject<boolean> = new BehaviorSubject(
+  public readonly submitted$: BehaviorSubject<boolean> = new BehaviorSubject(
     false as boolean,
   );
 
-  public get submitted$(): Observable<boolean> {
-    return this._submitted$.asObservable();
-  }
   constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
     this.initForm();
@@ -60,7 +66,7 @@ export abstract class BaseDataEntryComponent<
   public closeForm(): void {
     this.initForm();
     this.facade.clearCurrentEntity();
-    this._submitted$.next(false);
+    this.submitted$.next(false);
   }
 
   public onCancel(): void {
@@ -68,7 +74,7 @@ export abstract class BaseDataEntryComponent<
   }
 
   public onSubmit(): boolean {
-    this._submitted$.next(true);
+    this.submitted$.next(true);
 
     // stop here if form is invalid
     if (!this.addEditForm.valid) {
@@ -86,13 +92,21 @@ export abstract class BaseDataEntryComponent<
   }
 
   // convenience getter for easy access to form fields
-  public formControl(controlName: string, controls: { [key: string]: AbstractControl; } = this.addEditForm.controls): AbstractControl {
+  public formControl(
+    controlName: string,
+    controls: { [key: string]: AbstractControl } = this.addEditForm.controls,
+  ): AbstractControl {
     return controls[controlName];
   }
 
-  public formControlErrors(control: string | AbstractControl, controls: { [key: string]: AbstractControl; } | AbstractControl[] = this.addEditForm.controls): ValidationErrors | null {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const tempControl = typeof control === 'string' ? (controls as any)[control] : control;
+  public formControlErrors(
+    control: string | AbstractControl,
+    controls: { [key: string]: AbstractControl } | AbstractControl[] = this
+      .addEditForm.controls,
+  ): ValidationErrors | null {
+    const tempControl =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      typeof control === 'string' ? (controls as any)[control] : control;
     if (tempControl?.valid && !tempControl?.errors) {
       return null;
     }
@@ -100,20 +114,35 @@ export abstract class BaseDataEntryComponent<
   }
   public formMinLengthError(
     controlName: string,
-  ): { requiredLength: number; actualLength: number; } | null {
+  ): { requiredLength: number; actualLength: number } | null {
     return this.formControlErrors(controlName)?.[this.MinLengthError];
   }
-  public getFormErrors(controls: { [key: string]: AbstractControl; } | AbstractControl[] = this.addEditForm.controls, parentControlName?: string): { controlName: string; error: ValidationErrors; }[] {
-    const errors: { controlName: string; error: ValidationErrors; }[] = [];
+  public getFormErrors(
+    controls: { [key: string]: AbstractControl } | AbstractControl[] = this
+      .addEditForm.controls,
+    parentControlName?: string,
+  ): { controlName: string; error: ValidationErrors }[] {
+    const errors: { controlName: string; error: ValidationErrors }[] = [];
     for (const controlName of Object.keys(controls)) {
       const control = (controls as never)[controlName];
       const error = this.formControlErrors(control, controls);
       if (error) {
-        errors.push({ controlName: parentControlName ? `${parentControlName}.${controlName}` : controlName, error });
+        errors.push({
+          controlName: parentControlName
+            ? `${parentControlName}.${controlName}`
+            : controlName,
+          error,
+        });
       }
       if ((control as FormArray)?.controls) {
-
-        errors.push(...this.getFormErrors((control as FormArray).controls, parentControlName ? `${parentControlName}.${controlName}` : controlName));
+        errors.push(
+          ...this.getFormErrors(
+            (control as FormArray).controls,
+            parentControlName
+              ? `${parentControlName}.${controlName}`
+              : controlName,
+          ),
+        );
       }
     }
     return errors;

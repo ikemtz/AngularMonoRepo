@@ -1,4 +1,4 @@
-name: 4.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+name: 6.$(Year:yy).$(DayOfYear)$(Rev:.rr)
 pool:
   vmImage: ubuntu-latest
 variables:
@@ -115,8 +115,8 @@ jobs:
 
       - task: Docker@2
         inputs:
-          containerRegistry: 'Azure Container Registry'
-          repository: 'inventory'
+          containerRegistry: 'IkeMtz Docker Hub'
+          repository: 'ikemtz/inventory'
           command: 'buildAndPush'
           Dockerfile: 'src/inventory.local.Dockerfile'
           buildContext: 'src/'

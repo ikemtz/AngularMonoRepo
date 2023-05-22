@@ -1,4 +1,5 @@
 {
+  "name": "nurse-cron",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/nurse-cron/src",
@@ -23,12 +24,7 @@
             "output": "/"
           }
         ],
-        "styles": [
-          {
-            "input": "libs/imng-kendo-theme-blue/dist/styles.css"
-          },
-          "apps/nurse-cron/src/styles.scss"
-        ],
+        "styles": ["apps/nurse-cron/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -87,7 +83,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/nurse-cron/src/**/*.ts",
@@ -96,8 +92,8 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/nurse-cron"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/nurse-cron"],
       "options": {
         "jestConfig": "apps/nurse-cron/jest.config.ts",
         "passWithNoTests": true
