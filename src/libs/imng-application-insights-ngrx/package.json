@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "Small library to facilitate the integration of Application Insights with an NGRX metaReducer.",
   "peerDependencies": {
-    "@angular/common": ">= 13",
-    "@angular/core": ">= 13",
-    "@ngrx/effects": ">= 13",
-    "@ngrx/store": ">= 13",
+    "@angular/common": ">= 14",
+    "@angular/core": ">= 14",
+    "@ngrx/effects": ">= 14",
+    "@ngrx/store": ">= 14",
     "@microsoft/applicationinsights-web": ">= 2",
     "rxjs": "*"
   },

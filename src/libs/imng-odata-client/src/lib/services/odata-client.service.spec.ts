@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
-import { filterOperators, FilterOperators, ODataResult } from '../models';
+import { FilterOperators, ODataResult } from '../models';
 
 import { ODataClientService } from './odata-client.service';
 
@@ -35,14 +35,14 @@ describe('ODataClientService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should serialize ODataQueries with ODataResults', () => {
+  it('should serialize ODataQueries with ODataResults', async () => {
     let queryString = '';
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (httpClient as any).get = jest.fn((x) => {
       queryString = x;
       return of(testODataResult());
     });
-    readFirst(
+    await readFirst(
       service.fetch(
         'imng.com',
         {
@@ -61,14 +61,14 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
-  it('should serialize ODataQueries with array results', () => {
+  it('should serialize ODataQueries with array results', async () => {
     let queryString = '';
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (httpClient as any).get = jest.fn((x) => {
       queryString = x;
       return of(testODataResult().value);
     });
-    readFirst(
+    await readFirst(
       service.fetch('imng.com', {
         select: ['A', 'b', '890'],
         top: 123,
@@ -80,14 +80,14 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
-  it('should serialize ODataQueries with null results', () => {
+  it('should serialize ODataQueries with null results', async () => {
     let queryString = '';
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (httpClient as any).get = jest.fn((x) => {
       queryString = x;
       return of(null);
     });
-    readFirst(
+    await readFirst(
       service.fetch('imng.com', {
         select: ['A', 'b', '890'],
         top: 123,
@@ -250,6 +250,13 @@ describe('ODataClientService', () => {
     expect(queryString).not.toContain('?&');
     expect(queryString).not.toContain('timestamp');
     expect(queryString).toMatchSnapshot();
+  });
+
+  it('should handle top: 0', () => {
+    const queryString = service.getODataString({
+      top: 0,
+    });
+    expect(queryString).toBe(`$top=0&$count=true`);
   });
 
   it('should serialize ODataQueries without expander counts', () => {

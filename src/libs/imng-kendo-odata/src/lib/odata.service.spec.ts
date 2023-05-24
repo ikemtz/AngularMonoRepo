@@ -147,6 +147,24 @@ describe('ODataService', () => {
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
 
+  it('should support take: 0', async () => {
+    httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
+    const gridState: ODataState = {
+      take: 0,
+    };
+    await readFirst(
+      service.fetch('//idunno.com', gridState, {
+        utcNullableProps: ['fireDate'],
+        dateNullableProps: ['fireDate'],
+      }),
+    );
+    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toBeCalledWith(
+      // eslint-disable-next-line max-len
+      `//idunno.com?$top=0&$count=true`,
+    );
+  });
+
   it('should support infilter with ANDS', async () => {
     httpClient.get = jest.fn(() => of(mockDataFactory())) as never;
     const gridState: ODataState = {
