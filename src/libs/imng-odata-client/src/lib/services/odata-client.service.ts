@@ -70,7 +70,7 @@ export class ODataClientService {
       result += `${element.table}(`;
       const query: ODataQuery = {
         ...element,
-        count: element.count || false,
+        count: element.count ?? false,
         expand: undefined,
       };
       result += `${this.getODataString(query).replace(/&/g, ';')};`;
@@ -94,7 +94,7 @@ export class ODataClientService {
   }
 
   processOrderBy(query: ODataQuery, queryString: string): string {
-    if (!query.orderBy || !query.orderBy.length) {
+    if (!query.orderBy?.length) {
       return queryString;
     }
     const sortString = query.orderBy
@@ -107,11 +107,7 @@ export class ODataClientService {
     _options: FetchOptions,
     queryString: string,
   ): string {
-    if (
-      !query.filter ||
-      !query.filter.filters.length ||
-      !query.filter.filters.length
-    ) {
+    if (!query.filter?.filters?.length) {
       return queryString;
     }
     const filterString = this.serializeCompositeFilter(query.filter);
@@ -147,7 +143,10 @@ export class ODataClientService {
     query: ODataQuery,
     queryString: string,
   ): string {
-    if (query[parameterName]) {
+    if (
+      query[parameterName] ||
+      (parameterName === 'top' && query[parameterName] === 0)
+    ) {
       return `${queryString}&$${parameterName}=${query[parameterName]}`;
     }
     return queryString;
