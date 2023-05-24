@@ -11,7 +11,8 @@
   "peerDependencies": {
     "@angular/common": ">= 14",
     "@angular/core": ">= 14",
-    "primeng": ">=14",
+    "@angular/router": ">= 14",
+    "primeng": ">= 14",
     "imng-odata-client": "*"
   },
   "dependencies": {
