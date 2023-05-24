@@ -9,6 +9,8 @@ import {
 export const SIGNALR_CONFIG = new InjectionToken('signalr-config');
 
 export interface ISignalrConfiguration {
+  notificationIcon: string | undefined;
+  notificationTitle: string;
   hostUrl: string;
   /** Configures the logger used for logging.
    *
