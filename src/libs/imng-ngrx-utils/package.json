@@ -8,6 +8,7 @@
   "peerDependencies": {
     "@angular/common": ">= 13",
     "@angular/core": ">= 13",
+    "@angular/forms": ">= 13",
     "@ngrx/store": ">= 13",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
