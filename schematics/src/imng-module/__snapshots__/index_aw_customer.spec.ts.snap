@@ -285,6 +285,7 @@ describe('CustomerCrudFacade', () => {
       isNewActive = await readFirst(facade.isNewActive$);
 
       expect(isNewActive).toBeFalsy();
+      expect(await readFirst(store)).toMatchSnapshot();
     });
 
     test('New Entity Set And Clear CurrentEntity', async () =>

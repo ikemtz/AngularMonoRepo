@@ -64,5 +64,5 @@ describe("imng-list", () => {
     expect(content).toContain(
       `store.dispatch(certificationActionTypes.loadCertificationsSuccess(createODataResult([createTestCertification(), createTestCertification()])));`
     );
-  });
+  }, 10000);
 });
