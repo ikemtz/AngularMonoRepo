@@ -6,7 +6,7 @@ import {
 import * as path from 'path';
 import { IOptions } from '../shared';
 import * as pluralize from 'pluralize';
-import { classify, dasherize } from '@angular-devkit/core/src/utils/strings'; 
+import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
 
@@ -17,14 +17,14 @@ describe(`imng-module`, () => {
     const runner = new SchematicTestRunner(`schematics`, collectionPath);
     options = {
       name: `customer`,
-      openApiJsonUrl: `https://awod-ikemtz.azurewebsites.net/swagger/v1/swagger.json`,
+      openApiJsonUrl: `https://awod-ifkemtz.azurewebsites.net/swagger/v1/swagger.json`,
       path: `./test`,
       swaggerProperties: [],
       appPrefix: 'aw',
     };
     tree = await runner.runSchematic(`imng-module`, options, Tree.empty());
-  });
-  
+  }, 30000);
+
   test(`tree files should match`, () => {
     expect(tree.files).toMatchSnapshot();
   });
