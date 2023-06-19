@@ -22,6 +22,8 @@ describe('ImngSignalrNgrxModule', () => {
 
   it('should init on forRoot', () => {
     const result = ImngSignalrNgrxModule.forRoot({
+      notificationTitle: 'imng signalR',
+      notificationIcon: undefined,
       logger: 6,
       hostUrl: '/notificationHub',
       clientMethods: ['x'],
