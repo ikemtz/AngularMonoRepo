@@ -9,9 +9,9 @@
       </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
-<% swaggerProperties.forEach(function(swaggerProperty) {%><% if (swaggerProperty.format === 'date-time' && swaggerProperty.name.toLowerCase().endsWith('utc') ) { %>
+<% swaggerProperties.forEach(function(swaggerProperty) {%><% if ((swaggerProperty.format === 'date-time' || swaggerProperty.format === 'date') && swaggerProperty.name.toLowerCase().endsWith('utc') ) { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy hh:mm}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
-<%} else if (swaggerProperty.format === 'date-time') { %>
+<%} else if (swaggerProperty.format === 'date-time' || swaggerProperty.format === 'date') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
 <%} else if (swaggerProperty.type === 'boolean') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>">
