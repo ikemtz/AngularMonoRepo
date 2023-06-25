@@ -85,7 +85,7 @@ export function processOpenApiDoc(data: OpenApiDocument, options: IOptions, host
   options.swaggerObjectProperties = mappedProperties.filteredProperties.filter(f => f.$ref);
   options.swaggerProperties = mappedProperties.filteredProperties;
   options.firstProperty = mappedProperties.firstProperty;
-  options.hasNullableDates = options.swaggerProperties.some(t => t.format === 'date-time' && !t.required);
+  options.hasNullableDates = options.swaggerProperties.some(t => (t.format === 'date-time' || t.format === 'date') && !t.required);
   return host;
 }
 
@@ -98,7 +98,7 @@ export function mapPropertyAttributes(options: IOptions, source: PropertyInfo, d
     dest.htmlInputType = 'checkbox';
     dest.filterExpression = 'boolean';
     dest.testFactoryValue = 'true';
-  } else if (source.format === 'date-time') {
+  } else if (source.format === 'date-time' || source.format === 'date') {
     dest.htmlInputType = 'date';
     dest.filterExpression = 'date';
     dest.testFactoryValue = 'new Date()';

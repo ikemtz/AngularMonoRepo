@@ -24,7 +24,7 @@ describe('ImngPrimeODataTableDirective', () => {
   let facade: IPrimeODataTableFacade<{ id?: IdType | null }>;
 
   beforeEach(() => {
-    tableComponent = new MockTable() as Table;
+    tableComponent = new MockTable() as unknown as Table;
     changeDetectorRef = {} as ChangeDetectorRef;
     odataComponent = {
       facade: createODataTableMockFacade({
