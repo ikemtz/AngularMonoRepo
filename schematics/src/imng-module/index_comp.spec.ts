@@ -4,7 +4,7 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
-import { IOptions } from '../shared'; 
+import { IOptions } from '../shared';
 import * as pluralize from 'pluralize';
 import { dasherize, classify } from '@angular-devkit/core/src/utils/strings';
 
@@ -68,6 +68,9 @@ describe('imng-module', () => {
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
         pluralize(options.name)
       )}-list/list.facade.ts`,
+      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
+        pluralize(options.name)
+      )}-list/list.grid-state.ts`,
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
         pluralize(options.name)
       )}-crud/add-edit.component.html`,
