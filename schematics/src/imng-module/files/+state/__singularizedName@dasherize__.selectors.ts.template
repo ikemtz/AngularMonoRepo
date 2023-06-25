@@ -8,12 +8,10 @@ const selectIsEdit<%= classify(name) %>Active = createSelector(
 const selectIsNew<%= classify(name) %>Active = createSelector(
   <%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>,
   (entity) => isTruthy(entity) && !isTruthy(entity?.id));
-export const dataEntry<%= classify(name) %>Queries = {
-  selectCurrent<%= classify(name) %>: <%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>,
+export const <%= camelize(singularizedName) %>Queries = {
   selectIsEdit<%= classify(name) %>Active,
   selectIsNew<%= classify(name) %>Active,
 };
 
-export const <%= camelize(singularizedName) %>Queries = { ...dataEntry<%= classify(name) %>Queries };
 <% } else { %>
 export const <%= camelize(singularizedName) %>Queries = {};<% } %>

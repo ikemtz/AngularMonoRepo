@@ -4,7 +4,7 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
-import { IOptions } from '../shared'; 
+import { IOptions } from '../shared';
 import { classify } from '@angular-devkit/core/src/utils/strings';
 import * as pluralize from 'pluralize';
 
@@ -32,6 +32,7 @@ describe('imng-list', () => {
       `/test/${pluralize(options.name)}-list/list.component.ts`,
       `/test/${pluralize(options.name)}-list/list.facade.spec.ts`,
       `/test/${pluralize(options.name)}-list/list.facade.ts`,
+      `/test/${pluralize(options.name)}-list/list.grid-state.ts`,
     ]);
 
     const htmlFile = tree.get(
@@ -42,13 +43,19 @@ describe('imng-list', () => {
     expect(content).toContain(`<${options.appPrefix}-${options.name}-add `);
     expect(content).toContain(`<${options.appPrefix}-${options.name}-edit `);
 
+    const gridStateFile = tree.get(
+      `/test/${pluralize(options.name)}-list/list.grid-state.ts`
+    );
+    content = gridStateFile?.content.toString();
+    expect(content).toContain(
+      `${classify(options.name)}Properties.ADDRESS_LINE_1,`
+    );
+    expect(content).toMatchSnapshot();
+
     const componentFile = tree.get(
       `/test/${pluralize(options.name)}-list/list.component.ts`
     );
     content = componentFile?.content.toString();
-    expect(content).toContain(
-      `${classify(options.name)}Properties.ADDRESS_LINE_1,`
-    );
     expect(content).toContain(`'${options.appPrefix}-${options.name}-list'`);
 
     const facadeSpecFile = tree.get(

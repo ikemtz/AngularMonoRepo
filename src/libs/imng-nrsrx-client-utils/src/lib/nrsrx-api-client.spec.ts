@@ -5,12 +5,29 @@ describe('NrsrxBaseApiClientService', () => {
   it('should post correctly with id', () => {
     const httpClient: HttpClient = { post: jest.fn() } as unknown as HttpClient;
     const apiService = new MockApiService(httpClient);
+    apiService.dateOnlyPropertyNames = ['birthDate'];
     const postData = { id: '🐱‍👤🐱‍👤🐱‍👤' };
     apiService.post(postData);
     expect(httpClient.post).toBeCalledWith(
       `good_times?id=${postData.id}`,
       postData,
     );
+  });
+  it('should post correctly with date only prop', () => {
+    const httpClient: HttpClient = {
+      post: jest.fn(),
+    } as unknown as HttpClient;
+    const apiService = new MockApiService(httpClient);
+    apiService.dateOnlyPropertyNames = ['birthDate'];
+    const postData = {
+      id: '🐱‍👤🐱‍👤🐱‍👤',
+      birthDate: new Date('1776-07-04'),
+    };
+    apiService.post(postData);
+    expect(httpClient.post).toBeCalledWith(`good_times?id=${postData.id}`, {
+      ...postData,
+      birthDate: '1776-07-04',
+    });
   });
   it('post should handle invalid id', () => {
     const httpClient = { post: jest.fn() } as unknown as HttpClient;
@@ -22,6 +39,7 @@ describe('NrsrxBaseApiClientService', () => {
   it('should put correctly with id', () => {
     const httpClient: HttpClient = { put: jest.fn() } as unknown as HttpClient;
     const apiService = new MockApiService(httpClient);
+    apiService.dateOnlyPropertyNames = ['birthDate'];
     const postData = { id: '🐱‍👤🐱‍👤🐱‍👤' };
     apiService.put(postData);
     expect(httpClient.put).toBeCalledWith(

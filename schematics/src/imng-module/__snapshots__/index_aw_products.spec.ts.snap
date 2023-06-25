@@ -153,8 +153,6 @@ describe('ProductAddComponent', () => {
 
 exports[`imng-module add component template should work 1`] = `
 "import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { normalizeRequest } from 'imng-nrsrx-client-utils';
-
 import { ProductCrudFacade } from './crud.facade';
 import { ProductBaseEntryComponent } from './base-entry.component';
 
@@ -177,7 +175,7 @@ export class ProductAddComponent extends ProductBaseEntryComponent implements On
   }
 
   public save(): void {
-    const val = normalizeRequest<IProduct>(this.addEditForm.value);
+    const val = this.addEditForm.value;
     val.id = undefined;
     this.facade.saveNewEntity(val);
   }
@@ -626,7 +624,6 @@ describe('ProductEditComponent', () => {
 exports[`imng-module edit component template should work 1`] = `
 "import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
-import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
 import { ProductBaseEntryComponent } from './base-entry.component';
 import { ProductCrudFacade } from './crud.facade';
@@ -652,7 +649,7 @@ export class ProductEditComponent extends ProductBaseEntryComponent implements O
   }
 
   public save(): void {
-    const val = normalizeRequest<IProduct>(this.addEditForm.value);
+    const val = this.addEditForm.value;
     this.facade.updateExistingEntity(val);
   }
 }
@@ -929,47 +926,10 @@ exports[`imng-module list component should work 1`] = `
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
-import { ODataState } from 'imng-kendo-odata';
 
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
-
-const initialGridState: ODataState = {
-  take: 20,
-  skip: 0,
-  selectors: [
-    ProductProperties.ID,
-    ProductProperties.NAME,
-    ProductProperties.NUM,
-    ProductProperties.COLOR,
-    ProductProperties.STANDARD_COST,
-    ProductProperties.LIST_PRICE,
-    ProductProperties.SIZE,
-    ProductProperties.WEIGHT,
-    ProductProperties.PRODUCT_CATEGORY_ID,
-    ProductProperties.PRODUCT_MODEL_ID,
-    ProductProperties.SELL_START_DATE,
-    ProductProperties.SELL_END_DATE,
-    ProductProperties.DISCONTINUED_DATE,
-    ProductProperties.THUMB_NAIL_PHOTO,
-  ],
-  sort: [
-    { field: ProductProperties.NAME, dir: 'asc' },
-  ],
-  expanders: [
-      { table: ProductProperties.PRODUCT_MODEL,
-        selectors: [
-          ProductModelProperties.ID,
-          ProductModelProperties.NAME,
-          ProductModelProperties.DESCRIPTION,
-        ]},
-      { table: ProductProperties.PRODUCT_CATEGORY,
-        selectors: [
-          ProductCategoryProperties.ID,
-          ProductCategoryProperties.NAME,
-        ]},
-  ]
-};
+import { productGridState } from './list.grid-state';
 
 @Component({
   selector: 'aw-product-list',
@@ -986,7 +946,7 @@ export class ProductListComponent extends KendoODataBasedComponent<IProduct, Pro
   constructor(facade: ProductListFacade,
     public readonly crudFacade: ProductCrudFacade,
     router: Router) {
-    super(facade, initialGridState, router);
+    super(facade, productGridState, router);
   }
 
   public addItem(): void {
@@ -1144,13 +1104,11 @@ const selectIsEditProductActive = createSelector(
 const selectIsNewProductActive = createSelector(
   productsFeature.selectCurrentProduct,
   (entity) => isTruthy(entity) && !isTruthy(entity?.id));
-export const dataEntryProductQueries = {
-  selectCurrentProduct: productsFeature.selectCurrentProduct,
+export const productQueries = {
   selectIsEditProductActive,
   selectIsNewProductActive,
 };
 
-export const productQueries = { ...dataEntryProductQueries };
 
 "
 `;
@@ -1171,6 +1129,7 @@ exports[`imng-module tree files should match 1`] = `
   "/test/products-module/products-list/list.component.ts",
   "/test/products-module/products-list/list.facade.spec.ts",
   "/test/products-module/products-list/list.facade.ts",
+  "/test/products-module/products-list/list.grid-state.ts",
   "/test/products-module/products-crud/add-edit.component.html",
   "/test/products-module/products-crud/add-edit.component.scss",
   "/test/products-module/products-crud/add.component.spec.ts",

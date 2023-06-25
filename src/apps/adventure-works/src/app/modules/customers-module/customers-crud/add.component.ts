@@ -1,9 +1,12 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { normalizeRequest } from 'imng-nrsrx-client-utils';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerBaseEntryComponent } from './base-entry.component';
-import { ICustomer } from '../../../models/webapi';
 
 @Component({
   selector: 'aw-customer-add',
@@ -11,7 +14,10 @@ import { ICustomer } from '../../../models/webapi';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerAddComponent extends CustomerBaseEntryComponent implements OnInit, OnDestroy {
+export class CustomerAddComponent
+  extends CustomerBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Add Customer';
   public active$ = this.facade.isNewActive$;
 
@@ -24,7 +30,7 @@ export class CustomerAddComponent extends CustomerBaseEntryComponent implements 
   }
 
   public save(): void {
-    const val = normalizeRequest<ICustomer>(this.addEditForm.value);
+    const val = this.addEditForm.value;
     val.id = undefined;
     this.facade.saveNewEntity(val);
   }
