@@ -3,12 +3,12 @@
 exports[`CustomerAddComponent should save 1`] = `
 {
   "companyName": "COMPANY_NAME",
-  "customerAddresses": null,
+  "customerAddresses": [],
   "emailAddress": "EMAIL_ADDRESS",
   "id": undefined,
   "name": "NAME",
   "num": "NUM_NUM_NUM_NUM",
-  "orders": null,
+  "orders": [],
   "phone": "PHONE",
   "salesAgent": {
     "customers": [],

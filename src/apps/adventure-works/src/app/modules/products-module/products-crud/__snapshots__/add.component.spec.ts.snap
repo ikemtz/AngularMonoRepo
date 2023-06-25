@@ -8,7 +8,7 @@ exports[`ProductAddComponent should save 1`] = `
   "listPrice": 0,
   "name": "NAME",
   "num": "NUM_NUM_NUM_NUM",
-  "orderLineItems": null,
+  "orderLineItems": [],
   "productCategory": {
     "id": "ID",
     "name": "NAME",

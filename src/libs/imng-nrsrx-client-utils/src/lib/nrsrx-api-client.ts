@@ -54,11 +54,11 @@ export abstract class NrsrxBaseApiClientService<
 
   public formatEntity(entity: TENTITY): TENTITY {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const anyEntity: any = entity; //NOSONAR
+    const anyEntity: any = normalizeRequest(entity); //NOSONAR
     this.dateOnlyPropertyNames.forEach(
       (propertyName) =>
         (anyEntity[propertyName] = toDateOnly(anyEntity[propertyName])),
     );
-    return normalizeRequest(anyEntity);
+    return anyEntity;
   }
 }
