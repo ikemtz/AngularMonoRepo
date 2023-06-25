@@ -15,7 +15,7 @@ export abstract class NrsrxBaseApiClientService<
   /**
    * A collection of strings that represent date only property names
    */
-  public dateOnlypropertyNames: string[] = [];
+  public dateOnlyPropertyNames: string[] = [];
 
   constructor(protected readonly http: HttpClient) {}
 
@@ -55,7 +55,7 @@ export abstract class NrsrxBaseApiClientService<
   public formatEntity(entity: TENTITY): TENTITY {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const anyEntity: any = entity; //NOSONAR
-    this.dateOnlypropertyNames?.forEach(
+    this.dateOnlyPropertyNames.forEach(
       (propertyName) =>
         (anyEntity[propertyName] = toDateOnly(anyEntity[propertyName])),
     );
