@@ -5,7 +5,7 @@ import {
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
 import { IOptions } from '../shared';
-import * as pluralize from 'pluralize'; 
+import * as pluralize from 'pluralize';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
@@ -67,6 +67,9 @@ describe(`imng-module`, () => {
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
         pluralize(options.name)
       )}-list/list.facade.ts`,
+      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
+        pluralize(options.name)
+      )}-list/list.grid-state.ts`,
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
         pluralize(options.name)
       )}-crud/add-edit.component.html`,

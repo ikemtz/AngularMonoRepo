@@ -72,7 +72,7 @@ describe('<%= classify(name) %>AddComponent', () => {
     expect(facade.updateExistingEntity).toBeCalledTimes(0);
 <% if (hasDates) { %>
     expect(item).toMatchSnapshot({
-<% swaggerProperties.filter(t=> t.format === 'date-time').forEach(function(swaggerProperty)
+<% swaggerProperties.filter(t=> t.format === 'date-time' || t.format === 'date').forEach(function(swaggerProperty)
  {%>      <%= swaggerProperty.name %>: expect.any(Date),
 <% }); %>    });
 <% } else { %>

@@ -1,24 +1,64 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IdType } from './id-type';
+import { normalizeRequest } from './normalize-request';
+import { toDateOnly } from './to-date-only';
 
-export class NrsrxBaseApiClientService<T extends { id?: IdType | null }> {
-  public url = '';
+export abstract class NrsrxBaseApiClientService<
+  TENTITY extends { id?: IdType | null },
+> {
+  /**
+   * The URL of the API endpoint to call
+   */
+  public abstract url: string;
+
+  /**
+   * A collection of strings that represent date only property names
+   */
+  public dateOnlyPropertyNames: string[] = [];
+
   constructor(protected readonly http: HttpClient) {}
-  // Used to insert entities on NRSRx based API endpoints
-  public post(payload: T): Observable<T> {
-    return this.http.post<T>(
+
+  /**
+   * Calls the insert (POST) endpoint on a NRSRx based API endpoint
+   * @param payload
+   * @returns Observable<TENTITY>
+   */
+  public post(payload: TENTITY): Observable<TENTITY> {
+    return this.http.post<TENTITY>(
       payload.id ? `${this.url}?id=${payload.id}` : this.url,
-      payload,
+      this.formatEntity(payload),
     );
   }
 
-  // Used to update entities on NRSRx based API endpoints
-  public put(payload: T): Observable<T> {
-    return this.http.put<T>(`${this.url}?id=${payload.id}`, payload);
+  /**
+   * Calls the update (PUT) endpoint on a NRSRx based API endpoint
+   * @param payload
+   * @returns Observable<TENTITY>
+   */
+  public put(payload: TENTITY): Observable<TENTITY> {
+    return this.http.put<TENTITY>(
+      `${this.url}?id=${payload.id}`,
+      this.formatEntity(payload),
+    );
   }
 
-  public delete(payload: T): Observable<T> {
-    return this.http.delete<T>(`${this.url}?id=${payload.id}`);
+  /**
+   * Calls the delete endpoint on a NRSRx based API endpoint
+   * @param payload
+   * @returns Observable<TENTITY>
+   */
+  public delete(payload: TENTITY): Observable<TENTITY> {
+    return this.http.delete<TENTITY>(`${this.url}?id=${payload.id}`);
+  }
+
+  public formatEntity(entity: TENTITY): TENTITY {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const anyEntity: any = entity; //NOSONAR
+    this.dateOnlyPropertyNames.forEach(
+      (propertyName) =>
+        (anyEntity[propertyName] = toDateOnly(anyEntity[propertyName])),
+    );
+    return normalizeRequest(anyEntity);
   }
 }
