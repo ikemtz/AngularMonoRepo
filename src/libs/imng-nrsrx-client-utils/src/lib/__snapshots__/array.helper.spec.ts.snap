@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array.helper flat should work 2 deep 1`] = `
+[
+  1,
+  2,
+  3,
+  4,
+  5,
+  [
+    6,
+  ],
+]
+`;
+
+exports[`array.helper flat should work 3 deep 1`] = `
+[
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+]
+`;

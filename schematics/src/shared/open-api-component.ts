@@ -20,7 +20,7 @@ export interface PropertyInfo {
   name?: string;
   enum?: [string | number];
   type: 'string' | 'boolean' | 'array' | 'integer' | 'number' | 'date' | 'object';
-  format?: 'date-time' | 'uuid' | 'int32' | 'double';
+  format?: 'date-time' | 'date' | 'uuid' | 'int32' | 'double';
   filterExpression: 'text' | 'numeric' | 'boolean' | 'date' | null;
   nullable?: boolean;
   readOnly?: boolean;
@@ -36,5 +36,5 @@ export interface PropertyInfo {
   firstProperty: PropertyInfo | undefined;
   propertyTypeName?: string;
   singularizedPropertyTypeName?: string;
-  pluralizedPropertyTypeName?:string;
+  pluralizedPropertyTypeName?: string;
 }

@@ -54,7 +54,7 @@ describe('<%= classify(name) %>EditComponent', () => {
     expect(facade.updateExistingEntity).toBeCalledTimes(1);
 <% if (hasDates) { %>
     expect(item).toMatchSnapshot({
-<% swaggerProperties.filter(t=> t.format === 'date-time').forEach(function(swaggerProperty)
+<% swaggerProperties.filter(t=> t.format === 'date-time' || t.format === 'date').forEach(function(swaggerProperty)
  {%>      <%= swaggerProperty.name %>: expect.any(Date),
 <% }); %>    });
 <% } else { %>

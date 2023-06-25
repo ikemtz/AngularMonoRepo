@@ -1,29 +1,29 @@
-import { Tree } from "@angular-devkit/schematics";
+import { Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
   UnitTestTree,
-} from "@angular-devkit/schematics/testing";
-import * as path from "path";
-import { IOptions } from "../shared";
-import * as pluralize from "pluralize";
-import { classify } from "@angular-devkit/core/src/utils/strings";
+} from '@angular-devkit/schematics/testing';
+import * as path from 'path';
+import { IOptions } from '../shared';
+import * as pluralize from 'pluralize';
+import { classify } from '@angular-devkit/core/src/utils/strings';
 
-const collectionPath = path.join(__dirname, "../collection.json");
+const collectionPath = path.join(__dirname, '../collection.json');
 
-describe("imng-list", () => {
-  test("generation works", async () => {
-    const runner = new SchematicTestRunner("schematics", collectionPath);
+describe('imng-list', () => {
+  test('generation works', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
     const options: IOptions = {
-      name: "certification",
+      name: 'certification',
       openApiJsonUrl:
-        "https://raw.githubusercontent.com/ikemtz/AngularMonoRepo/master/schematics/open-api-docs/nrcrn-cert-odata.json",
-      path: "./test",
+        'https://raw.githubusercontent.com/ikemtz/AngularMonoRepo/master/schematics/open-api-docs/nrcrn-cert-odata.json',
+      path: './test',
       swaggerProperties: [],
-      storeName: "certifications",
-      appPrefix: "nrcrn",
+      storeName: 'certifications',
+      appPrefix: 'nrcrn',
     };
     const tree: UnitTestTree = await runner.runSchematic(
-      "imng-list",
+      'imng-list',
       options,
       Tree.empty()
     );
@@ -35,6 +35,7 @@ describe("imng-list", () => {
       `/test/${pluralize(options.name)}-list/list.component.ts`,
       `/test/${pluralize(options.name)}-list/list.facade.spec.ts`,
       `/test/${pluralize(options.name)}-list/list.facade.ts`,
+      '/test/certifications-list/list.grid-state.ts',
     ]);
 
     const htmlFile = tree.get(
@@ -45,13 +46,18 @@ describe("imng-list", () => {
     expect(content).toContain(`<${options.appPrefix}-${options.name}-add `);
     expect(content).toContain(`<${options.appPrefix}-${options.name}-edit `);
 
+    const stateFile = tree.get(
+      `/test/${pluralize(options.name)}-list/list.grid-state.ts`
+    );
+    content = stateFile?.content.toString();
+    expect(content).toContain(
+      `${classify(options.name)}Properties.EXPIRES_ON_UTC,`
+    );
+
     const componentFile = tree.get(
       `/test/${pluralize(options.name)}-list/list.component.ts`
     );
     content = componentFile?.content.toString();
-    expect(content).toContain(
-      `${classify(options.name)}Properties.EXPIRES_ON_UTC,`
-    );
     expect(content).toContain(`'${options.appPrefix}-${options.name}-list'`);
 
     const facadeSpecFile = tree.get(
