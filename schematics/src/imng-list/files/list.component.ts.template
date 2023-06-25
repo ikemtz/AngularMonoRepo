@@ -2,27 +2,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
-import { ODataState } from 'imng-kendo-odata';
 
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
-
-const initialGridState: ODataState = {
-  take: 20,
-  skip: 0,
-  selectors: [<% swaggerProperties.filter(t=> t.htmlInputType !== 'object' || t.enum).forEach(function(swaggerProperty){ %>
-    <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
-  ],
-  sort: [
-    { field: <%= classify(singularizedName) %>Properties.<%= firstProperty?.snakeCaseName.toUpperCase() %>, dir: 'asc' },
-  ],<% if (hasObjects) { %>
-  expanders: [<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
-      { table: <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,
-        selectors: [<% swaggerProperty.properties.forEach(function(subSwaggerProperty){ %>
-          <%= classify(swaggerProperty.propertyTypeName) %>Properties.<%= subSwaggerProperty.snakeCaseName.toUpperCase() %>,<%})%>
-        ]},<% }) %>
-  ]<% } %>
-};
+import { <%= camelize(singularizedName) %>GridState } from './list.grid-state';
 
 @Component({
   selector: '<%= appPrefix %>-<%= dasherize(singularizedName) %>-list',
@@ -39,7 +22,7 @@ export class <%= classify(singularizedName) %>ListComponent extends KendoODataBa
   constructor(facade: <%= classify(singularizedName) %>ListFacade,
     public readonly crudFacade: <%= classify(singularizedName) %>CrudFacade,
     router: Router) {
-    super(facade, initialGridState, router);
+    super(facade, <%= camelize(singularizedName) %>GridState, router);
   }
 
   public addItem(): void {
