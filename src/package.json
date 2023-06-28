@@ -194,7 +194,7 @@
     "ang-jsoneditor": "^3.1.0",
     "jsoneditor": "^9.10.2",
     "ngx-barcode-scanner": "^14.0.1",
-    "ngx-bootstrap": "^10.2.0",
+    "ngx-bootstrap": "^10.2.1",
     "oidc-client": "^1.11.5",
     "primeicons": "^6.0.1",
     "primeng": "^16.0.2",
