@@ -53,6 +53,11 @@ describe("imng-crud", () => {
     expect(content).toContain(
       '<label for="hire_date" class="control-label">Hire Date:</label>'
     );
+    const apiService = tree.get(
+      `/test/${pluralize(options.name)}-crud/api.service.ts`
+    );
+    content = apiService?.content.toString();
+    expect(content).toMatchSnapshot();
 
     const addComponent = tree.get(
       `/test/${pluralize(options.name)}-crud/add.component.ts`

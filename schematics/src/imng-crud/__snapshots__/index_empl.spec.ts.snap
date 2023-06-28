@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`imng-crud generation works 1`] = `
+"import { Injectable } from '@angular/core';
+import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class EmployeeApiService extends NrsrxBaseApiClientService<IEmployee> {
+  public override url = environment.webApiEndpoints.employees;
+
+  public dateOnlyPropertyNames = [
+    EmployeeProperties.BIRTH_DATE,
+    EmployeeProperties.HIRE_DATE,
+    EmployeeProperties.FIRE_DATE];
+
+  constructor(http: HttpClient) {
+    super(http);
+  }
+}
+"
+`;
+
 exports[`imng-crud generation works: addComponentSpecFile 1`] = `
 "import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
