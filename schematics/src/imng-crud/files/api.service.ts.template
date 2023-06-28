@@ -8,6 +8,10 @@ import { environment } from '../../../../environments/environment';
 })
 export class <%= classify(name) %>ApiService extends NrsrxBaseApiClientService<I<%= classify(name) %>> {
   public override url = environment.webApiEndpoints.<%= camelize(pluralizedName) %>;
+<% if (swaggerProperties.filter(t => t.format === 'date')) { %>
+  public dateOnlyPropertyNames = [<% swaggerProperties.filter(t => t.format === 'date').forEach(function (swaggerProperty, index, dateProperties) {  %>
+    <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (index + 1 < dateProperties.length) { %>,<% }}) %>];
+<% } %>
   constructor(http: HttpClient) {
     super(http);
   }
