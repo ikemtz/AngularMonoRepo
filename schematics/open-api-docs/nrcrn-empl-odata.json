@@ -255,11 +255,11 @@
           },
           "hireDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "fireDate": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "nullable": true
           },
           "totalHoursOfService": {
