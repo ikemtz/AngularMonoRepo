@@ -15,7 +15,8 @@
         }
       ],
       "options": {
-        "project": "libs/imng-ngrx-utils/ng-package.json"
+        "project": "libs/imng-ngrx-utils/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {

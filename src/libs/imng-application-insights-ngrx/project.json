@@ -9,7 +9,8 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-application-insights-ngrx"],
       "options": {
-        "project": "libs/imng-application-insights-ngrx/ng-package.json"
+        "project": "libs/imng-application-insights-ngrx/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
