@@ -9,7 +9,8 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-nrsrx-client-utils"],
       "options": {
-        "project": "libs/imng-nrsrx-client-utils/ng-package.json"
+        "project": "libs/imng-nrsrx-client-utils/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {

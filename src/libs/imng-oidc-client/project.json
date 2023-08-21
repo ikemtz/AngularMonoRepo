@@ -15,7 +15,8 @@
         }
       ],
       "options": {
-        "project": "libs/imng-oidc-client/ng-package.json"
+        "project": "libs/imng-oidc-client/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {

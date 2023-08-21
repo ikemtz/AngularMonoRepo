@@ -15,7 +15,8 @@
         }
       ],
       "options": {
-        "project": "libs/imng-kendo-grid-filtering/ng-package.json"
+        "project": "libs/imng-kendo-grid-filtering/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {

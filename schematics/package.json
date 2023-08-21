@@ -34,6 +34,10 @@
     "pluralize": "^8.0.0",
     "rxjs": "^7.8.1"
   },
+  "peerDependencies": {
+    "@angular-devkit/core": ">= 16",
+    "@angular-devkit/schematics": ">= 16"
+  },
   "devDependencies": {
     "@angular-devkit/schematics-cli": "16.1",
     "@angular/compiler": "16.1",
@@ -46,7 +50,7 @@
     "@typescript-eslint/parser": "^5.61.0",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "8.8",
-    "jest": "^29.6.0",
+    "jest": "^29.6.3",
     "jest-junit": "^16.0.0",
     "schematics": "^0.2.0",
     "snyk": "^1.1187.0",

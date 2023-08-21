@@ -2,8 +2,8 @@
   "name": "imng-odata-client",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
+    "@angular/common": ">= 12",
+    "@angular/core": ">= 12",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
   },
