@@ -9,7 +9,8 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-kendo-grid"],
       "options": {
-        "project": "libs/imng-kendo-grid/ng-package.json"
+        "project": "libs/imng-kendo-grid/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "dependsOn": [
         {
