@@ -1,5 +1,5 @@
 import { MILLI_SECS_PER_SEC } from 'imng-nrsrx-client-utils';
-import { map } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { FetchOptions, ODataResult } from '../models';
 
 export const mapData = <T extends object>(options: FetchOptions) =>
