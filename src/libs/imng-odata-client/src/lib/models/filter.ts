@@ -36,7 +36,7 @@ export interface Filter {
   /**
    * The value to which the field is compared. Has to be of the same type as the field.
    */
-  value?: IdType | IdType[] | null;
+  value?: IdType | IdType[] | boolean | null;
   /**
    * Determines if the string comparison is case-insensitive.
    */
