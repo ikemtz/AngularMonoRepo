@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -20,14 +20,12 @@ import { ProductApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
 import { createTestProduct } from '../../../models/webapi';
 
-
 describe('ProductCrudFacade', () => {
   let facade: ProductCrudFacade;
-  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -39,10 +37,15 @@ describe('ProductCrudFacade', () => {
         providers: [
           ProductCrudFacade,
           ProductApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestProduct()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createTestProduct()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -51,11 +54,9 @@ describe('ProductCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      store = TestBed.inject(Store);
       facade = TestBed.inject(ProductCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });

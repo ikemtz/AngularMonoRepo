@@ -42,8 +42,8 @@ export function parseDatesInCollection<T extends object>(
       }
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // prettier-ignore
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     collection.forEach((val: any) => {//NOSONAR
       utcProps.filter((p) => val[p]).forEach((p) => (val[p] = new Date(val[p])));
       dateProps.filter((p) => val[p]).forEach((p) => (val[p] = toLocalDate(val[p])));
