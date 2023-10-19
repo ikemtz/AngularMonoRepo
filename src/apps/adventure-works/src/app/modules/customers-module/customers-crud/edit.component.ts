@@ -7,7 +7,6 @@ import {
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { CustomerBaseEntryComponent } from './base-entry.component';
-import { CustomerCrudFacade } from './crud.facade';
 
 @Component({
   selector: 'aw-customer-edit',
@@ -22,9 +21,6 @@ export class CustomerEditComponent
   public dialogTitle = 'Edit Customer';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: CustomerCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {
