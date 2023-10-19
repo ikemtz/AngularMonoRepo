@@ -18,7 +18,12 @@ import { ordersFeature } from '../+state/order.reducer';
 import { OrderCrudFacade } from './crud.facade';
 import { OrderApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { IOrder, OrderProperties, OrderStatusTypes, ShippingTypes } from '../../../models/odata';
+import {
+  IOrder,
+  OrderProperties,
+  OrderStatusTypes,
+  ShippingTypes,
+} from '../../../models/odata';
 
 export const createOrder = () =>
   <IOrder>{
@@ -49,11 +54,10 @@ export const createOrder = () =>
 
 describe('OrderCrudFacade', () => {
   let facade: OrderCrudFacade;
-  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -65,10 +69,15 @@ describe('OrderCrudFacade', () => {
         providers: [
           OrderCrudFacade,
           OrderApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createOrder()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createOrder()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -77,7 +86,7 @@ describe('OrderCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
