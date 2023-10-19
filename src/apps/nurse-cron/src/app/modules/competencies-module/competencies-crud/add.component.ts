@@ -1,7 +1,11 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
-import { CompetencyCrudFacade } from './crud.facade';
 import { CompetencyBaseEntryComponent } from './base-entry.component';
 import { ICompetency } from '../../../models/competencies-odata';
 
@@ -11,13 +15,13 @@ import { ICompetency } from '../../../models/competencies-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompetencyAddComponent extends CompetencyBaseEntryComponent implements OnInit, OnDestroy {
+export class CompetencyAddComponent
+  extends CompetencyBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Add Competency';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: CompetencyCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});

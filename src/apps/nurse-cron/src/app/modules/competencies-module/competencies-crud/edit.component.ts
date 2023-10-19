@@ -1,10 +1,14 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
 import { ICompetency } from '../../../models/competencies-odata';
 
 import { CompetencyBaseEntryComponent } from './base-entry.component';
-import { CompetencyCrudFacade } from './crud.facade';
 
 @Component({
   selector: 'nrcrn-competency-edit',
@@ -12,17 +16,21 @@ import { CompetencyCrudFacade } from './crud.facade';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CompetencyEditComponent extends CompetencyBaseEntryComponent implements OnInit, OnDestroy {
+export class CompetencyEditComponent
+  extends CompetencyBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Edit Competency';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: CompetencyCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {
-      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
+      this.allSubscriptions.push(
+        this.facade.currentEntity$
+          .pipe(formGroupPatcher(this.addEditForm))
+          .subscribe(),
+      );
     }
   }
 

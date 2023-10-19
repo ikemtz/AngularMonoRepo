@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -18,7 +18,10 @@ import { healthItemsFeature } from '../+state/health-item.reducer';
 import { HealthItemCrudFacade } from './crud.facade';
 import { HealthItemApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { IHealthItem, HealthItemProperties } from '../../../models/health-items-odata';
+import {
+  IHealthItem,
+  HealthItemProperties,
+} from '../../../models/health-items-odata';
 
 export const createHealthItem = () =>
   <IHealthItem>{
@@ -29,11 +32,10 @@ export const createHealthItem = () =>
 
 describe('HealthItemCrudFacade', () => {
   let facade: HealthItemCrudFacade;
-  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -45,10 +47,15 @@ describe('HealthItemCrudFacade', () => {
         providers: [
           HealthItemCrudFacade,
           HealthItemApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createHealthItem()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createHealthItem()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -57,11 +64,9 @@ describe('HealthItemCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      store = TestBed.inject(Store);
       facade = TestBed.inject(HealthItemCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });

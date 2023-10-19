@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -18,7 +18,10 @@ import { certificationsFeature } from '../+state/certification.reducer';
 import { CertificationCrudFacade } from './crud.facade';
 import { CertificationApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { ICertification, CertificationProperties } from '../../../models/certifications-odata';
+import {
+  ICertification,
+  CertificationProperties,
+} from '../../../models/certifications-odata';
 
 export const createCertification = () =>
   <ICertification>{
@@ -30,11 +33,10 @@ export const createCertification = () =>
 
 describe('CertificationCrudFacade', () => {
   let facade: CertificationCrudFacade;
-  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -46,10 +48,17 @@ describe('CertificationCrudFacade', () => {
         providers: [
           CertificationCrudFacade,
           CertificationApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCertification()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() =>
+                of(createODataPayload([createCertification()])),
+              ),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -58,11 +67,9 @@ describe('CertificationCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      store = TestBed.inject(Store);
       facade = TestBed.inject(CertificationCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });

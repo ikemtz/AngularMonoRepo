@@ -3,13 +3,22 @@ import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { IProductForm } from '../../../models/odata';
-import { IProductCategory, IProductModel, ProductCategoryProperties, ProductFormGroupFac, ProductModelProperties, ProductProperties } from '../../../models/webapi';
+import {
+  IProductCategory,
+  IProductModel,
+  ProductCategoryProperties,
+  ProductFormGroupFac,
+  ProductModelProperties,
+  ProductProperties,
+} from '../../../models/webapi';
 
 import { ProductCrudFacade } from './crud.facade';
 
 @Component({ template: '' })
-export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<ProductCrudFacade>
-  implements OnInit {
+export abstract class ProductBaseEntryComponent
+  extends BaseDataEntryComponent<ProductCrudFacade>
+  implements OnInit
+{
   public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;
   public readonly productModels$: Observable<IProductModel[]>;
@@ -22,34 +31,56 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
   constructor(facade: ProductCrudFacade) {
     super(facade);
     this.productModels$ = facade.productModels$.pipe(
-      switchMap(productModels => this.productModelFilter$.pipe(
-        map(productModelFilter => productModelFilter ? productModels
-          .filter(productModel => (
-            (productModel.name && productModel.name.toLowerCase().indexOf(productModelFilter) >= 0) ||
-            (productModel.description && productModel.description.toLowerCase().indexOf(productModelFilter) >= 0)
-          )) : productModels
-        ))));
+      switchMap((productModels) =>
+        this.productModelFilter$.pipe(
+          map((productModelFilter) =>
+            productModelFilter
+              ? productModels.filter(
+                  (productModel) =>
+                    (productModel.name &&
+                      productModel.name
+                        .toLowerCase()
+                        .indexOf(productModelFilter) >= 0) ||
+                    (productModel.description &&
+                      productModel.description
+                        .toLowerCase()
+                        .indexOf(productModelFilter) >= 0),
+                )
+              : productModels,
+          ),
+        ),
+      ),
+    );
     this.productCategories$ = facade.productCategories$.pipe(
-      switchMap(productCategories => this.productCategoryFilter$.pipe(
-        map(productCategoryFilter => productCategoryFilter ? productCategories
-          .filter(productCategory => (
-            (productCategory.name && productCategory.name.toLowerCase().indexOf(productCategoryFilter) >= 0)
-          )) : productCategories
-        ))));
+      switchMap((productCategories) =>
+        this.productCategoryFilter$.pipe(
+          map((productCategoryFilter) =>
+            productCategoryFilter
+              ? productCategories.filter(
+                  (productCategory) =>
+                    productCategory.name &&
+                    productCategory.name
+                      .toLowerCase()
+                      .indexOf(productCategoryFilter) >= 0,
+                )
+              : productCategories,
+          ),
+        ),
+      ),
+    );
   }
 
-  public ngOnInit(): void {
-    this.initForm();
+  public override ngOnInit(): void {
+    super.ngOnInit();
     this.facade.loadProductModels({
       selectors: [
         ProductModelProperties.ID,
         ProductModelProperties.NAME,
-        ProductModelProperties.DESCRIPTION,]
+        ProductModelProperties.DESCRIPTION,
+      ],
     });
     this.facade.loadProductCategories({
-      selectors: [
-        ProductCategoryProperties.ID,
-        ProductCategoryProperties.NAME,]
+      selectors: [ProductCategoryProperties.ID, ProductCategoryProperties.NAME],
     });
   }
 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
@@ -46,11 +46,10 @@ export const createEmployee = () =>
 
 describe('EmployeeCrudFacade', () => {
   let facade: EmployeeCrudFacade;
-  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -62,10 +61,15 @@ describe('EmployeeCrudFacade', () => {
         providers: [
           EmployeeCrudFacade,
           EmployeeApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createEmployee()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createEmployee()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -74,11 +78,9 @@ describe('EmployeeCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      store = TestBed.inject(Store);
       facade = TestBed.inject(EmployeeCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });

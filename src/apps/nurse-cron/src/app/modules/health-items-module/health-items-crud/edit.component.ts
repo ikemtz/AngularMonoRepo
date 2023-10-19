@@ -1,10 +1,14 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
 import { IHealthItem } from '../../../models/health-items-odata';
 
 import { HealthItemBaseEntryComponent } from './base-entry.component';
-import { HealthItemCrudFacade } from './crud.facade';
 
 @Component({
   selector: 'nrcrn-health-item-edit',
@@ -12,17 +16,21 @@ import { HealthItemCrudFacade } from './crud.facade';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HealthItemEditComponent extends HealthItemBaseEntryComponent implements OnInit, OnDestroy {
+export class HealthItemEditComponent
+  extends HealthItemBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Edit HealthItem';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: HealthItemCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {
-      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
+      this.allSubscriptions.push(
+        this.facade.currentEntity$
+          .pipe(formGroupPatcher(this.addEditForm))
+          .subscribe(),
+      );
     }
   }
 
