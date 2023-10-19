@@ -1,7 +1,11 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
-import { UnitCrudFacade } from './crud.facade';
 import { UnitBaseEntryComponent } from './base-entry.component';
 import { IUnit } from '../../../models/units-odata';
 
@@ -11,13 +15,13 @@ import { IUnit } from '../../../models/units-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UnitAddComponent extends UnitBaseEntryComponent implements OnInit, OnDestroy {
+export class UnitAddComponent
+  extends UnitBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Add Unit';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: UnitCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});

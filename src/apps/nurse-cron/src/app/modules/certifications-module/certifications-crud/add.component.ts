@@ -1,7 +1,11 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
-import { CertificationCrudFacade } from './crud.facade';
 import { CertificationBaseEntryComponent } from './base-entry.component';
 import { ICertification } from '../../../models/certifications-odata';
 
@@ -11,13 +15,13 @@ import { ICertification } from '../../../models/certifications-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CertificationAddComponent extends CertificationBaseEntryComponent implements OnInit, OnDestroy {
+export class CertificationAddComponent
+  extends CertificationBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Add Certification';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: CertificationCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
