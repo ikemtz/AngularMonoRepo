@@ -20,9 +20,8 @@ export abstract class EmployeeBaseEntryComponent
   constructor(facade: EmployeeCrudFacade) {
     super(facade);
   }
-
-  public ngOnInit(): void {
-    this.initForm();
+  public override ngOnInit(): void {
+    super.ngOnInit();
   }
 
   public initForm(): void {

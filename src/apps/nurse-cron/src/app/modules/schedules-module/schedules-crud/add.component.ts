@@ -1,7 +1,11 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
-import { ScheduleCrudFacade } from './crud.facade';
 import { ScheduleBaseEntryComponent } from './base-entry.component';
 import { ISchedule } from '../../../models/schedules-odata';
 
@@ -11,13 +15,13 @@ import { ISchedule } from '../../../models/schedules-odata';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScheduleAddComponent extends ScheduleBaseEntryComponent implements OnInit, OnDestroy {
+export class ScheduleAddComponent
+  extends ScheduleBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Add Schedule';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: ScheduleCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});

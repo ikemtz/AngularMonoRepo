@@ -3,6 +3,7 @@ import {
   Inject,
   InjectionToken,
   Input,
+  OnInit,
   OnDestroy,
 } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -34,7 +35,7 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
 @Component({ template: '' })
 export abstract class BaseDataEntryComponent<
   FACADE extends IBaseDataEntryFacade,
-> implements OnDestroy, Subscribable
+> implements OnInit, OnDestroy, Subscribable
 {
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
@@ -56,6 +57,9 @@ export abstract class BaseDataEntryComponent<
 
   constructor(@Inject(FACADE) public readonly facade: FACADE) {
     this.loading$ = this.facade.loading$;
+  }
+
+  public ngOnInit(): void {
     this.initForm();
   }
 
