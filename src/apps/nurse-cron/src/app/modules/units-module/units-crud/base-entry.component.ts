@@ -15,7 +15,8 @@ import { UnitCrudFacade } from './crud.facade';
 @Component({ template: '' })
 export abstract class UnitBaseEntryComponent
   extends BaseDataEntryComponent<UnitCrudFacade>
-  implements OnInit {
+  implements OnInit
+{
   public readonly props = UnitProperties;
   public readonly buildingProps = BuildingProperties;
   public readonly buildings$: Observable<IBuilding[]>;
@@ -25,20 +26,28 @@ export abstract class UnitBaseEntryComponent
   constructor(facade: UnitCrudFacade) {
     super(facade);
     this.buildings$ = facade.buildings$.pipe(
-      switchMap((buildings) => this.buildingFilter$.pipe(
-        map((buildingFilter) => buildingFilter
-          ? buildings.filter((building) => (building.name &&
-            building.name.toLowerCase().indexOf(buildingFilter) >= 0) ||
-            (building.siteName && building.siteName.toLowerCase().indexOf(buildingFilter) >= 0),
-          ) : buildings,
+      switchMap((buildings) =>
+        this.buildingFilter$.pipe(
+          map((buildingFilter) =>
+            buildingFilter
+              ? buildings.filter(
+                  (building) =>
+                    (building.name &&
+                      building.name.toLowerCase().indexOf(buildingFilter) >=
+                        0) ||
+                    (building.siteName &&
+                      building.siteName.toLowerCase().indexOf(buildingFilter) >=
+                        0),
+                )
+              : buildings,
+          ),
         ),
-      ),
       ),
     );
   }
 
-  public ngOnInit(): void {
-    this.initForm();
+  public override ngOnInit(): void {
+    super.ngOnInit();
     this.facade.loadBuildings({
       selectors: [
         BuildingProperties.ID,

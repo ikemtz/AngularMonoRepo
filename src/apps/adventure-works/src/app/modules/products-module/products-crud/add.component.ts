@@ -5,7 +5,6 @@ import {
   OnDestroy,
 } from '@angular/core';
 
-import { ProductCrudFacade } from './crud.facade';
 import { ProductBaseEntryComponent } from './base-entry.component';
 
 @Component({
@@ -21,9 +20,6 @@ export class ProductAddComponent
   public dialogTitle = 'Add Product';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: ProductCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});

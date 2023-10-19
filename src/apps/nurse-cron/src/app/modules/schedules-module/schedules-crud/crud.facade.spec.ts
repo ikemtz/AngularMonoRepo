@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -35,11 +35,10 @@ export const createSchedule = () =>
 
 describe('ScheduleCrudFacade', () => {
   let facade: ScheduleCrudFacade;
-  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -51,10 +50,15 @@ describe('ScheduleCrudFacade', () => {
         providers: [
           ScheduleCrudFacade,
           ScheduleApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createSchedule()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createSchedule()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -63,11 +67,9 @@ describe('ScheduleCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      store = TestBed.inject(Store);
       facade = TestBed.inject(ScheduleCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });

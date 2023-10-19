@@ -11,7 +11,6 @@ import { ProductListComponent } from './list.component';
 import { createProduct } from './list.facade.spec';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
-import { DomSanitizer } from '@angular/platform-browser';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
