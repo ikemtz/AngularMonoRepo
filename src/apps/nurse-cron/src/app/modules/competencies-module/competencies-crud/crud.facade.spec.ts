@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -18,7 +18,10 @@ import { competenciesFeature } from '../+state/competency.reducer';
 import { CompetencyCrudFacade } from './crud.facade';
 import { CompetencyApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { ICompetency, CompetencyProperties } from '../../../models/competencies-odata';
+import {
+  ICompetency,
+  CompetencyProperties,
+} from '../../../models/competencies-odata';
 
 export const createCompetency = () =>
   <ICompetency>{
@@ -29,11 +32,10 @@ export const createCompetency = () =>
 
 describe('CompetencyCrudFacade', () => {
   let facade: CompetencyCrudFacade;
-  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -45,10 +47,15 @@ describe('CompetencyCrudFacade', () => {
         providers: [
           CompetencyCrudFacade,
           CompetencyApiService,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCompetency()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createCompetency()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -57,11 +64,9 @@ describe('CompetencyCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      store = TestBed.inject(Store);
       facade = TestBed.inject(CompetencyCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });
