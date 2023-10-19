@@ -7,7 +7,10 @@ describe('Testing createDeleteEntryMockFacade', () => {
     expect(mockFacade).toMatchSnapshot();
   });
   it('should expand', () => {
-    const mockFacade = createDataDeleteMockFacade({ super: '🦸‍♀️' });
+    const mockFacade = createDataDeleteMockFacade({
+      super: '🦸‍♀️',
+      deleteExistingEntity: () => null,
+    } as never);
     expect(mockFacade).toBeTruthy();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect((mockFacade as any).super).toBe('🦸‍♀️');
