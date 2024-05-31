@@ -48,7 +48,7 @@ export function parseDatesInCollection<T extends object>(
   utcNullableProps: string[] = [],
   dateNullableProps: string[] = [],
 ): Array<T> {
-  if (collection.length > 0) {
+  if (collection?.length > 0) {
     const utcProps = Object.keys(collection[0]).filter((x) =>
       x.endsWith('Utc'),
     );
