@@ -50,6 +50,7 @@ export interface Expander {
   expanders?: Array<Expander | string>;
   filter?: CompositeFilterDescriptor;
   sort?: Array<SortDescriptor>;
+  count?: boolean;
 }
 export function isExpander(source: string | Expander): source is Expander {
   return !!(source as Expander)?.table;

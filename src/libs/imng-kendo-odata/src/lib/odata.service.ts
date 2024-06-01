@@ -186,6 +186,9 @@ export class ODataService {
         });
         result += `$expand=${expanders.join(',')};`;
       }
+      if (element.count) {
+        result += `${/[(;]$/.exec(result) ? '' : ';'}$count=true`;
+      }
       result += ')';
       result = result.replace(/\(\)/, '').replace(/;\)/, ')');
     }
