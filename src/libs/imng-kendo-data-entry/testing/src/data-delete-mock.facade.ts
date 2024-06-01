@@ -1,20 +1,20 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class DataDeleteMockFacade implements IDataDeleteFacade<any> {
+export class DataDeleteMockFacade implements IDataDeleteFacade<unknown> {
   deleteExistingEntity = jest.fn();
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types,@typescript-eslint/no-explicit-any
-export function createDataDeleteMockFacade(
-  mockFacade?: IDataDeleteFacade<object> | { deleteExistingEntity: () => void },
-): IDataDeleteFacade<object> {
-  const localFacade = new DataDeleteMockFacade();
+export function createDataDeleteMockFacade<T = unknown>(
+  mockFacade?: T,
+): T & IDataDeleteFacade<unknown> {
   if (!mockFacade) {
-    return localFacade;
+    return new DataDeleteMockFacade() as T & IDataDeleteFacade<unknown>;
   }
-  mockFacade.deleteExistingEntity =
-    mockFacade.deleteExistingEntity || jest.fn();
-  return mockFacade;
+  (
+    mockFacade as unknown as { deleteExistingEntity: () => void }
+  ).deleteExistingEntity =
+    (mockFacade as unknown as { deleteExistingEntity: () => void })
+      .deleteExistingEntity || jest.fn();
+  return mockFacade as T & IDataDeleteFacade<unknown>;
 }
