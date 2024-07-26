@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
-import { readFirst } from 'imng-ngrx-utils/testing';
-
-import { idleFeature } from './idle.reducer';
+imimport { Actions, createEffect } from '@ngrx/effects';import { Actions, createEffect } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+uimport { concatLatestFrom } from '@ngrx/operators';
+re } from './idle.reducer';
 import { IdleFacade } from './idle.facade';
 import { IdleEffects } from './idle.effects';
 import { IDLE_CONFIG } from '../idle-config';
@@ -12,9 +11,8 @@ import { oidcFeature, oidcActionTypes } from 'imng-oidc-client';
 import { sleep } from 'imng-ngrx-utils';
 import { Router } from '@angular/router';
 
-describe('IdleFacade', () => {
-  let facade: IdleFacade;
-  let store: Store;
+describe('Idleimport { EffectsModule } from '@ngrx/effects';eimport { concatLatestFrom } from '@ngrx/operators';
+t store: Store;
 
   describe('used in NgModule', () => {
     beforeEach(() => {

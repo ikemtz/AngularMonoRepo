@@ -1,25 +1,25 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AuthGuard } from './services/auth-guard';
-import { oidcConfigurator } from './util/oidc-client-configurator';
-import {
-  OidcClientConfig,
-  OIDC_CLIENT_CONFIG,
-} from './models/oidc-client-config';
-import { OidcEffects } from './+state/oidc.effects';
-import { OidcService } from './services/oidc.service';
-import { OidcFacade } from './+state/oidc.facade';
-import { StoreModule, Store } from '@ngrx/store';
-import { oidcFeature } from './+state/oidc.reducer';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
 import { OidcUserFacade } from './+state/oidc-user.facade';
-import { TokenInterceptorService } from './services/token-interceptor.service';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { OidcEffects } from './+state/oidc.effects';
+import { OidcFacade } from './+state/oidc.facade';
+import { oidcFeature } from './+state/oidc.reducer';
 import { AccessDeniedComponent } from './components/access-denied.component';
-import { SupportComponent } from './support/support.component';
-import { ImngOidcClientRoutingModule } from './img-oidc-client-routing.module';
 import { LogoutSuccessComponent } from './components/logout-success.component';
+import { ImngOidcClientRoutingModule } from './img-oidc-client-routing.module';
+import {
+  OIDC_CLIENT_CONFIG,
+  OidcClientConfig,
+} from './models/oidc-client-config';
 import { OIDC_LIBRARY_CONFIG } from './models/oidc-library-config';
+import { AuthGuard } from './services/auth-guard';
+import { OidcService } from './services/oidc.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { SupportComponent } from './support/support.component';
+import { oidcConfigurator } from './util/oidc-client-configurator';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import { OIDC_LIBRARY_CONFIG } from './models/oidc-library-config';
 })
 export class ImngOidcClientModule {
   static forRoot(
-    oidc0ptions: OidcClientConfig
+    oidc0ptions: OidcClientConfig,
   ): ModuleWithProviders<ImngOidcClientModule> {
     return {
       ngModule: ImngOidcClientModule,

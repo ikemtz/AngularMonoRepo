@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
+/* eslint-disabimport { Actions, createEffect } from '@ngrx/effects';import { Actions, createEffect } from '@ngrx/effects';import { Actions, ofType, OnInitEffects, createEffect } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { provideMockActions } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+@import { concatLatestFrom } from '@ngrx/operators';
+ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 
 import { OidcEffects } from './oidc.effects';
@@ -12,9 +13,8 @@ import * as oidcActions from './oidc.actions';
 import { OidcService } from '../services/oidc.service';
 import { OidcFacade } from './oidc.facade';
 import {
-  OIDC_LIBRARY_CONFIG,
-  OidcLibraryConfig,
-} from '../models/oidc-library-config';
+  OIDC_LIBRAimport { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';oimport { concatLatestFrom } from '@ngrx/operators';
+idc-library-config';
 import { of } from 'rxjs';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { OidcUserFacade } from './oidc-user.facade';

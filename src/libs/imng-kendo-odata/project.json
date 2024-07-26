@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-kendo-odata/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -15,8 +16,7 @@
         }
       ],
       "options": {
-        "project": "libs/imng-kendo-odata/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-kendo-odata/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -32,19 +32,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-odata"],
       "options": {
-        "jestConfig": "libs/imng-kendo-odata/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-kendo-odata/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-kendo-odata/src/**/*.ts",
-          "libs/imng-kendo-odata/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

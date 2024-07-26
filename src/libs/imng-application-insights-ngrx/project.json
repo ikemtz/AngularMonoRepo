@@ -4,13 +4,13 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-application-insights-ngrx/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-application-insights-ngrx"],
       "options": {
-        "project": "libs/imng-application-insights-ngrx/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-application-insights-ngrx/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -28,19 +28,11 @@
         "{workspaceRoot}/coverage/libs/imng-application-insights-ngrx"
       ],
       "options": {
-        "jestConfig": "libs/imng-application-insights-ngrx/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-application-insights-ngrx/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-application-insights-ngrx/src/**/*.ts",
-          "libs/imng-application-insights-ngrx/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

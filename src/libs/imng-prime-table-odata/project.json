@@ -4,6 +4,8 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-prime-table-odata/src",
   "prefix": "imng",
+  "tags": [],
+  "implicitDependencies": ["imng-odata-client"],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -15,8 +17,7 @@
         }
       ],
       "options": {
-        "project": "libs/imng-prime-table-odata/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-prime-table-odata/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -32,22 +33,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-prime-table-odata"],
       "options": {
-        "jestConfig": "libs/imng-prime-table-odata/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-prime-table-odata/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-prime-table-odata/**/*.ts",
-          "libs/imng-prime-table-odata/**/*.html",
-          "libs/imng-prime-table-odata/testing/**/*.ts",
-          "libs/imng-prime-table-odata/testing/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["imng-odata-client"]
+  }
 }

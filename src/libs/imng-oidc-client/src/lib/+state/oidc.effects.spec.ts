@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { TestBed } from '@angular/core/testing';
-import { Observable, of, throwError } from 'rxjs';
-
-import { provideMockActions } from '@ngrx/effects/testing';
-import { provideMockStore } from '@ngrx/store/testing';
+/* eslint-disable @typescript-eslint/no-explimport { Actions, createEffect } from '@ngrx/effects';import { Actions, createEffect } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { provideMockActions } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+oimport { concatLatestFrom } from '@ngrx/operators';
+re/testing';
 
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { OidcEffects } from './oidc.effects';
 import * as OidcActions from './oidc.actions';
 import { OIDC_LIBRARY_CONFIG } from '../models/oidc-library-config';
 import { OidcService } from '../services/oidc.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/commoimport { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 
 describe('Oidc Effects', () => {
   let actions: Observable<any>;
