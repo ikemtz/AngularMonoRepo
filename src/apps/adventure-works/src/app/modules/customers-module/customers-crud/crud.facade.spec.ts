@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-mimport { concatLatestFrom } from '@ngrx/operators';
-port { readFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -11,24 +13,12 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { CustomerEffects } from '../+state/custimport { EffectsModule } from '@ngrx/effects';mimport { concatLatestFrom } from '@ngrx/operators';
- '../+state/customer.reducer';
+import { CustomerEffects } from '../+state/customer.effects';
+import { customersFeature } from '../+state/customer.reducer';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { CustomerProperties, ICustomer } from '../../../models/webapi';
-
-export const createCustomer = () =>
-  <ICustomer>{
-    [CustomerProperties.ID]: 'ID',
-    [CustomerProperties.NUM]: 'NUM',
-    [CustomerProperties.NAME]: 'NAME',
-    [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
-    [CustomerProperties.SALES_AGENT_ID]: 0,
-    [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
-    [CustomerProperties.PHONE]: 'PHONE',
-    [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
-  };
+import { createTestCustomer } from '../../../models/webapi';
 
 describe('CustomerCrudFacade', () => {
   let facade: CustomerCrudFacade;
@@ -50,7 +40,9 @@ describe('CustomerCrudFacade', () => {
           {
             provide: HttpClient,
             useValue: {
-              get: jest.fn(() => of(createODataPayload([createCustomer()]))),
+              get: jest.fn(() =>
+                of(createODataPayload([createTestCustomer()])),
+              ),
             },
           },
         ],
@@ -92,7 +84,7 @@ describe('CustomerCrudFacade', () => {
 
     test('should load SalesAgents', async () => {
       facade.loadSalesAgents({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.salesAgents$);
       expect(result.length).toBe(1);
     });

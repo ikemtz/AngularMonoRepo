@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard, oidcRoutes } from 'imng-oidc-client';
 import { HomeComponent } from './home/home.component';
 
-const routes: Routes = [
+export const appRoutes: Routes = [
   {
     path: 'customers',
     loadChildren: () =>
@@ -41,10 +41,10 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {
-    initialNavigation: 'enabledBlocking',
-    enableTracing: false
-}),
+    RouterModule.forRoot(appRoutes, {
+      initialNavigation: 'enabledBlocking',
+      enableTracing: false,
+    }),
   ],
   exports: [RouterModule],
 })

@@ -4,7 +4,36 @@
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
     "types": ["jest", "node"],
-    "target": "es2016"
+    "target": "es2016",
+    "paths": {
+      "@env*": ["apps/adventure-works/src/environments/environment.ts"],
+      "imng-application-insights-ngrx": [
+        "libs/imng-application-insights-ngrx/src/index.ts"
+      ],
+      "imng-kendo-data-entry": ["libs/imng-kendo-data-entry/src/index.ts"],
+      "imng-kendo-grid": ["libs/imng-kendo-grid/src/index.ts"],
+      "imng-kendo-grid-filtering": [
+        "libs/imng-kendo-grid-filtering/src/index.ts"
+      ],
+      "imng-kendo-grid-odata": ["libs/imng-kendo-grid-odata/src/index.ts"],
+      "imng-kendo-ngrx-idle": ["libs/imng-kendo-ngrx-idle/src/index.ts"],
+      "imng-kendo-odata": ["libs/imng-kendo-odata/src/index.ts"],
+      "imng-ngrx-utils": ["libs/imng-ngrx-utils/src/index.ts"],
+      "imng-nrsrx-client-utils": ["libs/imng-nrsrx-client-utils/src/index.ts"],
+      "imng-odata-client": ["libs/imng-odata-client/src/index.ts"],
+      "imng-oidc-client": ["libs/imng-oidc-client/src/index.ts"],
+      "imng-prime-table-odata": ["libs/imng-prime-table-odata/src/index.ts"],
+      "imng-kendo-data-entry/testing": [
+        "libs/imng-kendo-data-entry/testing/src/index.ts"
+      ],
+      "imng-kendo-grid-odata/testing": [
+        "libs/imng-kendo-grid-odata/testing/src/index.ts"
+      ],
+      "imng-ngrx-utils/testing": ["libs/imng-ngrx-utils/testing/src/index.ts"],
+      "imng-prime-table-odata/testing": [
+        "libs/imng-prime-table-odata/testing/src/index.ts"
+      ]
+    }
   },
   "files": ["src/test-setup.ts"],
   "include": ["**/*.test.ts", "**/*.spec.ts", "**/*.d.ts", "jest.config.ts"]

@@ -1,13 +1,8 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 
@@ -15,8 +10,7 @@ import * as orderActionTypes from '../+state/order.actions';
 import { OrderEffects } from '../+state/order.effects';
 import { ordersFeature } from '../+state/order.reducer';
 import { PrimeOrderListFacade } from './prime-list.facade';
-import { environment import { EffectsModule } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
+import { environment } from '../../../../environments/environment';
 import { createTestOrder, IOrder } from '../../../models/odata';
 import {
   ODataClientService,
@@ -79,13 +73,13 @@ describe('OrderListFacade', () => {
       const activeEffectCount = await readFirst(facade.activeEffectCount$);
       expect(list.length).toBe(1);
       expect(activeEffectCount).toBe(0);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith(
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith(
         'aw-odata/odata/v1/Orders?$count=true',
       );
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
@@ -113,7 +107,7 @@ describe('OrderListFacade', () => {
 
       expect(list.length).toBe(3);
       expect(activeEffectCount).toBe(0);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {

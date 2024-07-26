@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   createDataEntryMockFacade,
   createDataDeleteMockFacade,
@@ -8,9 +7,9 @@ import {
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { ProductListComponent } from './list.component';
-import { createProduct } from './list.facade.spec';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
+import { createTestProduct } from '../../../models/odata';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -21,7 +20,7 @@ describe('ProductListComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ProductListComponent],
-      imports: [RouterTestingModule],
+      imports: [],
       providers: [
         {
           provide: ProductListFacade,
@@ -50,34 +49,34 @@ describe('ProductListComponent', () => {
   });
 
   test('it should handle DetailExpanded', () => {
-    const dataItem = createProduct();
+    const dataItem = createTestProduct();
     component.detailExpanded({ dataItem } as never);
     expect(component.currentItem).toEqual(dataItem);
   });
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1);
+    expect(listFacade.reloadEntities).toHaveBeenCalledTimes(1);
   });
 
   test('it should handle AddItem', () => {
     component.addItem();
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith({});
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({});
   });
 
   test('it should handle EditItem', () => {
-    const item = createProduct();
+    const item = createTestProduct();
     component.editItem(item);
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item);
   });
 
   test('it should handle DeleteItem', () => {
-    const item = createProduct();
+    const item = createTestProduct();
     component.deleteItem(item);
-    expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
+    expect(listFacade.deleteExistingEntity).toHaveBeenCalledTimes(1);
+    expect(listFacade.deleteExistingEntity).toHaveBeenCalledWith(item);
   });
 
   test('it should getFormatSrc', () => {
