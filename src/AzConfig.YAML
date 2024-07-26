@@ -1,4 +1,4 @@
-name: 6.$(Year:yy).$(DayOfYear)$(Rev:.rr)
+name: 7.$(DayOfYear)$(Rev:.r)
 pool:
   vmImage: ubuntu-latest
 variables:

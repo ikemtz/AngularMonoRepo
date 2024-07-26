@@ -21,7 +21,11 @@
       Instead look at ./dialog-buttons.directive.spec.ts as an example.
  -->
 <ng-template #defaultDialogActionsTpl>
-  <button name="imngCancelDataEntry" kendoButton (click)="cancel()">
+  <button
+    name="imngCancelDataEntry"
+    kendoButton
+    (click)="cancel()"
+    class="btn btn-secondary btn-sm">
     Cancel
   </button>
   <button
@@ -30,7 +34,7 @@
     type="submit"
     kendoButton
     (click)="submit()"
-    themeColor="primary">
+    class="btn btn-primary btn-sm">
     {{ saveButtonText }}
   </button>
 </ng-template>
