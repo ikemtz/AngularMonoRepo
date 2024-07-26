@@ -22,19 +22,19 @@
  -->
 <ng-template #defaultDialogActionsTpl>
   <button
-    name="imngCancelDataEntry"
+    name="imngDataEntryCancelBtn"
     kendoButton
     (click)="cancel()"
     class="btn btn-secondary btn-sm">
-    Cancel
+    {{ cancelButtonText }}
   </button>
   <button
-    name="imngSubmitDataEntry"
+    name="imngDataEntrySubmitBtn"
     [attr.form]="formId"
     type="submit"
     kendoButton
     (click)="submit()"
     class="btn btn-primary btn-sm">
-    {{ saveButtonText }}
+    {{ submitButtonText }}
   </button>
 </ng-template>
