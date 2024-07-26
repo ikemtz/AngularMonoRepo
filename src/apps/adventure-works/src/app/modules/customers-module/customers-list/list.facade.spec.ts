@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
 import { EffectsModule } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
 import { CustomerEffects } from '../+state/customer.effects';
-import * as customerActionTypes from '../+state/customer.actions';
+import * as customerimport { EffectsModule } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { customersFeature } from '../+state/customer.reducer';
 import { CustomerListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';

@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
 import { EffectsModule } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
 import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
 import { CompetencyEffects } from '../+state/competency.effects';
-import * as competencyActionTypes from '../+state/competency.actions';
+import * as compimport { EffectsModule } from '@ngrx/effects';cimport { concatLatestFrom } from '@ngrx/operators';
+tions';
 import { competenciesFeature } from '../+state/competency.reducer';
 import { CompetencyListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';

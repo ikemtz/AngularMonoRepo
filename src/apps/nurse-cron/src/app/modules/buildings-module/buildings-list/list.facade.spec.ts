@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
 import { EffectsModule } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
 import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
 import { BuildingEffects } from '../+state/building.effects';
-import * as buildingActionTypes from '../+state/building.actions';
+import * as buildingimport { EffectsModule } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { buildingsFeature } from '../+state/building.reducer';
 import { BuildingListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';

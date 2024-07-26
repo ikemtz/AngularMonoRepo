@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
-import { ODataService } from 'imng-kendo-odata';
-import { handleEffectError } from 'imng-ngrx-utils';
+import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+rimport { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+om 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
 import { buildingsFeature } from './building.reducer';
@@ -10,9 +16,8 @@ import * as buildingActionTypes from './building.actions';
 import { environment } from '../../../../environments/environment';
 
 import { BuildingApiService } from '../buildings-crud';
-import { BuildingProperties, IBuilding } from '../../../models/units-odata';
-
-@Injectable()
+import { BuildingProperties, IBuilimport { EffectsModule } from '@ngrx/effects';nimport { concatLatestFrom } from '@ngrx/operators';
+jectable()
 export class BuildingEffects {
   constructor(
     private readonly actions$: Actions,

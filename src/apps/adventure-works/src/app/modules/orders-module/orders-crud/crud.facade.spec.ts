@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';rimport { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+eadFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -13,8 +13,8 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { OrderEffects } from '../+state/order.effects';
-import { ordersFeature } from '../+state/order.reducer';
+import { OrderEffects } from '../+state/order.eimport { EffectsModule } from '@ngrx/effects';aimport { concatLatestFrom } from '@ngrx/operators';
+te/order.reducer';
 import { OrderCrudFacade } from './crud.facade';
 import { OrderApiService } from './api.service';
 import { environment } from '../../../../environments/environment';

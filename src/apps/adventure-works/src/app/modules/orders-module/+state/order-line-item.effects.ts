@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { environment } from '@env';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
-import * as orderLineItemActionTypes from './order-line-item.actions';
-import { orderLineItemQueries } from './order-line-item.selectors';
-import { OrderLineItemApiService } from '../order-line-items-list';
-import { environment } from '../../../../environments/environment';
+import { switchMap, map } from 'rxjs';
 import { IOrderLineItem } from '../../../models/odata';
+import { OrderLineItemApiService } from '../order-line-items-list';
+import { orderLineItemQueries } from './order-line-item.selectors';
+import * as orderLineItemActionTypes from './order-line-item.actions';
 
 @Injectable()
 export class OrderLineItemEffects {

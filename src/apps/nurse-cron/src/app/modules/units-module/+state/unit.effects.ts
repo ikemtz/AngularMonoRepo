@@ -1,8 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
-import { ODataService } from 'imng-kendo-odata';
-import { handleEffectError } from 'imng-ngrx-utils';
+import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+rimport { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+om 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
 import { unitsFeature } from './unit.reducer';
@@ -10,10 +21,8 @@ import * as unitActionTypes from './unit.actions';
 import { environment } from '../../../../environments/environment';
 
 import { UnitApiService } from '../units-crud';
-import { IUnit, UnitProperties, IBuilding } from '../../../models/units-odata';
-
-@Injectable()
-export class UnitEffects {
+import { IUnit, UnitProperties, IBuilding } from '../../..import { EffectsModule } from '@ngrx/effects';aimport { concatLatestFrom } from '@ngrx/operators';
+ss UnitEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly odataService: ODataService,

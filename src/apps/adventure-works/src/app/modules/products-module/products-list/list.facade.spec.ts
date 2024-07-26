@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
 import { EffectsModule } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
 import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
 import { ProductEffects } from '../+state/product.effects';
-import * as productActionTypes from '../+state/product.actions';
-import { productsFeature } from '../+state/product.reducer';
+import * as productActimport { EffectsModule } from '@ngrx/effects';oimport { concatLatestFrom } from '@ngrx/operators';
+rt { productsFeature } from '../+state/product.reducer';
 import { ProductListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
 import { IProduct, ProductProperties } from '../../../models/odata';

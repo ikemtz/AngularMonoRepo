@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgModule } frimport { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+mimport { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+import { concatLatestFrom } from '@ngrx/operators';
+port { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { ODataService } from 'imng-kendo-odata';
 import { AppRoutingModule } from './app.routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { ImngOidcClientModule } from 'imng-oidc-client';
-import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
+import { ImngOidcClientModule } from 'imng-oidc-clieimport { EffectsModule } from '@ngrx/effects'; import { concatLatestFrom } from '@ngrx/operators';
+'imng-application-insights-ngrx';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImngSignalrNgrxModule } from 'imng-signalr-ngrx';
@@ -31,7 +33,7 @@ import { environment } from '../environments/environment';
       },
     ),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ name: 'Nurse-CRON' }),
+    StoreDevtoolsModule.instrument({ name: 'Nurse-CRON' , connectInZone: true}),
     StoreRouterConnectingModule.forRoot(),
     ImngOidcClientModule.forRoot(environment.oidc_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),

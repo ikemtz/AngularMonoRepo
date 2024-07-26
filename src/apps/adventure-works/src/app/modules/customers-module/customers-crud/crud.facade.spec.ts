@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
+mimport { concatLatestFrom } from '@ngrx/operators';
+port { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -13,8 +11,8 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { CustomerEffects } from '../+state/customer.effects';
-import { customersFeature } from '../+state/customer.reducer';
+import { CustomerEffects } from '../+state/custimport { EffectsModule } from '@ngrx/effects';mimport { concatLatestFrom } from '@ngrx/operators';
+ '../+state/customer.reducer';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
