@@ -1,26 +1,15 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@env';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-rimport { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-om 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { switchMap, map } from 'rxjs';
+import { IHealthItem } from '../../../models/health-items-odata';
+import { HealthItemApiService } from '../health-items-crud';
 import { healthItemsFeature } from './health-item.reducer';
 import * as healthItemActionTypes from './health-item.actions';
-import { environment } from '../../../../environments/environment';
-
-import { HealthItemApiService } from '../health-items-crud';
-import { IHealthIteimport { EffectsModule } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
 
 @Injectable()
 export class HealthItemEffects {

@@ -1,25 +1,15 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@env*';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-rimport { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-om 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { switchMap, map } from 'rxjs';
+import { IEmployee, EmployeeProperties } from '../../../models/employees-odata';
+import { EmployeeApiService } from '../employees-crud';
 import { employeesFeature } from './employee.reducer';
 import * as employeeActionTypes from './employee.actions';
-import { environment } from '../../../../environments/environment';
-
-import { EmployeeApiService } from '../employees-crud';
-import { IEmployee, EmployeeProperimport { EffectsModule } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
 
 @Injectable()
 export class EmployeeEffects {
