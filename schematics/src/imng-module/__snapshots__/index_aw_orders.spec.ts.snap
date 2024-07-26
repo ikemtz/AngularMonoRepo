@@ -117,8 +117,8 @@ describe('OrderAddComponent', () => {
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 
     expect(item).toMatchSnapshot({
       date: expect.any(Date),
@@ -136,15 +136,15 @@ describe('OrderAddComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 
   test('should support Customer filters', async () => {
@@ -416,21 +416,21 @@ describe('OrderCrudFacade', () => {
 
     test('should load Customers', async () => {
       facade.loadCustomers({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.customers$);
       expect(result.length).toBe(1);
     });
 
     test('should load ShipToAddresses', async () => {
       facade.loadShipToAddresses({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.shipToAddresses$);
       expect(result.length).toBe(1);
     });
 
     test('should load BillToAddresses', async () => {
       facade.loadBillToAddresses({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.billToAddresses$);
       expect(result.length).toBe(1);
     });
@@ -755,8 +755,8 @@ describe('OrderEditComponent', () => {
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
 
     expect(item).toMatchSnapshot({
       date: expect.any(Date),
@@ -774,14 +774,14 @@ describe('OrderEditComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 
   test('should support Customer filters', async () => {
@@ -853,7 +853,8 @@ export class OrderEditComponent extends OrderBaseEntryComponent implements OnIni
 exports[`imng-module AdventureWorks Orders effects should work 1`] = `
 "import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
