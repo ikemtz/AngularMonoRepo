@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-imimport { Actions, createEffect } from '@ngrx/effects';import { Actions, createEffect } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-uimport { concatLatestFrom } from '@ngrx/operators';
-re } from './idle.reducer';
+import { TestBed } from '@angular/core/testing';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { readFirst } from 'imng-ngrx-utils/testing';
+
+import { idleFeature } from './idle.reducer';
 import { IdleFacade } from './idle.facade';
 import { IdleEffects } from './idle.effects';
 import { IDLE_CONFIG } from '../idle-config';
@@ -11,8 +12,9 @@ import { oidcFeature, oidcActionTypes } from 'imng-oidc-client';
 import { sleep } from 'imng-ngrx-utils';
 import { Router } from '@angular/router';
 
-describe('Idleimport { EffectsModule } from '@ngrx/effects';eimport { concatLatestFrom } from '@ngrx/operators';
-t store: Store;
+describe('IdleFacade', () => {
+  let facade: IdleFacade;
+  let store: Store;
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -22,17 +24,19 @@ t store: Store;
           EffectsModule.forFeature([IdleEffects]),
           StoreModule.forFeature(oidcFeature),
         ],
-        providers: [IdleFacade,
+        providers: [
+          IdleFacade,
           {
-            provide: IDLE_CONFIG, useValue: {
+            provide: IDLE_CONFIG,
+            useValue: {
               timeoutWarningInMs: 2,
-              autoLogoutInMs: 4
-            }
+              autoLogoutInMs: 4,
+            },
           },
           { provide: Router, useValue: { navigateByUrl: jest.fn() } },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -41,7 +45,7 @@ t store: Store;
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -54,17 +58,27 @@ t store: Store;
     });
 
     it('should extendSession', async () => {
-      store.dispatch(oidcActionTypes.onSignInSilent({ access_token: null } as never));
-      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(true);
+      store.dispatch(
+        oidcActionTypes.onSignInSilent({ access_token: null } as never),
+      );
+      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(
+        true,
+      );
       facade.extendSession();
       await sleep(2);
       expect(await readFirst(facade.isTimingOut$)).toBe(true);
-      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(true);
+      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(
+        true,
+      );
     });
 
     it('should signout', async () => {
-      store.dispatch(oidcActionTypes.onSignInSilent({ access_token: null } as never));
-      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(true);
+      store.dispatch(
+        oidcActionTypes.onSignInSilent({ access_token: null } as never),
+      );
+      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(
+        true,
+      );
       await sleep(10);
       expect(await readFirst(store)).toMatchSnapshot();
     });

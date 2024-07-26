@@ -1,16 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explimport { Actions, createEffect } from '@ngrx/effects';import { Actions, createEffect } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { provideMockActions } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-oimport { concatLatestFrom } from '@ngrx/operators';
-re/testing';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TestBed } from '@angular/core/testing';
+import { Observable, of, throwError } from 'rxjs';
+
+import { provideMockActions } from '@ngrx/effects/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { OidcEffects } from './oidc.effects';
 import * as OidcActions from './oidc.actions';
 import { OIDC_LIBRARY_CONFIG } from '../models/oidc-library-config';
 import { OidcService } from '../services/oidc.service';
-import { HttpClient } from '@angular/commoimport { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 describe('Oidc Effects', () => {
   let actions: Observable<any>;
@@ -74,7 +75,7 @@ describe('Oidc Effects', () => {
     it('should fail because silent_redirect_uri is not configured', async () => {
       actions = of(OidcActions.removeOidcUser());
       service.removeOidcUser = jest.fn(() =>
-        throwError(() => new Error('Expected exception in unit tests.'))
+        throwError(() => new Error('Expected exception in unit tests.')),
       );
       const result = await readFirst(effects.removeOidcUser$);
       expect(result).toMatchSnapshot();

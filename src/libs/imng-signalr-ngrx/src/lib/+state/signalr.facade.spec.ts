@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
-imimport { Actions, createEffect } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-Eimport { concatLatestFrom } from '@ngrx/operators';
-ffects } from './signalr.effects';
+import { TestBed } from '@angular/core/testing';
+import { readFirst } from 'imng-ngrx-utils/testing';
+
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+
+import { SignalrEffects } from './signalr.effects';
 import { SignalrFacade } from './signalr.facade';
 
 import { signalrFeature } from './signalr.reducer';
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
 import { SIGNALR_CONFIG } from '../models/signalr.configuration';
-import { receivedMessage } fromimport { EffectsModule } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';iimport { concatLatestFrom } from '@ngrx/operators';
-mng-oidc-client';
+import { receivedMessage } from './signalr.actions';
+import { OidcFacade } from 'imng-oidc-client';
 import { of } from 'rxjs';
 
 describe('SignalrFacade', () => {
@@ -54,7 +52,7 @@ describe('SignalrFacade', () => {
           SignalrFacade,
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -63,7 +61,7 @@ describe('SignalrFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -95,7 +93,7 @@ describe('SignalrFacade', () => {
     it('should handle received messages', async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (facade as any).store.dispatch(
-        receivedMessage({ methodName: 'helloWorld', data: '😎' })
+        receivedMessage({ methodName: 'helloWorld', data: '😎' }),
       );
 
       let result = await readFirst(store);
