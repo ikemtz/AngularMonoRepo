@@ -1,23 +1,15 @@
-import { Inject, Injectable } from '@angular/core';
-import { Actions, ofType, OnInitEffects, createEffect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
-import { of } from 'rxjs';
-import {
-  catchError,
-  concatMap,
-  map,
-  filter,
-  tap,
-  switchMap,
-} from 'rxjs/operators';
 import { OidcService } from '../services/oidc.service';
 import * as oidcActions from './oidc.actions';
 import { IOidcUser } from '../models/oidc-user';
+import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { OnInitEffects, Actions, createEffect, ofType } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { switchMap, map, filter, catchError, of, concatMap, tap } from 'rxjs';
 import { oidcLogoutRoute } from '../img-oidc-client-routing.module';
 import {
-  OidcLibraryConfig,
   OIDC_LIBRARY_CONFIG,
+  OidcLibraryConfig,
 } from '../models/oidc-library-config';
 
 @Injectable({
@@ -29,8 +21,8 @@ export class OidcEffects implements OnInitEffects {
     private readonly oidcService: OidcService,
     @Inject(OIDC_LIBRARY_CONFIG)
     private readonly oidcLibraryOptions: OidcLibraryConfig,
-    private readonly router: Router
-  ) { }
+    private readonly router: Router,
+  ) {}
 
   getOidcUser$ = createEffect(() => {
     return this.actions$.pipe(
@@ -38,26 +30,28 @@ export class OidcEffects implements OnInitEffects {
       switchMap(() =>
         this.oidcService.getOidcUser().pipe(
           map((userData: IOidcUser | null) =>
-            this.makeOidcUserSerializable(userData)
+            this.makeOidcUserSerializable(userData),
           ),
           filter((userData: IOidcUser) => !!userData),
           map((userData: IOidcUser) => oidcActions.userFound(userData)),
-          catchError((err) => of(oidcActions.userDoneLoadingError(err)))
-        )));
+          catchError((err) => of(oidcActions.userDoneLoadingError(err))),
+        ),
+      ),
+    );
   });
 
   silentRenew$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(oidcActions.userFound),
       filter(
-        (userFound: { payload: IOidcUser; }) =>
+        (userFound: { payload: IOidcUser }) =>
           // user expired, initiate silent sign-in if configured to automatic
           (userFound.payload != null &&
             userFound.payload.expired &&
             this.oidcLibraryOptions.oidc_config?.automaticSilentRenew) ||
-          false
+          false,
       ),
-      map((userFound) => oidcActions.signInSilent(userFound.payload))
+      map((userFound) => oidcActions.signInSilent(userFound.payload)),
     );
   });
 
@@ -67,9 +61,9 @@ export class OidcEffects implements OnInitEffects {
       concatMap(() =>
         this.oidcService.removeOidcUser().pipe(
           map(() => oidcActions.userDoneLoading()),
-          catchError((err) => of(oidcActions.oidcError(err)))
-        )
-      )
+          catchError((err) => of(oidcActions.oidcError(err))),
+        ),
+      ),
     );
   });
 
@@ -77,7 +71,7 @@ export class OidcEffects implements OnInitEffects {
     return this.actions$.pipe(
       ofType(oidcActions.userFound),
       filter(() => !this.oidcLibraryOptions.getUserMetadata),
-      map(() => oidcActions.userDoneLoading())
+      map(() => oidcActions.userDoneLoading()),
     );
   });
 
@@ -86,14 +80,14 @@ export class OidcEffects implements OnInitEffects {
       ofType(oidcActions.userFound),
       filter(() => this.oidcLibraryOptions.getUserMetadata || false),
       switchMap(() => this.oidcService.getUserMetadata()),
-      map((metadata) => oidcActions.onUserMetadataLoaded(metadata))
+      map((metadata) => oidcActions.onUserMetadataLoaded(metadata)),
     );
   });
 
   onAccessTokenExpired$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(oidcActions.onAccessTokenExpired),
-      map(() => oidcActions.removeOidcUser())
+      map(() => oidcActions.removeOidcUser()),
     );
   });
 
@@ -103,11 +97,11 @@ export class OidcEffects implements OnInitEffects {
       concatMap((args) =>
         this.oidcService.signInPopup(args.payload).pipe(
           map((user) =>
-            oidcActions.onSignInPopup(this.makeOidcUserSerializable(user))
+            oidcActions.onSignInPopup(this.makeOidcUserSerializable(user)),
           ),
-          catchError((err) => of(oidcActions.signInError(err)))
-        )
-      )
+          catchError((err) => of(oidcActions.signInError(err))),
+        ),
+      ),
     );
   });
 
@@ -118,11 +112,11 @@ export class OidcEffects implements OnInitEffects {
         this.oidcService.signInRedirect(args.payload).pipe(
           concatMap(() => this.oidcService.signinRedirectCallback()),
           map((user) =>
-            oidcActions.onSignInRedirect(this.makeOidcUserSerializable(user))
+            oidcActions.onSignInRedirect(this.makeOidcUserSerializable(user)),
           ),
-          catchError((err) => of(oidcActions.signInError(err)))
-        )
-      )
+          catchError((err) => of(oidcActions.signInError(err))),
+        ),
+      ),
     );
   });
 
@@ -132,11 +126,11 @@ export class OidcEffects implements OnInitEffects {
       concatMap((args) =>
         this.oidcService.signInSilent(args.payload).pipe(
           map((user) =>
-            oidcActions.onSignInSilent(this.makeOidcUserSerializable(user))
+            oidcActions.onSignInSilent(this.makeOidcUserSerializable(user)),
           ),
-          catchError((err) => of(oidcActions.onSilentRenewError(err)))
-        )
-      )
+          catchError((err) => of(oidcActions.onSilentRenewError(err))),
+        ),
+      ),
     );
   });
 
@@ -146,9 +140,9 @@ export class OidcEffects implements OnInitEffects {
       concatMap((args) =>
         this.oidcService.signOutPopup(args.payload).pipe(
           map(() => oidcActions.onUserSignedOut()),
-          catchError((err) => of(oidcActions.signOutPopupError(err.message)))
-        )
-      )
+          catchError((err) => of(oidcActions.signOutPopupError(err.message))),
+        ),
+      ),
     );
   });
 
@@ -158,29 +152,31 @@ export class OidcEffects implements OnInitEffects {
       concatMap((args) =>
         this.oidcService.signOutRedirect(args.payload).pipe(
           map(() => oidcActions.onUserSignedOut()),
-          catchError((err) => of(oidcActions.signOutRedirectError(err.message)))
-        )
-      )
+          catchError((err) =>
+            of(oidcActions.signOutRedirectError(err.message)),
+          ),
+        ),
+      ),
     );
   });
 
-  onUserSignedOut$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(
-        oidcActions.onUserSignedOut,
-        oidcActions.signOutPopupError,
-        oidcActions.signOutRedirectError
-      ),
-      tap(() => {
-        localStorage.clear();
-        sessionStorage.clear();
-        this.router.navigateByUrl(oidcLogoutRoute.path || '');
-      })
-    );
-  },
-    { dispatch: false }
+  onUserSignedOut$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(
+          oidcActions.onUserSignedOut,
+          oidcActions.signOutPopupError,
+          oidcActions.signOutRedirectError,
+        ),
+        tap(() => {
+          localStorage.clear();
+          sessionStorage.clear();
+          this.router.navigateByUrl(oidcLogoutRoute.path || '');
+        }),
+      );
+    },
+    { dispatch: false },
   );
-
 
   ngrxOnInitEffects(): Action {
     return oidcActions.getOidcUser();

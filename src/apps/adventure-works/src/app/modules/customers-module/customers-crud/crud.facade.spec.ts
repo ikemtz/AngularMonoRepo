@@ -18,19 +18,7 @@ import { customersFeature } from '../+state/customer.reducer';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { CustomerProperties, ICustomer } from '../../../models/webapi';
-
-export const createCustomer = () =>
-  <ICustomer>{
-    [CustomerProperties.ID]: 'ID',
-    [CustomerProperties.NUM]: 'NUM',
-    [CustomerProperties.NAME]: 'NAME',
-    [CustomerProperties.COMPANY_NAME]: 'COMPANY_NAME',
-    [CustomerProperties.SALES_AGENT_ID]: 0,
-    [CustomerProperties.EMAIL_ADDRESS]: 'EMAIL_ADDRESS',
-    [CustomerProperties.PHONE]: 'PHONE',
-    [CustomerProperties.SALES_AGENT]: 'SALES_AGENT',
-  };
+import { createTestCustomer } from '../../../models/webapi';
 
 describe('CustomerCrudFacade', () => {
   let facade: CustomerCrudFacade;
@@ -52,7 +40,9 @@ describe('CustomerCrudFacade', () => {
           {
             provide: HttpClient,
             useValue: {
-              get: jest.fn(() => of(createODataPayload([createCustomer()]))),
+              get: jest.fn(() =>
+                of(createODataPayload([createTestCustomer()])),
+              ),
             },
           },
         ],
@@ -94,7 +84,7 @@ describe('CustomerCrudFacade', () => {
 
     test('should load SalesAgents', async () => {
       facade.loadSalesAgents({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.salesAgents$);
       expect(result.length).toBe(1);
     });

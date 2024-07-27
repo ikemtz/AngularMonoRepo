@@ -80,7 +80,7 @@ describe('<%= classify(name) %>CrudFacade', () => {
 
     test('should load <%= classify(swaggerProperty.pluralizedName) %>', async () => {
       facade.load<%= classify(swaggerProperty.pluralizedName) %>({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.<%= camelize(swaggerProperty.pluralizedName) %>$);
       expect(result.length).toBe(1);
     });<% }); %>

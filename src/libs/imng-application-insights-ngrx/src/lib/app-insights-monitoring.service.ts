@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Injectable, Inject, InjectionToken } from '@angular/core';
+import { InjectionToken, Injectable, Inject } from '@angular/core';
 import {
   ApplicationInsights,
   IConfiguration,
 } from '@microsoft/applicationinsights-web';
 import { Actions } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { tap, filter } from 'rxjs/operators';
+import { Observable, tap, filter } from 'rxjs';
+
 export const APP_INSIGHTS_CONFIG = new InjectionToken('app-insights-config');
 
 @Injectable({
@@ -16,7 +15,7 @@ export const APP_INSIGHTS_CONFIG = new InjectionToken('app-insights-config');
 export class AppInsightsMonitoringService {
   public readonly appInsights: ApplicationInsights;
   constructor(
-    @Inject(APP_INSIGHTS_CONFIG) readonly appInsightsConfig: IConfiguration
+    @Inject(APP_INSIGHTS_CONFIG) readonly appInsightsConfig: IConfiguration,
   ) {
     this.appInsights = new ApplicationInsights({ config: appInsightsConfig });
     this.appInsights.loadAppInsights();
@@ -33,7 +32,7 @@ export class AppInsightsMonitoringService {
   public logException(
     exception: Error,
     properties?: never,
-    measurements?: { [key: string]: number }
+    measurements?: { [key: string]: number },
   ): void {
     this.appInsights.trackException({ exception, properties, measurements });
   }
@@ -41,22 +40,22 @@ export class AppInsightsMonitoringService {
   public logEvent(
     name: string,
     properties?: never,
-    measurements?: { [key: string]: number }
+    measurements?: { [key: string]: number },
   ): void {
     this.appInsights.trackEvent({ name, properties, measurements });
   }
 
   public trackEventsEffect(
     actions$: Actions,
-    logPayload: boolean
+    logPayload: boolean,
   ): Observable<Action> {
     return actions$.pipe(
       tap((x) => {
         this.logEvent(
           x.type,
-          logPayload ? (x as unknown as { payload: never }).payload : undefined
+          logPayload ? (x as unknown as { payload: never }).payload : undefined,
         );
-      })
+      }),
     );
   }
 
@@ -68,7 +67,7 @@ export class AppInsightsMonitoringService {
       }),
       tap((x) => {
         this.logException(x as never);
-      })
+      }),
     );
   }
 }
