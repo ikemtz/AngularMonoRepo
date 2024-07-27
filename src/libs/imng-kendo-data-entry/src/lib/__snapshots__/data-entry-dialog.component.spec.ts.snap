@@ -3,6 +3,7 @@
 exports[`DataEntryDialog should create 1`] = `
 DataEntryDialogComponent {
   "addEditForm": "🐎",
+  "cancelButtonText": "Cancel",
   "dialogTitle": "🔥",
   "formId": "imng-form",
   "height": 600,
@@ -15,7 +16,7 @@ DataEntryDialogComponent {
     "onCancel": [MockFunction],
     "onSubmit": [MockFunction],
   },
-  "saveButtonText": "Save",
+  "submitButtonText": "Submit",
   "submitted": false,
   "width": 800,
 }

@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-snippets/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -26,19 +27,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-snippets"],
       "options": {
-        "jestConfig": "libs/imng-snippets/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-snippets/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-snippets/src/**/*.ts",
-          "libs/imng-snippets/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

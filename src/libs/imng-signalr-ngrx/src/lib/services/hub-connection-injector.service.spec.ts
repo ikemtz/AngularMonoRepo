@@ -37,7 +37,7 @@ describe('HubConnectionInjectorService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
     expect(
-      (service as unknown as { allSubscriptions: []; }).allSubscriptions.length
+      (service as unknown as { allSubscriptions: [] }).allSubscriptions.length,
     ).toBe(1);
   });
 
@@ -48,14 +48,14 @@ describe('HubConnectionInjectorService', () => {
   it('should handle onClose', () => {
     service.onClose();
     expect(store.dispatch).toBeCalledTimes(1);
-    expect(store.dispatch).toBeCalledWith({
+    expect(store.dispatch).toHaveBeenCalledWith({
       type: '[SignalR] Init Connection',
     });
   });
   it('should handle onMessageReceived', () => {
     service.onMessageReceived('x', { id: '😉👼' });
     expect(store.dispatch).toBeCalledTimes(1);
-    expect(store.dispatch).toBeCalledWith({
+    expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
         data: {
           id: '😉👼',
@@ -77,7 +77,7 @@ describe('HubConnectionInjectorService', () => {
       await hubConnection?.start();
     } catch (err) {
       expect(err).toMatchSnapshot();
-      expect((err as { statusCode: number; }).statusCode).toBeFalsy();
+      expect((err as { statusCode: number }).statusCode).toBeFalsy();
     }
     expect.assertions(2);
   });

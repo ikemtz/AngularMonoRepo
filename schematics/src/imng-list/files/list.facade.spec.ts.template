@@ -63,11 +63,11 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
@@ -87,7 +87,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
       expect(list?.data.length).toBe(3);
       expect(isloading).toBe(false);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {

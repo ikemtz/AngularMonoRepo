@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-ngxb-typeahead/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -15,8 +16,7 @@
         }
       ],
       "options": {
-        "project": "libs/imng-ngxb-typeahead/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-ngxb-typeahead/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -32,21 +32,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-ngxb-typeahead"],
       "options": {
-        "jestConfig": "libs/imng-ngxb-typeahead/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-ngxb-typeahead/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-ngxb-typeahead/src/**/*.ts",
-          "libs/imng-ngxb-typeahead/src/**/*.html",
-          "libs/imng-ngxb-typeahead/testing/**/*.ts",
-          "libs/imng-ngxb-typeahead/testing/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

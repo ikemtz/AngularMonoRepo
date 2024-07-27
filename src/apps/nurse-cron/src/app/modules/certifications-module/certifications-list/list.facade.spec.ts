@@ -4,7 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
+import {
+  ODataState,
+  createODataPayload,
+  createODataResult,
+  ODataService,
+} from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
@@ -13,14 +18,11 @@ import * as certificationActionTypes from '../+state/certification.actions';
 import { certificationsFeature } from '../+state/certification.reducer';
 import { CertificationListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import { ICertification, CertificationProperties } from '../../../models/certifications-odata';
-
-export const createCertification = () => <ICertification>{
-  [CertificationProperties.ID]: 'ID',
-  [CertificationProperties.NAME]: 'NAME',
-  [CertificationProperties.IS_ENABLED]: true,
-  [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
-};
+import {
+  ICertification,
+  CertificationProperties,
+  createTestCertification,
+} from '../../../models/certifications-odata';
 
 describe('CertificationListFacade', () => {
   let facade: CertificationListFacade;
@@ -28,7 +30,7 @@ describe('CertificationListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -39,10 +41,17 @@ describe('CertificationListFacade', () => {
         ],
         providers: [
           CertificationListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createCertification()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() =>
+                of(createODataPayload([createTestCertification()])),
+              ),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -51,7 +60,7 @@ describe('CertificationListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -71,19 +80,29 @@ describe('CertificationListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('certifications-odata/odata/v1/Certifications?&$count=true');
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith(
+        'certifications-odata/odata/v1/Certifications?&$count=true',
+      );
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
       let list = await readFirst(facade.gridData$);
       let isloading = await readFirst(facade.loading$);
 
-      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
-      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      const service: {
+        fetch: (
+          endpoint: string,
+          odataState: ODataState,
+        ) => Observable<unknown>;
+      } = TestBed.inject(ODataService);
+      const response = of({
+        data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
+        total: 3,
+      });
       service.fetch = jest.fn(() => response);
 
       expect(list.data.length).toBe(0);
@@ -95,12 +114,15 @@ describe('CertificationListFacade', () => {
 
       expect(list.data.length).toBe(3);
       expect(isloading).toBe(false);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {
       const filteringState: ODataState = {
-        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+        filter: {
+          logic: 'and',
+          filters: [{ field: '💩', operator: 'eq', value: '🍑' }],
+        },
       };
       let state = await readFirst(facade.gridODataState$);
       expect(state?.count).toBeUndefined();
@@ -120,7 +142,14 @@ describe('CertificationListFacade', () => {
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
-      store.dispatch(certificationActionTypes.loadCertificationsSuccess(createODataResult([createCertification(), createCertification()])));
+      store.dispatch(
+        certificationActionTypes.loadCertificationsSuccess(
+          createODataResult([
+            createTestCertification(),
+            createTestCertification(),
+          ]),
+        ),
+      );
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);

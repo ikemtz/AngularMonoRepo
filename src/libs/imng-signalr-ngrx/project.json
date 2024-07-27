@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-signalr-ngrx/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -15,8 +16,7 @@
         }
       ],
       "options": {
-        "project": "libs/imng-signalr-ngrx/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-signalr-ngrx/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -32,19 +32,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-signalr-ngrx"],
       "options": {
-        "jestConfig": "libs/imng-signalr-ngrx/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-signalr-ngrx/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-signalr-ngrx/src/**/*.ts",
-          "libs/imng-signalr-ngrx/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/imng-inventory-e2e/src",
   "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["imng-inventory"],
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
@@ -18,13 +20,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/imng-inventory-e2e/**/*.{js,ts}"]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["imng-inventory"]
+  }
 }

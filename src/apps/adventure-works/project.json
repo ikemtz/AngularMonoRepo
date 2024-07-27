@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/adventure-works/src",
   "prefix": "aw",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -69,41 +70,33 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "adventure-works:build:production"
+          "buildTarget": "adventure-works:build:production"
         },
         "development": {
-          "browserTarget": "adventure-works:build:development"
+          "buildTarget": "adventure-works:build:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "browserTarget": "adventure-works:build",
-        "proxyConfig": "apps/adventure-works/proxy.conf.js"
+        "proxyConfig": "apps/adventure-works/proxy.conf.js",
+        "buildTarget": "adventure-works:build"
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "adventure-works:build"
+        "buildTarget": "adventure-works:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/adventure-works/src/**/*.ts",
-          "apps/adventure-works/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/adventure-works"],
       "options": {
-        "jestConfig": "apps/adventure-works/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/adventure-works/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }
