@@ -3,13 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'imng-oidc-client';
 import { CertificationListComponent } from './certifications-list';
 
-
-const routes: Routes = [
-  { path: '', component: CertificationListComponent, canActivate: [AuthGuard] }
+export const certificationRoutes: Routes = [
+  { path: '', component: CertificationListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(certificationRoutes)],
+  exports: [RouterModule],
 })
-export class CertificationsRoutingModule { }
+export class CertificationsRoutingModule {}

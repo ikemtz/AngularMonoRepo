@@ -5,11 +5,18 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { of } from 'rxjs';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+} from 'imng-ngrx-utils/testing';
 
 import { CertificationEditComponent } from './edit.component';
 import { CertificationCrudFacade } from './crud.facade';
-import { CertificationProperties, ICertification } from '../../../models/certifications-odata';
+import {
+  CertificationProperties,
+  ICertification,
+} from '../../../models/certifications-odata';
 
 describe('CertificationEditComponent', () => {
   let component: CertificationEditComponent;
@@ -23,8 +30,13 @@ describe('CertificationEditComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [CertificationEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule,],
-      providers: [{ provide: CertificationCrudFacade, useValue: createDataEntryMockFacade({ currentEntity$: of({}) }) }],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
+      providers: [
+        {
+          provide: CertificationCrudFacade,
+          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -51,16 +63,15 @@ describe('CertificationEditComponent', () => {
       [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
     });
     let item: ICertification | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
 
     expect(item).toMatchSnapshot({
       expiresOnUtc: expect.any(Date),
     });
-
   });
 
   /**
@@ -71,13 +82,13 @@ describe('CertificationEditComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 });

@@ -7,7 +7,7 @@
     "@angular/core": ">= 14",
     "@ngrx/effects": ">= 14",
     "@ngrx/store": ">= 14",
-    "@microsoft/applicationinsights-web": ">= 2",
+    "@microsoft/applicationinsights-web": ">= 3",
     "rxjs": "*"
   },
   "dependencies": {

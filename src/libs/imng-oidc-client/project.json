@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-oidc-client/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -15,8 +16,7 @@
         }
       ],
       "options": {
-        "project": "libs/imng-oidc-client/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-oidc-client/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -32,19 +32,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-oidc-client"],
       "options": {
-        "jestConfig": "libs/imng-oidc-client/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-oidc-client/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-oidc-client/src/**/*.ts",
-          "libs/imng-oidc-client/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

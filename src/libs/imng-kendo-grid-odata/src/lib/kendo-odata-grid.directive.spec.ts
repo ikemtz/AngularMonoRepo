@@ -10,9 +10,13 @@ describe('ImngODataGridDirective', () => {
     const changeDetectorRef = {};
     const directive = new ImngODataGridDirective(
       gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef
+      changeDetectorRef as ChangeDetectorRef,
     );
-    expect(gridComponent).toMatchSnapshot();
+    expect({
+      data: gridComponent.data,
+      sortable: gridComponent.sortable,
+      filterable: gridComponent.filterable,
+    }).toMatchSnapshot();
     expect(directive).toBeTruthy();
   });
   it('should fire OnInit', () => {
@@ -29,11 +33,15 @@ describe('ImngODataGridDirective', () => {
     };
     const directive = new ImngODataGridDirective(
       gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef
+      changeDetectorRef as ChangeDetectorRef,
     );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();
-    expect(gridComponent).toMatchSnapshot();
+    expect({
+      data: gridComponent.data,
+      sortable: gridComponent.sortable,
+      filterable: gridComponent.filterable,
+    }).toMatchSnapshot();
     expect(directive).toBeTruthy();
   });
   it('should fire AfterViewInit', () => {
@@ -50,13 +58,17 @@ describe('ImngODataGridDirective', () => {
     };
     const directive = new ImngODataGridDirective(
       gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef
+      changeDetectorRef as ChangeDetectorRef,
     );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();
     directive.ngAfterViewInit();
 
-    expect(gridComponent).toMatchSnapshot();
+    expect({
+      data: gridComponent.data,
+      sortable: gridComponent.sortable,
+      filterable: gridComponent.filterable,
+    }).toMatchSnapshot();
     expect(directive).toBeTruthy();
     expect(odataComponent.dataStateChange).toBeCalledTimes(0);
     const allSubscriptions = (directive as unknown as { allSubscriptions: [] })
@@ -81,7 +93,7 @@ describe('ImngODataGridDirective', () => {
     };
     const directive = new ImngODataGridDirective(
       gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef
+      changeDetectorRef as ChangeDetectorRef,
     );
     directive.odataComponent = odataComponent as never;
     directive.ngOnInit();

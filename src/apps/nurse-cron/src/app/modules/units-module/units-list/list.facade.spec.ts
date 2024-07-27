@@ -4,7 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
+import {
+  ODataState,
+  createODataPayload,
+  createODataResult,
+  ODataService,
+} from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
@@ -13,25 +18,14 @@ import * as unitActionTypes from '../+state/unit.actions';
 import { unitsFeature } from '../+state/unit.reducer';
 import { UnitListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import { IUnit, UnitProperties } from '../../../models/units-odata';
-
-export const createUnit = () => <IUnit>{
-  [UnitProperties.ID]: 'ID',
-  [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
-  [UnitProperties.NAME]: 'NAME',
-  [UnitProperties.ROOM_COUNT]: 0,
-  [UnitProperties.DELETED_BY]: 'DELETED_BY',
-  [UnitProperties.DELETED_ON_UTC]: new Date(),
-  [UnitProperties.BUILDING]: 'BUILDING',
-};
-
+import { createTestUnit } from '../../../models/units-odata';
 describe('UnitListFacade', () => {
   let facade: UnitListFacade;
   let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -42,10 +36,15 @@ describe('UnitListFacade', () => {
         ],
         providers: [
           UnitListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createUnit()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createTestUnit()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -54,7 +53,7 @@ describe('UnitListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -74,19 +73,29 @@ describe('UnitListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('units-odata/odata/v1/Units?&$count=true');
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith(
+        'units-odata/odata/v1/Units?&$count=true',
+      );
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
       let list = await readFirst(facade.gridData$);
       let isloading = await readFirst(facade.loading$);
 
-      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
-      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      const service: {
+        fetch: (
+          endpoint: string,
+          odataState: ODataState,
+        ) => Observable<unknown>;
+      } = TestBed.inject(ODataService);
+      const response = of({
+        data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
+        total: 3,
+      });
       service.fetch = jest.fn(() => response);
 
       expect(list.data.length).toBe(0);
@@ -98,12 +107,15 @@ describe('UnitListFacade', () => {
 
       expect(list.data.length).toBe(3);
       expect(isloading).toBe(false);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {
       const filteringState: ODataState = {
-        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+        filter: {
+          logic: 'and',
+          filters: [{ field: '💩', operator: 'eq', value: '🍑' }],
+        },
       };
       let state = await readFirst(facade.gridODataState$);
       expect(state?.count).toBeUndefined();
@@ -123,7 +135,11 @@ describe('UnitListFacade', () => {
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
-      store.dispatch(unitActionTypes.loadUnitsSuccess(createODataResult([createUnit(), createUnit()])));
+      store.dispatch(
+        unitActionTypes.loadUnitsSuccess(
+          createODataResult([createTestUnit(), createTestUnit()]),
+        ),
+      );
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);

@@ -24,17 +24,19 @@ describe('IdleFacade', () => {
           EffectsModule.forFeature([IdleEffects]),
           StoreModule.forFeature(oidcFeature),
         ],
-        providers: [IdleFacade,
+        providers: [
+          IdleFacade,
           {
-            provide: IDLE_CONFIG, useValue: {
+            provide: IDLE_CONFIG,
+            useValue: {
               timeoutWarningInMs: 2,
-              autoLogoutInMs: 4
-            }
+              autoLogoutInMs: 4,
+            },
           },
           { provide: Router, useValue: { navigateByUrl: jest.fn() } },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -43,7 +45,7 @@ describe('IdleFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -56,17 +58,27 @@ describe('IdleFacade', () => {
     });
 
     it('should extendSession', async () => {
-      store.dispatch(oidcActionTypes.onSignInSilent({ access_token: null } as never));
-      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(true);
+      store.dispatch(
+        oidcActionTypes.onSignInSilent({ access_token: null } as never),
+      );
+      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(
+        true,
+      );
       facade.extendSession();
       await sleep(2);
       expect(await readFirst(facade.isTimingOut$)).toBe(true);
-      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(true);
+      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(
+        true,
+      );
     });
 
     it('should signout', async () => {
-      store.dispatch(oidcActionTypes.onSignInSilent({ access_token: null } as never));
-      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(true);
+      store.dispatch(
+        oidcActionTypes.onSignInSilent({ access_token: null } as never),
+      );
+      expect(await readFirst(store.select(oidcFeature.selectIsLoggedIn))).toBe(
+        true,
+      );
       await sleep(10);
       expect(await readFirst(store)).toMatchSnapshot();
     });

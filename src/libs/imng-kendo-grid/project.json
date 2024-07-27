@@ -4,13 +4,13 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-kendo-grid/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-kendo-grid"],
       "options": {
-        "project": "libs/imng-kendo-grid/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-kendo-grid/ng-package.json"
       },
       "dependsOn": [
         {
@@ -32,21 +32,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-grid"],
       "options": {
-        "jestConfig": "libs/imng-kendo-grid/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-kendo-grid/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-kendo-grid/src/**/*.ts",
-          "libs/imng-kendo-grid/src/**/*.html",
-          "libs/imng-kendo-grid/testing/**/*.ts",
-          "libs/imng-kendo-grid/testing/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

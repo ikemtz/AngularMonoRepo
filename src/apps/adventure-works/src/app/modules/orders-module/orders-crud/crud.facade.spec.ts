@@ -18,39 +18,7 @@ import { ordersFeature } from '../+state/order.reducer';
 import { OrderCrudFacade } from './crud.facade';
 import { OrderApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import {
-  IOrder,
-  OrderProperties,
-  OrderStatusTypes,
-  ShippingTypes,
-} from '../../../models/odata';
-
-export const createOrder = () =>
-  <IOrder>{
-    [OrderProperties.ID]: 'ID',
-    [OrderProperties.ORDER_ID]: 0,
-    [OrderProperties.REVISION_NUM]: 0,
-    [OrderProperties.DATE]: new Date(),
-    [OrderProperties.DUE_DATE]: new Date(),
-    [OrderProperties.SHIP_DATE]: new Date(),
-    [OrderProperties.STATUS_TYPE]: OrderStatusTypes.Processing,
-    [OrderProperties.IS_ONLINE_ORDER]: true,
-    [OrderProperties.NUM]: 'NUM',
-    [OrderProperties.PURCHASE_ORDER_NUM]: 'PURCHASE_ORDER_NUM',
-    [OrderProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
-    [OrderProperties.SHIP_TO_ADDRESS_ID]: 'SHIP_TO_ADDRESS_ID',
-    [OrderProperties.BILL_TO_ADDRESS_ID]: 'BILL_TO_ADDRESS_ID',
-    [OrderProperties.SHIPPING_TYPE]: ShippingTypes.Other,
-    [OrderProperties.CREDIT_CARD_APPROVAL_CODE]: 'CREDIT_CARD_APP',
-    [OrderProperties.SUB_TOTAL]: 0,
-    [OrderProperties.TAX_AMT]: 0,
-    [OrderProperties.FREIGHT]: 0,
-    [OrderProperties.TOTAL_DUE]: 0,
-    [OrderProperties.COMMENT]: 'COMMENT',
-    [OrderProperties.CUSTOMER]: 'CUSTOMER',
-    [OrderProperties.SHIP_TO_ADDRESS]: 'SHIP_TO_ADDRESS',
-    [OrderProperties.BILL_TO_ADDRESS]: 'BILL_TO_ADDRESS',
-  };
+import { createTestOrder } from '../../../models/odata';
 
 describe('OrderCrudFacade', () => {
   let facade: OrderCrudFacade;
@@ -72,7 +40,7 @@ describe('OrderCrudFacade', () => {
           {
             provide: HttpClient,
             useValue: {
-              get: jest.fn(() => of(createODataPayload([createOrder()]))),
+              get: jest.fn(() => of(createODataPayload([createTestOrder()]))),
             },
           },
         ],
@@ -114,21 +82,21 @@ describe('OrderCrudFacade', () => {
 
     test('should load Customers', async () => {
       facade.loadCustomers({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.customers$);
       expect(result.length).toBe(1);
     });
 
     test('should load ShipToAddresses', async () => {
       facade.loadShipToAddresses({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.shipToAddresses$);
       expect(result.length).toBe(1);
     });
 
     test('should load BillToAddresses', async () => {
       facade.loadBillToAddresses({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.billToAddresses$);
       expect(result.length).toBe(1);
     });

@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@env*';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
+import { switchMap, map } from 'rxjs';
+import { ISchedule } from '../../../models/schedules-odata';
+import { ScheduleApiService } from '../schedules-crud';
 import { schedulesFeature } from './schedule.reducer';
 import * as scheduleActionTypes from './schedule.actions';
-import { environment } from '../../../../environments/environment';
-
-import { ScheduleApiService } from '../schedules-crud';
-import { ISchedule } from '../../../models/schedules-odata';
 
 @Injectable()
 export class ScheduleEffects {
