@@ -33,8 +33,12 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
       </kendo-dialog-actions>
     </kendo-dialog>
     <ng-template #defaultDialogActionsTpl>
-      <button name="imngCancelDataEntry" kendoButton (click)="cancel()">
-        Cancel
+      <button
+        name="imngCancelDataEntry"
+        kendoButton
+        (click)="cancel()"
+        class="btn btn-secondary btn-sm">
+        {{ cancelButtonText }}
       </button>
       <button
         name="imngSubmitDataEntry"
@@ -42,8 +46,8 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
         type="submit"
         kendoButton
         (click)="submit()"
-        themeColor="primary">
-        {{ saveButtonText }}
+        class="btn btn-primary btn-sm">
+        {{ submitButtonText }}
       </button>
     </ng-template>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,7 +62,8 @@ export class DataEntryDialogComponent implements OnInit {
   @Input() public autoFocusedElement?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public parentComponent?: BaseDataEntryComponent<any>; //NOSONAR
-  @Input() public saveButtonText?: string;
+  @Input() public cancelButtonText?: string = 'Cancel';
+  @Input() public submitButtonText?: string = 'Submit';
   @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
   /**
    * Example Usage:
@@ -85,7 +90,8 @@ export class DataEntryDialogComponent implements OnInit {
     this.dialogTitle = this.parentComponent.dialogTitle;
     this.loading$ = this.parentComponent.loading$;
     this.addEditForm = this.parentComponent.addEditForm;
-    this.saveButtonText ??= this.parentComponent.saveButtonText ?? 'Save';
+    this.submitButtonText ??= this.parentComponent.submitButtonText ?? 'Submit';
+    this.cancelButtonText ??= this.parentComponent.cancelButtonText ?? 'Cancel';
     this.formId ??= this.parentComponent.formId ?? 'imng-form';
   }
 

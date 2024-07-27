@@ -4,7 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
+import {
+  ODataState,
+  createODataPayload,
+  createODataResult,
+  ODataService,
+} from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
@@ -13,30 +18,7 @@ import * as employeeActionTypes from '../+state/employee.actions';
 import { employeesFeature } from '../+state/employee.reducer';
 import { EmployeeListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import { IEmployee, EmployeeProperties } from '../../../models/employees-odata';
-
-export const createEmployee = () => <IEmployee>{
-  [EmployeeProperties.ID]: 'ID',
-  [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
-  [EmployeeProperties.FIRST_NAME]: 'FIRST_NAME',
-  [EmployeeProperties.BIRTH_DATE]: new Date(),
-  [EmployeeProperties.MOBILE_PHONE]: 'MOBILE_PHONE',
-  [EmployeeProperties.HOME_PHONE]: 'HOME_PHONE',
-  [EmployeeProperties.PHOTO]: 'PHOTO',
-  [EmployeeProperties.EMAIL]: 'EMAIL',
-  [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
-  [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS_LINE_2',
-  [EmployeeProperties.CITY]: 'CITY',
-  [EmployeeProperties.STATE]: 'ST',
-  [EmployeeProperties.ZIP]: 'ZIP',
-  [EmployeeProperties.IS_ENABLED]: true,
-  [EmployeeProperties.HIRE_DATE]: new Date(),
-  [EmployeeProperties.FIRE_DATE]: new Date(),
-  [EmployeeProperties.TOTAL_HOURS_OF_SERVICE]: 0,
-  [EmployeeProperties.CERTIFICATION_COUNT]: 0,
-  [EmployeeProperties.COMPETENCY_COUNT]: 0,
-  [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-};
+import { createTestEmployee } from '../../../models/employees-odata';
 
 describe('EmployeeListFacade', () => {
   let facade: EmployeeListFacade;
@@ -44,7 +26,7 @@ describe('EmployeeListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -55,10 +37,17 @@ describe('EmployeeListFacade', () => {
         ],
         providers: [
           EmployeeListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createEmployee()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() =>
+                of(createODataPayload([createTestEmployee()])),
+              ),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -67,7 +56,7 @@ describe('EmployeeListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -87,19 +76,29 @@ describe('EmployeeListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('employees-odata/odata/v1/Employees?&$count=true');
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith(
+        'employees-odata/odata/v1/Employees?&$count=true',
+      );
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
       let list = await readFirst(facade.gridData$);
       let isloading = await readFirst(facade.loading$);
 
-      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
-      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      const service: {
+        fetch: (
+          endpoint: string,
+          odataState: ODataState,
+        ) => Observable<unknown>;
+      } = TestBed.inject(ODataService);
+      const response = of({
+        data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
+        total: 3,
+      });
       service.fetch = jest.fn(() => response);
 
       expect(list.data.length).toBe(0);
@@ -111,12 +110,15 @@ describe('EmployeeListFacade', () => {
 
       expect(list.data.length).toBe(3);
       expect(isloading).toBe(false);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {
       const filteringState: ODataState = {
-        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+        filter: {
+          logic: 'and',
+          filters: [{ field: '💩', operator: 'eq', value: '🍑' }],
+        },
       };
       let state = await readFirst(facade.gridODataState$);
       expect(state?.count).toBeUndefined();
@@ -136,7 +138,11 @@ describe('EmployeeListFacade', () => {
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
-      store.dispatch(employeeActionTypes.loadEmployeesSuccess(createODataResult([createEmployee(), createEmployee()])));
+      store.dispatch(
+        employeeActionTypes.loadEmployeesSuccess(
+          createODataResult([createTestEmployee(), createTestEmployee()]),
+        ),
+      );
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);

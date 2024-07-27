@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import {
+  GridModule,
+  ExcelModule,
+  PDFModule,
+} from '@progress/kendo-angular-grid';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { MenusModule } from "@progress/kendo-angular-menu";
+import { MenusModule } from '@progress/kendo-angular-menu';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -18,11 +22,15 @@ import { unitsFeature } from './+state/unit.reducer';
 import { UnitEffects } from './+state/unit.effects';
 
 import { UnitListComponent, UnitListFacade } from './units-list';
-import { UnitAddComponent, UnitEditComponent, UnitApiService, UnitCrudFacade  } from './units-crud';
-
+import {
+  UnitAddComponent,
+  UnitEditComponent,
+  UnitApiService,
+  UnitCrudFacade,
+} from './units-crud';
 
 @NgModule({
-  declarations: [UnitListComponent, UnitAddComponent, UnitEditComponent ],
+  declarations: [UnitListComponent, UnitAddComponent, UnitEditComponent],
   imports: [
     CommonModule,
     GridModule,
@@ -41,10 +49,6 @@ import { UnitAddComponent, UnitEditComponent, UnitApiService, UnitCrudFacade  } 
     StoreModule.forFeature(unitsFeature),
     EffectsModule.forFeature([UnitEffects]),
   ],
-  providers: [
-    UnitListFacade,
-    UnitCrudFacade,
-    UnitApiService, 
-  ],
+  providers: [UnitListFacade, UnitCrudFacade, UnitApiService],
 })
-export class UnitsModule { }
+export class UnitsModule {}

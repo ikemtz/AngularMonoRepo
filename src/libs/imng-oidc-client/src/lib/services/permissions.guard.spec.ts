@@ -40,11 +40,11 @@ describe('PermissionsGuard', () => {
 
   it('should support canActivate', async () => {
     const result = await readFirst(
-      guard.canActivate(null as never, null as never) as Observable<boolean>
+      guard.canActivate(null as never, null as never) as Observable<boolean>,
     );
     expect(result).toBe(false);
     expect(router.navigate).toBeCalledTimes(1);
-    expect(router.navigate).toBeCalledWith(['oidc/access-denied'], {
+    expect(router.navigate).toHaveBeenCalledWith(['oidc/access-denied'], {
       relativeTo: '🌳🌳🌳',
     });
   });
@@ -56,7 +56,7 @@ class PermissionsGuardTester extends PermissionsGuard {
   constructor(
     oidcFacade: OidcFacade,
     oidcUserFacade: OidcUserFacade,
-    router: Router
+    router: Router,
   ) {
     super(oidcFacade, oidcUserFacade, router);
   }

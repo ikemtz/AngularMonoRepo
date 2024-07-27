@@ -1,12 +1,13 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { OrderLineItemListComponent } from './list.component';
-import { createOrderLineItem } from './list.facade.spec';
 import { OrderLineItemListFacade } from './list.facade';
+import { createTestOrderLineItem } from '../../../models/odata';
+import { provideRouter } from '@angular/router';
+import { orderRoutes } from '../orders.routing';
 
 describe('OrderLineItemListComponent', () => {
   let component: OrderLineItemListComponent;
@@ -16,11 +17,15 @@ describe('OrderLineItemListComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [OrderLineItemListComponent],
-      imports: [RouterTestingModule],
+      imports: [],
       providers: [
-        { provide: OrderLineItemListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
+        {
+          provide: OrderLineItemListFacade,
+          useValue: createODataGridMockFacade(createDataDeleteMockFacade()),
+        },
+        provideRouter(orderRoutes),
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -42,13 +47,13 @@ describe('OrderLineItemListComponent', () => {
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1);
+    expect(listFacade.reloadEntities).toHaveBeenCalledTimes(1);
   });
 
   test('it should handle DeleteItem', () => {
-    const item = createOrderLineItem();
+    const item = createTestOrderLineItem();
     component.deleteItem(item);
-    expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
+    expect(listFacade.deleteExistingEntity).toHaveBeenCalledTimes(1);
+    expect(listFacade.deleteExistingEntity).toHaveBeenCalledWith(item);
   });
 });

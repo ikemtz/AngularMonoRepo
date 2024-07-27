@@ -84,7 +84,7 @@ describe('KendoODataBasedComponent', () => {
     component.facade.loadEntities = jest.fn();
     component.loadEntities(odataState);
     expect(component.facade.loadEntities).toBeCalledTimes(1);
-    expect(component.facade.loadEntities).toBeCalledWith({
+    expect(component.facade.loadEntities).toHaveBeenCalledWith({
       sort: [
         { field: 'a', dir: 'asc' },
         { field: 'b', dir: 'asc' },

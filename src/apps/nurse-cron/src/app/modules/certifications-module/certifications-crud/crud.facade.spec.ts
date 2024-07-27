@@ -18,18 +18,7 @@ import { certificationsFeature } from '../+state/certification.reducer';
 import { CertificationCrudFacade } from './crud.facade';
 import { CertificationApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import {
-  ICertification,
-  CertificationProperties,
-} from '../../../models/certifications-odata';
-
-export const createCertification = () =>
-  <ICertification>{
-    [CertificationProperties.ID]: 'ID',
-    [CertificationProperties.NAME]: 'NAME',
-    [CertificationProperties.IS_ENABLED]: true,
-    [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
-  };
+import { createTestCertification } from '../../../models/certifications-odata';
 
 describe('CertificationCrudFacade', () => {
   let facade: CertificationCrudFacade;
@@ -52,7 +41,7 @@ describe('CertificationCrudFacade', () => {
             provide: HttpClient,
             useValue: {
               get: jest.fn(() =>
-                of(createODataPayload([createCertification()])),
+                of(createODataPayload([createTestCertification()])),
               ),
             },
           },

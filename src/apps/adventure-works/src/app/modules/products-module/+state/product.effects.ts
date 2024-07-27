@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import * as productActionTypes from './product.actions';
+import { environment } from '@env';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
-import { productsFeature } from './product.reducer';
-import * as productActionTypes from './product.actions';
-import { environment } from '../../../../environments/environment';
-
-import { ProductApiService } from '../products-crud';
+import { switchMap, map } from 'rxjs';
 import {
   IProduct,
-  IProductCategory,
-  IProductModel,
   ProductProperties,
+  IProductModel,
+  IProductCategory,
 } from '../../../models/odata';
+import { productsFeature } from './product.reducer';
+import { ProductApiService } from '../products-crud';
 
 @Injectable()
 export class ProductEffects {

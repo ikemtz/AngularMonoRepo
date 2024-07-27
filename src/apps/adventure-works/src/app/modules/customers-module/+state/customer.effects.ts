@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
+import { switchMap, map } from 'rxjs';
 import { customersFeature } from './customer.reducer';
 import * as customerActionTypes from './customer.actions';
-import { environment } from '../../../../environments/environment';
-
+import { environment } from '@env';
 import { CustomerApiService } from '../customers-crud';
 import { ICustomer, ISalesAgent } from '../../../models/odata';
 

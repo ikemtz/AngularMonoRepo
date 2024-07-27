@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ODataClientService } from './services/odata-client.service';
 
-@NgModule({
-  imports: [CommonModule, HttpClientModule],
-  providers: [ODataClientService],
-})
+@NgModule({ imports: [CommonModule], providers: [ODataClientService, provideHttpClient(withInterceptorsFromDi())] })
 export class ImngODataClientModule {}

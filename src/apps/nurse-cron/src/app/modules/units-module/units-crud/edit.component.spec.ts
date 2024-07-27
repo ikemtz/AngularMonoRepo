@@ -15,7 +15,11 @@ import {
 import { createMockUnitFacade } from './add.component.spec';
 import { UnitEditComponent } from './edit.component';
 import { UnitCrudFacade } from './crud.facade';
-import { createTestUnit, IUnit, createTestBuilding } from '../../../models/units-odata';
+import {
+  createTestUnit,
+  IUnit,
+  createTestBuilding,
+} from '../../../models/units-odata';
 
 describe('UnitEditComponent', () => {
   let component: UnitEditComponent;
@@ -66,8 +70,8 @@ describe('UnitEditComponent', () => {
     facade.updateExistingEntity = jest.fn((x) => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
 
     expect(item).toMatchSnapshot({
       deletedOnUtc: expect.any(Date),
@@ -85,14 +89,14 @@ describe('UnitEditComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 
   test('should support Building filters', async () => {
