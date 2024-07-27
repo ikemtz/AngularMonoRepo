@@ -18,11 +18,7 @@ import * as certificationActionTypes from '../+state/certification.actions';
 import { certificationsFeature } from '../+state/certification.reducer';
 import { CertificationListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import {
-  ICertification,
-  CertificationProperties,
-  createTestCertification,
-} from '../../../models/certifications-odata';
+import { createTestCertification } from '../../../models/certifications-odata';
 
 describe('CertificationListFacade', () => {
   let facade: CertificationListFacade;

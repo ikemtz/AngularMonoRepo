@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-rimport { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-eadFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -17,23 +13,12 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { CertificationEffects } from '../+stateimport { EffectsModule } from '@ngrx/effects';nimport { concatLatestFrom } from '@ngrx/operators';
-sFeature } from '../+state/certification.reducer';
+import { CertificationEffects } from '../+state/certification.effects';
+import { certificationsFeature } from '../+state/certification.reducer';
 import { CertificationCrudFacade } from './crud.facade';
 import { CertificationApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import {
-  ICertification,
-  CertificationProperties,
-} from '../../../models/certifications-odata';
-
-export const createCertification = () =>
-  <ICertification>{
-    [CertificationProperties.ID]: 'ID',
-    [CertificationProperties.NAME]: 'NAME',
-    [CertificationProperties.IS_ENABLED]: true,
-    [CertificationProperties.EXPIRES_ON_UTC]: new Date(),
-  };
+import { createTestCertification } from '../../../models/certifications-odata';
 
 describe('CertificationCrudFacade', () => {
   let facade: CertificationCrudFacade;
@@ -56,7 +41,7 @@ describe('CertificationCrudFacade', () => {
             provide: HttpClient,
             useValue: {
               get: jest.fn(() =>
-                of(createODataPayload([createCertification()])),
+                of(createODataPayload([createTestCertification()])),
               ),
             },
           },

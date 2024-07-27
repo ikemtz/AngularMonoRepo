@@ -18,11 +18,7 @@ import * as scheduleActionTypes from '../+state/schedule.actions';
 import { schedulesFeature } from '../+state/schedule.reducer';
 import { ScheduleListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import {
-  ISchedule,
-  ScheduleProperties,
-  createTestSchedule,
-} from '../../../models/schedules-odata';
+import { createTestSchedule } from '../../../models/schedules-odata';
 
 describe('ScheduleListFacade', () => {
   let facade: ScheduleListFacade;

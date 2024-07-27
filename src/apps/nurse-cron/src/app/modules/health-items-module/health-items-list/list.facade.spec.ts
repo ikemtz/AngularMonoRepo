@@ -18,11 +18,7 @@ import * as healthItemActionTypes from '../+state/health-item.actions';
 import { healthItemsFeature } from '../+state/health-item.reducer';
 import { HealthItemListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import {
-  IHealthItem,
-  HealthItemProperties,
-  createTestHealthItem,
-} from '../../../models/health-items-odata';
+import { createTestHealthItem } from '../../../models/health-items-odata';
 
 describe('HealthItemListFacade', () => {
   let facade: HealthItemListFacade;
