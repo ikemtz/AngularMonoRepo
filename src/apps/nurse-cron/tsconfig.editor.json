@@ -21,6 +21,8 @@
       "imng-odata-client": ["libs/imng-odata-client/src/index.ts"],
       "imng-oidc-client": ["libs/imng-oidc-client/src/index.ts"],
       "imng-prime-table-odata": ["libs/imng-prime-table-odata/src/index.ts"],
+      "imng-signalr-ngrx": ["libs/imng-signalr-ngrx/src/index.ts"],
+
       "imng-kendo-data-entry/testing": [
         "libs/imng-kendo-data-entry/testing/src/index.ts"
       ],
