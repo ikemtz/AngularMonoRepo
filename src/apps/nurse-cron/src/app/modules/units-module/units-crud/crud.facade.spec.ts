@@ -1,18 +1,9 @@
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { createEffect, Actions, ofType } from '@ngrx/effects';import { EffectsModule } from '@ngrx/effects';import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-rimport { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-import { concatLatestFrom } from '@ngrx/operators';
-eadFirst } from 'imng-ngrx-utils/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
   testEditSetAndClearCurrentEntity,
@@ -22,23 +13,12 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { UnitEffects } from '../+state/unit.effimport { EffectsModule } from '@ngrx/effects';/import { concatLatestFrom } from '@ngrx/operators';
-unit.reducer';
+import { UnitEffects } from '../+state/unit.effects';
+import { unitsFeature } from '../+state/unit.reducer';
 import { UnitCrudFacade } from './crud.facade';
 import { UnitApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { IUnit, UnitProperties } from '../../../models/units-odata';
-
-export const createUnit = () =>
-  <IUnit>{
-    [UnitProperties.ID]: 'ID',
-    [UnitProperties.BUILDING_ID]: 'BUILDING_ID',
-    [UnitProperties.NAME]: 'NAME',
-    [UnitProperties.ROOM_COUNT]: 0,
-    [UnitProperties.DELETED_BY]: 'DELETED_BY',
-    [UnitProperties.DELETED_ON_UTC]: new Date(),
-    [UnitProperties.BUILDING]: 'BUILDING',
-  };
+import { createTestUnit } from '../../../models/units-odata';
 
 describe('UnitCrudFacade', () => {
   let facade: UnitCrudFacade;
@@ -60,7 +40,7 @@ describe('UnitCrudFacade', () => {
           {
             provide: HttpClient,
             useValue: {
-              get: jest.fn(() => of(createODataPayload([createUnit()]))),
+              get: jest.fn(() => of(createODataPayload([createTestUnit()]))),
             },
           },
         ],
@@ -103,7 +83,7 @@ describe('UnitCrudFacade', () => {
 
     test('should load Buildings', async () => {
       facade.loadBuildings({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.buildings$);
       expect(result.length).toBe(1);
     });

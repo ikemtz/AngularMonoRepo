@@ -10,6 +10,9 @@ import { OrderListComponent } from './list.component';
 import { createOrder } from './list.facade.spec';
 import { OrderListFacade } from './list.facade';
 import { OrderCrudFacade } from '../orders-crud';
+import { provideRouter } from '@angular/router';
+import { orderRoutes } from '../orders.routing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 
 describe('OrderListComponent', () => {
   let component: OrderListComponent;
@@ -27,6 +30,8 @@ describe('OrderListComponent', () => {
           useValue: createODataGridMockFacade(createDataDeleteMockFacade()),
         },
         { provide: OrderCrudFacade, useValue: createDataEntryMockFacade() },
+        provideRouter(orderRoutes),
+        provideOidcMockFacade(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();

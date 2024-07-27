@@ -87,7 +87,10 @@ describe('SignalrFacade', () => {
     it('should handle send', () => {
       facade.sendMessage({ methodName: 'helloWorld', data: '😎' });
       expect(service.hubConnection?.send).toBeCalledTimes(1);
-      expect(service.hubConnection?.send).toBeCalledWith('helloWorld', '😎');
+      expect(service.hubConnection?.send).toHaveBeenCalledWith(
+        'helloWorld',
+        '😎',
+      );
     });
 
     it('should handle received messages', async () => {

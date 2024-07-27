@@ -4,12 +4,12 @@ import { AuthGuard } from 'imng-oidc-client';
 import { EmployeeListComponent } from './employees-list';
 
 
-const routes: Routes = [
+export const employeeRoutes: Routes = [
   { path: '', component: EmployeeListComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(employeeRoutes)],
+  exports: [RouterModule],
 })
-export class EmployeesRoutingModule { }
+export class EmployeesRoutingModule {}

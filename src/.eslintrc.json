@@ -1,12 +1,18 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "plugins": ["@nx", "@ngrx"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "extends": ["plugin:ngrx/recommended"],
       "rules": {
+        "ngrx/no-dispatch-in-effects": "off",
+        "ngrx/avoid-combining-selectors": "off",
+        "ngrx/avoid-dispatching-multiple-actions-sequentially": "off",
+        "ngrx/avoid-mapping-selectors": "off",
+        "ngrx/no-store-subscription": "off",
+        "ngrx/prefer-action-creator-in-dispatch": "off",
         "@nx/enforce-module-boundaries": [
           "error",
           {
@@ -37,6 +43,10 @@
         "@typescript-eslint/no-extra-semi": "error",
         "no-extra-semi": "off"
       }
+    },
+    {
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/all"]
     }
   ]
 }

@@ -3,13 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'imng-oidc-client';
 import { HealthItemListComponent } from './health-items-list';
 
-
-const routes: Routes = [
-  { path: '', component: HealthItemListComponent, canActivate: [AuthGuard] }
+export const healthItemRoutes: Routes = [
+  { path: '', component: HealthItemListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(healthItemRoutes)],
+  exports: [RouterModule],
 })
-export class HealthItemsRoutingModule { }
+export class HealthItemsRoutingModule {}

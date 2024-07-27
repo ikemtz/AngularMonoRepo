@@ -10,6 +10,9 @@ import { CustomerListComponent } from './list.component';
 import { CustomerListFacade } from './list.facade';
 import { CustomerCrudFacade } from '../customers-crud';
 import { createTestCustomer } from '../../../models/odata';
+import { provideRouter } from '@angular/router';
+import { customerRoutes } from '../customers.routing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
@@ -27,6 +30,8 @@ describe('CustomerListComponent', () => {
           useValue: createODataGridMockFacade(createDataDeleteMockFacade()),
         },
         { provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() },
+        provideRouter(customerRoutes),
+        provideOidcMockFacade(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();

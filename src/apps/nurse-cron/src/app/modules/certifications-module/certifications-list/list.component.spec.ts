@@ -1,13 +1,18 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
+import { provideRouter } from '@angular/router';
+import {
+  createDataEntryMockFacade,
+  createDataDeleteMockFacade,
+} from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { CertificationListComponent } from './list.component';
-import { createCertification } from './list.facade.spec';
 import { CertificationListFacade } from './list.facade';
 import { CertificationCrudFacade } from '../certifications-crud';
+import { certificationRoutes } from '../certifications.routing';
+import { createTestCertification } from '../../../models/certifications-odata';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 
 describe('CertificationListComponent', () => {
   let component: CertificationListComponent;
@@ -18,12 +23,20 @@ describe('CertificationListComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CertificationListComponent],
-      imports: [RouterTestingModule],
+      imports: [],
       providers: [
-        { provide: CertificationListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
-        { provide: CertificationCrudFacade, useValue: createDataEntryMockFacade() },
+        {
+          provide: CertificationListFacade,
+          useValue: createODataGridMockFacade(createDataDeleteMockFacade()),
+        },
+        {
+          provide: CertificationCrudFacade,
+          useValue: createDataEntryMockFacade(),
+        },
+        provideRouter(certificationRoutes),
+        provideOidcMockFacade(),
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -44,33 +57,33 @@ describe('CertificationListComponent', () => {
   });
 
   test('it should handle DetailExpanded', () => {
-    const dataItem = createCertification();
+    const dataItem = createTestCertification();
     component.detailExpanded({ dataItem } as never);
     expect(component.currentItem).toEqual(dataItem);
   });
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1);
+    expect(listFacade.reloadEntities).toHaveBeenCalledTimes(1);
   });
 
   test('it should handle AddItem', () => {
     component.addItem();
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith({});
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({});
   });
 
   test('it should handle EditItem', () => {
-    const item = createCertification();
+    const item = createTestCertification();
     component.editItem(item);
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item);
   });
 
   test('it should handle DeleteItem', () => {
-    const item = createCertification();
+    const item = createTestCertification();
     component.deleteItem(item);
-    expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
+    expect(listFacade.deleteExistingEntity).toHaveBeenCalledTimes(1);
+    expect(listFacade.deleteExistingEntity).toHaveBeenCalledWith(item);
   });
 });

@@ -10,6 +10,9 @@ import { ProductListComponent } from './list.component';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
 import { createTestProduct } from '../../../models/odata';
+import { provideRouter } from '@angular/router';
+import { productRoutes } from '../products.routing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -27,6 +30,8 @@ describe('ProductListComponent', () => {
           useValue: createODataGridMockFacade(createDataDeleteMockFacade()),
         },
         { provide: ProductCrudFacade, useValue: createDataEntryMockFacade() },
+        provideRouter(productRoutes),
+        provideOidcMockFacade(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();

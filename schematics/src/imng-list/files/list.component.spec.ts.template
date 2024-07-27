@@ -3,6 +3,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
@@ -23,6 +24,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
         { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: <%= classify(singularizedName) %>CrudFacade, useValue: createDataEntryMockFacade() },
         provideRouter(<%= camelize(singularizedName) %>Routes),
+        provideOidcMockFacade(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
