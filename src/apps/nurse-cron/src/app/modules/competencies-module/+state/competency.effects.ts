@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@env*';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
-import { competenciesFeature } from './competency.reducer';
-import * as competencyActionTypes from './competency.actions';
-import { environment } from '../../../../environments/environment';
-
-import { CompetencyApiService } from '../competencies-crud';
+import { switchMap, map } from 'rxjs';
 import { ICompetency } from '../../../models/competencies-odata';
+import { CompetencyApiService } from '../competencies-crud';
+import * as competencyActionTypes from './competency.actions';
+import { competenciesFeature } from './competency.reducer';
 
 @Injectable()
 export class CompetencyEffects {

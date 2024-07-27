@@ -1,61 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ImngODataGridDirective should create an instance 1`] = `
-MockGridComponent {
-  "columnVisibilityChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
+{
   "data": {
     "data": [],
     "total": 0,
   },
-  "dataStateChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
-  "filterChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "filterable": "menu",
-  "loading": false,
-  "navigable": true,
-  "pageChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
-  "reorderable": true,
-  "resizable": true,
-  "sortChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "sortable": {
     "allowUnsort": true,
     "mode": "multiple",
@@ -64,88 +15,9 @@ MockGridComponent {
 `;
 
 exports[`ImngODataGridDirective should fire AfterViewInit 1`] = `
-MockGridComponent {
-  "columnVisibilityChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
+{
   "data": {},
-  "dataStateChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [
-      SafeSubscriber {
-        "_finalizers": [
-          Subscription {
-            "_finalizers": null,
-            "_parentage": [Circular],
-            "closed": false,
-            "initialTeardown": [Function],
-          },
-        ],
-        "_parentage": null,
-        "closed": false,
-        "destination": ConsumerObserver {
-          "partialObserver": {
-            "complete": undefined,
-            "error": [Function],
-            "next": [Function],
-          },
-        },
-        "initialTeardown": undefined,
-        "isStopped": false,
-      },
-    ],
-    "thrownError": null,
-  },
-  "filter": {
-    "filters": [],
-    "logic": "and",
-  },
-  "filterChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "filterable": "menu",
-  "loading": false,
-  "navigable": true,
-  "pageChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
-  "pageSize": 20,
-  "pageable": false,
-  "reorderable": true,
-  "resizable": true,
-  "skip": 0,
-  "sort": [],
-  "sortChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "sortable": {
     "allowUnsort": true,
     "mode": "multiple",
@@ -154,61 +26,12 @@ MockGridComponent {
 `;
 
 exports[`ImngODataGridDirective should fire OnInit 1`] = `
-MockGridComponent {
-  "columnVisibilityChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
+{
   "data": {
     "data": [],
     "total": 0,
   },
-  "dataStateChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
-  "filterChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "filterable": "menu",
-  "loading": true,
-  "navigable": true,
-  "pageChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
-  "reorderable": true,
-  "resizable": true,
-  "sortChange": EventEmitter_ {
-    "__isAsync": false,
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "sortable": {
     "allowUnsort": true,
     "mode": "multiple",

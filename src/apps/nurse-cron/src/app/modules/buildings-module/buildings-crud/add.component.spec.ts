@@ -4,7 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+} from 'imng-ngrx-utils/testing';
 import { BuildingProperties, IBuilding } from '../../../models/units-odata';
 
 import { BuildingAddComponent } from './add.component';
@@ -22,8 +26,10 @@ describe('BuildingAddComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [BuildingAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule,],
-      providers: [{ provide: BuildingCrudFacade, useValue: createDataEntryMockFacade() }],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
+      providers: [
+        { provide: BuildingCrudFacade, useValue: createDataEntryMockFacade() },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -63,17 +69,16 @@ describe('BuildingAddComponent', () => {
     });
 
     let item: IBuilding | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 
     expect(item).toMatchSnapshot({
       deletedOnUtc: expect.any(Date),
     });
-
   });
 
   /**
@@ -84,14 +89,14 @@ describe('BuildingAddComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 });

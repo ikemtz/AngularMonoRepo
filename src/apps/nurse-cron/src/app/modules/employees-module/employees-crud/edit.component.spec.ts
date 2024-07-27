@@ -5,7 +5,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { of } from 'rxjs';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
+import {
+  mockConsoleError,
+  mockConsoleGroup,
+  mockConsoleWarn,
+} from 'imng-ngrx-utils/testing';
 
 import { EmployeeEditComponent } from './edit.component';
 import { EmployeeCrudFacade } from './crud.facade';
@@ -23,8 +27,13 @@ describe('EmployeeEditComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [EmployeeEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule,],
-      providers: [{ provide: EmployeeCrudFacade, useValue: createDataEntryMockFacade({ currentEntity$: of({}) }) }],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
+      providers: [
+        {
+          provide: EmployeeCrudFacade,
+          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -67,18 +76,17 @@ describe('EmployeeEditComponent', () => {
       [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
     });
     let item: IEmployee | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
 
     expect(item).toMatchSnapshot({
       birthDate: expect.any(Date),
       hireDate: expect.any(Date),
       fireDate: expect.any(Date),
     });
-
   });
 
   /**
@@ -89,13 +97,13 @@ describe('EmployeeEditComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 });

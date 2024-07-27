@@ -18,17 +18,7 @@ import { competenciesFeature } from '../+state/competency.reducer';
 import { CompetencyCrudFacade } from './crud.facade';
 import { CompetencyApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import {
-  ICompetency,
-  CompetencyProperties,
-} from '../../../models/competencies-odata';
-
-export const createCompetency = () =>
-  <ICompetency>{
-    [CompetencyProperties.ID]: 'ID',
-    [CompetencyProperties.NAME]: 'NAME',
-    [CompetencyProperties.IS_ENABLED]: true,
-  };
+import { createTestCompetency } from '../../../models/competencies-odata';
 
 describe('CompetencyCrudFacade', () => {
   let facade: CompetencyCrudFacade;
@@ -50,7 +40,9 @@ describe('CompetencyCrudFacade', () => {
           {
             provide: HttpClient,
             useValue: {
-              get: jest.fn(() => of(createODataPayload([createCompetency()]))),
+              get: jest.fn(() =>
+                of(createODataPayload([createTestCompetency()])),
+              ),
             },
           },
         ],

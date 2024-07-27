@@ -4,12 +4,12 @@ import { AuthGuard } from 'imng-oidc-client';<% if (openApiJsonUrl || openApiJso
 import { <%= classify(singularizedName) %>ListComponent } from './<%= dasherize(pluralizedName) %>-list';
 <% } %>
 
-const routes: Routes = [
+export const <%= camelize(singularizedName) %>Routes: Routes = [
   { path: '', component: <% if (openApiJsonUrl || openApiJsonFileName) { %><%= classify(singularizedName) %>ListComponent<% } %>, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(<%= camelize(singularizedName) %>Routes)],
   exports: [RouterModule]
 })
 export class <%= classify(pluralizedName) %>RoutingModule { }

@@ -74,7 +74,7 @@ describe('DialogButtonsDirective', () => {
         [attr.form]="formId"
         id="x"
         (click)="coreButtons.submit()">
-        {{ saveButtonText }}
+        {{ submitButtonText }}
       </button>
     </ng-template>
   </imng-data-entry-dialog>`,
@@ -84,9 +84,11 @@ export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacad
   public dialogTitle = 'MockDataEntryComponent';
   public props = {};
   public saved = false;
+
   public addEditForm = new FormGroup({ id: new FormControl<string>('') });
   constructor(facade: DataEntryMockFacade) {
     super(facade);
+    this.submitButtonText = 'Save';
   }
   public initForm(): void {
     this.addEditForm = new FormGroup({ id: new FormControl<string>('') });

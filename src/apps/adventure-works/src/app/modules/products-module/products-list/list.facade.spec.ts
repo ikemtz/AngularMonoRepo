@@ -4,7 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
+import {
+  ODataState,
+  createODataPayload,
+  createODataResult,
+  ODataService,
+} from 'imng-kendo-odata';
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
@@ -13,26 +18,7 @@ import * as productActionTypes from '../+state/product.actions';
 import { productsFeature } from '../+state/product.reducer';
 import { ProductListFacade } from './list.facade';
 import { environment } from '../../../../environments/environment';
-import { IProduct, ProductProperties } from '../../../models/odata';
-
-export const createProduct = () => <IProduct>{
-  [ProductProperties.ID]: 'ID',
-  [ProductProperties.NAME]: 'NAME',
-  [ProductProperties.NUM]: 'NUM',
-  [ProductProperties.COLOR]: 'COLOR',
-  [ProductProperties.STANDARD_COST]: 0,
-  [ProductProperties.LIST_PRICE]: 0,
-  [ProductProperties.SIZE]: 'SIZE',
-  [ProductProperties.WEIGHT]: 0,
-  [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
-  [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
-  [ProductProperties.SELL_START_DATE]: new Date(),
-  [ProductProperties.SELL_END_DATE]: new Date(),
-  [ProductProperties.DISCONTINUED_DATE]: new Date(),
-  [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
-  [ProductProperties.PRODUCT_MODEL]: 'PRODUCT_MODEL',
-  [ProductProperties.PRODUCT_CATEGORY]: 'PRODUCT_CATEGORY',
-};
+import { createTestProduct } from '../../../models/odata';
 
 describe('ProductListFacade', () => {
   let facade: ProductListFacade;
@@ -40,7 +26,7 @@ describe('ProductListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -51,10 +37,15 @@ describe('ProductListFacade', () => {
         ],
         providers: [
           ProductListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createProduct()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() => of(createODataPayload([createTestProduct()]))),
+            },
+          },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -63,7 +54,7 @@ describe('ProductListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -83,19 +74,29 @@ describe('ProductListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list.data.length).toBe(1);
       expect(loading).toBe(false);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('aw-odata/odata/v1/Products?&$count=true');
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith(
+        'aw-odata/odata/v1/Products?&$count=true',
+      );
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
       let list = await readFirst(facade.gridData$);
       let isloading = await readFirst(facade.loading$);
 
-      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
-      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      const service: {
+        fetch: (
+          endpoint: string,
+          odataState: ODataState,
+        ) => Observable<unknown>;
+      } = TestBed.inject(ODataService);
+      const response = of({
+        data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
+        total: 3,
+      });
       service.fetch = jest.fn(() => response);
 
       expect(list.data.length).toBe(0);
@@ -107,12 +108,15 @@ describe('ProductListFacade', () => {
 
       expect(list.data.length).toBe(3);
       expect(isloading).toBe(false);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {
       const filteringState: ODataState = {
-        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+        filter: {
+          logic: 'and',
+          filters: [{ field: '💩', operator: 'eq', value: '🍑' }],
+        },
       };
       let state = await readFirst(facade.gridODataState$);
       expect(state?.count).toBeUndefined();
@@ -132,7 +136,11 @@ describe('ProductListFacade', () => {
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(0);
-      store.dispatch(productActionTypes.loadProductsSuccess(createODataResult([createProduct(), createProduct()])));
+      store.dispatch(
+        productActionTypes.loadProductsSuccess(
+          createODataResult([createTestProduct(), createTestProduct()]),
+        ),
+      );
 
       list = await readFirst(facade.gridData$);
       expect(list.data.length).toBe(2);

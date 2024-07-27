@@ -25,7 +25,14 @@ describe('CheckboxFilterComponent', () => {
     component.odataState = {
       filter: {
         logic: 'and',
-        filters: [{ logic: 'or', filters: [{ field: component.field, operator: 'contains', value: '💩' }] }],
+        filters: [
+          {
+            logic: 'or',
+            filters: [
+              { field: component.field, operator: 'contains', value: '💩' },
+            ],
+          },
+        ],
       },
     };
     component.ngAfterViewInit();
@@ -51,23 +58,26 @@ describe('CheckboxFilterComponent', () => {
     expect(component.currentData).toStrictEqual(['💩']);
   });
   it('onFocus should work', () => {
-    const ul = { offsetTop: 3, offsetHeight: 1, parentNode: { scrollTop: 5, offsetHeight: 10 } };
+    const ul = {
+      offsetTop: 3,
+      offsetHeight: 1,
+      parentNode: { scrollTop: 5, offsetHeight: 10 },
+    };
     const spy = jest.spyOn(component.changeDetectorRef, 'markForCheck');
     component.onFocus(ul as never);
     expect(spy).toBeCalledTimes(1);
     expect(ul.parentNode.scrollTop).toBe(3);
-
   });
   it('onSelectionChange should work', () => {
     component.onSelectionChange('🎂', { parentNode: {} } as never);
     expect(component.value).toStrictEqual(['💩', '🎂']);
     expect(filterService.filter).toBeCalledTimes(1);
-    expect(filterService.filter).toBeCalledWith({
+    expect(filterService.filter).toHaveBeenCalledWith({
       filters: [
         {
           filters: [
-            { field: '🩲', operator: 'eq', value: '💩', },
-            { field: '🩲', operator: 'eq', value: '🎂', },
+            { field: '🩲', operator: 'eq', value: '💩' },
+            { field: '🩲', operator: 'eq', value: '🎂' },
           ],
           logic: 'or',
         },
@@ -79,7 +89,7 @@ describe('CheckboxFilterComponent', () => {
     component.onSelectionChange('💩', { parentNode: {} } as never);
     expect(component.value).toStrictEqual([]);
     expect(filterService.filter).toBeCalledTimes(1);
-    expect(filterService.filter).toBeCalledWith({
+    expect(filterService.filter).toHaveBeenCalledWith({
       filters: [],
       logic: 'and',
     });

@@ -4,7 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { mockConsoleError } from 'imng-ngrx-utils/testing';
-import { CompetencyProperties, ICompetency } from '../../../models/competencies-odata';
+import {
+  CompetencyProperties,
+  ICompetency,
+} from '../../../models/competencies-odata';
 
 import { CompetencyAddComponent } from './add.component';
 import { CompetencyCrudFacade } from './crud.facade';
@@ -17,8 +20,13 @@ describe('CompetencyAddComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CompetencyAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule,],
-      providers: [{ provide: CompetencyCrudFacade, useValue: createDataEntryMockFacade() }],
+      imports: [ReactiveFormsModule, NoopAnimationsModule],
+      providers: [
+        {
+          provide: CompetencyCrudFacade,
+          useValue: createDataEntryMockFacade(),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -47,15 +55,14 @@ describe('CompetencyAddComponent', () => {
     });
 
     let item: ICompetency | undefined;
-    facade.saveNewEntity = jest.fn(x => (item = x));
+    facade.saveNewEntity = jest.fn((x) => (item = x));
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 
     expect(item).toMatchSnapshot();
-
   });
 
   /**
@@ -66,14 +73,14 @@ describe('CompetencyAddComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 });

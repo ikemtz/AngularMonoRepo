@@ -33,20 +33,20 @@ describe('AppInsightsMonitoringService', () => {
     service.appInsights.setAuthenticatedUserContext = jest.fn();
     service.setAuthenticatedUserContext('🐱‍👤');
     expect(service.appInsights.setAuthenticatedUserContext).toBeCalledTimes(1);
-    expect(service.appInsights.setAuthenticatedUserContext).toBeCalledWith(
-      '🐱‍👤',
-      undefined,
-      true
-    );
+    expect(
+      service.appInsights.setAuthenticatedUserContext,
+    ).toHaveBeenCalledWith('🐱‍👤', undefined, true);
   });
 
   it('should handle clearAuthenticatedUserContext', () => {
     service.appInsights.clearAuthenticatedUserContext = jest.fn();
     service.clearAuthenticatedUserContext();
     expect(service.appInsights.clearAuthenticatedUserContext).toBeCalledTimes(
-      1
+      1,
     );
-    expect(service.appInsights.clearAuthenticatedUserContext).toBeCalledWith();
+    expect(
+      service.appInsights.clearAuthenticatedUserContext,
+    ).toHaveBeenCalledWith();
   });
 
   it('should handle logException', () => {
@@ -54,7 +54,7 @@ describe('AppInsightsMonitoringService', () => {
     const err = new Error('🐱‍👤 struck again');
     service.logException(err);
     expect(service.appInsights.trackException).toBeCalledTimes(1);
-    expect(service.appInsights.trackException).toBeCalledWith({
+    expect(service.appInsights.trackException).toHaveBeenCalledWith({
       exception: err,
       measurements: undefined,
       properties: undefined,
@@ -65,7 +65,7 @@ describe('AppInsightsMonitoringService', () => {
     service.appInsights.trackEvent = jest.fn();
     service.logEvent('happy 🐱');
     expect(service.appInsights.trackEvent).toBeCalledTimes(1);
-    expect(service.appInsights.trackEvent).toBeCalledWith({
+    expect(service.appInsights.trackEvent).toHaveBeenCalledWith({
       measurements: undefined,
       name: 'happy 🐱',
       properties: undefined,
@@ -78,7 +78,7 @@ describe('AppInsightsMonitoringService', () => {
     service.appInsights.trackEvent = jest.fn();
     await readFirst(service.trackEventsEffect(of(testAction()), true));
     expect(service.appInsights.trackEvent).toBeCalledTimes(1);
-    expect(service.appInsights.trackEvent).toBeCalledWith({
+    expect(service.appInsights.trackEvent).toHaveBeenCalledWith({
       measurements: undefined,
       name: '[test] Action',
       properties: undefined,
@@ -91,7 +91,7 @@ describe('AppInsightsMonitoringService', () => {
     service.appInsights.trackException = jest.fn();
     await readFirst(service.trackErrorsEffect(of(testActionError())));
     expect(service.appInsights.trackException).toBeCalledTimes(1);
-    expect(service.appInsights.trackException).toBeCalledWith({
+    expect(service.appInsights.trackException).toHaveBeenCalledWith({
       exception: { type: '[test] Action Error' },
       measurements: undefined,
       properties: undefined,

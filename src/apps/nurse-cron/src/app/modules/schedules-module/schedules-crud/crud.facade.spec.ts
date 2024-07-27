@@ -18,20 +18,7 @@ import { schedulesFeature } from '../+state/schedule.reducer';
 import { ScheduleCrudFacade } from './crud.facade';
 import { ScheduleApiService } from './api.service';
 import { environment } from '../../../../environments/environment';
-import { ISchedule, ScheduleProperties } from '../../../models/schedules-odata';
-
-export const createSchedule = () =>
-  <ISchedule>{
-    [ScheduleProperties.ID]: 'ID',
-    [ScheduleProperties.UNIT_ID]: 'UNIT_ID',
-    [ScheduleProperties.UNIT_NAME]: 'UNIT_NAME',
-    [ScheduleProperties.EMPLOYEE_ID]: 'EMPLOYEE_ID',
-    [ScheduleProperties.EMPLOYEE_NAME]: 'EMPLOYEE_NAME',
-    [ScheduleProperties.STAFFING_REQUIREMENT_ID]: 'STAFFING_REQUIREMENT_ID',
-    [ScheduleProperties.START_TIME_UTC]: new Date(),
-    [ScheduleProperties.SCHEDULED_HOURS]: 0,
-    [ScheduleProperties.APPROVED_ON_UTC]: new Date(),
-  };
+import { createTestSchedule } from '../../../models/schedules-odata';
 
 describe('ScheduleCrudFacade', () => {
   let facade: ScheduleCrudFacade;
@@ -53,7 +40,9 @@ describe('ScheduleCrudFacade', () => {
           {
             provide: HttpClient,
             useValue: {
-              get: jest.fn(() => of(createODataPayload([createSchedule()]))),
+              get: jest.fn(() =>
+                of(createODataPayload([createTestSchedule()])),
+              ),
             },
           },
         ],
