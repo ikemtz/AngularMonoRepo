@@ -106,8 +106,8 @@ describe('ProductAddComponent', () => {
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 
     expect(item).toMatchSnapshot({
       sellStartDate: expect.any(Date),
@@ -125,15 +125,15 @@ describe('ProductAddComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 
   test('should support ProductModel filters', async () => {
@@ -334,14 +334,14 @@ describe('ProductCrudFacade', () => {
 
     test('should load ProductModels', async () => {
       facade.loadProductModels({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.productModels$);
       expect(result.length).toBe(1);
     });
 
     test('should load ProductCategories', async () => {
       facade.loadProductCategories({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.productCategories$);
       expect(result.length).toBe(1);
     });
@@ -577,8 +577,8 @@ describe('ProductEditComponent', () => {
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
 
     expect(item).toMatchSnapshot({
       sellStartDate: expect.any(Date),
@@ -596,14 +596,14 @@ describe('ProductEditComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 
   test('should support ProductModel filters', async () => {
@@ -659,7 +659,8 @@ export class ProductEditComponent extends ProductBaseEntryComponent implements O
 exports[`imng-module effects should work 1`] = `
 "import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';

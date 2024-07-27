@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'imng-oidc-client';
 import { OrderListComponent } from './orders-list';
 
-const routes: Routes = [
+export const orderRoutes: Routes = [
   { path: '', component: OrderListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(orderRoutes)],
   exports: [RouterModule],
 })
 export class OrdersRoutingModule {}

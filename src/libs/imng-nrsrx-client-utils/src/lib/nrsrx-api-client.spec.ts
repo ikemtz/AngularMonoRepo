@@ -8,7 +8,7 @@ describe('NrsrxBaseApiClientService', () => {
     apiService.dateOnlyPropertyNames = ['birthDate'];
     const postData = { id: '🐱‍👤🐱‍👤🐱‍👤' };
     apiService.post(postData);
-    expect(httpClient.post).toBeCalledWith(
+    expect(httpClient.post).toHaveBeenCalledWith(
       `good_times?id=${postData.id}`,
       postData,
     );
@@ -24,17 +24,20 @@ describe('NrsrxBaseApiClientService', () => {
       birthDate: new Date('1776-07-04'),
     };
     apiService.post(postData);
-    expect(httpClient.post).toBeCalledWith(`good_times?id=${postData.id}`, {
-      ...postData,
-      birthDate: '1776-07-04',
-    });
+    expect(httpClient.post).toHaveBeenCalledWith(
+      `good_times?id=${postData.id}`,
+      {
+        ...postData,
+        birthDate: '1776-07-04',
+      },
+    );
   });
   it('post should handle invalid id', () => {
     const httpClient = { post: jest.fn() } as unknown as HttpClient;
     const apiService = new MockApiService(httpClient);
     const postData = { id: null as unknown as string };
     apiService.post(postData);
-    expect(httpClient.post).toBeCalledWith(`good_times`, postData);
+    expect(httpClient.post).toHaveBeenCalledWith(`good_times`, postData);
   });
   it('should put correctly with id', () => {
     const httpClient: HttpClient = { put: jest.fn() } as unknown as HttpClient;
@@ -42,7 +45,7 @@ describe('NrsrxBaseApiClientService', () => {
     apiService.dateOnlyPropertyNames = ['birthDate'];
     const postData = { id: '🐱‍👤🐱‍👤🐱‍👤' };
     apiService.put(postData);
-    expect(httpClient.put).toBeCalledWith(
+    expect(httpClient.put).toHaveBeenCalledWith(
       `good_times?id=${postData.id}`,
       postData,
     );
@@ -54,7 +57,9 @@ describe('NrsrxBaseApiClientService', () => {
     const apiService = new MockApiService(httpClient);
     const postData = { id: '🐱‍👤🐱‍👤🐱‍👤' };
     apiService.delete(postData);
-    expect(httpClient.delete).toBeCalledWith(`good_times?id=${postData.id}`);
+    expect(httpClient.delete).toHaveBeenCalledWith(
+      `good_times?id=${postData.id}`,
+    );
   });
 
   class MockApiService extends NrsrxBaseApiClientService<{ id: string }> {

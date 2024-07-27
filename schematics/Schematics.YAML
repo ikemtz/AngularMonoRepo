@@ -1,4 +1,4 @@
-name: 6.$(DayOfYear)$(Rev:.rr)
+name: 7.$(DayOfYear)$(Rev:.r)
 pool:
   vmImage: ubuntu-latest
 variables:
@@ -92,18 +92,18 @@ jobs:
           SonarCloud: 'SonarCloud IkeMtz'
           organization: 'ikemtz'
 
-# Snyk is erroneously throwing an error on package-lock.json sync issue
-#      - task: SnykSecurityScan@0
-#        inputs:
-#          serviceConnectionEndpoint: 'synk'
-#          testType: 'app'
-#          severityThreshold: 'medium'
-#          monitorOnBuild: false
-#          failOnIssues: false
-#          projectName: 'imng-schematics'
-#          organization: 'ikemtz'
-#          testDirectory: '$(Build.SourcesDirectory)/schematics'
-#        continueOnError: true
+      # Snyk is erroneously throwing an error on package-lock.json sync issue
+      #      - task: SnykSecurityScan@0
+      #        inputs:
+      #          serviceConnectionEndpoint: 'synk'
+      #          testType: 'app'
+      #          severityThreshold: 'medium'
+      #          monitorOnBuild: false
+      #          failOnIssues: false
+      #          projectName: 'imng-schematics'
+      #          organization: 'ikemtz'
+      #          testDirectory: '$(Build.SourcesDirectory)/schematics'
+      #        continueOnError: true
 
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'

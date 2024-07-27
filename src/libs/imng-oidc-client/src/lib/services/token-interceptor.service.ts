@@ -1,12 +1,6 @@
 import { Observable, throwError } from 'rxjs';
 import { first, catchError, mergeMap } from 'rxjs/operators';
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpErrorResponse,
-} from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { oidcSelectors } from '../+state/oidc.selectors';

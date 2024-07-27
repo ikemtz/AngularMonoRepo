@@ -1,13 +1,18 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
+import {
+  createDataEntryMockFacade,
+  createDataDeleteMockFacade,
+} from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 
 import { CustomerListComponent } from './list.component';
-import { createCustomer } from './list.facade.spec';
 import { CustomerListFacade } from './list.facade';
 import { CustomerCrudFacade } from '../customers-crud';
+import { createTestCustomer } from '../../../models/odata';
+import { provideRouter } from '@angular/router';
+import { customerRoutes } from '../customers.routing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
@@ -18,12 +23,17 @@ describe('CustomerListComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CustomerListComponent],
-      imports: [RouterTestingModule],
+      imports: [],
       providers: [
-        { provide: CustomerListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
+        {
+          provide: CustomerListFacade,
+          useValue: createODataGridMockFacade(createDataDeleteMockFacade()),
+        },
         { provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() },
+        provideRouter(customerRoutes),
+        provideOidcMockFacade(),
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -44,33 +54,33 @@ describe('CustomerListComponent', () => {
   });
 
   test('it should handle DetailExpanded', () => {
-    const dataItem = createCustomer();
+    const dataItem = createTestCustomer();
     component.detailExpanded({ dataItem } as never);
     expect(component.currentItem).toEqual(dataItem);
   });
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1);
+    expect(listFacade.reloadEntities).toHaveBeenCalledTimes(1);
   });
 
   test('it should handle AddItem', () => {
     component.addItem();
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith({});
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({});
   });
 
   test('it should handle EditItem', () => {
-    const item = createCustomer();
+    const item = createTestCustomer();
     component.editItem(item);
-    expect(crudFacade.setCurrentEntity).toBeCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toBeCalledWith(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item);
   });
 
   test('it should handle DeleteItem', () => {
-    const item = createCustomer();
+    const item = createTestCustomer();
     component.deleteItem(item);
-    expect(listFacade.deleteExistingEntity).toBeCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toBeCalledWith(item);
+    expect(listFacade.deleteExistingEntity).toHaveBeenCalledTimes(1);
+    expect(listFacade.deleteExistingEntity).toHaveBeenCalledWith(item);
   });
 });

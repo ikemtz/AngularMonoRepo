@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
+import { environment } from '@env';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
+import { switchMap, map } from 'rxjs';
+import { IUnit, UnitProperties, IBuilding } from '../../../models/units-odata';
+import { UnitApiService } from '../units-crud';
 import { unitsFeature } from './unit.reducer';
 import * as unitActionTypes from './unit.actions';
-import { environment } from '../../../../environments/environment';
-
-import { UnitApiService } from '../units-crud';
-import { IUnit, UnitProperties, IBuilding } from '../../../models/units-odata';
 
 @Injectable()
 export class UnitEffects {

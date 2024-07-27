@@ -109,7 +109,7 @@ describe(`imng-module`, () => {
     );
     const content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(
-      `expect(httpClient.get).toBeCalledWith('${dasherize(
+      `expect(httpClient.get).toHaveBeenCalledWith('${dasherize(
         pluralize(options.name)
       )}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`
     );

@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@env*';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
 import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
-import { ordersFeature } from './order.reducer';
-import * as orderActionTypes from './order.actions';
-import { environment } from '../../../../environments/environment';
-
-import { IOrder, OrderProperties } from '../../../models/odata';
-import { toODataQuery } from 'imng-prime-table-odata';
 import { ODataClientService } from 'imng-odata-client';
+import { toODataQuery } from 'imng-prime-table-odata';
+import { switchMap, map } from 'rxjs';
+import { IOrder, OrderProperties } from '../../../models/odata';
+import * as orderActionTypes from './order.actions';
+import { ordersFeature } from './order.reducer';
 
 @Injectable()
 export class OrderEffects {

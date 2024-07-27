@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/imng-inventory/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -59,10 +60,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "imng-inventory:build:production"
+          "buildTarget": "imng-inventory:build:production"
         },
         "development": {
-          "browserTarget": "imng-inventory:build:development"
+          "buildTarget": "imng-inventory:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -70,26 +71,18 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "imng-inventory:build"
+        "buildTarget": "imng-inventory:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/imng-inventory/src/**/*.ts",
-          "apps/imng-inventory/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/imng-inventory"],
       "options": {
-        "jestConfig": "apps/imng-inventory/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/imng-inventory/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

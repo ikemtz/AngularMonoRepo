@@ -46,23 +46,24 @@ describe('CheckboxFilterComponent on null ODataState', () => {
     expect(component.currentData).toStrictEqual(['💩']);
   });
   it('onFocus should work', () => {
-    const ul = { offsetTop: 3, offsetHeight: 1, parentNode: { scrollTop: 5, offsetHeight: 10 } };
+    const ul = {
+      offsetTop: 3,
+      offsetHeight: 1,
+      parentNode: { scrollTop: 5, offsetHeight: 10 },
+    };
     const spy = jest.spyOn(component.changeDetectorRef, 'markForCheck');
     component.onFocus(ul as never);
     expect(spy).toBeCalledTimes(1);
     expect(ul.parentNode.scrollTop).toBe(3);
-
   });
   it('onSelectionChange should work', () => {
     component.onSelectionChange('🎂', { parentNode: {} } as never);
     expect(component.value).toStrictEqual(['🎂']);
     expect(filterService.filter).toBeCalledTimes(1);
-    expect(filterService.filter).toBeCalledWith({
+    expect(filterService.filter).toHaveBeenCalledWith({
       filters: [
         {
-          filters: [
-            { field: '🩲', operator: 'eq', value: '🎂', },
-          ],
+          filters: [{ field: '🩲', operator: 'eq', value: '🎂' }],
           logic: 'or',
         },
       ],
@@ -71,14 +72,16 @@ describe('CheckboxFilterComponent on null ODataState', () => {
   });
   it('onSelectionChange should clear filter', () => {
     component.onSelectionChange('💩', { parentNode: {} } as never);
-    expect(component.value).toStrictEqual(["💩"]);
+    expect(component.value).toStrictEqual(['💩']);
     expect(filterService.filter).toBeCalledTimes(1);
-    expect(filterService.filter).toBeCalledWith({
-      filters: [{
-        filters: [{ "field": "🩲", "operator": "eq", "value": "💩", },],
-        logic: "or",
-      },],
-      logic: 'and'
+    expect(filterService.filter).toHaveBeenCalledWith({
+      filters: [
+        {
+          filters: [{ field: '🩲', operator: 'eq', value: '💩' }],
+          logic: 'or',
+        },
+      ],
+      logic: 'and',
     });
   });
 });

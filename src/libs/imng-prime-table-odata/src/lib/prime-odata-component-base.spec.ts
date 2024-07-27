@@ -117,7 +117,7 @@ describe('PrimeODataBasedComponent', () => {
     component.facade.loadEntities = jest.fn();
     component.loadEntities(primeTableState);
     expect(component.facade.loadEntities).toBeCalledTimes(1);
-    expect(component.facade.loadEntities).toBeCalledWith({
+    expect(component.facade.loadEntities).toHaveBeenCalledWith({
       multiSortMeta: [
         { field: 'a', order: 1 },
         { field: 'b', order: 1 },

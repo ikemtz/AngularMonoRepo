@@ -8,7 +8,10 @@ import { mockConsoleError } from 'imng-ngrx-utils/testing';
 
 import { HealthItemEditComponent } from './edit.component';
 import { HealthItemCrudFacade } from './crud.facade';
-import { HealthItemProperties, IHealthItem } from '../../../models/health-items-odata';
+import {
+  HealthItemProperties,
+  IHealthItem,
+} from '../../../models/health-items-odata';
 
 describe('HealthItemEditComponent', () => {
   let component: HealthItemEditComponent;
@@ -18,8 +21,13 @@ describe('HealthItemEditComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HealthItemEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule,],
-      providers: [{ provide: HealthItemCrudFacade, useValue: createDataEntryMockFacade({ currentEntity$: of({}) }) }],
+      imports: [ReactiveFormsModule, NoopAnimationsModule],
+      providers: [
+        {
+          provide: HealthItemCrudFacade,
+          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
+        },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -43,14 +51,13 @@ describe('HealthItemEditComponent', () => {
       [HealthItemProperties.IS_ENABLED]: true,
     });
     let item: IHealthItem | undefined;
-    facade.updateExistingEntity = jest.fn(x => (item = x));
+    facade.updateExistingEntity = jest.fn((x) => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
 
     expect(item).toMatchSnapshot();
-
   });
 
   /**
@@ -61,13 +68,13 @@ describe('HealthItemEditComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 });

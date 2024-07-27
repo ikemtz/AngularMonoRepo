@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
-import { ODataService } from 'imng-kendo-odata';
-import { handleEffectError } from 'imng-ngrx-utils';
+
 import { map, switchMap } from 'rxjs/operators';
 
 import { ordersFeature } from './order.reducer';
@@ -10,10 +8,14 @@ import * as orderActionTypes from './order.actions';
 import { environment } from '../../../../environments/environment';
 
 import { OrderApiService } from '../orders-crud';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
 import {
+  OrderProperties,
   ICustomer,
   IOrderAddress,
-  OrderProperties,
 } from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
 
