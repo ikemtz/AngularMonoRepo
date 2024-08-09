@@ -1,7 +1,7 @@
 import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
-import { IEmployee } from '../../../models/employees-odata';
+import { IEmployee } from '../../../models/employees-api';
 
 export const loadEmployeesRequest = createPayloadAction<ODataState>(
     '[Employees] Load Employees Request');

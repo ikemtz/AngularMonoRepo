@@ -25,7 +25,7 @@ describe(`imng-module`, () => {
     tree = await runner.runSchematic(`imng-module`, options, Tree.empty());
   }, 30000);
   test(`tree files should match`, () => {
-    expect(tree.files).toMatchSnapshot();
+    expect(tree.files.sort()).toMatchSnapshot();
   });
 
   test(`module should work`, () => {
