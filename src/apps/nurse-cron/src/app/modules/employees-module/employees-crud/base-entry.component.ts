@@ -1,27 +1,22 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
-import {
-  EmployeeProperties,
-  EmployeeFormGroupFac,
-  IEmployeeForm,
-} from '../../../models/employees-odata';
 
 import { EmployeeCrudFacade } from './crud.facade';
+import { EmployeeProperties, IEmployeeForm, EmployeeFormGroupFac } from '../../../models/employees-api';
 
 @Component({ template: '' })
-export abstract class EmployeeBaseEntryComponent
-  extends BaseDataEntryComponent<EmployeeCrudFacade>
-  implements OnInit
-{
+export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<EmployeeCrudFacade>
+  implements OnInit {
   public readonly props = EmployeeProperties;
   public addEditForm: FormGroup<IEmployeeForm>;
 
   constructor(facade: EmployeeCrudFacade) {
     super(facade);
   }
+
   public override ngOnInit(): void {
-    super.ngOnInit();
+    this.initForm();
   }
 
   public initForm(): void {
@@ -31,4 +26,5 @@ export abstract class EmployeeBaseEntryComponent
   public cancel(): void {
     this.facade.clearCurrentEntity();
   }
+
 }

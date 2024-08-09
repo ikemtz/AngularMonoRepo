@@ -26,11 +26,11 @@ const selectGridPagerSettings$ = (<%= camelize(parentName) %>Id: string) => crea
   entity => entity.<%= camelize(singularizedName) %>PagerSettings || false,
 );
 
-export const <%= camelize(singularizedName) %>Queries = {
+export const <%= camelize(singularizedName) %>Selectors = {
   select<%= classify(pluralizedName) %>,
   selectGridData$,
   selectODataState$,
   selectGridPagerSettings$,
 };
 <% } else { %>
-export const <%= camelize(singularizedName) %>Queries = {};<% } %>
+export const <%= camelize(singularizedName) %>Selectors = {};<% } %>

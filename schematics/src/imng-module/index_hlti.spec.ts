@@ -37,15 +37,19 @@ describe('imng-module', () => {
       `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
         pluralize(options.name)
       )}.routing.ts`,
+      `/test/${pluralize(dasherize(options.name))}-module/+state/index.ts`,
+      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
+        options.name
+      )}-crud.effects.ts`,
+      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
+        options.name
+      )}-list.effects.ts`,
       `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
         options.name
       )}.actions.ts`,
       `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
         options.name
-      )}.effects.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
-        options.name
-      )}.reducer.ts`,
+      )}.feature.ts`,
       `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
         options.name
       )}.selectors.ts`,
@@ -111,13 +115,13 @@ describe('imng-module', () => {
     const effectsFile = tree.get(
       `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
         options.name
-      )}.effects.ts`
+      )}-crud.effects.ts`
     );
     let content = effectsFile?.content.toString();
     expect(content).toContain(
       `import { ${classify(options.name)}ApiService } from '../${dasherize(
         pluralize(options.name)
-      )}-crud';`
+      )}-crud/api.service';`
     );
 
     const listFacadeSpecFile = tree.get(

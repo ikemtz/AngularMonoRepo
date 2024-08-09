@@ -22,7 +22,7 @@ exports[`imng-sub-list api.service should work 1`] = `
 "import { Injectable } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 @Injectable({
   providedIn: 'root',
@@ -45,10 +45,10 @@ import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
 import * as salesAgentActionTypes from './sales-agent.actions';
-import { salesAgentQueries } from './sales-agent.selectors';
+import { salesAgentSelectors } from './sales-agent.selectors';
 import { SalesAgentApiService } from '../sales-agents-list';
 
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 @Injectable()
 export class SalesAgentEffects {
@@ -73,7 +73,7 @@ export class SalesAgentEffects {
     return this.actions$.pipe(
       ofType(salesAgentActionTypes.reloadSalesAgentsRequest),
       concatLatestFrom((action: ReturnType<typeof salesAgentActionTypes.reloadSalesAgentsRequest>) =>
-        this.store.select(salesAgentQueries.selectODataState$(action.payload))),
+        this.store.select(salesAgentSelectors.selectODataState$(action.payload))),
       switchMap(([action, odataState]) => this.odataService
         .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, odataState, { bustCache: true })
         .pipe(
@@ -104,7 +104,7 @@ import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 import * as salesAgentActionTypes from '../+state/sales-agent.actions';
 import { customersFeature } from '../+state/customer.reducer';
-import { salesAgentQueries } from '../+state/sales-agent.selectors';
+import { salesAgentSelectors } from '../+state/sales-agent.selectors';
 
 @Injectable()
 export class SalesAgentListFacade implements IKendoODataGridFacade<ISalesAgent>, IDataDeleteFacade<ISalesAgent> {
@@ -121,13 +121,13 @@ export class SalesAgentListFacade implements IKendoODataGridFacade<ISalesAgent>,
   loading$ = this.store.select(customersFeature.selectLoading);
   gridData$: Observable<ODataResult<ISalesAgent>> = this.parentGrid$.pipe(
     switchMap(x =>
-      this.store.select(salesAgentQueries.selectGridData$(x))));
+      this.store.select(salesAgentSelectors.selectGridData$(x))));
   gridPagerSettings$: Observable<false | PagerSettings> = this.parentGrid$.pipe(
     switchMap(x =>
-      this.store.select(salesAgentQueries.selectGridPagerSettings$(x))));
+      this.store.select(salesAgentSelectors.selectGridPagerSettings$(x))));
   gridODataState$: Observable<ODataState> = this.parentGrid$.pipe(
     switchMap(x =>
-      this.store.select(salesAgentQueries.selectODataState$(x))));
+      this.store.select(salesAgentSelectors.selectODataState$(x))));
 
   constructor(private readonly store: Store) {}
 
@@ -167,7 +167,7 @@ import { SalesAgentEffects } from '../+state/sales-agent.effects';
 import { customersFeature } from '../+state/customer.reducer';
 import { SalesAgentListFacade } from './list.facade';
 import { CustomerEffects } from '../+state/customer.effects';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 describe('SalesAgentListFacade', () => {
   let facade: SalesAgentListFacade;
@@ -489,7 +489,7 @@ const selectGridPagerSettings$ = (customerId: string) => createSelector(
   entity => entity.salesAgentPagerSettings || false,
 );
 
-export const salesAgentQueries = {
+export const salesAgentSelectors = {
   selectSalesAgents,
   selectGridData$,
   selectODataState$,
