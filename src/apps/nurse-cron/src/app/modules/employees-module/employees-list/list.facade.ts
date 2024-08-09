@@ -4,9 +4,8 @@ import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
-import { employeesFeature } from '../+state/employee.reducer';
-import * as employeeActionTypes from '../+state/employee.actions';
-import { IEmployee } from '../../../models/employees-odata';
+import { employeesFeature, employeeActionTypes } from '../+state';
+import { IEmployee } from '../../../models/employees-api';
 
 @Injectable()
 export class EmployeeListFacade implements IKendoODataGridFacade<IEmployee>, IDataDeleteFacade<IEmployee> {

@@ -6,10 +6,10 @@ import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
-import { <%= camelize(singularizedName) %>Queries } from './<%= dasherize(singularizedName) %>.selectors';<% if (openApiJsonUrl || openApiJsonFileName) { %>
+import { <%= camelize(singularizedName) %>Selectors } from './<%= dasherize(singularizedName) %>.selectors';<% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-list';
 <% } %>
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
@@ -34,7 +34,7 @@ export class <%= classify(singularizedName) %>Effects {
     return this.actions$.pipe(
       ofType(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request),
       concatLatestFrom((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request>) =>
-        this.store.select(<%= camelize(singularizedName) %>Queries.selectODataState$(action.payload))),
+        this.store.select(<%= camelize(singularizedName) %>Selectors.selectODataState$(action.payload))),
       switchMap(([action, odataState]) => this.odataService
         .fetch<I<%= classify(singularizedName) %>>(environment.odataEndpoints.<%= camelize(pluralizedName) %>, odataState, { bustCache: true })
         .pipe(
