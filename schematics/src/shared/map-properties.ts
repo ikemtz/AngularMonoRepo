@@ -1,4 +1,4 @@
-import pluralize = require('pluralize');
+import * as pluralize from 'pluralize';
 import { PropertyInfo, OpenApiComponent, OpenApiDocument } from './open-api-component';
 import { IOptions } from './options';
 import { mapPropertyAttributes } from './rules';
@@ -17,7 +17,7 @@ export function mapProperties(properties: { [key: string]: PropertyInfo; }, opti
         required: (openApiComponent.required ?? []).indexOf(propertyKey) > -1,
       });
 
-      mapReferencedProperties(property, propertyKey,openApiComponent, openApiDoc);
+      mapReferencedProperties(property, propertyKey, openApiComponent, openApiDoc);
       if (!firstProperty && propertyKey !== 'id') {
         firstProperty = property;
       }
@@ -32,11 +32,11 @@ function mapReferencedProperties(property: PropertyInfo, propertyKey: string, op
   if (propTypeNames) {
     const typeName: string = propTypeNames.pop() || '';
     property.propertyTypeName = typeName;
-    property.pluralizedPropertyTypeName = pluralize(typeName);
+    property.pluralizedPropertyTypeName = pluralize.plural(typeName);
     property.singularizedPropertyTypeName = pluralize.singular(typeName);
     const refComponent = openApiDoc.components.schemas[typeName];
     property.enum = refComponent.enum;
-    if (property.enum){
+    if (property.enum) {
       const value = property.enum[0].toString().split(' ').pop();
       property.testFactoryValue = `${property.pluralizedPropertyTypeName}.${value}`
     }

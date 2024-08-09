@@ -16,7 +16,7 @@ import * as pluralize from 'pluralize';
 import { Observable, from, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IOptions } from './options';
-import _ = require('lodash');
+import * as _ from 'lodash';
 import * as fs from 'fs';
 import * as https from 'https';
 import * as http from 'http';
@@ -75,7 +75,7 @@ export function processOpenApiDoc(data: OpenApiDocument, options: IOptions, host
   const mappedProperties = mapProperties(properties, options, openApiComponent, data);
   mappedProperties.filteredProperties.filter(f => f.$ref).forEach(property => {
     const componentName = property.$ref?.split('/').pop();
-    const component = data.components.schemas[componentName || '']
+    const component = data.components.schemas[componentName ?? '']
     if (component) {
       property.properties = mapProperties(component.properties, options, component, data).filteredProperties;
       property.firstProperty = property.properties.find(prop => prop.name?.toLowerCase() !== 'id');
@@ -107,7 +107,7 @@ export function mapPropertyAttributes(options: IOptions, source: PropertyInfo, d
     dest.htmlInputType = 'object';
     dest.filterExpression = 'text';
     dest.$ref = source.$ref;
-    dest.pluralizedName = pluralize(dest.name || '', plural);
+    dest.pluralizedName = pluralize(dest.name ?? '', plural);
     dest.testFactoryValue = '{}';
   }
   else {
