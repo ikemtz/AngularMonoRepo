@@ -15,6 +15,7 @@
         "ngrx/prefer-action-creator-in-dispatch": "off",
         "ngrx/prefer-selector-in-select": "off",
         "ngrx/select-style": "off",
+        "@nx/dependency-checks": "error",
         "@nx/enforce-module-boundaries": [
           "error",
           {
