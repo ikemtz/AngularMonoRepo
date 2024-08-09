@@ -52,6 +52,6 @@
     "schematics": "^0.2.0",
     "snyk": "^1.1292.2",
     "ts-jest": "^29.2.4",
-    "typescript": "^5.2.2"
+    "typescript": "^5.5.4"
   }
 }
