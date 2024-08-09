@@ -10,6 +10,6 @@ export const employeeRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(employeeRoutes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class EmployeesRoutingModule {}
+export class EmployeesRoutingModule { }

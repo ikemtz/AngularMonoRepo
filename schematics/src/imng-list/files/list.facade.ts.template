@@ -4,8 +4,7 @@ import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
-import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
-import * as <%= camelize(storeName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(storeName) %>ActionTypes } from '../+state';
 
 @Injectable()
 export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {

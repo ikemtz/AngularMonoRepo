@@ -94,6 +94,7 @@
     "help": "nx help",
     "nx": "nx",
     "schematic:module:emp": "nx g imng-schematics:module employee --path=./apps/nurse-cron/src/app/modules --openApiJsonUrl=https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --force --appPrefix=nrcrn",
+    "schematic:module:emp_local": "nx g imng-kendo-schematics:module employee --path=./apps/nurse-cron/src/app/modules --openApiJsonFileName=../../../open-api-docs/nrcrn-empl-odata.json --force --appPrefix=nrcrn",
     "test": "snyk test"
   },
   "private": false,
@@ -126,7 +127,6 @@
     "eslint-config-prettier": "9.1",
     "eslint-plugin-cypress": "^3.4.0",
     "eslint-plugin-ngrx": "^2.1.4",
-    "imng-kendo-schematics": "^6.292.5",
     "jest": "29.7",
     "jest-environment-jsdom": "29.7",
     "jest-junit": "^16.0.0",

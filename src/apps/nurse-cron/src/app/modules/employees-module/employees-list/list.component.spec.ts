@@ -1,18 +1,15 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import {
-  createDataEntryMockFacade,
-  createDataDeleteMockFacade,
-} from 'imng-kendo-data-entry/testing';
+import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 
 import { EmployeeListComponent } from './list.component';
 import { EmployeeListFacade } from './list.facade';
 import { EmployeeCrudFacade } from '../employees-crud';
 import { employeeRoutes } from '../employees.routing';
-import { createTestEmployee } from '../../../models/employees-odata';
-import { provideOidcMockFacade } from 'imng-oidc-client/testing';
+import { createTestEmployee } from '../../../models/employees-api';
 
 describe('EmployeeListComponent', () => {
   let component: EmployeeListComponent;
@@ -25,15 +22,12 @@ describe('EmployeeListComponent', () => {
       declarations: [EmployeeListComponent],
       imports: [],
       providers: [
-        {
-          provide: EmployeeListFacade,
-          useValue: createODataGridMockFacade(createDataDeleteMockFacade()),
-        },
+        { provide: EmployeeListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
         { provide: EmployeeCrudFacade, useValue: createDataEntryMockFacade() },
         provideRouter(employeeRoutes),
         provideOidcMockFacade(),
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

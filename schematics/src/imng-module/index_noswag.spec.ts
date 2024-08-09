@@ -4,7 +4,7 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
-import { IOptions } from '../shared'; 
+import { IOptions } from '../shared';
 import * as pluralize from 'pluralize';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
@@ -30,17 +30,14 @@ describe(`imng-module`, () => {
       `/test/${pluralize(options.name)}-module/${pluralize(
         options.name
       )}.routing.ts`,
-      `/test/${pluralize(options.name)}-module/+state/${
-        options.name
+      `/test/${pluralize(options.name)}-module/+state/index.ts`,
+      `/test/${pluralize(options.name)}-module/+state/${options.name}-crud.effects.ts`,
+      `/test/${pluralize(options.name)}-module/+state/${options.name}-list.effects.ts`,
+      `/test/${pluralize(options.name)}-module/+state/${options.name
       }.actions.ts`,
-      `/test/${pluralize(options.name)}-module/+state/${
-        options.name
-      }.effects.ts`,
-      `/test/${pluralize(options.name)}-module/+state/${
-        options.name
-      }.reducer.ts`,
-      `/test/${pluralize(options.name)}-module/+state/${
-        options.name
+      `/test/${pluralize(options.name)}-module/+state/${options.name
+      }.feature.ts`,
+      `/test/${pluralize(options.name)}-module/+state/${options.name
       }.selectors.ts`,
     ]);
   });
