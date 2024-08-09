@@ -4,11 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
-import { EmployeeProperties, IEmployee } from '../../../models/employees-odata';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
 
 import { EmployeeAddComponent } from './add.component';
 import { EmployeeCrudFacade } from './crud.facade';
+import { createTestEmployee, IEmployee } from '../../../models/employees-api';
+
+
 
 describe('EmployeeAddComponent', () => {
   let component: EmployeeAddComponent;
@@ -47,36 +49,15 @@ describe('EmployeeAddComponent', () => {
 
   test('should save', () => {
     component.initForm();
-    component.addEditForm?.patchValue({
-      [EmployeeProperties.ID]: 'ID',
-      [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
-      [EmployeeProperties.FIRST_NAME]: 'FIRST_NAME',
-      [EmployeeProperties.BIRTH_DATE]: new Date(),
-      [EmployeeProperties.MOBILE_PHONE]: 'MOBILE_PHONE',
-      [EmployeeProperties.HOME_PHONE]: 'HOME_PHONE',
-      [EmployeeProperties.PHOTO]: 'PHOTO',
-      [EmployeeProperties.EMAIL]: 'EMAIL',
-      [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
-      [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS_LINE_2',
-      [EmployeeProperties.CITY]: 'CITY',
-      [EmployeeProperties.STATE]: 'ST',
-      [EmployeeProperties.ZIP]: 'ZIP',
-      [EmployeeProperties.IS_ENABLED]: true,
-      [EmployeeProperties.HIRE_DATE]: new Date(),
-      [EmployeeProperties.FIRE_DATE]: new Date(),
-      [EmployeeProperties.TOTAL_HOURS_OF_SERVICE]: 0,
-      [EmployeeProperties.CERTIFICATION_COUNT]: 0,
-      [EmployeeProperties.COMPETENCY_COUNT]: 0,
-      [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-    });
+    component.addEditForm?.patchValue(createTestEmployee());
 
     let item: IEmployee | undefined;
     facade.saveNewEntity = jest.fn(x => (item = x));
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 
     expect(item).toMatchSnapshot({
       birthDate: expect.any(Date),
@@ -94,14 +75,14 @@ describe('EmployeeAddComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 });

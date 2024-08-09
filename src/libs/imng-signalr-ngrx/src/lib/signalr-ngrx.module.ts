@@ -1,16 +1,16 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StoreModule } from '@ngrx/store';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { signalrFeature } from './+state/signalr.reducer';
+import { StoreModule } from '@ngrx/store';
+import { ImngOidcClientModule } from 'imng-oidc-client';
 import { SignalrEffects } from './+state/signalr.effects';
 import { SignalrFacade } from './+state/signalr.facade';
+import { signalrFeature } from './+state/signalr.reducer';
 import {
   ISignalrConfiguration,
   SIGNALR_CONFIG,
 } from './models/signalr.configuration';
 import { HubConnectionInjectorService } from './services/hub-connection-injector.service';
-import { ImngOidcClientModule } from 'imng-oidc-client';
 
 @NgModule({
   imports: [
@@ -23,7 +23,7 @@ import { ImngOidcClientModule } from 'imng-oidc-client';
 })
 export class ImngSignalrNgrxModule {
   static forRoot(
-    signalrConfiguration: ISignalrConfiguration
+    signalrConfiguration: ISignalrConfiguration,
   ): ModuleWithProviders<ImngSignalrNgrxModule> {
     return {
       ngModule: ImngSignalrNgrxModule,

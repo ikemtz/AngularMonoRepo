@@ -52,7 +52,7 @@ describe('SignalrFacade', () => {
           SignalrFacade,
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -61,7 +61,7 @@ describe('SignalrFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
@@ -87,13 +87,16 @@ describe('SignalrFacade', () => {
     it('should handle send', () => {
       facade.sendMessage({ methodName: 'helloWorld', data: '😎' });
       expect(service.hubConnection?.send).toBeCalledTimes(1);
-      expect(service.hubConnection?.send).toBeCalledWith('helloWorld', '😎');
+      expect(service.hubConnection?.send).toHaveBeenCalledWith(
+        'helloWorld',
+        '😎',
+      );
     });
 
     it('should handle received messages', async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (facade as any).store.dispatch(
-        receivedMessage({ methodName: 'helloWorld', data: '😎' })
+        receivedMessage({ methodName: 'helloWorld', data: '😎' }),
       );
 
       let result = await readFirst(store);

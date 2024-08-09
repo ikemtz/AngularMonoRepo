@@ -1,6 +1,6 @@
 import { Rule, SchematicContext, Tree, chain, schematic, noop } from '@angular-devkit/schematics';
 import { generateFiles, getSwaggerDoc, IOptions } from '../shared';
-import pluralize = require('pluralize');
+import * as pluralize from 'pluralize';
 import { normalize } from 'path';
 import { dasherize } from '@angular-devkit/core/src/utils/strings';
 
@@ -9,13 +9,13 @@ export function imngModule(_options: IOptions): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const listOptions = {
       ..._options,
-      storeName: _options.storeName || _options.name,
-      path: normalize(`${_options.path}/${dasherize(pluralize(_options.name))}-module`)
+      storeName: _options.storeName ?? _options.name,
+      path: normalize(`${_options.path}/${dasherize(pluralize.plural(_options.name))}-module`)
     };
     const crudOptions = {
       ..._options,
-      storeName: _options.storeName || _options.name,
-      path: normalize(`${_options.path}/${dasherize(pluralize(_options.name))}-module`),
+      storeName: _options.storeName ?? _options.name,
+      path: normalize(`${_options.path}/${dasherize(pluralize.plural(_options.name))}-module`),
     };
 
     return chain([

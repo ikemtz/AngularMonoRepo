@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/nurse-cron/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -64,41 +65,33 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "nurse-cron:build:production"
+          "buildTarget": "nurse-cron:build:production"
         },
         "development": {
-          "browserTarget": "nurse-cron:build:development"
+          "buildTarget": "nurse-cron:build:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "browserTarget": "adventure-works:build",
-        "proxyConfig": "apps/nurse-cron/proxy.conf.js"
+        "proxyConfig": "apps/nurse-cron/proxy.conf.js",
+        "buildTarget": "adventure-works:build"
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "nurse-cron:build"
+        "buildTarget": "nurse-cron:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/nurse-cron/src/**/*.ts",
-          "apps/nurse-cron/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/nurse-cron"],
       "options": {
-        "jestConfig": "apps/nurse-cron/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/nurse-cron/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

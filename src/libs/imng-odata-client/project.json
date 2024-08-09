@@ -4,13 +4,13 @@
   "projectType": "library",
   "sourceRoot": "libs/imng-odata-client/src",
   "prefix": "imng",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-odata-client"],
       "options": {
-        "project": "libs/imng-odata-client/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-odata-client/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -26,19 +26,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-odata-client"],
       "options": {
-        "jestConfig": "libs/imng-odata-client/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/imng-odata-client/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/imng-odata-client/**/*.ts",
-          "libs/imng-odata-client/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

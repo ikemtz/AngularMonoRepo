@@ -4,8 +4,7 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
-import { IOptions } from '../shared'; 
-import * as pluralize from 'pluralize';
+import { IOptions } from '../shared';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
 
@@ -20,28 +19,6 @@ describe(`imng-module`, () => {
     };
     const tree: UnitTestTree = await runner.runSchematic(`imng-module`, options, Tree.empty());
 
-    expect(tree.files).toEqual([
-      `/test/${pluralize(options.name)}-module/${pluralize(
-        options.name
-      )}.module.spec.ts`,
-      `/test/${pluralize(options.name)}-module/${pluralize(
-        options.name
-      )}.module.ts`,
-      `/test/${pluralize(options.name)}-module/${pluralize(
-        options.name
-      )}.routing.ts`,
-      `/test/${pluralize(options.name)}-module/+state/${
-        options.name
-      }.actions.ts`,
-      `/test/${pluralize(options.name)}-module/+state/${
-        options.name
-      }.effects.ts`,
-      `/test/${pluralize(options.name)}-module/+state/${
-        options.name
-      }.reducer.ts`,
-      `/test/${pluralize(options.name)}-module/+state/${
-        options.name
-      }.selectors.ts`,
-    ]);
+    expect(tree.files.sort()).toMatchSnapshot();
   });
 });

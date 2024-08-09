@@ -75,7 +75,7 @@ describe('Oidc Effects', () => {
     it('should fail because silent_redirect_uri is not configured', async () => {
       actions = of(OidcActions.removeOidcUser());
       service.removeOidcUser = jest.fn(() =>
-        throwError(() => new Error('Expected exception in unit tests.'))
+        throwError(() => new Error('Expected exception in unit tests.')),
       );
       const result = await readFirst(effects.removeOidcUser$);
       expect(result).toMatchSnapshot();

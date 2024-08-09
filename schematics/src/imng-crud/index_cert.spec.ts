@@ -27,20 +27,7 @@ describe(`imng-crud`, () => {
       Tree.empty()
     );
 
-    expect(tree.files).toEqual([
-      `/test/${pluralize(options.name)}-crud/add-edit.component.html`,
-      `/test/${pluralize(options.name)}-crud/add-edit.component.scss`,
-      `/test/${pluralize(options.name)}-crud/add.component.spec.ts`,
-      `/test/${pluralize(options.name)}-crud/add.component.ts`,
-      `/test/${pluralize(options.name)}-crud/api.service.ts`,
-      `/test/${pluralize(options.name)}-crud/base-entry.component.ts`,
-      `/test/${pluralize(options.name)}-crud/crud.facade.spec.ts`,
-      `/test/${pluralize(options.name)}-crud/crud.facade.ts`,
-      `/test/${pluralize(options.name)}-crud/edit.component.spec.ts`,
-      `/test/${pluralize(options.name)}-crud/edit.component.ts`,
-      `/test/${pluralize(options.name)}-crud/index.ts`,
-    ]);
-
+    expect(tree.files.sort()).toMatchSnapshot();
     const htmlFile = tree.get(
       `/test/${pluralize(options.name)}-crud/add-edit.component.html`
     );

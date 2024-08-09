@@ -344,3 +344,4 @@ src/documentation/**
 **/*.tar
 old-src
 schematics/eslint-report.json
+src/.nx

@@ -73,13 +73,13 @@ describe('OrderListFacade', () => {
       const activeEffectCount = await readFirst(facade.activeEffectCount$);
       expect(list.length).toBe(1);
       expect(activeEffectCount).toBe(0);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith(
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith(
         'aw-odata/odata/v1/Orders?$count=true',
       );
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
@@ -107,7 +107,7 @@ describe('OrderListFacade', () => {
 
       expect(list.length).toBe(3);
       expect(activeEffectCount).toBe(0);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {

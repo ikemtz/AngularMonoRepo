@@ -13,15 +13,14 @@ import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 import { EmployeesRoutingModule } from './employees.routing';
-import { employeesFeature } from './+state/employee.reducer';
-import { EmployeeEffects } from './+state/employee.effects';
+import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects } from './+state';
 
 import { EmployeeListComponent, EmployeeListFacade } from './employees-list';
-import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, EmployeeCrudFacade } from './employees-crud';
+import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, EmployeeCrudFacade  } from './employees-crud';
 
 
 @NgModule({
-  declarations: [EmployeeListComponent, EmployeeAddComponent, EmployeeEditComponent],
+  declarations: [EmployeeListComponent, EmployeeAddComponent, EmployeeEditComponent ],
   imports: [
     CommonModule,
     GridModule,
@@ -37,12 +36,12 @@ import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, Employ
     ReactiveFormsModule,
     EmployeesRoutingModule,
     StoreModule.forFeature(employeesFeature),
-    EffectsModule.forFeature([EmployeeEffects]),
+    EffectsModule.forFeature([EmployeeListEffects, EmployeeCrudEffects]),
   ],
   providers: [
     EmployeeListFacade,
     EmployeeCrudFacade,
-    EmployeeApiService,
+    EmployeeApiService, 
   ],
 })
 export class EmployeesModule { }

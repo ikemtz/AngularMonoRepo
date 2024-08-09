@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { createODataTableMockFacade } from 'imng-prime-table-odata/testing';
 
 import { PrimeOrderListComponent } from './prime-list.component';
@@ -14,7 +13,7 @@ describe('OrderListComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [PrimeOrderListComponent],
-      imports: [RouterTestingModule],
+      imports: [],
       providers: [
         {
           provide: PrimeOrderListFacade,
@@ -42,6 +41,6 @@ describe('OrderListComponent', () => {
 
   test('it should handle reload', () => {
     component.reloadEntities();
-    expect(listFacade.reloadEntities).toBeCalledTimes(1);
+    expect(listFacade.reloadEntities).toHaveBeenCalledTimes(1);
   });
 });

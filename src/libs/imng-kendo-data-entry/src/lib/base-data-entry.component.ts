@@ -35,13 +35,13 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
 @Component({ template: '' })
 export abstract class BaseDataEntryComponent<
   FACADE extends IBaseDataEntryFacade,
-> implements OnInit, OnDestroy, Subscribable
-{
+> implements OnInit, OnDestroy, Subscribable {
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
 
   public formId = 'imng-form';
-  public saveButtonText = 'Save';
+  public cancelButtonText = 'Cancel';
+  public submitButtonText = 'Submit';
   public readonly MinLengthError = 'minlength';
   public readonly RequiredError = 'required';
   public readonly ENUM_DISPLAY_TEXT = 'displayText';

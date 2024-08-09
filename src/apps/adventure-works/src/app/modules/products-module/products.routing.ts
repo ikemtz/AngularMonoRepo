@@ -3,13 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'imng-oidc-client';
 import { ProductListComponent } from './products-list';
 
-
-const routes: Routes = [
-  { path: '', component: ProductListComponent, canActivate: [AuthGuard] }
+export const productRoutes: Routes = [
+  { path: '', component: ProductListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(productRoutes)],
+  exports: [RouterModule],
 })
-export class ProductsRoutingModule { }
+export class ProductsRoutingModule {}

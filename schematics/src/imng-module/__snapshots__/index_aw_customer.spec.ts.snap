@@ -40,7 +40,6 @@ import { of } from 'rxjs';
 import { CustomerAddComponent } from './add.component';
 import { CustomerCrudFacade } from './crud.facade';
 
-
 export function createMockCustomerFacade() {
   return {
     currentEntity$: of({}),
@@ -96,8 +95,8 @@ describe('CustomerAddComponent', () => {
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 
     expect(item).toMatchSnapshot();
   });
@@ -110,15 +109,15 @@ describe('CustomerAddComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 
   test('should support SalesAgent filters', async () => {
@@ -191,7 +190,7 @@ export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<
     ))));
   }
 
-  public ngOnInit(): void {
+  public override ngOnInit(): void {
     this.initForm();
     this.facade.loadSalesAgents({ selectors: [
       SalesAgentProperties.ID,
@@ -230,11 +229,10 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { CustomerEffects } from '../+state/customer.effects';
-import { customersFeature } from '../+state/customer.reducer';
+import { customersFeature, CustomerListEffects, CustomerCrudEffects } from '../+state';
 import { CustomerCrudFacade } from './crud.facade';
 import { CustomerApiService } from './api.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 describe('CustomerCrudFacade', () => {
   let facade: CustomerCrudFacade;
@@ -249,7 +247,7 @@ describe('CustomerCrudFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(customersFeature),
-          EffectsModule.forFeature([CustomerEffects]),
+          EffectsModule.forFeature([CustomerListEffects, CustomerCrudEffects]),
         ],
         providers: [
           CustomerCrudFacade,
@@ -297,7 +295,7 @@ describe('CustomerCrudFacade', () => {
 
     test('should load SalesAgents', async () => {
       facade.loadSalesAgents({});
-      expect(httpClient.get).toBeCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.salesAgents$);
       expect(result.length).toBe(1);
     });
@@ -311,16 +309,14 @@ exports[`imng-module crud facade template should work 1`] = `
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
-import { customersFeature } from '../+state/customer.reducer';
-import { customerQueries } from '../+state/customer.selectors';
-import * as customerActionTypes from '../+state/customer.actions';
+import { customersFeature, customerSelectors, customerActionTypes } from '../+state';
 
 @Injectable()
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
   loading$ = this.store.select(customersFeature.selectLoading);
-  currentEntity$ = this.store.select(customerQueries.selectCurrentCustomer);
-  isEditActive$ = this.store.select(customerQueries.selectIsEditCustomerActive);
-  isNewActive$ = this.store.select(customerQueries.selectIsNewCustomerActive);
+  currentEntity$ = this.store.select(customersFeature.selectCurrentCustomer);
+  isEditActive$ = this.store.select(customerSelectors.selectIsEditCustomerActive);
+  isNewActive$ = this.store.select(customerSelectors.selectIsNewCustomerActive);
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
   constructor(private readonly store: Store) {}
@@ -472,8 +468,8 @@ describe('CustomerEditComponent', () => {
     facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(1);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
 
     expect(item).toMatchSnapshot();
 
@@ -487,14 +483,14 @@ describe('CustomerEditComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 
   test('should support SalesAgent filters', async () => {
@@ -541,87 +537,7 @@ export class CustomerEditComponent extends CustomerBaseEntryComponent implements
 "
 `;
 
-exports[`imng-module effects should work 1`] = `
-"import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
-import { ODataService } from 'imng-kendo-odata';
-import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
-import { customersFeature } from './customer.reducer';
-import * as customerActionTypes from './customer.actions';
-import { environment } from '../../../../environments/environment';
-
-import { CustomerApiService } from '../customers-crud';
-
-@Injectable()
-export class CustomerEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly customerApiService : CustomerApiService,
-  ) {}
-
-  loadCustomersEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(customerActionTypes.loadCustomersRequest),
-      switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataService
-        .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload)
-        .pipe(
-          map(t => customerActionTypes.loadCustomersSuccess(t)),
-          handleEffectError(action))));
-  });
-
-  reloadCustomersEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(customerActionTypes.reloadCustomersRequest),
-      concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
-      switchMap(([action, odataState]) => this.odataService
-        .fetch<ICustomer>(environment.odataEndpoints.customers, odataState, {
-          bustCache: true,
-        })
-        .pipe(
-          map(t => customerActionTypes.reloadCustomersSuccess(t)),
-          handleEffectError(action))));
-  });
-
-  saveCustomerEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(customerActionTypes.saveCustomerRequest),
-      switchMap((action: ReturnType<typeof customerActionTypes.saveCustomerRequest>) => this.customerApiService.post(action.payload).pipe(
-        map(() => customerActionTypes.reloadCustomersRequest()),
-        handleEffectError(action))));
-  });
-
-  updateCustomerEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(customerActionTypes.updateCustomerRequest),
-      switchMap((action: ReturnType<typeof customerActionTypes.updateCustomerRequest>) => this.customerApiService.put(action.payload).pipe(
-        map(() => customerActionTypes.reloadCustomersRequest()),
-        handleEffectError(action))));
-  });
-
-  deleteCustomerEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(customerActionTypes.deleteCustomerRequest),
-      switchMap((action: ReturnType<typeof customerActionTypes.deleteCustomerRequest>) => this.customerApiService.delete(action.payload).pipe(
-        map(() => customerActionTypes.reloadCustomersRequest()),
-        handleEffectError(action))));
-  });
-
-  loadSalesAgentsEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(customerActionTypes.loadSalesAgentsRequest),
-      switchMap((action: ReturnType<typeof customerActionTypes.loadSalesAgentsRequest>) => this.odataService
-        .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, action.payload)
-        .pipe(map(t => customerActionTypes.loadSalesAgentsSuccess(t)),
-          handleEffectError(action))));
-  });
-}
-"
-`;
+exports[`imng-module effects should work 1`] = `undefined`;
 
 exports[`imng-module html file should work 1`] = `
 "<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
@@ -796,8 +712,7 @@ import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 import { CustomersRoutingModule } from './customers.routing';
-import { customersFeature } from './+state/customer.reducer';
-import { CustomerEffects } from './+state/customer.effects';
+import { customersFeature, CustomerListEffects, CustomerCrudEffects } from './+state';
 
 import { CustomerListComponent, CustomerListFacade } from './customers-list';
 import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, CustomerCrudFacade  } from './customers-crud';
@@ -820,7 +735,7 @@ import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, Custom
     ReactiveFormsModule,
     CustomersRoutingModule,
     StoreModule.forFeature(customersFeature),
-    EffectsModule.forFeature([CustomerEffects]),
+    EffectsModule.forFeature([CustomerListEffects, CustomerCrudEffects]),
   ],
   providers: [
     CustomerListFacade,
@@ -832,87 +747,16 @@ export class CustomersModule { }
 "
 `;
 
-exports[`imng-module reducers should work 1`] = `
-"import { createReducer, on, createFeature } from '@ngrx/store';
-import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
-import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
-
-import * as customerActionTypes from './customer.actions';
-export const CUSTOMERS_FEATURE_KEY = 'customers';
-
-export interface State extends KendoODataGridState<ICustomer> {
-  currentCustomer: ICustomer | undefined;
-  salesAgents: ISalesAgent[];
-}
-
-export const initialState: State = {
-  ...createKendoODataGridInitialState(),
-  currentCustomer: undefined,
-  salesAgents: [],
-  loading: true,
-};
-
-export const customersFeature = createFeature({
-  name: CUSTOMERS_FEATURE_KEY,
-  reducer: createReducer(
-    initialState,
-    on(customerActionTypes.loadCustomersRequest,
-      (state, { payload }) : State => ({
-        ...state,
-        gridODataState: payload,
-        loading: true,
-        error: null, })),
-    on(customerActionTypes.loadCustomersSuccess,
-      customerActionTypes.reloadCustomersSuccess,
-      (state, { payload }) : State => ({
-        ...state,
-        loading: false,
-        gridPagerSettings: getODataPagerSettings({
-          gridData: payload,
-          gridODataState: state.gridODataState,
-        }),
-        gridData: payload,
-        error: null, })),
-    on(customerActionTypes.setCurrentCustomer,
-      (state, { payload }) : State =>
-        ({ ...state, currentCustomer: payload })),
-    on(customerActionTypes.clearCurrentCustomer,
-      (state) : State => ({ ...state, currentCustomer: undefined })),
-    on(customerActionTypes.saveCustomerRequest,
-      customerActionTypes.updateCustomerRequest,
-      customerActionTypes.deleteCustomerRequest,
-      (state) : State => ({
-        ...state,
-        loading: true,
-      })),
-    on(customerActionTypes.loadSalesAgentsSuccess,
-      (state, { payload }): State => ({
-        ...state,
-        salesAgents: payload.data
-      })),
-    on(imngEffectError, imngEffectErrorReducer),
-  )
-});
-"
-`;
+exports[`imng-module reducers should work 1`] = `undefined`;
 
 exports[`imng-module tree files should match 1`] = `
 [
-  "/test/customers-module/customers.module.spec.ts",
-  "/test/customers-module/customers.module.ts",
-  "/test/customers-module/customers.routing.ts",
+  "/test/customers-module/+state/customer-crud.effects.ts",
+  "/test/customers-module/+state/customer-list.effects.ts",
   "/test/customers-module/+state/customer.actions.ts",
-  "/test/customers-module/+state/customer.effects.ts",
-  "/test/customers-module/+state/customer.reducer.ts",
+  "/test/customers-module/+state/customer.feature.ts",
   "/test/customers-module/+state/customer.selectors.ts",
-  "/test/customers-module/customers-list/index.ts",
-  "/test/customers-module/customers-list/list.component.html",
-  "/test/customers-module/customers-list/list.component.scss",
-  "/test/customers-module/customers-list/list.component.spec.ts",
-  "/test/customers-module/customers-list/list.component.ts",
-  "/test/customers-module/customers-list/list.facade.spec.ts",
-  "/test/customers-module/customers-list/list.facade.ts",
-  "/test/customers-module/customers-list/list.grid-state.ts",
+  "/test/customers-module/+state/index.ts",
   "/test/customers-module/customers-crud/add-edit.component.html",
   "/test/customers-module/customers-crud/add-edit.component.scss",
   "/test/customers-module/customers-crud/add.component.spec.ts",
@@ -924,5 +768,16 @@ exports[`imng-module tree files should match 1`] = `
   "/test/customers-module/customers-crud/edit.component.spec.ts",
   "/test/customers-module/customers-crud/edit.component.ts",
   "/test/customers-module/customers-crud/index.ts",
+  "/test/customers-module/customers-list/index.ts",
+  "/test/customers-module/customers-list/list.component.html",
+  "/test/customers-module/customers-list/list.component.scss",
+  "/test/customers-module/customers-list/list.component.spec.ts",
+  "/test/customers-module/customers-list/list.component.ts",
+  "/test/customers-module/customers-list/list.facade.spec.ts",
+  "/test/customers-module/customers-list/list.facade.ts",
+  "/test/customers-module/customers-list/list.grid-state.ts",
+  "/test/customers-module/customers.module.spec.ts",
+  "/test/customers-module/customers.module.ts",
+  "/test/customers-module/customers.routing.ts",
 ]
 `;

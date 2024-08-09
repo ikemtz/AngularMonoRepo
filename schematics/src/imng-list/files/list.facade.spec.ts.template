@@ -8,11 +8,9 @@ import { ODataState, createODataPayload, createODataResult, ODataService } from 
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
-import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
-import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
-import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {
   let facade: <%= classify(singularizedName) %>ListFacade;
@@ -27,7 +25,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
+          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects]),
         ],
         providers: [
           <%= classify(singularizedName) %>ListFacade,
@@ -63,11 +61,11 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       const loading = await readFirst(facade.loading$);
       expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
@@ -87,7 +85,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
       expect(list?.data.length).toBe(3);
       expect(isloading).toBe(false);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {

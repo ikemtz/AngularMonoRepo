@@ -11,7 +11,6 @@ import { of } from 'rxjs';<% } %>
 import { <%= classify(name) %>AddComponent } from './add.component';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
-
 <% if (hasObjects) { %>export function createMock<%= classify(name) %>Facade() {
   return {
     currentEntity$: of({}),<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
@@ -68,8 +67,8 @@ describe('<%= classify(name) %>AddComponent', () => {
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 <% if (hasDates) { %>
     expect(item).toMatchSnapshot({
 <% swaggerProperties.filter(t=> t.format === 'date-time' || t.format === 'date').forEach(function(swaggerProperty)
@@ -87,15 +86,15 @@ describe('<%= classify(name) %>AddComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
 
   test('should support <%= classify(swaggerProperty.name) %> filters', async () => {

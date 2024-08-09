@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { of } from 'rxjs';
+import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -11,65 +10,37 @@ import {
   testSaveCurrentEntity,
   testUpdateCurrentEntity,
 } from 'imng-kendo-data-entry/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
 
-import { EmployeeEffects } from '../+state/employee.effects';
-import { employeesFeature } from '../+state/employee.reducer';
+import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects } from '../+state';
 import { EmployeeCrudFacade } from './crud.facade';
 import { EmployeeApiService } from './api.service';
-import { environment } from '../../../../environments/environment';
-import { createODataPayload } from 'imng-kendo-odata';
-import { IEmployee, EmployeeProperties } from '../../../models/employees-odata';
-
-export const createEmployee = () =>
-  <IEmployee>{
-    [EmployeeProperties.ID]: 'ID',
-    [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
-    [EmployeeProperties.FIRST_NAME]: 'FIRST_NAME',
-    [EmployeeProperties.BIRTH_DATE]: new Date(),
-    [EmployeeProperties.MOBILE_PHONE]: 'MOBILE_PHONE',
-    [EmployeeProperties.HOME_PHONE]: 'HOME_PHONE',
-    [EmployeeProperties.PHOTO]: 'PHOTO',
-    [EmployeeProperties.EMAIL]: 'EMAIL',
-    [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
-    [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS_LINE_2',
-    [EmployeeProperties.CITY]: 'CITY',
-    [EmployeeProperties.STATE]: 'ST',
-    [EmployeeProperties.ZIP]: 'ZIP',
-    [EmployeeProperties.IS_ENABLED]: true,
-    [EmployeeProperties.HIRE_DATE]: new Date(),
-    [EmployeeProperties.FIRE_DATE]: new Date(),
-    [EmployeeProperties.TOTAL_HOURS_OF_SERVICE]: 0,
-    [EmployeeProperties.CERTIFICATION_COUNT]: 0,
-    [EmployeeProperties.COMPETENCY_COUNT]: 0,
-    [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-  };
+import { environment } from '@env';
+import { createTestEmployee } from '../../../models/employees-api';
 
 describe('EmployeeCrudFacade', () => {
   let facade: EmployeeCrudFacade;
+  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {}); //NOSONAR
+  beforeEach(() => { }); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
           StoreModule.forFeature(employeesFeature),
-          EffectsModule.forFeature([EmployeeEffects]),
+          EffectsModule.forFeature([EmployeeListEffects, EmployeeCrudEffects]),
         ],
         providers: [
           EmployeeCrudFacade,
           EmployeeApiService,
-          {
-            provide: HttpClient,
-            useValue: {
-              get: jest.fn(() => of(createODataPayload([createEmployee()]))),
-            },
-          },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestEmployee()]))) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -78,9 +49,11 @@ describe('EmployeeCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      store = TestBed.inject(Store);
       facade = TestBed.inject(EmployeeCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });
@@ -93,6 +66,7 @@ describe('EmployeeCrudFacade', () => {
       isNewActive = await readFirst(facade.isNewActive$);
 
       expect(isNewActive).toBeFalsy();
+      expect(await readFirst(store)).toMatchSnapshot();
     });
 
     test('New Entity Set And Clear CurrentEntity', async () =>

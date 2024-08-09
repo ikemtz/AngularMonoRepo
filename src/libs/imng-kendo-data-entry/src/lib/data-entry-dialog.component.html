@@ -21,15 +21,20 @@
       Instead look at ./dialog-buttons.directive.spec.ts as an example.
  -->
 <ng-template #defaultDialogActionsTpl>
-  <button kendoButton (click)="cancel()" class="btn btn-secondary btn-sm">
-    Cancel
+  <button
+    name="imngDataEntryCancelBtn"
+    kendoButton
+    (click)="cancel()"
+    class="btn btn-secondary btn-sm">
+    {{ cancelButtonText }}
   </button>
   <button
+    name="imngDataEntrySubmitBtn"
     [attr.form]="formId"
     type="submit"
     kendoButton
     (click)="submit()"
     class="btn btn-primary btn-sm">
-    {{ saveButtonText }}
+    {{ submitButtonText }}
   </button>
 </ng-template>

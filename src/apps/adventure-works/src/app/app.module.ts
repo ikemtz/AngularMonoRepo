@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImngNgrxIdleModule } from 'imng-kendo-ngrx-idle';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ImngOidcClientModule } from 'imng-oidc-client';
 import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
@@ -20,7 +19,6 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
     StoreModule.forRoot(
       {},
       {
@@ -29,13 +27,15 @@ import { environment } from '../environments/environment';
       },
     ),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ name: 'AdventureWorks' }),
+    StoreDevtoolsModule.instrument({
+      name: 'AdventureWorks',
+      connectInZone: true,
+    }),
     StoreRouterConnectingModule.forRoot(),
     ImngOidcClientModule.forRoot(environment.oidc_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
 
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),
     ImngNgrxIdleModule.forRoot(environment.idleConfig),
   ],
   providers: [],

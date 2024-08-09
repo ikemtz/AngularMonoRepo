@@ -274,7 +274,9 @@ describe('OidcFacade', () => {
       service.OidcUserManager.signinRedirect = mockSigninRedirect as never;
       facade.signinRedirect({ redirect_uri: '🐱🐱🐱' });
       expect(mockSigninRedirect).toBeCalledTimes(1);
-      expect(mockSigninRedirect).toBeCalledWith({ redirect_uri: '🐱🐱🐱' });
+      expect(mockSigninRedirect).toHaveBeenCalledWith({
+        redirect_uri: '🐱🐱🐱',
+      });
     });
 
     it('should support signinSilent', async () => {
@@ -282,7 +284,7 @@ describe('OidcFacade', () => {
       service.OidcUserManager.signinSilent = mockSigninSilent as never;
       facade.signinSilent({ redirect_uri: '🐱🐱🐱' });
       expect(mockSigninSilent).toBeCalledTimes(1);
-      expect(mockSigninSilent).toBeCalledWith({ redirect_uri: '🐱🐱🐱' });
+      expect(mockSigninSilent).toHaveBeenCalledWith({ redirect_uri: '🐱🐱🐱' });
     });
 
     it('should handle accessTokenExpired without a store', () => {

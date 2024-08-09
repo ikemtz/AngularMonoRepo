@@ -24,102 +24,29 @@ describe(`imng-module`, () => {
     };
     const tree: UnitTestTree = await runner.runSchematic(`imng-module`, options, Tree.empty());
 
-    expect(tree.files).toEqual([
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}.module.spec.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}.module.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}.routing.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
-        options.name
-      )}.actions.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
-        options.name
-      )}.effects.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
-        options.name
-      )}.reducer.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
-        options.name
-      )}.selectors.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-list/index.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-list/list.component.html`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-list/list.component.scss`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-list/list.component.spec.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-list/list.component.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-list/list.facade.spec.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-list/list.facade.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-list/list.grid-state.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/add-edit.component.html`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/add-edit.component.scss`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/add.component.spec.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/add.component.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/api.service.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/base-entry.component.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/crud.facade.spec.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/crud.facade.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/edit.component.spec.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/edit.component.ts`,
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
-      )}-crud/index.ts`,
-    ]);
+    expect(tree.files.sort()).toMatchSnapshot();
 
-    const effectsFile = tree.get(
+    const listEffectsFile = tree.get(
       `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
         options.name
-      )}.effects.ts`
+      )}-list.effects.ts`
     );
-    let content = effectsFile?.content.toString();
-    expect(content).toContain(
+    const listContent = listEffectsFile?.content.toString();
+    expect(listContent).toContain(
       `${options.name}ActionTypes.reload${classify(
         pluralize(options.name)
       )}Request),`
     );
-    expect(content).toContain(
+    const crudEffectsFile = tree.get(
+      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
+        options.name
+      )}-crud.effects.ts`
+    );
+    const crudContent = crudEffectsFile?.content.toString();
+    expect(crudContent).toContain(
       `import { ${classify(options.name)}ApiService } from '../${dasherize(
         pluralize(options.name)
-      )}-crud';`
+      )}-crud/api.service';`
     );
 
     const listFacadeSpecFile = tree.get(
@@ -127,9 +54,9 @@ describe(`imng-module`, () => {
         pluralize(options.name)
       )}-list/list.facade.spec.ts`
     );
-    content = listFacadeSpecFile?.content.toString();
+    let content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(
-      `expect(httpClient.get).toBeCalledWith('${dasherize(
+      `expect(httpClient.get).toHaveBeenCalledWith('${dasherize(
         pluralize(options.name)
       )}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`
     );

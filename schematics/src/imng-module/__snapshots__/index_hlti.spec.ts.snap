@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imng-module generation works - Health Items 1`] = `
+[
+  "/test/health-items-module/+state/health-item-crud.effects.ts",
+  "/test/health-items-module/+state/health-item-list.effects.ts",
+  "/test/health-items-module/+state/health-item.actions.ts",
+  "/test/health-items-module/+state/health-item.feature.ts",
+  "/test/health-items-module/+state/health-item.selectors.ts",
+  "/test/health-items-module/+state/index.ts",
+  "/test/health-items-module/health-items-crud/add-edit.component.html",
+  "/test/health-items-module/health-items-crud/add-edit.component.scss",
+  "/test/health-items-module/health-items-crud/add.component.spec.ts",
+  "/test/health-items-module/health-items-crud/add.component.ts",
+  "/test/health-items-module/health-items-crud/api.service.ts",
+  "/test/health-items-module/health-items-crud/base-entry.component.ts",
+  "/test/health-items-module/health-items-crud/crud.facade.spec.ts",
+  "/test/health-items-module/health-items-crud/crud.facade.ts",
+  "/test/health-items-module/health-items-crud/edit.component.spec.ts",
+  "/test/health-items-module/health-items-crud/edit.component.ts",
+  "/test/health-items-module/health-items-crud/index.ts",
+  "/test/health-items-module/health-items-list/index.ts",
+  "/test/health-items-module/health-items-list/list.component.html",
+  "/test/health-items-module/health-items-list/list.component.scss",
+  "/test/health-items-module/health-items-list/list.component.spec.ts",
+  "/test/health-items-module/health-items-list/list.component.ts",
+  "/test/health-items-module/health-items-list/list.facade.spec.ts",
+  "/test/health-items-module/health-items-list/list.facade.ts",
+  "/test/health-items-module/health-items-list/list.grid-state.ts",
+  "/test/health-items-module/health-items.module.spec.ts",
+  "/test/health-items-module/health-items.module.ts",
+  "/test/health-items-module/health-items.routing.ts",
+]
+`;

@@ -8,35 +8,10 @@ import { ODataState, createODataPayload, createODataResult, ODataService } from 
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
-import { EmployeeEffects } from '../+state/employee.effects';
-import * as employeeActionTypes from '../+state/employee.actions';
-import { employeesFeature } from '../+state/employee.reducer';
+import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects, employeeActionTypes } from '../+state';
 import { EmployeeListFacade } from './list.facade';
-import { environment } from '../../../../environments/environment';
-import { IEmployee, EmployeeProperties } from '../../../models/employees-odata';
-
-export const createEmployee = () => <IEmployee>{
-  [EmployeeProperties.ID]: 'ID',
-  [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
-  [EmployeeProperties.FIRST_NAME]: 'FIRST_NAME',
-  [EmployeeProperties.BIRTH_DATE]: new Date(),
-  [EmployeeProperties.MOBILE_PHONE]: 'MOBILE_PHONE',
-  [EmployeeProperties.HOME_PHONE]: 'HOME_PHONE',
-  [EmployeeProperties.PHOTO]: 'PHOTO',
-  [EmployeeProperties.EMAIL]: 'EMAIL',
-  [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
-  [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS_LINE_2',
-  [EmployeeProperties.CITY]: 'CITY',
-  [EmployeeProperties.STATE]: 'ST',
-  [EmployeeProperties.ZIP]: 'ZIP',
-  [EmployeeProperties.IS_ENABLED]: true,
-  [EmployeeProperties.HIRE_DATE]: new Date(),
-  [EmployeeProperties.FIRE_DATE]: new Date(),
-  [EmployeeProperties.TOTAL_HOURS_OF_SERVICE]: 0,
-  [EmployeeProperties.CERTIFICATION_COUNT]: 0,
-  [EmployeeProperties.COMPETENCY_COUNT]: 0,
-  [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-};
+import { environment } from '@env';
+import { createTestEmployee } from '../../../models/employees-api';
 
 describe('EmployeeListFacade', () => {
   let facade: EmployeeListFacade;
@@ -51,11 +26,11 @@ describe('EmployeeListFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(employeesFeature),
-          EffectsModule.forFeature([EmployeeEffects]),
+          EffectsModule.forFeature([EmployeeListEffects, EmployeeCrudEffects]),
         ],
         providers: [
           EmployeeListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createEmployee()]))) } },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestEmployee()]))) } },
         ],
       })
       class CustomFeatureModule { }
@@ -80,18 +55,18 @@ describe('EmployeeListFacade', () => {
      */
     test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       facade.loadEntities({});
 
       list = await readFirst(facade.gridData$);
       const loading = await readFirst(facade.loading$);
-      expect(list.data.length).toBe(1);
+      expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
-      expect(httpClient.get).toBeCalledTimes(1);
-      expect(httpClient.get).toBeCalledWith('employees-odata/odata/v1/Employees?&$count=true');
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      expect(httpClient.get).toHaveBeenCalledWith('employees-odata/odata/v1/Employees?&$count=true');
 
       facade.reloadEntities();
-      expect(httpClient.get).toBeCalledTimes(2);
+      expect(httpClient.get).toHaveBeenCalledTimes(2);
     });
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
@@ -102,16 +77,16 @@ describe('EmployeeListFacade', () => {
       const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
       service.fetch = jest.fn(() => response);
 
-      expect(list.data.length).toBe(0);
+      expect(list?.data.length).toBe(0);
       expect(isloading).toBe(true);
       facade.reloadEntities();
 
       list = await readFirst(facade.gridData$);
       isloading = await readFirst(facade.loading$);
 
-      expect(list.data.length).toBe(3);
+      expect(list?.data.length).toBe(3);
       expect(isloading).toBe(false);
-      expect(service.fetch).toBeCalledTimes(1);
+      expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
     test('it should get the grid state', async () => {
@@ -135,11 +110,11 @@ describe('EmployeeListFacade', () => {
      */
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
-      store.dispatch(employeeActionTypes.loadEmployeesSuccess(createODataResult([createEmployee(), createEmployee()])));
+      expect(list?.data.length).toBe(0);
+      store.dispatch(employeeActionTypes.loadEmployeesSuccess(createODataResult([createTestEmployee(), createTestEmployee()])));
 
       list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(2);
+      expect(list?.data.length).toBe(2);
     });
 
     test('it should handle DeleteItem', async () => {

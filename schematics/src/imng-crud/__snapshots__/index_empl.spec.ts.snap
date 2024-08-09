@@ -1,10 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`imng-crud generation works 1`] = `
+[
+  "/test/employees-crud/add-edit.component.html",
+  "/test/employees-crud/add-edit.component.scss",
+  "/test/employees-crud/add.component.spec.ts",
+  "/test/employees-crud/add.component.ts",
+  "/test/employees-crud/api.service.ts",
+  "/test/employees-crud/base-entry.component.ts",
+  "/test/employees-crud/crud.facade.spec.ts",
+  "/test/employees-crud/crud.facade.ts",
+  "/test/employees-crud/edit.component.spec.ts",
+  "/test/employees-crud/edit.component.ts",
+  "/test/employees-crud/index.ts",
+]
+`;
+
+exports[`imng-crud generation works 2`] = `
 "import { Injectable } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +28,7 @@ import { environment } from '../../../../environments/environment';
 export class EmployeeApiService extends NrsrxBaseApiClientService<IEmployee> {
   public override url = environment.webApiEndpoints.employees;
 
-  public dateOnlyPropertyNames = [
+  public override dateOnlyPropertyNames = [
     EmployeeProperties.BIRTH_DATE,
     EmployeeProperties.HIRE_DATE,
     EmployeeProperties.FIRE_DATE];
@@ -35,7 +51,6 @@ import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from '
 
 import { EmployeeAddComponent } from './add.component';
 import { EmployeeCrudFacade } from './crud.facade';
-
 
 
 
@@ -83,8 +98,8 @@ describe('EmployeeAddComponent', () => {
     facade.updateExistingEntity = jest.fn();
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(1);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(1);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 
     expect(item).toMatchSnapshot({
       birthDate: expect.any(Date),
@@ -102,15 +117,15 @@ describe('EmployeeAddComponent', () => {
     const consoleErrorMock = mockConsoleError();
     component.addEditForm?.patchValue({});
     component.onSubmit();
-    expect(facade.saveNewEntity).toBeCalledTimes(0);
-    expect(facade.updateExistingEntity).toBeCalledTimes(0);
+    expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
     consoleErrorMock.mockRestore();
   });
 
   test('should cancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.cancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 });
 "
