@@ -5,15 +5,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { of } from 'rxjs';
-import {
-  mockConsoleError,
-  mockConsoleGroup,
-  mockConsoleWarn,
-} from 'imng-ngrx-utils/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
 
 import { EmployeeEditComponent } from './edit.component';
 import { EmployeeCrudFacade } from './crud.facade';
-import { EmployeeProperties, IEmployee } from '../../../models/employees-odata';
+import { createTestEmployee, IEmployee } from '../../../models/employees-api';
 
 describe('EmployeeEditComponent', () => {
   let component: EmployeeEditComponent;
@@ -27,13 +23,8 @@ describe('EmployeeEditComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [EmployeeEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
-      providers: [
-        {
-          provide: EmployeeCrudFacade,
-          useValue: createDataEntryMockFacade({ currentEntity$: of({}) }),
-        },
-      ],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule,],
+      providers: [{ provide: EmployeeCrudFacade, useValue: createDataEntryMockFacade({ currentEntity$: of({}) }) }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -53,30 +44,9 @@ describe('EmployeeEditComponent', () => {
 
   test('should update', () => {
     component.initForm();
-    component.addEditForm.patchValue({
-      [EmployeeProperties.ID]: 'ID',
-      [EmployeeProperties.LAST_NAME]: 'LAST_NAME',
-      [EmployeeProperties.FIRST_NAME]: 'FIRST_NAME',
-      [EmployeeProperties.BIRTH_DATE]: new Date(),
-      [EmployeeProperties.MOBILE_PHONE]: 'MOBILE_PHONE',
-      [EmployeeProperties.HOME_PHONE]: 'HOME_PHONE',
-      [EmployeeProperties.PHOTO]: 'PHOTO',
-      [EmployeeProperties.EMAIL]: 'EMAIL',
-      [EmployeeProperties.ADDRESS_LINE_1]: 'ADDRESS_LINE_1',
-      [EmployeeProperties.ADDRESS_LINE_2]: 'ADDRESS_LINE_2',
-      [EmployeeProperties.CITY]: 'CITY',
-      [EmployeeProperties.STATE]: 'ST',
-      [EmployeeProperties.ZIP]: 'ZIP',
-      [EmployeeProperties.IS_ENABLED]: true,
-      [EmployeeProperties.HIRE_DATE]: new Date(),
-      [EmployeeProperties.FIRE_DATE]: new Date(),
-      [EmployeeProperties.TOTAL_HOURS_OF_SERVICE]: 0,
-      [EmployeeProperties.CERTIFICATION_COUNT]: 0,
-      [EmployeeProperties.COMPETENCY_COUNT]: 0,
-      [EmployeeProperties.HEALTH_ITEM_COUNT]: 0,
-    });
+    component.addEditForm.patchValue(createTestEmployee());
     let item: IEmployee | undefined;
-    facade.updateExistingEntity = jest.fn((x) => (item = x));
+    facade.updateExistingEntity = jest.fn(x => (item = x));
     expect(component.getFormErrors()).toStrictEqual([]);
     component.onSubmit();
     expect(facade.saveNewEntity).toHaveBeenCalledTimes(0);
@@ -87,6 +57,7 @@ describe('EmployeeEditComponent', () => {
       hireDate: expect.any(Date),
       fireDate: expect.any(Date),
     });
+
   });
 
   /**

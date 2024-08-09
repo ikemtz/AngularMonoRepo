@@ -1,0 +1,5 @@
+export * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+export { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedName) %>.feature';
+export { <%= classify(singularizedName) %>ListEffects } from './<%= dasherize(singularizedName) %>-list.effects';
+export { <%= classify(singularizedName) %>CrudEffects } from './<%= dasherize(singularizedName) %>-crud.effects';
+export { <%= camelize(singularizedName) %>Selectors } from './<%= dasherize(singularizedName) %>.selectors'

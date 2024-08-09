@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imng-module generation works - employees 1`] = `
+[
+  "/test/employees-module/+state/employee-crud.effects.ts",
+  "/test/employees-module/+state/employee-list.effects.ts",
+  "/test/employees-module/+state/employee.actions.ts",
+  "/test/employees-module/+state/employee.feature.ts",
+  "/test/employees-module/+state/employee.selectors.ts",
+  "/test/employees-module/+state/index.ts",
+  "/test/employees-module/employees-crud/add-edit.component.html",
+  "/test/employees-module/employees-crud/add-edit.component.scss",
+  "/test/employees-module/employees-crud/add.component.spec.ts",
+  "/test/employees-module/employees-crud/add.component.ts",
+  "/test/employees-module/employees-crud/api.service.ts",
+  "/test/employees-module/employees-crud/base-entry.component.ts",
+  "/test/employees-module/employees-crud/crud.facade.spec.ts",
+  "/test/employees-module/employees-crud/crud.facade.ts",
+  "/test/employees-module/employees-crud/edit.component.spec.ts",
+  "/test/employees-module/employees-crud/edit.component.ts",
+  "/test/employees-module/employees-crud/index.ts",
+  "/test/employees-module/employees-list/index.ts",
+  "/test/employees-module/employees-list/list.component.html",
+  "/test/employees-module/employees-list/list.component.scss",
+  "/test/employees-module/employees-list/list.component.spec.ts",
+  "/test/employees-module/employees-list/list.component.ts",
+  "/test/employees-module/employees-list/list.facade.spec.ts",
+  "/test/employees-module/employees-list/list.facade.ts",
+  "/test/employees-module/employees-list/list.grid-state.ts",
+  "/test/employees-module/employees.module.spec.ts",
+  "/test/employees-module/employees.module.ts",
+  "/test/employees-module/employees.routing.ts",
+]
+`;

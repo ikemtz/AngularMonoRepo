@@ -14,7 +14,7 @@ import { <%= classify(singularizedName) %>Effects } from '../+state/<%= dasheriz
 import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(parentName) %>Effects } from '../+state/<%= dasherize(parentName) %>.effects';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {
   let facade: <%= classify(singularizedName) %>ListFacade;
