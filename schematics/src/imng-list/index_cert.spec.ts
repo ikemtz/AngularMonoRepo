@@ -27,16 +27,8 @@ describe('imng-list', () => {
       options,
       Tree.empty()
     );
-    expect(tree.files).toEqual([
-      `/test/${pluralize(options.name)}-list/index.ts`,
-      `/test/${pluralize(options.name)}-list/list.component.html`,
-      `/test/${pluralize(options.name)}-list/list.component.scss`,
-      `/test/${pluralize(options.name)}-list/list.component.spec.ts`,
-      `/test/${pluralize(options.name)}-list/list.component.ts`,
-      `/test/${pluralize(options.name)}-list/list.facade.spec.ts`,
-      `/test/${pluralize(options.name)}-list/list.facade.ts`,
-      '/test/certifications-list/list.grid-state.ts',
-    ]);
+
+    expect(tree.files.sort()).toMatchSnapshot();
 
     const htmlFile = tree.get(
       `/test/${pluralize(options.name)}-list/list.component.html`

@@ -49,7 +49,6 @@ import { of } from 'rxjs';
 import { OrderAddComponent } from './add.component';
 import { OrderCrudFacade } from './crud.facade';
 
-
 export function createMockOrderFacade() {
   return {
     currentEntity$: of({}),
@@ -275,7 +274,7 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
     ))));
   }
 
-  public ngOnInit(): void {
+  public override ngOnInit(): void {
     this.initForm();
     this.facade.loadCustomers({ selectors: [
       CustomerProperties.ID,
@@ -349,11 +348,10 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { OrderEffects } from '../+state/order.effects';
-import { ordersFeature } from '../+state/order.reducer';
+import { ordersFeature, OrderListEffects, OrderCrudEffects } from '../+state';
 import { OrderCrudFacade } from './crud.facade';
 import { OrderApiService } from './api.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 describe('OrderCrudFacade', () => {
   let facade: OrderCrudFacade;
@@ -368,7 +366,7 @@ describe('OrderCrudFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(ordersFeature),
-          EffectsModule.forFeature([OrderEffects]),
+          EffectsModule.forFeature([OrderListEffects, OrderCrudEffects]),
         ],
         providers: [
           OrderCrudFacade,
@@ -444,16 +442,14 @@ exports[`imng-module AdventureWorks Orders crud facade template should work 1`] 
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
-import { ordersFeature } from '../+state/order.reducer';
-import { orderQueries } from '../+state/order.selectors';
-import * as orderActionTypes from '../+state/order.actions';
+import { ordersFeature, orderSelectors, orderActionTypes } from '../+state';
 
 @Injectable()
 export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
   loading$ = this.store.select(ordersFeature.selectLoading);
-  currentEntity$ = this.store.select(orderQueries.selectCurrentOrder);
-  isEditActive$ = this.store.select(orderQueries.selectIsEditOrderActive);
-  isNewActive$ = this.store.select(orderQueries.selectIsNewOrderActive);
+  currentEntity$ = this.store.select(ordersFeature.selectCurrentOrder);
+  isEditActive$ = this.store.select(orderSelectors.selectIsEditOrderActive);
+  isNewActive$ = this.store.select(orderSelectors.selectIsNewOrderActive);
   customers$ = this.store.select(ordersFeature.selectCustomers);
   shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
   billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
@@ -850,109 +846,7 @@ export class OrderEditComponent extends OrderBaseEntryComponent implements OnIni
 "
 `;
 
-exports[`imng-module AdventureWorks Orders effects should work 1`] = `
-"import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
-import { ODataService } from 'imng-kendo-odata';
-import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
-import { ordersFeature } from './order.reducer';
-import * as orderActionTypes from './order.actions';
-import { environment } from '../../../../environments/environment';
-
-import { OrderApiService } from '../orders-crud';
-
-@Injectable()
-export class OrderEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly orderApiService : OrderApiService,
-  ) {}
-
-  loadOrdersEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.loadOrdersRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataService
-        .fetch<IOrder>(environment.odataEndpoints.orders, action.payload, {
-          dateNullableProps: [OrderProperties.SHIP_DATE],
-        })
-        .pipe(
-          map(t => orderActionTypes.loadOrdersSuccess(t)),
-          handleEffectError(action))));
-  });
-
-  reloadOrdersEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.reloadOrdersRequest),
-      concatLatestFrom(() => this.store.select(ordersFeature.selectGridODataState)),
-      switchMap(([action, odataState]) => this.odataService
-        .fetch<IOrder>(environment.odataEndpoints.orders, odataState, {
-          bustCache: true,
-          dateNullableProps: [OrderProperties.SHIP_DATE],
-        })
-        .pipe(
-          map(t => orderActionTypes.reloadOrdersSuccess(t)),
-          handleEffectError(action))));
-  });
-
-  saveOrderEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.saveOrderRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.saveOrderRequest>) => this.orderApiService.post(action.payload).pipe(
-        map(() => orderActionTypes.reloadOrdersRequest()),
-        handleEffectError(action))));
-  });
-
-  updateOrderEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.updateOrderRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.updateOrderRequest>) => this.orderApiService.put(action.payload).pipe(
-        map(() => orderActionTypes.reloadOrdersRequest()),
-        handleEffectError(action))));
-  });
-
-  deleteOrderEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.deleteOrderRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.deleteOrderRequest>) => this.orderApiService.delete(action.payload).pipe(
-        map(() => orderActionTypes.reloadOrdersRequest()),
-        handleEffectError(action))));
-  });
-
-  loadCustomersEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.loadCustomersRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadCustomersRequest>) => this.odataService
-        .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload)
-        .pipe(map(t => orderActionTypes.loadCustomersSuccess(t)),
-          handleEffectError(action))));
-  });
-
-  loadShipToAddressesEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.loadShipToAddressesRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadShipToAddressesRequest>) => this.odataService
-        .fetch<IOrderAddress>(environment.odataEndpoints.orderAddresses, action.payload)
-        .pipe(map(t => orderActionTypes.loadShipToAddressesSuccess(t)),
-          handleEffectError(action))));
-  });
-
-  loadBillToAddressesEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(orderActionTypes.loadBillToAddressesRequest),
-      switchMap((action: ReturnType<typeof orderActionTypes.loadBillToAddressesRequest>) => this.odataService
-        .fetch<IOrderAddress>(environment.odataEndpoints.orderAddresses, action.payload)
-        .pipe(map(t => orderActionTypes.loadBillToAddressesSuccess(t)),
-          handleEffectError(action))));
-  });
-}
-"
-`;
+exports[`imng-module AdventureWorks Orders effects should work 1`] = `undefined`;
 
 exports[`imng-module AdventureWorks Orders html file should work 1`] = `
 "<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
@@ -1277,8 +1171,7 @@ import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 import { OrdersRoutingModule } from './orders.routing';
-import { ordersFeature } from './+state/order.reducer';
-import { OrderEffects } from './+state/order.effects';
+import { ordersFeature, OrderListEffects, OrderCrudEffects } from './+state';
 
 import { OrderListComponent, OrderListFacade } from './orders-list';
 import { OrderAddComponent, OrderEditComponent, OrderApiService, OrderCrudFacade  } from './orders-crud';
@@ -1302,7 +1195,7 @@ import { OrderAddComponent, OrderEditComponent, OrderApiService, OrderCrudFacade
     ReactiveFormsModule,
     OrdersRoutingModule,
     StoreModule.forFeature(ordersFeature),
-    EffectsModule.forFeature([OrderEffects]),
+    EffectsModule.forFeature([OrderListEffects, OrderCrudEffects]),
   ],
   providers: [
     OrderListFacade,
@@ -1314,101 +1207,16 @@ export class OrdersModule { }
 "
 `;
 
-exports[`imng-module AdventureWorks Orders reducers should work 1`] = `
-"import { createReducer, on, createFeature } from '@ngrx/store';
-import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
-import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
-
-import * as orderActionTypes from './order.actions';
-export const ORDERS_FEATURE_KEY = 'orders';
-
-export interface State extends KendoODataGridState<IOrder> {
-  currentOrder: IOrder | undefined;
-  customers: ICustomer[];
-  shipToAddresses: IOrderAddress[];
-  billToAddresses: IOrderAddress[];
-}
-
-export const initialState: State = {
-  ...createKendoODataGridInitialState(),
-  currentOrder: undefined,
-  customers: [],
-  shipToAddresses: [],
-  billToAddresses: [],
-  loading: true,
-};
-
-export const ordersFeature = createFeature({
-  name: ORDERS_FEATURE_KEY,
-  reducer: createReducer(
-    initialState,
-    on(orderActionTypes.loadOrdersRequest,
-      (state, { payload }) : State => ({
-        ...state,
-        gridODataState: payload,
-        loading: true,
-        error: null, })),
-    on(orderActionTypes.loadOrdersSuccess,
-      orderActionTypes.reloadOrdersSuccess,
-      (state, { payload }) : State => ({
-        ...state,
-        loading: false,
-        gridPagerSettings: getODataPagerSettings({
-          gridData: payload,
-          gridODataState: state.gridODataState,
-        }),
-        gridData: payload,
-        error: null, })),
-    on(orderActionTypes.setCurrentOrder,
-      (state, { payload }) : State =>
-        ({ ...state, currentOrder: payload })),
-    on(orderActionTypes.clearCurrentOrder,
-      (state) : State => ({ ...state, currentOrder: undefined })),
-    on(orderActionTypes.saveOrderRequest,
-      orderActionTypes.updateOrderRequest,
-      orderActionTypes.deleteOrderRequest,
-      (state) : State => ({
-        ...state,
-        loading: true,
-      })),
-    on(orderActionTypes.loadCustomersSuccess,
-      (state, { payload }): State => ({
-        ...state,
-        customers: payload.data
-      })),
-    on(orderActionTypes.loadShipToAddressesSuccess,
-      (state, { payload }): State => ({
-        ...state,
-        shipToAddresses: payload.data
-      })),
-    on(orderActionTypes.loadBillToAddressesSuccess,
-      (state, { payload }): State => ({
-        ...state,
-        billToAddresses: payload.data
-      })),
-    on(imngEffectError, imngEffectErrorReducer),
-  )
-});
-"
-`;
+exports[`imng-module AdventureWorks Orders reducers should work 1`] = `undefined`;
 
 exports[`imng-module AdventureWorks Orders tree files should match 1`] = `
 [
-  "/test/orders-module/orders.module.spec.ts",
-  "/test/orders-module/orders.module.ts",
-  "/test/orders-module/orders.routing.ts",
+  "/test/orders-module/+state/index.ts",
+  "/test/orders-module/+state/order-crud.effects.ts",
+  "/test/orders-module/+state/order-list.effects.ts",
   "/test/orders-module/+state/order.actions.ts",
-  "/test/orders-module/+state/order.effects.ts",
-  "/test/orders-module/+state/order.reducer.ts",
+  "/test/orders-module/+state/order.feature.ts",
   "/test/orders-module/+state/order.selectors.ts",
-  "/test/orders-module/orders-list/index.ts",
-  "/test/orders-module/orders-list/list.component.html",
-  "/test/orders-module/orders-list/list.component.scss",
-  "/test/orders-module/orders-list/list.component.spec.ts",
-  "/test/orders-module/orders-list/list.component.ts",
-  "/test/orders-module/orders-list/list.facade.spec.ts",
-  "/test/orders-module/orders-list/list.facade.ts",
-  "/test/orders-module/orders-list/list.grid-state.ts",
   "/test/orders-module/orders-crud/add-edit.component.html",
   "/test/orders-module/orders-crud/add-edit.component.scss",
   "/test/orders-module/orders-crud/add.component.spec.ts",
@@ -1420,5 +1228,16 @@ exports[`imng-module AdventureWorks Orders tree files should match 1`] = `
   "/test/orders-module/orders-crud/edit.component.spec.ts",
   "/test/orders-module/orders-crud/edit.component.ts",
   "/test/orders-module/orders-crud/index.ts",
+  "/test/orders-module/orders-list/index.ts",
+  "/test/orders-module/orders-list/list.component.html",
+  "/test/orders-module/orders-list/list.component.scss",
+  "/test/orders-module/orders-list/list.component.spec.ts",
+  "/test/orders-module/orders-list/list.component.ts",
+  "/test/orders-module/orders-list/list.facade.spec.ts",
+  "/test/orders-module/orders-list/list.facade.ts",
+  "/test/orders-module/orders-list/list.grid-state.ts",
+  "/test/orders-module/orders.module.spec.ts",
+  "/test/orders-module/orders.module.ts",
+  "/test/orders-module/orders.routing.ts",
 ]
 `;

@@ -14,8 +14,7 @@ import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 import { <%= classify(pluralizedName) %>RoutingModule } from './<%= dasherize(pluralizedName) %>.routing';
-import { <%= camelize(pluralizedStoreName) %>Feature } from './+state/<%= dasherize(singularizedName) %>.reducer';
-import { <%= classify(singularizedName) %>Effects } from './+state/<%= dasherize(singularizedName) %>.effects';
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedName) %>ListEffects, <%= classify(singularizedName) %>CrudEffects } from './+state';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(pluralizedName) %>-list';
 import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent, <%= classify(singularizedName) %>ApiService, <%= classify(singularizedName) %>CrudFacade  } from './<%= dasherize(pluralizedName) %>-crud';
@@ -39,7 +38,7 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     ReactiveFormsModule,
     <%= classify(pluralizedName) %>RoutingModule,
     StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-    EffectsModule.forFeature([<%= classify(singularizedName) %>Effects]),
+    EffectsModule.forFeature([<%= classify(singularizedName) %>ListEffects, <%= classify(singularizedName) %>CrudEffects]),
   ],
   providers: [
     <% if (openApiJsonUrl || openApiJsonFileName) { %><%= classify(singularizedName) %>ListFacade,

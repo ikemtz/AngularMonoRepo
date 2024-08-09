@@ -26,7 +26,7 @@ describe(`imng-module AdventureWorks Orders`, () => {
   }, 30000);
 
   test(`tree files should match`, () => {
-    expect(tree.files).toMatchSnapshot();
+    expect(tree.files.sort()).toMatchSnapshot();
   });
 
   test(`module should work`, () => {

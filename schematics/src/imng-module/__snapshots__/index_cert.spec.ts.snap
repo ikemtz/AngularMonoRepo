@@ -1,58 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`imng-module generation works - Certifications 1`] = `
-"import { createReducer, on, createFeature } from '@ngrx/store';
-import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
-import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
-
-import * as certificationActionTypes from './certification.actions';
-export const CERTIFICATIONS_FEATURE_KEY = 'certifications';
-
-export interface State extends KendoODataGridState<ICertification> {
-  currentCertification: ICertification | undefined;
-}
-
-export const initialState: State = {
-  ...createKendoODataGridInitialState(),
-  currentCertification: undefined,
-  loading: true,
-};
-
-export const certificationsFeature = createFeature({
-  name: CERTIFICATIONS_FEATURE_KEY,
-  reducer: createReducer(
-    initialState,
-    on(certificationActionTypes.loadCertificationsRequest,
-      (state, { payload }) : State => ({
-        ...state,
-        gridODataState: payload,
-        loading: true,
-        error: null, })),
-    on(certificationActionTypes.loadCertificationsSuccess,
-      certificationActionTypes.reloadCertificationsSuccess,
-      (state, { payload }) : State => ({
-        ...state,
-        loading: false,
-        gridPagerSettings: getODataPagerSettings({
-          gridData: payload,
-          gridODataState: state.gridODataState,
-        }),
-        gridData: payload,
-        error: null, })),
-    on(certificationActionTypes.setCurrentCertification,
-      (state, { payload }) : State =>
-        ({ ...state, currentCertification: payload })),
-    on(certificationActionTypes.clearCurrentCertification,
-      (state) : State => ({ ...state, currentCertification: undefined })),
-    on(certificationActionTypes.saveCertificationRequest,
-      certificationActionTypes.updateCertificationRequest,
-      certificationActionTypes.deleteCertificationRequest,
-      (state) : State => ({
-        ...state,
-        loading: true,
-      })),
-    on(imngEffectError, imngEffectErrorReducer),
-  )
-});
-"
+[
+  "/test/certifications-module/+state/certification-crud.effects.ts",
+  "/test/certifications-module/+state/certification-list.effects.ts",
+  "/test/certifications-module/+state/certification.actions.ts",
+  "/test/certifications-module/+state/certification.feature.ts",
+  "/test/certifications-module/+state/certification.selectors.ts",
+  "/test/certifications-module/+state/index.ts",
+  "/test/certifications-module/certifications-crud/add-edit.component.html",
+  "/test/certifications-module/certifications-crud/add-edit.component.scss",
+  "/test/certifications-module/certifications-crud/add.component.spec.ts",
+  "/test/certifications-module/certifications-crud/add.component.ts",
+  "/test/certifications-module/certifications-crud/api.service.ts",
+  "/test/certifications-module/certifications-crud/base-entry.component.ts",
+  "/test/certifications-module/certifications-crud/crud.facade.spec.ts",
+  "/test/certifications-module/certifications-crud/crud.facade.ts",
+  "/test/certifications-module/certifications-crud/edit.component.spec.ts",
+  "/test/certifications-module/certifications-crud/edit.component.ts",
+  "/test/certifications-module/certifications-crud/index.ts",
+  "/test/certifications-module/certifications-list/index.ts",
+  "/test/certifications-module/certifications-list/list.component.html",
+  "/test/certifications-module/certifications-list/list.component.scss",
+  "/test/certifications-module/certifications-list/list.component.spec.ts",
+  "/test/certifications-module/certifications-list/list.component.ts",
+  "/test/certifications-module/certifications-list/list.facade.spec.ts",
+  "/test/certifications-module/certifications-list/list.facade.ts",
+  "/test/certifications-module/certifications-list/list.grid-state.ts",
+  "/test/certifications-module/certifications.module.spec.ts",
+  "/test/certifications-module/certifications.module.ts",
+  "/test/certifications-module/certifications.routing.ts",
+]
 `;
+
+exports[`imng-module generation works - Certifications 2`] = `undefined`;

@@ -13,11 +13,10 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
-import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 import { <%= classify(name) %>ApiService } from './api.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 describe('<%= classify(name) %>CrudFacade', () => {
   let facade: <%= classify(name) %>CrudFacade;
@@ -32,7 +31,7 @@ describe('<%= classify(name) %>CrudFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
+          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects]),
         ],
         providers: [
           <%= classify(name) %>CrudFacade,

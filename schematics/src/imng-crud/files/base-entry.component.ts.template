@@ -26,7 +26,7 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
     ))));<% }) %>
   }
 
-  public ngOnInit(): void {
+  public override ngOnInit(): void {
     this.initForm();<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
     this.facade.load<%= classify(swaggerProperty.pluralizedName) %>({ selectors: [<% swaggerProperty.properties.forEach(function(swaggerSubProperty){ %>
       <%= classify(swaggerProperty.propertyTypeName) %>Properties.<%= swaggerSubProperty.snakeCaseName.toUpperCase() %>,<% }) %>] });<% }) %>
