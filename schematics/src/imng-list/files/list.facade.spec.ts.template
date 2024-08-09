@@ -8,11 +8,9 @@ import { ODataState, createODataPayload, createODataResult, ODataService } from 
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
-import { <%= classify(singularizedStoreName) %>Effects } from '../+state/<%= dasherize(singularizedStoreName) %>.effects';
-import * as <%= camelize(singularizedStoreName) %>ActionTypes from '../+state/<%= dasherize(singularizedStoreName) %>.actions';
-import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {
   let facade: <%= classify(singularizedName) %>ListFacade;
@@ -27,7 +25,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects]),
+          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects]),
         ],
         providers: [
           <%= classify(singularizedName) %>ListFacade,

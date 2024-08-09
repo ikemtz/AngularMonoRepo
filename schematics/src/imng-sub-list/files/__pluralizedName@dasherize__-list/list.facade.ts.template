@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= dasherize(singularizedName) %>.actions';
 import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
-import { <%= camelize(singularizedName) %>Queries } from '../+state/<%= dasherize(singularizedName) %>.selectors';
+import { <%= camelize(singularizedName) %>Selectors } from '../+state/<%= dasherize(singularizedName) %>.selectors';
 
 @Injectable()
 export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
@@ -25,13 +25,13 @@ export class <%= classify(singularizedName) %>ListFacade implements IKendoODataG
   loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
   gridData$: Observable<ODataResult<I<%= classify(singularizedName) %>>> = this.parentGrid$.pipe(
     switchMap(x =>
-      this.store.select(<%= camelize(singularizedName) %>Queries.selectGridData$(x))));
+      this.store.select(<%= camelize(singularizedName) %>Selectors.selectGridData$(x))));
   gridPagerSettings$: Observable<false | PagerSettings> = this.parentGrid$.pipe(
     switchMap(x =>
-      this.store.select(<%= camelize(singularizedName) %>Queries.selectGridPagerSettings$(x))));
+      this.store.select(<%= camelize(singularizedName) %>Selectors.selectGridPagerSettings$(x))));
   gridODataState$: Observable<ODataState> = this.parentGrid$.pipe(
     switchMap(x =>
-      this.store.select(<%= camelize(singularizedName) %>Queries.selectODataState$(x))));
+      this.store.select(<%= camelize(singularizedName) %>Selectors.selectODataState$(x))));
 
   constructor(private readonly store: Store) {}
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment';
 export class <%= classify(name) %>ApiService extends NrsrxBaseApiClientService<I<%= classify(name) %>> {
   public override url = environment.webApiEndpoints.<%= camelize(pluralizedName) %>;
 <% if (swaggerProperties.filter(t => t.format === 'date')) { %>
-  public dateOnlyPropertyNames = [<% swaggerProperties.filter(t => t.format === 'date').forEach(function (swaggerProperty, index, dateProperties) {  %>
+  public override dateOnlyPropertyNames = [<% swaggerProperties.filter(t => t.format === 'date').forEach(function (swaggerProperty, index, dateProperties) {  %>
     <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (index + 1 < dateProperties.length) { %>,<% }}) %>];
 <% } %>
   constructor(http: HttpClient) {

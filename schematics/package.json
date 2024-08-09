@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "description": "A collection of Angular templates facilitating Angular, Kendo, NGRX and imng package integration",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "(rm -R ./dist/schematics/ || true) && tsc -p tsconfig.json",
     "test": "jest --coverage --env=node",
     "snyk-test": "snyk test",
+    "link": "npm run build && cd ./dist && npm link",
     "lint": "eslint ./src --ext .ts --output-file ./eslint-report.json --format json",
     "postbuild": "bash package.sh",
     "schematic:list": "npm run build && schematics ./dist/schematics/collection.json:list employee --path=\"./dist/\" --openApiJsonUrl=https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --dry-run=false --force --verbose --appPrefix=nrcrn",

@@ -1,9 +1,9 @@
 import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
 import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
-import { IEmployee } from '../../../models/employees-odata';
 
 import * as employeeActionTypes from './employee.actions';
+import { IEmployee } from '../../../models/employees-api';
 export const EMPLOYEES_FEATURE_KEY = 'employees';
 
 export interface State extends KendoODataGridState<IEmployee> {

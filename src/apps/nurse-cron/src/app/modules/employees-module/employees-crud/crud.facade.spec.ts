@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { of } from 'rxjs';
+import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
   testAddSetAndClearCurrentEntity,
@@ -11,43 +10,37 @@ import {
   testSaveCurrentEntity,
   testUpdateCurrentEntity,
 } from 'imng-kendo-data-entry/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
 
-import { EmployeeEffects } from '../+state/employee.effects';
-import { employeesFeature } from '../+state/employee.reducer';
+import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects } from '../+state';
 import { EmployeeCrudFacade } from './crud.facade';
 import { EmployeeApiService } from './api.service';
-import { environment } from '../../../../environments/environment';
-import { createODataPayload } from 'imng-kendo-odata';
-import { createTestEmployee } from '../../../models/employees-odata';
+import { environment } from '@env';
+import { createTestEmployee } from '../../../models/employees-api';
 
 describe('EmployeeCrudFacade', () => {
   let facade: EmployeeCrudFacade;
+  let store: Store;
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {}); //NOSONAR
+  beforeEach(() => { }); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
           StoreModule.forFeature(employeesFeature),
-          EffectsModule.forFeature([EmployeeEffects]),
+          EffectsModule.forFeature([EmployeeListEffects, EmployeeCrudEffects]),
         ],
         providers: [
           EmployeeCrudFacade,
           EmployeeApiService,
-          {
-            provide: HttpClient,
-            useValue: {
-              get: jest.fn(() =>
-                of(createODataPayload([createTestEmployee()])),
-              ),
-            },
-          },
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestEmployee()]))) } },
         ],
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -56,9 +49,11 @@ describe('EmployeeCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      store = TestBed.inject(Store);
       facade = TestBed.inject(EmployeeCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });
@@ -71,6 +66,7 @@ describe('EmployeeCrudFacade', () => {
       isNewActive = await readFirst(facade.isNewActive$);
 
       expect(isNewActive).toBeFalsy();
+      expect(await readFirst(store)).toMatchSnapshot();
     });
 
     test('New Entity Set And Clear CurrentEntity', async () =>
