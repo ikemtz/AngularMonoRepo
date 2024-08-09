@@ -115,7 +115,7 @@ describe('imng-module', () => {
         options.name
       )}-list.effects.ts`
     );
-    let listContent = listEffectsFile?.content.toString();
+    const listContent = listEffectsFile?.content.toString();
     expect(listContent).toContain(
       `${options.name}ActionTypes.reload${classify(
         pluralize(options.name)
@@ -127,7 +127,7 @@ describe('imng-module', () => {
         options.name
       )}-crud.effects.ts`
     );
-    let crudContent = crudEffectsFile?.content.toString();
+    const crudContent = crudEffectsFile?.content.toString();
     expect(crudContent).toContain(
       `import { ${classify(options.name)}ApiService } from '../${dasherize(
         pluralize(options.name)
