@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-angular-core"],
       "options": {
-        "project": "libs/imng-angular-core/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/imng-angular-core/ng-package.json"
       },
       "configurations": {
         "production": {
