@@ -22,20 +22,7 @@ describe('imng-sub-list', () => {
     };
     const tree: UnitTestTree = await runner.runSchematic('imng-sub-list', options, Tree.empty());
 
-    expect(tree.files).toEqual([
-      `/test/+state/employee-certification.actions.ts`,
-      `/test/+state/employee-certification.effects.ts`,
-      `/test/+state/employee-certification.selectors.ts`,
-      `/test/models/ext-employee.ts`,
-      "/test/employee-certifications-list/api.service.ts",
-      "/test/employee-certifications-list/index.ts",
-      "/test/employee-certifications-list/list.component.html",
-      "/test/employee-certifications-list/list.component.scss",
-      "/test/employee-certifications-list/list.component.spec.ts",
-      "/test/employee-certifications-list/list.component.ts",
-      "/test/employee-certifications-list/list.facade.spec.ts",
-      "/test/employee-certifications-list/list.facade.ts",
-    ]);
+    expect(tree.files.sort()).toMatchSnapshot();
 
     const htmlFile = tree.get(
       `/test/employee-certifications-list/list.component.html`

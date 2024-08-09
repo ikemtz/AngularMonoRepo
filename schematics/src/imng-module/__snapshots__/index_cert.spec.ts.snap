@@ -1,3 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`imng-module generation works - Certifications 1`] = `undefined`;
+exports[`imng-module generation works - Certifications 1`] = `
+[
+  "/test/certifications-module/+state/certification-crud.effects.ts",
+  "/test/certifications-module/+state/certification-list.effects.ts",
+  "/test/certifications-module/+state/certification.actions.ts",
+  "/test/certifications-module/+state/certification.feature.ts",
+  "/test/certifications-module/+state/certification.selectors.ts",
+  "/test/certifications-module/+state/index.ts",
+  "/test/certifications-module/certifications-crud/add-edit.component.html",
+  "/test/certifications-module/certifications-crud/add-edit.component.scss",
+  "/test/certifications-module/certifications-crud/add.component.spec.ts",
+  "/test/certifications-module/certifications-crud/add.component.ts",
+  "/test/certifications-module/certifications-crud/api.service.ts",
+  "/test/certifications-module/certifications-crud/base-entry.component.ts",
+  "/test/certifications-module/certifications-crud/crud.facade.spec.ts",
+  "/test/certifications-module/certifications-crud/crud.facade.ts",
+  "/test/certifications-module/certifications-crud/edit.component.spec.ts",
+  "/test/certifications-module/certifications-crud/edit.component.ts",
+  "/test/certifications-module/certifications-crud/index.ts",
+  "/test/certifications-module/certifications-list/index.ts",
+  "/test/certifications-module/certifications-list/list.component.html",
+  "/test/certifications-module/certifications-list/list.component.scss",
+  "/test/certifications-module/certifications-list/list.component.spec.ts",
+  "/test/certifications-module/certifications-list/list.component.ts",
+  "/test/certifications-module/certifications-list/list.facade.spec.ts",
+  "/test/certifications-module/certifications-list/list.facade.ts",
+  "/test/certifications-module/certifications-list/list.grid-state.ts",
+  "/test/certifications-module/certifications.module.spec.ts",
+  "/test/certifications-module/certifications.module.ts",
+  "/test/certifications-module/certifications.routing.ts",
+]
+`;
+
+exports[`imng-module generation works - Certifications 2`] = `undefined`;

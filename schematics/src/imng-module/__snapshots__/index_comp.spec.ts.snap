@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imng-module generation works - Competencies 1`] = `
+[
+  "/test/competencies-module/+state/competency-crud.effects.ts",
+  "/test/competencies-module/+state/competency-list.effects.ts",
+  "/test/competencies-module/+state/competency.actions.ts",
+  "/test/competencies-module/+state/competency.feature.ts",
+  "/test/competencies-module/+state/competency.selectors.ts",
+  "/test/competencies-module/+state/index.ts",
+  "/test/competencies-module/competencies-crud/add-edit.component.html",
+  "/test/competencies-module/competencies-crud/add-edit.component.scss",
+  "/test/competencies-module/competencies-crud/add.component.spec.ts",
+  "/test/competencies-module/competencies-crud/add.component.ts",
+  "/test/competencies-module/competencies-crud/api.service.ts",
+  "/test/competencies-module/competencies-crud/base-entry.component.ts",
+  "/test/competencies-module/competencies-crud/crud.facade.spec.ts",
+  "/test/competencies-module/competencies-crud/crud.facade.ts",
+  "/test/competencies-module/competencies-crud/edit.component.spec.ts",
+  "/test/competencies-module/competencies-crud/edit.component.ts",
+  "/test/competencies-module/competencies-crud/index.ts",
+  "/test/competencies-module/competencies-list/index.ts",
+  "/test/competencies-module/competencies-list/list.component.html",
+  "/test/competencies-module/competencies-list/list.component.scss",
+  "/test/competencies-module/competencies-list/list.component.spec.ts",
+  "/test/competencies-module/competencies-list/list.component.ts",
+  "/test/competencies-module/competencies-list/list.facade.spec.ts",
+  "/test/competencies-module/competencies-list/list.facade.ts",
+  "/test/competencies-module/competencies-list/list.grid-state.ts",
+  "/test/competencies-module/competencies.module.spec.ts",
+  "/test/competencies-module/competencies.module.ts",
+  "/test/competencies-module/competencies.routing.ts",
+]
+`;

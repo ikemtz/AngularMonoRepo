@@ -1,6 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`imng-crud generation works 1`] = `
+[
+  "/test/employees-crud/add-edit.component.html",
+  "/test/employees-crud/add-edit.component.scss",
+  "/test/employees-crud/add.component.spec.ts",
+  "/test/employees-crud/add.component.ts",
+  "/test/employees-crud/api.service.ts",
+  "/test/employees-crud/base-entry.component.ts",
+  "/test/employees-crud/crud.facade.spec.ts",
+  "/test/employees-crud/crud.facade.ts",
+  "/test/employees-crud/edit.component.spec.ts",
+  "/test/employees-crud/edit.component.ts",
+  "/test/employees-crud/index.ts",
+]
+`;
+
+exports[`imng-crud generation works 2`] = `
 "import { Injectable } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
