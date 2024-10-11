@@ -40,7 +40,7 @@ describe("imng-crud", () => {
       '<div *ngIf="formControlErrors(props.HIRE_DATE)?.[RequiredError]">Employee hire date is required</div>'
     );
     expect(content).toContain(
-      '<label for="hire_date" class="control-label">Hire Date:</label>'
+      '<label for="hire_date" class="control-label">Hire Date: <span class="text-danger">*</span></label>'
     );
     const apiService = tree.get(
       `/test/${pluralize(options.name)}-crud/api.service.ts`
