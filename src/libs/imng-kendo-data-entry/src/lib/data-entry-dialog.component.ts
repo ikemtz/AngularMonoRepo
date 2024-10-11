@@ -80,8 +80,7 @@ export class DataEntryDialogComponent implements OnInit {
   public formId?: string;
   public submitted = false;
   public dialogTitle?: string;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  public component?: {};
+  public component?: NonNullable<unknown>;
 
   public ngOnInit(): void {
     if (!this.parentComponent) {

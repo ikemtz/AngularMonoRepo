@@ -5,7 +5,6 @@ import { isaString } from './id-type';
  * Only use this method with plain objects.
  **/
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function normalizeRequest<T extends object>(payload: T): T {
   payload = { ...payload };
   for (const x in payload) {

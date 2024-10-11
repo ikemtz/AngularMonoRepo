@@ -30,8 +30,8 @@ export class OidcService {
   constructor(
     @Inject(OIDC_LIBRARY_CONFIG)
     private readonly oidcLibraryConfig: OidcLibraryConfig,
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    @Inject(PLATFORM_ID) private readonly platformId: Object,
+
+    @Inject(PLATFORM_ID) private readonly platformId: object,
     private readonly httpClient: HttpClient
   ) {
     const logSettings = this.oidcLibraryConfig.log;
