@@ -67,7 +67,6 @@ describe('DataEntryDialogComponent', () => {
   selector: 'imng-thc',
   template: template,
 })
-// eslint-disable-next-line @typescript-eslint/ban-types
 export class TestHostComponent
   extends BaseDataEntryComponent<DataEntryMockFacade>
   implements Subscribable
