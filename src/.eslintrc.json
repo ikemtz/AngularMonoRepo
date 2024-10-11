@@ -5,16 +5,9 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "extends": ["plugin:ngrx/recommended"],
+      "extends": ["plugin:ngrx/all"],
       "rules": {
-        "ngrx/no-dispatch-in-effects": "off",
-        "ngrx/avoid-combining-selectors": "off",
-        "ngrx/avoid-dispatching-multiple-actions-sequentially": "off",
-        "ngrx/avoid-mapping-selectors": "off",
-        "ngrx/no-store-subscription": "off",
-        "ngrx/prefer-action-creator-in-dispatch": "off",
-        "ngrx/prefer-selector-in-select": "off",
-        "ngrx/select-style": "off",
+        
         "@nx/dependency-checks": "error",
         "@nx/enforce-module-boundaries": [
           "error",
@@ -35,7 +28,6 @@
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nx/typescript"],
       "rules": {
-        "@typescript-eslint/no-extra-semi": "error",
         "no-extra-semi": "off"
       }
     },
@@ -43,7 +35,6 @@
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
       "rules": {
-        "@typescript-eslint/no-extra-semi": "error",
         "no-extra-semi": "off"
       }
     },
