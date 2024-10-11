@@ -98,7 +98,6 @@ const initialGridState: PrimeTableState = {
   imports: [CommonModule],
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
-// eslint-disable-next-line @typescript-eslint/ban-types
 export class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
   object,
   ODataTableMockFacade

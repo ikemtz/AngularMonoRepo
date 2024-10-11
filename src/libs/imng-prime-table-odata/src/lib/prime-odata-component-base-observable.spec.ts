@@ -187,7 +187,6 @@ const initialGridState: PrimeTableState = {
   selector: 'imng-test-component',
   template: '<h1></h1>',
 })
-// eslint-disable-next-line @typescript-eslint/ban-types
 class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
   object,
   ODataTableMockFacade

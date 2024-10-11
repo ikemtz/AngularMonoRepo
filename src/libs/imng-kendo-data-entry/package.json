@@ -11,6 +11,7 @@
     "@progress/kendo-angular-dialog": ">= 6",
     "imng-ngrx-utils": "*",
     "imng-nrsrx-client-utils": "*",
+    "openapi-ts-generator": ">= 7.284.4",
     "rxjs": "*"
   },
   "dependencies": {

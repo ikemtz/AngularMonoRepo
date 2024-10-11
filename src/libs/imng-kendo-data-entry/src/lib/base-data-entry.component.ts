@@ -15,6 +15,7 @@ import {
 } from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
+import { EnumProperties } from 'openapi-ts-generator/interfaces';
 
 const FACADE = new InjectionToken<IBaseDataEntryFacade>(
   'imng-data-entry-facade',
@@ -34,8 +35,10 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
  */
 @Component({ template: '' })
 export abstract class BaseDataEntryComponent<
-  FACADE extends IBaseDataEntryFacade,
-> implements OnInit, OnDestroy, Subscribable {
+    FACADE extends IBaseDataEntryFacade,
+  >
+  implements OnInit, OnDestroy, Subscribable
+{
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
 
@@ -44,8 +47,7 @@ export abstract class BaseDataEntryComponent<
   public submitButtonText = 'Submit';
   public readonly MinLengthError = 'minlength';
   public readonly RequiredError = 'required';
-  public readonly ENUM_DISPLAY_TEXT = 'displayText';
-  public readonly ENUM_NAME = 'name';
+  public readonly EnumProperties = EnumProperties;
   public allSubscriptions = new Subscriptions();
   public abstract dialogTitle: string;
   public abstract props: unknown;
@@ -79,7 +81,7 @@ export abstract class BaseDataEntryComponent<
 
   public onSubmit(): boolean {
     this.submitted$.next(true);
-
+    this.addEditForm.markAllAsTouched();
     // stop here if form is invalid
     if (!this.addEditForm.valid) {
       console.error('form validation errors.'); //NOSONAR

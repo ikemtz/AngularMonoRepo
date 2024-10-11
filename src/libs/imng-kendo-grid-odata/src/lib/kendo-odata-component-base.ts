@@ -71,7 +71,7 @@ export abstract class KendoODataBasedComponent<
             this.gridStateQueryKey
           ],
         );
-      } catch (e) {
+      } catch {
         console.error(
           //NOSONAR
           `Exception thrown while deserializing query string parameter: ${this.gridStateQueryKey}.`,
