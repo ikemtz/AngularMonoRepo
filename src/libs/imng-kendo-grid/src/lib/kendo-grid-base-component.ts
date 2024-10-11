@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { toLocalTimeStamp, getRelatedValue } from 'imng-nrsrx-client-utils';
+import { EnumProperties } from 'openapi-ts-generator/interfaces';
 
 @Component({ template: '' })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -8,8 +9,7 @@ export abstract class KendoGridBaseComponent<ENTITY>
   implements OnDestroy, Subscribable
 {
   public readonly allSubscriptions = new Subscriptions();
-  public readonly ENUM_DISPLAY_TEXT = 'displayText';
-  public readonly ENUM_NAME = 'name';
+  public readonly EnumProperties = EnumProperties;
   public readonly getRelatedValue = getRelatedValue;
 
   public getExportFileName(exportName: string): string {
