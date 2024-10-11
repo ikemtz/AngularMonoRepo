@@ -945,8 +945,8 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <imng-multi-select-filter
         [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
-        [textField]="ENUM_DISPLAY_TEXT"
-        [valueField]="ENUM_NAME"
+        [textField]="EnumProperties.DISPLAY_TEXT"
+        [valueField]="EnumProperties.NAME"
         [data]="orderStatusTypes"
         [field]="props.STATUS_TYPE"></imng-multi-select-filter>
     </ng-template>
@@ -1030,8 +1030,8 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <imng-multi-select-filter
         [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
-        [textField]="ENUM_DISPLAY_TEXT"
-        [valueField]="ENUM_NAME"
+        [textField]="EnumProperties.DISPLAY_TEXT"
+        [valueField]="EnumProperties.NAME"
         [data]="shippingTypes"
         [field]="props.SHIPPING_TYPE"></imng-multi-select-filter>
     </ng-template>
