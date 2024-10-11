@@ -2,10 +2,8 @@ import { Observable, of } from 'rxjs';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export class DataEntryMockFacade implements IDataEntryFacade<unknown> {
   public loading$: Observable<boolean> = of(false);
-  // eslint-disable-next-line @typescript-eslint/ban-types
   public currentEntity$: Observable<unknown> = of(null);
   public isEditActive$: Observable<boolean> = of(false);
   public isNewActive$: Observable<boolean> = of(false);

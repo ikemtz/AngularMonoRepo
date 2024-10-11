@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { of } from 'rxjs';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 import { EmployeeEditComponent } from './edit.component';
 import { EmployeeCrudFacade } from './crud.facade';

@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 
 import { EmployeeAddComponent } from './add.component';
 import { EmployeeCrudFacade } from './crud.facade';
