@@ -1,0 +1,47 @@
+import { on } from '@ngrx/store';
+import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+import { State } from './<%= dasherize(parentName) %>.feature';
+import { findAndModify } from 'imng-ngrx-utils';
+import { getODataPagerSettings } from 'imng-kendo-grid-odata';
+
+export const <%= camelize(singularizedName) %>Reducers = [
+    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request,
+      (state: State, { payload }): State =>
+      ({
+        ...state,
+        loading: true,
+        gridData: {
+          ...state.gridData,
+          data: findAndModify(
+            state.gridData.data,
+            payload.<%= camelize(parentName) %>Id,
+            (rec) => (rec.<%= camelize(singularizedName) %>ODataState = payload.odataState),
+          )
+        },
+      })),
+    on(<%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request,
+      (state: state): State =>
+      ({
+        ...state,
+        loading: true
+      })),
+    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success,
+      <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success,
+      (state: State, { payload }): State =>
+      ({
+        ...state,
+        loading: false,
+        gridData: {
+          ...state.gridData,
+          data: findAndModify(
+            state.gridData.data, 
+            payload.<%= camelize(parentName) %>Id, 
+            (rec) => {
+              rec.<%= camelize(singularizedName) %>OData = payload.odataResult;
+              rec.<%= camelize(singularizedName) %>PagerSettings = getODataPagerSettings({
+                gridData: payload.odataResult,
+                gridODataState: rec.<%= camelize(singularizedName) %>ODataState,
+            });
+          }),
+        },
+      }))];
