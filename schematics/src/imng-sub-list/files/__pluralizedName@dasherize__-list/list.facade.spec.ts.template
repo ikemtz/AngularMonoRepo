@@ -11,9 +11,9 @@ import { Observable, of } from 'rxjs';
 import * as <%= camelize(parentName) %>ActionTypes from '../+state/<%= dasherize(parentName) %>.actions';
 import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= dasherize(singularizedName) %>.actions';
 import { <%= classify(singularizedName) %>Effects } from '../+state/<%= dasherize(singularizedName) %>.effects';
-import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.feature';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
-import { <%= classify(parentName) %>Effects } from '../+state/<%= dasherize(parentName) %>.effects';
+import { <%= classify(parentName) %>ListEffects } from '../+state/<%= dasherize(parentName) %>-list.effects';
 import { environment } from '@env';
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {
@@ -29,7 +29,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects, <%= classify(singularizedName) %>Effects]),
+          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>Effects, <%= classify(singularizedName) %>ListEffects]),
         ],
         providers: [
           <%= classify(singularizedName) %>ListFacade,
@@ -67,7 +67,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
       list = await readFirst(facade.gridData$);
       const loading = await readFirst(facade.loading$);
-      expect(list.?data.length).toBe(1);
+      expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
 
       const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);

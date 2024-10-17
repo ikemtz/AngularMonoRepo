@@ -4,6 +4,7 @@ exports[`imng-sub-list generation works 1`] = `
 [
   "/test/+state/employee-certification.actions.ts",
   "/test/+state/employee-certification.effects.ts",
+  "/test/+state/employee-certification.reducers.ts",
   "/test/+state/employee-certification.selectors.ts",
   "/test/employee-certifications-list/api.service.ts",
   "/test/employee-certifications-list/index.ts",

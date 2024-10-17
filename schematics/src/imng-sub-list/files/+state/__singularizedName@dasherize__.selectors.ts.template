@@ -2,7 +2,7 @@ import { createSelector } from '@ngrx/store';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { createEmptyODataResult } from 'imng-kendo-odata';
 import { getById } from 'imng-ngrx-utils';
-import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedStoreName) %>.feature';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 const select<%= classify(pluralizedName) %> = (<%= camelize(parentName) %>Id: string) => createSelector(
   <%= camelize(pluralizedStoreName) %>Feature.selectGridData,
