@@ -345,3 +345,4 @@ src/documentation/**
 old-src
 schematics/eslint-report.json
 src/.nx
+refresh-local-branch.sh
