@@ -14,6 +14,7 @@ exports[`imng-sub-list generation works 1`] = `
   "/test/employee-certifications-list/list.component.ts",
   "/test/employee-certifications-list/list.facade.spec.ts",
   "/test/employee-certifications-list/list.facade.ts",
+  "/test/employee-certifications-list/list.grid-state.ts",
   "/test/models/ext-employee.ts",
 ]
 `;

@@ -1,3 +1,4 @@
 export { <%= classify(singularizedName) %>ListComponent } from './list.component';
 export { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 export { <%= classify(singularizedName) %>ApiService } from './api.service';
+export { <%= camelize(singularizedName) %>GridState } from './list.grid-state';
