@@ -8,6 +8,7 @@ import { <%= camelize(singularizedName) %>GridState } from './list.grid-state';
   selector: '<%= appPrefix %>-<%= dasherize(singularizedName) %>-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
+  providers: [<%= classify(singularizedName) %>ListFacade],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataBasedComponent<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
