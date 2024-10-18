@@ -313,6 +313,7 @@ import { salesAgentGridState } from './list.grid-state';
   selector: 'aw-sales-agent-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
+  providers: [SalesAgentListFacade],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SalesAgentListComponent extends KendoODataBasedComponent<ISalesAgent, SalesAgentListFacade> {
