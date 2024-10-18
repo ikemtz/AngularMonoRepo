@@ -34,11 +34,17 @@ describe('imng-sub-list', () => {
       `/test/employee-certifications-list/list.component.ts`
     );
     content = componentFile?.content.toString();
+
+    expect(content).toContain(`nrcrn-employee-certification-list`);
+
+    const stateFile = tree.get(
+      `/test/employee-certifications-list/list.grid-state.ts`
+    );
+    content = stateFile?.content.toString();
+
     expect(content).toContain(
       `EmployeeCertificationProperties.CERTIFICATION_ID,`
     );
-    expect(content).toContain(`nrcrn-employee-certification-list`);
-
     const facadeSpecFile = tree.get(
       `/test/employee-certifications-list/list.facade.spec.ts`
     );

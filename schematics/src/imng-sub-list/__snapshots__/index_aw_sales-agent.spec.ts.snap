@@ -307,19 +307,7 @@ exports[`imng-sub-list list component should work 1`] = `
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { SalesAgentListFacade } from './list.facade';
-
-const initialGridState: ODataState = {
-  take: 5,
-  skip: 0,
-  selectors: [
-    SalesAgentProperties.ID,
-    SalesAgentProperties.NAME,
-    SalesAgentProperties.LOGIN_ID,
-  ],
-  sort: [
-    { field: SalesAgentProperties.NAME, dir: 'asc' },
-  ],
-};
+import { salesAgentGridState } from './list.grid-state';
 
 @Component({
   selector: 'aw-sales-agent-list',
@@ -332,7 +320,7 @@ export class SalesAgentListComponent extends KendoODataBasedComponent<ISalesAgen
   public currentItem: ISalesAgent | undefined;
 
   constructor(facade: SalesAgentListFacade) {
-    super(facade, initialGridState);
+    super(facade, salesAgentGridState);
   }
 
   @Input()
@@ -514,5 +502,6 @@ exports[`imng-sub-list tree files should match 1`] = `
   "/test/sales-agents-list/list.component.ts",
   "/test/sales-agents-list/list.facade.spec.ts",
   "/test/sales-agents-list/list.facade.ts",
+  "/test/sales-agents-list/list.grid-state.ts",
 ]
 `;
