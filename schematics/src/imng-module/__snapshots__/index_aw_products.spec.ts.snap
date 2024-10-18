@@ -396,14 +396,14 @@ exports[`imng-module crud html template should work 1`] = `
 "<imng-data-entry-dialog id="dataEntryProducts" name="dataEntryProducts" [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#name">
   <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row needs-validation">
     <div class="col-md-6">
-      <label for="id" class="control-label">Id:</label>
+      <label for="id" class="control-label">Id: <span class="text-danger">*</span></label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Product id is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="name" class="control-label">Name:</label>
+      <label for="name" class="control-label">Name: <span class="text-danger">*</span></label>
       <input id="name" type="text" class="form-control" [formControlName]="props.NAME" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.NAME)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.NAME)?.[RequiredError]">Product name is required</div>
@@ -415,7 +415,7 @@ exports[`imng-module crud html template should work 1`] = `
       </div>
     </div>
     <div class="col-md-6">
-      <label for="num" class="control-label">Num:</label>
+      <label for="num" class="control-label">Num: <span class="text-danger">*</span></label>
       <input id="num" type="text" class="form-control" [formControlName]="props.NUM" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Product num is required</div>
@@ -438,14 +438,14 @@ exports[`imng-module crud html template should work 1`] = `
         </div>
       </div>
     <div class="col-md-6">
-      <label for="standard_cost" class="control-label">Standard Cost:</label>
+      <label for="standard_cost" class="control-label">Standard Cost: <span class="text-danger">*</span></label>
       <input id="standard_cost" type="number" class="form-control" [formControlName]="props.STANDARD_COST" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.STANDARD_COST)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.STANDARD_COST)?.[RequiredError]">Product standard cost is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="list_price" class="control-label">List Price:</label>
+      <label for="list_price" class="control-label">List Price: <span class="text-danger">*</span></label>
       <input id="list_price" type="number" class="form-control" [formControlName]="props.LIST_PRICE" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.LIST_PRICE)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.LIST_PRICE)?.[RequiredError]">Product list price is required</div>
@@ -468,7 +468,7 @@ exports[`imng-module crud html template should work 1`] = `
       <input id="product_model_id" type="text" class="form-control" [formControlName]="props.PRODUCT_MODEL_ID" />
     </div>
     <div class="col-md-6">
-      <label for="sell_start_date" class="control-label">Sell Start Date:</label>
+      <label for="sell_start_date" class="control-label">Sell Start Date: <span class="text-danger">*</span></label>
       <kendo-datepicker id="sell_start_date" class="form-control" [formControlName]="props.SELL_START_DATE">
       </kendo-datepicker>
       <div *ngIf="(submitted$ | async) && formControlErrors(props.SELL_START_DATE)" class="invalid-feedback d-block">

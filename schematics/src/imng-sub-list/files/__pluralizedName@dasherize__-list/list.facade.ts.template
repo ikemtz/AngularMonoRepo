@@ -7,7 +7,7 @@ import { applyFilter, ODataResult, ODataState } from 'imng-kendo-odata';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= dasherize(singularizedName) %>.actions';
-import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.reducer';
+import { <%= camelize(pluralizedStoreName) %>Feature } from '../+state/<%= dasherize(singularizedStoreName) %>.feature';
 import { <%= camelize(singularizedName) %>Selectors } from '../+state/<%= dasherize(singularizedName) %>.selectors';
 
 @Injectable()

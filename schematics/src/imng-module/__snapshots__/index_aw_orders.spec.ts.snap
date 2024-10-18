@@ -489,28 +489,28 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
 "<imng-data-entry-dialog id="dataEntryOrders" name="dataEntryOrders" [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#order_id">
   <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row needs-validation">
     <div class="col-md-6">
-      <label for="id" class="control-label">Id:</label>
+      <label for="id" class="control-label">Id: <span class="text-danger">*</span></label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Order id is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="order_id" class="control-label">Order Id:</label>
+      <label for="order_id" class="control-label">Order Id: <span class="text-danger">*</span></label>
       <input id="order_id" type="number" class="form-control" [formControlName]="props.ORDER_ID" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.ORDER_ID)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.ORDER_ID)?.[RequiredError]">Order order id is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="revision_num" class="control-label">Revision Num:</label>
+      <label for="revision_num" class="control-label">Revision Num: <span class="text-danger">*</span></label>
       <input id="revision_num" type="number" class="form-control" [formControlName]="props.REVISION_NUM" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.REVISION_NUM)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.REVISION_NUM)?.[RequiredError]">Order revision num is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="date" class="control-label">Date:</label>
+      <label for="date" class="control-label">Date: <span class="text-danger">*</span></label>
       <kendo-datepicker id="date" class="form-control" [formControlName]="props.DATE">
       </kendo-datepicker>
       <div *ngIf="(submitted$ | async) && formControlErrors(props.DATE)" class="invalid-feedback d-block">
@@ -518,7 +518,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class="col-md-6">
-      <label for="due_date" class="control-label">Due Date:</label>
+      <label for="due_date" class="control-label">Due Date: <span class="text-danger">*</span></label>
       <kendo-datepicker id="due_date" class="form-control" [formControlName]="props.DUE_DATE">
       </kendo-datepicker>
       <div *ngIf="(submitted$ | async) && formControlErrors(props.DUE_DATE)" class="invalid-feedback d-block">
@@ -530,7 +530,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       <kendo-datepicker id="ship_date" class="form-control" [formControlName]="props.SHIP_DATE"></kendo-datepicker>
     </div>
     <div class="col-md-6">
-      <label for="status_type" class="control-label">Status Type:</label>
+      <label for="status_type" class="control-label">Status Type: <span class="text-danger">*</span></label>
       <kendo-combobox
         id="status_type"
         placeholder="Select a status type..."
@@ -547,11 +547,11 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       </div>
     </div>
     <div class="col-md-6">
-      <label for="is_online_order" class="control-label me-4 mt-4">Is Online Order:</label>
+      <label for="is_online_order" class="control-label me-4 mt-4">Is Online Order: <span class="text-danger">*</span></label>
       <input id="is_online_order" type="checkbox" [formControlName]="props.IS_ONLINE_ORDER" />
     </div>
     <div class="col-md-6">
-      <label for="num" class="control-label">Num:</label>
+      <label for="num" class="control-label">Num: <span class="text-danger">*</span></label>
       <input id="num" type="text" class="form-control" [formControlName]="props.NUM" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Order num is required</div>
@@ -567,7 +567,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       <input id="purchase_order_num" type="text" class="form-control" [formControlName]="props.PURCHASE_ORDER_NUM" />
     </div>
     <div class="col-md-6">
-      <label for="customer_id" class="control-label">Customer Id:</label>
+      <label for="customer_id" class="control-label">Customer Id: <span class="text-danger">*</span></label>
       <input id="customer_id" type="text" class="form-control" [formControlName]="props.CUSTOMER_ID" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.CUSTOMER_ID)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.CUSTOMER_ID)?.[RequiredError]">Order customer id is required</div>
@@ -582,7 +582,7 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       <input id="bill_to_address_id" type="text" class="form-control" [formControlName]="props.BILL_TO_ADDRESS_ID" />
     </div>
     <div class="col-md-6">
-      <label for="shipping_type" class="control-label">Shipping Type:</label>
+      <label for="shipping_type" class="control-label">Shipping Type: <span class="text-danger">*</span></label>
       <kendo-combobox
         id="shipping_type"
         placeholder="Select a shipping type..."
@@ -603,28 +603,28 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
       <input id="credit_card_approval_code" type="text" class="form-control" [formControlName]="props.CREDIT_CARD_APPROVAL_CODE" />
     </div>
     <div class="col-md-6">
-      <label for="sub_total" class="control-label">Sub Total:</label>
+      <label for="sub_total" class="control-label">Sub Total: <span class="text-danger">*</span></label>
       <input id="sub_total" type="number" class="form-control" [formControlName]="props.SUB_TOTAL" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.SUB_TOTAL)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.SUB_TOTAL)?.[RequiredError]">Order sub total is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="tax_amt" class="control-label">Tax Amt:</label>
+      <label for="tax_amt" class="control-label">Tax Amt: <span class="text-danger">*</span></label>
       <input id="tax_amt" type="number" class="form-control" [formControlName]="props.TAX_AMT" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.TAX_AMT)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.TAX_AMT)?.[RequiredError]">Order tax amt is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="freight" class="control-label">Freight:</label>
+      <label for="freight" class="control-label">Freight: <span class="text-danger">*</span></label>
       <input id="freight" type="number" class="form-control" [formControlName]="props.FREIGHT" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.FREIGHT)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.FREIGHT)?.[RequiredError]">Order freight is required</div>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="total_due" class="control-label">Total Due:</label>
+      <label for="total_due" class="control-label">Total Due: <span class="text-danger">*</span></label>
       <input id="total_due" type="number" class="form-control" [formControlName]="props.TOTAL_DUE" />
       <div *ngIf="(submitted$ | async) && formControlErrors(props.TOTAL_DUE)" class="invalid-feedback d-block">
         <div *ngIf="formControlErrors(props.TOTAL_DUE)?.[RequiredError]">Order total due is required</div>
@@ -945,8 +945,8 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <imng-multi-select-filter
         [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
-        [textField]="ENUM_DISPLAY_TEXT"
-        [valueField]="ENUM_NAME"
+        [textField]="EnumProperties.DISPLAY_TEXT"
+        [valueField]="EnumProperties.NAME"
         [data]="orderStatusTypes"
         [field]="props.STATUS_TYPE"></imng-multi-select-filter>
     </ng-template>
@@ -1030,8 +1030,8 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
       <imng-multi-select-filter
         [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
-        [textField]="ENUM_DISPLAY_TEXT"
-        [valueField]="ENUM_NAME"
+        [textField]="EnumProperties.DISPLAY_TEXT"
+        [valueField]="EnumProperties.NAME"
         [data]="shippingTypes"
         [field]="props.SHIPPING_TYPE"></imng-multi-select-filter>
     </ng-template>

@@ -103,7 +103,7 @@ import { applyFilter, ODataResult, ODataState } from 'imng-kendo-odata';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 import * as salesAgentActionTypes from '../+state/sales-agent.actions';
-import { customersFeature } from '../+state/customer.reducer';
+import { customersFeature } from '../+state/customer.feature';
 import { salesAgentSelectors } from '../+state/sales-agent.selectors';
 
 @Injectable()
@@ -164,9 +164,9 @@ import { Observable, of } from 'rxjs';
 import * as customerActionTypes from '../+state/customer.actions';
 import * as salesAgentActionTypes from '../+state/sales-agent.actions';
 import { SalesAgentEffects } from '../+state/sales-agent.effects';
-import { customersFeature } from '../+state/customer.reducer';
+import { customersFeature } from '../+state/customer.feature';
 import { SalesAgentListFacade } from './list.facade';
-import { CustomerEffects } from '../+state/customer.effects';
+import { CustomerListEffects } from '../+state/customer-list.effects';
 import { environment } from '@env';
 
 describe('SalesAgentListFacade', () => {
@@ -182,7 +182,7 @@ describe('SalesAgentListFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(customersFeature),
-          EffectsModule.forFeature([CustomerEffects, SalesAgentEffects]),
+          EffectsModule.forFeature([CustomerEffects, SalesAgentListEffects]),
         ],
         providers: [
           SalesAgentListFacade,
@@ -220,7 +220,7 @@ describe('SalesAgentListFacade', () => {
 
       list = await readFirst(facade.gridData$);
       const loading = await readFirst(facade.loading$);
-      expect(list.?data.length).toBe(1);
+      expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
 
       const gridPagerSettings$ = await readFirst(facade.gridPagerSettings$);
@@ -408,7 +408,7 @@ exports[`imng-sub-list list html should work 1`] = `
 "<kendo-grid [height]="375" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="w-100 d-flex justify-content-between">
-      <h3>Sales Agents</h3>
+      <h4>Sales Agents</h4>
       <imng-kendo-odata-grid-header
         (reloadEntitiesClicked)="reloadEntities()"
         [hideClearFilters]="true"
@@ -465,7 +465,7 @@ exports[`imng-sub-list selectors should work 1`] = `
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { createEmptyODataResult } from 'imng-kendo-odata';
 import { getById } from 'imng-ngrx-utils';
-import { customersFeature } from './customer.reducer';
+import { customersFeature } from './customer.feature';
 
 const selectSalesAgents = (customerId: string) => createSelector(
   customersFeature.selectGridData,
@@ -503,6 +503,7 @@ exports[`imng-sub-list tree files should match 1`] = `
 [
   "/test/+state/sales-agent.actions.ts",
   "/test/+state/sales-agent.effects.ts",
+  "/test/+state/sales-agent.reducers.ts",
   "/test/+state/sales-agent.selectors.ts",
   "/test/models/ext-customer.ts",
   "/test/sales-agents-list/api.service.ts",
