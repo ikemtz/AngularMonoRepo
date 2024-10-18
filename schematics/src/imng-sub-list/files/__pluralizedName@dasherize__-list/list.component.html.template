@@ -1,7 +1,7 @@
 <kendo-grid [height]="375" kendoGridFocusable [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="w-100 d-flex justify-content-between">
-      <h3><%= startCasedPluralName %></h3>
+      <h4><%= startCasedPluralName %></h4>
       <imng-kendo-odata-grid-header
         (reloadEntitiesClicked)="reloadEntities()"
         [hideClearFilters]="true"
