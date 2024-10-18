@@ -33,6 +33,24 @@
     <ng-template kendoGridFilterMenuTemplate let-filter>
       <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
     </ng-template>
+<%} else if (swaggerProperty.enum) { %>
+  <kendo-grid-column
+    [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
+    [width]="100"
+    title="<%= swaggerProperty.startCaseName %>"
+    filter="<%= swaggerProperty.filterExpression %>">
+    <ng-template kendoGridFilterMenuTemplate let-column="column">
+      <imng-multi-select-filter
+        [isPrimitive]="false"
+        [odataState]="facade.gridODataState$ | async"
+        [textField]="EnumProperties.DISPLAY_TEXT"
+        [valueField]="EnumProperties.NAME"
+        [data]="<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>"
+        [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"></imng-multi-select-filter>
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getEnumText(<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>, dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]) }}
+    </ng-template>
 <%} else if (swaggerProperty.htmlInputType === 'object') { %>
   <kendo-grid-column
     [field]="getRelatedField(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.firstProperty?.snakeCaseName.toUpperCase() %>)"
