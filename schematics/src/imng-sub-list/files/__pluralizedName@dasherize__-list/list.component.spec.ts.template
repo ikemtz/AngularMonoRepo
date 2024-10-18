@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+import { StoreModule, Store } from '@ngrx/store';
 
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
@@ -15,7 +16,10 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [<%= classify(singularizedName) %>ListComponent],
-      imports: [],
+      imports: [
+        StoreModule.forRoot({})
+        StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
+      ],
       providers: [
         { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
       ],
