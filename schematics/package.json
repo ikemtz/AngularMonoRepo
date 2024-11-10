@@ -28,7 +28,7 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^18.2.8",
+    "@angular-devkit/core": "^18.2.9",
     "@angular-devkit/schematics": "^18.2.8",
     "axios": "^1.7.7",
     "lodash": "^4.17.21",
