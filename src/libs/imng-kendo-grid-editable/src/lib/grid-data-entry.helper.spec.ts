@@ -10,7 +10,7 @@ export const gridComponentMockFac = () =>
     closeRow: jest.fn(),
     addRow: jest.fn(),
     editRow: jest.fn(),
-  } as unknown as GridComponent);
+  }) as unknown as GridComponent;
 describe('GridDataEntryHelper<>', () => {
   it('should report invalid if gridData is empty ', async () => {
     const gridHelper = new GridDataEntryHelper(formGroupFac);
@@ -117,8 +117,8 @@ describe('GridDataEntryHelper<>', () => {
     });
     expect(gridHelper.gridFormGroup).toBeTruthy();
     expect(gridHelper.gridFormGroup?.value).toMatchSnapshot();
-    expect(gridComponentMock.editRow).toBeCalledTimes(1);
-    expect(gridComponentMock.closeRow).toBeCalledTimes(1);
+    expect(gridComponentMock.editRow).toHaveBeenCalledTimes(1);
+    expect(gridComponentMock.closeRow).toHaveBeenCalledTimes(1);
     expect(gridComponentMock.closeRow).toHaveBeenNthCalledWith(1, 4);
   });
 
@@ -137,8 +137,8 @@ describe('GridDataEntryHelper<>', () => {
       formGroup: formGroupFac(),
     });
     expect(gridHelper.gridFormGroup).toBeFalsy();
-    expect(gridComponentMock.editRow).toBeCalledTimes(0);
-    expect(gridComponentMock.closeRow).toBeCalledTimes(1);
+    expect(gridComponentMock.editRow).toHaveBeenCalledTimes(0);
+    expect(gridComponentMock.closeRow).toHaveBeenCalledTimes(1);
     expect(gridComponentMock.closeRow).toHaveBeenNthCalledWith(1, 4);
   });
 
@@ -156,8 +156,8 @@ describe('GridDataEntryHelper<>', () => {
       sender: gridComponentMock,
     });
     expect(gridHelper.gridFormGroup).toBeFalsy();
-    expect(gridComponentMock.editRow).toBeCalledTimes(0);
-    expect(gridComponentMock.closeRow).toBeCalledTimes(0);
+    expect(gridComponentMock.editRow).toHaveBeenCalledTimes(0);
+    expect(gridComponentMock.closeRow).toHaveBeenCalledTimes(0);
     expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
     expect(gridHelper.gridData.length).toBe(2);
   });
