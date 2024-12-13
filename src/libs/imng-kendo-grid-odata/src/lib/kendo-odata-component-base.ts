@@ -1,4 +1,4 @@
-import { Observable, isObservable, map } from 'rxjs';
+import { Observable, first, isObservable, map } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import {
   OnInit,
@@ -52,7 +52,15 @@ export abstract class KendoODataBasedComponent<
   public abstract readonly props: any; //NOSONAR
   protected expanders?: Expander[];
   protected transformations?: string;
-  protected initialFilter: CompositeFilterDescriptor | undefined;
+
+  /**
+   * The default filter descriptor is set by developer in the constructor initialization.
+   * This is used to reset the filter when the "Clear Filter" button is clicked.
+   *
+   * @public
+   * @type {CompositeFilterDescriptor | undefined}
+   */
+  public defaultFilter: CompositeFilterDescriptor | undefined;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
@@ -72,7 +80,6 @@ export abstract class KendoODataBasedComponent<
             this.gridStateQueryKey
           ],
         );
-        this.initialFilter = this.gridDataState.filter;
       } catch {
         console.error(
           //NOSONAR
@@ -86,8 +93,8 @@ export abstract class KendoODataBasedComponent<
           this.gridDataState = t;
           this.expanders = t.expanders;
           this.transformations = t.transformations;
-          this.initialFilter = t.filter;
         }),
+        state.pipe(first()).subscribe((t) => (this.defaultFilter = t.filter)),
       );
     } else {
       this.gridDataState = this.gridDataState
@@ -98,7 +105,7 @@ export abstract class KendoODataBasedComponent<
           }
         : state;
       this.expanders = state.expanders;
-      this.initialFilter = state.filter;
+      this.defaultFilter = state.filter;
       this.transformations = state.transformations;
     }
     if (gridRefresh$) {
@@ -151,7 +158,7 @@ export abstract class KendoODataBasedComponent<
   public resetFilters(): void {
     this.gridDataState = {
       ...this.gridDataState,
-      filter: this.initialFilter,
+      filter: this.defaultFilter,
     };
     if (!isObservable(this.state)) {
       this.gridDataState = {
