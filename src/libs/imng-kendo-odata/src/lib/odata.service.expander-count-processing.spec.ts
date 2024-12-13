@@ -25,7 +25,7 @@ describe('ODataService Expander Count Processing', () => {
       count: false,
     };
     await readFirst(service.fetch('//idunno.com', gridState));
-    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       `//idunno.com?&$expand=childTable1($count=true)`,
     );
@@ -38,7 +38,7 @@ describe('ODataService Expander Count Processing', () => {
       count: false,
     };
     await readFirst(service.fetch('//idunno.com', gridState));
-    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       `//idunno.com?&$expand=childTable1($select=a;$count=true)`,
     );
@@ -61,7 +61,7 @@ describe('ODataService Expander Count Processing', () => {
       count: false,
     };
     await readFirst(service.fetch('//idunno.com', gridState));
-    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       `//idunno.com?&$expand=childTable1($select=a;$filter=x eq 0;$count=true)`,
     );
@@ -90,7 +90,7 @@ describe('ODataService Expander Count Processing', () => {
       count: true,
     };
     await readFirst(service.fetch('//idunno.com', gridState));
-    expect(httpClient.get).toBeCalledTimes(1);
+    expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       `//idunno.com?&$expand=childTable1($expand=childTable2($select=b;$filter=y eq 0;$count=true);$count=true)&$count=true`,
     );

@@ -56,12 +56,12 @@ describe('PrimeODataBasedComponent Observable State', () => {
 
   it('should reload', async () => {
     component.reloadEntities();
-    expect(component.facade.reloadEntities).toBeCalledTimes(1);
+    expect(component.facade.reloadEntities).toHaveBeenCalledTimes(1);
   });
 
   it('should handle dataStateChange', async () => {
     component.dataStateChange({});
-    expect(component.facade.loadEntities).toBeCalledTimes(2);
+    expect(component.facade.loadEntities).toHaveBeenCalledTimes(2);
   });
 
   it('should handle getExportFileName', async () => {
@@ -85,19 +85,19 @@ describe('PrimeODataBasedComponent Observable State', () => {
 
   it('should handle getEnumText with matching result', () => {
     const data = [
-      { name: 'val1', displayText: 'value 1' },
-      { name: 'val2', displayText: 'value 2' },
+      { key: 1, name: 'val1', displayText: 'value 1' },
+      { key: 2, name: 'val2', displayText: 'value 2' },
     ];
-    const result = component.getEnumText(data, 'val1');
+    const result = component.getEnumDisplayText(data, 'val1');
     expect(result).toBe('value 1');
   });
 
   it('should handle getEnumText with no result', () => {
     const data = [
-      { name: 'val1', displayText: 'value 1' },
-      { name: 'val2', displayText: 'value 2' },
+      { key: 1, name: 'val1', displayText: 'value 1' },
+      { key: 2, name: 'val2', displayText: 'value 2' },
     ];
-    const result = component.getEnumText(data, 'val3');
+    const result = component.getEnumDisplayText(data, 'val3');
     expect(result).toBeUndefined();
   });
 
@@ -158,7 +158,7 @@ describe('PrimeODataBasedComponent Observable State', () => {
     };
     component.facade.loadEntities = jest.fn();
     component.loadEntities(primeTableState);
-    expect(component.facade.loadEntities).toBeCalledTimes(1);
+    expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({
       multiSortMeta: [
         { field: 'a', order: 1 },

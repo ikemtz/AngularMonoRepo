@@ -11,8 +11,9 @@ import {
   FilterDescriptor,
 } from '@progress/kendo-data-query';
 import { ODataState } from 'imng-kendo-odata';
+import { of } from 'rxjs';
 
-describe('KendoODataBasedComponent', () => {
+describe('KendoODataObservableBasedComponent', () => {
   let component: KendoODataGridTestComponent;
   let fixture: ComponentFixture<KendoODataGridTestComponent>;
 
@@ -150,6 +151,6 @@ export class KendoODataGridTestComponent extends KendoODataBasedComponent<
 > {
   props = {};
   constructor() {
-    super(createODataGridMockFacade(), initialGridState);
+    super(createODataGridMockFacade(), of(initialGridState));
   }
 }
