@@ -52,7 +52,7 @@ export abstract class KendoODataBasedComponent<
   public abstract readonly props: any; //NOSONAR
   protected expanders?: Expander[];
   protected transformations?: string;
-  protected initialFilter: CompositeFilterDescriptor;
+  protected initialFilter: CompositeFilterDescriptor | undefined;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,

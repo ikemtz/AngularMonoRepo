@@ -12,7 +12,7 @@ import { PrimeTableState } from './models/prime-table-state';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
-import { IEnumValue } from 'openapi-ts-generator/enums';
+import { IEnumValue, getEnumKey } from 'openapi-ts-generator/enums';
 
 describe('ImngPrimeODataTableDirective', () => {
   let tableComponent: Table;
@@ -141,8 +141,6 @@ describe('ImngPrimeODataTableDirective', () => {
       { key: 1, name: 'value1', displayText: 'Value 1' },
       { key: 2, name: 'value2', displayText: 'Value 2' },
     ];
-    expect(directive.odataTableComponent.getEnumKey(enums, 'value1')).toEqual(
-      1,
-    );
+    expect(getEnumKey(enums, 'value1')).toEqual(1);
   });
 });
