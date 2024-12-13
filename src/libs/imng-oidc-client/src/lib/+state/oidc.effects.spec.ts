@@ -104,7 +104,7 @@ describe('Oidc Effects', () => {
       actions = of(OidcActions.signOutPopup({}));
       (window as any).open = jest.fn();
       const result = await readFirst(effects.signOutPopup$);
-      expect(window.open).toBeCalledTimes(1);
+      expect(window.open).toHaveBeenCalledTimes(1);
       expect(result).toMatchSnapshot();
     });
 

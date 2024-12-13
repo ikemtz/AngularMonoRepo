@@ -70,7 +70,7 @@ describe('ImngODataGridDirective', () => {
       filterable: gridComponent.filterable,
     }).toMatchSnapshot();
     expect(directive).toBeTruthy();
-    expect(odataComponent.dataStateChange).toBeCalledTimes(0);
+    expect(odataComponent.dataStateChange).toHaveBeenCalledTimes(0);
     const allSubscriptions = (directive as unknown as { allSubscriptions: [] })
       .allSubscriptions;
     expect(allSubscriptions.length).toBe(5);

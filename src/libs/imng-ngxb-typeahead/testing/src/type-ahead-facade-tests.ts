@@ -11,7 +11,7 @@ export function testLoadMatches<TFacade extends ImngTypeAheadFacade<unknown>>(
 ): void {
   const getSpy = jest.spyOn(httpClient, 'get');
   facade.loadMatches('🎂 🍩 😡');
-  expect(getSpy).toBeCalledTimes(1);
+  expect(getSpy).toHaveBeenCalledTimes(1);
 }
 
 export async function testOdataMatches<
@@ -22,7 +22,7 @@ export async function testOdataMatches<
   ) as never;
 
   facade.loadMatches('🎂 🍩 😡');
-  expect(oDataService.fetch).toBeCalledTimes(1);
+  expect(oDataService.fetch).toHaveBeenCalledTimes(1);
   const matches = await readFirst(facade.matches$);
   expect(matches?.length).toEqual(1);
 }

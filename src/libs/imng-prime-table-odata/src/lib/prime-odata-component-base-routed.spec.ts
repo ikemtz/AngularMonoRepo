@@ -48,7 +48,7 @@ describe('PrimeODataBasedComponentRouted', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(router.navigate).toBeCalledTimes(1);
+    expect(router.navigate).toHaveBeenCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
         tableState: 'e30=',
@@ -75,7 +75,7 @@ describe('PrimeODataBasedComponentRouted', () => {
     };
     component.resetFilters();
     expect(component.tableState).toMatchSnapshot();
-    expect(router.navigate).toBeCalledTimes(1);
+    expect(router.navigate).toHaveBeenCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
         tableState: 'e30=',
