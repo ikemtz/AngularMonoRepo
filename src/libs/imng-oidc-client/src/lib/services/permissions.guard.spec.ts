@@ -43,7 +43,7 @@ describe('PermissionsGuard', () => {
       guard.canActivate(null as never, null as never) as Observable<boolean>,
     );
     expect(result).toBe(false);
-    expect(router.navigate).toBeCalledTimes(1);
+    expect(router.navigate).toHaveBeenCalledTimes(1);
     expect(router.navigate).toHaveBeenCalledWith(['oidc/access-denied'], {
       relativeTo: '🌳🌳🌳',
     });

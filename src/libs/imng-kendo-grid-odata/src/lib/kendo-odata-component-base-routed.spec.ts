@@ -49,7 +49,7 @@ describe('KendoODataBasedComponentRouted', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(router.navigate).toBeCalledTimes(1);
+    expect(router.navigate).toHaveBeenCalledTimes(1);
     expect(router.navigate).toHaveBeenNthCalledWith(1, [], {
       queryParams: {
         odataState:
@@ -83,7 +83,7 @@ describe('KendoODataBasedComponentRouted', () => {
     };
     component.resetFilters();
     expect(component.gridDataState).toMatchSnapshot();
-    expect(router.navigate).toBeCalledTimes(2);
+    expect(router.navigate).toHaveBeenCalledTimes(2);
     expect(router.navigate).toHaveBeenNthCalledWith(2, [], {
       queryParams: {
         odataState:
@@ -105,10 +105,9 @@ const initialGridState: ODataState = {
   selector: 'imng-test-component',
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
-
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
-object,
-ODataGridMockFacade
+  object,
+  ODataGridMockFacade
 > {
   props = {};
   constructor(override readonly router: Router) {
