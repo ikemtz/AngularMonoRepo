@@ -25,7 +25,7 @@ import {
 } from 'imng-nrsrx-client-utils';
 import { PrimeTableState } from './models/prime-table-state';
 import { SortMeta } from 'primeng/api';
-import { EnumProperties, IEnumValue } from 'openapi-ts-generator/interfaces';
+import { EnumProperties } from 'openapi-ts-generator/enums';
 
 const FACADE = new InjectionToken<
   IPrimeODataTableFacade<{ id?: IdType | null }>

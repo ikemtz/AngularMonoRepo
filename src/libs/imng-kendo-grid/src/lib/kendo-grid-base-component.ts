@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { toLocalTimeStamp, getRelatedValue } from 'imng-nrsrx-client-utils';
-import { EnumProperties, IEnumValue } from 'openapi-ts-generator/interfaces';
+import { EnumProperties, IEnumValue } from 'openapi-ts-generator/enums';
 
 @Component({ template: '' })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

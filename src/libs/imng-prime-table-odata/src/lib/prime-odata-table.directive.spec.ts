@@ -12,7 +12,7 @@ import { PrimeTableState } from './models/prime-table-state';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
-import { IEnumValue } from 'openapi-ts-generator/interfaces';
+import { IEnumValue } from 'openapi-ts-generator/enums';
 
 describe('ImngPrimeODataTableDirective', () => {
   let tableComponent: Table;
