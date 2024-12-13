@@ -19,5 +19,5 @@ export async function testLoadSeriesData<TFacade extends IChartODataFacade>(
   facade.loadSeriesData({});
   seriesData = await readFirst(facade.seriesData$);
   expect(seriesData).toBeTruthy();
-  expect(odataService.fetch).toBeCalledTimes(1);
+  expect(odataService.fetch).toHaveBeenCalledTimes(1);
 }

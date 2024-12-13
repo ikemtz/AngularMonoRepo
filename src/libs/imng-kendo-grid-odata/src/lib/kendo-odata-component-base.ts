@@ -52,6 +52,7 @@ export abstract class KendoODataBasedComponent<
   public abstract readonly props: any; //NOSONAR
   protected expanders?: Expander[];
   protected transformations?: string;
+  protected initialFilter: CompositeFilterDescriptor;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,
@@ -71,6 +72,7 @@ export abstract class KendoODataBasedComponent<
             this.gridStateQueryKey
           ],
         );
+        this.initialFilter = this.gridDataState.filter;
       } catch {
         console.error(
           //NOSONAR
@@ -84,6 +86,7 @@ export abstract class KendoODataBasedComponent<
           this.gridDataState = t;
           this.expanders = t.expanders;
           this.transformations = t.transformations;
+          this.initialFilter = t.filter;
         }),
       );
     } else {
@@ -95,6 +98,7 @@ export abstract class KendoODataBasedComponent<
           }
         : state;
       this.expanders = state.expanders;
+      this.initialFilter = state.filter;
       this.transformations = state.transformations;
     }
     if (gridRefresh$) {
@@ -145,15 +149,18 @@ export abstract class KendoODataBasedComponent<
    * Will reset filters to initialGrid state passed into the constructor
    */
   public resetFilters(): void {
+    this.gridDataState = {
+      ...this.gridDataState,
+      filter: this.initialFilter,
+    };
     if (!isObservable(this.state)) {
       this.gridDataState = {
         ...this.gridDataState,
-        filter: this.state.filter,
         inFilters: this.state.inFilters,
         childFilters: this.state.childFilters,
       };
-      this.loadEntities(this.gridDataState);
     }
+    this.loadEntities(this.gridDataState);
   }
 
   public dataStateChange(state: GridStateChangeEvent | ODataState): void {

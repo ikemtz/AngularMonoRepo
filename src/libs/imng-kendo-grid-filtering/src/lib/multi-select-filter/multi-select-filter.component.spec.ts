@@ -65,13 +65,13 @@ describe('CheckboxFilterComponent', () => {
     };
     const spy = jest.spyOn(component.changeDetectorRef, 'markForCheck');
     component.onFocus(ul as never);
-    expect(spy).toBeCalledTimes(1);
+    expect(spy).toHaveBeenCalledTimes(1);
     expect(ul.parentNode.scrollTop).toBe(3);
   });
   it('onSelectionChange should work', () => {
     component.onSelectionChange('🎂', { parentNode: {} } as never);
     expect(component.value).toStrictEqual(['💩', '🎂']);
-    expect(filterService.filter).toBeCalledTimes(1);
+    expect(filterService.filter).toHaveBeenCalledTimes(1);
     expect(filterService.filter).toHaveBeenCalledWith({
       filters: [
         {
@@ -88,7 +88,7 @@ describe('CheckboxFilterComponent', () => {
   it('onSelectionChange should clear filter', () => {
     component.onSelectionChange('💩', { parentNode: {} } as never);
     expect(component.value).toStrictEqual([]);
-    expect(filterService.filter).toBeCalledTimes(1);
+    expect(filterService.filter).toHaveBeenCalledTimes(1);
     expect(filterService.filter).toHaveBeenCalledWith({
       filters: [],
       logic: 'and',

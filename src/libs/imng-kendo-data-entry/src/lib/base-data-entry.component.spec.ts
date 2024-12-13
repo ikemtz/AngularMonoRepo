@@ -33,13 +33,13 @@ describe('MockBaseComponent', () => {
 
   it('handle onSubmit', () => {
     component.onSubmit();
-    expect(component.save).toBeCalledTimes(1);
+    expect(component.save).toHaveBeenCalledTimes(1);
   });
 
   it('handle onCancel', () => {
     facade.clearCurrentEntity = jest.fn();
     component.onCancel();
-    expect(facade.clearCurrentEntity).toBeCalledTimes(1);
+    expect(facade.clearCurrentEntity).toHaveBeenCalledTimes(1);
   });
 
   it('handle formControl get', () => {
@@ -73,7 +73,9 @@ describe('MockBaseComponent', () => {
     expect(component.getFormErrors()).toStrictEqual([]);
     expect(component.isDataInvalid()).toBe(false);
 
-    component.addEditForm?.patchValue({ subItemForm: { id: '😎', minLenVal: null } });
+    component.addEditForm?.patchValue({
+      subItemForm: { id: '😎', minLenVal: null },
+    });
     component.onSubmit();
     const result = component.formMinLengthError('minLenVal');
     expect(result).toMatchSnapshot();
@@ -95,8 +97,8 @@ export interface IItemForm extends ISubItemForm {
 }
 export class MockBaseComponent
   extends BaseDataEntryComponent<MockFacade>
-  implements Subscribable {
-
+  implements Subscribable
+{
   public addEditForm: FormGroup<IItemForm> = this.formGroupFac();
   dialogTitle = '';
   props = {};
@@ -108,16 +110,27 @@ export class MockBaseComponent
   public subItemFormGroupFac() {
     return new FormGroup<ISubItemForm>({
       id: new FormControl<string>(''),
-      minLenVal: new FormControl<string>('asbasdkfjalksjdflkjasdflkjadslfkjads',
-        { validators: Validators.compose([Validators.required, Validators.minLength(20)]), nonNullable: true }),
+      minLenVal: new FormControl<string>(
+        'asbasdkfjalksjdflkjasdflkjadslfkjads',
+        {
+          validators: Validators.compose([
+            Validators.required,
+            Validators.minLength(20),
+          ]),
+          nonNullable: true,
+        },
+      ),
     });
   }
   public formGroupFac() {
     return new FormGroup<IItemForm>({
       id: new FormControl<string>(''),
-      minLenVal: new FormControl<string>('asbasdkfjalksjdflkjasdflkjadslfkjads', Validators.minLength(20)),
+      minLenVal: new FormControl<string>(
+        'asbasdkfjalksjdflkjasdflkjadslfkjads',
+        Validators.minLength(20),
+      ),
       subItemForm: this.subItemFormGroupFac(),
-      subItemForms: new FormArray([this.subItemFormGroupFac()])
+      subItemForms: new FormArray([this.subItemFormGroupFac()]),
     });
   }
 }
