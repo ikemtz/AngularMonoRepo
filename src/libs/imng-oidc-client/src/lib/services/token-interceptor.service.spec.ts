@@ -40,11 +40,11 @@ describe('TokenInterceptorService', () => {
       handle: jest.fn(() => of('😎')),
     };
     const result = await readFirst(
-      tokenInterceptorService.intercept(req, next)
+      tokenInterceptorService.intercept(req, next),
     );
     expect(result).toBe('😎');
-    expect(next.handle).toBeCalledTimes(1);
-    expect(store.dispatch).toBeCalledTimes(0);
+    expect(next.handle).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledTimes(0);
   });
 
   it('should support exceptionHandling = true', async () => {
@@ -55,7 +55,7 @@ describe('TokenInterceptorService', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const next: any = {
       handle: jest.fn(() =>
-        throwError(new HttpErrorResponse({ error: 'Validation' }))
+        throwError(new HttpErrorResponse({ error: 'Validation' })),
       ),
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,8 +65,8 @@ describe('TokenInterceptorService', () => {
     } catch (err) {
       expect(result).toStrictEqual({});
       expect(err).toMatchSnapshot();
-      expect(next.handle).toBeCalledTimes(1);
-      expect(store.dispatch).toBeCalledTimes(1);
+      expect(next.handle).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
       return;
     }
     throwError('The anticipated exception was not thrown');

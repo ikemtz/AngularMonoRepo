@@ -56,12 +56,12 @@ describe('PrimeODataBasedComponent Observable State', () => {
 
   it('should reload', async () => {
     component.reloadEntities();
-    expect(component.facade.reloadEntities).toBeCalledTimes(1);
+    expect(component.facade.reloadEntities).toHaveBeenCalledTimes(1);
   });
 
   it('should handle dataStateChange', async () => {
     component.dataStateChange({});
-    expect(component.facade.loadEntities).toBeCalledTimes(2);
+    expect(component.facade.loadEntities).toHaveBeenCalledTimes(2);
   });
 
   it('should handle getExportFileName', async () => {
@@ -158,7 +158,7 @@ describe('PrimeODataBasedComponent Observable State', () => {
     };
     component.facade.loadEntities = jest.fn();
     component.loadEntities(primeTableState);
-    expect(component.facade.loadEntities).toBeCalledTimes(1);
+    expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({
       multiSortMeta: [
         { field: 'a', order: 1 },

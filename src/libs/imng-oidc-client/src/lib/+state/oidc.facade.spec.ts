@@ -126,7 +126,7 @@ describe('OidcFacade', () => {
       expect(
         await readFirst(oidcUserFacade.hasPermissions(['requiredPermission'])),
       ).toBe(false);
-      expect(getUserMock).toBeCalledTimes(1);
+      expect(getUserMock).toHaveBeenCalledTimes(1);
     });
 
     it('should getOidcUser and removeOidcUser', async () => {
@@ -166,12 +166,12 @@ describe('OidcFacade', () => {
       expect(
         await readFirst(oidcUserFacade.hasPermissions(['requiredPermission'])),
       ).toBe(false);
-      expect(getUserMock).toBeCalledTimes(1);
+      expect(getUserMock).toHaveBeenCalledTimes(1);
 
       facade.removeOidcUser();
       const removeResult = await readFirst(facade.identity$);
       expect(removeResult).toBeUndefined();
-      expect(removeUserMock).toBeCalledTimes(1);
+      expect(removeUserMock).toHaveBeenCalledTimes(1);
     });
 
     it('should addUserLoaded and addUserSignedOut', async () => {
@@ -199,7 +199,7 @@ describe('OidcFacade', () => {
       facade.addUserSignedOut();
       const removeResult = await readFirst(facade.identity$);
       expect(removeResult).toBeUndefined();
-      expect(removeUserMock).toBeCalledTimes(1);
+      expect(removeUserMock).toHaveBeenCalledTimes(1);
     });
 
     it('should handle accessTokenExpired', async () => {
@@ -218,7 +218,7 @@ describe('OidcFacade', () => {
       const result = await readFirst(facade.identity$);
       expect(result).toBeUndefined();
       expect(await readFirst(facade.expired$)).toBe(true);
-      expect(window.location.reload).toBeCalledTimes(0);
+      expect(window.location.reload).toHaveBeenCalledTimes(0);
     });
 
     it('should handle accessTokenExpiring', async () => {
@@ -273,7 +273,7 @@ describe('OidcFacade', () => {
       const mockSigninRedirect = jest.fn(() => of());
       service.OidcUserManager.signinRedirect = mockSigninRedirect as never;
       facade.signinRedirect({ redirect_uri: '🐱🐱🐱' });
-      expect(mockSigninRedirect).toBeCalledTimes(1);
+      expect(mockSigninRedirect).toHaveBeenCalledTimes(1);
       expect(mockSigninRedirect).toHaveBeenCalledWith({
         redirect_uri: '🐱🐱🐱',
       });
@@ -283,7 +283,7 @@ describe('OidcFacade', () => {
       const mockSigninSilent = jest.fn(() => of());
       service.OidcUserManager.signinSilent = mockSigninSilent as never;
       facade.signinSilent({ redirect_uri: '🐱🐱🐱' });
-      expect(mockSigninSilent).toBeCalledTimes(1);
+      expect(mockSigninSilent).toHaveBeenCalledTimes(1);
       expect(mockSigninSilent).toHaveBeenCalledWith({ redirect_uri: '🐱🐱🐱' });
     });
 

@@ -33,7 +33,7 @@ describe('ImngGridChildColumnTemplateComponent', () => {
   it('moreClicked should emit', async () => {
     component.showMoreClicked.emit = jest.fn();
     component.moreClicked();
-    expect(component.showMoreClicked.emit).toBeCalledTimes(1);
+    expect(component.showMoreClicked.emit).toHaveBeenCalledTimes(1);
     expect(component.showMoreClicked.emit).toHaveBeenCalledWith();
   });
 });

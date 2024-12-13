@@ -51,9 +51,9 @@ describe('KendoArrayBaseComponent', () => {
       sort: [{ field: 'id', dir: 'desc' }],
     });
     expect(
-      (component as unknown as { _gridData: [] })._gridData
+      (component as unknown as { _gridData: [] })._gridData,
     ).toMatchSnapshot();
-    expect(dataStateChangeSpy).toBeCalledTimes(1);
+    expect(dataStateChangeSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should handle pageChange', () => {
@@ -63,10 +63,10 @@ describe('KendoArrayBaseComponent', () => {
     component.pageChange({ take: 2, skip: 4 });
     expect(component.state).toStrictEqual({});
     expect(
-      (component as unknown as { _gridData: [] })._gridData
+      (component as unknown as { _gridData: [] })._gridData,
     ).toMatchSnapshot();
-    expect(pageChangeSpy).toBeCalledTimes(1);
-    expect(dataStateChangeSpy).toBeCalledTimes(0);
+    expect(pageChangeSpy).toHaveBeenCalledTimes(1);
+    expect(dataStateChangeSpy).toHaveBeenCalledTimes(0);
   });
 
   it('should handle filterChange', () => {
@@ -82,7 +82,7 @@ describe('KendoArrayBaseComponent', () => {
     component.sortChange([{ field: 'id', dir: 'asc' }]);
     expect(component.state).toStrictEqual({});
     expect(
-      (component as unknown as { _gridData: never })._gridData
+      (component as unknown as { _gridData: never })._gridData,
     ).toMatchSnapshot();
   });
 

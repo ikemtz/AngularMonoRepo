@@ -52,7 +52,7 @@ describe('KendoODataBasedComponent', () => {
 
   it('should reload', async () => {
     component.reloadEntities();
-    expect(component.facade.reloadEntities).toBeCalledTimes(1);
+    expect(component.facade.reloadEntities).toHaveBeenCalledTimes(1);
   });
 
   it('should serialize/deserialize odataState filters correctly', () => {
@@ -83,7 +83,7 @@ describe('KendoODataBasedComponent', () => {
     };
     component.facade.loadEntities = jest.fn();
     component.loadEntities(odataState);
-    expect(component.facade.loadEntities).toBeCalledTimes(1);
+    expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({
       sort: [
         { field: 'a', dir: 'asc' },
@@ -97,7 +97,7 @@ describe('KendoODataBasedComponent', () => {
 
   it('should handle dataStateChange', async () => {
     component.dataStateChange({});
-    expect(component.facade.loadEntities).toBeCalledTimes(2);
+    expect(component.facade.loadEntities).toHaveBeenCalledTimes(2);
   });
 
   it('should serialize/deserialize odataState correctly', () => {
@@ -144,7 +144,6 @@ const initialGridState: ODataState = {
   selector: 'imng-test-component',
   template: '<h1></h1>',
 })
-
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,
   ODataGridMockFacade
