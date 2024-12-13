@@ -53,7 +53,7 @@ describe('DataEntryDialogComponent', () => {
     comp.allSubscriptions.push(comp.submitted$.subscribe());
     comp.closeForm = jest.fn();
     comp.onCancel();
-    expect(comp.closeForm).toBeCalledTimes(1);
+    expect(comp.closeForm).toHaveBeenCalledTimes(1);
   });
 
   it('should handle submit()', () => {
@@ -109,17 +109,17 @@ describe('DataEntryDialog', () => {
 
   it('should close', () => {
     component.close();
-    expect(parentComponent.closeForm).toBeCalledTimes(1);
+    expect(parentComponent.closeForm).toHaveBeenCalledTimes(1);
   });
 
   it('should cancel', () => {
     component.cancel();
-    expect(parentComponent.onCancel).toBeCalledTimes(1);
+    expect(parentComponent.onCancel).toHaveBeenCalledTimes(1);
   });
 
   it('should submit', () => {
     component.submit();
-    expect(parentComponent.onSubmit).toBeCalledTimes(1);
+    expect(parentComponent.onSubmit).toHaveBeenCalledTimes(1);
   });
 
   it('should handle null parent', (done) => {
