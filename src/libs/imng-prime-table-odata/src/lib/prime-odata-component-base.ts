@@ -25,7 +25,11 @@ import {
 } from 'imng-nrsrx-client-utils';
 import { PrimeTableState } from './models/prime-table-state';
 import { SortMeta } from 'primeng/api';
-import { EnumProperties } from 'openapi-ts-generator/enums';
+import {
+  EnumProperties,
+  getEnum,
+  getEnumDisplayText,
+} from 'openapi-ts-generator/enums';
 
 const FACADE = new InjectionToken<
   IPrimeODataTableFacade<{ id?: IdType | null }>
@@ -42,6 +46,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
   public readonly allSubscriptions = new Subscriptions();
   public readonly ENUM_DISPLAY_TEXT = EnumProperties.DISPLAY_TEXT;
   public readonly ENUM_NAME = EnumProperties.NAME;
+  public readonly getEnumDisplayText = getEnumDisplayText;
   /**
    * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
    */

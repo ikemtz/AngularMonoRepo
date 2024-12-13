@@ -85,19 +85,19 @@ describe('PrimeODataBasedComponent Observable State', () => {
 
   it('should handle getEnumText with matching result', () => {
     const data = [
-      { name: 'val1', displayText: 'value 1' },
-      { name: 'val2', displayText: 'value 2' },
+      { key: 1, name: 'val1', displayText: 'value 1' },
+      { key: 2, name: 'val2', displayText: 'value 2' },
     ];
-    const result = component.getEnumText(data, 'val1');
+    const result = component.getEnumDisplayText(data, 'val1');
     expect(result).toBe('value 1');
   });
 
   it('should handle getEnumText with no result', () => {
     const data = [
-      { name: 'val1', displayText: 'value 1' },
-      { name: 'val2', displayText: 'value 2' },
+      { key: 1, name: 'val1', displayText: 'value 1' },
+      { key: 2, name: 'val2', displayText: 'value 2' },
     ];
-    const result = component.getEnumText(data, 'val3');
+    const result = component.getEnumDisplayText(data, 'val3');
     expect(result).toBeUndefined();
   });
 
