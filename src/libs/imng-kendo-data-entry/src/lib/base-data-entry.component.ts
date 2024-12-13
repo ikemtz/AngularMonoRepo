@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { IBaseDataEntryFacade } from './data-entry-facade';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
-import { EnumProperties } from 'openapi-ts-generator/interfaces';
+import { EnumProperties } from 'openapi-ts-generator/enums';
 
 const FACADE = new InjectionToken<IBaseDataEntryFacade>(
   'imng-data-entry-facade',

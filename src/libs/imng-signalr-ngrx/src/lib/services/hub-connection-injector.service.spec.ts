@@ -47,14 +47,14 @@ describe('HubConnectionInjectorService', () => {
 
   it('should handle onClose', () => {
     service.onClose();
-    expect(store.dispatch).toBeCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).toHaveBeenCalledWith({
       type: '[SignalR] Init Connection',
     });
   });
   it('should handle onMessageReceived', () => {
     service.onMessageReceived('x', { id: '😉👼' });
-    expect(store.dispatch).toBeCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
         data: {
