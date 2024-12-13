@@ -10,9 +10,9 @@ describe('ImngTypeaheadDirective', () => {
       null as never,
       null as never,
       null as never,
-      null as never
+      null as never,
     );
     expect(directive).toBeTruthy();
-    expect(provideMock).toBeCalledTimes(1);
+    expect(provideMock).toHaveBeenCalledTimes(1);
   });
 });

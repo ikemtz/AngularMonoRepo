@@ -43,7 +43,7 @@
       "",
       "      expect(list.data.length).toBe(3);",
       "      expect(isloading).toBe(false);",
-      "      expect(service.fetch).toBeCalledTimes(1);",
+      "      expect(service.fetch).toHaveBeenCalledTimes(1);",
       "    });"
     ],
     "description": "Create unit for facade reload Entities"
@@ -128,7 +128,7 @@
       "      const getSpy = jest.spyOn(httpClient, \"get\");",
       "      facade.loadMatches('🎂 🍩 😡');",
       "      expect(getSpy).toHaveBeenCalledWith(\"${4:ODataUrl}?\\$filter=(contains(name,'%F0%9F%8E%82') or contains(name,'%F0%9F%8D%A9') or contains(name,'%F0%9F%98%A1'))&\\$top=10&\\$select=id,name\");",
-      "      expect(getSpy).toBeCalledTimes(1);",
+      "      expect(getSpy).toHaveBeenCalledTimes(1);",
       "    });",
       "",
       "    it('load${3:EntityName_Pascal}s() should execute odata fetch', async () => {",
@@ -149,7 +149,7 @@
       "        selectors: ['id', ${3:EntityName}Properties.NAME],",
       "        take: 10,",
       "      });",
-      "      expect(oDataService.fetch).toBeCalledTimes(1);",
+      "      expect(oDataService.fetch).toHaveBeenCalledTimes(1);",
       "      const matches = await readFirst(facade.matches$);",
       "      expect(matches).toEqual([{ header: false, item: { id: '👼', [${3:EntityName}Properties.NAME]: '👿🕺' }, value: '👿🕺' }]);",
       "      }",
