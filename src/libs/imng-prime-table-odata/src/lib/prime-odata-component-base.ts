@@ -25,6 +25,11 @@ import {
 } from 'imng-nrsrx-client-utils';
 import { PrimeTableState } from './models/prime-table-state';
 import { SortMeta } from 'primeng/api';
+import {
+  EnumProperties,
+  getEnum,
+  getEnumDisplayText,
+} from 'openapi-ts-generator/enums';
 
 const FACADE = new InjectionToken<
   IPrimeODataTableFacade<{ id?: IdType | null }>
@@ -33,13 +38,15 @@ const STATE = new InjectionToken<PrimeTableState>('imng-prime-table-state');
 
 @Component({ template: '' })
 export abstract class ImngPrimeODataTableBaseComponent<
-  ENTITY extends { id?: IdType | null | undefined },
-  FACADE extends IPrimeODataTableFacade<ENTITY>,
-> implements OnInit, OnDestroy, Subscribable
+    ENTITY extends { id?: IdType | null | undefined },
+    FACADE extends IPrimeODataTableFacade<ENTITY>,
+  >
+  implements OnInit, OnDestroy, Subscribable
 {
   public readonly allSubscriptions = new Subscriptions();
-  public readonly ENUM_DISPLAY_TEXT = 'displayText';
-  public readonly ENUM_NAME = 'name';
+  public readonly ENUM_DISPLAY_TEXT = EnumProperties.DISPLAY_TEXT;
+  public readonly ENUM_NAME = EnumProperties.NAME;
+  public readonly getEnumDisplayText = getEnumDisplayText;
   /**
    * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
    */
@@ -85,6 +92,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
         console.error(
           //NOSONAR
           `Exception thrown while deserializing query string parameter: ${this.tableStateQueryKey}.`,
+          e,
         );
       }
     }
@@ -119,9 +127,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
       this.loadEntities(this.tableState);
     }
     this.activeEffectCount$ = this.facade.activeEffectCount$;
-    this.tableData$ = this.facade.tableData$?.pipe(
-      map((table) => (table ? table : [])),
-    );
+    this.tableData$ = this.facade.tableData$?.pipe(map((table) => table ?? []));
     this.allSubscriptions.push(
       this.facade.tableState$
         .pipe(
@@ -161,13 +167,6 @@ export abstract class ImngPrimeODataTableBaseComponent<
       return getRelatedField(initialSegment);
     }
     return getRelatedField({ segments: segments.map((m) => m.toString()) });
-  }
-
-  public getEnumText(
-    data: { name: string; displayText: string }[],
-    nameValue: string,
-  ): string | undefined {
-    return data.find((f) => f.name === nameValue)?.displayText;
   }
 
   public deserializeTableState(stateQueryParam: string): PrimeTableState {

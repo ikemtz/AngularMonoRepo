@@ -77,7 +77,7 @@ describe('SignalrFacade', () => {
 
     it('should handle reconnect', async () => {
       facade.connect();
-      expect(service.hubConnection?.start).toBeCalledTimes(1);
+      expect(service.hubConnection?.start).toHaveBeenCalledTimes(1);
       const result = await readFirst(store);
       expect(result).toMatchSnapshot();
       const isConnected = await readFirst(facade.isConnected$);
@@ -86,7 +86,7 @@ describe('SignalrFacade', () => {
 
     it('should handle send', () => {
       facade.sendMessage({ methodName: 'helloWorld', data: '😎' });
-      expect(service.hubConnection?.send).toBeCalledTimes(1);
+      expect(service.hubConnection?.send).toHaveBeenCalledTimes(1);
       expect(service.hubConnection?.send).toHaveBeenCalledWith(
         'helloWorld',
         '😎',

@@ -10,9 +10,8 @@ describe('Testing testDeleteCurrentEntity', () => {
       },
     };
     await testDeleteCurrentEntity(facade, httpMock);
-    expect(httpMock.delete).toBeCalledTimes(1);
-    expect(httpMock.post).toBeCalledTimes(0);
-    expect(httpMock.put).toBeCalledTimes(0);
-
+    expect(httpMock.delete).toHaveBeenCalledTimes(1);
+    expect(httpMock.post).toHaveBeenCalledTimes(0);
+    expect(httpMock.put).toHaveBeenCalledTimes(0);
   });
 });

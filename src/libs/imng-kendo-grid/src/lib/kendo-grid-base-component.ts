@@ -1,7 +1,12 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { toLocalTimeStamp, getRelatedValue } from 'imng-nrsrx-client-utils';
-import { EnumProperties } from 'openapi-ts-generator/interfaces';
+import {
+  EnumProperties,
+  getEnum,
+  getEnumDisplayText,
+  IEnumValue,
+} from 'openapi-ts-generator/enums';
 
 @Component({ template: '' })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -19,11 +24,20 @@ export abstract class KendoGridBaseComponent<ENTITY>
   public getRelatedField(...segments: string[]): string {
     return segments.join('.');
   }
+  public getEnumKey(data: IEnumValue[], nameValue: string): number | undefined {
+    return this.getEnum(data, nameValue)?.key;
+  }
   public getEnumText(
-    data: { name: string; displayText: string }[],
-    nameValue: string,
+    data: IEnumValue[],
+    looupValue: string,
   ): string | undefined {
-    return data.find((f) => f.name === nameValue)?.displayText;
+    return getEnumDisplayText(data, looupValue);
+  }
+  public getEnum(
+    data: IEnumValue[],
+    looupValue: string,
+  ): IEnumValue | undefined {
+    return getEnum(data, looupValue);
   }
   public ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();

@@ -67,7 +67,7 @@ describe('KendoGridBaseComponent', () => {
   it('should getEnumText', () => {
     const component = new MockGridComponent();
     const result = component.getEnumText(
-      [{ name: 'subChild', displayText: 'Sub Child' }],
+      [{ key: 5, name: 'subChild', displayText: 'Sub Child' }],
       'subChild',
     );
     expect(result).toBe(`Sub Child`);
@@ -75,7 +75,7 @@ describe('KendoGridBaseComponent', () => {
   it('should getEnumText - undefined', () => {
     const component = new MockGridComponent();
     const result = component.getEnumText(
-      [{ name: 'subChild', displayText: 'Sub Child' }],
+      [{ key: 2, name: 'subChild', displayText: 'Sub Child' }],
       'badSubChild',
     );
     expect(result).toBeUndefined();
@@ -106,8 +106,8 @@ describe('KendoGridBaseComponent', () => {
   it('should handle getEnumText with matching result', () => {
     const component = new MockGridComponent();
     const data = [
-      { name: 'val1', displayText: 'value 1' },
-      { name: 'val2', displayText: 'value 2' },
+      { key: 1, name: 'val1', displayText: 'value 1' },
+      { key: 2, name: 'val2', displayText: 'value 2' },
     ];
     const result = component.getEnumText(data, 'val1');
     expect(result).toBe('value 1');
@@ -116,8 +116,8 @@ describe('KendoGridBaseComponent', () => {
   it('should handle getEnumText with no result', () => {
     const component = new MockGridComponent();
     const data = [
-      { name: 'val1', displayText: 'value 1' },
-      { name: 'val2', displayText: 'value 2' },
+      { key: 1, name: 'val1', displayText: 'value 1' },
+      { key: 2, name: 'val2', displayText: 'value 2' },
     ];
     const result = component.getEnumText(data, 'val3');
     expect(result).toBeUndefined();
