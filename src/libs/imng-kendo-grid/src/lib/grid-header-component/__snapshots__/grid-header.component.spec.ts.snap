@@ -1,41 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImngGridHeaderComponent should support hideClearFilters = false 1`] = `
-"<div class="mr-5 pr-5"><!--bindings={
-  "ng-reflect-ng-if": ""
-}--><button name="imngClearFilters" type="button" title="Clear Filters" class="btn btn-sm mx-1"><span class="k-icon k-i-filter-clear"></span> Clear Filters </button><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><button name="imngReloadData" type="button" title="Clear Cache And Reload Data" class="btn btn-sm mx-1"><span class="k-icon k-i-reset"></span> Reload Data </button><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><button name="imngExportPDF" type="button" title="Export To PDF" kendogridpdfcommand="" icon="file-pdf" class="btn btn-sm mx-1"><span class="k-icon k-i-pdf"></span> Export to PDF </button><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><button name="imngExportExcel'" type="button" title="Export To Excel" kendogridexcelcommand="" icon="file-excel" class="btn btn-sm mx-1"><span class="k-icon k-i-excel"></span> Export To Excel </button><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><kendo-grid-column-chooser name="imngColumnChooser" title="Columns" ng-reflect-ng-class="[object Object]"></kendo-grid-column-chooser><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--></div>"
-`;
-
-exports[`ImngGridHeaderComponent should support hideClearFilters = true 1`] = `
-"<div class="mr-5 pr-5"><!--bindings={
-  "ng-reflect-ng-if": ""
-}--><!--bindings={
-  "ng-reflect-ng-if": "false"
-}--><button name="imngReloadData" type="button" title="Clear Cache And Reload Data" class="btn btn-sm mx-1"><span class="k-icon k-i-reset"></span> Reload Data </button><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><button name="imngExportPDF" type="button" title="Export To PDF" kendogridpdfcommand="" icon="file-pdf" class="btn btn-sm mx-1"><span class="k-icon k-i-pdf"></span> Export to PDF </button><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><button name="imngExportExcel'" type="button" title="Export To Excel" kendogridexcelcommand="" icon="file-excel" class="btn btn-sm mx-1"><span class="k-icon k-i-excel"></span> Export To Excel </button><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--><kendo-grid-column-chooser name="imngColumnChooser" title="Columns" ng-reflect-ng-class="[object Object]"></kendo-grid-column-chooser><!--bindings={
-  "ng-reflect-ng-if": "true"
-}--></div>"
-`;
-
 exports[`ImngGridHeaderComponent should support hideReloadData = false 1`] = `
 "<div class="mr-5 pr-5"><!--bindings={
   "ng-reflect-ng-if": ""
-}--><button name="imngClearFilters" type="button" title="Clear Filters" class="btn btn-sm mx-1"><span class="k-icon k-i-filter-clear"></span> Clear Filters </button><!--bindings={
+}--><button name="imngResetFilters" type="button" title="Reset Filters" class="btn btn-sm mx-1"><span class="k-icon k-i-filter-clear"></span> Clear Filters </button><!--bindings={
   "ng-reflect-ng-if": "true"
 }--><button name="imngReloadData" type="button" title="Clear Cache And Reload Data" class="btn btn-sm mx-1"><span class="k-icon k-i-reset"></span> Reload Data </button><!--bindings={
   "ng-reflect-ng-if": "true"
@@ -51,10 +19,42 @@ exports[`ImngGridHeaderComponent should support hideReloadData = false 1`] = `
 exports[`ImngGridHeaderComponent should support hideReloadData = true 1`] = `
 "<div class="mr-5 pr-5"><!--bindings={
   "ng-reflect-ng-if": ""
-}--><button name="imngClearFilters" type="button" title="Clear Filters" class="btn btn-sm mx-1"><span class="k-icon k-i-filter-clear"></span> Clear Filters </button><!--bindings={
+}--><button name="imngResetFilters" type="button" title="Reset Filters" class="btn btn-sm mx-1"><span class="k-icon k-i-filter-clear"></span> Clear Filters </button><!--bindings={
   "ng-reflect-ng-if": "true"
 }--><!--bindings={
   "ng-reflect-ng-if": "false"
+}--><button name="imngExportPDF" type="button" title="Export To PDF" kendogridpdfcommand="" icon="file-pdf" class="btn btn-sm mx-1"><span class="k-icon k-i-pdf"></span> Export to PDF </button><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--><button name="imngExportExcel'" type="button" title="Export To Excel" kendogridexcelcommand="" icon="file-excel" class="btn btn-sm mx-1"><span class="k-icon k-i-excel"></span> Export To Excel </button><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--><kendo-grid-column-chooser name="imngColumnChooser" title="Columns" ng-reflect-ng-class="[object Object]"></kendo-grid-column-chooser><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--></div>"
+`;
+
+exports[`ImngGridHeaderComponent should support hideResetFilters = false 1`] = `
+"<div class="mr-5 pr-5"><!--bindings={
+  "ng-reflect-ng-if": ""
+}--><button name="imngResetFilters" type="button" title="Reset Filters" class="btn btn-sm mx-1"><span class="k-icon k-i-filter-clear"></span> Clear Filters </button><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--><button name="imngReloadData" type="button" title="Clear Cache And Reload Data" class="btn btn-sm mx-1"><span class="k-icon k-i-reset"></span> Reload Data </button><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--><button name="imngExportPDF" type="button" title="Export To PDF" kendogridpdfcommand="" icon="file-pdf" class="btn btn-sm mx-1"><span class="k-icon k-i-pdf"></span> Export to PDF </button><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--><button name="imngExportExcel'" type="button" title="Export To Excel" kendogridexcelcommand="" icon="file-excel" class="btn btn-sm mx-1"><span class="k-icon k-i-excel"></span> Export To Excel </button><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--><kendo-grid-column-chooser name="imngColumnChooser" title="Columns" ng-reflect-ng-class="[object Object]"></kendo-grid-column-chooser><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--></div>"
+`;
+
+exports[`ImngGridHeaderComponent should support hideResetFilters = true 1`] = `
+"<div class="mr-5 pr-5"><!--bindings={
+  "ng-reflect-ng-if": ""
+}--><!--bindings={
+  "ng-reflect-ng-if": "false"
+}--><button name="imngReloadData" type="button" title="Clear Cache And Reload Data" class="btn btn-sm mx-1"><span class="k-icon k-i-reset"></span> Reload Data </button><!--bindings={
+  "ng-reflect-ng-if": "true"
 }--><button name="imngExportPDF" type="button" title="Export To PDF" kendogridpdfcommand="" icon="file-pdf" class="btn btn-sm mx-1"><span class="k-icon k-i-pdf"></span> Export to PDF </button><!--bindings={
   "ng-reflect-ng-if": "true"
 }--><button name="imngExportExcel'" type="button" title="Export To Excel" kendogridexcelcommand="" icon="file-excel" class="btn btn-sm mx-1"><span class="k-icon k-i-excel"></span> Export To Excel </button><!--bindings={

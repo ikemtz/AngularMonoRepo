@@ -16,11 +16,11 @@ import { Observable } from 'rxjs';
       <span class="k-icon k-i-plus-circle"></span> Add {{ entityName }}
     </button>
     <button
-      name="imngClearFilters"
-      *ngIf="hideClearFilters !== true"
+      name="imngResetFilters"
+      *ngIf="hideResetFilters !== true"
       type="button"
-      title="Clear Filters"
-      (click)="clearFiltersClicked.emit()"
+      title="Reset Filters"
+      (click)="resetFiltersClicked.emit()"
       class="btn btn-sm mx-1">
       <span class="k-icon k-i-filter-clear"></span> Clear Filters
     </button>
@@ -62,7 +62,7 @@ import { Observable } from 'rxjs';
       [allowHideAll]="true"
       [autoSync]="true"
       [ngClass]="{
-        'text-primary': (hasHiddenColumns$ | async)
+        'text-primary': (hasHiddenColumns$ | async),
       }"></kendo-grid-column-chooser>
   </div> `,
   styles: [
@@ -96,7 +96,7 @@ export class ImngGridHeaderComponent {
   @Input()
   public hideColumnChooser = false;
   @Input()
-  public hideClearFilters = false;
+  public hideResetFilters = false;
   @Input()
   public hideReloadData = false;
   @Input()
@@ -106,7 +106,7 @@ export class ImngGridHeaderComponent {
   @Output()
   public addItemClicked = new EventEmitter();
   @Output()
-  public clearFiltersClicked = new EventEmitter();
+  public resetFiltersClicked = new EventEmitter();
   @Output()
   public reloadEntitiesClicked = new EventEmitter();
   constructor(@Inject(GridComponent) public parentGrid: GridComponent) {}

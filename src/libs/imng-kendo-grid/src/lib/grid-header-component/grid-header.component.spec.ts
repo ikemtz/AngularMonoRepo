@@ -11,10 +11,12 @@ describe('ImngGridHeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ImngGridHeaderComponent],
-      providers: [{
-        provide: GridComponent,
-        useValue: {}
-      }],
+      providers: [
+        {
+          provide: GridComponent,
+          useValue: {},
+        },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
@@ -40,7 +42,9 @@ describe('ImngGridHeaderComponent', () => {
     component.hasHiddenColumns$ = of(false);
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toContain('title="Columns" ng-reflect-ng-class="[object Object]"');
+    expect(element.innerHTML).toContain(
+      'title="Columns" ng-reflect-ng-class="[object Object]"',
+    );
   });
 
   it('should support hideReloadData = true', () => {
@@ -57,15 +61,15 @@ describe('ImngGridHeaderComponent', () => {
     expect(element.innerHTML).toMatchSnapshot();
   });
 
-  it('should support hideClearFilters = true', () => {
-    component.hideClearFilters = true;
+  it('should support hideResetFilters = true', () => {
+    component.hideResetFilters = true;
     fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toMatchSnapshot();
   });
 
-  it('should support hideClearFilters = false', () => {
-    component.hideClearFilters = false;
+  it('should support hideResetFilters = false', () => {
+    component.hideResetFilters = false;
     fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toMatchSnapshot();

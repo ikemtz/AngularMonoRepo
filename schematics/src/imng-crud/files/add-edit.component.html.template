@@ -1,5 +1,5 @@
 <imng-data-entry-dialog id="dataEntry<%= startCasedPluralName %>" name="dataEntry<%= startCasedPluralName %>" [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#<%= underscore(firstProperty.name) %>">
-  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row needs-validation"><% swaggerProperties.forEach(function(swaggerProperty) {%>
+  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="off" class="row needs-validation"><% swaggerProperties.forEach(function(swaggerProperty) {%>
     <div class="col-md-6">
       <label for="<%= underscore(swaggerProperty.name) %>" class="control-label<% if (swaggerProperty.htmlInputType === 'checkbox') { %> me-4 mt-4<% } %>"><%= swaggerProperty.startCaseName %>:<% if(swaggerProperty.required) { %> <span class="text-danger">*</span><% } %></label><% if (swaggerProperty.htmlInputType === 'checkbox') { %>
       <input id="<%= underscore(swaggerProperty.name) %>" type="<%= swaggerProperty.htmlInputType %>" [formControlName]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
