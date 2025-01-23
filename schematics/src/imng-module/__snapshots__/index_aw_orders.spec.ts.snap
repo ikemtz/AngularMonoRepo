@@ -487,7 +487,7 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
 
 exports[`imng-module AdventureWorks Orders crud html template should work 1`] = `
 "<imng-data-entry-dialog id="dataEntryOrders" name="dataEntryOrders" [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#order_id">
-  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row needs-validation">
+  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="off" class="row needs-validation">
     <div class="col-md-6">
       <label for="id" class="control-label">Id: <span class="text-danger">*</span></label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />

@@ -346,7 +346,7 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
 
 exports[`imng-module crud html template should work 1`] = `
 "<imng-data-entry-dialog id="dataEntryCustomers" name="dataEntryCustomers" [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#num">
-  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row needs-validation">
+  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="off" class="row needs-validation">
     <div class="col-md-6">
       <label for="id" class="control-label">Id: <span class="text-danger">*</span></label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
