@@ -102,7 +102,7 @@ export function mapPropertyAttributes(options: IOptions, source: PropertyInfo, d
     dest.htmlInputType = 'date';
     dest.filterExpression = 'date';
     dest.testFactoryValue = 'new Date()';
-    options.hasDates = true;
+    options.hasDates = options.hasDates || !source.hidden;
   } else if (source.$ref) {
     dest.htmlInputType = 'object';
     dest.filterExpression = 'text';

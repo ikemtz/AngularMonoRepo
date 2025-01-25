@@ -17,6 +17,7 @@ export interface Properties {
   [key: string]: PropertyInfo;
 }
 export interface PropertyInfo {
+  hidden?: boolean;
   name?: string;
   enum?: [string | number];
   type: 'string' | 'boolean' | 'array' | 'integer' | 'number' | 'date' | 'object';

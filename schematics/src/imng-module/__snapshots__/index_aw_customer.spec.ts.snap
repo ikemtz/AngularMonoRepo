@@ -346,7 +346,7 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
 
 exports[`imng-module crud html template should work 1`] = `
 "<imng-data-entry-dialog id="dataEntryCustomers" name="dataEntryCustomers" [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#num">
-  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row needs-validation">
+  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="off" class="row needs-validation">
     <div class="col-md-6">
       <label for="id" class="control-label">Id: <span class="text-danger">*</span></label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
@@ -498,6 +498,8 @@ describe('CustomerEditComponent', () => {
     const result = await readFirst(component.salesAgents$);
     expect(result).toStrictEqual([{ name: 'xyz',loginId: 'xyz', }]);
   });
+
+
 });
 "
 `;
@@ -548,7 +550,7 @@ exports[`imng-module html file should work 1`] = `
         entityName="Customer"
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
-        (clearFiltersClicked)="resetFilters()"
+        (resetFiltersClicked)="resetFilters()"
         [hasHiddenColumns$]="hasHiddenColumns$">
       </imng-kendo-odata-grid-header>
     </div>
@@ -588,7 +590,7 @@ exports[`imng-module html file should work 1`] = `
     </ng-template>
   </kendo-grid-column>
 
-  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.ID] | slice:0:5"
@@ -602,39 +604,59 @@ exports[`imng-module html file should work 1`] = `
       <span class="h6" title="Id">Id</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.NUM" [width]="100" title="Num" filter="text">
+  <kendo-grid-column [field]="props.NUM" [width]="100" title="Num" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Num">Num</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text">
+  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Name">Name</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.COMPANY_NAME" [width]="100" title="Company Name" filter="text">
+  <kendo-grid-column [field]="props.COMPANY_NAME" [width]="100" title="Company Name" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Company Name">Company Name</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.SALES_AGENT_ID" [width]="100" title="Sales Agent Id" filter="numeric">
+  <kendo-grid-column [field]="props.SALES_AGENT_ID" [width]="100" title="Sales Agent Id" filter="numeric" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Sales Agent Id">Sales Agent Id</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.EMAIL_ADDRESS" [width]="100" title="Email Address" filter="text">
+  <kendo-grid-column [field]="props.EMAIL_ADDRESS" [width]="100" title="Email Address" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Email Address">Email Address</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.PHONE" [width]="100" title="Phone" filter="text">
+  <kendo-grid-column [field]="props.PHONE" [width]="100" title="Phone" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Phone">Phone</span>
     </ng-template>
   </kendo-grid-column>
+  <kendo-grid-column [field]="props.CREATED_BY" [width]="100" title="Created By" filter="text" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Created By">Created By</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.CREATED_ON_UTC" [width]="100" format="{0:MM/dd/yy HH:mm}" title="Created On Utc" filter="date" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Created On Utc">Created On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.UPDATED_BY" [width]="100" title="Updated By" filter="text" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Updated By">Updated By</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.UPDATED_ON_UTC" [width]="100" format="{0:MM/dd/yy HH:mm}" title="Updated On Utc" filter="date" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Updated On Utc">Updated On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
   <kendo-grid-column
     [field]="getRelatedField(props.SALES_AGENT, salesAgentProps.NAME)"
-    [width]="100" title="Sales Agent" filter="text">
+    [width]="100" title="Sales Agent" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Sales Agent">Sales Agent</span>
     </ng-template>

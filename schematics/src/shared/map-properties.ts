@@ -3,14 +3,15 @@ import { PropertyInfo, OpenApiComponent, OpenApiDocument } from './open-api-comp
 import { IOptions } from './options';
 import { mapPropertyAttributes } from './rules';
 
-const excludedFields = ['createdBy', 'createdOnUtc', 'tenantId', 'updatedBy', 'updatedOnUtc'];
+export const excludedFields = ['createdBy', 'createdOnUtc', 'updateCount', 'tenantId', 'updatedBy', 'updatedOnUtc',];
 
 export function mapProperties(properties: { [key: string]: PropertyInfo; }, options: IOptions, openApiComponent: OpenApiComponent, openApiDoc: OpenApiDocument) {
   let firstProperty: PropertyInfo | undefined;
   const filteredProperties: PropertyInfo[] = [];
   for (const propertyKey in properties) {
     const originalProperty = properties[propertyKey];
-    if (excludedFields.indexOf(propertyKey) < 0 && originalProperty.type !== 'array') {
+    originalProperty.hidden = excludedFields.indexOf(propertyKey) >= 0;
+    if (originalProperty.type !== 'array') {
       const property = mapPropertyAttributes(options, originalProperty, {
         ...properties[propertyKey],
         name: propertyKey,
