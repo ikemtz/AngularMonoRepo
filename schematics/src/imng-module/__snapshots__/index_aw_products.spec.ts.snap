@@ -505,7 +505,7 @@ exports[`imng-module crud html template should work 1`] = `
     </div>
     <div class="col-md-6">
       <label for="product_category" class="control-label">Product Category:</label>
-      <kendo-combobox
+      <kendo-multicolumncombobox
         id="product_category"
         placeholder="Select a product category..."
         [formControlName]="props.PRODUCT_CATEGORY_ID"
@@ -515,7 +515,8 @@ exports[`imng-module crud html template should work 1`] = `
         [valuePrimitive]="true"
         [filterable]="true"
         (filterChange)="handleProductCategoryFilter($event)">
-      </kendo-combobox>
+          <kendo-combobox-column field="name" title="Name" [width]="100"></kendo-combobox-column>
+      </kendo-multicolumncombobox>
     </div>
   </form>
 </imng-data-entry-dialog>
@@ -613,6 +614,8 @@ describe('ProductEditComponent', () => {
     const result = await readFirst(component.productCategories$);
     expect(result).toStrictEqual([{ id: 'xyz',name: 'xyz', }]);
   });
+
+
 });
 "
 `;
@@ -663,7 +666,7 @@ exports[`imng-module html file should work 1`] = `
         entityName="Product"
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
-        (clearFiltersClicked)="resetFilters()"
+        (resetFiltersClicked)="resetFilters()"
         [hasHiddenColumns$]="hasHiddenColumns$">
       </imng-kendo-odata-grid-header>
     </div>
@@ -703,7 +706,7 @@ exports[`imng-module html file should work 1`] = `
     </ng-template>
   </kendo-grid-column>
 
-  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.ID] | slice:0:5"
@@ -717,42 +720,42 @@ exports[`imng-module html file should work 1`] = `
       <span class="h6" title="Id">Id</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text">
+  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Name">Name</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.NUM" [width]="100" title="Num" filter="text">
+  <kendo-grid-column [field]="props.NUM" [width]="100" title="Num" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Num">Num</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.COLOR" [width]="100" title="Color" filter="text">
+  <kendo-grid-column [field]="props.COLOR" [width]="100" title="Color" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Color">Color</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.STANDARD_COST" [width]="100" title="Standard Cost" filter="numeric">
+  <kendo-grid-column [field]="props.STANDARD_COST" [width]="100" title="Standard Cost" filter="numeric" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Standard Cost">Standard Cost</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.LIST_PRICE" [width]="100" title="List Price" filter="numeric">
+  <kendo-grid-column [field]="props.LIST_PRICE" [width]="100" title="List Price" filter="numeric" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="List Price">List Price</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.SIZE" [width]="100" title="Size" filter="text">
+  <kendo-grid-column [field]="props.SIZE" [width]="100" title="Size" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Size">Size</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.WEIGHT" [width]="100" title="Weight" filter="numeric">
+  <kendo-grid-column [field]="props.WEIGHT" [width]="100" title="Weight" filter="numeric" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Weight">Weight</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.PRODUCT_CATEGORY_ID" [width]="100" title="Product Category Id" filter="text">
+  <kendo-grid-column [field]="props.PRODUCT_CATEGORY_ID" [width]="100" title="Product Category Id" filter="text" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.PRODUCT_CATEGORY_ID] | slice:0:5"
@@ -766,7 +769,7 @@ exports[`imng-module html file should work 1`] = `
       <span class="h6" title="Product Category Id">Product Category Id</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.PRODUCT_MODEL_ID" [width]="100" title="Product Model Id" filter="text">
+  <kendo-grid-column [field]="props.PRODUCT_MODEL_ID" [width]="100" title="Product Model Id" filter="text" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.PRODUCT_MODEL_ID] | slice:0:5"
@@ -780,36 +783,56 @@ exports[`imng-module html file should work 1`] = `
       <span class="h6" title="Product Model Id">Product Model Id</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.SELL_START_DATE" [width]="100" format="{0:MM/dd/yy}" title="Sell Start Date" filter="date">
+  <kendo-grid-column [field]="props.SELL_START_DATE" [width]="100" format="{0:MM/dd/yy}" title="Sell Start Date" filter="date" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Sell Start Date">Sell Start Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.SELL_END_DATE" [width]="100" format="{0:MM/dd/yy}" title="Sell End Date" filter="date">
+  <kendo-grid-column [field]="props.SELL_END_DATE" [width]="100" format="{0:MM/dd/yy}" title="Sell End Date" filter="date" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Sell End Date">Sell End Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.DISCONTINUED_DATE" [width]="100" format="{0:MM/dd/yy}" title="Discontinued Date" filter="date">
+  <kendo-grid-column [field]="props.DISCONTINUED_DATE" [width]="100" format="{0:MM/dd/yy}" title="Discontinued Date" filter="date" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Discontinued Date">Discontinued Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.THUMB_NAIL_PHOTO" [width]="100" title="Thumb Nail Photo" filter="text">
+  <kendo-grid-column [field]="props.THUMB_NAIL_PHOTO" [width]="100" title="Thumb Nail Photo" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Thumb Nail Photo">Thumb Nail Photo</span>
     </ng-template>
   </kendo-grid-column>
+  <kendo-grid-column [field]="props.CREATED_BY" [width]="100" title="Created By" filter="text" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Created By">Created By</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.CREATED_ON_UTC" [width]="100" format="{0:MM/dd/yy HH:mm}" title="Created On Utc" filter="date" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Created On Utc">Created On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.UPDATED_BY" [width]="100" title="Updated By" filter="text" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Updated By">Updated By</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.UPDATED_ON_UTC" [width]="100" format="{0:MM/dd/yy HH:mm}" title="Updated On Utc" filter="date" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Updated On Utc">Updated On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
   <kendo-grid-column
     [field]="getRelatedField(props.PRODUCT_MODEL, productModelProps.NAME)"
-    [width]="100" title="Product Model" filter="text">
+    [width]="100" title="Product Model" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Product Model">Product Model</span>
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column
     [field]="getRelatedField(props.PRODUCT_CATEGORY, productCategoryProps.NAME)"
-    [width]="100" title="Product Category" filter="text">
+    [width]="100" title="Product Category" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Product Category">Product Category</span>
     </ng-template>

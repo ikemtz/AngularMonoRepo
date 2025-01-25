@@ -404,23 +404,23 @@ exports[`imng-sub-list list html should work 1`] = `
       <h4>Sales Agents</h4>
       <imng-kendo-odata-grid-header
         (reloadEntitiesClicked)="reloadEntities()"
-        [hideClearFilters]="true"
+        [hideResetFilters]="true"
         [hasHiddenColumns$]="hasHiddenColumns$">
       </imng-kendo-odata-grid-header>
     </div>
   </ng-template>
 
-  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="numeric">
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="numeric" [hidden]="false>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text">
+  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text" [hidden]="false>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Name</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.LOGIN_ID" [width]="100" title="Login Id" filter="text">
+  <kendo-grid-column [field]="props.LOGIN_ID" [width]="100" title="Login Id" filter="text" [hidden]="false>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Login Id</span>
     </ng-template>

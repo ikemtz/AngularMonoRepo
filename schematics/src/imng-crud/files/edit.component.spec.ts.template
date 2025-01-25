@@ -54,7 +54,7 @@ describe('<%= classify(name) %>EditComponent', () => {
     expect(facade.updateExistingEntity).toHaveBeenCalledTimes(1);
 <% if (hasDates) { %>
     expect(item).toMatchSnapshot({
-<% swaggerProperties.filter(t=> t.format === 'date-time' || t.format === 'date').forEach(function(swaggerProperty)
+<% swaggerProperties.filter(t=> (t.format === 'date-time' || t.format === 'date') && !t.hidden).forEach(function(swaggerProperty)
  {%>      <%= swaggerProperty.name %>: expect.any(Date),
 <% }); %>    });
 <% } else { %>
@@ -83,8 +83,10 @@ describe('<%= classify(name) %>EditComponent', () => {
   test('should support <%= classify(swaggerProperty.name) %> filters', async () => {
     component.handle<%= classify(swaggerProperty.name) %>Filter('xy');
     const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);
-    expect(result).toStrictEqual([{ <% swaggerProperty.properties.filter(t=>  t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> }]);
-  });<% }); %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
+    expect(result).toStrictEqual([{ <% swaggerProperty.properties.filter(t=> t.type === 'string' && !t.hidden).forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> }]);
+  });<% }); %>
+
+<% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
   test('should handle <%= classify(swaggerProperty.name) %> filters', async () => {
     component.handle<%= classify(swaggerProperty.name) %>Filter('abc-xyz');
     const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);

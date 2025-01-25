@@ -15,8 +15,8 @@ import { <%= classify(name) %>CrudFacade } from './crud.facade';
   return {
     currentEntity$: of({}),<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
     <%= camelize(swaggerProperty.pluralizedName) %>$: of([
-      { <% swaggerProperty.properties.filter(t=> t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'abc',<% }); %> },
-      { <% swaggerProperty.properties.filter(t=> t.type === 'string').forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> },]),
+      { <% swaggerProperty.properties.filter(t=> t.type === 'string' && !t.hidden).forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'abc',<% }); %> },
+      { <% swaggerProperty.properties.filter(t=> t.type === 'string' && !t.hidden).forEach(function(swaggerSubProperty){ %><%= camelize(swaggerSubProperty.name) %>: 'xyz',<% }); %> },]),
     load<%= classify(swaggerProperty.pluralizedName) %>: jest.fn(),<% }); %>
   };
 }<% } %>
@@ -71,7 +71,7 @@ describe('<%= classify(name) %>AddComponent', () => {
     expect(facade.updateExistingEntity).toHaveBeenCalledTimes(0);
 <% if (hasDates) { %>
     expect(item).toMatchSnapshot({
-<% swaggerProperties.filter(t=> t.format === 'date-time' || t.format === 'date').forEach(function(swaggerProperty)
+<% swaggerProperties.filter(t=> (t.format === 'date-time' || t.format === 'date') && !t.hidden).forEach(function(swaggerProperty)
  {%>      <%= swaggerProperty.name %>: expect.any(Date),
 <% }); %>    });
 <% } else { %>
