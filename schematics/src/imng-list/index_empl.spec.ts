@@ -42,7 +42,7 @@ describe('imng-list', () => {
     expect(content).toContain('[field]="props.ADDRESS_LINE_1"');
     expect(content).toContain(`<${options.appPrefix}-${options.name}-add `);
     expect(content).toContain(`<${options.appPrefix}-${options.name}-edit `);
-
+    expect(content).toMatchSnapshot("list.component.html");
     const gridStateFile = tree.get(
       `/test/${pluralize(options.name)}-list/list.grid-state.ts`
     );

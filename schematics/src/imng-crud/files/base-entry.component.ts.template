@@ -20,7 +20,7 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
     this.<%= camelize(swaggerProperty.pluralizedName) %>$ = facade.<%= camelize(swaggerProperty.pluralizedName) %>$.pipe(
       switchMap(<%= camelize(swaggerProperty.pluralizedName) %> => this.<%= camelize(swaggerProperty.name) %>Filter$.pipe(
         map(<%= camelize(swaggerProperty.name) %>Filter => <%= camelize(swaggerProperty.name) %>Filter ? <%= camelize(swaggerProperty.pluralizedName) %>
-          .filter(<%= camelize(swaggerProperty.name) %> => (<% swaggerProperty.properties.filter(f => f.name !== 'id' && f.htmlInputType !== 'object').forEach(function(swaggerSubProperty, i, arr){ %>
+          .filter(<%= camelize(swaggerProperty.name) %> => (<% swaggerProperty.properties.filter(f => f.name !== 'id' && f.htmlInputType !== 'object' && !f.hidden).forEach(function(swaggerSubProperty, i, arr){%>
             (<%= camelize(swaggerProperty.name) %>.<%= camelize(swaggerSubProperty.name) %> && <%= camelize(swaggerProperty.name) %>.<%= camelize(swaggerSubProperty.name) %><% if(swaggerSubProperty.format){ %>.toString()<% } %>.toLowerCase().indexOf(<%= camelize(swaggerProperty.name) %>Filter) >= 0)<% if (i + 1 != arr.length) { %> ||<% } }) %>
           )) : <%= camelize(swaggerProperty.pluralizedName) %>
     ))));<% }) %>
@@ -28,7 +28,7 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
 
   public override ngOnInit(): void {
     this.initForm();<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
-    this.facade.load<%= classify(swaggerProperty.pluralizedName) %>({ selectors: [<% swaggerProperty.properties.forEach(function(swaggerSubProperty){ %>
+    this.facade.load<%= classify(swaggerProperty.pluralizedName) %>({ selectors: [<% swaggerProperty.properties.filter(t=> !t.hidden).forEach(function(swaggerSubProperty){ %>
       <%= classify(swaggerProperty.propertyTypeName) %>Properties.<%= swaggerSubProperty.snakeCaseName.toUpperCase() %>,<% }) %>] });<% }) %>
   }
 
