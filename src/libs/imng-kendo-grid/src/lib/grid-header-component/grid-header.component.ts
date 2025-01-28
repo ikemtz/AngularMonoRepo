@@ -22,7 +22,7 @@ import { Observable } from 'rxjs';
       title="Reset Filters"
       (click)="resetFiltersClicked.emit()"
       class="btn btn-sm mx-1">
-      <span class="k-icon k-i-filter-clear"></span> Clear Filters
+      <span class="k-icon k-i-filter-clear"></span> Reset Filters
     </button>
     <button
       name="imngReloadData"
