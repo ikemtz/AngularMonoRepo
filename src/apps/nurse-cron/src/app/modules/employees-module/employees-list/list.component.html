@@ -1,4 +1,8 @@
-<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+<kendo-grid
+  (detailExpand)="detailExpanded($event)"
+  [height]="800"
+  kendoGridFocusable
+  [imngODataGrid]="this">
   <ng-template kendoGridToolbarTemplate>
     <div class="w-100 d-flex justify-content-between">
       <h3>Employees</h3>
@@ -14,7 +18,7 @@
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item icon="menu">
+        <kendo-menu-item [svgIcon]="icons.menuIcon">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -49,7 +53,7 @@
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice:0:5"
+        [displayValue]="dataItem[props.ID] | slice: 0 : 5"
         [copyValue]="dataItem[props.ID]">
       </imng-kendo-copy>
     </ng-template>
@@ -60,67 +64,120 @@
       <span class="h6" title="Id">Id</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.LAST_NAME" [width]="100" title="Last Name" filter="text">
+  <kendo-grid-column
+    [field]="props.LAST_NAME"
+    [width]="100"
+    title="Last Name"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Last Name">Last Name</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.FIRST_NAME" [width]="100" title="First Name" filter="text">
+  <kendo-grid-column
+    [field]="props.FIRST_NAME"
+    [width]="100"
+    title="First Name"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="First Name">First Name</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.BIRTH_DATE" [width]="100" format="{0:MM/dd/yy}" title="Birth Date" filter="date">
+  <kendo-grid-column
+    [field]="props.BIRTH_DATE"
+    [width]="100"
+    format="{0:MM/dd/yy}"
+    title="Birth Date"
+    filter="date">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Birth Date">Birth Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.MOBILE_PHONE" [width]="100" title="Mobile Phone" filter="text">
+  <kendo-grid-column
+    [field]="props.MOBILE_PHONE"
+    [width]="100"
+    title="Mobile Phone"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Mobile Phone">Mobile Phone</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.HOME_PHONE" [width]="100" title="Home Phone" filter="text">
+  <kendo-grid-column
+    [field]="props.HOME_PHONE"
+    [width]="100"
+    title="Home Phone"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Home Phone">Home Phone</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.PHOTO" [width]="100" title="Photo" filter="text">
+  <kendo-grid-column
+    [field]="props.PHOTO"
+    [width]="100"
+    title="Photo"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Photo">Photo</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.EMAIL" [width]="100" title="Email" filter="text">
+  <kendo-grid-column
+    [field]="props.EMAIL"
+    [width]="100"
+    title="Email"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Email">Email</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.ADDRESS_LINE_1" [width]="100" title="Address Line 1" filter="text">
+  <kendo-grid-column
+    [field]="props.ADDRESS_LINE_1"
+    [width]="100"
+    title="Address Line 1"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Address Line 1">Address Line 1</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.ADDRESS_LINE_2" [width]="100" title="Address Line 2" filter="text">
+  <kendo-grid-column
+    [field]="props.ADDRESS_LINE_2"
+    [width]="100"
+    title="Address Line 2"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Address Line 2">Address Line 2</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.CITY" [width]="100" title="City" filter="text">
+  <kendo-grid-column
+    [field]="props.CITY"
+    [width]="100"
+    title="City"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="City">City</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.STATE" [width]="100" title="State" filter="text">
+  <kendo-grid-column
+    [field]="props.STATE"
+    [width]="100"
+    title="State"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="State">State</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.ZIP" [width]="100" title="Zip" filter="text">
+  <kendo-grid-column
+    [field]="props.ZIP"
+    [width]="100"
+    title="Zip"
+    filter="text">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Zip">Zip</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.IS_ENABLED" [width]="100" title="Is Enabled" filter="boolean">
+  <kendo-grid-column
+    [field]="props.IS_ENABLED"
+    [width]="100"
+    title="Is Enabled"
+    filter="boolean">
     <ng-template kendoGridCellTemplate let-dataItem>
       <div *ngIf="dataItem[props.IS_ENABLED]">
         <span class="text-success font-weight-bolder h2" tooltip="Is Enabled">
@@ -132,41 +189,79 @@
       <span class="h6" title="Is Enabled">Is Enabled</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.HIRE_DATE" [width]="100" format="{0:MM/dd/yy}" title="Hire Date" filter="date">
+  <kendo-grid-column
+    [field]="props.HIRE_DATE"
+    [width]="100"
+    format="{0:MM/dd/yy}"
+    title="Hire Date"
+    filter="date">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Hire Date">Hire Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.FIRE_DATE" [width]="100" format="{0:MM/dd/yy}" title="Fire Date" filter="date">
+  <kendo-grid-column
+    [field]="props.FIRE_DATE"
+    [width]="100"
+    format="{0:MM/dd/yy}"
+    title="Fire Date"
+    filter="date">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Fire Date">Fire Date</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.TOTAL_HOURS_OF_SERVICE" [width]="100" title="Total Hours Of Service" filter="numeric">
+  <kendo-grid-column
+    [field]="props.TOTAL_HOURS_OF_SERVICE"
+    [width]="100"
+    title="Total Hours Of Service"
+    filter="numeric">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
-      <span class="h6" title="Total Hours Of Service">Total Hours Of Service</span>
+      <span class="h6" title="Total Hours Of Service"
+        >Total Hours Of Service</span
+      >
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.CERTIFICATION_COUNT" [width]="100" title="Certification Count" filter="numeric">
+  <kendo-grid-column
+    [field]="props.CERTIFICATION_COUNT"
+    [width]="100"
+    title="Certification Count"
+    filter="numeric">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Certification Count">Certification Count</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.COMPETENCY_COUNT" [width]="100" title="Competency Count" filter="numeric">
+  <kendo-grid-column
+    [field]="props.COMPETENCY_COUNT"
+    [width]="100"
+    title="Competency Count"
+    filter="numeric">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Competency Count">Competency Count</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.HEALTH_ITEM_COUNT" [width]="100" title="Health Item Count" filter="numeric">
+  <kendo-grid-column
+    [field]="props.HEALTH_ITEM_COUNT"
+    [width]="100"
+    title="Health Item Count"
+    filter="numeric">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Health Item Count">Health Item Count</span>
     </ng-template>
   </kendo-grid-column>
 
-  <kendo-grid-pdf [fileName]="getExportFileName('Employees')" [allPages]="false">
-    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+  <kendo-grid-pdf
+    [fileName]="getExportFileName('Employees')"
+    [allPages]="false">
+    <kendo-grid-pdf-margin
+      top="1cm"
+      left="1cm"
+      right="1cm"
+      bottom="1cm"></kendo-grid-pdf-margin>
   </kendo-grid-pdf>
-  <kendo-grid-excel [fileName]="getExportFileName('Employees')" [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel
+    [fileName]="getExportFileName('Employees')"
+    [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<nrcrn-employee-add *ngIf="crudFacade.isNewActive$ | async"></nrcrn-employee-add>
-<nrcrn-employee-edit *ngIf="crudFacade.isEditActive$ | async"></nrcrn-employee-edit>
+<nrcrn-employee-add
+  *ngIf="crudFacade.isNewActive$ | async"></nrcrn-employee-add>
+<nrcrn-employee-edit
+  *ngIf="crudFacade.isEditActive$ | async"></nrcrn-employee-edit>
