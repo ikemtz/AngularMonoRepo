@@ -18,7 +18,7 @@
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item icon="menu">
+        <kendo-menu-item [svgIcon]="icons.menuIcon">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -53,7 +53,7 @@
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice: 0:5"
+        [displayValue]="dataItem[props.ID] | slice: 0 : 5"
         [copyValue]="dataItem[props.ID]">
       </imng-kendo-copy>
     </ng-template>

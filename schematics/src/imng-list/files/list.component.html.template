@@ -14,7 +14,7 @@
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item icon="menu">
+        <kendo-menu-item [svgIcon]="icons.menuIcon">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
