@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { toLocalTimeStamp, getRelatedValue } from 'imng-nrsrx-client-utils';
+import { menuIcon } from '@progress/kendo-svg-icons';
 import {
   EnumProperties,
   getEnum,
@@ -16,6 +17,9 @@ export abstract class KendoGridBaseComponent<ENTITY>
   public readonly allSubscriptions = new Subscriptions();
   public readonly EnumProperties = EnumProperties;
   public readonly getRelatedValue = getRelatedValue;
+  public icons = {
+    menuIcon: menuIcon,
+  };
 
   public getExportFileName(exportName: string): string {
     return `${exportName}-${toLocalTimeStamp()}`;
