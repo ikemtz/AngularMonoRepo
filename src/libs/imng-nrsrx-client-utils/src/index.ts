@@ -11,4 +11,5 @@ export * from './lib/is-null-or-undefined';
 export * from './lib/normalize-request';
 export * from './lib/nrsrx-api-client';
 export * from './lib/num-pad';
+export * from './lib/to-date-only';
 export * from './lib/value-type';
