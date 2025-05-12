@@ -28,10 +28,11 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'nrcrn-schedule-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-schedule-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ScheduleListComponent extends KendoODataBasedComponent<ISchedule, ScheduleListFacade> {
   public readonly props = ScheduleProperties;
