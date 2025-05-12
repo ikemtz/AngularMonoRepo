@@ -62,8 +62,8 @@ describe('DialogButtonsDirective', () => {
 });
 
 @Component({
-  selector: 'imng-thc',
-  template: ` <imng-data-entry-dialog
+    selector: 'imng-thc',
+    template: ` <imng-data-entry-dialog
     [width]="700"
     [height]="550"
     [parentComponent]="this">
@@ -78,6 +78,7 @@ describe('DialogButtonsDirective', () => {
       </button>
     </ng-template>
   </imng-data-entry-dialog>`,
+    standalone: false
 })
 export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacade> {
   public dialogTitle = 'MockDataEntryComponent';

@@ -4,8 +4,8 @@ import { BehaviorSubject, Subscription, interval, Observable } from 'rxjs';
 import { tap, filter, switchMap, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'imng-idle-warning',
-  template: `<kendo-dialog
+    selector: 'imng-idle-warning',
+    template: `<kendo-dialog
     title="Idle Session Warning"
     *ngIf="isSessionTimingOut$ | async"
     (close)="close()"
@@ -19,14 +19,15 @@ import { tap, filter, switchMap, map } from 'rxjs/operators';
       <button kendoButton (click)="extend()" [primary]="true">Yes</button>
     </kendo-dialog-actions>
   </kendo-dialog> `,
-  styles: [
-    `
+    styles: [
+        `
       .warn-msg {
         margin: 30px;
         text-align: center;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class IdleWarningComponent implements OnInit, OnDestroy {
   public readonly isSessionTimingOut$ = new BehaviorSubject<boolean>(false);

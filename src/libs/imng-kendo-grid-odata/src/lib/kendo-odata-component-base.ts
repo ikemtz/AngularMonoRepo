@@ -23,7 +23,10 @@ const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>(
 );
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 export abstract class KendoODataBasedComponent<
     ENTITY,
     FACADE extends IKendoODataGridFacade<ENTITY>,

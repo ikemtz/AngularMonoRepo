@@ -10,10 +10,11 @@ import { HealthItemBaseEntryComponent } from './base-entry.component';
 import { IHealthItem } from '../../../models/health-items-odata';
 
 @Component({
-  selector: 'nrcrn-health-item-add',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-health-item-add',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HealthItemAddComponent
   extends HealthItemBaseEntryComponent

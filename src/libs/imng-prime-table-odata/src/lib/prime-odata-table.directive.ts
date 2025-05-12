@@ -15,7 +15,8 @@ import { PrimeTableState } from './models/prime-table-state';
 import { IdType } from 'imng-nrsrx-client-utils';
 
 @Directive({
-  selector: '[imngODataTable]',
+    selector: '[imngODataTable]',
+    standalone: false
 })
 export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
   @Input('imngODataTable')

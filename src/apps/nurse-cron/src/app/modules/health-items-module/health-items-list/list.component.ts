@@ -22,10 +22,11 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'nrcrn-health-item-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-health-item-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HealthItemListComponent extends KendoODataBasedComponent<IHealthItem, HealthItemListFacade> {
   public readonly props = HealthItemProperties;

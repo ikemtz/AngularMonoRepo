@@ -3,8 +3,8 @@ import { GridComponent } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'imng-kendo-odata-grid-header',
-  template: `<div class="mr-5 pr-5">
+    selector: 'imng-kendo-odata-grid-header',
+    template: `<div class="mr-5 pr-5">
     <button
       name="imngAddEntity"
       *ngIf="entityName"
@@ -65,8 +65,8 @@ import { Observable } from 'rxjs';
         'text-primary': (hasHiddenColumns$ | async),
       }"></kendo-grid-column-chooser>
   </div> `,
-  styles: [
-    `
+    styles: [
+        `
       .btn-sm {
         height: 30px;
         border-radius: 2px;
@@ -88,7 +88,8 @@ import { Observable } from 'rxjs';
         ) !important;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class ImngGridHeaderComponent {
   @Input()

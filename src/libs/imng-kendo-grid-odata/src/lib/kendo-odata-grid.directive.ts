@@ -15,7 +15,8 @@ import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 
 @Directive({
-  selector: '[imngODataGrid]',
+    selector: '[imngODataGrid]',
+    standalone: false
 })
 export class ImngODataGridDirective
   implements OnInit, AfterViewInit, OnDestroy, Subscribable {

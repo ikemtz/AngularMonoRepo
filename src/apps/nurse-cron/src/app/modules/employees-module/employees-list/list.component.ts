@@ -9,10 +9,11 @@ import { employeeGridState } from './list.grid-state';
 import { IEmployee, EmployeeProperties } from '../../../models/employees-api';
 
 @Component({
-  selector: 'nrcrn-employee-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-employee-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class EmployeeListComponent extends KendoODataBasedComponent<IEmployee, EmployeeListFacade> {
   public readonly props = EmployeeProperties;
