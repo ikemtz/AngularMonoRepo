@@ -64,8 +64,9 @@ describe('DataEntryDialogComponent', () => {
 });
 
 @Component({
-  selector: 'imng-thc',
-  template: template,
+    selector: 'imng-thc',
+    template: template,
+    standalone: false
 })
 export class TestHostComponent
   extends BaseDataEntryComponent<DataEntryMockFacade>

@@ -11,10 +11,11 @@ import { ISchedule } from '../../../models/schedules-odata';
 import { ScheduleBaseEntryComponent } from './base-entry.component';
 
 @Component({
-  selector: 'nrcrn-schedule-edit',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-schedule-edit',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ScheduleEditComponent
   extends ScheduleBaseEntryComponent

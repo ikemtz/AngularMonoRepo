@@ -34,7 +34,8 @@ import { of } from 'rxjs';
  * typeaheadOnSelect return type is TypeaheadMatch
  */
 @Directive({
-  selector: '[imngTypeahead]',
+    selector: '[imngTypeahead]',
+    standalone: false
 })
 export class ImngTypeaheadDirective<T>
   extends TypeaheadDirective
