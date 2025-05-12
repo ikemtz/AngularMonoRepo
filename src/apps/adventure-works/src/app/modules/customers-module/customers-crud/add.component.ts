@@ -8,10 +8,11 @@ import {
 import { CustomerBaseEntryComponent } from './base-entry.component';
 
 @Component({
-  selector: 'aw-customer-add',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'aw-customer-add',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CustomerAddComponent
   extends CustomerBaseEntryComponent

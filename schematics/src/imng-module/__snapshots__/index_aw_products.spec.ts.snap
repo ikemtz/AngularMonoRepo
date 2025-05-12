@@ -160,6 +160,7 @@ import { ProductBaseEntryComponent } from './base-entry.component';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ProductAddComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Product';
@@ -190,7 +191,10 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { ProductCrudFacade } from './crud.facade';
 
-@Component({ template: '' })
+@Component({ 
+    template: '',
+    standalone: false,
+})
 export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<ProductCrudFacade>
   implements OnInit {
   public readonly props = ProductProperties;
@@ -632,6 +636,7 @@ import { ProductCrudFacade } from './crud.facade';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ProductEditComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Product';
@@ -863,6 +868,7 @@ import { productGridState } from './list.grid-state';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ProductListComponent extends KendoODataBasedComponent<IProduct, ProductListFacade> {
   public readonly props = ProductProperties;
