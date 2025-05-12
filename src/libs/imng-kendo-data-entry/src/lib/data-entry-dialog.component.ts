@@ -12,8 +12,8 @@ import { BaseDataEntryComponent } from './base-data-entry.component';
 import { DialogButtonsDirective } from './dialog-buttons.directive';
 
 @Component({
-  selector: 'imng-data-entry-dialog[parentComponent]',
-  template: `<kendo-dialog
+    selector: 'imng-data-entry-dialog[parentComponent]',
+    template: `<kendo-dialog
       [width]="width"
       [minWidth]="minWidth ?? width"
       [height]="height"
@@ -50,7 +50,8 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
         {{ submitButtonText }}
       </button>
     </ng-template>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DataEntryDialogComponent implements OnInit {
   @Input() public minWidth?: number; //NOSONAR
