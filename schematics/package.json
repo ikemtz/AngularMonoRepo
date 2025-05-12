@@ -38,7 +38,7 @@
   "devDependencies": {
     "@angular-devkit/schematics-cli": "^19.2.11",
     "@angular/compiler": "^19.2.10",
-    "@angular/core": "^18.2.13",
+    "@angular/core": "^19.2.10",
     "@eslint/js": "^9.8.0",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.16",
