@@ -187,6 +187,7 @@ import { OrderBaseEntryComponent } from './base-entry.component';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OrderAddComponent extends OrderBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Order';
@@ -217,7 +218,10 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { OrderCrudFacade } from './crud.facade';
 
-@Component({ template: '' })
+@Component({ 
+    template: '',
+    standalone: false,
+})
 export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<OrderCrudFacade>
   implements OnInit {
   public readonly props = OrderProperties;
@@ -825,6 +829,7 @@ import { OrderCrudFacade } from './crud.facade';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OrderEditComponent extends OrderBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Order';
@@ -1141,6 +1146,7 @@ import { orderGridState } from './list.grid-state';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderListFacade> {
   public readonly props = OrderProperties;

@@ -26,10 +26,11 @@ const initialGridState: PrimeTableState = {
 };
 
 @Component({
-  selector: 'aw-prime-order-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'aw-prime-order-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PrimeOrderListComponent extends ImngPrimeODataTableBaseComponent<
   IOrder,

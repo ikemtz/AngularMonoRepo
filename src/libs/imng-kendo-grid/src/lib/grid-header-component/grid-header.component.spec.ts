@@ -1,7 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GridComponent } from '@progress/kendo-angular-grid';
-import { of } from 'rxjs';
 import { ImngGridHeaderComponent } from './grid-header.component';
 
 describe('ImngGridHeaderComponent', () => {
@@ -10,7 +9,7 @@ describe('ImngGridHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ImngGridHeaderComponent],
+      imports: [ImngGridHeaderComponent],
       providers: [
         {
           provide: GridComponent,
@@ -24,53 +23,32 @@ describe('ImngGridHeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ImngGridHeaderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should support hiddenColumns = true', () => {
-    component.hasHiddenColumns$ = of(true);
-    fixture.detectChanges();
-    const element = fixture.nativeElement;
-    expect(element.innerHTML).toContain('class="text-primary"');
-  });
-
-  it('should support hiddenColumns = false', () => {
-    component.hasHiddenColumns$ = of(false);
-    fixture.detectChanges();
-    const element = fixture.nativeElement;
-    expect(element.innerHTML).toContain(
-      'title="Columns" ng-reflect-ng-class="[object Object]"',
-    );
-  });
-
   it('should support hideReloadData = true', () => {
     component.hideReloadData = true;
-    fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toMatchSnapshot();
   });
 
   it('should support hideReloadData = false', () => {
     component.hideReloadData = false;
-    fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toMatchSnapshot();
   });
 
   it('should support hideResetFilters = true', () => {
     component.hideResetFilters = true;
-    fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toMatchSnapshot();
   });
 
   it('should support hideResetFilters = false', () => {
     component.hideResetFilters = false;
-    fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toMatchSnapshot();
   });

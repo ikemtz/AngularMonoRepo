@@ -9,7 +9,10 @@ import {
 
 import { BuildingCrudFacade } from './crud.facade';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 export abstract class BuildingBaseEntryComponent
   extends BaseDataEntryComponent<BuildingCrudFacade>
   implements OnInit

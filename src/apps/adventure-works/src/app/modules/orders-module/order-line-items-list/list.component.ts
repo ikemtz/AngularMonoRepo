@@ -25,10 +25,11 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'aw-order-line-item-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'aw-order-line-item-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class OrderLineItemListComponent extends KendoODataBasedComponent<IOrderLineItem, OrderLineItemListFacade> {
   public readonly props = OrderLineItemProperties;
