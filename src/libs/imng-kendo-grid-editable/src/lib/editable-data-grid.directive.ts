@@ -22,7 +22,8 @@ import { IdType } from 'imng-nrsrx-client-utils';
  */
 
 @Directive({
-  selector: '[imngEditableDataGrid]',
+    selector: '[imngEditableDataGrid]',
+    standalone: false
 })
 export class ImngEditableDataGridDirective
   implements OnInit, OnDestroy, Subscribable

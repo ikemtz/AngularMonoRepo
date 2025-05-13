@@ -80,7 +80,8 @@
       "options": {
         "proxyConfig": "apps/adventure-works/proxy.conf.js",
         "buildTarget": "adventure-works:build"
-      }
+      },
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

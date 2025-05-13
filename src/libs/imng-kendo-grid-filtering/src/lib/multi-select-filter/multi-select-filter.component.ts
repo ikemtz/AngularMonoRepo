@@ -16,8 +16,8 @@ import { IdType } from 'imng-nrsrx-client-utils';
 import { ODataState } from 'imng-kendo-odata';
 
 @Component({
-  selector: 'imng-multi-select-filter',
-  template: `
+    selector: 'imng-multi-select-filter',
+    template: `
     <ul>
       <li *ngIf="showTextFilter">
         <input class="k-textbox" (input)="onInput($event)" />
@@ -44,8 +44,8 @@ import { ODataState } from 'imng-kendo-odata';
       </li>
     </ul>
   `,
-  styles: [
-    `
+    styles: [
+        `
       ul {
         list-style-type: none;
         height: 200px;
@@ -69,8 +69,9 @@ import { ODataState } from 'imng-kendo-odata';
       }
       .k-checkbox {width: 14px; height: 15px;}
     `,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MultiSelectFilterComponent implements AfterViewInit {
   @Input() public isPrimitive = false;

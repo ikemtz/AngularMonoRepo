@@ -9,10 +9,11 @@ import { formGroupPatcher } from 'imng-kendo-data-entry';
 import { CustomerBaseEntryComponent } from './base-entry.component';
 
 @Component({
-  selector: 'aw-customer-edit',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'aw-customer-edit',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CustomerEditComponent
   extends CustomerBaseEntryComponent

@@ -22,10 +22,11 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'nrcrn-competency-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-competency-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CompetencyListComponent extends KendoODataBasedComponent<ICompetency, CompetencyListFacade> {
   public readonly props = CompetencyProperties;

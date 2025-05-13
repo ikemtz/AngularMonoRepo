@@ -102,8 +102,9 @@ const initialGridState: ODataState = {
   filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] },
 };
 @Component({
-  selector: 'imng-test-component',
-  template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
+    selector: 'imng-test-component',
+    template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
+    standalone: false
 })
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,
