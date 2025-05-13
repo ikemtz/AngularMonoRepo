@@ -6,11 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import {
-  GridModule,
-  ExcelModule,
-  PDFModule,
-} from '@progress/kendo-angular-grid';
+import { ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
@@ -35,7 +31,6 @@ import {
   ],
   imports: [
     CommonModule,
-    GridModule,
     ExcelModule,
     PDFModule,
     DialogModule,

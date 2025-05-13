@@ -184,6 +184,7 @@
     "@progress/kendo-angular-pdf-export": "^18.5.2",
     "@progress/kendo-angular-popup": "^18.5.2",
     "@progress/kendo-angular-progressbar": "^18.5.2",
+    "@progress/kendo-angular-toolbar": "^18.5.2",
     "@progress/kendo-angular-treeview": "^18.5.2",
     "@progress/kendo-angular-utils": "^18.5.2",
     "@progress/kendo-data-query": "^1.7.1",
