@@ -44,10 +44,11 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'nrcrn-unit-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-unit-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UnitListComponent extends KendoODataBasedComponent<IUnit, UnitListFacade> {
   public readonly props = UnitProperties;
