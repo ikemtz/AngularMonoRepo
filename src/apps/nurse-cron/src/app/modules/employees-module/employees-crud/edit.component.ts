@@ -5,10 +5,11 @@ import { EmployeeBaseEntryComponent } from './base-entry.component';
 import { EmployeeCrudFacade } from './crud.facade';
 
 @Component({
-  selector: 'nrcrn-employee-edit',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-employee-edit',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class EmployeeEditComponent extends EmployeeBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Employee';

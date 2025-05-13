@@ -8,10 +8,11 @@ import {
 import { OrderBaseEntryComponent } from './base-entry.component';
 
 @Component({
-  selector: 'aw-order-add',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'aw-order-add',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class OrderAddComponent
   extends OrderBaseEntryComponent

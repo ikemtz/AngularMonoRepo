@@ -4,9 +4,10 @@ import { take, filter, tap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'nrcrn-messaging',
-  templateUrl: './messaging.component.html',
-  styleUrls: ['./messaging.component.scss'],
+    selector: 'nrcrn-messaging',
+    templateUrl: './messaging.component.html',
+    styleUrls: ['./messaging.component.scss'],
+    standalone: false
 })
 export class MessagingComponent implements OnInit, OnDestroy {
   public lastMessage$?: Observable<ISignalrMessage | undefined>;

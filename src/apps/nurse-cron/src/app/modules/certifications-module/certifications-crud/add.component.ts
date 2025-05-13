@@ -10,10 +10,11 @@ import { CertificationBaseEntryComponent } from './base-entry.component';
 import { ICertification } from '../../../models/certifications-odata';
 
 @Component({
-  selector: 'nrcrn-certification-add',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-certification-add',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CertificationAddComponent
   extends CertificationBaseEntryComponent
