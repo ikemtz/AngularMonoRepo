@@ -1,11 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { GridComponent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  GridComponent,
+  ColumnChooserComponent,
+  KENDO_GRID_EXCEL_EXPORT,
+  KENDO_GRID_PDF_EXPORT,
+} from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'imng-kendo-odata-grid-header',
-  imports: [CommonModule, KENDO_GRID],
+  imports: [
+    CommonModule,
+    ColumnChooserComponent,
+    KENDO_GRID_EXCEL_EXPORT,
+    KENDO_GRID_PDF_EXPORT,
+  ],
   template: `<div class="mr-5 pr-5">
     <button
       name="imngAddEntity"

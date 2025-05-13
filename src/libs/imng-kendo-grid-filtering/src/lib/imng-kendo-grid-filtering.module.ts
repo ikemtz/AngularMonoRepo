@@ -4,8 +4,8 @@ import { MultiSelectFilterComponent } from './multi-select-filter/multi-select-f
 import { UuidFilterComponent } from './uuid-filter/uuid-filter.component';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [MultiSelectFilterComponent, UuidFilterComponent],
+  imports: [CommonModule, UuidFilterComponent],
+  declarations: [MultiSelectFilterComponent],
   exports: [MultiSelectFilterComponent, UuidFilterComponent],
 })
 export class ImngKendoGridFilteringModule {}
