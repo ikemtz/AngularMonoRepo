@@ -15,11 +15,12 @@ import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 
 @Directive({
-    selector: '[imngODataGrid]',
-    standalone: false
+  selector: '[imngODataGrid]',
+  standalone: false,
 })
 export class ImngODataGridDirective
-  implements OnInit, AfterViewInit, OnDestroy, Subscribable {
+  implements OnInit, AfterViewInit, OnDestroy, Subscribable
+{
   public readonly allSubscriptions = new Subscriptions();
   private facade: IKendoODataGridFacade<object>;
 
@@ -29,8 +30,8 @@ export class ImngODataGridDirective
   >;
   constructor(
     public readonly gridComponent: GridComponent,
-    public readonly changeDetectorRef: ChangeDetectorRef
-  ) { }
+    public readonly changeDetectorRef: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.facade = this.odataComponent.facade || ({} as never);
@@ -46,36 +47,36 @@ export class ImngODataGridDirective
       this.facade.loading$.subscribe((t: boolean) => {
         this.gridComponent.loading = t;
         this.changeDetectorRef.markForCheck();
-      })
+      }),
     );
     this.odataComponent.hasHiddenColumns$ = merge(
       this.odataComponent.facade.loading$.pipe(
-        hasHiddenColumns(this.gridComponent)
+        hasHiddenColumns(this.gridComponent),
       ),
       this.gridComponent.columnVisibilityChange?.pipe(
-        hasHiddenColumns(this.gridComponent)
-      )
+        hasHiddenColumns(this.gridComponent),
+      ),
     );
   }
 
   ngAfterViewInit(): void {
     this.allSubscriptions.push(
       this.gridComponent.dataStateChange.subscribe((t: GridStateChangeEvent) =>
-        this.odataComponent.dataStateChange(t)
+        this.odataComponent.dataStateChange(t),
       ),
       this.facade.gridData$.subscribe((t) => {
         this.gridComponent.data = t || [];
         this.changeDetectorRef.markForCheck();
       }),
       this.facade.gridPagerSettings$.subscribe(
-        (t) => (this.gridComponent.pageable = t)
+        (t) => (this.gridComponent.pageable = t),
       ),
       this.facade.gridODataState$.pipe(filter((t) => !!t)).subscribe((t) => {
         this.gridComponent.pageSize = t?.take || 20; //NOSONAR
         this.gridComponent.filter = t?.filter || { logic: 'and', filters: [] };
         this.gridComponent.skip = t?.skip || 0;
         this.gridComponent.sort = t?.sort || [];
-      })
+      }),
     );
   }
 
