@@ -11,10 +11,11 @@ import { IBuilding } from '../../../models/units-odata';
 import { BuildingBaseEntryComponent } from './base-entry.component';
 
 @Component({
-  selector: 'nrcrn-building-edit',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-building-edit',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuildingEditComponent
   extends BuildingBaseEntryComponent

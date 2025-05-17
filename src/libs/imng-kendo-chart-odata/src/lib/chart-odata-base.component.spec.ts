@@ -29,8 +29,9 @@ describe('ChartODataBaseComponent', () => {
 });
 
 @Component({
-  selector: 'imng-test-component',
-  template: '<h1></h1>',
+    selector: 'imng-test-component',
+    template: '<h1></h1>',
+    standalone: false
 })
 export class ChartODataTestComponent extends ChartODataBaseComponent<ChartODataMockFacade> {
   constructor() {

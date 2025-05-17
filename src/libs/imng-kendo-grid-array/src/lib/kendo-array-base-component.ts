@@ -15,7 +15,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Subscribable } from 'imng-ngrx-utils';
 import { KendoGridBaseComponent } from 'imng-kendo-grid';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   extends KendoGridBaseComponent<LISTED_ENTITY>
   implements OnDestroy, Subscribable {
