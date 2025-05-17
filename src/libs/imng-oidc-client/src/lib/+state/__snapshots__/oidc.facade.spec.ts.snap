@@ -53,6 +53,7 @@ HttpErrorResponse {
   "error": [Error: this is an expected error during unit tests, do not be alarmed!],
   "headers": HttpHeaders {
     "headers": Map {},
+    "lazyInit": undefined,
     "lazyUpdate": null,
     "normalizedNames": Map {},
   },
@@ -61,6 +62,7 @@ HttpErrorResponse {
   "ok": false,
   "status": 0,
   "statusText": "Unknown Error",
+  "type": undefined,
   "url": null,
 }
 `;
