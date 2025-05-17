@@ -19,7 +19,8 @@ import {
 } from '@progress/kendo-data-query';
 
 @Directive({
-  selector: '[imngArrayGrid]',
+    selector: '[imngArrayGrid]',
+    standalone: false
 })
 export class ImngArrayGridDirective
   implements OnInit, AfterViewInit, OnDestroy, Subscribable {

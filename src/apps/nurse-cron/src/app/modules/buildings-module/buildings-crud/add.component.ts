@@ -10,10 +10,11 @@ import { BuildingBaseEntryComponent } from './base-entry.component';
 import { IBuilding } from '../../../models/units-odata';
 
 @Component({
-  selector: 'nrcrn-building-add',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-building-add',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuildingAddComponent
   extends BuildingBaseEntryComponent

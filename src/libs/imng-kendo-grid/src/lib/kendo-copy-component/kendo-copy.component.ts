@@ -6,14 +6,15 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'imng-kendo-copy[copyValue]',
-  template: `
+    selector: 'imng-kendo-copy[copyValue]',
+    template: `
     <a (click)="copy()" [title]="'Copy the full value: ' + copyValue"
       >{{ displayValue }}&nbsp;<span
         class="k-icon k-i-copy k-icon-sm k-color-primary"></span
     ></a>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ImngKendoCopyComponent implements OnInit {
   /**
