@@ -9,6 +9,7 @@ import { <%= classify(name) %>CrudFacade } from './crud.facade';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class <%= classify(name) %>EditComponent extends <%= classify(name) %>BaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit <%= classify(name) %>';

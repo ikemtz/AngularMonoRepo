@@ -11,10 +11,11 @@ import { ICompetency } from '../../../models/competencies-odata';
 import { CompetencyBaseEntryComponent } from './base-entry.component';
 
 @Component({
-  selector: 'nrcrn-competency-edit',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-competency-edit',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CompetencyEditComponent
   extends CompetencyBaseEntryComponent

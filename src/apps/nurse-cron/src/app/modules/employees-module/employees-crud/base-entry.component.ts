@@ -5,7 +5,10 @@ import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { EmployeeCrudFacade } from './crud.facade';
 import { EmployeeProperties, IEmployeeForm, EmployeeFormGroupFac } from '../../../models/employees-api';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<EmployeeCrudFacade>
   implements OnInit {
   public readonly props = EmployeeProperties;

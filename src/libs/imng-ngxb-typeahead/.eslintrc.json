@@ -27,7 +27,8 @@
             "prefix": "imng",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {

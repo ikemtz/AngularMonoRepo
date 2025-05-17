@@ -7,6 +7,7 @@ import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component'
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class <%= classify(name) %>AddComponent extends <%= classify(name) %>BaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add <%= classify(name) %>';

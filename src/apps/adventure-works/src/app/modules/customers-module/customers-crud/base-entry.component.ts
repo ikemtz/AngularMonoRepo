@@ -12,7 +12,10 @@ import {
 
 import { CustomerCrudFacade } from './crud.facade';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 export abstract class CustomerBaseEntryComponent
   extends BaseDataEntryComponent<CustomerCrudFacade>
   implements OnInit

@@ -23,10 +23,11 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'nrcrn-certification-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-certification-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CertificationListComponent extends KendoODataBasedComponent<ICertification, CertificationListFacade> {
   public readonly props = CertificationProperties;
