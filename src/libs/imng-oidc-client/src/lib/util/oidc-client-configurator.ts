@@ -19,7 +19,7 @@ export function oidcConfigurator(
       )
         ? true
         : oidcClientConfig.automaticSilentRenew,
-      metadataUrl: `${oidcClientConfig.authority}/.well-known/openid-configuration`,
+      metadataUrl: oidcClientConfig.metadataUrl || `${oidcClientConfig.authority}/.well-known/openid-configuration`,
     },
     getUserMetadata: oidcClientConfig.getUserMetadata,
     useCallbackFlag: isNullOrUndefined(oidcClientConfig.useCallbackFlag)
