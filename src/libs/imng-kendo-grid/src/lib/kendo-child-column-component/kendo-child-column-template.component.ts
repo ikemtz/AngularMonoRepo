@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'imng-kendo-grid-child-column-template',
-  template: `<div *ngFor="let item of currentData | slice: 0:visibleRecCount">
+    selector: 'imng-kendo-grid-child-column-template',
+    template: `<div *ngFor="let item of currentData | slice: 0:visibleRecCount">
       {{ item }}
     </div>
     <button
@@ -25,7 +25,8 @@ import {
         currentData.length - visibleRecCount
       }}</span>
     </button>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ImngGridChildColumnTemplateComponent implements OnInit {
   private _data: unknown[] = [];

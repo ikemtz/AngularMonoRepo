@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'imng-support',
-  template: `<div class="container pt-5 mt-5">
+    selector: 'imng-support',
+    template: `<div class="container pt-5 mt-5">
     <div class="row h3 text-center">
       <div class="col-md-12 text-center">OIDC Support</div>
     </div>
@@ -35,6 +35,7 @@ import { map } from 'rxjs/operators';
       <div class="col-md-8">{{ item.value }}</div>
     </div>
   </div> `,
+    standalone: false
 })
 export class SupportComponent {
   public profileValue$: Observable<{ key: string; value: string; }[]>;

@@ -5,7 +5,10 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';<% } %>
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
-@Component({ template: '' })
+@Component({ 
+  template: '',
+  standalone: false, 
+})
 export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEntryComponent<<%= classify(name) %>CrudFacade>
   implements OnInit {
   public readonly props = <%= classify(name) %>Properties;<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>

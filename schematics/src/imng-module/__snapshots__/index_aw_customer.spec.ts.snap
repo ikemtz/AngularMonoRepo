@@ -139,6 +139,7 @@ import { CustomerBaseEntryComponent } from './base-entry.component';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CustomerAddComponent extends CustomerBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Customer';
@@ -169,7 +170,10 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { CustomerCrudFacade } from './crud.facade';
 
-@Component({ template: '' })
+@Component({ 
+  template: '',
+  standalone: false, 
+})
 export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<CustomerCrudFacade>
   implements OnInit {
   public readonly props = CustomerProperties;
@@ -516,6 +520,7 @@ import { CustomerCrudFacade } from './crud.facade';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CustomerEditComponent extends CustomerBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Customer';
@@ -687,6 +692,7 @@ import { customerGridState } from './list.grid-state';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, CustomerListFacade> {
   public readonly props = CustomerProperties;

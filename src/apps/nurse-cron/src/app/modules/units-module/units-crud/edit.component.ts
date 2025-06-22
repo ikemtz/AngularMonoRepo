@@ -11,10 +11,11 @@ import { IUnit } from '../../../models/units-odata';
 import { UnitBaseEntryComponent } from './base-entry.component';
 
 @Component({
-  selector: 'nrcrn-unit-edit',
-  templateUrl: './add-edit.component.html',
-  styleUrls: ['./add-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-unit-edit',
+    templateUrl: './add-edit.component.html',
+    styleUrls: ['./add-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UnitEditComponent
   extends UnitBaseEntryComponent
