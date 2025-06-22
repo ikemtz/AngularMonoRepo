@@ -33,6 +33,7 @@ export interface OidcClientConfig {
   automaticSilentRenew?: boolean;
   getUserMetadata: boolean;
   useCallbackFlag?: boolean;
+  metadataUrl?: string;
 }
 export const OIDC_CLIENT_CONFIG = new InjectionToken<OidcClientConfig>(
   'oidc-client-config',
