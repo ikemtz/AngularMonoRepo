@@ -31,10 +31,11 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'nrcrn-building-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'nrcrn-building-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BuildingListComponent extends KendoODataBasedComponent<IBuilding, BuildingListFacade> {
   public readonly props = BuildingProperties;

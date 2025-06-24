@@ -7,10 +7,11 @@ import {
 import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 
 @Component({
-  selector: 'imng-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'imng-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild(BarcodeScannerLivestreamComponent)

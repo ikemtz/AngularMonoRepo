@@ -14,5 +14,6 @@
   "prettier.singleQuote": true,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "nxConsole.generateAiAgentRules": true
 }

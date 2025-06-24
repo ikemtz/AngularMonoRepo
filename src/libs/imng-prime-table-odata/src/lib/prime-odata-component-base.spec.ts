@@ -14,7 +14,7 @@ describe('PrimeODataBasedComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PrimeODataTableTestComponent],
+      imports: [PrimeODataTableTestComponent],
     }).compileComponents();
   });
 

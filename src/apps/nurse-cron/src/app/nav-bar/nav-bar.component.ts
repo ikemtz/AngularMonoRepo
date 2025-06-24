@@ -4,9 +4,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'nrcrn-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss'],
+    selector: 'nrcrn-nav-bar',
+    templateUrl: './nav-bar.component.html',
+    styleUrls: ['./nav-bar.component.scss'],
+    standalone: false
 })
 export class NavBarComponent {
   public readonly identity$: Observable<IOidcUser | undefined>;
