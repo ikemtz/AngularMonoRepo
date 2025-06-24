@@ -17,7 +17,7 @@ describe('PrimeODataBasedComponent Observable State', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PrimeODataTableTestComponent],
+      imports: [PrimeODataTableTestComponent],
       providers: [
         {
           provide: Router,
