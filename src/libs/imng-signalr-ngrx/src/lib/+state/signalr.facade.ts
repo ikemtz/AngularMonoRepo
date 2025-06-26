@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { ISignalrMessage } from '../models/signalr.message';
@@ -8,11 +8,11 @@ import { signalrSelectors } from './signalr.selectors';
 
 @Injectable()
 export class SignalrFacade {
+  private readonly store = inject(Store);
+
   public readonly isConnected$ = this.store.select(signalrSelectors.selectIsConnected);
   public readonly lastReceivedMessage$ = this.store.select(signalrSelectors.selectLastReceivedMessage);
   public readonly receivedMessages$ = this.store.select(signalrSelectors.selectReceivedMessages);
-
-  constructor(private readonly store: Store) { }
 
   public connect(): void {
     this.store.dispatch(signalrActions.connect());

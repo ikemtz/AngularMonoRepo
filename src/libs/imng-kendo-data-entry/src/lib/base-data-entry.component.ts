@@ -1,11 +1,4 @@
-import {
-  Component,
-  Inject,
-  InjectionToken,
-  Input,
-  OnInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, InjectionToken, Input, OnInit, OnDestroy, inject } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import {
   AbstractControl,
@@ -42,6 +35,8 @@ export abstract class BaseDataEntryComponent<
   >
   implements OnInit, OnDestroy, Subscribable
 {
+  readonly facade = inject<FACADE>(FACADE);
+
   @Input() public width: string | number = 800; //NOSONAR
   @Input() public height: string | number = 600; //NOSONAR
 
@@ -60,7 +55,7 @@ export abstract class BaseDataEntryComponent<
     false as boolean,
   );
 
-  constructor(@Inject(FACADE) public readonly facade: FACADE) {
+  constructor() {
     this.loading$ = this.facade.loading$;
   }
 

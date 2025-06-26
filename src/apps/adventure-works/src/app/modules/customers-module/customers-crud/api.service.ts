@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
@@ -9,7 +9,9 @@ import { ICustomer } from '../../../models/webapi';
 })
 export class CustomerApiService extends NrsrxBaseApiClientService<ICustomer> {
   public override url = environment.webApiEnpoints.customers;
-  constructor(http: HttpClient) {
+  constructor() {
+    const http = inject(HttpClient);
+
     super(http);
   }
 }

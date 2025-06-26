@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
 import { map, filter, switchMap } from 'rxjs/operators';
 import { timer, Observable } from 'rxjs';
@@ -10,6 +10,10 @@ import { idleQuery } from './idle.selectors';
 
 @Injectable()
 export class IdleEffects {
+  private readonly idleConfig = inject<IdleConfig>(IDLE_CONFIG);
+  private readonly store = inject(Store);
+  private readonly actions$ = inject(Actions);
+
   public signOutRedirect$ = createEffect(() => {
     return this.getLoggedInActionPipe().pipe(
       switchMap(() => timer(this.idleConfig.autoLogoutInMs)),
@@ -31,10 +35,4 @@ export class IdleEffects {
         this.store.select(idleQuery.selectLoggedInAndIsNotTimingOut).pipe(filter((val) => val))
       ));
   }
-
-  constructor(
-    @Inject(IDLE_CONFIG) private readonly idleConfig: IdleConfig,
-    private readonly store: Store,
-    private readonly actions$: Actions
-  ) { }
 }

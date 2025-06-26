@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
@@ -31,7 +31,9 @@ export abstract class ProductBaseEntryComponent
   public readonly productCategoryFilter$ = new BehaviorSubject('');
   public addEditForm: FormGroup<IProductForm>;
 
-  constructor(facade: ProductCrudFacade) {
+  constructor() {
+    const facade = inject(ProductCrudFacade);
+
     super(facade);
     this.productModels$ = facade.productModels$.pipe(
       switchMap((productModels) =>

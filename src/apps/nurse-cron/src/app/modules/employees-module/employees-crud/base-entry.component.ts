@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
@@ -14,7 +14,9 @@ export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<
   public readonly props = EmployeeProperties;
   public addEditForm: FormGroup<IEmployeeForm>;
 
-  constructor(facade: EmployeeCrudFacade) {
+  constructor() {
+    const facade = inject(EmployeeCrudFacade);
+
     super(facade);
   }
 

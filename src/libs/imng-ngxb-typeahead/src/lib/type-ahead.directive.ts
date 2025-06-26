@@ -1,15 +1,4 @@
-import {
-  Directive,
-  ChangeDetectorRef,
-  ElementRef,
-  Renderer2,
-  ViewContainerRef,
-  OnInit,
-  OnDestroy,
-  Input,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Directive, ChangeDetectorRef, ElementRef, Renderer2, ViewContainerRef, OnInit, OnDestroy, Input, EventEmitter, Output, inject } from '@angular/core';
 import {
   TypeaheadDirective,
   TypeaheadConfig,
@@ -43,14 +32,14 @@ export class ImngTypeaheadDirective<T>
   private _typeAheadFacade?: ImngTypeAheadFacade<T>;
   public readonly allSubscriptions = new Subscriptions();
 
-  constructor(
-    cis: ComponentLoaderFactory,
-    changeDetection: ChangeDetectorRef,
-    element: ElementRef,
-    ngControl: NgControl,
-    renderer: Renderer2,
-    viewContainerRef: ViewContainerRef
-  ) {
+  constructor() {
+    const cis = inject(ComponentLoaderFactory);
+    const changeDetection = inject(ChangeDetectorRef);
+    const element = inject(ElementRef);
+    const ngControl = inject(NgControl);
+    const renderer = inject(Renderer2);
+    const viewContainerRef = inject(ViewContainerRef);
+
     super(
       cis,
       {

@@ -1,14 +1,15 @@
 import { Observable, throwError } from 'rxjs';
 import { first, catchError, mergeMap } from 'rxjs/operators';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { oidcSelectors } from '../+state/oidc.selectors';
 import * as oidcActions from '../+state/oidc.actions';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
-  constructor(private readonly store: Store) {}
+  private readonly store = inject(Store);
+
 
   intercept(
     req: HttpRequest<unknown>,

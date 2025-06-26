@@ -1,11 +1,4 @@
-import {
-  Directive,
-  Input,
-  OnInit,
-  OnDestroy,
-  ChangeDetectorRef,
-  AfterViewInit,
-} from '@angular/core';
+import { Directive, Input, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit, inject } from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { merge } from 'rxjs';
@@ -20,6 +13,9 @@ import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 })
 export class ImngODataGridDirective
   implements OnInit, AfterViewInit, OnDestroy, Subscribable {
+  readonly gridComponent = inject(GridComponent);
+  readonly changeDetectorRef = inject(ChangeDetectorRef);
+
   public readonly allSubscriptions = new Subscriptions();
   private facade: IKendoODataGridFacade<object>;
 
@@ -27,10 +23,6 @@ export class ImngODataGridDirective
     object,
     IKendoODataGridFacade<object>
   >;
-  constructor(
-    public readonly gridComponent: GridComponent,
-    public readonly changeDetectorRef: ChangeDetectorRef
-  ) { }
 
   ngOnInit(): void {
     this.facade = this.odataComponent.facade || ({} as never);

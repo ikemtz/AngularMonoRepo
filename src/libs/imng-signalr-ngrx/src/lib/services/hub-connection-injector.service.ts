@@ -1,4 +1,4 @@
-import { Injectable, Inject, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import {
   ISignalrConfiguration,
@@ -15,15 +15,16 @@ import { OidcFacade } from 'imng-oidc-client';
   providedIn: 'root',
 })
 export class HubConnectionInjectorService implements OnDestroy, Subscribable {
+  private readonly signalrConfiguration = inject<ISignalrConfiguration>(SIGNALR_CONFIG);
+  private readonly store = inject(Store);
+
   public readonly allSubscriptions = new Subscriptions();
   public hubConnection?: HubConnection;
 
-  constructor(
-    @Inject(SIGNALR_CONFIG)
-    private readonly signalrConfiguration: ISignalrConfiguration,
-    private readonly store: Store,
-    oidcFacade: OidcFacade
-  ) {
+  constructor() {
+    const signalrConfiguration = this.signalrConfiguration;
+    const oidcFacade = inject(OidcFacade);
+
     this.allSubscriptions.push(
       oidcFacade.accessToken$
         .pipe(

@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import {
@@ -20,7 +20,9 @@ export abstract class BuildingBaseEntryComponent
   public readonly props = BuildingProperties;
   public addEditForm: FormGroup<IBuildingForm>;
 
-  constructor(facade: BuildingCrudFacade) {
+  constructor() {
+    const facade = inject(BuildingCrudFacade);
+
     super(facade);
   }
   public override ngOnInit(): void {

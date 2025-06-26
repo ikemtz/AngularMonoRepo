@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -23,15 +23,16 @@ export class CustomerListComponent extends KendoODataBasedComponent<
   ICustomer,
   CustomerListFacade
 > {
+  readonly crudFacade = inject(CustomerCrudFacade);
+
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public currentItem: ICustomer | undefined;
 
-  constructor(
-    facade: CustomerListFacade,
-    public readonly crudFacade: CustomerCrudFacade,
-    router: Router,
-  ) {
+  constructor() {
+    const facade = inject(CustomerListFacade);
+    const router = inject(Router);
+
     super(facade, customerGridState, router);
   }
 
