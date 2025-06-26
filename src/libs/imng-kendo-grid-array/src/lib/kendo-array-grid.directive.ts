@@ -1,10 +1,4 @@
-import {
-  Directive,
-  Input,
-  OnInit,
-  OnDestroy,
-  AfterViewInit,
-} from '@angular/core';
+import { Directive, Input, OnInit, OnDestroy, AfterViewInit, inject } from '@angular/core';
 import {
   GridComponent,
   PageChangeEvent,
@@ -24,13 +18,14 @@ import {
 })
 export class ImngArrayGridDirective
   implements OnInit, AfterViewInit, OnDestroy, Subscribable {
+  readonly gridComponent = inject(GridComponent);
+
   public readonly allSubscriptions = new Subscriptions();
   @Input('imngArrayGrid') public arrayComponent?: KendoArrayBasedComponent<
     object,
     object
   >;
   @Input() public pageable: boolean | PagerSettings = true;
-  constructor(public readonly gridComponent: GridComponent) { }
 
   ngOnInit(): void {
     this.gridComponent.reorderable = true;

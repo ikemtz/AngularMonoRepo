@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, inject as inject_1 } from '@angular/core';
 import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import {
   ODataGridMockFacade,
@@ -110,8 +110,14 @@ export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,
   ODataGridMockFacade
 > {
+  override readonly router: Router;
+
   props = {};
-  constructor(override readonly router: Router) {
+  constructor() {
+    const router = inject_1(Router);
+
     super(createODataGridMockFacade(), initialGridState, router);
+  
+    this.router = router;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, inject } from '@angular/core';
 import { EmployeeCrudFacade } from './crud.facade';
 import { EmployeeBaseEntryComponent } from './base-entry.component';
 
@@ -13,7 +13,9 @@ export class EmployeeAddComponent extends EmployeeBaseEntryComponent implements 
   public dialogTitle = 'Add Employee';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: EmployeeCrudFacade) {
+  constructor() {
+    const facade = inject(EmployeeCrudFacade);
+
     super(facade);
   }
   public override initForm(): void {

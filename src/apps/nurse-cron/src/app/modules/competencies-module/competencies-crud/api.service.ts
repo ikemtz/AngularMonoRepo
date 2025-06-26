@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
@@ -9,7 +9,9 @@ import { ICompetency } from '../../../models/competencies-odata';
 })
 export class CompetencyApiService extends NrsrxBaseApiClientService<ICompetency> {
   public override url = environment.endPoints.competencies.competenciesApi;
-  constructor(http: HttpClient) {
+  constructor() {
+    const http = inject(HttpClient);
+
     super(http);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { schedulesFeature } from '../+state/schedule.reducer';
@@ -8,12 +8,12 @@ import { ISchedule } from '../../../models/schedules-odata';
 
 @Injectable()
 export class ScheduleCrudFacade implements IDataEntryFacade<ISchedule> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(schedulesFeature.selectLoading);
   currentEntity$ = this.store.select(scheduleQueries.selectCurrentSchedule);
   isEditActive$ = this.store.select(scheduleQueries.selectIsEditScheduleActive);
   isNewActive$ = this.store.select(scheduleQueries.selectIsNewScheduleActive);
-
-  constructor(private readonly store: Store) { }
 
   public setCurrentEntity(item: ISchedule): void {
     this.store.dispatch(scheduleActionTypes.setCurrentSchedule(item));

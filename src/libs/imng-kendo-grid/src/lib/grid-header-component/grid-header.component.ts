@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
 
@@ -92,6 +92,8 @@ import { Observable } from 'rxjs';
     standalone: false
 })
 export class ImngGridHeaderComponent {
+  parentGrid = inject<GridComponent>(GridComponent);
+
   @Input()
   public entityName = '';
   @Input()
@@ -110,5 +112,4 @@ export class ImngGridHeaderComponent {
   public resetFiltersClicked = new EventEmitter();
   @Output()
   public reloadEntitiesClicked = new EventEmitter();
-  constructor(@Inject(GridComponent) public parentGrid: GridComponent) {}
 }

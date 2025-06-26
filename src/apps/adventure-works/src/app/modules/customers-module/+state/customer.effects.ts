@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
@@ -14,12 +14,11 @@ import { ICustomer, ISalesAgent } from '../../../models/odata';
 
 @Injectable()
 export class CustomerEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly customerApiService: CustomerApiService,
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataService);
+  private readonly store = inject(Store);
+  private readonly customerApiService = inject(CustomerApiService);
+
 
   loadCustomersEffect$ = createEffect(() => {
     return this.actions$.pipe(

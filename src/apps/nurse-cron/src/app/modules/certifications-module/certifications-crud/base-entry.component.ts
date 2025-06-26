@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import {
@@ -20,7 +20,9 @@ export abstract class CertificationBaseEntryComponent
   public readonly props = CertificationProperties;
   public addEditForm: FormGroup<ICertificationForm>;
 
-  constructor(facade: CertificationCrudFacade) {
+  constructor() {
+    const facade = inject(CertificationCrudFacade);
+
     super(facade);
   }
   public override ngOnInit(): void {

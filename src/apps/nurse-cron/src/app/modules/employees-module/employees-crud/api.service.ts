@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env';
@@ -15,7 +15,9 @@ export class EmployeeApiService extends NrsrxBaseApiClientService<IEmployee> {
     EmployeeProperties.HIRE_DATE,
     EmployeeProperties.FIRE_DATE];
 
-  constructor(http: HttpClient) {
+  constructor() {
+    const http = inject(HttpClient);
+
     super(http);
   }
 }

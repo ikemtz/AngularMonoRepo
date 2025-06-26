@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PrimeOrderListFacade } from './prime-list.facade';
@@ -40,7 +40,10 @@ export class PrimeOrderListComponent extends ImngPrimeODataTableBaseComponent<
   public currentItem: IOrder | undefined;
   public readonly data$: Observable<IOrder[]>;
 
-  constructor(facade: PrimeOrderListFacade, router: Router) {
+  constructor() {
+    const facade = inject(PrimeOrderListFacade);
+    const router = inject(Router);
+
     super(facade, initialGridState, router);
     this.activeEffectCount$ = facade.activeEffectCount$;
   }

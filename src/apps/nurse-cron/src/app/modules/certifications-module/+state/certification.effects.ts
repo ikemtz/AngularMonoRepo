@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '@env*';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
@@ -16,12 +16,11 @@ import { certificationsFeature } from './certification.reducer';
 
 @Injectable()
 export class CertificationEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly certificationApiService: CertificationApiService,
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataService);
+  private readonly store = inject(Store);
+  private readonly certificationApiService = inject(CertificationApiService);
+
 
   loadCertificationsEffect$ = createEffect(() => {
     return this.actions$.pipe(

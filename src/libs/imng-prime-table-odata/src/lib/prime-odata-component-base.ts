@@ -1,11 +1,5 @@
 import { Observable, isObservable, map, tap, distinct } from 'rxjs';
-import {
-  OnInit,
-  OnDestroy,
-  InjectionToken,
-  Inject,
-  Component,
-} from '@angular/core';
+import { OnInit, OnDestroy, InjectionToken, Component, inject } from '@angular/core';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Router } from '@angular/router';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
@@ -42,6 +36,11 @@ export abstract class ImngPrimeODataTableBaseComponent<
   >
   implements OnInit, OnDestroy, Subscribable
 {
+  readonly facade = inject<FACADE>(FACADE);
+  private readonly state = inject<PrimeTableState | Observable<PrimeTableState>>(STATE);
+  readonly router = inject(Router) ?? null;
+  readonly tableRefresh$ = inject<Observable<unknown> | null>(Observable<unknown>) ?? null;
+
   public readonly allSubscriptions = new Subscriptions();
   public readonly ENUM_DISPLAY_TEXT = EnumProperties.DISPLAY_TEXT;
   public readonly ENUM_NAME = EnumProperties.NAME;
@@ -69,13 +68,10 @@ export abstract class ImngPrimeODataTableBaseComponent<
   protected appliedTransformations?: string;
   public readonly getRelatedValue = getRelatedValue;
 
-  constructor(
-    @Inject(FACADE) public readonly facade: FACADE,
-    @Inject(STATE)
-    private readonly state: PrimeTableState | Observable<PrimeTableState>,
-    public readonly router: Router | null = null, //NOSONAR
-    public readonly tableRefresh$: Observable<unknown> | null = null,
-  ) {
+  constructor() {
+    const state = this.state;
+    const tableRefresh$ = this.tableRefresh$;
+
     if (
       this.router?.routerState?.snapshot?.root.queryParams[
         this.tableStateQueryKey

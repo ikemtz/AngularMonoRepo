@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { competenciesFeature } from '../+state/competency.reducer';
@@ -8,12 +8,12 @@ import { ICompetency } from '../../../models/competencies-odata';
 
 @Injectable()
 export class CompetencyCrudFacade implements IDataEntryFacade<ICompetency> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(competenciesFeature.selectLoading);
   currentEntity$ = this.store.select(competencyQueries.selectCurrentCompetency);
   isEditActive$ = this.store.select(competencyQueries.selectIsEditCompetencyActive);
   isNewActive$ = this.store.select(competencyQueries.selectIsNewCompetencyActive);
-
-  constructor(private readonly store: Store) { }
 
   public setCurrentEntity(item: ICompetency): void {
     this.store.dispatch(competencyActionTypes.setCurrentCompetency(item));

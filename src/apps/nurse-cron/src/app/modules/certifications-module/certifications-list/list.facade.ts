@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
@@ -10,12 +10,12 @@ import { ICertification } from '../../../models/certifications-odata';
 
 @Injectable()
 export class CertificationListFacade implements IKendoODataGridFacade<ICertification>, IDataDeleteFacade<ICertification> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(certificationsFeature.selectLoading);
   gridData$ = this.store.select(certificationsFeature.selectGridData);
   gridPagerSettings$ = this.store.select(certificationsFeature.selectGridPagerSettings);
   gridODataState$ = this.store.select(certificationsFeature.selectGridODataState);
-
-  constructor(private readonly store: Store) { }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(certificationActionTypes.loadCertificationsRequest(state));

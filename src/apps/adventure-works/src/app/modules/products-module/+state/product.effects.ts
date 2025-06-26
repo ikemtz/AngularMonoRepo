@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as productActionTypes from './product.actions';
 import { environment } from '@env';
@@ -18,12 +18,11 @@ import { ProductApiService } from '../products-crud';
 
 @Injectable()
 export class ProductEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly productApiService: ProductApiService,
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataService);
+  private readonly store = inject(Store);
+  private readonly productApiService = inject(ProductApiService);
+
 
   loadProductsEffect$ = createEffect(() => {
     return this.actions$.pipe(

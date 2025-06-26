@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { State, toODataString } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -22,7 +22,8 @@ import { ODataPayload } from './odata-payload';
   providedIn: 'root',
 })
 export class ODataService {
-  constructor(private readonly http: HttpClient) {}
+  private readonly http = inject(HttpClient);
+
 
   public fetch<T extends object>(
     odataEndpoint: string,

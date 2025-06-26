@@ -1,10 +1,4 @@
-import {
-  Directive,
-  Inject,
-  InjectionToken,
-  Input,
-  OnDestroy,
-} from '@angular/core';
+import { Directive, InjectionToken, Input, OnDestroy, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GroupResult } from '@progress/kendo-data-query';
 import { IChartODataFacade } from './chart-odata-facade';
@@ -16,6 +10,9 @@ const FACADE = new InjectionToken<IChartODataFacade>('imng-chart-facade');
 @Directive()
 export abstract class ChartODataBaseComponent<FACADE extends IChartODataFacade>
   implements OnDestroy, Subscribable {
+  readonly facade = inject<FACADE>(FACADE);
+  readonly gridRefresh$ = inject<Observable<unknown> | null>(Observable<unknown>) ?? null;
+
   public allSubscriptions = new Subscriptions();
   public readonly seriesData$: Observable<
     ChartSeriesDataPoint[] | GroupResult[]
@@ -23,10 +20,9 @@ export abstract class ChartODataBaseComponent<FACADE extends IChartODataFacade>
   public readonly isDataLoadPending$?: Observable<boolean>;
   @Input() public height: string | number = 400; //NOSONAR
 
-  constructor(
-    @Inject(FACADE) public readonly facade: FACADE,
-    public readonly gridRefresh$: Observable<unknown> | null = null,
-  ) {
+  constructor() {
+    const gridRefresh$ = this.gridRefresh$;
+
     this.seriesData$ = this.facade.seriesData$;
 
     if (gridRefresh$) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OidcFacade, OidcUserFacade, IOidcUser } from 'imng-oidc-client';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -10,17 +10,17 @@ import { Router } from '@angular/router';
     standalone: false
 })
 export class NavBarComponent {
+  private readonly oidcFacade = inject(OidcFacade);
+  private readonly oidcUserFacade = inject(OidcUserFacade);
+  readonly router = inject(Router);
+
   public readonly identity$: Observable<IOidcUser | undefined>;
   public readonly email$: Observable<string | undefined>;
   public readonly loggedIn$: Observable<boolean>;
   public readonly profilePicture$: Observable<string | undefined>;
   public collapsed = true;
 
-  constructor(
-    private readonly oidcFacade: OidcFacade,
-    private readonly oidcUserFacade: OidcUserFacade,
-    public readonly router: Router
-  ) {
+  constructor() {
     this.identity$ = this.oidcFacade.identity$;
     this.email$ = this.oidcUserFacade.email$;
     this.loggedIn$ = this.oidcFacade.loggedIn$;
