@@ -190,7 +190,7 @@
     "@progress/kendo-svg-icons": "^3.1.0",
     "@progress/kendo-theme-default": "^9.0.0",
     "ngx-barcode-scanner": "^14.0.1",
-    "ngx-bootstrap": "^18.0.2",
+    "ngx-bootstrap": "^19.0.2",
     "oidc-client": "^1.11.5",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.11",
