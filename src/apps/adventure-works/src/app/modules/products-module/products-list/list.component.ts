@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
@@ -61,17 +61,18 @@ export class ProductListComponent extends KendoODataBasedComponent<
   IProduct,
   ProductListFacade
 > {
+  readonly crudFacade = inject(ProductCrudFacade);
+  private domSanitizer = inject(DomSanitizer);
+
   public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;
   public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
-  constructor(
-    facade: ProductListFacade,
-    public readonly crudFacade: ProductCrudFacade,
-    router: Router,
-    private domSanitizer: DomSanitizer,
-  ) {
+  constructor() {
+    const facade = inject(ProductListFacade);
+    const router = inject(Router);
+
     super(facade, initialGridState, router);
   }
 

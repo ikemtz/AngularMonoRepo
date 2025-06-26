@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { oidcUserSelectors } from './oidc-user.selectors';
@@ -9,7 +9,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class OidcUserFacade {
-  constructor(private readonly store: Store) {}
+  private readonly store = inject(Store);
+
   profile$: Observable<OidcUserProfile> = this.store.select(
     oidcUserSelectors.getProfile,
   );

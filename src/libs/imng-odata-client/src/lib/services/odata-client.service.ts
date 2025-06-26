@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { getFilterOperator } from '../helpers/get-filter-operator';
 import {
@@ -20,7 +20,8 @@ import { mapData } from '../operators/map-data';
   providedIn: 'root',
 })
 export class ODataClientService {
-  constructor(private readonly httpClient: HttpClient) {}
+  private readonly httpClient = inject(HttpClient);
+
 
   public fetch<T extends object>(
     odataEndpoint: string,

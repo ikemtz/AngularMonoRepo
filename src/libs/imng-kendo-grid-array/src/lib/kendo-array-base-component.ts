@@ -3,7 +3,7 @@ import {
   SortSettings,
   PageChangeEvent,
 } from '@progress/kendo-angular-grid';
-import { Input, ChangeDetectorRef, OnDestroy, Component } from '@angular/core';
+import { Input, ChangeDetectorRef, OnDestroy, Component, inject } from '@angular/core';
 import {
   process,
   State,
@@ -22,6 +22,9 @@ import { KendoGridBaseComponent } from 'imng-kendo-grid';
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   extends KendoGridBaseComponent<LISTED_ENTITY>
   implements OnDestroy, Subscribable {
+  readonly changeDetectorRef = inject(ChangeDetectorRef) ?? null //NOSONAR
+;
+
   /**
    * This will allow you to provide a visual indicator that some of the columns have been hidden.
    */
@@ -64,10 +67,6 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
     this.gridData$.next(value);
     this.markForCheck();
   }
-
-  constructor(
-    public readonly changeDetectorRef: ChangeDetectorRef | null = null //NOSONAR
-  ) { super(); }
 
   public readonly markForCheck = (): void =>
     this.changeDetectorRef?.markForCheck();

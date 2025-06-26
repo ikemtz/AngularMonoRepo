@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -69,7 +69,10 @@ export class AppInsightsVerboseRootEffects extends AppInsightsBaseffects {
     return this.getTrackExceptionsPipe();
   }, this.noDispatch);
 
-  constructor(actions$: Actions, monitor: AppInsightsMonitoringService) {
+  constructor() {
+    const actions$ = inject(Actions);
+    const monitor = inject(AppInsightsMonitoringService);
+
     super(actions$, monitor);
   }
 }
@@ -94,7 +97,10 @@ export class AppInsightsInfoRootEffects extends AppInsightsBaseffects {
     this.noDispatch
   );
 
-  constructor(actions$: Actions, monitor: AppInsightsMonitoringService) {
+  constructor() {
+    const actions$ = inject(Actions);
+    const monitor = inject(AppInsightsMonitoringService);
+
     super(actions$, monitor);
   }
 }

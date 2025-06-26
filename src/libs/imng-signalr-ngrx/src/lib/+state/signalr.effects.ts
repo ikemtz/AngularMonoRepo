@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { map } from 'rxjs';
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
@@ -6,6 +6,9 @@ import { signalrActions } from './signalr.actions';
 
 @Injectable()
 export class SignalrEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly hubConnectionInjectorService = inject(HubConnectionInjectorService);
+
   connect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(signalrActions.connect),
@@ -29,9 +32,4 @@ export class SignalrEffects {
     },
     { dispatch: false },
   );
-
-  constructor(
-    private readonly actions$: Actions,
-    private readonly hubConnectionInjectorService: HubConnectionInjectorService,
-  ) {}
 }

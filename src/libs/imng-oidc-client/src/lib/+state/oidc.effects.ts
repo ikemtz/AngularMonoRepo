@@ -1,7 +1,7 @@
 import { OidcService } from '../services/oidc.service';
 import * as oidcActions from './oidc.actions';
 import { IOidcUser } from '../models/oidc-user';
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { OnInitEffects, Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -16,13 +16,11 @@ import {
   providedIn: 'root',
 })
 export class OidcEffects implements OnInitEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly oidcService: OidcService,
-    @Inject(OIDC_LIBRARY_CONFIG)
-    private readonly oidcLibraryOptions: OidcLibraryConfig,
-    private readonly router: Router,
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly oidcService = inject(OidcService);
+  private readonly oidcLibraryOptions = inject<OidcLibraryConfig>(OIDC_LIBRARY_CONFIG);
+  private readonly router = inject(Router);
+
 
   getOidcUser$ = createEffect(() => {
     return this.actions$.pipe(

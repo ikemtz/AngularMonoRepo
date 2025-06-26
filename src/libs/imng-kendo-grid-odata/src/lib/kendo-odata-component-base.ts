@@ -1,12 +1,6 @@
 import { Observable, first, isObservable, map } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
-import {
-  OnInit,
-  OnDestroy,
-  InjectionToken,
-  Inject,
-  Component,
-} from '@angular/core';
+import { OnInit, OnDestroy, InjectionToken, Component, inject } from '@angular/core';
 import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
 import { GridStateChangeEvent, KendoGridBaseComponent } from 'imng-kendo-grid';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
@@ -34,6 +28,11 @@ export abstract class KendoODataBasedComponent<
   extends KendoGridBaseComponent<ENTITY>
   implements OnInit, OnDestroy, Subscribable
 {
+  readonly facade = inject<FACADE>(FACADE);
+  readonly state = inject<ODataState | Observable<ODataState>>(STATE);
+  readonly router = inject(Router) ?? null;
+  readonly gridRefresh$ = inject<Observable<unknown> | null>(Observable<unknown>) ?? null;
+
   /**
    * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
    */
@@ -65,13 +64,11 @@ export abstract class KendoODataBasedComponent<
    */
   public defaultFilter: CompositeFilterDescriptor | undefined;
 
-  constructor(
-    @Inject(FACADE) public readonly facade: FACADE,
-    @Inject(STATE) public readonly state: ODataState | Observable<ODataState>,
-    public readonly router: Router | null = null, //NOSONAR
-    public readonly gridRefresh$: Observable<unknown> | null = null,
-  ) {
+  constructor() {
     super();
+    const state = this.state;
+    const gridRefresh$ = this.gridRefresh$;
+
     if (
       this.router?.routerState?.snapshot?.root.queryParams[
         this.gridStateQueryKey

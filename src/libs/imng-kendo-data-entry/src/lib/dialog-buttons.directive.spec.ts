@@ -1,11 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
 import {
@@ -86,7 +82,9 @@ export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacad
   public saved = false;
 
   public addEditForm = new FormGroup({ id: new FormControl<string>('') });
-  constructor(facade: DataEntryMockFacade) {
+  constructor() {
+    const facade = inject(DataEntryMockFacade);
+
     super(facade);
     this.submitButtonText = 'Save';
   }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import {
   Log,
   OidcClient,
@@ -23,17 +23,15 @@ import {
   providedIn: 'root',
 })
 export class OidcService {
+  private readonly oidcLibraryConfig = inject<OidcLibraryConfig>(OIDC_LIBRARY_CONFIG);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly httpClient = inject(HttpClient);
+
   public readonly OidcUserManager: UserManager;
   private readonly _oidcClient: OidcClient;
   private readonly _userManagerSettings: UserManagerSettings;
 
-  constructor(
-    @Inject(OIDC_LIBRARY_CONFIG)
-    private readonly oidcLibraryConfig: OidcLibraryConfig,
-
-    @Inject(PLATFORM_ID) private readonly platformId: object,
-    private readonly httpClient: HttpClient
-  ) {
+  constructor() {
     const logSettings = this.oidcLibraryConfig.log;
     let clientSettings = this.oidcLibraryConfig.oidc_config;
 
