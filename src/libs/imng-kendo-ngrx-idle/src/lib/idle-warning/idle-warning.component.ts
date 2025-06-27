@@ -5,20 +5,21 @@ import { tap, filter, switchMap, map } from 'rxjs/operators';
 
 @Component({
     selector: 'imng-idle-warning',
-    template: `<kendo-dialog
+    template: `@if (isSessionTimingOut$ | async) {
+  <kendo-dialog
     title="Idle Session Warning"
-    *ngIf="isSessionTimingOut$ | async"
     (close)="close()"
     [minWidth]="250"
     [width]="450"
-  >
+    >
     <p class="warn-msg">Do you wish to extend your session?</p>
     <p class="warn-msg">{{ secondsRemaining$ | async }} Seconds remaining</p>
     <kendo-dialog-actions>
       <button kendoButton (click)="close()">No</button>
       <button kendoButton (click)="extend()" [primary]="true">Yes</button>
     </kendo-dialog-actions>
-  </kendo-dialog> `,
+  </kendo-dialog>
+}`,
     styles: [
         `
       .warn-msg {

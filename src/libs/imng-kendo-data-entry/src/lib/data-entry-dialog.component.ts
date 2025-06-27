@@ -22,14 +22,12 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
       <kendo-dialog-titlebar class="bg-primary">{{
         dialogTitle
       }}</kendo-dialog-titlebar>
-      <ng-content></ng-content>
+      <ng-content />
       <kendo-dialog-actions>
-        <ng-container
-          *ngTemplateOutlet="
+        <ng-container *ngTemplateOutlet="
             dialogBtnsTemplate || defaultDialogActionsTpl;
             context: dialogActionBtnsCtx
-          ">
-        </ng-container>
+          " />
       </kendo-dialog-actions>
     </kendo-dialog>
     <ng-template #defaultDialogActionsTpl>

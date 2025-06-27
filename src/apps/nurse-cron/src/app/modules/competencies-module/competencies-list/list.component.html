@@ -52,13 +52,11 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice: 0 : 5"
-        [copyValue]="dataItem[props.ID]">
-      </imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0 : 5"
+        [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Id">Id</span>
@@ -79,11 +77,13 @@
     title="Is Enabled"
     filter="boolean">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf="dataItem[props.IS_ENABLED]">
-        <span class="text-success font-weight-bolder h2" tooltip="Is Enabled">
-          <span class="k-icon k-i-check-circle start-50"></span>
-        </span>
-      </div>
+      @if (dataItem[props.IS_ENABLED]) {
+        <div>
+          <span class="text-success font-weight-bolder h2" tooltip="Is Enabled">
+            <span class="k-icon k-i-check-circle start-50"></span>
+          </span>
+        </div>
+      }
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Is Enabled">Is Enabled</span>
@@ -93,17 +93,17 @@
   <kendo-grid-pdf
     [fileName]="getExportFileName('Competencies')"
     [allPages]="false">
-    <kendo-grid-pdf-margin
-      top="1cm"
+    <kendo-grid-pdf-margin top="1cm"
       left="1cm"
       right="1cm"
-      bottom="1cm"></kendo-grid-pdf-margin>
+    bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel
-    [fileName]="getExportFileName('Competencies')"
-    [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('Competencies')"
+  [fetchData]="excelData" />
 </kendo-grid>
-<nrcrn-competency-add
-  *ngIf="crudFacade.isNewActive$ | async"></nrcrn-competency-add>
-<nrcrn-competency-edit
-  *ngIf="crudFacade.isEditActive$ | async"></nrcrn-competency-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <nrcrn-competency-add />
+}
+@if (crudFacade.isEditActive$ | async) {
+  <nrcrn-competency-edit />
+}

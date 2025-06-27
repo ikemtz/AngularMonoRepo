@@ -19,31 +19,34 @@ import { ODataState } from 'imng-kendo-odata';
     selector: 'imng-multi-select-filter',
     template: `
     <ul>
-      <li *ngIf="showTextFilter">
-        <input class="k-textbox" (input)="onInput($event)" />
-      </li>
-      <li
-        #itemElement
-        *ngFor="let item of currentData; let i = index"
-        (click)="onSelectionChange(valueAccessor(item), itemElement)"
-        [ngClass]="{ 'k-state-selected': isItemSelected(item) }"
-      >
-        <input
-          type="checkbox"
-          id="chk-{{ valueAccessor(item) }}"
-          (focus)="onFocus(itemElement)"
-          class="k-checkbox"
-          [checked]="isItemSelected(item)"
-        />
-        <label
-          class="k-multiselect-checkbox k-checkbox-label"
-          for="chk-{{ valueAccessor(item) }}"
-        >
-          {{ textAccessor(item) }}
-        </label>
-      </li>
+      @if (showTextFilter) {
+        <li>
+          <input class="k-textbox" (input)="onInput($event)" />
+        </li>
+      }
+      @for (item of currentData; track item; let i = $index) {
+        <li
+          #itemElement
+          (click)="onSelectionChange(valueAccessor(item), itemElement)"
+          [ngClass]="{ 'k-state-selected': isItemSelected(item) }"
+          >
+          <input
+            type="checkbox"
+            id="chk-{{ valueAccessor(item) }}"
+            (focus)="onFocus(itemElement)"
+            class="k-checkbox"
+            [checked]="isItemSelected(item)"
+            />
+          <label
+            class="k-multiselect-checkbox k-checkbox-label"
+            for="chk-{{ valueAccessor(item) }}"
+            >
+            {{ textAccessor(item) }}
+          </label>
+        </li>
+      }
     </ul>
-  `,
+    `,
     styles: [
         `
       ul {

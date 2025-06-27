@@ -25,7 +25,7 @@ import { Subscriptions } from 'imng-ngrx-utils';
         [filterService]="filterService"
         [extra]="false"
         operator="eq">
-        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+        <kendo-filter-eq-operator />
       </kendo-grid-string-filter-menu>
   `,
     changeDetection: ChangeDetectionStrategy.OnPush,
