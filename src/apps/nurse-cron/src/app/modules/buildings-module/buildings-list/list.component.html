@@ -172,13 +172,17 @@
       top="1cm"
       left="1cm"
       right="1cm"
-      bottom="1cm"></kendo-grid-pdf-margin>
+    bottom="1cm"></kendo-grid-pdf-margin>
   </kendo-grid-pdf>
   <kendo-grid-excel
     [fileName]="getExportFileName('Buildings')"
-    [fetchData]="excelData"></kendo-grid-excel>
+  [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<nrcrn-building-add
-  *ngIf="crudFacade.isNewActive$ | async"></nrcrn-building-add>
-<nrcrn-building-edit
-  *ngIf="crudFacade.isEditActive$ | async"></nrcrn-building-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <nrcrn-building-add
+  ></nrcrn-building-add>
+}
+@if (crudFacade.isEditActive$ | async) {
+  <nrcrn-building-edit
+  ></nrcrn-building-edit>
+}

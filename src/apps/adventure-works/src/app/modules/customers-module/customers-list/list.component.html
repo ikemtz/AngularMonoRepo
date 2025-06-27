@@ -82,5 +82,9 @@
   </kendo-grid-pdf>
   <kendo-grid-excel [fileName]="getExportFileName('Customers')" [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<aw-customer-add *ngIf="crudFacade.isNewActive$ | async"></aw-customer-add>
-<aw-customer-edit *ngIf="crudFacade.isEditActive$ | async"></aw-customer-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <aw-customer-add></aw-customer-add>
+}
+@if (crudFacade.isEditActive$ | async) {
+  <aw-customer-edit></aw-customer-edit>
+}

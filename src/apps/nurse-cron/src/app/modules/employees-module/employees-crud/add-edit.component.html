@@ -3,23 +3,35 @@
     <div class="col-md-6">
       <label for="id" class="control-label">Id:</label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Employee id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.ID)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.ID)?.[RequiredError]) {
+            <div>Employee id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="last_name" class="control-label">Last Name:</label>
       <input id="last_name" type="text" class="form-control" [formControlName]="props.LAST_NAME" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.LAST_NAME)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.LAST_NAME)?.[RequiredError]">Employee last name is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.LAST_NAME)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.LAST_NAME)?.[RequiredError]) {
+            <div>Employee last name is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="first_name" class="control-label">First Name:</label>
       <input id="first_name" type="text" class="form-control" [formControlName]="props.FIRST_NAME" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.FIRST_NAME)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.FIRST_NAME)?.[RequiredError]">Employee first name is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.FIRST_NAME)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.FIRST_NAME)?.[RequiredError]) {
+            <div>Employee first name is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="birth_date" class="control-label">Birth Date:</label>
@@ -40,9 +52,13 @@
     <div class="col-md-6">
       <label for="email" class="control-label">Email:</label>
       <input id="email" type="text" class="form-control" [formControlName]="props.EMAIL" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.EMAIL)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.EMAIL)?.[RequiredError]">Employee email is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.EMAIL)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.EMAIL)?.[RequiredError]) {
+            <div>Employee email is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="address_line1" class="control-label">Address Line 1:</label>
@@ -72,9 +88,13 @@
       <label for="hire_date" class="control-label">Hire Date:</label>
       <kendo-datepicker id="hire_date" class="form-control" [formControlName]="props.HIRE_DATE">
       </kendo-datepicker>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.HIRE_DATE)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.HIRE_DATE)?.[RequiredError]">Employee hire date is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.HIRE_DATE)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.HIRE_DATE)?.[RequiredError]) {
+            <div>Employee hire date is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="fire_date" class="control-label">Fire Date:</label>
@@ -87,23 +107,35 @@
     <div class="col-md-6">
       <label for="certification_count" class="control-label">Certification Count:</label>
       <input id="certification_count" type="number" class="form-control" [formControlName]="props.CERTIFICATION_COUNT" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.CERTIFICATION_COUNT)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.CERTIFICATION_COUNT)?.[RequiredError]">Employee certification count is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.CERTIFICATION_COUNT)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.CERTIFICATION_COUNT)?.[RequiredError]) {
+            <div>Employee certification count is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="competency_count" class="control-label">Competency Count:</label>
       <input id="competency_count" type="number" class="form-control" [formControlName]="props.COMPETENCY_COUNT" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.COMPETENCY_COUNT)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.COMPETENCY_COUNT)?.[RequiredError]">Employee competency count is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.COMPETENCY_COUNT)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.COMPETENCY_COUNT)?.[RequiredError]) {
+            <div>Employee competency count is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="health_item_count" class="control-label">Health Item Count:</label>
       <input id="health_item_count" type="number" class="form-control" [formControlName]="props.HEALTH_ITEM_COUNT" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.HEALTH_ITEM_COUNT)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.HEALTH_ITEM_COUNT)?.[RequiredError]">Employee health item count is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.HEALTH_ITEM_COUNT)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.HEALTH_ITEM_COUNT)?.[RequiredError]) {
+            <div>Employee health item count is required</div>
+          }
+        </div>
+      }
     </div>
   </form>
 </imng-data-entry-dialog>

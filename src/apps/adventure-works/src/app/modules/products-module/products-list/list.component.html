@@ -180,7 +180,7 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       {{
-        getRelatedValue(dataItem, props.PRODUCT_MODEL, productModelProps.NAME)
+      getRelatedValue(dataItem, props.PRODUCT_MODEL, productModelProps.NAME)
       }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
@@ -194,11 +194,11 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       {{
-        getRelatedValue(
-          dataItem,
-          props.PRODUCT_CATEGORY,
-          productCategoryProps.NAME
-        )
+      getRelatedValue(
+      dataItem,
+      props.PRODUCT_CATEGORY,
+      productCategoryProps.NAME
+      )
       }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
@@ -231,11 +231,15 @@
       top="1cm"
       left="1cm"
       right="1cm"
-      bottom="1cm"></kendo-grid-pdf-margin>
+    bottom="1cm"></kendo-grid-pdf-margin>
   </kendo-grid-pdf>
   <kendo-grid-excel
     [fileName]="getExportFileName('Products')"
-    [fetchData]="excelData"></kendo-grid-excel>
+  [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<aw-product-add *ngIf="crudFacade.isNewActive$ | async"></aw-product-add>
-<aw-product-edit *ngIf="crudFacade.isEditActive$ | async"></aw-product-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <aw-product-add></aw-product-add>
+}
+@if (crudFacade.isEditActive$ | async) {
+  <aw-product-edit></aw-product-edit>
+}

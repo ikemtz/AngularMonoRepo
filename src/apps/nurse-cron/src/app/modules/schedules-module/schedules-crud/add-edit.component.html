@@ -4,83 +4,123 @@
       <label for="id" class="control-label">Id:</label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Schedule id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.ID)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.ID)?.[RequiredError]) {
+            <div>Schedule id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="unit_id" class="control-label">Unit Id:</label>
       <input id="unit_id" type="text" class="form-control" [formControlName]="props.UNIT_ID"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.UNIT_ID) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.UNIT_ID)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.UNIT_ID)?.[RequiredError]">Schedule unit id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.UNIT_ID)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.UNIT_ID)?.[RequiredError]) {
+            <div>Schedule unit id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="unit_name" class="control-label">Unit Name:</label>
       <input id="unit_name" type="text" class="form-control" [formControlName]="props.UNIT_NAME"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.UNIT_NAME) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.UNIT_NAME)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.UNIT_NAME)?.[RequiredError]">Schedule unit name is required</div>
-        <div *ngIf="formControlErrors(props.UNIT_NAME)?.[MinLengthError]">
-          Schedule unit name requires a min length of
-          {{formMinLengthError(props.UNIT_NAME)?.requiredLength}}, currently only
-          {{formMinLengthError(props.UNIT_NAME)?.actualLength}}.
+      @if ((submitted$ | async) && formControlErrors(props.UNIT_NAME)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.UNIT_NAME)?.[RequiredError]) {
+            <div>Schedule unit name is required</div>
+          }
+          @if (formControlErrors(props.UNIT_NAME)?.[MinLengthError]) {
+            <div>
+              Schedule unit name requires a min length of
+              {{formMinLengthError(props.UNIT_NAME)?.requiredLength}}, currently only
+              {{formMinLengthError(props.UNIT_NAME)?.actualLength}}.
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="employee_id" class="control-label">Employee Id:</label>
       <input id="employee_id" type="text" class="form-control" [formControlName]="props.EMPLOYEE_ID"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.EMPLOYEE_ID) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.EMPLOYEE_ID)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.EMPLOYEE_ID)?.[RequiredError]">Schedule employee id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.EMPLOYEE_ID)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.EMPLOYEE_ID)?.[RequiredError]) {
+            <div>Schedule employee id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="employee_name" class="control-label">Employee Name:</label>
       <input id="employee_name" type="text" class="form-control" [formControlName]="props.EMPLOYEE_NAME"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.EMPLOYEE_NAME) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.EMPLOYEE_NAME)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.EMPLOYEE_NAME)?.[RequiredError]">Schedule employee name is required</div>
-        <div *ngIf="formControlErrors(props.EMPLOYEE_NAME)?.[MinLengthError]">
-          Schedule employee name requires a min length of
-          {{formMinLengthError(props.EMPLOYEE_NAME)?.requiredLength}}, currently only
-          {{formMinLengthError(props.EMPLOYEE_NAME)?.actualLength}}.
+      @if ((submitted$ | async) && formControlErrors(props.EMPLOYEE_NAME)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.EMPLOYEE_NAME)?.[RequiredError]) {
+            <div>Schedule employee name is required</div>
+          }
+          @if (formControlErrors(props.EMPLOYEE_NAME)?.[MinLengthError]) {
+            <div>
+              Schedule employee name requires a min length of
+              {{formMinLengthError(props.EMPLOYEE_NAME)?.requiredLength}}, currently only
+              {{formMinLengthError(props.EMPLOYEE_NAME)?.actualLength}}.
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="staffing_requirement_id" class="control-label">Staffing Requirement Id:</label>
       <input id="staffing_requirement_id" type="text" class="form-control" [formControlName]="props.STAFFING_REQUIREMENT_ID"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STAFFING_REQUIREMENT_ID) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.STAFFING_REQUIREMENT_ID)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.STAFFING_REQUIREMENT_ID)?.[RequiredError]">Schedule staffing requirement id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.STAFFING_REQUIREMENT_ID)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.STAFFING_REQUIREMENT_ID)?.[RequiredError]) {
+            <div>Schedule staffing requirement id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="start_time_utc" class="control-label">Start Time Utc:</label>
       <kendo-datepicker id="start_time_utc" class="form-control" [formControlName]="props.START_TIME_UTC"
-        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.START_TIME_UTC) }"></kendo-datepicker>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.START_TIME_UTC)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.START_TIME_UTC)?.[RequiredError]">Schedule start time utc is required</div>
-      </div>
+      [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.START_TIME_UTC) }"></kendo-datepicker>
+      @if ((submitted$ | async) && formControlErrors(props.START_TIME_UTC)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.START_TIME_UTC)?.[RequiredError]) {
+            <div>Schedule start time utc is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="scheduled_hours" class="control-label">Scheduled Hours:</label>
       <input id="scheduled_hours" type="number" class="form-control" [formControlName]="props.SCHEDULED_HOURS"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SCHEDULED_HOURS) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.SCHEDULED_HOURS)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.SCHEDULED_HOURS)?.[RequiredError]">Schedule scheduled hours is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.SCHEDULED_HOURS)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.SCHEDULED_HOURS)?.[RequiredError]) {
+            <div>Schedule scheduled hours is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="approved_on_utc" class="control-label">Approved On Utc:</label>
       <kendo-datepicker id="approved_on_utc" class="form-control" [formControlName]="props.APPROVED_ON_UTC"
-        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.APPROVED_ON_UTC) }"></kendo-datepicker>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.APPROVED_ON_UTC)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.APPROVED_ON_UTC)?.[RequiredError]">Schedule approved on utc is required</div>
-      </div>
+      [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.APPROVED_ON_UTC) }"></kendo-datepicker>
+      @if ((submitted$ | async) && formControlErrors(props.APPROVED_ON_UTC)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.APPROVED_ON_UTC)?.[RequiredError]) {
+            <div>Schedule approved on utc is required</div>
+          }
+        </div>
+      }
     </div>
   </form>
 </imng-data-entry-dialog>

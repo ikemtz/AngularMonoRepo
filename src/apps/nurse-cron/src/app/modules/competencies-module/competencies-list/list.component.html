@@ -79,11 +79,13 @@
     title="Is Enabled"
     filter="boolean">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf="dataItem[props.IS_ENABLED]">
-        <span class="text-success font-weight-bolder h2" tooltip="Is Enabled">
-          <span class="k-icon k-i-check-circle start-50"></span>
-        </span>
-      </div>
+      @if (dataItem[props.IS_ENABLED]) {
+        <div>
+          <span class="text-success font-weight-bolder h2" tooltip="Is Enabled">
+            <span class="k-icon k-i-check-circle start-50"></span>
+          </span>
+        </div>
+      }
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Is Enabled">Is Enabled</span>
@@ -97,13 +99,17 @@
       top="1cm"
       left="1cm"
       right="1cm"
-      bottom="1cm"></kendo-grid-pdf-margin>
+    bottom="1cm"></kendo-grid-pdf-margin>
   </kendo-grid-pdf>
   <kendo-grid-excel
     [fileName]="getExportFileName('Competencies')"
-    [fetchData]="excelData"></kendo-grid-excel>
+  [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<nrcrn-competency-add
-  *ngIf="crudFacade.isNewActive$ | async"></nrcrn-competency-add>
-<nrcrn-competency-edit
-  *ngIf="crudFacade.isEditActive$ | async"></nrcrn-competency-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <nrcrn-competency-add
+  ></nrcrn-competency-add>
+}
+@if (crudFacade.isEditActive$ | async) {
+  <nrcrn-competency-edit
+  ></nrcrn-competency-edit>
+}
