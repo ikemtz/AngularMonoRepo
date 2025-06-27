@@ -18,13 +18,11 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice: 0:5"
-        [copyValue]="dataItem[props.ID]">
-      </imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0:5"
+        [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
@@ -99,13 +97,11 @@
     title="Product Category Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.PRODUCT_CATEGORY_ID] | slice: 0:5"
-        [copyValue]="dataItem[props.PRODUCT_CATEGORY_ID]">
-      </imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.PRODUCT_CATEGORY_ID] | slice: 0:5"
+        [copyValue]="dataItem[props.PRODUCT_CATEGORY_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Category Id</span>
@@ -117,13 +113,11 @@
     title="Product Model Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.PRODUCT_MODEL_ID] | slice: 0:5"
-        [copyValue]="dataItem[props.PRODUCT_MODEL_ID]">
-      </imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.PRODUCT_MODEL_ID] | slice: 0:5"
+        [copyValue]="dataItem[props.PRODUCT_MODEL_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Model Id</span>
@@ -227,19 +221,17 @@
   </kendo-grid-column>
 
   <kendo-grid-pdf [fileName]="getExportFileName('Products')" [allPages]="false">
-    <kendo-grid-pdf-margin
-      top="1cm"
+    <kendo-grid-pdf-margin top="1cm"
       left="1cm"
       right="1cm"
-    bottom="1cm"></kendo-grid-pdf-margin>
+    bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel
-    [fileName]="getExportFileName('Products')"
-  [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('Products')"
+  [fetchData]="excelData" />
 </kendo-grid>
 @if (crudFacade.isNewActive$ | async) {
-  <aw-product-add></aw-product-add>
+  <aw-product-add />
 }
 @if (crudFacade.isEditActive$ | async) {
-  <aw-product-edit></aw-product-edit>
+  <aw-product-edit />
 }

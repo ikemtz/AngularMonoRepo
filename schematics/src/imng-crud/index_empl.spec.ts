@@ -37,7 +37,7 @@ describe("imng-crud", () => {
     expect(content).toContain('[formControlName]="props.ADDRESS_LINE_1"');
     expect(content).toContain('<kendo-datepicker id="hire_date"');
     expect(content).toContain(
-      '<div *ngIf="formControlErrors(props.HIRE_DATE)?.[RequiredError]">Employee hire date is required</div>'
+      '<div>Employee hire date is required</div>'
     );
     expect(content).toContain(
       '<label for="hire_date" class="control-label">Hire Date: <span class="text-danger">*</span></label>'

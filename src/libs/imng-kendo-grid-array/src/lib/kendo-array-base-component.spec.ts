@@ -95,7 +95,7 @@ describe('KendoArrayBaseComponent', () => {
 @Component({
     selector: 'imng-test-component',
     template: ` <kendo-grid [imngArrayGrid]="this">
-      <kendo-grid-column field="id"></kendo-grid-column>
+      <kendo-grid-column field="id" />
     </kendo-grid>
     {{ hasHiddenColumns$ | async }}`,
     standalone: false

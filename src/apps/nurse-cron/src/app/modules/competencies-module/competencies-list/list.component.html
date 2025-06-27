@@ -52,13 +52,11 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice: 0 : 5"
-        [copyValue]="dataItem[props.ID]">
-      </imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0 : 5"
+        [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Id">Id</span>
@@ -95,21 +93,17 @@
   <kendo-grid-pdf
     [fileName]="getExportFileName('Competencies')"
     [allPages]="false">
-    <kendo-grid-pdf-margin
-      top="1cm"
+    <kendo-grid-pdf-margin top="1cm"
       left="1cm"
       right="1cm"
-    bottom="1cm"></kendo-grid-pdf-margin>
+    bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel
-    [fileName]="getExportFileName('Competencies')"
-  [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('Competencies')"
+  [fetchData]="excelData" />
 </kendo-grid>
 @if (crudFacade.isNewActive$ | async) {
-  <nrcrn-competency-add
-  ></nrcrn-competency-add>
+  <nrcrn-competency-add />
 }
 @if (crudFacade.isEditActive$ | async) {
-  <nrcrn-competency-edit
-  ></nrcrn-competency-edit>
+  <nrcrn-competency-edit />
 }
