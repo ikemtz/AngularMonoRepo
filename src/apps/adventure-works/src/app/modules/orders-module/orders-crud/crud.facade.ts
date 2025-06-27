@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
@@ -9,6 +9,8 @@ import { IExtOrder } from '../models/ext-order';
 
 @Injectable()
 export class OrderCrudFacade implements IDataEntryFacade<IExtOrder> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(ordersFeature.selectLoading);
   currentEntity$ = this.store.select(orderQueries.selectCurrentOrder);
   isEditActive$ = this.store.select(orderQueries.selectIsEditOrderActive);
@@ -17,7 +19,6 @@ export class OrderCrudFacade implements IDataEntryFacade<IExtOrder> {
   shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
   billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
 
-  constructor(private readonly store: Store) { }
 
   public setCurrentEntity(item: IExtOrder): void {
     this.store.dispatch(orderActionTypes.setCurrentOrder(item));

@@ -9,7 +9,4 @@ import { IUnit } from '../../../models/units-odata';
 })
 export class UnitApiService extends NrsrxBaseApiClientService<IUnit> {
   public override url = environment.endPoints.units.unitsApi;
-  constructor(http: HttpClient) {
-    super(http);
-  }
 }

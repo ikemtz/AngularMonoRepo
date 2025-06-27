@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -30,12 +30,15 @@ const initialGridState: ODataState = {
     standalone: false
 })
 export class CertificationListComponent extends KendoODataBasedComponent<ICertification, CertificationListFacade> {
+  readonly crudFacade = inject(CertificationCrudFacade);
+
   public readonly props = CertificationProperties;
   public currentItem: ICertification | undefined;
 
-  constructor(facade: CertificationListFacade,
-    public readonly crudFacade: CertificationCrudFacade,
-    router: Router) {
+  constructor() {
+    const facade = inject(CertificationListFacade);
+    const router = inject(Router);
+
     super(facade, initialGridState, router);
   }
 

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { IdType } from './id-type';
 import { normalizeRequest } from './normalize-request';
 import { toDateOnly } from './to-date-only';
+import { inject } from '@angular/core';
 
 export abstract class NrsrxBaseApiClientService<
   TENTITY extends { id?: IdType | null },
@@ -17,7 +18,7 @@ export abstract class NrsrxBaseApiClientService<
    */
   public dateOnlyPropertyNames: string[] = [];
 
-  constructor(protected readonly http: HttpClient) {}
+  protected readonly http = inject(HttpClient);
 
   /**
    * Calls the insert (POST) endpoint on a NRSRx based API endpoint

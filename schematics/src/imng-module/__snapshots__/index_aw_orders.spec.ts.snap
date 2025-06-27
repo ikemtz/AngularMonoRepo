@@ -442,7 +442,7 @@ describe('OrderCrudFacade', () => {
 `;
 
 exports[`imng-module AdventureWorks Orders crud facade template should work 1`] = `
-"import { Injectable } from '@angular/core';
+"import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
@@ -450,6 +450,8 @@ import { ordersFeature, orderSelectors, orderActionTypes } from '../+state';
 
 @Injectable()
 export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(ordersFeature.selectLoading);
   currentEntity$ = this.store.select(ordersFeature.selectCurrentOrder);
   isEditActive$ = this.store.select(orderSelectors.selectIsEditOrderActive);
@@ -457,8 +459,6 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
   customers$ = this.store.select(ordersFeature.selectCustomers);
   shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
   billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
-
-  constructor(private readonly store: Store) {}
 
   public setCurrentEntity(item: IOrder): void {
     this.store.dispatch(orderActionTypes.setCurrentOrder(item));
@@ -1183,7 +1183,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
 `;
 
 exports[`imng-module AdventureWorks Orders list component should work 1`] = `
-"import { Component, ChangeDetectionStrategy } from '@angular/core';
+"import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -1200,6 +1200,8 @@ import { orderGridState } from './list.grid-state';
   standalone: false,
 })
 export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderListFacade> {
+  public readonly crudFacade = inject(OrderCrudFacade);
+
   public readonly props = OrderProperties;
   public readonly customerProps = CustomerProperties;
   public readonly shipToAddressProps = OrderAddressProperties;
@@ -1208,10 +1210,8 @@ export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderLi
   public readonly shippingTypes = shippingTypeValues;
   public currentItem: IOrder | undefined;
 
-  constructor(facade: OrderListFacade,
-    public readonly crudFacade: OrderCrudFacade,
-    router: Router) {
-    super(facade, orderGridState, router);
+  constructor() {
+    super(inject(OrderListFacade), orderGridState, inject(Router));
   }
 
   public addItem(): void {

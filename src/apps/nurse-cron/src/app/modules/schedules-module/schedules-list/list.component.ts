@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -35,12 +35,15 @@ const initialGridState: ODataState = {
     standalone: false
 })
 export class ScheduleListComponent extends KendoODataBasedComponent<ISchedule, ScheduleListFacade> {
+  readonly crudFacade = inject(ScheduleCrudFacade);
+
   public readonly props = ScheduleProperties;
   public currentItem: ISchedule | undefined;
 
-  constructor(facade: ScheduleListFacade,
-    public readonly crudFacade: ScheduleCrudFacade,
-    router: Router) {
+  constructor() {
+    const facade = inject(ScheduleListFacade);
+    const router = inject(Router);
+
     super(facade, initialGridState, router);
   }
 

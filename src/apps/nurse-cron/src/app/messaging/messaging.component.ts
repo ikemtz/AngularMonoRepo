@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { SignalrFacade, ISignalrMessage } from 'imng-signalr-ngrx';
 import { take, filter, tap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
@@ -10,9 +10,10 @@ import { Observable, Subscription } from 'rxjs';
     standalone: false
 })
 export class MessagingComponent implements OnInit, OnDestroy {
+  private readonly signalrFacade = inject(SignalrFacade);
+
   public lastMessage$?: Observable<ISignalrMessage | undefined>;
   public subscriptions: Subscription[] = [];
-  constructor(private readonly signalrFacade: SignalrFacade) { }
 
   ngOnInit(): void {
     this.subscriptions.push(
