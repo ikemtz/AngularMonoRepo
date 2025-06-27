@@ -1,4 +1,4 @@
-import { InjectionToken, Injectable, Inject } from '@angular/core';
+import { InjectionToken, Injectable, inject } from '@angular/core';
 import {
   ApplicationInsights,
   IConfiguration,
@@ -13,10 +13,12 @@ export const APP_INSIGHTS_CONFIG = new InjectionToken('app-insights-config');
   providedIn: 'root',
 })
 export class AppInsightsMonitoringService {
+  readonly appInsightsConfig = inject<IConfiguration>(APP_INSIGHTS_CONFIG);
+
   public readonly appInsights: ApplicationInsights;
-  constructor(
-    @Inject(APP_INSIGHTS_CONFIG) readonly appInsightsConfig: IConfiguration,
-  ) {
+  constructor() {
+    const appInsightsConfig = this.appInsightsConfig;
+
     this.appInsights = new ApplicationInsights({ config: appInsightsConfig });
     this.appInsights.loadAppInsights();
   }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
@@ -9,12 +9,12 @@ import { IEmployee } from '../../../models/employees-api';
 
 @Injectable()
 export class EmployeeListFacade implements IKendoODataGridFacade<IEmployee>, IDataDeleteFacade<IEmployee> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(employeesFeature.selectLoading);
   gridData$ = this.store.select(employeesFeature.selectGridData);
   gridPagerSettings$ = this.store.select(employeesFeature.selectGridPagerSettings);
   gridODataState$ = this.store.select(employeesFeature.selectGridODataState);
-
-  constructor(private readonly store: Store) { }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(employeeActionTypes.loadEmployeesRequest(state));

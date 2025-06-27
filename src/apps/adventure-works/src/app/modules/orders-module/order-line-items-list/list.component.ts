@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, inject } from '@angular/core';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { OrderLineItemListFacade } from './list.facade';
@@ -35,7 +35,9 @@ export class OrderLineItemListComponent extends KendoODataBasedComponent<IOrderL
   public readonly props = OrderLineItemProperties;
   public currentItem: IOrderLineItem | undefined;
 
-  constructor(facade: OrderLineItemListFacade) {
+  constructor() {
+    const facade = inject(OrderLineItemListFacade);
+
     super(facade, initialGridState);
   }
 

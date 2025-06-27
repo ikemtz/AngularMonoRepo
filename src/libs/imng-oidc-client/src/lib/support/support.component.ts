@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OidcFacade } from '../+state/oidc.facade';
 import { OidcUserFacade } from '../+state/oidc-user.facade';
 import { Observable } from 'rxjs';
@@ -38,11 +38,11 @@ import { map } from 'rxjs/operators';
     standalone: false
 })
 export class SupportComponent {
+  readonly facade = inject(OidcFacade);
+  readonly oidcUserFacade = inject(OidcUserFacade);
+
   public profileValue$: Observable<{ key: string; value: string; }[]>;
-  constructor(
-    public readonly facade: OidcFacade,
-    public readonly oidcUserFacade: OidcUserFacade
-  ) {
+  constructor() {
     this.profileValue$ = this.oidcUserFacade.profile$.pipe(
       map((x) =>
         Object.keys(x).map((propertyKey) => ({

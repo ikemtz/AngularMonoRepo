@@ -1,10 +1,4 @@
-import {
-  Component,
-  AfterViewInit,
-  Input,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, AfterViewInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { FilterService } from '@progress/kendo-angular-grid';
 import {
   CompositeFilterDescriptor,
@@ -74,6 +68,9 @@ import { ODataState } from 'imng-kendo-odata';
     standalone: false
 })
 export class MultiSelectFilterComponent implements AfterViewInit {
+  readonly filterService = inject(FilterService);
+  readonly changeDetectorRef = inject(ChangeDetectorRef);
+
   @Input() public isPrimitive = false;
   @Input() public odataState: ODataState | null = {};
   @Input() public data: unknown[] = [];
@@ -95,11 +92,6 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     dataItem: any //NOSONAR
   ) =>
     this.isPrimitive || !this.valueField ? dataItem : dataItem[this.valueField];
-
-  constructor(
-    public readonly filterService: FilterService,
-    public readonly changeDetectorRef: ChangeDetectorRef
-  ) { }
 
   public ngAfterViewInit() {
     this.currentData = this.data;

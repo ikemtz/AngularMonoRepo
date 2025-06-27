@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '@env*';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
@@ -13,12 +13,11 @@ import * as scheduleActionTypes from './schedule.actions';
 
 @Injectable()
 export class ScheduleEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly scheduleApiService: ScheduleApiService,
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataService);
+  private readonly store = inject(Store);
+  private readonly scheduleApiService = inject(ScheduleApiService);
+
 
   loadSchedulesEffect$ = createEffect(() => {
     return this.actions$.pipe(

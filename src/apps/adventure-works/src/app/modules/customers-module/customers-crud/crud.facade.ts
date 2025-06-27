@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
@@ -9,13 +9,13 @@ import { ICustomer } from '../../../models/webapi';
 
 @Injectable()
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(customersFeature.selectLoading);
   currentEntity$ = this.store.select(customerQueries.selectCurrentCustomer);
   isEditActive$ = this.store.select(customerQueries.selectIsEditCustomerActive);
   isNewActive$ = this.store.select(customerQueries.selectIsNewCustomerActive);
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
-
-  constructor(private readonly store: Store) { }
 
   public setCurrentEntity(item: ICustomer): void {
     this.store.dispatch(customerActionTypes.setCurrentCustomer(item));

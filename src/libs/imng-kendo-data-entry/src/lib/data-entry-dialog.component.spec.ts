@@ -5,6 +5,7 @@ import {
   Component,
   NO_ERRORS_SCHEMA,
   CUSTOM_ELEMENTS_SCHEMA,
+  inject,
 } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
@@ -64,9 +65,9 @@ describe('DataEntryDialogComponent', () => {
 });
 
 @Component({
-    selector: 'imng-thc',
-    template: template,
-    standalone: false
+  selector: 'imng-thc',
+  template: template,
+  standalone: false,
 })
 export class TestHostComponent
   extends BaseDataEntryComponent<DataEntryMockFacade>
@@ -76,8 +77,8 @@ export class TestHostComponent
   public addEditForm = new FormGroup({ id: new FormControl<string>('id') });
   public props = {};
   public saved = false;
-  constructor(facade: DataEntryMockFacade) {
-    super(facade);
+  constructor() {
+    super();
   }
   public initForm(): void {
     this.addEditForm = new FormGroup({ id: new FormControl<string>('id') });

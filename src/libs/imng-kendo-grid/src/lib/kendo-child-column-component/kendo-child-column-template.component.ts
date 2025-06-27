@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy,
-  OnInit,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 
 @Component({
     selector: 'imng-kendo-grid-child-column-template',
@@ -29,6 +21,8 @@ import {
     standalone: false
 })
 export class ImngGridChildColumnTemplateComponent implements OnInit {
+  readonly changeDetectorRef = inject(ChangeDetectorRef);
+
   private _data: unknown[] = [];
   public currentData: unknown[] = [];
   private initialized = false;
@@ -48,8 +42,6 @@ export class ImngGridChildColumnTemplateComponent implements OnInit {
   get data(): unknown[] {
     return this._data;
   }
-
-  constructor(public readonly changeDetectorRef: ChangeDetectorRef) { }
 
   public ngOnInit(): void {
     this.currentData = (this.data || [])

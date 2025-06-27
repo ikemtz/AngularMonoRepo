@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, inject } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { EmployeeBaseEntryComponent } from './base-entry.component';
@@ -15,7 +15,9 @@ export class EmployeeEditComponent extends EmployeeBaseEntryComponent implements
   public dialogTitle = 'Edit Employee';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: EmployeeCrudFacade) {
+  constructor() {
+    const facade = inject(EmployeeCrudFacade);
+
     super(facade);
   }
   public override initForm(): void {

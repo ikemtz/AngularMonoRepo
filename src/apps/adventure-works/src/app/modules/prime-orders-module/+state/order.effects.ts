@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '@env*';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
@@ -13,11 +13,10 @@ import { ordersFeature } from './order.reducer';
 
 @Injectable()
 export class OrderEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataClientService,
-    private readonly store: Store,
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataClientService);
+  private readonly store = inject(Store);
+
 
   loadOrdersEffect$ = createEffect(() => {
     return this.actions$.pipe(

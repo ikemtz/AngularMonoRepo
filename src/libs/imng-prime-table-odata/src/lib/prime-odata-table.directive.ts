@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Directive,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Table } from 'primeng/table';
 import { Subscriptions } from 'imng-ngrx-utils';
@@ -19,6 +13,9 @@ import { IdType } from 'imng-nrsrx-client-utils';
     standalone: false
 })
 export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
+  readonly tableComponent = inject(Table);
+  readonly changeDetectorRef = inject(ChangeDetectorRef);
+
   @Input('imngODataTable')
   public odataTableComponent: ImngPrimeODataTableBaseComponent<
     object,
@@ -27,10 +24,6 @@ export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
   private facade: IPrimeODataTableFacade<{ id?: IdType | null }>;
   private sortState: SortMeta[] = [];
   public readonly allSubscriptions = new Subscriptions();
-  constructor(
-    public readonly tableComponent: Table,
-    public readonly changeDetectorRef: ChangeDetectorRef,
-  ) {}
 
   ngOnInit(): void {
     this.facade = this.odataTableComponent.facade || ({} as never);

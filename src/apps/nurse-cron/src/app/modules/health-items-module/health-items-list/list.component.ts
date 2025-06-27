@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -29,12 +29,15 @@ const initialGridState: ODataState = {
     standalone: false
 })
 export class HealthItemListComponent extends KendoODataBasedComponent<IHealthItem, HealthItemListFacade> {
+  readonly crudFacade = inject(HealthItemCrudFacade);
+
   public readonly props = HealthItemProperties;
   public currentItem: IHealthItem | undefined;
 
-  constructor(facade: HealthItemListFacade,
-    public readonly crudFacade: HealthItemCrudFacade,
-    router: Router) {
+  constructor() {
+    const facade = inject(HealthItemListFacade);
+    const router = inject(Router);
+
     super(facade, initialGridState, router);
   }
 

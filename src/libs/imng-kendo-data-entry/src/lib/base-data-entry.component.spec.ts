@@ -12,8 +12,7 @@ describe('MockBaseComponent', () => {
 
   beforeEach(() => {
     consoleErrorMock = mockConsoleError();
-    facade = new MockFacade();
-    component = new MockBaseComponent(facade);
+    component = new MockBaseComponent();
   });
 
   afterEach(() => {

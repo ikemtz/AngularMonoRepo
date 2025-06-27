@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { ODataService } from 'imng-kendo-odata';
 import { handleEffectError } from 'imng-ngrx-utils';
@@ -10,11 +10,10 @@ import { EmployeeApiService } from '../employees-crud/api.service';
 
 @Injectable()
 export class EmployeeCrudEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly employeeApiService: EmployeeApiService,
-  ) { }
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataService);
+  private readonly employeeApiService = inject(EmployeeApiService);
+
 
   saveEmployeeEffect$ = createEffect(() => {
     return this.actions$.pipe(
