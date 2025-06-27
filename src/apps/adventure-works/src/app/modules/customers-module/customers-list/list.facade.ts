@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
@@ -10,12 +10,12 @@ import { ICustomer } from '../../../models/odata';
 
 @Injectable()
 export class CustomerListFacade implements IKendoODataGridFacade<ICustomer>, IDataDeleteFacade<ICustomer> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(customersFeature.selectLoading);
   gridData$ = this.store.select(customersFeature.selectGridData);
   gridPagerSettings$ = this.store.select(customersFeature.selectGridPagerSettings);
   gridODataState$ = this.store.select(customersFeature.selectGridODataState);
-
-  constructor(private readonly store: Store) { }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(customerActionTypes.loadCustomersRequest(state));

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -16,12 +16,15 @@ import { IEmployee, EmployeeProperties } from '../../../models/employees-api';
     standalone: false
 })
 export class EmployeeListComponent extends KendoODataBasedComponent<IEmployee, EmployeeListFacade> {
+  readonly crudFacade = inject(EmployeeCrudFacade);
+
   public readonly props = EmployeeProperties;
   public currentItem: IEmployee | undefined;
 
-  constructor(facade: EmployeeListFacade,
-    public readonly crudFacade: EmployeeCrudFacade,
-    router: Router) {
+  constructor() {
+    const facade = inject(EmployeeListFacade);
+    const router = inject(Router);
+
     super(facade, employeeGridState, router);
   }
 

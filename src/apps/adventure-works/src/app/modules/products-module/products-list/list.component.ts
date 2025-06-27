@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
@@ -51,28 +51,28 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-    selector: 'aw-product-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'aw-product-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class ProductListComponent extends KendoODataBasedComponent<
   IProduct,
   ProductListFacade
 > {
+  readonly crudFacade = inject(ProductCrudFacade);
+  private domSanitizer = inject(DomSanitizer);
+
   public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;
   public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
-  constructor(
-    facade: ProductListFacade,
-    public readonly crudFacade: ProductCrudFacade,
-    router: Router,
-    private domSanitizer: DomSanitizer,
-  ) {
-    super(facade, initialGridState, router);
+
+
+  constructor() {
+    super(inject(ProductListFacade), initialGridState, inject(Router));
   }
 
   public addItem(): void {

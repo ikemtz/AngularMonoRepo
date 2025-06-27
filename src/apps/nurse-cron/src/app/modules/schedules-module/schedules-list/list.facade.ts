@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
@@ -10,12 +10,12 @@ import { ISchedule } from '../../../models/schedules-odata';
 
 @Injectable()
 export class ScheduleListFacade implements IKendoODataGridFacade<ISchedule>, IDataDeleteFacade<ISchedule> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(schedulesFeature.selectLoading);
   gridData$ = this.store.select(schedulesFeature.selectGridData);
   gridPagerSettings$ = this.store.select(schedulesFeature.selectGridPagerSettings);
   gridODataState$ = this.store.select(schedulesFeature.selectGridODataState);
-
-  constructor(private readonly store: Store) { }
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(scheduleActionTypes.loadSchedulesRequest(state));

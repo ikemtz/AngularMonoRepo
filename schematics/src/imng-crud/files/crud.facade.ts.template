@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
 import { ODataState } from 'imng-kendo-odata';<% } %>
@@ -6,13 +6,13 @@ import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedS
 
 @Injectable()
 export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= classify(name) %>> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
   currentEntity$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>);
   isEditActive$ = this.store.select(<%= camelize(singularizedStoreName) %>Selectors.selectIsEdit<%= classify(name) %>Active);
   isNewActive$ = this.store.select(<%= camelize(singularizedStoreName) %>Selectors.selectIsNew<%= classify(name) %>Active);<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   <%= camelize(swaggerProperty.pluralizedName) %>$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.select<%= classify(swaggerProperty.pluralizedName) %>);<% }); %>
-
-  constructor(private readonly store: Store) {}
 
   public setCurrentEntity(item: I<%= classify(name) %>): void {
     this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.setCurrent<%= classify(name) %>(item));

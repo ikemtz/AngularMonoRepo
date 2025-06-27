@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
@@ -13,6 +13,8 @@ import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
 
 @Injectable()
 export class OrderLineItemListFacade implements IKendoODataGridFacade<IOrderLineItem>, IDataDeleteFacade<IOrderLineItem> {
+  private readonly store = inject(Store);
+
   private _parentGridId = '';
   public parentGrid$ = new BehaviorSubject<string>('');
   public get parentGridId() {
@@ -34,7 +36,6 @@ export class OrderLineItemListFacade implements IKendoODataGridFacade<IOrderLine
     switchMap(x =>
       this.store.select(orderLineItemQueries.selectODataState$(x))));
 
-  constructor(private readonly store: Store) { }
 
   public loadEntities(odataState: ODataState): void {
     odataState = applyFilter({ ...odataState },
