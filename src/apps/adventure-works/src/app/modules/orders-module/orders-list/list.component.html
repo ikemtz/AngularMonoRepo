@@ -56,12 +56,11 @@
     title="Id"
     [hidden]="true">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice: 0 : 5"
-        [copyValue]="dataItem[props.ID]"></imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0 : 5"
+      [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
@@ -121,13 +120,12 @@
     title="Status Type"
     filter="text">
     <ng-template kendoGridFilterMenuTemplate let-column="column">
-      <imng-multi-select-filter
-        [isPrimitive]="false"
+      <imng-multi-select-filter [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
         [textField]="EnumProperties.DISPLAY_TEXT"
         [valueField]="EnumProperties.NAME"
         [data]="orderStatusTypes"
-        [field]="props.STATUS_TYPE"></imng-multi-select-filter>
+      [field]="props.STATUS_TYPE" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ getEnumText(orderStatusTypes, dataItem[props.STATUS_TYPE]) }}
@@ -142,14 +140,16 @@
     title="Is Online Order"
     filter="boolean">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf="dataItem.is_online_order">
-        <span
-          class="text-success font-weight-bolder h2"
-          placement="left"
-          tooltip="Active">
-          <span class="k-icon k-i-check-circle"></span>
-        </span>
-      </div>
+      @if (dataItem.is_online_order) {
+        <div>
+          <span
+            class="text-success font-weight-bolder h2"
+            placement="left"
+            tooltip="Active">
+            <span class="k-icon k-i-check-circle"></span>
+          </span>
+        </div>
+      }
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Is Online<br />Order</span>
@@ -179,13 +179,12 @@
     title="Shipping Type"
     filter="text">
     <ng-template kendoGridFilterMenuTemplate let-column="column">
-      <imng-multi-select-filter
-        [isPrimitive]="false"
+      <imng-multi-select-filter [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
         [textField]="EnumProperties.DISPLAY_TEXT"
         [valueField]="EnumProperties.NAME"
         [data]="shippingTypes"
-        [field]="props.SHIPPING_TYPE"></imng-multi-select-filter>
+      [field]="props.SHIPPING_TYPE" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ getEnumText(shippingTypes, dataItem[props.SHIPPING_TYPE]) }}
@@ -279,18 +278,20 @@
   </kendo-grid-column>
   <div *kendoGridDetailTemplate="let dataItem">
     <aw-order-line-item-list
-      [parentGridId]="dataItem[props.ID]"></aw-order-line-item-list>
+    [parentGridId]="dataItem[props.ID]"></aw-order-line-item-list>
   </div>
   <kendo-grid-pdf [fileName]="getExportFileName('Orders')" [allPages]="false">
-    <kendo-grid-pdf-margin
-      top="1cm"
+    <kendo-grid-pdf-margin top="1cm"
       left="1cm"
       right="1cm"
-      bottom="1cm"></kendo-grid-pdf-margin>
+    bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel
-    [fileName]="getExportFileName('Orders')"
-    [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('Orders')"
+  [fetchData]="excelData" />
 </kendo-grid>
-<aw-order-add *ngIf="crudFacade.isNewActive$ | async"></aw-order-add>
-<aw-order-edit *ngIf="crudFacade.isEditActive$ | async"></aw-order-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <aw-order-add />
+}
+@if (crudFacade.isEditActive$ | async) {
+  <aw-order-edit />
+}

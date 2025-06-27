@@ -4,41 +4,61 @@
       <label for="id" class="control-label mr-4">Id:</label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ID) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Order id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.ID)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.ID)?.[RequiredError]) {
+            <div>Order id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="order_id" class="control-label mr-4">Order Id:</label>
       <input id="order_id" type="number" class="form-control" [formControlName]="props.ORDER_ID"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ORDER_ID) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ORDER_ID)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.ORDER_ID)?.[RequiredError]">Order order id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.ORDER_ID)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.ORDER_ID)?.[RequiredError]) {
+            <div>Order order id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="revision_num" class="control-label mr-4">Revision Num:</label>
       <input id="revision_num" type="number" class="form-control" [formControlName]="props.REVISION_NUM"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.REVISION_NUM) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.REVISION_NUM)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.REVISION_NUM)?.[RequiredError]">Order revision num is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.REVISION_NUM)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.REVISION_NUM)?.[RequiredError]) {
+            <div>Order revision num is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="date" class="control-label mr-4">Date:</label>
       <kendo-datepicker id="date" class="form-control" [formControlName]="props.DATE"
-        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DATE) }"></kendo-datepicker>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.DATE)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.DATE)?.[RequiredError]">Order date is required</div>
-      </div>
+      [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DATE) }"></kendo-datepicker>
+      @if ((submitted$ | async) && formControlErrors(props.DATE)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.DATE)?.[RequiredError]) {
+            <div>Order date is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="due_date" class="control-label mr-4">Due Date:</label>
       <kendo-datepicker id="due_date" class="form-control" [formControlName]="props.DUE_DATE"
-        [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DUE_DATE) }"></kendo-datepicker>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.DUE_DATE)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.DUE_DATE)?.[RequiredError]">Order due date is required</div>
-      </div>
+      [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.DUE_DATE) }"></kendo-datepicker>
+      @if ((submitted$ | async) && formControlErrors(props.DUE_DATE)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.DUE_DATE)?.[RequiredError]) {
+            <div>Order due date is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="ship_date" class="control-label mr-4">Ship Date:</label>
@@ -58,9 +78,13 @@
         (filterChange)="handleStatusTypeFilter($event)"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.STATUS_TYPE) }">
       </kendo-combobox>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.STATUS_TYPE)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.STATUS_TYPE)?.[RequiredError]">Order status type is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.STATUS_TYPE)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.STATUS_TYPE)?.[RequiredError]) {
+            <div>Order status type is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="is_online_order" class="control-label mr-4">Is Online Order:</label>
@@ -70,9 +94,13 @@
       <label for="num" class="control-label mr-4">Num:</label>
       <input id="num" type="text" class="form-control" [formControlName]="props.NUM"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NUM) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Order num is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.NUM)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.NUM)?.[RequiredError]) {
+            <div>Order num is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="purchase_order_num" class="control-label mr-4">Purchase Order Num:</label>
@@ -82,9 +110,13 @@
       <label for="customer_id" class="control-label mr-4">Customer Id:</label>
       <input id="customer_id" type="text" class="form-control" [formControlName]="props.CUSTOMER_ID"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.CUSTOMER_ID) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.CUSTOMER_ID)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.CUSTOMER_ID)?.[RequiredError]">Order customer id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.CUSTOMER_ID)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.CUSTOMER_ID)?.[RequiredError]) {
+            <div>Order customer id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="ship_to_address_id" class="control-label mr-4">Ship To Address Id:</label>
@@ -108,9 +140,13 @@
         (filterChange)="handleShippingTypeFilter($event)"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SHIPPING_TYPE) }">
       </kendo-combobox>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.SHIPPING_TYPE)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.SHIPPING_TYPE)?.[RequiredError]">Order shipping type is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.SHIPPING_TYPE)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.SHIPPING_TYPE)?.[RequiredError]) {
+            <div>Order shipping type is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="credit_card_approval_code" class="control-label mr-4">Credit Card Approval Code:</label>
@@ -120,33 +156,49 @@
       <label for="sub_total" class="control-label mr-4">Sub Total:</label>
       <input id="sub_total" type="number" class="form-control" [formControlName]="props.SUB_TOTAL"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.SUB_TOTAL) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.SUB_TOTAL)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.SUB_TOTAL)?.[RequiredError]">Order sub total is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.SUB_TOTAL)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.SUB_TOTAL)?.[RequiredError]) {
+            <div>Order sub total is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="tax_amt" class="control-label mr-4">Tax Amt:</label>
       <input id="tax_amt" type="number" class="form-control" [formControlName]="props.TAX_AMT"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.TAX_AMT) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.TAX_AMT)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.TAX_AMT)?.[RequiredError]">Order tax amt is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.TAX_AMT)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.TAX_AMT)?.[RequiredError]) {
+            <div>Order tax amt is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="freight" class="control-label mr-4">Freight:</label>
       <input id="freight" type="number" class="form-control" [formControlName]="props.FREIGHT"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.FREIGHT) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.FREIGHT)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.FREIGHT)?.[RequiredError]">Order freight is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.FREIGHT)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.FREIGHT)?.[RequiredError]) {
+            <div>Order freight is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="total_due" class="control-label mr-4">Total Due:</label>
       <input id="total_due" type="number" class="form-control" [formControlName]="props.TOTAL_DUE"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.TOTAL_DUE) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.TOTAL_DUE)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.TOTAL_DUE)?.[RequiredError]">Order total due is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.TOTAL_DUE)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.TOTAL_DUE)?.[RequiredError]) {
+            <div>Order total due is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="comment" class="control-label mr-4">Comment:</label>
@@ -164,13 +216,13 @@
         [valuePrimitive]="true"
         [filterable]="true"
         (filterChange)="handleCustomerFilter($event)">
-          <kendo-combobox-column field="num" title="Num" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="name" title="Name" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="companyName" title="Company Name" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="salesAgentId" title="Sales Agent Id" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="emailAddress" title="Email Address" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="phone" title="Phone" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="salesAgent" title="Sales Agent" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="num" title="Num" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="name" title="Name" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="companyName" title="Company Name" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="salesAgentId" title="Sales Agent Id" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="emailAddress" title="Email Address" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="phone" title="Phone" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="salesAgent" title="Sales Agent" [width]="100"></kendo-combobox-column>
       </kendo-multicolumncombobox>
     </div>
     <div class="col-md-6">
@@ -185,12 +237,12 @@
         [valuePrimitive]="true"
         [filterable]="true"
         (filterChange)="handleShipToAddressFilter($event)">
-          <kendo-combobox-column field="line1" title="Line 1" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="line2" title="Line 2" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="city" title="City" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="stateProvince" title="State Province" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="countryRegion" title="Country Region" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="postalCode" title="Postal Code" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="line1" title="Line 1" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="line2" title="Line 2" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="city" title="City" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="stateProvince" title="State Province" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="countryRegion" title="Country Region" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="postalCode" title="Postal Code" [width]="100"></kendo-combobox-column>
       </kendo-multicolumncombobox>
     </div>
     <div class="col-md-6">
@@ -205,12 +257,12 @@
         [valuePrimitive]="true"
         [filterable]="true"
         (filterChange)="handleBillToAddressFilter($event)">
-          <kendo-combobox-column field="line1" title="Line 1" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="line2" title="Line 2" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="city" title="City" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="stateProvince" title="State Province" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="countryRegion" title="Country Region" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="postalCode" title="Postal Code" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="line1" title="Line 1" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="line2" title="Line 2" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="city" title="City" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="stateProvince" title="State Province" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="countryRegion" title="Country Region" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="postalCode" title="Postal Code" [width]="100"></kendo-combobox-column>
       </kendo-multicolumncombobox>
     </div>
   </form>

@@ -15,12 +15,11 @@
     filter="text"
     [hidden]="true">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice: 0 : 5"
-        [copyValue]="dataItem[props.ID]"></imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0 : 5"
+        [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
@@ -32,12 +31,11 @@
     title="Order Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.ORDER_ID] | slice: 0 : 5"
-        [copyValue]="dataItem[props.ORDER_ID]"></imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.ORDER_ID] | slice: 0 : 5"
+        [copyValue]="dataItem[props.ORDER_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Order Id</span>
@@ -58,12 +56,11 @@
     title="Product Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy
-        [displayValue]="dataItem[props.PRODUCT_ID] | slice: 0 : 5"
-        [copyValue]="dataItem[props.PRODUCT_ID]"></imng-kendo-copy>
+      <imng-kendo-copy [displayValue]="dataItem[props.PRODUCT_ID] | slice: 0 : 5"
+        [copyValue]="dataItem[props.PRODUCT_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Product Id</span>
@@ -130,13 +127,11 @@
   <kendo-grid-pdf
     [fileName]="getExportFileName('OrderLineItems')"
     [allPages]="false">
-    <kendo-grid-pdf-margin
-      top="1cm"
+    <kendo-grid-pdf-margin top="1cm"
       left="1cm"
       right="1cm"
-      bottom="1cm"></kendo-grid-pdf-margin>
+      bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel
-    [fileName]="getExportFileName('OrderLineItems')"
-    [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('OrderLineItems')"
+    [fetchData]="excelData" />
 </kendo-grid>

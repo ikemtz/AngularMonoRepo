@@ -354,21 +354,31 @@ exports[`imng-module crud html template should work 1`] = `
     <div class="col-md-6">
       <label for="id" class="control-label">Id: <span class="text-danger">*</span></label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Customer id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.ID)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.ID)?.[RequiredError]) {
+          <div>Customer id is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="num" class="control-label">Num: <span class="text-danger">*</span></label>
       <input id="num" type="text" class="form-control" [formControlName]="props.NUM" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Customer num is required</div>
-        <div *ngIf="formControlErrors(props.NUM)?.[MinLengthError]">
-          Customer num requires a min length of
-          {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
-          {{formMinLengthError(props.NUM)?.actualLength}}.
+      @if ((submitted$ | async) && formControlErrors(props.NUM)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.NUM)?.[RequiredError]) {
+          <div>Customer num is required</div>
+        }
+        @if (formControlErrors(props.NUM)?.[MinLengthError]) {
+          <div>
+            Customer num requires a min length of
+            {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
+            {{formMinLengthError(props.NUM)?.actualLength}}.
+          </div>
+        }
         </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="name" class="control-label">Name:</label>
@@ -377,21 +387,31 @@ exports[`imng-module crud html template should work 1`] = `
     <div class="col-md-6">
       <label for="company_name" class="control-label">Company Name: <span class="text-danger">*</span></label>
       <input id="company_name" type="text" class="form-control" [formControlName]="props.COMPANY_NAME" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.COMPANY_NAME)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.COMPANY_NAME)?.[RequiredError]">Customer company name is required</div>
-        <div *ngIf="formControlErrors(props.COMPANY_NAME)?.[MinLengthError]">
-          Customer company name requires a min length of
-          {{formMinLengthError(props.COMPANY_NAME)?.requiredLength}}, currently only
-          {{formMinLengthError(props.COMPANY_NAME)?.actualLength}}.
+      @if ((submitted$ | async) && formControlErrors(props.COMPANY_NAME)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.COMPANY_NAME)?.[RequiredError]) {
+          <div>Customer company name is required</div>
+        }
+        @if (formControlErrors(props.COMPANY_NAME)?.[MinLengthError]) {
+          <div>
+            Customer company name requires a min length of
+            {{formMinLengthError(props.COMPANY_NAME)?.requiredLength}}, currently only
+            {{formMinLengthError(props.COMPANY_NAME)?.actualLength}}.
+          </div>
+        }
         </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="sales_agent_id" class="control-label">Sales Agent Id: <span class="text-danger">*</span></label>
       <input id="sales_agent_id" type="number" class="form-control" [formControlName]="props.SALES_AGENT_ID" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.SALES_AGENT_ID)?.[RequiredError]">Customer sales agent id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.SALES_AGENT_ID)?.[RequiredError]) {
+          <div>Customer sales agent id is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="email_address" class="control-label">Email Address:</label>
@@ -556,8 +576,7 @@ exports[`imng-module html file should work 1`] = `
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
         (resetFiltersClicked)="resetFilters()"
-        [hasHiddenColumns$]="hasHiddenColumns$">
-      </imng-kendo-odata-grid-header>
+        [hasHiddenColumns$]="hasHiddenColumns$" />
     </div>
   </ng-template>
   <kendo-grid-column [width]="75">
@@ -599,11 +618,10 @@ exports[`imng-module html file should work 1`] = `
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.ID] | slice:0:5"
-        [copyValue]="dataItem[props.ID]">
-      </imng-kendo-copy>
+        [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Id">Id</span>
@@ -668,12 +686,16 @@ exports[`imng-module html file should work 1`] = `
   </kendo-grid-column>
 
   <kendo-grid-pdf [fileName]="getExportFileName('Customers')" [allPages]="false">
-    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel [fileName]="getExportFileName('Customers')" [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('Customers')" [fetchData]="excelData" />
 </kendo-grid>
-<aw-customer-add *ngIf="crudFacade.isNewActive$ | async"></aw-customer-add>
-<aw-customer-edit *ngIf="crudFacade.isEditActive$ | async"></aw-customer-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <aw-customer-add />
+}
+@if (crudFacade.isEditActive$ | async) {
+  <aw-customer-edit />
+}
 "
 `;
 

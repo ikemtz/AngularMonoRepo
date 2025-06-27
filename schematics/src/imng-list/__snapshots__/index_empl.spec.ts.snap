@@ -48,8 +48,7 @@ exports[`imng-list generation works: list.component.html 1`] = `
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
         (resetFiltersClicked)="resetFilters()"
-        [hasHiddenColumns$]="hasHiddenColumns$">
-      </imng-kendo-odata-grid-header>
+        [hasHiddenColumns$]="hasHiddenColumns$" />
     </div>
   </ng-template>
   <kendo-grid-column [width]="75">
@@ -91,11 +90,10 @@ exports[`imng-list generation works: list.component.html 1`] = `
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.ID] | slice:0:5"
-        [copyValue]="dataItem[props.ID]">
-      </imng-kendo-copy>
+        [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Id">Id</span>
@@ -165,7 +163,7 @@ exports[`imng-list generation works: list.component.html 1`] = `
     <ng-template kendoGridCellTemplate let-dataItem>
       <div *ngIf="dataItem[props.IS_ENABLED]">
         <span class="text-success font-weight-bolder h2" tooltip="Is Enabled">
-          <span class="k-icon k-i-check-circle start-50"></span>
+          <span class="k-icon k-i-check-circle start-50" />
         </span>
       </div>
     </ng-template>
@@ -225,11 +223,15 @@ exports[`imng-list generation works: list.component.html 1`] = `
   </kendo-grid-column>
 
   <kendo-grid-pdf [fileName]="getExportFileName('Employees')" [allPages]="false">
-    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel [fileName]="getExportFileName('Employees')" [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('Employees')" [fetchData]="excelData" />
 </kendo-grid>
-<nrcrn-employee-add *ngIf="crudFacade.isNewActive$ | async"></nrcrn-employee-add>
-<nrcrn-employee-edit *ngIf="crudFacade.isEditActive$ | async"></nrcrn-employee-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <nrcrn-employee-add />
+}
+@if (crudFacade.isEditActive$ | async) {
+  <nrcrn-employee-edit />
+}
 "
 `;
