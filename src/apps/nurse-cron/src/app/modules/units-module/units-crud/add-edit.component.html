@@ -8,30 +8,44 @@
       <label for="building_id" class="control-label">Building Id:</label>
       <input id="building_id" type="text" class="form-control" [formControlName]="props.BUILDING_ID"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.BUILDING_ID) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.BUILDING_ID)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.BUILDING_ID)?.[RequiredError]">Unit building id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.BUILDING_ID)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.BUILDING_ID)?.[RequiredError]) {
+            <div>Unit building id is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="name" class="control-label">Name:</label>
       <input id="name" type="text" class="form-control" [formControlName]="props.NAME"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.NAME) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.NAME)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.NAME)?.[RequiredError]">Unit name is required</div>
-        <div *ngIf="formControlErrors(props.NAME)?.[MinLengthError]">
-          Unit name requires a min length of
-          {{formMinLengthError(props.NAME)?.requiredLength}}, currently only
-          {{formMinLengthError(props.NAME)?.actualLength}}.
+      @if ((submitted$ | async) && formControlErrors(props.NAME)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.NAME)?.[RequiredError]) {
+            <div>Unit name is required</div>
+          }
+          @if (formControlErrors(props.NAME)?.[MinLengthError]) {
+            <div>
+              Unit name requires a min length of
+              {{formMinLengthError(props.NAME)?.requiredLength}}, currently only
+              {{formMinLengthError(props.NAME)?.actualLength}}.
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="room_count" class="control-label">Room Count:</label>
       <input id="room_count" type="number" class="form-control" [formControlName]="props.ROOM_COUNT"
         [ngClass]="{ 'is-invalid': (submitted$ | async) && formControlErrors(props.ROOM_COUNT) }" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ROOM_COUNT)" class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.ROOM_COUNT)?.[RequiredError]">Unit room count is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.ROOM_COUNT)) {
+        <div class="invalid-feedback">
+          @if (formControlErrors(props.ROOM_COUNT)?.[RequiredError]) {
+            <div>Unit room count is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="deleted_by" class="control-label">Deleted By:</label>
@@ -53,17 +67,17 @@
         [valuePrimitive]="true"
         [filterable]="true"
         (filterChange)="handleBuildingFilter($event)">
-          <kendo-combobox-column field="name" title="Name" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="siteName" title="Site Name" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="addressLine1" title="Address Line 1" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="addressLine2" title="Address Line 2" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="cityOrMunicipality" title="City Or Municipality" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="stateOrProvidence" title="State Or Providence" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="postalCode" title="Postal Code" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="country" title="Country" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="gpsData" title="Gps Data" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="deletedBy" title="Deleted By" [width]="100"></kendo-combobox-column>
-          <kendo-combobox-column field="deletedOnUtc" title="Deleted On Utc" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="name" title="Name" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="siteName" title="Site Name" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="addressLine1" title="Address Line 1" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="addressLine2" title="Address Line 2" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="cityOrMunicipality" title="City Or Municipality" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="stateOrProvidence" title="State Or Providence" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="postalCode" title="Postal Code" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="country" title="Country" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="gpsData" title="Gps Data" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="deletedBy" title="Deleted By" [width]="100"></kendo-combobox-column>
+        <kendo-combobox-column field="deletedOnUtc" title="Deleted On Utc" [width]="100"></kendo-combobox-column>
       </kendo-multicolumncombobox>
     </div>
   </form>

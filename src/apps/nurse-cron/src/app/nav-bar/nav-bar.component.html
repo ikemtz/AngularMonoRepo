@@ -20,67 +20,71 @@
     class="collapse navbar-collapse"
     id="navbarSupportedContent"
     [ngClass]="{ collapse: collapsed, 'navbar-collapse': true }">
-    <ul class="navbar-nav ms-auto" *ngIf="loggedIn$ | async">
-      <li
-        class="nav-item mt-1"
-        [ngClass]="{ active: router.url.startsWith('/employees') }">
-        <a class="nav-link" [routerLink]="['/employees']">Nurses</a>
-      </li>
-      <li
-        class="nav-item mt-1"
-        [ngClass]="{ active: router.url.startsWith('/certifications') }">
-        <a class="nav-link" [routerLink]="['/certifications']">Certificates</a>
-      </li>
-      <li
-        class="nav-item mt-1"
-        [ngClass]="{ active: router.url.startsWith('/competencies') }">
-        <a class="nav-link" [routerLink]="['/competencies']">Competencies</a>
-      </li>
-      <li
-        class="nav-item mt-1"
-        [ngClass]="{ active: router.url.startsWith('/health-items') }">
-        <a class="nav-link" [routerLink]="['/health-items']">Health Items</a>
-      </li>
-      <li
-        class="nav-item mt-1"
-        [ngClass]="{ active: router.url.startsWith('/buildings') }">
-        <a class="nav-link" [routerLink]="['/buildings']">Buildings</a>
-      </li>
-      <li
-        class="nav-item mt-1"
-        [ngClass]="{ active: router.url.startsWith('/units') }">
-        <a class="nav-link" [routerLink]="['/units']">Units</a>
-      </li>
-      <li dropdown class="nav-item dropdown ms-4 bg-dark text-white rounded">
-        <a
-          dropdownToggle
-          class="nav-link dropdown-toggle text-right px-2"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false">
-          <img
-            [src]="profilePicture$ | async"
-            alt="Profile Pic"
-            class="pic me-1" />
-          {{ email$ | async }}
-        </a>
-        <div
-          *dropdownMenu
-          class="dropdown-menu"
-          aria-labelledby="navbarDropdown">
-          <a class="dropdown-item border-top" [routerLink]="['/oidc/support']"
-            >Support</a
-          >
-          <a class="dropdown-item" (click)="signoutRedirect()">Logout</a>
-        </div>
-      </li>
-    </ul>
-    <ul class="navbar-nav ms-auto" *ngIf="(identity$ | async) === undefined">
-      <li class="nav-item">
-        <a class="nav-link" (click)="signinRedirect()">Login</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+    @if (loggedIn$ | async) {
+      <ul class="navbar-nav ms-auto">
+        <li
+          class="nav-item mt-1"
+          [ngClass]="{ active: router.url.startsWith('/employees') }">
+          <a class="nav-link" [routerLink]="['/employees']">Nurses</a>
+        </li>
+        <li
+          class="nav-item mt-1"
+          [ngClass]="{ active: router.url.startsWith('/certifications') }">
+          <a class="nav-link" [routerLink]="['/certifications']">Certificates</a>
+        </li>
+        <li
+          class="nav-item mt-1"
+          [ngClass]="{ active: router.url.startsWith('/competencies') }">
+          <a class="nav-link" [routerLink]="['/competencies']">Competencies</a>
+        </li>
+        <li
+          class="nav-item mt-1"
+          [ngClass]="{ active: router.url.startsWith('/health-items') }">
+          <a class="nav-link" [routerLink]="['/health-items']">Health Items</a>
+        </li>
+        <li
+          class="nav-item mt-1"
+          [ngClass]="{ active: router.url.startsWith('/buildings') }">
+          <a class="nav-link" [routerLink]="['/buildings']">Buildings</a>
+        </li>
+        <li
+          class="nav-item mt-1"
+          [ngClass]="{ active: router.url.startsWith('/units') }">
+          <a class="nav-link" [routerLink]="['/units']">Units</a>
+        </li>
+        <li dropdown class="nav-item dropdown ms-4 bg-dark text-white rounded">
+          <a
+            dropdownToggle
+            class="nav-link dropdown-toggle text-right px-2"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+            <img
+              [src]="profilePicture$ | async"
+              alt="Profile Pic"
+              class="pic me-1" />
+            {{ email$ | async }}
+          </a>
+          <div
+            *dropdownMenu
+            class="dropdown-menu"
+            aria-labelledby="navbarDropdown">
+            <a class="dropdown-item border-top" [routerLink]="['/oidc/support']"
+              >Support</a
+              >
+              <a class="dropdown-item" (click)="signoutRedirect()">Logout</a>
+            </div>
+          </li>
+        </ul>
+      }
+      @if ((identity$ | async) === undefined) {
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" (click)="signinRedirect()">Login</a>
+          </li>
+        </ul>
+      }
+    </div>
+  </nav>

@@ -14,13 +14,16 @@
         [ngClass]="{
           'is-invalid': (submitted$ | async) && formControlErrors(props.ID)
         }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.ID)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">
-          Customer id is required
+      @if ((submitted$ | async) && formControlErrors(props.ID)) {
+        <div
+          class="invalid-feedback">
+          @if (formControlErrors(props.ID)?.[RequiredError]) {
+            <div>
+              Customer id is required
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="num" class="control-label mr-4">Num:</label>
@@ -32,18 +35,23 @@
         [ngClass]="{
           'is-invalid': (submitted$ | async) && formControlErrors(props.NUM)
         }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.NUM)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">
-          Customer num is required
+      @if ((submitted$ | async) && formControlErrors(props.NUM)) {
+        <div
+          class="invalid-feedback">
+          @if (formControlErrors(props.NUM)?.[RequiredError]) {
+            <div>
+              Customer num is required
+            </div>
+          }
+          @if (formControlErrors(props.NUM)?.[MinLengthError]) {
+            <div>
+              Customer num requires a min length of
+              {{ formMinLengthError(props.NUM)?.requiredLength }}, currently only
+              {{ formMinLengthError(props.NUM)?.actualLength }}.
+            </div>
+          }
         </div>
-        <div *ngIf="formControlErrors(props.NUM)?.[MinLengthError]">
-          Customer num requires a min length of
-          {{ formMinLengthError(props.NUM)?.requiredLength }}, currently only
-          {{ formMinLengthError(props.NUM)?.actualLength }}.
-        </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="name" class="control-label mr-4">Name:</label>
@@ -64,74 +72,80 @@
           'is-invalid':
             (submitted$ | async) && formControlErrors(props.COMPANY_NAME)
         }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.COMPANY_NAME)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.COMPANY_NAME)?.[RequiredError]">
-          Customer company name is required
+      @if ((submitted$ | async) && formControlErrors(props.COMPANY_NAME)) {
+        <div
+          class="invalid-feedback">
+          @if (formControlErrors(props.COMPANY_NAME)?.[RequiredError]) {
+            <div>
+              Customer company name is required
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="sales_agent_id" class="control-label mr-4"
         >Sales Agent Id:</label
-      >
-      <input
-        id="sales_agent_id"
-        type="number"
-        class="form-control"
-        [formControlName]="props.SALES_AGENT_ID"
+        >
+        <input
+          id="sales_agent_id"
+          type="number"
+          class="form-control"
+          [formControlName]="props.SALES_AGENT_ID"
         [ngClass]="{
           'is-invalid':
             (submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)
         }" />
-      <div
-        *ngIf="(submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)"
-        class="invalid-feedback">
-        <div *ngIf="formControlErrors(props.SALES_AGENT_ID)?.[RequiredError]">
-          Customer sales agent id is required
-        </div>
+        @if ((submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)) {
+          <div
+            class="invalid-feedback">
+            @if (formControlErrors(props.SALES_AGENT_ID)?.[RequiredError]) {
+              <div>
+                Customer sales agent id is required
+              </div>
+            }
+          </div>
+        }
       </div>
-    </div>
-    <div class="col-md-6">
-      <label for="email_address" class="control-label mr-4"
-        >Email Address:</label
-      >
-      <input
-        id="email_address"
-        type="text"
-        class="form-control"
-        [formControlName]="props.EMAIL_ADDRESS" />
-    </div>
-    <div class="col-md-6">
-      <label for="phone" class="control-label mr-4">Phone:</label>
-      <input
-        id="phone"
-        type="text"
-        class="form-control"
-        [formControlName]="props.PHONE" />
-    </div>
-    <div class="col-md-6">
-      <label for="sales_agent" class="control-label mr-4">Sales Agent:</label>
-      <kendo-multicolumncombobox
-        id="sales_agent"
-        placeholder="Select a sales agent..."
-        [formControlName]="props.SALES_AGENT_ID"
-        [data]="salesAgents$ | async"
-        [textField]="salesAgentProps.NAME"
-        [valueField]="salesAgentProps.ID"
-        [valuePrimitive]="true"
-        [filterable]="true"
-        (filterChange)="handleSalesAgentFilter($event)">
-        <kendo-combobox-column
-          field="name"
-          title="Name"
-          [width]="100"></kendo-combobox-column>
-        <kendo-combobox-column
-          field="loginId"
-          title="Login Id"
-          [width]="100"></kendo-combobox-column>
-      </kendo-multicolumncombobox>
-    </div>
-  </form>
-</imng-data-entry-dialog>
+      <div class="col-md-6">
+        <label for="email_address" class="control-label mr-4"
+          >Email Address:</label
+          >
+          <input
+            id="email_address"
+            type="text"
+            class="form-control"
+            [formControlName]="props.EMAIL_ADDRESS" />
+        </div>
+        <div class="col-md-6">
+          <label for="phone" class="control-label mr-4">Phone:</label>
+          <input
+            id="phone"
+            type="text"
+            class="form-control"
+            [formControlName]="props.PHONE" />
+        </div>
+        <div class="col-md-6">
+          <label for="sales_agent" class="control-label mr-4">Sales Agent:</label>
+          <kendo-multicolumncombobox
+            id="sales_agent"
+            placeholder="Select a sales agent..."
+            [formControlName]="props.SALES_AGENT_ID"
+            [data]="salesAgents$ | async"
+            [textField]="salesAgentProps.NAME"
+            [valueField]="salesAgentProps.ID"
+            [valuePrimitive]="true"
+            [filterable]="true"
+            (filterChange)="handleSalesAgentFilter($event)">
+            <kendo-combobox-column
+              field="name"
+              title="Name"
+            [width]="100"></kendo-combobox-column>
+            <kendo-combobox-column
+              field="loginId"
+              title="Login Id"
+            [width]="100"></kendo-combobox-column>
+          </kendo-multicolumncombobox>
+        </div>
+      </form>
+    </imng-data-entry-dialog>

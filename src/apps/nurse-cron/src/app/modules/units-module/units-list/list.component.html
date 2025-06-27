@@ -134,11 +134,15 @@
       top="1cm"
       left="1cm"
       right="1cm"
-      bottom="1cm"></kendo-grid-pdf-margin>
+    bottom="1cm"></kendo-grid-pdf-margin>
   </kendo-grid-pdf>
   <kendo-grid-excel
     [fileName]="getExportFileName('Units')"
-    [fetchData]="excelData"></kendo-grid-excel>
+  [fetchData]="excelData"></kendo-grid-excel>
 </kendo-grid>
-<nrcrn-unit-add *ngIf="crudFacade.isNewActive$ | async"></nrcrn-unit-add>
-<nrcrn-unit-edit *ngIf="crudFacade.isEditActive$ | async"></nrcrn-unit-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <nrcrn-unit-add></nrcrn-unit-add>
+}
+@if (crudFacade.isEditActive$ | async) {
+  <nrcrn-unit-edit></nrcrn-unit-edit>
+}
