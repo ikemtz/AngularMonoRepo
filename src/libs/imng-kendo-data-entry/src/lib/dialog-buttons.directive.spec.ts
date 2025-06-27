@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataEntryDialogComponent } from './data-entry-dialog.component';
-import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+} from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
 import {
@@ -58,8 +63,8 @@ describe('DialogButtonsDirective', () => {
 });
 
 @Component({
-    selector: 'imng-thc',
-    template: ` <imng-data-entry-dialog
+  selector: 'imng-thc',
+  template: ` <imng-data-entry-dialog
     [width]="700"
     [height]="550"
     [parentComponent]="this">
@@ -74,7 +79,7 @@ describe('DialogButtonsDirective', () => {
       </button>
     </ng-template>
   </imng-data-entry-dialog>`,
-    standalone: false
+  standalone: false,
 })
 export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacade> {
   public dialogTitle = 'MockDataEntryComponent';
@@ -83,9 +88,7 @@ export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacad
 
   public addEditForm = new FormGroup({ id: new FormControl<string>('') });
   constructor() {
-    const facade = inject(DataEntryMockFacade);
-
-    super(facade);
+    super();
     this.submitButtonText = 'Save';
   }
   public initForm(): void {

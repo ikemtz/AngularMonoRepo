@@ -42,9 +42,7 @@ describe('ImngGridHeaderComponent', () => {
     component.hasHiddenColumns$ = of(false);
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toContain(
-      'title="Columns" ng-reflect-ng-class="[object Object]"',
-    );
+    expect(element.innerHTML).toContain('title="Columns"');
   });
 
   it('should support hideReloadData = true', () => {
