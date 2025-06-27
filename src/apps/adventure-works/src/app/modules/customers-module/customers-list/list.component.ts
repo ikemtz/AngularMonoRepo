@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -13,26 +13,24 @@ import {
 import { customerGridState } from './list.grid-state';
 
 @Component({
-    selector: 'aw-customer-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'aw-customer-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class CustomerListComponent extends KendoODataBasedComponent<
   ICustomer,
   CustomerListFacade
 > {
+  readonly crudFacade = inject(CustomerCrudFacade);
+
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public currentItem: ICustomer | undefined;
 
-  constructor(
-    facade: CustomerListFacade,
-    public readonly crudFacade: CustomerCrudFacade,
-    router: Router,
-  ) {
-    super(facade, customerGridState, router);
+  constructor() {
+    super(inject(CustomerListFacade), customerGridState, inject(Router));
   }
 
   public addItem(): void {

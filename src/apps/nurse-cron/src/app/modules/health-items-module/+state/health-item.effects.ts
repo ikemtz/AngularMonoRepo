@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '@env';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
@@ -13,12 +13,11 @@ import * as healthItemActionTypes from './health-item.actions';
 
 @Injectable()
 export class HealthItemEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly healthItemApiService: HealthItemApiService,
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataService);
+  private readonly store = inject(Store);
+  private readonly healthItemApiService = inject(HealthItemApiService);
+
 
   loadHealthItemsEffect$ = createEffect(() => {
     return this.actions$.pipe(

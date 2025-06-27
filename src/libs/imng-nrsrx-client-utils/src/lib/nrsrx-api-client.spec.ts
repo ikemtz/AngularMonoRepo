@@ -1,29 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { NrsrxBaseApiClientService } from './nrsrx-api-client';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 
 describe('NrsrxBaseApiClientService', () => {
+  let httpClient: HttpClient;
+  let mockApiService: MockApiService;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: HttpClient,
+          useValue: {
+            post: jest.fn(),
+            put: jest.fn(),
+            delete: jest.fn(),
+          } as Partial<HttpClient>,
+        },
+        MockApiService,
+      ],
+    }).compileComponents();
+    httpClient = TestBed.inject(HttpClient);
+    mockApiService = TestBed.inject(MockApiService);
+  }));
+
   it('should post correctly with id', () => {
-    const httpClient: HttpClient = { post: jest.fn() } as unknown as HttpClient;
-    const apiService = new MockApiService(httpClient);
-    apiService.dateOnlyPropertyNames = ['birthDate'];
+    mockApiService.dateOnlyPropertyNames = ['birthDate'];
     const postData = { id: '🐱‍👤🐱‍👤🐱‍👤' };
-    apiService.post(postData);
+    mockApiService.post(postData);
     expect(httpClient.post).toHaveBeenCalledWith(
       `good_times?id=${postData.id}`,
       postData,
     );
   });
   it('should post correctly with date only prop', () => {
-    const httpClient: HttpClient = {
-      post: jest.fn(),
-    } as unknown as HttpClient;
-    const apiService = new MockApiService(httpClient);
-    apiService.dateOnlyPropertyNames = ['birthDate'];
+    mockApiService.dateOnlyPropertyNames = ['birthDate'];
     const postData = {
       id: '🐱‍👤🐱‍👤🐱‍👤',
       birthDate: new Date('1776-07-04'),
     };
-    apiService.post(postData);
+    mockApiService.post(postData);
     expect(httpClient.post).toHaveBeenCalledWith(
       `good_times?id=${postData.id}`,
       {
@@ -33,30 +49,22 @@ describe('NrsrxBaseApiClientService', () => {
     );
   });
   it('post should handle invalid id', () => {
-    const httpClient = { post: jest.fn() } as unknown as HttpClient;
-    const apiService = new MockApiService(httpClient);
     const postData = { id: null as unknown as string };
-    apiService.post(postData);
+    mockApiService.post(postData);
     expect(httpClient.post).toHaveBeenCalledWith(`good_times`, postData);
   });
   it('should put correctly with id', () => {
-    const httpClient: HttpClient = { put: jest.fn() } as unknown as HttpClient;
-    const apiService = new MockApiService(httpClient);
-    apiService.dateOnlyPropertyNames = ['birthDate'];
+    mockApiService.dateOnlyPropertyNames = ['birthDate'];
     const postData = { id: '🐱‍👤🐱‍👤🐱‍👤' };
-    apiService.put(postData);
+    mockApiService.put(postData);
     expect(httpClient.put).toHaveBeenCalledWith(
       `good_times?id=${postData.id}`,
       postData,
     );
   });
   it('should delete correctly with id', () => {
-    const httpClient: HttpClient = {
-      delete: jest.fn(),
-    } as unknown as HttpClient;
-    const apiService = new MockApiService(httpClient);
     const postData = { id: '🐱‍👤🐱‍👤🐱‍👤' };
-    apiService.delete(postData);
+    mockApiService.delete(postData);
     expect(httpClient.delete).toHaveBeenCalledWith(
       `good_times?id=${postData.id}`,
     );

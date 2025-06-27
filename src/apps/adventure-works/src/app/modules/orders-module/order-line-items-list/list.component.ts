@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, inject } from '@angular/core';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { OrderLineItemListFacade } from './list.facade';
@@ -25,18 +25,18 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-    selector: 'aw-order-line-item-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'aw-order-line-item-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class OrderLineItemListComponent extends KendoODataBasedComponent<IOrderLineItem, OrderLineItemListFacade> {
   public readonly props = OrderLineItemProperties;
   public currentItem: IOrderLineItem | undefined;
 
-  constructor(facade: OrderLineItemListFacade) {
-    super(facade, initialGridState);
+  constructor() {
+    super(inject(OrderLineItemListFacade), initialGridState);
   }
 
   @Input()

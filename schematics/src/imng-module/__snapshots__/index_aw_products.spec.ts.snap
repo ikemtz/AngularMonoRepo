@@ -353,7 +353,7 @@ describe('ProductCrudFacade', () => {
 `;
 
 exports[`imng-module crud facade template should work 1`] = `
-"import { Injectable } from '@angular/core';
+"import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
@@ -361,14 +361,14 @@ import { productsFeature, productSelectors, productActionTypes } from '../+state
 
 @Injectable()
 export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(productsFeature.selectLoading);
   currentEntity$ = this.store.select(productsFeature.selectCurrentProduct);
   isEditActive$ = this.store.select(productSelectors.selectIsEditProductActive);
   isNewActive$ = this.store.select(productSelectors.selectIsNewProductActive);
   productModels$ = this.store.select(productsFeature.selectProductModels);
   productCategories$ = this.store.select(productsFeature.selectProductCategories);
-
-  constructor(private readonly store: Store) {}
 
   public setCurrentEntity(item: IProduct): void {
     this.store.dispatch(productActionTypes.setCurrentProduct(item));
@@ -885,7 +885,7 @@ exports[`imng-module html file should work 1`] = `
 `;
 
 exports[`imng-module list component should work 1`] = `
-"import { Component, ChangeDetectionStrategy } from '@angular/core';
+"import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -902,15 +902,15 @@ import { productGridState } from './list.grid-state';
   standalone: false,
 })
 export class ProductListComponent extends KendoODataBasedComponent<IProduct, ProductListFacade> {
+  public readonly crudFacade = inject(ProductCrudFacade);
+
   public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;
   public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
 
-  constructor(facade: ProductListFacade,
-    public readonly crudFacade: ProductCrudFacade,
-    router: Router) {
-    super(facade, productGridState, router);
+  constructor() {
+    super(inject(ProductListFacade), productGridState, inject(Router));
   }
 
   public addItem(): void {

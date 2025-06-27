@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -25,26 +25,27 @@ const initialGridState: ODataState = {
     BuildingProperties.DELETED_BY,
     BuildingProperties.DELETED_ON_UTC,
   ],
-  sort: [
-    { field: BuildingProperties.NAME, dir: 'asc' },
-  ],
+  sort: [{ field: BuildingProperties.NAME, dir: 'asc' }],
 };
 
 @Component({
-    selector: 'nrcrn-building-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'nrcrn-building-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class BuildingListComponent extends KendoODataBasedComponent<IBuilding, BuildingListFacade> {
+export class BuildingListComponent extends KendoODataBasedComponent<
+  IBuilding,
+  BuildingListFacade
+> {
+  readonly crudFacade = inject(BuildingCrudFacade);
+
   public readonly props = BuildingProperties;
   public currentItem: IBuilding | undefined;
 
-  constructor(facade: BuildingListFacade,
-    public readonly crudFacade: BuildingCrudFacade,
-    router: Router) {
-    super(facade, initialGridState, router);
+  constructor() {
+    super(inject(BuildingListFacade), initialGridState, inject(Router));
   }
 
   public addItem(): void {

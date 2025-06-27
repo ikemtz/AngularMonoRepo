@@ -309,7 +309,7 @@ describe('CustomerCrudFacade', () => {
 `;
 
 exports[`imng-module crud facade template should work 1`] = `
-"import { Injectable } from '@angular/core';
+"import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
@@ -317,13 +317,13 @@ import { customersFeature, customerSelectors, customerActionTypes } from '../+st
 
 @Injectable()
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
+  private readonly store = inject(Store);
+
   loading$ = this.store.select(customersFeature.selectLoading);
   currentEntity$ = this.store.select(customersFeature.selectCurrentCustomer);
   isEditActive$ = this.store.select(customerSelectors.selectIsEditCustomerActive);
   isNewActive$ = this.store.select(customerSelectors.selectIsNewCustomerActive);
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
-
-  constructor(private readonly store: Store) {}
 
   public setCurrentEntity(item: ICustomer): void {
     this.store.dispatch(customerActionTypes.setCurrentCustomer(item));
@@ -700,7 +700,7 @@ exports[`imng-module html file should work 1`] = `
 `;
 
 exports[`imng-module list component should work 1`] = `
-"import { Component, ChangeDetectionStrategy } from '@angular/core';
+"import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
@@ -717,14 +717,14 @@ import { customerGridState } from './list.grid-state';
   standalone: false,
 })
 export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, CustomerListFacade> {
+  public readonly crudFacade = inject(CustomerCrudFacade);
+
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public currentItem: ICustomer | undefined;
 
-  constructor(facade: CustomerListFacade,
-    public readonly crudFacade: CustomerCrudFacade,
-    router: Router) {
-    super(facade, customerGridState, router);
+  constructor() {
+    super(inject(CustomerListFacade), customerGridState, inject(Router));
   }
 
   public addItem(): void {

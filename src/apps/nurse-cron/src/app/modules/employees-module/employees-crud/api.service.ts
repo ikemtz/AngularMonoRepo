@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '@env';
 import { IEmployee, EmployeeProperties } from '../../../models/employees-api';
 
@@ -13,9 +12,6 @@ export class EmployeeApiService extends NrsrxBaseApiClientService<IEmployee> {
   public override dateOnlyPropertyNames = [
     EmployeeProperties.BIRTH_DATE,
     EmployeeProperties.HIRE_DATE,
-    EmployeeProperties.FIRE_DATE];
-
-  constructor(http: HttpClient) {
-    super(http);
-  }
+    EmployeeProperties.FIRE_DATE,
+  ];
 }
