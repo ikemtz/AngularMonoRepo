@@ -17,18 +17,19 @@ import { Subscriptions } from 'imng-ngrx-utils';
    <kendo-grid-column>
  */
 @Component({
-  selector: 'imng-uuid-filter',
-  template: `
+    selector: 'imng-uuid-filter',
+    template: `
       <kendo-grid-string-filter-menu
         [column]="column"
         [filter]="filter"
         [filterService]="filterService"
         [extra]="false"
         operator="eq">
-        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+        <kendo-filter-eq-operator />
       </kendo-grid-string-filter-menu>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UuidFilterComponent {
   /**

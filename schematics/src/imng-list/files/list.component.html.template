@@ -7,14 +7,13 @@
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
         (resetFiltersClicked)="resetFilters()"
-        [hasHiddenColumns$]="hasHiddenColumns$">
-      </imng-kendo-odata-grid-header>
+        [hasHiddenColumns$]="hasHiddenColumns$" />
     </div>
   </ng-template>
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item icon="menu">
+        <kendo-menu-item [svgIcon]="icons.menuIcon">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -54,7 +53,7 @@
     <ng-template kendoGridCellTemplate let-dataItem>
       <div *ngIf="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]">
         <span class="text-success font-weight-bolder h2" tooltip="<%= swaggerProperty.startCaseName %>">
-          <span class="k-icon k-i-check-circle start-50"></span>
+          <span class="k-icon k-i-check-circle start-50" />
         </span>
       </div>
     </ng-template>
@@ -63,11 +62,10 @@
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>] | slice:0:5"
-        [copyValue]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]">
-      </imng-kendo-copy>
+        [copyValue]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
 <%} else if (swaggerProperty.enum) { %>
   <kendo-grid-column
@@ -82,7 +80,7 @@
         [textField]="EnumProperties.DISPLAY_TEXT"
         [valueField]="EnumProperties.NAME"
         [data]="<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>"
-        [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"></imng-multi-select-filter>
+        [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ getEnumText(<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>, dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]) }}
@@ -99,9 +97,13 @@
   </kendo-grid-column><% }) %>
 
   <kendo-grid-pdf [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [allPages]="false">
-    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [fetchData]="excelData" />
 </kendo-grid>
-<<%= appPrefix %>-<%= dasherize(name) %>-add *ngIf="crudFacade.isNewActive$ | async"></<%= appPrefix %>-<%= dasherize(name) %>-add>
-<<%= appPrefix %>-<%= dasherize(name) %>-edit *ngIf="crudFacade.isEditActive$ | async"></<%= appPrefix %>-<%= dasherize(name) %>-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <<%= appPrefix %>-<%= dasherize(name) %>-add />
+}
+@if (crudFacade.isEditActive$ | async) {
+  <<%= appPrefix %>-<%= dasherize(name) %>-edit />
+}

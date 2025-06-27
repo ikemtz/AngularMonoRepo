@@ -51,10 +51,11 @@ const initialGridState: ODataState = {
 };
 
 @Component({
-  selector: 'aw-product-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'aw-product-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ProductListComponent extends KendoODataBasedComponent<
   IProduct,

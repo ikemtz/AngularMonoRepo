@@ -187,6 +187,7 @@ import { OrderBaseEntryComponent } from './base-entry.component';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OrderAddComponent extends OrderBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Order';
@@ -217,7 +218,10 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { OrderCrudFacade } from './crud.facade';
 
-@Component({ template: '' })
+@Component({ 
+  template: '',
+  standalone: false, 
+})
 export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<OrderCrudFacade>
   implements OnInit {
   public readonly props = OrderProperties;
@@ -491,39 +495,57 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
     <div class="col-md-6">
       <label for="id" class="control-label">Id: <span class="text-danger">*</span></label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ID)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.ID)?.[RequiredError]">Order id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.ID)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.ID)?.[RequiredError]) {
+          <div>Order id is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="order_id" class="control-label">Order Id: <span class="text-danger">*</span></label>
       <input id="order_id" type="number" class="form-control" [formControlName]="props.ORDER_ID" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.ORDER_ID)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.ORDER_ID)?.[RequiredError]">Order order id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.ORDER_ID)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.ORDER_ID)?.[RequiredError]) {
+          <div>Order order id is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="revision_num" class="control-label">Revision Num: <span class="text-danger">*</span></label>
       <input id="revision_num" type="number" class="form-control" [formControlName]="props.REVISION_NUM" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.REVISION_NUM)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.REVISION_NUM)?.[RequiredError]">Order revision num is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.REVISION_NUM)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.REVISION_NUM)?.[RequiredError]) {
+          <div>Order revision num is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="date" class="control-label">Date: <span class="text-danger">*</span></label>
-      <kendo-datepicker id="date" class="form-control" [formControlName]="props.DATE">
-      </kendo-datepicker>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.DATE)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.DATE)?.[RequiredError]">Order date is required</div>
-      </div>
+      <kendo-datepicker id="date" class="form-control" [formControlName]="props.DATE" />
+      @if ((submitted$ | async) && formControlErrors(props.DATE)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.DATE)?.[RequiredError]) {
+          <div>Order date is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="due_date" class="control-label">Due Date: <span class="text-danger">*</span></label>
-      <kendo-datepicker id="due_date" class="form-control" [formControlName]="props.DUE_DATE">
-      </kendo-datepicker>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.DUE_DATE)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.DUE_DATE)?.[RequiredError]">Order due date is required</div>
-      </div>
+      <kendo-datepicker id="due_date" class="form-control" [formControlName]="props.DUE_DATE" />
+      @if ((submitted$ | async) && formControlErrors(props.DUE_DATE)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.DUE_DATE)?.[RequiredError]) {
+          <div>Order due date is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="ship_date" class="control-label">Ship Date:</label>
@@ -542,9 +564,13 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         [filterable]="true"
         (filterChange)="handleStatusTypeFilter($event)">
       </kendo-combobox>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.STATUS_TYPE)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.STATUS_TYPE)?.[RequiredError]">Order status type is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.STATUS_TYPE)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.STATUS_TYPE)?.[RequiredError]) {
+            <div>Order status type is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="is_online_order" class="control-label me-4 mt-4">Is Online Order: <span class="text-danger">*</span></label>
@@ -553,14 +579,20 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
     <div class="col-md-6">
       <label for="num" class="control-label">Num: <span class="text-danger">*</span></label>
       <input id="num" type="text" class="form-control" [formControlName]="props.NUM" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.NUM)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.NUM)?.[RequiredError]">Order num is required</div>
-        <div *ngIf="formControlErrors(props.NUM)?.[MinLengthError]">
-          Order num requires a min length of
-          {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
-          {{formMinLengthError(props.NUM)?.actualLength}}.
+      @if ((submitted$ | async) && formControlErrors(props.NUM)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.NUM)?.[RequiredError]) {
+          <div>Order num is required</div>
+        }
+        @if (formControlErrors(props.NUM)?.[MinLengthError]) {
+          <div>
+            Order num requires a min length of
+            {{formMinLengthError(props.NUM)?.requiredLength}}, currently only
+            {{formMinLengthError(props.NUM)?.actualLength}}.
+          </div>
+        }
         </div>
-      </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="purchase_order_num" class="control-label">Purchase Order Num:</label>
@@ -569,9 +601,13 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
     <div class="col-md-6">
       <label for="customer_id" class="control-label">Customer Id: <span class="text-danger">*</span></label>
       <input id="customer_id" type="text" class="form-control" [formControlName]="props.CUSTOMER_ID" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.CUSTOMER_ID)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.CUSTOMER_ID)?.[RequiredError]">Order customer id is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.CUSTOMER_ID)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.CUSTOMER_ID)?.[RequiredError]) {
+          <div>Order customer id is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="ship_to_address_id" class="control-label">Ship To Address Id:</label>
@@ -594,9 +630,13 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
         [filterable]="true"
         (filterChange)="handleShippingTypeFilter($event)">
       </kendo-combobox>
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.SHIPPING_TYPE)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.SHIPPING_TYPE)?.[RequiredError]">Order shipping type is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.SHIPPING_TYPE)) {
+        <div class="invalid-feedback d-block">
+          @if (formControlErrors(props.SHIPPING_TYPE)?.[RequiredError]) {
+            <div>Order shipping type is required</div>
+          }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="credit_card_approval_code" class="control-label">Credit Card Approval Code:</label>
@@ -605,30 +645,46 @@ exports[`imng-module AdventureWorks Orders crud html template should work 1`] = 
     <div class="col-md-6">
       <label for="sub_total" class="control-label">Sub Total: <span class="text-danger">*</span></label>
       <input id="sub_total" type="number" class="form-control" [formControlName]="props.SUB_TOTAL" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.SUB_TOTAL)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.SUB_TOTAL)?.[RequiredError]">Order sub total is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.SUB_TOTAL)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.SUB_TOTAL)?.[RequiredError]) {
+          <div>Order sub total is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="tax_amt" class="control-label">Tax Amt: <span class="text-danger">*</span></label>
       <input id="tax_amt" type="number" class="form-control" [formControlName]="props.TAX_AMT" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.TAX_AMT)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.TAX_AMT)?.[RequiredError]">Order tax amt is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.TAX_AMT)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.TAX_AMT)?.[RequiredError]) {
+          <div>Order tax amt is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="freight" class="control-label">Freight: <span class="text-danger">*</span></label>
       <input id="freight" type="number" class="form-control" [formControlName]="props.FREIGHT" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.FREIGHT)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.FREIGHT)?.[RequiredError]">Order freight is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.FREIGHT)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.FREIGHT)?.[RequiredError]) {
+          <div>Order freight is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="total_due" class="control-label">Total Due: <span class="text-danger">*</span></label>
       <input id="total_due" type="number" class="form-control" [formControlName]="props.TOTAL_DUE" />
-      <div *ngIf="(submitted$ | async) && formControlErrors(props.TOTAL_DUE)" class="invalid-feedback d-block">
-        <div *ngIf="formControlErrors(props.TOTAL_DUE)?.[RequiredError]">Order total due is required</div>
-      </div>
+      @if ((submitted$ | async) && formControlErrors(props.TOTAL_DUE)) {
+        <div class="invalid-feedback d-block">
+        @if (formControlErrors(props.TOTAL_DUE)?.[RequiredError]) {
+          <div>Order total due is required</div>
+        }
+        </div>
+      }
     </div>
     <div class="col-md-6">
       <label for="comment" class="control-label">Comment:</label>
@@ -825,6 +881,7 @@ import { OrderCrudFacade } from './crud.facade';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OrderEditComponent extends OrderBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Order';
@@ -860,14 +917,13 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
         (resetFiltersClicked)="resetFilters()"
-        [hasHiddenColumns$]="hasHiddenColumns$">
-      </imng-kendo-odata-grid-header>
+        [hasHiddenColumns$]="hasHiddenColumns$" />
     </div>
   </ng-template>
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item icon="menu">
+        <kendo-menu-item [svgIcon]="icons.menuIcon">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -903,11 +959,10 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.ID] | slice:0:5"
-        [copyValue]="dataItem[props.ID]">
-      </imng-kendo-copy>
+        [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Id">Id</span>
@@ -950,7 +1005,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
         [textField]="EnumProperties.DISPLAY_TEXT"
         [valueField]="EnumProperties.NAME"
         [data]="orderStatusTypes"
-        [field]="props.STATUS_TYPE"></imng-multi-select-filter>
+        [field]="props.STATUS_TYPE" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ getEnumText(orderStatusTypes, dataItem[props.STATUS_TYPE]) }}
@@ -963,7 +1018,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
     <ng-template kendoGridCellTemplate let-dataItem>
       <div *ngIf="dataItem[props.IS_ONLINE_ORDER]">
         <span class="text-success font-weight-bolder h2" tooltip="Is Online Order">
-          <span class="k-icon k-i-check-circle start-50"></span>
+          <span class="k-icon k-i-check-circle start-50" />
         </span>
       </div>
     </ng-template>
@@ -985,11 +1040,10 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.CUSTOMER_ID] | slice:0:5"
-        [copyValue]="dataItem[props.CUSTOMER_ID]">
-      </imng-kendo-copy>
+        [copyValue]="dataItem[props.CUSTOMER_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Customer Id">Customer Id</span>
@@ -999,11 +1053,10 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.SHIP_TO_ADDRESS_ID] | slice:0:5"
-        [copyValue]="dataItem[props.SHIP_TO_ADDRESS_ID]">
-      </imng-kendo-copy>
+        [copyValue]="dataItem[props.SHIP_TO_ADDRESS_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Ship To Address Id">Ship To Address Id</span>
@@ -1013,11 +1066,10 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.BILL_TO_ADDRESS_ID] | slice:0:5"
-        [copyValue]="dataItem[props.BILL_TO_ADDRESS_ID]">
-      </imng-kendo-copy>
+        [copyValue]="dataItem[props.BILL_TO_ADDRESS_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
-      <imng-uuid-filter [filter]="filter"></imng-uuid-filter>
+      <imng-uuid-filter [filter]="filter" />
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Bill To Address Id">Bill To Address Id</span>
@@ -1035,7 +1087,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
         [textField]="EnumProperties.DISPLAY_TEXT"
         [valueField]="EnumProperties.NAME"
         [data]="shippingTypes"
-        [field]="props.SHIPPING_TYPE"></imng-multi-select-filter>
+        [field]="props.SHIPPING_TYPE" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ getEnumText(shippingTypes, dataItem[props.SHIPPING_TYPE]) }}
@@ -1117,12 +1169,16 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
   </kendo-grid-column>
 
   <kendo-grid-pdf [fileName]="getExportFileName('Orders')" [allPages]="false">
-    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel [fileName]="getExportFileName('Orders')" [fetchData]="excelData"></kendo-grid-excel>
+  <kendo-grid-excel [fileName]="getExportFileName('Orders')" [fetchData]="excelData" />
 </kendo-grid>
-<aw-order-add *ngIf="crudFacade.isNewActive$ | async"></aw-order-add>
-<aw-order-edit *ngIf="crudFacade.isEditActive$ | async"></aw-order-edit>
+@if (crudFacade.isNewActive$ | async) {
+  <aw-order-add />
+}
+@if (crudFacade.isEditActive$ | async) {
+  <aw-order-edit />
+}
 "
 `;
 
@@ -1141,6 +1197,7 @@ import { orderGridState } from './list.grid-state';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderListFacade> {
   public readonly props = OrderProperties;

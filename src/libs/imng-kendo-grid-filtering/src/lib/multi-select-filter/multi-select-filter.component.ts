@@ -16,36 +16,39 @@ import { IdType } from 'imng-nrsrx-client-utils';
 import { ODataState } from 'imng-kendo-odata';
 
 @Component({
-  selector: 'imng-multi-select-filter',
-  template: `
+    selector: 'imng-multi-select-filter',
+    template: `
     <ul>
-      <li *ngIf="showTextFilter">
-        <input class="k-textbox" (input)="onInput($event)" />
-      </li>
-      <li
-        #itemElement
-        *ngFor="let item of currentData; let i = index"
-        (click)="onSelectionChange(valueAccessor(item), itemElement)"
-        [ngClass]="{ 'k-state-selected': isItemSelected(item) }"
-      >
-        <input
-          type="checkbox"
-          id="chk-{{ valueAccessor(item) }}"
-          (focus)="onFocus(itemElement)"
-          class="k-checkbox"
-          [checked]="isItemSelected(item)"
-        />
-        <label
-          class="k-multiselect-checkbox k-checkbox-label"
-          for="chk-{{ valueAccessor(item) }}"
-        >
-          {{ textAccessor(item) }}
-        </label>
-      </li>
+      @if (showTextFilter) {
+        <li>
+          <input class="k-textbox" (input)="onInput($event)" />
+        </li>
+      }
+      @for (item of currentData; track item; let i = $index) {
+        <li
+          #itemElement
+          (click)="onSelectionChange(valueAccessor(item), itemElement)"
+          [ngClass]="{ 'k-state-selected': isItemSelected(item) }"
+          >
+          <input
+            type="checkbox"
+            id="chk-{{ valueAccessor(item) }}"
+            (focus)="onFocus(itemElement)"
+            class="k-checkbox"
+            [checked]="isItemSelected(item)"
+            />
+          <label
+            class="k-multiselect-checkbox k-checkbox-label"
+            for="chk-{{ valueAccessor(item) }}"
+            >
+            {{ textAccessor(item) }}
+          </label>
+        </li>
+      }
     </ul>
-  `,
-  styles: [
-    `
+    `,
+    styles: [
+        `
       ul {
         list-style-type: none;
         height: 200px;
@@ -69,8 +72,9 @@ import { ODataState } from 'imng-kendo-odata';
       }
       .k-checkbox {width: 14px; height: 15px;}
     `,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MultiSelectFilterComponent implements AfterViewInit {
   @Input() public isPrimitive = false;

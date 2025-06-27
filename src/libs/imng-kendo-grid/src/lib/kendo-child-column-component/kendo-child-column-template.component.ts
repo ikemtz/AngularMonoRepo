@@ -9,23 +9,27 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'imng-kendo-grid-child-column-template',
-  template: `<div *ngFor="let item of currentData | slice: 0:visibleRecCount">
-      {{ item }}
-    </div>
-    <button
-      type="button"
-      *ngIf="showMore && (currentData?.length || 0) > visibleRecCount"
-      class="btn btn-sm btn-primary"
-      [title]="formatToolTip()"
-      (click)="moreClicked()"
+    selector: 'imng-kendo-grid-child-column-template',
+    template: `@for (item of currentData | slice: 0:visibleRecCount; track item) {
+  <div>
+    {{ item }}
+  </div>
+}
+@if (showMore && (currentData?.length || 0) > visibleRecCount) {
+  <button
+    type="button"
+    class="btn btn-sm btn-primary"
+    [title]="formatToolTip()"
+    (click)="moreClicked()"
     >
-      More ...
-      <span class="badge bg-secondary">{{
-        currentData.length - visibleRecCount
-      }}</span>
-    </button>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    More ...
+    <span class="badge bg-secondary">{{
+      currentData.length - visibleRecCount
+    }}</span>
+  </button>
+}`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ImngGridChildColumnTemplateComponent implements OnInit {
   private _data: unknown[] = [];
