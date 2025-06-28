@@ -4,6 +4,7 @@ import {
   OnInit,
   OnDestroy,
   AfterViewInit,
+  inject,
 } from '@angular/core';
 import {
   GridComponent,
@@ -19,18 +20,20 @@ import {
 } from '@progress/kendo-data-query';
 
 @Directive({
-    selector: '[imngArrayGrid]',
-    standalone: false
+  selector: '[imngArrayGrid]',
+  standalone: false,
 })
 export class ImngArrayGridDirective
-  implements OnInit, AfterViewInit, OnDestroy, Subscribable {
+  implements OnInit, AfterViewInit, OnDestroy, Subscribable
+{
+  readonly gridComponent = inject(GridComponent);
+
   public readonly allSubscriptions = new Subscriptions();
   @Input('imngArrayGrid') public arrayComponent?: KendoArrayBasedComponent<
     object,
     object
   >;
   @Input() public pageable: boolean | PagerSettings = true;
-  constructor(public readonly gridComponent: GridComponent) { }
 
   ngOnInit(): void {
     this.gridComponent.reorderable = true;
@@ -57,7 +60,7 @@ export class ImngArrayGridDirective
             this.arrayComponent.dataStateChange(t);
             this.arrayComponent.markForCheck();
           }
-        }
+        },
       ),
       this.gridComponent.pageChange.subscribe((t: PageChangeEvent) => {
         this.arrayComponent?.pageChange(t);
@@ -73,11 +76,11 @@ export class ImngArrayGridDirective
             this.arrayComponent.markForCheck();
             this.arrayComponent.filterChange(t);
           }
-        }
+        },
       ),
       this.arrayComponent?.gridData$.subscribe((t) => {
         this.gridComponent.data = t;
-      })
+      }),
     );
 
     this.gridComponent.pageSize = this.arrayComponent?.state.take || 20; //NOSONAR
@@ -85,13 +88,13 @@ export class ImngArrayGridDirective
       logic: 'and',
       filters: [],
     };
-    this.gridComponent.skip = this.arrayComponent?.state.skip || 0;
+    this.gridComponent.skip = this.arrayComponent?.state.skip ?? 0;
     this.gridComponent.sort = this.arrayComponent?.state.sort || [];
     this.gridComponent.data = this.arrayComponent?.gridData || [];
     if (this.arrayComponent) {
       this.arrayComponent.hasHiddenColumns$ =
         this.gridComponent.columnVisibilityChange.pipe(
-          hasHiddenColumns(this.gridComponent)
+          hasHiddenColumns(this.gridComponent),
         );
     }
   }

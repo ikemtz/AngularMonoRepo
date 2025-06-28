@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
-import { <%= classify(name) %>CrudFacade } from './crud.facade';
 
 @Component({
   selector: '<%= appPrefix %>-<%= dasherize(name) %>-edit',
@@ -15,9 +14,6 @@ export class <%= classify(name) %>EditComponent extends <%= classify(name) %>Bas
   public dialogTitle = 'Edit <%= classify(name) %>';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: <%= classify(name) %>CrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {
