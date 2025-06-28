@@ -131,7 +131,6 @@ describe('CustomerAddComponent', () => {
 
 exports[`imng-module add component template should work 1`] = `
 "import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { CustomerCrudFacade } from './crud.facade';
 import { CustomerBaseEntryComponent } from './base-entry.component';
 
 @Component({
@@ -145,9 +144,6 @@ export class CustomerAddComponent extends CustomerBaseEntryComponent implements 
   public dialogTitle = 'Add Customer';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: CustomerCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
@@ -163,7 +159,7 @@ export class CustomerAddComponent extends CustomerBaseEntryComponent implements 
 `;
 
 exports[`imng-module base crud component should work 1`] = `
-"import { OnInit, Component } from '@angular/core';
+"import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
@@ -182,9 +178,9 @@ export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<
   public readonly salesAgentFilter$ = new BehaviorSubject('');
   public addEditForm: FormGroup<ICustomerForm>;
 
-  constructor(facade: CustomerCrudFacade) {
-    super(facade);
-    this.salesAgents$ = facade.salesAgents$.pipe(
+  constructor() {
+    super(inject(CustomerCrudFacade));
+    this.salesAgents$ = this.facade.salesAgents$.pipe(
       switchMap(salesAgents => this.salesAgentFilter$.pipe(
         map(salesAgentFilter => salesAgentFilter ? salesAgents
           .filter(salesAgent => (
@@ -533,7 +529,6 @@ exports[`imng-module edit component template should work 1`] = `
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { CustomerBaseEntryComponent } from './base-entry.component';
-import { CustomerCrudFacade } from './crud.facade';
 
 @Component({
   selector: 'aw-customer-edit',
@@ -546,9 +541,6 @@ export class CustomerEditComponent extends CustomerBaseEntryComponent implements
   public dialogTitle = 'Edit Customer';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: CustomerCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {
