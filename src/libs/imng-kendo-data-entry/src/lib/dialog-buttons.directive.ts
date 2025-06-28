@@ -1,9 +1,9 @@
-import { Directive, TemplateRef } from '@angular/core';
+import { Directive, TemplateRef, inject } from '@angular/core';
 
 @Directive({
-    selector: '[imngDialogBtns]',
-    standalone: false
+  selector: '[imngDialogBtns]',
+  standalone: false,
 })
 export class DialogButtonsDirective {
-  constructor(public tpl: TemplateRef<unknown>) { }
+  tpl = inject<TemplateRef<unknown>>(TemplateRef);
 }

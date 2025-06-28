@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   OidcClient,
@@ -21,10 +21,10 @@ import { IOidcUser } from '../models/oidc-user';
   providedIn: 'root',
 })
 export class OidcFacade {
-  constructor(
-    private readonly store: Store,
-    private readonly oidcService: OidcService,
-  ) {
+  private readonly store = inject(Store);
+  private readonly oidcService = inject(OidcService);
+
+  constructor() {
     this.registerDefaultEvents();
   }
 

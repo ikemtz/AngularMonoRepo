@@ -5,7 +5,7 @@ import { OidcFacade } from '../+state/oidc.facade';
 import { OidcUserFacade } from '../+state/oidc-user.facade';
 import { Router } from '@angular/router';
 import { of, Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Injectable, inject as inject_1 } from '@angular/core';
 import { readFirst } from 'imng-ngrx-utils/testing';
 
 describe('PermissionsGuard', () => {
@@ -53,11 +53,11 @@ describe('PermissionsGuard', () => {
 @Injectable()
 class PermissionsGuardTester extends PermissionsGuard {
   protected permissions = ['tester'];
-  constructor(
-    oidcFacade: OidcFacade,
-    oidcUserFacade: OidcUserFacade,
-    router: Router,
-  ) {
+  constructor() {
+    const oidcFacade = inject_1(OidcFacade);
+    const oidcUserFacade = inject_1(OidcUserFacade);
+    const router = inject_1(Router);
+
     super(oidcFacade, oidcUserFacade, router);
   }
 }
