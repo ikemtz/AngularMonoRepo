@@ -179,7 +179,6 @@ describe('OrderAddComponent', () => {
 
 exports[`imng-module AdventureWorks Orders add component template should work 1`] = `
 "import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { OrderCrudFacade } from './crud.facade';
 import { OrderBaseEntryComponent } from './base-entry.component';
 
 @Component({
@@ -193,9 +192,6 @@ export class OrderAddComponent extends OrderBaseEntryComponent implements OnInit
   public dialogTitle = 'Add Order';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: OrderCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
@@ -211,7 +207,7 @@ export class OrderAddComponent extends OrderBaseEntryComponent implements OnInit
 `;
 
 exports[`imng-module AdventureWorks Orders base crud component should work 1`] = `
-"import { OnInit, Component } from '@angular/core';
+"import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
@@ -238,9 +234,9 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
   public readonly shippingTypes$ = new BehaviorSubject(shippingTypeValues);
   public addEditForm: FormGroup<IOrderForm>;
 
-  constructor(facade: OrderCrudFacade) {
-    super(facade);
-    this.customers$ = facade.customers$.pipe(
+  constructor() {
+    super(inject(OrderCrudFacade));
+    this.customers$ = this.facade.customers$.pipe(
       switchMap(customers => this.customerFilter$.pipe(
         map(customerFilter => customerFilter ? customers
           .filter(customer => (
@@ -252,7 +248,7 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
             (customer.phone && customer.phone.toLowerCase().indexOf(customerFilter) >= 0)
           )) : customers
     ))));
-    this.shipToAddresses$ = facade.shipToAddresses$.pipe(
+    this.shipToAddresses$ = this.facade.shipToAddresses$.pipe(
       switchMap(shipToAddresses => this.shipToAddressFilter$.pipe(
         map(shipToAddressFilter => shipToAddressFilter ? shipToAddresses
           .filter(shipToAddress => (
@@ -264,7 +260,7 @@ export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<Ord
             (shipToAddress.postalCode && shipToAddress.postalCode.toLowerCase().indexOf(shipToAddressFilter) >= 0)
           )) : shipToAddresses
     ))));
-    this.billToAddresses$ = facade.billToAddresses$.pipe(
+    this.billToAddresses$ = this.facade.billToAddresses$.pipe(
       switchMap(billToAddresses => this.billToAddressFilter$.pipe(
         map(billToAddressFilter => billToAddressFilter ? billToAddresses
           .filter(billToAddress => (
@@ -874,7 +870,6 @@ exports[`imng-module AdventureWorks Orders edit component template should work 1
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { OrderBaseEntryComponent } from './base-entry.component';
-import { OrderCrudFacade } from './crud.facade';
 
 @Component({
   selector: 'aw-order-edit',
@@ -887,9 +882,6 @@ export class OrderEditComponent extends OrderBaseEntryComponent implements OnIni
   public dialogTitle = 'Edit Order';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: OrderCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {

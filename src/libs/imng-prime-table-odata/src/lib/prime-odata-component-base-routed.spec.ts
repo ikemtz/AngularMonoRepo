@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import {
   ODataTableMockFacade,
@@ -103,7 +103,9 @@ export class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseCompone
   ODataTableMockFacade
 > {
   props = {};
-  constructor(override readonly router: Router) {
+  constructor() {
+    const router = inject(Router);
+
     super(createODataTableMockFacade(), initialGridState, router);
   }
 }

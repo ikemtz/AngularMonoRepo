@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { <%= classify(name) %>CrudFacade } from './crud.facade';
 import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
 
 @Component({
@@ -13,9 +12,6 @@ export class <%= classify(name) %>AddComponent extends <%= classify(name) %>Base
   public dialogTitle = 'Add <%= classify(name) %>';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: <%= classify(name) %>CrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});

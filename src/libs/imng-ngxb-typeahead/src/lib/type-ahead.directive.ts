@@ -9,6 +9,7 @@ import {
   Input,
   EventEmitter,
   Output,
+  inject,
 } from '@angular/core';
 import {
   TypeaheadDirective,
@@ -34,23 +35,24 @@ import { of } from 'rxjs';
  * typeaheadOnSelect return type is TypeaheadMatch
  */
 @Directive({
-    selector: '[imngTypeahead]',
-    standalone: false
+  selector: '[imngTypeahead]',
+  standalone: false,
 })
 export class ImngTypeaheadDirective<T>
   extends TypeaheadDirective
-  implements OnInit, OnDestroy, Subscribable {
+  implements OnInit, OnDestroy, Subscribable
+{
   private _typeAheadFacade?: ImngTypeAheadFacade<T>;
   public readonly allSubscriptions = new Subscriptions();
 
-  constructor(
-    cis: ComponentLoaderFactory,
-    changeDetection: ChangeDetectorRef,
-    element: ElementRef,
-    ngControl: NgControl,
-    renderer: Renderer2,
-    viewContainerRef: ViewContainerRef
-  ) {
+  constructor() {
+    const cis = inject(ComponentLoaderFactory);
+    const changeDetection = inject(ChangeDetectorRef);
+    const element = inject(ElementRef);
+    const ngControl = inject(NgControl);
+    const renderer = inject(Renderer2);
+    const viewContainerRef = inject(ViewContainerRef);
+
     super(
       cis,
       {
@@ -62,7 +64,7 @@ export class ImngTypeaheadDirective<T>
       element,
       ngControl,
       renderer,
-      viewContainerRef
+      viewContainerRef,
     );
     this.typeaheadOnSelect = new EventEmitter<
       TypeaheadMatch | ImngMatchSelectedEvent<T>
@@ -99,12 +101,12 @@ export class ImngTypeaheadDirective<T>
           filter(() => !!this._typeAheadFacade),
           tap((t) => this._typeAheadFacade?.loadMatches(t)),
           switchMap(
-            () => (this._typeAheadFacade || { matches$: of() }).matches$
-          )
+            () => (this._typeAheadFacade || { matches$: of() }).matches$,
+          ),
         )
         .subscribe((matches: ImngTypeaheadMatch<T>[]) => {
           this.finalizeAsyncCall(matches);
-        })
+        }),
     );
   }
 }

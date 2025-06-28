@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { idleQuery } from './idle.selectors';
 import { Observable } from 'rxjs';
@@ -8,7 +8,8 @@ import { onSessionExtended } from './idle.actions';
   providedIn: 'root',
 })
 export class IdleFacade {
-  constructor(private readonly store: Store) { }
+  private readonly store = inject(Store);
+
 
   isTimingOut$: Observable<boolean> = this.store.select(
     idleQuery.getIsTimingOut

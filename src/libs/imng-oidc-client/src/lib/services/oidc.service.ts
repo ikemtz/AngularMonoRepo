@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import {
   Log,
   OidcClient,
@@ -23,17 +23,16 @@ import {
   providedIn: 'root',
 })
 export class OidcService {
+  private readonly oidcLibraryConfig =
+    inject<OidcLibraryConfig>(OIDC_LIBRARY_CONFIG);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly httpClient = inject(HttpClient);
+
   public readonly OidcUserManager: UserManager;
   private readonly _oidcClient: OidcClient;
   private readonly _userManagerSettings: UserManagerSettings;
 
-  constructor(
-    @Inject(OIDC_LIBRARY_CONFIG)
-    private readonly oidcLibraryConfig: OidcLibraryConfig,
-
-    @Inject(PLATFORM_ID) private readonly platformId: object,
-    private readonly httpClient: HttpClient
-  ) {
+  constructor() {
     const logSettings = this.oidcLibraryConfig.log;
     let clientSettings = this.oidcLibraryConfig.oidc_config;
 
@@ -55,13 +54,13 @@ export class OidcService {
 
   public getUserMetadata(): Observable<unknown> {
     return this.httpClient
-      .get<{ userinfo_endpoint: string; }>(
-        this.oidcLibraryConfig.oidc_config?.metadataUrl || ''
-      )
+      .get<{
+        userinfo_endpoint: string;
+      }>(this.oidcLibraryConfig.oidc_config?.metadataUrl ?? '')
       .pipe(
         switchMap((openidConfig) =>
-          this.httpClient.get<unknown>(openidConfig.userinfo_endpoint)
-        )
+          this.httpClient.get<unknown>(openidConfig.userinfo_endpoint),
+        ),
       );
   }
 
@@ -83,7 +82,7 @@ export class OidcService {
 
   registerOidcEvent(
     event: OidcEvent,
-    callback: (...ev: unknown[]) => void
+    callback: (...ev: unknown[]) => void,
   ): void {
     switch (event) {
       case OidcEvent.AccessTokenExpired:
@@ -114,7 +113,7 @@ export class OidcService {
 
   removeOidcEvent(
     event: OidcEvent,
-    callback: (...ev: unknown[]) => void
+    callback: (...ev: unknown[]) => void,
   ): void {
     switch (event) {
       case OidcEvent.AccessTokenExpired:
@@ -143,34 +142,40 @@ export class OidcService {
     }
   }
 
-  signInPopup(args?: any): Observable<IOidcUser> { //NOSONAR
+  signInPopup(args?: any): Observable<IOidcUser> {
+    //NOSONAR
     this.setCallbackInformation(true);
 
     return from(this.OidcUserManager.signinPopup({ ...args }));
   }
 
-  signInRedirect(args?: any): Observable<void> { //NOSONAR
+  signInRedirect(args?: any): Observable<void> {
+    //NOSONAR
     this.setCallbackInformation(false);
 
     return from(this.OidcUserManager.signinRedirect({ ...args }));
   }
 
-  signOutPopup(args?: any): Observable<any> { //NOSONAR
+  signOutPopup(args?: any): Observable<any> {
+    //NOSONAR
     this.setCallbackInformation(true);
 
     return from(this.OidcUserManager.signoutPopup({ ...args }));
   }
 
-  signOutRedirect(args?: any): Observable<any> { //NOSONAR
+  signOutRedirect(args?: any): Observable<any> {
+    //NOSONAR
     this.setCallbackInformation(false);
     return from(this.OidcUserManager.signoutRedirect({ ...args }));
   }
 
-  signInSilent(args?: any): Observable<IOidcUser> { //NOSONAR
+  signInSilent(args?: any): Observable<IOidcUser> {
+    //NOSONAR
     return from(this.OidcUserManager.signinSilent({ ...args }));
   }
 
-  signinPopupCallback(): Observable<any> { //NOSONAR
+  signinPopupCallback(): Observable<any> {
+    //NOSONAR
     return from(this.OidcUserManager.signinPopupCallback());
   }
 
@@ -182,15 +187,18 @@ export class OidcService {
     return from(this.OidcUserManager.signoutPopupCallback());
   }
 
-  signoutRedirectCallback(): Observable<any> { //NOSONAR
+  signoutRedirectCallback(): Observable<any> {
+    //NOSONAR
     return from(this.OidcUserManager.signoutRedirectCallback());
   }
 
-  getSigninUrl(args?: any): Observable<SigninRequest> { //NOSONAR
+  getSigninUrl(args?: any): Observable<SigninRequest> {
+    //NOSONAR
     return from(this.OidcUserManager.createSigninRequest(args));
   }
 
-  getSignoutUrl(args?: any): Observable<SignoutRequest> { //NOSONAR
+  getSignoutUrl(args?: any): Observable<SignoutRequest> {
+    //NOSONAR
     return from(this.OidcUserManager.createSignoutRequest(args));
   }
 
@@ -203,7 +211,7 @@ export class OidcService {
       localStorage.setItem(StorageKeys.PopupCallback, `${isPopupCallback}`);
       localStorage.setItem(
         StorageKeys.OidcSettings,
-        JSON.stringify(this._userManagerSettings)
+        JSON.stringify(this._userManagerSettings),
       );
     }
   }

@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';<% } %>
@@ -18,9 +18,9 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
   public readonly <%= camelize(swaggerProperty.pluralizedName) %>$ = new BehaviorSubject(<%= camelize(swaggerProperty.singularizedPropertyTypeName) %>Values);<% }) %>
   public addEditForm: FormGroup<I<%= classify(name) %>Form>;
 
-  constructor(facade: <%= classify(name) %>CrudFacade) {
-    super(facade);<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
-    this.<%= camelize(swaggerProperty.pluralizedName) %>$ = facade.<%= camelize(swaggerProperty.pluralizedName) %>$.pipe(
+  constructor() {
+    super(inject(<%= classify(name) %>CrudFacade));<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    this.<%= camelize(swaggerProperty.pluralizedName) %>$ = this.facade.<%= camelize(swaggerProperty.pluralizedName) %>$.pipe(
       switchMap(<%= camelize(swaggerProperty.pluralizedName) %> => this.<%= camelize(swaggerProperty.name) %>Filter$.pipe(
         map(<%= camelize(swaggerProperty.name) %>Filter => <%= camelize(swaggerProperty.name) %>Filter ? <%= camelize(swaggerProperty.pluralizedName) %>
           .filter(<%= camelize(swaggerProperty.name) %> => (<% swaggerProperty.properties.filter(f => f.name !== 'id' && f.htmlInputType !== 'object' && !f.hidden).forEach(function(swaggerSubProperty, i, arr){%>

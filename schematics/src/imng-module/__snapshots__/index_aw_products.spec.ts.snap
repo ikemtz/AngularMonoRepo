@@ -152,7 +152,6 @@ describe('ProductAddComponent', () => {
 
 exports[`imng-module add component template should work 1`] = `
 "import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { ProductCrudFacade } from './crud.facade';
 import { ProductBaseEntryComponent } from './base-entry.component';
 
 @Component({
@@ -166,9 +165,6 @@ export class ProductAddComponent extends ProductBaseEntryComponent implements On
   public dialogTitle = 'Add Product';
   public active$ = this.facade.isNewActive$;
 
-  constructor(facade: ProductCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});
@@ -184,7 +180,7 @@ export class ProductAddComponent extends ProductBaseEntryComponent implements On
 `;
 
 exports[`imng-module base crud component should work 1`] = `
-"import { OnInit, Component } from '@angular/core';
+"import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
@@ -206,9 +202,9 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
   public readonly productCategoryFilter$ = new BehaviorSubject('');
   public addEditForm: FormGroup<IProductForm>;
 
-  constructor(facade: ProductCrudFacade) {
-    super(facade);
-    this.productModels$ = facade.productModels$.pipe(
+  constructor() {
+    super(inject(ProductCrudFacade));
+    this.productModels$ = this.facade.productModels$.pipe(
       switchMap(productModels => this.productModelFilter$.pipe(
         map(productModelFilter => productModelFilter ? productModels
           .filter(productModel => (
@@ -216,7 +212,7 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
             (productModel.description && productModel.description.toLowerCase().indexOf(productModelFilter) >= 0)
           )) : productModels
     ))));
-    this.productCategories$ = facade.productCategories$.pipe(
+    this.productCategories$ = this.facade.productCategories$.pipe(
       switchMap(productCategories => this.productCategoryFilter$.pipe(
         map(productCategoryFilter => productCategoryFilter ? productCategories
           .filter(productCategory => (
@@ -660,7 +656,6 @@ exports[`imng-module edit component template should work 1`] = `
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { ProductBaseEntryComponent } from './base-entry.component';
-import { ProductCrudFacade } from './crud.facade';
 
 @Component({
   selector: 'aw-product-edit',
@@ -673,9 +668,6 @@ export class ProductEditComponent extends ProductBaseEntryComponent implements O
   public dialogTitle = 'Edit Product';
   public active$ = this.facade.isEditActive$;
 
-  constructor(facade: ProductCrudFacade) {
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {
