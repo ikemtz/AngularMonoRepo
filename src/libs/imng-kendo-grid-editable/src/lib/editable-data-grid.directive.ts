@@ -1,4 +1,4 @@
-import { Directive, OnInit, Input, OnDestroy } from '@angular/core';
+import { Directive, OnInit, Input, OnDestroy, inject } from '@angular/core';
 import {
   GridComponent,
   EditEvent,
@@ -22,12 +22,14 @@ import { IdType } from 'imng-nrsrx-client-utils';
  */
 
 @Directive({
-    selector: '[imngEditableDataGrid]',
-    standalone: false
+  selector: '[imngEditableDataGrid]',
+  standalone: false,
 })
 export class ImngEditableDataGridDirective
   implements OnInit, OnDestroy, Subscribable
 {
+  readonly gridComponent = inject(GridComponent);
+
   public readonly allSubscriptions = new Subscriptions();
   _gridDataEntryHelper?: GridDataEntryHelper<{ id?: IdType }>;
   get gridDataEntryHelper(): GridDataEntryHelper<{ id?: IdType }> | undefined {
@@ -46,7 +48,6 @@ export class ImngEditableDataGridDirective
         .subscribe(),
     );
   }
-  constructor(public readonly gridComponent: GridComponent) {}
 
   ngOnInit(): void {
     this.allSubscriptions.push(

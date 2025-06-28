@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import {
   ODataGridMockFacade,
@@ -102,16 +102,22 @@ const initialGridState: ODataState = {
   filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] },
 };
 @Component({
-    selector: 'imng-test-component',
-    template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
-    standalone: false
+  selector: 'imng-test-component',
+  template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
+  standalone: false,
 })
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,
   ODataGridMockFacade
 > {
+  override readonly router: Router;
+
   props = {};
-  constructor(override readonly router: Router) {
+  constructor() {
+    const router = inject(Router);
+
     super(createODataGridMockFacade(), initialGridState, router);
+
+    this.router = router;
   }
 }

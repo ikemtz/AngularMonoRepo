@@ -6,34 +6,39 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 
 @Component({
-    selector: 'imng-kendo-grid-child-column-template',
-    template: `@for (item of currentData | slice: 0:visibleRecCount; track item) {
-  <div>
-    {{ item }}
-  </div>
-}
-@if (showMore && (currentData?.length || 0) > visibleRecCount) {
-  <button
-    type="button"
-    class="btn btn-sm btn-primary"
-    [title]="formatToolTip()"
-    (click)="moreClicked()"
-    >
-    More ...
-    <span class="badge bg-secondary">{{
-      currentData.length - visibleRecCount
-    }}</span>
-  </button>
-}`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'imng-kendo-grid-child-column-template',
+  template: `@for (
+      item of currentData | slice: 0 : visibleRecCount;
+      track item
+    ) {
+      <div>
+        {{ item }}
+      </div>
+    }
+    @if (showMore && (currentData?.length || 0) > visibleRecCount) {
+      <button
+        type="button"
+        class="btn btn-sm btn-primary"
+        [title]="formatToolTip()"
+        (click)="moreClicked()">
+        More ...
+        <span class="badge bg-secondary">{{
+          (currentData?.length ?? 0) - visibleRecCount
+        }}</span>
+      </button>
+    }`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ImngGridChildColumnTemplateComponent implements OnInit {
+  readonly changeDetectorRef = inject(ChangeDetectorRef);
+
   private _data: unknown[] = [];
-  public currentData: unknown[] = [];
+  public currentData?: unknown[] = [];
   private initialized = false;
 
   @Output() showMoreClicked = new EventEmitter();
@@ -52,17 +57,15 @@ export class ImngGridChildColumnTemplateComponent implements OnInit {
     return this._data;
   }
 
-  constructor(public readonly changeDetectorRef: ChangeDetectorRef) { }
-
   public ngOnInit(): void {
-    this.currentData = (this.data || [])
+    this.currentData = (this.data ?? [])
       .filter((val) => (typeof val === 'string' ? val.length > 0 : true))
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((t: any) => t[this.field]); //NOSONAR
     this.initialized = true;
   }
   public formatToolTip(): string {
-    return this.currentData
+    return (this.currentData ?? [])
       .filter((_val, index) => index >= this.visibleRecCount)
       .join(`${this.toolTipJoinCharacter} `);
   }
