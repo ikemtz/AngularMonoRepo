@@ -1,13 +1,14 @@
+import { ModalStates } from 'imng-kendo-data-entry';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { Observable } from 'rxjs';
 
 export async function testAddSetAndClearCurrentEntity<
-  TFacade extends TestableFacade
+  TFacade extends TestableFacade,
 >(facade: TFacade): Promise<void> {
   const entity = { name: '🆕' };
   await validateInitialState(facade);
 
-  facade.setCurrentEntity(entity, { name: 'parentEntity' });
+  facade.setCurrentEntity(entity, ModalStates.ADD);
   let status = await getEntityStatus(facade);
   expect(status.currentEntity).toStrictEqual(entity);
   expect(status.isEditActive).toBeFalsy();
@@ -21,12 +22,12 @@ export async function testAddSetAndClearCurrentEntity<
 }
 
 export async function testEditSetAndClearCurrentEntity<
-  TFacade extends TestableFacade
+  TFacade extends TestableFacade,
 >(facade: TFacade): Promise<void> {
   const entity = { id: '💃', name: '🧓👴👵' };
   await validateInitialState(facade);
 
-  facade.setCurrentEntity(entity, { name: 'parentEntity' });
+  facade.setCurrentEntity(entity, ModalStates.EDIT);
   let status = await getEntityStatus(facade);
   expect(status.currentEntity).toStrictEqual(entity);
   expect(status.isEditActive).toBeTruthy();
@@ -46,7 +47,7 @@ async function validateInitialState(facade: TestableFacade): Promise<void> {
 }
 
 async function getEntityStatus<TFacade extends TestableFacade>(
-  facade: TFacade
+  facade: TFacade,
 ): Promise<{
   currentEntity: unknown;
   isEditActive: unknown;

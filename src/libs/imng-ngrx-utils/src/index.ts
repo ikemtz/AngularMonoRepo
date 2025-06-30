@@ -1,4 +1,5 @@
-export { Payload, createPayloadAction } from './lib/payload';
+export { Payload, createPayloadAction } from './lib/create-payload-action';
+export { ModalPayload, createModalAction } from './lib/create-modal-action';
 export { isTruthy, isFalsy } from './lib/isTruthy';
 export { findAndModify } from './lib/find-and-modify';
 export { findAndMerge } from './lib/find-and-merge';
