@@ -11,13 +11,14 @@ import {
   SalesAgentProperties,
 } from '../../../models/odata';
 import { customerGridState } from './list.grid-state';
+import { ModalStates } from 'imng-kendo-data-entry';
 
 @Component({
   selector: 'aw-customer-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false
+  standalone: false,
 })
 export class CustomerListComponent extends KendoODataBasedComponent<
   ICustomer,
@@ -34,11 +35,11 @@ export class CustomerListComponent extends KendoODataBasedComponent<
   }
 
   public addItem(): void {
-    this.crudFacade.setCurrentEntity({});
+    this.crudFacade.setCurrentEntity({}, ModalStates.ADD);
   }
 
   public editItem(item: ICustomer): void {
-    this.crudFacade.setCurrentEntity(item);
+    this.crudFacade.setCurrentEntity(item, ModalStates.EDIT);
   }
 
   public deleteItem(item: ICustomer): void {
