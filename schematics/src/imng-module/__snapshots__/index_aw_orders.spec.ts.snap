@@ -3,7 +3,7 @@
 exports[`imng-module AdventureWorks Orders actions should work 1`] = `
 "import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
-import { createPayloadAction } from 'imng-ngrx-utils';
+import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
 
 export const loadOrdersRequest = createPayloadAction<ODataState>(
     '[Orders] Load Orders Request');
@@ -15,7 +15,7 @@ export const reloadOrdersSuccess = createPayloadAction<ODataResult<IOrder>>(
     '[Orders] Reload Orders Success');
 
 export const clearCurrentOrder = createAction('[Orders] Clear Current Order');
-export const setCurrentOrder = createPayloadAction<IOrder>('[Orders] Set Current Order');
+export const setCurrentOrder = createModalAction<IOrder>('[Orders] Set Current Order');
 export const saveOrderRequest = createPayloadAction<IOrder>('[Orders] Save Order Request');
 export const updateOrderRequest = createPayloadAction<IOrder>('[Orders] Update Order Request');
 export const deleteOrderRequest = createPayloadAction<IOrder>('[Orders] Delete Order Request');
@@ -440,9 +440,10 @@ describe('OrderCrudFacade', () => {
 exports[`imng-module AdventureWorks Orders crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
-import { ordersFeature, orderSelectors, orderActionTypes } from '../+state';
+import { ordersFeature, orderActionTypes } from '../+state';
+import { map } from 'rxjs';
 
 @Injectable()
 export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
@@ -450,14 +451,24 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
 
   loading$ = this.store.select(ordersFeature.selectLoading);
   currentEntity$ = this.store.select(ordersFeature.selectCurrentOrder);
-  isEditActive$ = this.store.select(orderSelectors.selectIsEditOrderActive);
-  isNewActive$ = this.store.select(orderSelectors.selectIsNewOrderActive);
+  currentModalState$ = this.store.select(ordersFeature.selectCurrentModalState);
+  isEditActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.EDIT),
+  );
+  isNewActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.ADD),
+  );
   customers$ = this.store.select(ordersFeature.selectCustomers);
   shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
   billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
 
-  public setCurrentEntity(item: IOrder): void {
-    this.store.dispatch(orderActionTypes.setCurrentOrder(item));
+  public setCurrentEntity(item: IOrder, modalState: string): void {
+    this.store.dispatch(
+      orderActionTypes.setCurrentOrder({
+        modalState,
+        entity: item,
+      }),
+    );
   }
 
   public clearCurrentEntity(): void {
@@ -1179,6 +1190,7 @@ exports[`imng-module AdventureWorks Orders list component should work 1`] = `
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { ModalStates } from 'imng-kendo-data-entry';
 
 import { OrderListFacade } from './list.facade';
 import { OrderCrudFacade } from '../orders-crud';
@@ -1193,7 +1205,6 @@ import { orderGridState } from './list.grid-state';
 })
 export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderListFacade> {
   public readonly crudFacade = inject(OrderCrudFacade);
-
   public readonly props = OrderProperties;
   public readonly customerProps = CustomerProperties;
   public readonly shipToAddressProps = OrderAddressProperties;
@@ -1207,11 +1218,11 @@ export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderLi
   }
 
   public addItem(): void {
-    this.crudFacade.setCurrentEntity({});
+    this.crudFacade.setCurrentEntity({}, ModalStates.ADD);
   }
 
   public editItem(item: IOrder): void {
-    this.crudFacade.setCurrentEntity(item);
+    this.crudFacade.setCurrentEntity(item, ModalStates.EDIT);
   }
 
   public deleteItem(item: IOrder): void {
@@ -1287,7 +1298,6 @@ exports[`imng-module AdventureWorks Orders tree files should match 1`] = `
   "/test/orders-module/+state/order-list.effects.ts",
   "/test/orders-module/+state/order.actions.ts",
   "/test/orders-module/+state/order.feature.ts",
-  "/test/orders-module/+state/order.selectors.ts",
   "/test/orders-module/orders-crud/add-edit.component.html",
   "/test/orders-module/orders-crud/add-edit.component.scss",
   "/test/orders-module/orders-crud/add.component.spec.ts",

@@ -1,24 +1,36 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
 import { customersFeature } from '../+state/customer.reducer';
-import { customerQueries } from '../+state/customer.selectors';
 import * as customerActionTypes from '../+state/customer.actions';
 import { ICustomer } from '../../../models/webapi';
+import { map } from 'rxjs';
 
 @Injectable()
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
   private readonly store = inject(Store);
 
   loading$ = this.store.select(customersFeature.selectLoading);
-  currentEntity$ = this.store.select(customerQueries.selectCurrentCustomer);
-  isEditActive$ = this.store.select(customerQueries.selectIsEditCustomerActive);
-  isNewActive$ = this.store.select(customerQueries.selectIsNewCustomerActive);
+  currentModalState$ = this.store.select(
+    customersFeature.selectCurrentModalState,
+  );
+  currentEntity$ = this.store.select(customersFeature.selectCurrentCustomer);
+  isEditActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.EDIT),
+  );
+  isNewActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.ADD),
+  );
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
-  public setCurrentEntity(item: ICustomer): void {
-    this.store.dispatch(customerActionTypes.setCurrentCustomer(item));
+  public setCurrentEntity(item: ICustomer, modalState: string): void {
+    this.store.dispatch(
+      customerActionTypes.setCurrentCustomer({
+        modalState,
+        entity: item,
+      }),
+    );
   }
 
   public clearCurrentEntity(): void {

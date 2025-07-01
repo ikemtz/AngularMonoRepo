@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
+import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
 import { ODataState } from 'imng-kendo-odata';<% } %>
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>Selectors, <%= camelize(singularizedStoreName) %>ActionTypes } from '../+state';
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from '../+state';
+import { map } from 'rxjs';
 
 @Injectable()
 export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= classify(name) %>> {
@@ -10,12 +11,22 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
 
   loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
   currentEntity$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>);
-  isEditActive$ = this.store.select(<%= camelize(singularizedStoreName) %>Selectors.selectIsEdit<%= classify(name) %>Active);
-  isNewActive$ = this.store.select(<%= camelize(singularizedStoreName) %>Selectors.selectIsNew<%= classify(name) %>Active);<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  currentModalState$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrentModalState);
+  isEditActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.EDIT),
+  );
+  isNewActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.ADD),
+  );<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   <%= camelize(swaggerProperty.pluralizedName) %>$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.select<%= classify(swaggerProperty.pluralizedName) %>);<% }); %>
 
-  public setCurrentEntity(item: I<%= classify(name) %>): void {
-    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.setCurrent<%= classify(name) %>(item));
+  public setCurrentEntity(item: I<%= classify(name) %>, modalState: string): void {
+    this.store.dispatch(
+      <%= camelize(singularizedStoreName) %>ActionTypes.setCurrent<%= classify(name) %>({
+        modalState,
+        entity: item,
+      }),
+    );
   }
 
   public clearCurrentEntity(): void {

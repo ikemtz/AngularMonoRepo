@@ -38,7 +38,7 @@ jobs:
           arguments: '$(Build.BuildNumber)'
           workingDirectory: '$(System.DefaultWorkingDirectory)/src/'
 
-      - task: SonarCloudPrepare@1
+      - task: SonarCloudPrepare@3
         displayName: 'Prepare analysis on SonarCloud'
         inputs:
           SonarCloud: 'SonarCloud IkeMtz'
@@ -380,10 +380,10 @@ jobs:
           verbose: false
           customCommand: 'run nx -- test imng-prime-table-odata --code-coverage'
 
-      - task: SonarCloudAnalyze@1
+      - task: SonarCloudAnalyze@3
         displayName: 'Run Code Analysis'
 
-      - task: SonarCloudPublish@1
+      - task: SonarCloudPublish@3
         displayName: 'Publish Quality Gate Result'
 
       - task: sonarcloud-buildbreaker@2
@@ -391,7 +391,7 @@ jobs:
           SonarCloud: 'SonarCloud IkeMtz'
           organization: 'ikemtz'
 
-      - task: PublishCodeCoverageResults@1
+      - task: PublishCodeCoverageResults@2
         displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/src/coverage/**/cobertura-coverage.xml'
         inputs:
           codeCoverageTool: Cobertura

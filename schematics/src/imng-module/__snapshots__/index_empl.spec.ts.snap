@@ -6,7 +6,6 @@ exports[`imng-module generation works - employees 1`] = `
   "/test/employees-module/+state/employee-list.effects.ts",
   "/test/employees-module/+state/employee.actions.ts",
   "/test/employees-module/+state/employee.feature.ts",
-  "/test/employees-module/+state/employee.selectors.ts",
   "/test/employees-module/+state/index.ts",
   "/test/employees-module/employees-crud/add-edit.component.html",
   "/test/employees-module/employees-crud/add-edit.component.scss",

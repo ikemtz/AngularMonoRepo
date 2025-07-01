@@ -3,7 +3,7 @@
 exports[`imng-module actions should work 1`] = `
 "import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
-import { createPayloadAction } from 'imng-ngrx-utils';
+import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
 
 export const loadCustomersRequest = createPayloadAction<ODataState>(
     '[Customers] Load Customers Request');
@@ -15,7 +15,7 @@ export const reloadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>
     '[Customers] Reload Customers Success');
 
 export const clearCurrentCustomer = createAction('[Customers] Clear Current Customer');
-export const setCurrentCustomer = createPayloadAction<ICustomer>('[Customers] Set Current Customer');
+export const setCurrentCustomer = createModalAction<ICustomer>('[Customers] Set Current Customer');
 export const saveCustomerRequest = createPayloadAction<ICustomer>('[Customers] Save Customer Request');
 export const updateCustomerRequest = createPayloadAction<ICustomer>('[Customers] Update Customer Request');
 export const deleteCustomerRequest = createPayloadAction<ICustomer>('[Customers] Delete Customer Request');
@@ -307,9 +307,10 @@ describe('CustomerCrudFacade', () => {
 exports[`imng-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
-import { customersFeature, customerSelectors, customerActionTypes } from '../+state';
+import { customersFeature, customerActionTypes } from '../+state';
+import { map } from 'rxjs';
 
 @Injectable()
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
@@ -317,12 +318,22 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
 
   loading$ = this.store.select(customersFeature.selectLoading);
   currentEntity$ = this.store.select(customersFeature.selectCurrentCustomer);
-  isEditActive$ = this.store.select(customerSelectors.selectIsEditCustomerActive);
-  isNewActive$ = this.store.select(customerSelectors.selectIsNewCustomerActive);
+  currentModalState$ = this.store.select(customersFeature.selectCurrentModalState);
+  isEditActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.EDIT),
+  );
+  isNewActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.ADD),
+  );
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
-  public setCurrentEntity(item: ICustomer): void {
-    this.store.dispatch(customerActionTypes.setCurrentCustomer(item));
+  public setCurrentEntity(item: ICustomer, modalState: string): void {
+    this.store.dispatch(
+      customerActionTypes.setCurrentCustomer({
+        modalState,
+        entity: item,
+      }),
+    );
   }
 
   public clearCurrentEntity(): void {
@@ -696,6 +707,7 @@ exports[`imng-module list component should work 1`] = `
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { ModalStates } from 'imng-kendo-data-entry';
 
 import { CustomerListFacade } from './list.facade';
 import { CustomerCrudFacade } from '../customers-crud';
@@ -710,7 +722,6 @@ import { customerGridState } from './list.grid-state';
 })
 export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, CustomerListFacade> {
   public readonly crudFacade = inject(CustomerCrudFacade);
-
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public currentItem: ICustomer | undefined;
@@ -720,11 +731,11 @@ export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, C
   }
 
   public addItem(): void {
-    this.crudFacade.setCurrentEntity({});
+    this.crudFacade.setCurrentEntity({}, ModalStates.ADD);
   }
 
   public editItem(item: ICustomer): void {
-    this.crudFacade.setCurrentEntity(item);
+    this.crudFacade.setCurrentEntity(item, ModalStates.EDIT);
   }
 
   public deleteItem(item: ICustomer): void {
@@ -797,7 +808,6 @@ exports[`imng-module tree files should match 1`] = `
   "/test/customers-module/+state/customer-list.effects.ts",
   "/test/customers-module/+state/customer.actions.ts",
   "/test/customers-module/+state/customer.feature.ts",
-  "/test/customers-module/+state/customer.selectors.ts",
   "/test/customers-module/+state/index.ts",
   "/test/customers-module/customers-crud/add-edit.component.html",
   "/test/customers-module/customers-crud/add-edit.component.scss",

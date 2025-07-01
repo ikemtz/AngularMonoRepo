@@ -6,15 +6,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { IdType } from 'imng-nrsrx-client-utils';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
-const gridComponent = {
-  edit: of({}),
-  cancel: of({}),
-  save: of({}),
-  remove: of({}),
-  add: of({}),
-  sortChange: of({}),
-} as unknown as GridComponent;
 export const formGroupFac = () =>
   new FormGroup({
     id: new FormControl<string>('🐂🤏'),
@@ -22,22 +15,44 @@ export const formGroupFac = () =>
   });
 
 describe('ImngEditableDataGridDirective', () => {
+  let directive: ImngEditableDataGridDirective;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        ImngEditableDataGridDirective,
+        {
+          provide: GridComponent,
+          useValue: {
+            edit: of({}),
+            cancel: of({}),
+            save: of({}),
+            remove: of({}),
+            add: of({}),
+            sortChange: of({}),
+          },
+        },
+      ],
+      schemas: [],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    directive = TestBed.inject(ImngEditableDataGridDirective);
+  });
   it('should create an instance', () => {
-    const directive = new ImngEditableDataGridDirective(gridComponent);
     dir();
     expect(directive).toBeTruthy();
     directive.ngOnInit();
   });
 
   it('should destroy an instance', () => {
-    const directive = new ImngEditableDataGridDirective(gridComponent);
     expect(directive).toBeTruthy();
     directive.ngOnInit();
     directive.ngOnDestroy();
   });
 
   it('should set sorting properly', async () => {
-    const directive = new ImngEditableDataGridDirective(gridComponent);
     expect(directive).toBeTruthy();
     expect(directive.gridDataEntryHelper).toBeFalsy();
     directive.ngOnInit();
