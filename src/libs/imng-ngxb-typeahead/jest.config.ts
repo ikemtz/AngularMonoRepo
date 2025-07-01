@@ -1,7 +1,7 @@
-/* eslint-disable */
-export default {
-  displayName: 'imng-ngxb-typeahead',
+import type { Config } from 'jest';
 
+const config: Config = {
+  displayName: 'imng-ngxb-typeahead',
   reporters: [
     'default',
     [
@@ -33,3 +33,5 @@ export default {
   ],
   preset: '../../jest.preset.js',
 };
+
+export default config;

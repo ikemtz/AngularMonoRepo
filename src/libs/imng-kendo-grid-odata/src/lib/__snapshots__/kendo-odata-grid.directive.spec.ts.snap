@@ -16,7 +16,10 @@ exports[`ImngODataGridDirective should create an instance 1`] = `
 
 exports[`ImngODataGridDirective should fire AfterViewInit 1`] = `
 {
-  "data": {},
+  "data": {
+    "data": [],
+    "total": 0,
+  },
   "filterable": "menu",
   "sortable": {
     "allowUnsort": true,

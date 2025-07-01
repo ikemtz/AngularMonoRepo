@@ -6,7 +6,6 @@ exports[`imng-module generation works - Certifications 1`] = `
   "/test/certifications-module/+state/certification-list.effects.ts",
   "/test/certifications-module/+state/certification.actions.ts",
   "/test/certifications-module/+state/certification.feature.ts",
-  "/test/certifications-module/+state/certification.selectors.ts",
   "/test/certifications-module/+state/index.ts",
   "/test/certifications-module/certifications-crud/add-edit.component.html",
   "/test/certifications-module/certifications-crud/add-edit.component.scss",

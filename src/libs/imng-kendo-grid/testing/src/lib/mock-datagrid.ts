@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import {
   ColumnVisibilityChangeEvent,
   DataStateChangeEvent,
@@ -11,14 +11,25 @@ import {
   DataResult,
   SortDescriptor,
 } from '@progress/kendo-data-query';
-
+import { of } from 'rxjs';
+@Component({
+  selector: 'imng-mock-grid',
+  template: '',
+  standalone: true,
+})
 export class MockGridComponent {
+  public readonly facade = {
+    loading$: of(false),
+    gridData$: of({ total: 0, data: [] }),
+    gridPagerSettings$: of(false),
+    gridODataState$: of({}),
+  };
   public dataStateChange = new EventEmitter<DataStateChangeEvent>(false);
   public pageChange = new EventEmitter<PageChangeEvent>(false);
   public sortChange = new EventEmitter<Array<SortDescriptor>>(false);
   public filterChange = new EventEmitter<CompositeFilterDescriptor>(false);
   public columnVisibilityChange = new EventEmitter<ColumnVisibilityChangeEvent>(
-    false
+    false,
   );
   public data: never[] | DataResult = { total: 0, data: [] };
   public reorderable = true;
