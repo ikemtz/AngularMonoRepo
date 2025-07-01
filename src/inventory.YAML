@@ -31,7 +31,7 @@ jobs:
           workingDir: 'src'
           verbose: false
 
-      - task: SonarCloudPrepare@1
+      - task: SonarCloudPrepare@3
         displayName: 'Prepare analysis on SonarCloud'
         inputs:
           SonarCloud: 'SonarCloud IkeMtz'
@@ -73,10 +73,10 @@ jobs:
           verbose: false
           customCommand: 'run build:ivtr'
 
-      - task: SonarCloudAnalyze@1
+      - task: SonarCloudAnalyze@3
         displayName: 'Run Code Analysis'
 
-      - task: SonarCloudPublish@1
+      - task: SonarCloudPublish@3
         displayName: 'Publish Quality Gate Result'
 
       - task: sonarcloud-buildbreaker@2
