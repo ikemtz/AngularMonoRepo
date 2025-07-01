@@ -71,41 +71,6 @@ exports[`toODataQuery should convert state with Child Filter 1`] = `
 }
 `;
 
-exports[`toODataQuery should convert state with parent Filters 1`] = `
-{
-  "filter": {
-    "filters": [
-      {
-        "filters": [
-          {
-            "field": "abc/bdf/xyz",
-            "operator": {
-              "name": "equals",
-              "toODataString": [Function],
-            },
-            "value": "123",
-          },
-        ],
-        "logic": "or",
-      },
-    ],
-    "logic": "or",
-  },
-  "orderBy": [
-    {
-      "dir": "asc",
-      "field": "abc",
-    },
-    {
-      "dir": "desc",
-      "field": "xyz",
-    },
-  ],
-  "skip": undefined,
-  "top": undefined,
-}
-`;
-
 exports[`toODataQuery should convert typical State 1`] = `
 {
   "filter": {

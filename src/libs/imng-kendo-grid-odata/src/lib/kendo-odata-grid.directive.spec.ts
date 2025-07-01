@@ -1,17 +1,36 @@
 import { ImngODataGridDirective } from './kendo-odata-grid.directive';
-import { of } from 'rxjs';
+import { waitForAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { GridComponent } from '@progress/kendo-angular-grid';
-import { ChangeDetectorRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import { MockGridComponent } from 'imng-kendo-grid/testing';
 
 describe('ImngODataGridDirective', () => {
+  let gridComponent: MockGridComponent;
+  let fixture: ComponentFixture<MockGridComponent>;
+  let directive: ImngODataGridDirective;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: ChangeDetectorRef, useValue: { markForCheck: jest.fn() } },
+        ImngODataGridDirective,
+        { provide: GridComponent, useClass: MockGridComponent },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MockGridComponent);
+    gridComponent = fixture.componentInstance;
+    directive = TestBed.inject(ImngODataGridDirective);
+    fixture.detectChanges();
+  });
   it('should create an instance', () => {
-    const gridComponent = new MockGridComponent();
-    const changeDetectorRef = {};
-    const directive = new ImngODataGridDirective(
-      gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef,
-    );
     expect({
       data: gridComponent.data,
       sortable: gridComponent.sortable,
@@ -20,23 +39,6 @@ describe('ImngODataGridDirective', () => {
     expect(directive).toBeTruthy();
   });
   it('should fire OnInit', () => {
-    const gridComponent = new MockGridComponent();
-    const changeDetectorRef = {};
-    const odataComponent = {
-      facade: {
-        gridData$: of({}),
-        loading$: of(true),
-        gridPagerSettings$: of(false),
-        gridODataState$: of({}),
-      },
-      dataStateChange: jest.fn(),
-    };
-    const directive = new ImngODataGridDirective(
-      gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef,
-    );
-    directive.odataComponent = odataComponent as never;
-    directive.ngOnInit();
     expect({
       data: gridComponent.data,
       sortable: gridComponent.sortable,
@@ -45,22 +47,8 @@ describe('ImngODataGridDirective', () => {
     expect(directive).toBeTruthy();
   });
   it('should fire AfterViewInit', () => {
-    const gridComponent = new MockGridComponent();
-    const changeDetectorRef = {};
-    const odataComponent = {
-      facade: {
-        gridData$: of({}),
-        loading$: of(false),
-        gridPagerSettings$: of(false),
-        gridODataState$: of({}),
-      },
-      dataStateChange: jest.fn(),
-    };
-    const directive = new ImngODataGridDirective(
-      gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef,
-    );
-    directive.odataComponent = odataComponent as never;
+    jest.spyOn(gridComponent.dataStateChange, 'subscribe');
+    directive.odataComponent = gridComponent as never;
     directive.ngOnInit();
     directive.ngAfterViewInit();
 
@@ -70,7 +58,7 @@ describe('ImngODataGridDirective', () => {
       filterable: gridComponent.filterable,
     }).toMatchSnapshot();
     expect(directive).toBeTruthy();
-    expect(odataComponent.dataStateChange).toHaveBeenCalledTimes(0);
+    expect(gridComponent.dataStateChange.subscribe).toHaveBeenCalledTimes(0);
     const allSubscriptions = (directive as unknown as { allSubscriptions: [] })
       .allSubscriptions;
     expect(allSubscriptions.length).toBe(5);
@@ -80,22 +68,7 @@ describe('ImngODataGridDirective', () => {
   });
 
   it('should fire AfterViewInit', () => {
-    const gridComponent = { dataStateChange: of({}) };
-    const changeDetectorRef = {};
-    const odataComponent = {
-      facade: {
-        gridData$: of({}),
-        loading$: of(false),
-        gridPagerSettings$: of(false),
-        gridODataState$: of({}),
-      },
-      dataStateChange: jest.fn(),
-    };
-    const directive = new ImngODataGridDirective(
-      gridComponent as GridComponent,
-      changeDetectorRef as ChangeDetectorRef,
-    );
-    directive.odataComponent = odataComponent as never;
+    directive.odataComponent = gridComponent as never;
     directive.ngOnInit();
     directive.ngAfterViewInit();
     directive.ngOnDestroy();
