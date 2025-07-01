@@ -38,7 +38,7 @@ jobs:
           arguments: '$(Build.BuildNumber)'
           workingDirectory: '$(System.DefaultWorkingDirectory)/src/'
 
-      - task: SonarCloudPrepare@1
+      - task: SonarCloudPrepare@3
         displayName: 'Prepare analysis on SonarCloud'
         inputs:
           SonarCloud: 'SonarCloud IkeMtz'
@@ -88,10 +88,10 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run build:nur'
-      - task: SonarCloudAnalyze@1
+      - task: SonarCloudAnalyze@3
         displayName: 'Run Code Analysis'
 
-      - task: SonarCloudPublish@1
+      - task: SonarCloudPublish@3
         displayName: 'Publish Quality Gate Result'
 
       - task: sonarcloud-buildbreaker@2

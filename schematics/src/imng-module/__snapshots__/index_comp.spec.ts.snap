@@ -6,7 +6,6 @@ exports[`imng-module generation works - Competencies 1`] = `
   "/test/competencies-module/+state/competency-list.effects.ts",
   "/test/competencies-module/+state/competency.actions.ts",
   "/test/competencies-module/+state/competency.feature.ts",
-  "/test/competencies-module/+state/competency.selectors.ts",
   "/test/competencies-module/+state/index.ts",
   "/test/competencies-module/competencies-crud/add-edit.component.html",
   "/test/competencies-module/competencies-crud/add-edit.component.scss",

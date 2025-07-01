@@ -4,7 +4,6 @@ import { FilterMetadata, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
 import {
-  MockTable,
   createODataTableMockFacade,
   ODataTableMockFacade,
 } from '../../testing/src';
@@ -13,10 +12,10 @@ import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
 import { IEnumValue, getEnumKey } from 'openapi-ts-generator/enums';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 describe('ImngPrimeODataTableDirective', () => {
   let tableComponent: Table;
-  let changeDetectorRef: ChangeDetectorRef;
   let directive: ImngPrimeODataTableDirective;
   let odataComponent: ImngPrimeODataTableBaseComponent<
     { id?: IdType | null },
@@ -24,20 +23,33 @@ describe('ImngPrimeODataTableDirective', () => {
   >;
   let facade: IPrimeODataTableFacade<{ id?: IdType | null }>;
 
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        ImngPrimeODataTableDirective,
+        { provide: ChangeDetectorRef, useValue: {} },
+        {
+          provide: Table,
+          useValue: {
+            onLazyLoad: new Subject<LazyLoadEvent>(),
+            facade: createODataTableMockFacade({
+              tableState$: new Subject<PrimeTableState>(),
+            }),
+            validateSortParameters: jest.fn((x) => x),
+          },
+        },
+        { provide: ChangeDetectorRef, useValue: { markForCheck: jest.fn() } },
+      ],
+    }).compileComponents();
+
+    tableComponent = TestBed.inject(Table);
+    directive = TestBed.inject(ImngPrimeODataTableDirective);
+    (directive as { tableComponent: unknown }).tableComponent = tableComponent;
+  }));
+
   beforeEach(() => {
-    tableComponent = new MockTable() as unknown as Table;
-    changeDetectorRef = {} as ChangeDetectorRef;
-    odataComponent = {
-      facade: createODataTableMockFacade({
-        tableState$: new Subject<PrimeTableState>(),
-      }),
-      validateSortParameters: (x) => x,
-    } as never;
-    directive = new ImngPrimeODataTableDirective(
-      tableComponent,
-      changeDetectorRef,
-    );
-    directive.odataTableComponent = odataComponent;
+    (directive as { odataTableComponent: unknown }).odataTableComponent =
+      tableComponent;
     facade = directive.odataTableComponent.facade;
   });
 
@@ -51,6 +63,7 @@ describe('ImngPrimeODataTableDirective', () => {
     expect(directive).toBeTruthy();
   });
   it('should handle lazyload', () => {
+    (directive as { tableComponent: unknown }).tableComponent = tableComponent;
     directive.ngOnInit();
     tableComponent.globalFilterFields = ['xyz'];
     (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({
@@ -92,9 +105,7 @@ describe('ImngPrimeODataTableDirective', () => {
 
   it('should handle tableState Changes', () => {
     directive.ngOnInit();
-    (
-      odataComponent.facade.tableState$ as unknown as Subject<PrimeTableState>
-    ).next({
+    (facade.tableState$ as unknown as Subject<PrimeTableState>).next({
       first: 20,
       multiSortMeta: [{ field: 'x', order: 1 }],
       filters: {
@@ -107,9 +118,7 @@ describe('ImngPrimeODataTableDirective', () => {
 
   it('should handle tableState Changes no filters', () => {
     directive.ngOnInit();
-    (
-      odataComponent.facade.tableState$ as unknown as Subject<PrimeTableState>
-    ).next({
+    (facade.tableState$ as unknown as Subject<PrimeTableState>).next({
       first: 20,
       multiSortMeta: [{ field: 'x', order: 1 }],
     });
@@ -119,9 +128,7 @@ describe('ImngPrimeODataTableDirective', () => {
 
   it('should handle tableState Changes no sorting', () => {
     directive.ngOnInit();
-    (
-      odataComponent.facade.tableState$ as unknown as Subject<PrimeTableState>
-    ).next({
+    (facade.tableState$ as unknown as Subject<PrimeTableState>).next({
       first: 20,
       filters: {
         xyz: [{ value: '💩💩', operator: 'and', matchMode: 'contains' }],

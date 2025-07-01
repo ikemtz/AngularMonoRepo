@@ -7,12 +7,14 @@ export const <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY = '<%= 
 
 export interface State extends KendoODataGridState<I<%= classify(singularizedName) %>> {
   current<%= classify(singularizedName) %>: I<%= classify(singularizedName) %> | undefined;<% if(openApiJsonUrl || openApiJsonFileName){ swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  currentModalState: string | undefined;
   <%= camelize(swaggerProperty.pluralizedName) %>: I<%= classify(swaggerProperty.propertyTypeName) %>[];<% })} %>
 }
 
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
-  current<%= classify(singularizedName) %>: undefined,<% if(openApiJsonUrl || openApiJsonFileName){  swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  current<%= classify(singularizedName) %>: undefined,
+  currentModalState: undefined,<% if(openApiJsonUrl || openApiJsonFileName){  swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   <%= camelize(swaggerProperty.pluralizedName) %>: [],<% })} %>
   loading: true,
 };
@@ -40,9 +42,15 @@ export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
         error: null, })),
     on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>,
       (state, { payload }) : State =>
-        ({ ...state, current<%= classify(singularizedName) %>: payload })),
+        ({ ...state,
+        currentModalState: payload.modalState,
+        current<%= classify(singularizedName) %>: payload.entity })),
     on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>,
-      (state) : State => ({ ...state, current<%= classify(singularizedName) %>: undefined })),
+      (state) : State => ({
+        ...state, 
+        current<%= classify(singularizedName) %>: undefined,
+        currentModalState: undefined,
+      })),
     on(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request,
       <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request,
       <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request,

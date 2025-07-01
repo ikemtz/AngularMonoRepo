@@ -6,7 +6,6 @@ exports[`imng-module generation works - Health Items 1`] = `
   "/test/health-items-module/+state/health-item-list.effects.ts",
   "/test/health-items-module/+state/health-item.actions.ts",
   "/test/health-items-module/+state/health-item.feature.ts",
-  "/test/health-items-module/+state/health-item.selectors.ts",
   "/test/health-items-module/+state/index.ts",
   "/test/health-items-module/health-items-crud/add-edit.component.html",
   "/test/health-items-module/health-items-crud/add-edit.component.scss",

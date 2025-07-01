@@ -13,6 +13,7 @@ import { createTestCustomer } from '../../../models/odata';
 import { provideRouter } from '@angular/router';
 import { customerRoutes } from '../customers.routing';
 import { provideOidcMockFacade } from 'imng-oidc-client/testing';
+import { ModalStates } from 'imng-kendo-data-entry';
 
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
@@ -67,14 +68,20 @@ describe('CustomerListComponent', () => {
   test('it should handle AddItem', () => {
     component.addItem();
     expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({});
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      {},
+      ModalStates.ADD,
+    );
   });
 
   test('it should handle EditItem', () => {
     const item = createTestCustomer();
     component.editItem(item);
     expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      item,
+      ModalStates.EDIT,
+    );
   });
 
   test('it should handle DeleteItem', () => {

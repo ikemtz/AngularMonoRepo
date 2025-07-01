@@ -1,18 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ImngPrimeODataTableDirective should fire OnInit 1`] = `
-MockTable {
+{
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "facade": {
+    "activeEffectCount$": Observable {
+      "_subscribe": [Function],
+    },
+    "loadEntities": [MockFunction],
+    "reloadEntities": [MockFunction],
+    "tableData$": Observable {
+      "_subscribe": [Function],
+    },
+    "tableState$": Subject {
+      "closed": false,
+      "currentObservers": null,
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "thrownError": null,
+    },
+    "totalRecordCount$": Observable {
+      "_subscribe": [Function],
+    },
+  },
   "lazy": true,
   "loading": false,
-  "onFilter": Subject {
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": null,
@@ -53,6 +88,7 @@ MockTable {
   "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
+  "validateSortParameters": [MockFunction],
   "value": [
     {
       "id": "apples",
@@ -62,8 +98,81 @@ MockTable {
 `;
 
 exports[`ImngPrimeODataTableDirective should handle lazyload 1`] = `
-MockTable {
+{
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "facade": {
+    "activeEffectCount$": Observable {
+      "_subscribe": [Function],
+    },
+    "loadEntities": [MockFunction] {
+      "calls": [
+        [
+          {
+            "filters": {
+              "xyz": [
+                {
+                  "matchMode": undefined,
+                  "operator": "or",
+                  "value": undefined,
+                },
+              ],
+            },
+            "first": 20,
+            "globalFilter": "b",
+            "multiSortMeta": [
+              {
+                "field": "x",
+                "order": 1,
+              },
+            ],
+          },
+        ],
+      ],
+      "results": [
+        {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    },
+    "reloadEntities": [MockFunction],
+    "tableData$": Observable {
+      "_subscribe": [Function],
+    },
+    "tableState$": Subject {
+      "closed": false,
+      "currentObservers": null,
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "thrownError": null,
+    },
+    "totalRecordCount$": Observable {
+      "_subscribe": [Function],
+    },
+  },
   "globalFilterFields": [
     "xyz",
   ],
@@ -75,14 +184,6 @@ MockTable {
       "order": 1,
     },
   ],
-  "onFilter": Subject {
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": [
@@ -145,6 +246,29 @@ MockTable {
   "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
+  "validateSortParameters": [MockFunction] {
+    "calls": [
+      [
+        [
+          {
+            "field": "x",
+            "order": 1,
+          },
+        ],
+      ],
+    ],
+    "results": [
+      {
+        "type": "return",
+        "value": [
+          {
+            "field": "x",
+            "order": 1,
+          },
+        ],
+      },
+    ],
+  },
   "value": [
     {
       "id": "apples",
@@ -154,8 +278,71 @@ MockTable {
 `;
 
 exports[`ImngPrimeODataTableDirective should handle lazyload no filters 1`] = `
-MockTable {
+{
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "facade": {
+    "activeEffectCount$": Observable {
+      "_subscribe": [Function],
+    },
+    "loadEntities": [MockFunction] {
+      "calls": [
+        [
+          {
+            "first": 20,
+            "multiSortMeta": [
+              {
+                "field": "x",
+                "order": 1,
+              },
+            ],
+          },
+        ],
+      ],
+      "results": [
+        {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    },
+    "reloadEntities": [MockFunction],
+    "tableData$": Observable {
+      "_subscribe": [Function],
+    },
+    "tableState$": Subject {
+      "closed": false,
+      "currentObservers": null,
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "thrownError": null,
+    },
+    "totalRecordCount$": Observable {
+      "_subscribe": [Function],
+    },
+  },
   "lazy": true,
   "loading": false,
   "multiSortMeta": [
@@ -164,14 +351,6 @@ MockTable {
       "order": 1,
     },
   ],
-  "onFilter": Subject {
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": [
@@ -234,6 +413,29 @@ MockTable {
   "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
+  "validateSortParameters": [MockFunction] {
+    "calls": [
+      [
+        [
+          {
+            "field": "x",
+            "order": 1,
+          },
+        ],
+      ],
+    ],
+    "results": [
+      {
+        "type": "return",
+        "value": [
+          {
+            "field": "x",
+            "order": 1,
+          },
+        ],
+      },
+    ],
+  },
   "value": [
     {
       "id": "apples",
@@ -243,19 +445,78 @@ MockTable {
 `;
 
 exports[`ImngPrimeODataTableDirective should handle lazyload no sorting 1`] = `
-MockTable {
+{
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "facade": {
+    "activeEffectCount$": Observable {
+      "_subscribe": [Function],
+    },
+    "loadEntities": [MockFunction] {
+      "calls": [
+        [
+          {
+            "filters": {
+              "xyz": [
+                {
+                  "matchMode": "contains",
+                  "operator": "and",
+                  "value": "💩💩",
+                },
+              ],
+            },
+            "first": 20,
+            "multiSortMeta": [],
+          },
+        ],
+      ],
+      "results": [
+        {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    },
+    "reloadEntities": [MockFunction],
+    "tableData$": Observable {
+      "_subscribe": [Function],
+    },
+    "tableState$": Subject {
+      "closed": false,
+      "currentObservers": null,
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "thrownError": null,
+    },
+    "totalRecordCount$": Observable {
+      "_subscribe": [Function],
+    },
+  },
   "lazy": true,
   "loading": false,
   "multiSortMeta": [],
-  "onFilter": Subject {
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": [
@@ -318,6 +579,19 @@ MockTable {
   "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
+  "validateSortParameters": [MockFunction] {
+    "calls": [
+      [
+        [],
+      ],
+    ],
+    "results": [
+      {
+        "type": "return",
+        "value": [],
+      },
+    ],
+  },
   "value": [
     {
       "id": "apples",
@@ -327,8 +601,73 @@ MockTable {
 `;
 
 exports[`ImngPrimeODataTableDirective should handle tableState Changes 1`] = `
-MockTable {
+{
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "facade": {
+    "activeEffectCount$": Observable {
+      "_subscribe": [Function],
+    },
+    "loadEntities": [MockFunction],
+    "reloadEntities": [MockFunction],
+    "tableData$": Observable {
+      "_subscribe": [Function],
+    },
+    "tableState$": Subject {
+      "closed": false,
+      "currentObservers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "thrownError": null,
+    },
+    "totalRecordCount$": Observable {
+      "_subscribe": [Function],
+    },
+  },
   "filters": {
     "xyz": [
       {
@@ -347,14 +686,6 @@ MockTable {
       "order": 1,
     },
   ],
-  "onFilter": Subject {
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": null,
@@ -396,6 +727,7 @@ MockTable {
   "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
+  "validateSortParameters": [MockFunction],
   "value": [
     {
       "id": "apples",
@@ -405,8 +737,73 @@ MockTable {
 `;
 
 exports[`ImngPrimeODataTableDirective should handle tableState Changes no filters 1`] = `
-MockTable {
+{
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "facade": {
+    "activeEffectCount$": Observable {
+      "_subscribe": [Function],
+    },
+    "loadEntities": [MockFunction],
+    "reloadEntities": [MockFunction],
+    "tableData$": Observable {
+      "_subscribe": [Function],
+    },
+    "tableState$": Subject {
+      "closed": false,
+      "currentObservers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "thrownError": null,
+    },
+    "totalRecordCount$": Observable {
+      "_subscribe": [Function],
+    },
+  },
   "first": 20,
   "lazy": true,
   "loading": false,
@@ -416,14 +813,6 @@ MockTable {
       "order": 1,
     },
   ],
-  "onFilter": Subject {
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": null,
@@ -465,6 +854,7 @@ MockTable {
   "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
+  "validateSortParameters": [MockFunction],
   "value": [
     {
       "id": "apples",
@@ -474,8 +864,73 @@ MockTable {
 `;
 
 exports[`ImngPrimeODataTableDirective should handle tableState Changes no sorting 1`] = `
-MockTable {
+{
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
+  "facade": {
+    "activeEffectCount$": Observable {
+      "_subscribe": [Function],
+    },
+    "loadEntities": [MockFunction],
+    "reloadEntities": [MockFunction],
+    "tableData$": Observable {
+      "_subscribe": [Function],
+    },
+    "tableState$": Subject {
+      "closed": false,
+      "currentObservers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "complete": undefined,
+              "error": undefined,
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "thrownError": null,
+    },
+    "totalRecordCount$": Observable {
+      "_subscribe": [Function],
+    },
+  },
   "filters": {
     "xyz": [
       {
@@ -489,14 +944,6 @@ MockTable {
   "lazy": true,
   "loading": false,
   "multiSortMeta": [],
-  "onFilter": Subject {
-    "closed": false,
-    "currentObservers": null,
-    "hasError": false,
-    "isStopped": false,
-    "observers": [],
-    "thrownError": null,
-  },
   "onLazyLoad": Subject {
     "closed": false,
     "currentObservers": null,
@@ -538,6 +985,7 @@ MockTable {
   "sortMode": "multiple",
   "styleClass": "p-datatable-gridlines",
   "totalRecords": 1,
+  "validateSortParameters": [MockFunction],
   "value": [
     {
       "id": "apples",

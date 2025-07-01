@@ -3,7 +3,7 @@
 exports[`imng-module actions should work 1`] = `
 "import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
-import { createPayloadAction } from 'imng-ngrx-utils';
+import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
 
 export const loadProductsRequest = createPayloadAction<ODataState>(
     '[Products] Load Products Request');
@@ -15,7 +15,7 @@ export const reloadProductsSuccess = createPayloadAction<ODataResult<IProduct>>(
     '[Products] Reload Products Success');
 
 export const clearCurrentProduct = createAction('[Products] Clear Current Product');
-export const setCurrentProduct = createPayloadAction<IProduct>('[Products] Set Current Product');
+export const setCurrentProduct = createModalAction<IProduct>('[Products] Set Current Product');
 export const saveProductRequest = createPayloadAction<IProduct>('[Products] Save Product Request');
 export const updateProductRequest = createPayloadAction<IProduct>('[Products] Update Product Request');
 export const deleteProductRequest = createPayloadAction<IProduct>('[Products] Delete Product Request');
@@ -351,9 +351,10 @@ describe('ProductCrudFacade', () => {
 exports[`imng-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
-import { productsFeature, productSelectors, productActionTypes } from '../+state';
+import { productsFeature, productActionTypes } from '../+state';
+import { map } from 'rxjs';
 
 @Injectable()
 export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
@@ -361,13 +362,23 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
 
   loading$ = this.store.select(productsFeature.selectLoading);
   currentEntity$ = this.store.select(productsFeature.selectCurrentProduct);
-  isEditActive$ = this.store.select(productSelectors.selectIsEditProductActive);
-  isNewActive$ = this.store.select(productSelectors.selectIsNewProductActive);
+  currentModalState$ = this.store.select(productsFeature.selectCurrentModalState);
+  isEditActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.EDIT),
+  );
+  isNewActive$ = this.currentModalState$.pipe(
+    map((modalState) => modalState === ModalStates.ADD),
+  );
   productModels$ = this.store.select(productsFeature.selectProductModels);
   productCategories$ = this.store.select(productsFeature.selectProductCategories);
 
-  public setCurrentEntity(item: IProduct): void {
-    this.store.dispatch(productActionTypes.setCurrentProduct(item));
+  public setCurrentEntity(item: IProduct, modalState: string): void {
+    this.store.dispatch(
+      productActionTypes.setCurrentProduct({
+        modalState,
+        entity: item,
+      }),
+    );
   }
 
   public clearCurrentEntity(): void {
@@ -881,6 +892,7 @@ exports[`imng-module list component should work 1`] = `
 import { Router } from '@angular/router';
 import { DetailExpandEvent } from '@progress/kendo-angular-grid';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { ModalStates } from 'imng-kendo-data-entry';
 
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
@@ -895,7 +907,6 @@ import { productGridState } from './list.grid-state';
 })
 export class ProductListComponent extends KendoODataBasedComponent<IProduct, ProductListFacade> {
   public readonly crudFacade = inject(ProductCrudFacade);
-
   public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;
   public readonly productCategoryProps = ProductCategoryProperties;
@@ -906,11 +917,11 @@ export class ProductListComponent extends KendoODataBasedComponent<IProduct, Pro
   }
 
   public addItem(): void {
-    this.crudFacade.setCurrentEntity({});
+    this.crudFacade.setCurrentEntity({}, ModalStates.ADD);
   }
 
   public editItem(item: IProduct): void {
-    this.crudFacade.setCurrentEntity(item);
+    this.crudFacade.setCurrentEntity(item, ModalStates.EDIT);
   }
 
   public deleteItem(item: IProduct): void {
@@ -979,25 +990,7 @@ export class ProductsModule { }
 
 exports[`imng-module reducers should work 1`] = `undefined`;
 
-exports[`imng-module selectors template should work 1`] = `
-"import { createSelector } from '@ngrx/store';
-import { productsFeature } from './product.feature';
-import { isTruthy } from 'imng-ngrx-utils';
-
-const selectIsEditProductActive = createSelector(
-  productsFeature.selectCurrentProduct,
-  (entity) => isTruthy(entity?.id));
-const selectIsNewProductActive = createSelector(
-  productsFeature.selectCurrentProduct,
-  (entity) => isTruthy(entity) && !isTruthy(entity?.id));
-export const productSelectors = {
-  selectIsEditProductActive,
-  selectIsNewProductActive,
-};
-
-
-"
-`;
+exports[`imng-module selectors template should work 1`] = `undefined`;
 
 exports[`imng-module tree files should match 1`] = `
 [
@@ -1006,7 +999,6 @@ exports[`imng-module tree files should match 1`] = `
   "/test/products-module/+state/product-list.effects.ts",
   "/test/products-module/+state/product.actions.ts",
   "/test/products-module/+state/product.feature.ts",
-  "/test/products-module/+state/product.selectors.ts",
   "/test/products-module/products-crud/add-edit.component.html",
   "/test/products-module/products-crud/add-edit.component.scss",
   "/test/products-module/products-crud/add.component.spec.ts",
