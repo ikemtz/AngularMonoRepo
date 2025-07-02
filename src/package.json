@@ -159,7 +159,7 @@
     "@microsoft/applicationinsights-web": "^3.3.3",
     "@microsoft/signalr": "^8.0.7",
     "@ngrx/effects": "19.0.0",
-    "@ngrx/operators": "19.0.0",
+    "@ngrx/operators": "19.2.1",
     "@ngrx/router-store": "19.0.0",
     "@ngrx/store": "19.0.0",
     "@ngrx/store-devtools": "19.0.0",
