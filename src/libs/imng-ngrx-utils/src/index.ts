@@ -10,3 +10,4 @@ export { Subscribable } from './lib/subscribable';
 export * from './lib/error-handlers';
 export * from './lib/get-by-id';
 export * from './lib/sleep';
+export * from './lib/use-cache-if-exists';

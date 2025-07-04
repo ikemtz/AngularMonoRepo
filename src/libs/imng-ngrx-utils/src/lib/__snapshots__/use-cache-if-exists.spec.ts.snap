@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UseCacheIfExists should use httpClient if cache is empty 1`] = `
+[
+  {
+    "id": 1,
+    "name": "Test Record",
+  },
+]
+`;
+
+exports[`UseCacheIfExists should use httpClient if cache is undefined 1`] = `
+[
+  {
+    "id": 1,
+    "name": "Test Record",
+  },
+]
+`;
+
+exports[`UseCacheIfExists should use if cache records exists 1`] = `
+[
+  {
+    "id": 1,
+    "name": "Test Record",
+  },
+]
+`;
