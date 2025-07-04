@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule, ModuleWithProviders, DOCUMENT } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
@@ -29,7 +33,6 @@ import { oidcConfigurator } from './util/oidc-client-configurator';
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     StoreModule.forFeature(oidcFeature),
     EffectsModule.forFeature([OidcEffects]),
     ImngOidcClientRoutingModule,
@@ -45,6 +48,7 @@ import { oidcConfigurator } from './util/oidc-client-configurator';
     OidcFacade,
     OidcUserFacade,
     AuthGuard,
+    provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
