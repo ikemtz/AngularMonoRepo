@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import {
   Directive,
   Inject,
@@ -15,7 +16,8 @@ const FACADE = new InjectionToken<IChartODataFacade>('imng-chart-facade');
 
 @Directive()
 export abstract class ChartODataBaseComponent<FACADE extends IChartODataFacade>
-  implements OnDestroy, Subscribable {
+  implements OnDestroy, Subscribable
+{
   public allSubscriptions = new Subscriptions();
   public readonly seriesData$: Observable<
     ChartSeriesDataPoint[] | GroupResult[]

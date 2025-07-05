@@ -18,7 +18,7 @@ async function generateTsModels() {
   diagramGenerator.generateDiagrams({
     openApiJsonUrl:
       'https://awwa-ikemtz.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/adventure-works/diagrams/odata',
+    outputPath: '../docs/adventure-works-diagrams/odata',
   });
 
   //Adventure Works WebApi
@@ -37,7 +37,7 @@ async function generateTsModels() {
   diagramGenerator.generateDiagrams({
     openApiJsonUrl:
       'https://awwa-ikemtz.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/adventure-works/diagrams/webapi',
+    outputPath: '../docs/adventure-works-diagrams/webapi',
   });
 }
 

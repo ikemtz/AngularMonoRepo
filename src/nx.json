@@ -97,7 +97,7 @@
   },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "sharedGlobals": [],
+    "sharedGlobals": ["{workspaceRoot}/azure-pipelines.yml"],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -107,7 +107,7 @@
       "!{projectRoot}/src/test-setup.[jt]s"
     ]
   },
-  "nxCloudAccessToken": "MjhiYWY5MzUtYzZmNC00MzJjLWFlYTgtZTA5OWRjYWI3YjAzfHJlYWQtd3JpdGU=",
   "useInferencePlugins": false,
-  "defaultBase": "master"
+  "defaultBase": "master",
+  "nxCloudId": "62359f15bf0c8571ede4a0e2"
 }
