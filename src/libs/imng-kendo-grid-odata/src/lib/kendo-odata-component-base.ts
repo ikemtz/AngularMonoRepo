@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { Observable, first, isObservable, map } from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import {
@@ -24,8 +25,8 @@ const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>(
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 
 @Component({
-    template: '',
-    standalone: false
+  template: '',
+  standalone: false,
 })
 export abstract class KendoODataBasedComponent<
     ENTITY,
