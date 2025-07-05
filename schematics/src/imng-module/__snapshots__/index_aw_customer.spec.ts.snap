@@ -159,7 +159,8 @@ export class CustomerAddComponent extends CustomerBaseEntryComponent implements 
 `;
 
 exports[`imng-module base crud component should work 1`] = `
-"import { OnInit, Component, inject } from '@angular/core';
+"/* eslint-disable @angular-eslint/prefer-inject */
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';

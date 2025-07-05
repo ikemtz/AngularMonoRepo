@@ -75,7 +75,7 @@ describe('OidcFacade', () => {
     beforeAll(() => {
       const location = window.location;
       delete (window as any).location;
-      window.location = {
+      (window as any).location = {
         ...location,
         reload: jest.fn(),
       };
