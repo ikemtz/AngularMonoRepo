@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import {
   Component,
   Inject,
@@ -34,8 +35,8 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
  * @class BaseDataEntryComponent>
  */
 @Component({
-    template: '',
-    standalone: false
+  template: '',
+  standalone: false,
 })
 export abstract class BaseDataEntryComponent<
     FACADE extends IBaseDataEntryFacade,

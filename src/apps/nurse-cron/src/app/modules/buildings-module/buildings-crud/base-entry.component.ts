@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { OnInit, Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
@@ -10,8 +11,8 @@ import {
 import { BuildingCrudFacade } from './crud.facade';
 
 @Component({
-    template: '',
-    standalone: false
+  template: '',
+  standalone: false,
 })
 export abstract class BuildingBaseEntryComponent
   extends BaseDataEntryComponent<BuildingCrudFacade>

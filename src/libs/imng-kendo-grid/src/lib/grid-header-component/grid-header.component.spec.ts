@@ -43,7 +43,7 @@ describe('ImngGridHeaderComponent', () => {
     fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toContain(
-      'title="Columns" ng-reflect-ng-class="[object Object]"',
+      '<kendo-grid-column-chooser name="imngColumnChooser" title="Columns">',
     );
   });
 

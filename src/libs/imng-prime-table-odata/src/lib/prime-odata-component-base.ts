@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { Observable, isObservable, map, tap, distinct } from 'rxjs';
 import {
   OnInit,
@@ -33,8 +34,8 @@ const FACADE = new InjectionToken<
 const STATE = new InjectionToken<PrimeTableState>('imng-prime-table-state');
 
 @Component({
-    template: '',
-    standalone: false
+  template: '',
+  standalone: false,
 })
 export abstract class ImngPrimeODataTableBaseComponent<
     ENTITY extends { id?: IdType | null | undefined },

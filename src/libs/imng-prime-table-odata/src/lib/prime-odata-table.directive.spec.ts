@@ -3,12 +3,8 @@ import { IdType } from 'imng-nrsrx-client-utils';
 import { FilterMetadata, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
-import {
-  createODataTableMockFacade,
-  ODataTableMockFacade,
-} from '../../testing/src';
+import { createODataTableMockFacade } from '../../testing/src';
 import { PrimeTableState } from './models/prime-table-state';
-import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
 import { IEnumValue, getEnumKey } from 'openapi-ts-generator/enums';
@@ -17,10 +13,7 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 describe('ImngPrimeODataTableDirective', () => {
   let tableComponent: Table;
   let directive: ImngPrimeODataTableDirective;
-  let odataComponent: ImngPrimeODataTableBaseComponent<
-    { id?: IdType | null },
-    ODataTableMockFacade
-  >;
+
   let facade: IPrimeODataTableFacade<{ id?: IdType | null }>;
 
   beforeEach(waitForAsync(() => {
