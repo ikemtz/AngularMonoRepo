@@ -1,16 +1,23 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { OnInit, Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 
 import { EmployeeCrudFacade } from './crud.facade';
-import { EmployeeProperties, IEmployeeForm, EmployeeFormGroupFac } from '../../../models/employees-api';
+import {
+  EmployeeProperties,
+  IEmployeeForm,
+  EmployeeFormGroupFac,
+} from '../../../models/employees-api';
 
 @Component({
-    template: '',
-    standalone: false
+  template: '',
+  standalone: false,
 })
-export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<EmployeeCrudFacade>
-  implements OnInit {
+export abstract class EmployeeBaseEntryComponent
+  extends BaseDataEntryComponent<EmployeeCrudFacade>
+  implements OnInit
+{
   public readonly props = EmployeeProperties;
   public addEditForm: FormGroup<IEmployeeForm>;
 
@@ -29,5 +36,4 @@ export abstract class EmployeeBaseEntryComponent extends BaseDataEntryComponent<
   public cancel(): void {
     this.facade.clearCurrentEntity();
   }
-
 }
