@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import {
   DataStateChangeEvent,
   SortSettings,
@@ -16,12 +17,13 @@ import { Subscribable } from 'imng-ngrx-utils';
 import { KendoGridBaseComponent } from 'imng-kendo-grid';
 
 @Component({
-    template: '',
-    standalone: false
+  template: '',
+  standalone: false,
 })
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   extends KendoGridBaseComponent<LISTED_ENTITY>
-  implements OnDestroy, Subscribable {
+  implements OnDestroy, Subscribable
+{
   /**
    * This will allow you to provide a visual indicator that some of the columns have been hidden.
    */
@@ -66,8 +68,10 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   }
 
   constructor(
-    public readonly changeDetectorRef: ChangeDetectorRef | null = null //NOSONAR
-  ) { super(); }
+    public readonly changeDetectorRef: ChangeDetectorRef | null = null, //NOSONAR
+  ) {
+    super();
+  }
 
   public readonly markForCheck = (): void =>
     this.changeDetectorRef?.markForCheck();
@@ -78,17 +82,20 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public pageChange(t: PageChangeEvent): void { //NOSONAR
+  public pageChange(t: PageChangeEvent): void {
+    //NOSONAR
     //This is intentional
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public filterChange(t: CompositeFilterDescriptor): void { //NOSONAR
+  public filterChange(t: CompositeFilterDescriptor): void {
+    //NOSONAR
     //This is intentional
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public sortChange(t: SortDescriptor[]): void { //NOSONAR
+  public sortChange(t: SortDescriptor[]): void {
+    //NOSONAR
     //This is intentional
   }
 }

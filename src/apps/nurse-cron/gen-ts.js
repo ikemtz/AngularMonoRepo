@@ -18,7 +18,7 @@ async function generateTsModels() {
   await meraidGenerator.generateDiagrams({
     openApiJsonUrl:
       'https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/diagrams/certifications-odata/',
+    outputPath: '../docs/nurse-cron-diagrams/certifications-odata/',
     typeFilterCallBack: tsGenerator.nrsrxTypeFilterCallBack,
   });
 
@@ -38,7 +38,7 @@ async function generateTsModels() {
   await meraidGenerator.generateDiagrams({
     openApiJsonUrl:
       'https://im-wa-crto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/diagrams/competencies-odata/',
+    outputPath: '../docs/nurse-cron-diagrams/competencies-odata/',
     typeFilterCallBack: tsGenerator.nrsrxTypeFilterCallBack,
   });
 
@@ -70,7 +70,7 @@ async function generateTsModels() {
   await meraidGenerator.generateDiagrams({
     openApiJsonUrl:
       'https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/diagrams/employees-odata/',
+    outputPath: '../docs/nurse-cron-diagrams/employees-odata/',
     typeFilterCallBack: tsGenerator.nrsrxTypeFilterCallBack,
   });
 
@@ -90,7 +90,7 @@ async function generateTsModels() {
   await meraidGenerator.generateDiagrams({
     openApiJsonUrl:
       'https://im-wa-hlto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/diagrams/health-items-odata/',
+    outputPath: '../docs/nurse-cron-diagrams/health-items-odata/',
     typeFilterCallBack: tsGenerator.nrsrxTypeFilterCallBack,
   });
 
@@ -110,7 +110,7 @@ async function generateTsModels() {
   await meraidGenerator.generateDiagrams({
     openApiJsonUrl:
       'https://im-wa-scdo-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/diagrams/schedules-odata/',
+    outputPath: '../docs/nurse-cron-diagrams/schedules-odata/',
     typeFilterCallBack: tsGenerator.nrsrxTypeFilterCallBack,
   });
 
@@ -130,7 +130,7 @@ async function generateTsModels() {
   await meraidGenerator.generateDiagrams({
     openApiJsonUrl:
       'https://im-wa-unto-nrcrn.azurewebsites.net/swagger/v1/swagger.json',
-    outputPath: './apps/nurse-cron/diagrams/units-odata/',
+    outputPath: '../docs/nurse-cron-diagrams/diagrams/units-odata/',
     typeFilterCallBack: tsGenerator.nrsrxTypeFilterCallBack,
   });
 }
