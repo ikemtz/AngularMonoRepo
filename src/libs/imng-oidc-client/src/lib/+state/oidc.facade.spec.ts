@@ -26,7 +26,7 @@ describe('OidcFacade', () => {
   let store: Store;
   let service: OidcService;
   let oidcConfig: OidcLibraryConfig;
-
+  let location: Location;
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
@@ -72,13 +72,11 @@ describe('OidcFacade', () => {
       oidcUserFacade = TestBed.inject(OidcUserFacade);
     });
 
-    beforeAll(() => {
-      const location = window.location;
-      delete (window as any).location;
-      (window as any).location = {
-        ...location,
+    beforeEach(() => {
+      // GIVEN a mocked location
+      location = window.location = {
         reload: jest.fn(),
-      };
+      } as any;
     });
 
     it('current state should match initial', async () => {
@@ -218,7 +216,7 @@ describe('OidcFacade', () => {
       const result = await readFirst(facade.identity$);
       expect(result).toBeUndefined();
       expect(await readFirst(facade.expired$)).toBe(true);
-      expect(window.location.reload).toHaveBeenCalledTimes(0);
+      expect(location.reload).toHaveBeenCalledTimes(0);
     });
 
     it('should handle accessTokenExpiring', async () => {
@@ -290,7 +288,11 @@ describe('OidcFacade', () => {
     it('should handle accessTokenExpired without a store', () => {
       sessionStorage.setItem('unit_test', 'validation');
       (<any>facade).store = null;
-      facade.accessTokenExpired();
+      try {
+        facade.accessTokenExpired();
+      } catch (x: unknown) {
+        expect((x as Error).message).toBe('Not implemented');
+      }
       expect(sessionStorage.getItem('unit_test')).toBeNull();
     });
   });

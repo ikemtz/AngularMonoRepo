@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+kendo-grid > kendo-pager > kendo-pager-page-sizes > kendo-dropdownlist {
+  width: 120px !important;
+}
+span > .k-sort-icon {
+  margin-left: 1px !important;
+}

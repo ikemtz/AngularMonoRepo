@@ -52,7 +52,10 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0 : 5"
+      <imng-kendo-copy
+        [displayValue]="
+          `${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`
+        "
         [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -68,7 +71,10 @@
     title="Building Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy [displayValue]="dataItem[props.BUILDING_ID] | slice: 0 : 5"
+      <imng-kendo-copy
+        [displayValue]="
+          `${(dataItem[props.BUILDING_ID] | slice: 0 : 4)}.-.${(dataItem[props.BUILDING_ID] | slice: -4)}`
+        "
         [copyValue]="dataItem[props.BUILDING_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -126,13 +132,11 @@
   </kendo-grid-column>
 
   <kendo-grid-pdf [fileName]="getExportFileName('Units')" [allPages]="false">
-    <kendo-grid-pdf-margin top="1cm"
-      left="1cm"
-      right="1cm"
-    bottom="1cm" />
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel [fileName]="getExportFileName('Units')"
-  [fetchData]="excelData" />
+  <kendo-grid-excel
+    [fileName]="getExportFileName('Units')"
+    [fetchData]="excelData" />
 </kendo-grid>
 @if (crudFacade.isNewActive$ | async) {
   <nrcrn-unit-add />

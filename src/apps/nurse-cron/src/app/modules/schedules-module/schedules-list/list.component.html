@@ -52,7 +52,10 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0 : 5"
+      <imng-kendo-copy
+        [displayValue]="
+          `${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`
+        "
         [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -68,7 +71,10 @@
     title="Unit Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy [displayValue]="dataItem[props.UNIT_ID] | slice: 0 : 5"
+      <imng-kendo-copy
+        [displayValue]="
+          `${(dataItem[props.UNIT_ID] | slice: 0 : 4)}.-.${(dataItem[props.UNIT_ID] | slice: -4)}`
+        "
         [copyValue]="dataItem[props.UNIT_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -93,7 +99,10 @@
     title="Employee Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy [displayValue]="dataItem[props.EMPLOYEE_ID] | slice: 0 : 5"
+      <imng-kendo-copy
+        [displayValue]="
+          `${(dataItem[props.EMPLOYEE_ID] | slice: 0 : 4)}.-.${(dataItem[props.EMPLOYEE_ID] | slice: -4)}`
+        "
         [copyValue]="dataItem[props.EMPLOYEE_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -118,7 +127,10 @@
     title="Staffing Requirement Id"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy [displayValue]="dataItem[props.STAFFING_REQUIREMENT_ID] | slice: 0 : 5"
+      <imng-kendo-copy
+        [displayValue]="
+          `${(dataItem[props.STAFFING_REQUIREMENT_ID] | slice: 0 : 4)}.-.${(dataItem[props.STAFFING_REQUIREMENT_ID] | slice: -4)}`
+        "
         [copyValue]="dataItem[props.STAFFING_REQUIREMENT_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -127,53 +139,51 @@
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Staffing Requirement Id"
         >Staffing Requirement Id</span
-        >
-      </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-column
-      [field]="props.START_TIME_UTC"
-      [width]="100"
-      format="{0:MM/dd/yy hh:mm}"
-      title="Start Time Utc"
-      filter="date">
-      <ng-template class="header" kendoGridHeaderTemplate let-column>
-        <span class="h6" title="Start Time Utc">Start Time Utc</span>
-      </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-column
-      [field]="props.SCHEDULED_HOURS"
-      [width]="100"
-      title="Scheduled Hours"
-      filter="numeric">
-      <ng-template class="header" kendoGridHeaderTemplate let-column>
-        <span class="h6" title="Scheduled Hours">Scheduled Hours</span>
-      </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-column
-      [field]="props.APPROVED_ON_UTC"
-      [width]="100"
-      format="{0:MM/dd/yy hh:mm}"
-      title="Approved On Utc"
-      filter="date">
-      <ng-template class="header" kendoGridHeaderTemplate let-column>
-        <span class="h6" title="Approved On Utc">Approved On Utc</span>
-      </ng-template>
-    </kendo-grid-column>
+      >
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.START_TIME_UTC"
+    [width]="100"
+    format="{0:MM/dd/yy hh:mm}"
+    title="Start Time Utc"
+    filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Start Time Utc">Start Time Utc</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.SCHEDULED_HOURS"
+    [width]="100"
+    title="Scheduled Hours"
+    filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Scheduled Hours">Scheduled Hours</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.APPROVED_ON_UTC"
+    [width]="100"
+    format="{0:MM/dd/yy hh:mm}"
+    title="Approved On Utc"
+    filter="date">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Approved On Utc">Approved On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
 
-    <kendo-grid-pdf
-      [fileName]="getExportFileName('Schedules')"
-      [allPages]="false">
-      <kendo-grid-pdf-margin top="1cm"
-        left="1cm"
-        right="1cm"
-      bottom="1cm" />
-    </kendo-grid-pdf>
-    <kendo-grid-excel [fileName]="getExportFileName('Schedules')"
+  <kendo-grid-pdf
+    [fileName]="getExportFileName('Schedules')"
+    [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
+  </kendo-grid-pdf>
+  <kendo-grid-excel
+    [fileName]="getExportFileName('Schedules')"
     [fetchData]="excelData" />
-  </kendo-grid>
-  @if (crudFacade.isNewActive$ | async) {
-    <nrcrn-schedule-add />
-  }
-  @if (crudFacade.isEditActive$ | async) {
-    <nrcrn-schedule-edit />
-  }
+</kendo-grid>
+@if (crudFacade.isNewActive$ | async) {
+  <nrcrn-schedule-add />
+}
+@if (crudFacade.isEditActive$ | async) {
+  <nrcrn-schedule-edit />
+}
