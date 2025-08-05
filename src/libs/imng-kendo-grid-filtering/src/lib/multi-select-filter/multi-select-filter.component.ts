@@ -106,9 +106,12 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     this.isPrimitive || !this.valueField ? dataItem : dataItem[this.valueField];
 
   public ngAfterViewInit() {
-    this.elementRef.nativeElement.parentNode.querySelector(
+    const submitButton = this.elementRef.nativeElement.parentNode.querySelector(
       '.k-actions > button[type="submit"]',
-    ).style.display = 'none';
+    );
+    if (submitButton) {
+      submitButton.style.display = 'none';
+    }
     this.currentData = this.data;
     const tempValue = this.odataState?.filter?.filters.map(
       (f: CompositeFilterDescriptor | FilterDescriptor) =>
