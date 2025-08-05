@@ -347,3 +347,4 @@ schematics/eslint-report.json
 src/.nx
 refresh-local-branch.sh
 schematics/.swp
+src/telerik-license.txt

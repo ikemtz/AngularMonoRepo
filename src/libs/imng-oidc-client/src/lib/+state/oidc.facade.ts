@@ -73,9 +73,7 @@ export class OidcFacade {
 
   // default bindings to events
   public addUserUnLoaded(): void {
-    if (this.store) {
-      this.store.dispatch(oidcActions.onUserUnloaded());
-    }
+    this.store?.dispatch(oidcActions.onUserUnloaded());
   }
 
   public accessTokenExpired(): void {
