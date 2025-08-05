@@ -962,7 +962,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice:0:5"
+        [displayValue]="\`\${(dataItem[props.ID] | slice: 0 : 4)}.-.\${(dataItem[props.ID] | slice: -4)}\`"
         [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -1043,7 +1043,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
   <kendo-grid-column [field]="props.CUSTOMER_ID" [width]="100" title="Customer Id" filter="text" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="dataItem[props.CUSTOMER_ID] | slice:0:5"
+        [displayValue]="\`\${(dataItem[props.ID] | slice: 0 : 4)}.-.\${(dataItem[props.ID] | slice: -4)}\`"
         [copyValue]="dataItem[props.CUSTOMER_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -1056,7 +1056,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
   <kendo-grid-column [field]="props.SHIP_TO_ADDRESS_ID" [width]="100" title="Ship To Address Id" filter="text" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="dataItem[props.SHIP_TO_ADDRESS_ID] | slice:0:5"
+        [displayValue]="\`\${(dataItem[props.ID] | slice: 0 : 4)}.-.\${(dataItem[props.ID] | slice: -4)}\`"
         [copyValue]="dataItem[props.SHIP_TO_ADDRESS_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -1069,7 +1069,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
   <kendo-grid-column [field]="props.BILL_TO_ADDRESS_ID" [width]="100" title="Bill To Address Id" filter="text" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="dataItem[props.BILL_TO_ADDRESS_ID] | slice:0:5"
+        [displayValue]="\`\${(dataItem[props.ID] | slice: 0 : 4)}.-.\${(dataItem[props.ID] | slice: -4)}\`"
         [copyValue]="dataItem[props.BILL_TO_ADDRESS_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>

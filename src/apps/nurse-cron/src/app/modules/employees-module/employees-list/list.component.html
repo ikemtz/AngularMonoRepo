@@ -52,7 +52,10 @@
 
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0 : 5"
+      <imng-kendo-copy
+        [displayValue]="
+          `${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`
+        "
         [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -217,51 +220,49 @@
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Total Hours Of Service"
         >Total Hours Of Service</span
-        >
-      </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-column
-      [field]="props.CERTIFICATION_COUNT"
-      [width]="100"
-      title="Certification Count"
-      filter="numeric">
-      <ng-template class="header" kendoGridHeaderTemplate let-column>
-        <span class="h6" title="Certification Count">Certification Count</span>
-      </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-column
-      [field]="props.COMPETENCY_COUNT"
-      [width]="100"
-      title="Competency Count"
-      filter="numeric">
-      <ng-template class="header" kendoGridHeaderTemplate let-column>
-        <span class="h6" title="Competency Count">Competency Count</span>
-      </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-column
-      [field]="props.HEALTH_ITEM_COUNT"
-      [width]="100"
-      title="Health Item Count"
-      filter="numeric">
-      <ng-template class="header" kendoGridHeaderTemplate let-column>
-        <span class="h6" title="Health Item Count">Health Item Count</span>
-      </ng-template>
-    </kendo-grid-column>
+      >
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.CERTIFICATION_COUNT"
+    [width]="100"
+    title="Certification Count"
+    filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Certification Count">Certification Count</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.COMPETENCY_COUNT"
+    [width]="100"
+    title="Competency Count"
+    filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Competency Count">Competency Count</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="props.HEALTH_ITEM_COUNT"
+    [width]="100"
+    title="Health Item Count"
+    filter="numeric">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Health Item Count">Health Item Count</span>
+    </ng-template>
+  </kendo-grid-column>
 
-    <kendo-grid-pdf
-      [fileName]="getExportFileName('Employees')"
-      [allPages]="false">
-      <kendo-grid-pdf-margin top="1cm"
-        left="1cm"
-        right="1cm"
-      bottom="1cm" />
-    </kendo-grid-pdf>
-    <kendo-grid-excel [fileName]="getExportFileName('Employees')"
+  <kendo-grid-pdf
+    [fileName]="getExportFileName('Employees')"
+    [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
+  </kendo-grid-pdf>
+  <kendo-grid-excel
+    [fileName]="getExportFileName('Employees')"
     [fetchData]="excelData" />
-  </kendo-grid>
-  @if (crudFacade.isNewActive$ | async) {
-    <nrcrn-employee-add />
-  }
-  @if (crudFacade.isEditActive$ | async) {
-    <nrcrn-employee-edit />
-  }
+</kendo-grid>
+@if (crudFacade.isNewActive$ | async) {
+  <nrcrn-employee-add />
+}
+@if (crudFacade.isEditActive$ | async) {
+  <nrcrn-employee-edit />
+}

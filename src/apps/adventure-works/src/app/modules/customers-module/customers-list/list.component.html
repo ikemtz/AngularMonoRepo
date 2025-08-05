@@ -19,7 +19,9 @@
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="dataItem[props.ID] | slice: 0 : 5"
+        [displayValue]="
+          `${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`
+        "
         [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>

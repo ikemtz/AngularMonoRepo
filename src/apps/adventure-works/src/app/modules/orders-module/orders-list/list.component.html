@@ -56,8 +56,11 @@
     title="Id"
     [hidden]="true">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <imng-kendo-copy [displayValue]="dataItem[props.ID] | slice: 0 : 5"
-      [copyValue]="dataItem[props.ID]" />
+      <imng-kendo-copy
+        [displayValue]="
+          `${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`
+        "
+        [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
       <imng-uuid-filter [filter]="filter" />
@@ -120,12 +123,13 @@
     title="Status Type"
     filter="text">
     <ng-template kendoGridFilterMenuTemplate let-column="column">
-      <imng-multi-select-filter [isPrimitive]="false"
+      <imng-multi-select-filter
+        [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
         [textField]="EnumProperties.DISPLAY_TEXT"
         [valueField]="EnumProperties.NAME"
         [data]="orderStatusTypes"
-      [field]="props.STATUS_TYPE" />
+        [field]="props.STATUS_TYPE" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ getEnumText(orderStatusTypes, dataItem[props.STATUS_TYPE]) }}
@@ -179,12 +183,13 @@
     title="Shipping Type"
     filter="text">
     <ng-template kendoGridFilterMenuTemplate let-column="column">
-      <imng-multi-select-filter [isPrimitive]="false"
+      <imng-multi-select-filter
+        [isPrimitive]="false"
         [odataState]="facade.gridODataState$ | async"
         [textField]="EnumProperties.DISPLAY_TEXT"
         [valueField]="EnumProperties.NAME"
         [data]="shippingTypes"
-      [field]="props.SHIPPING_TYPE" />
+        [field]="props.SHIPPING_TYPE" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ getEnumText(shippingTypes, dataItem[props.SHIPPING_TYPE]) }}
@@ -278,16 +283,14 @@
   </kendo-grid-column>
   <div *kendoGridDetailTemplate="let dataItem">
     <aw-order-line-item-list
-    [parentGridId]="dataItem[props.ID]"></aw-order-line-item-list>
+      [parentGridId]="dataItem[props.ID]"></aw-order-line-item-list>
   </div>
   <kendo-grid-pdf [fileName]="getExportFileName('Orders')" [allPages]="false">
-    <kendo-grid-pdf-margin top="1cm"
-      left="1cm"
-      right="1cm"
-    bottom="1cm" />
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
   </kendo-grid-pdf>
-  <kendo-grid-excel [fileName]="getExportFileName('Orders')"
-  [fetchData]="excelData" />
+  <kendo-grid-excel
+    [fileName]="getExportFileName('Orders')"
+    [fetchData]="excelData" />
 </kendo-grid>
 @if (crudFacade.isNewActive$ | async) {
   <aw-order-add />
