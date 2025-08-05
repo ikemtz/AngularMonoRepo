@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   inject,
+  ElementRef,
 } from '@angular/core';
 import { FilterService } from '@progress/kendo-angular-grid';
 import {
@@ -18,6 +19,7 @@ import { ODataState } from 'imng-kendo-odata';
 
 @Component({
   selector: 'imng-multi-select-filter',
+
   template: `
     <ul>
       @if (showTextFilter) {
@@ -80,7 +82,7 @@ import { ODataState } from 'imng-kendo-odata';
 export class MultiSelectFilterComponent implements AfterViewInit {
   readonly filterService = inject(FilterService);
   readonly changeDetectorRef = inject(ChangeDetectorRef);
-
+  readonly elementRef = inject(ElementRef);
   @Input() public isPrimitive = false;
   @Input() public odataState: ODataState | null = {};
   @Input() public data: unknown[] = [];
@@ -104,6 +106,9 @@ export class MultiSelectFilterComponent implements AfterViewInit {
     this.isPrimitive || !this.valueField ? dataItem : dataItem[this.valueField];
 
   public ngAfterViewInit() {
+    this.elementRef.nativeElement.parentNode.querySelector(
+      '.k-actions > button[type="submit"]',
+    ).style.display = 'none';
     this.currentData = this.data;
     const tempValue = this.odataState?.filter?.filters.map(
       (f: CompositeFilterDescriptor | FilterDescriptor) =>

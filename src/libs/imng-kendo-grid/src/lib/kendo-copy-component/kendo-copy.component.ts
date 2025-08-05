@@ -4,19 +4,23 @@ import {
   ChangeDetectionStrategy,
   OnInit,
 } from '@angular/core';
+import { copyIcon } from '@progress/kendo-svg-icons';
 
 @Component({
-    selector: 'imng-kendo-copy[copyValue]',
-    template: `
+  selector: 'imng-kendo-copy[copyValue]',
+  template: `
     <a (click)="copy()" [title]="'Copy the full value: ' + copyValue"
-      >{{ displayValue }}&nbsp;<span
-        class="k-icon k-i-copy k-icon-sm k-color-primary"></span
+      >{{ displayValue }}&nbsp;
+      <kendo-svg-icon
+        class="k-icon-sm k-color-primary"
+        [icon]="copyIcon"></kendo-svg-icon
     ></a>
   `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ImngKendoCopyComponent implements OnInit {
+  public readonly copyIcon = copyIcon;
   /**
    * Optional
    */
