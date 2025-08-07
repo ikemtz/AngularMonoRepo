@@ -33,14 +33,49 @@ export interface InFilter {
   values: IdType[];
 }
 
-export interface CompositeChildFilterDescriptor
-  extends CompositeFilterDescriptor {
-  filters: Array<CompositeChildFilterDescriptor | ChildFilterDescriptor>;
+export interface CompositeChildFilterDescriptor {
+  /**
+   * The logical operation to use when the `filter.filters` option is set.
+   *
+   * The supported values are:
+   * * `"and"`
+   * * `"or"`
+   */
+  logic: 'or' | 'and';
+  /**
+   *
+   */
+  filters?: Array<CompositeChildFilterDescriptor | ChildFilterDescriptor>;
+  existsFilters?: Array<ChildExistsFilterDescriptor>;
 }
-
-export interface ChildFilterDescriptor extends FilterDescriptor {
-  /**  This value will default to 'and' in cases where there are additional filters specified. */
+/** This is used to filter records that have child records that exists or match a filter.
+ *  @See {@link https://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Toc371341806}
+ */
+export interface ChildExistsFilterDescriptor {
+  /**  This should be the child table navigation property */
   childTableNavigationProperty: string;
+  /** Filter expression to be used, this can be undefined
+   * Example: 'childRecord:childRecord/Quantity gt 100'
+   */
+  filter?: string;
+  /**
+   * This should be 'any' or 'all' for child table navigation properties.
+   * 'all' will return records if all child records match the filter.
+   * 'any' will return records if any child record matches the filter.
+   * @default 'any'
+   * @note If 'all' is used a filter expression must be provided.
+   */
+  linqOperation?: 'all' | 'any';
+}
+export interface ChildFilterDescriptor extends FilterDescriptor {
+  /**  This should be the child table navigation property */
+  childTableNavigationProperty: string;
+  /**
+   * This should be 'any' or 'all' for child table navigation properties.
+   * If this is not specified, it will default to 'any'.
+   * 'all' will return records if all child records match the filter.
+   * 'any' will return records if any child record matches the filter.
+   */
   linqOperation: 'all' | 'any';
 }
 
