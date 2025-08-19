@@ -38,7 +38,7 @@ export function transformChildExistsFilter(
       `${filterString} ${logic || 'and'} `,
     );
   } else {
-    queryString += filterString;
+    queryString += `&${filterString}`;
   }
   return queryString;
 }
