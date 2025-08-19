@@ -441,10 +441,10 @@ describe('OrderCrudFacade', () => {
 exports[`imng-module AdventureWorks Orders crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
+
 import { ordersFeature, orderActionTypes } from '../+state';
-import { map } from 'rxjs';
 
 @Injectable()
 export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
@@ -452,13 +452,9 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
 
   loading$ = this.store.select(ordersFeature.selectLoading);
   currentEntity$ = this.store.select(ordersFeature.selectCurrentOrder);
-  currentModalState$ = this.store.select(ordersFeature.selectCurrentModalState);
-  isEditActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.EDIT),
-  );
-  isNewActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.ADD),
-  );
+  currentModalState$ = this.store.select(ordersFeature.selectCurrentOrderModalState);
+  isEditActive$ = isModalState(this, ModalStates.EDIT);
+  isNewActive$ = isModalState(this, ModalStates.ADD);
   customers$ = this.store.select(ordersFeature.selectCustomers);
   shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
   billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);

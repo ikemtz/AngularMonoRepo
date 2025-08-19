@@ -13,6 +13,7 @@ import { <%= camelize(singularizedName) %>Selectors } from '../+state/<%= dasher
 @Injectable()
 export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
   private _parentGridId = '';
+  private readonly store = inject(Store);
   public parentGrid$ = new BehaviorSubject<string>('');
   public get parentGridId() {
     return this._parentGridId;
@@ -32,8 +33,6 @@ export class <%= classify(singularizedName) %>ListFacade implements IKendoODataG
   gridODataState$: Observable<ODataState> = this.parentGrid$.pipe(
     switchMap(x =>
       this.store.select(<%= camelize(singularizedName) %>Selectors.selectODataState$(x))));
-
-  constructor(private readonly store: Store) {}
 
   public loadEntities(odataState: ODataState): void {
     odataState = applyFilter({ ...odataState },

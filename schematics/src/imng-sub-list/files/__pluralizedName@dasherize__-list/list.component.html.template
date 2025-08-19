@@ -10,11 +10,11 @@
     </div>
   </ng-template>
 <% swaggerProperties.forEach(function(swaggerProperty) {%><% if ((swaggerProperty.format === 'date-time' || swaggerProperty.format === 'date') && swaggerProperty.name.toLowerCase().endsWith('utc') ) { %>
-  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy HH:mm}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy HH:mm}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
 <%} else if (swaggerProperty.format === 'date-time' || swaggerProperty.format === 'date') { %>
-  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
 <%} else if (swaggerProperty.type === 'boolean') { %>
-  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
     <ng-template kendoGridCellTemplate let-dataItem>
       <div *ngIf="dataItem.<%= underscore(swaggerProperty.name) %>">
         <span class="text-success font-weight-bolder h2" placement="left" tooltip="Active">
@@ -23,7 +23,7 @@
       </div>
     </ng-template>
 <%} else if (swaggerProperty.format === 'uuid') { %>
-  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
         [displayValue]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>] | slice:0:5"
@@ -38,7 +38,7 @@
     [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
     [width]="100"
     title="<%= swaggerProperty.startCaseName %>"
-    filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>>
+    filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
     <ng-template kendoGridFilterMenuTemplate let-column="column">
       <imng-multi-select-filter
         [isPrimitive]="false"
@@ -54,12 +54,12 @@
 <%} else if (swaggerProperty.htmlInputType === 'object') { %>
   <kendo-grid-column
     [field]="getRelatedField(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.firstProperty?.snakeCaseName.toUpperCase() %>)"
-    [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>>
+    [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
     <ng-template kendoGridCellTemplate let-dataItem>
       {{ getRelatedValue(dataItem, props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.firstProperty?.snakeCaseName.toUpperCase() %>) }}
     </ng-template>
 <%} else { %>
-  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
 <%} %>    <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6"><%= swaggerProperty.startCaseName %></span>
     </ng-template>

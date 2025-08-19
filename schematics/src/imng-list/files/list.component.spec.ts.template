@@ -9,7 +9,8 @@ import { ModalStates } from 'imng-kendo-data-entry';
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
-import { <%= camelize(singularizedName) %>Routes } from '../<%= dasherize(pluralizedName) %>.routing';
+import { <%= camelize(singularizedName) %>Routes } from '../<%= dasherize(pluralizedName) %>.routing';<% if (modelFolderLocation) { %>
+import { createTest<%= classify(name) %> } from '<%= modelFolderLocation %>';<% } %>
 
 describe('<%= classify(singularizedName) %>ListComponent', () => {
   let component: <%= classify(singularizedName) %>ListComponent;

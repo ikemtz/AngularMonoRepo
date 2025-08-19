@@ -308,10 +308,10 @@ describe('CustomerCrudFacade', () => {
 exports[`imng-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
+
 import { customersFeature, customerActionTypes } from '../+state';
-import { map } from 'rxjs';
 
 @Injectable()
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
@@ -319,13 +319,9 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
 
   loading$ = this.store.select(customersFeature.selectLoading);
   currentEntity$ = this.store.select(customersFeature.selectCurrentCustomer);
-  currentModalState$ = this.store.select(customersFeature.selectCurrentModalState);
-  isEditActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.EDIT),
-  );
-  isNewActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.ADD),
-  );
+  currentModalState$ = this.store.select(customersFeature.selectCurrentCustomerModalState);
+  isEditActive$ = isModalState(this, ModalStates.EDIT);
+  isNewActive$ = isModalState(this, ModalStates.ADD);
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
   public setCurrentEntity(item: ICustomer, modalState: string): void {

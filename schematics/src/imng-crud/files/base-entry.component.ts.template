@@ -4,11 +4,12 @@ import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';<% } %>
 
-import { <%= classify(name) %>CrudFacade } from './crud.facade';
+import { <%= classify(name) %>CrudFacade } from './crud.facade';<% if (modelFolderLocation) { %>
+import { <%= classify(singularizedName) %>Properties, I<%= classify(singularizedName) %>Form, <%= classify(singularizedName) %>FormGroupFac, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
 
-@Component({ 
+@Component({
   template: '',
-  standalone: false, 
+  standalone: false,
 })
 export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEntryComponent<<%= classify(name) %>CrudFacade>
   implements OnInit {

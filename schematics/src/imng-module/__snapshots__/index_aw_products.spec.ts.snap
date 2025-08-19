@@ -44,6 +44,7 @@ import { of } from 'rxjs';
 
 import { ProductAddComponent } from './add.component';
 import { ProductCrudFacade } from './crud.facade';
+import { createTestProduct } from './test/models';
 
 export function createMockProductFacade() {
   return {
@@ -187,6 +188,7 @@ import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { ProductCrudFacade } from './crud.facade';
+import { IProduct, IProductModel, IProductCategory } from './test/models';
 
 @Component({ 
   template: '',
@@ -270,6 +272,7 @@ import { of } from 'rxjs';
 import { productsFeature, ProductListEffects, ProductCrudEffects } from '../+state';
 import { ProductCrudFacade } from './crud.facade';
 import { ProductApiService } from './api.service';
+import { createTestProduct } from './test/models';
 import { environment } from '@env';
 
 describe('ProductCrudFacade', () => {
@@ -352,10 +355,11 @@ describe('ProductCrudFacade', () => {
 exports[`imng-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
+
 import { productsFeature, productActionTypes } from '../+state';
-import { map } from 'rxjs';
+import { IProduct, IProductModel, IProductCategory } from './test/models';
 
 @Injectable()
 export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
@@ -363,13 +367,9 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
 
   loading$ = this.store.select(productsFeature.selectLoading);
   currentEntity$ = this.store.select(productsFeature.selectCurrentProduct);
-  currentModalState$ = this.store.select(productsFeature.selectCurrentModalState);
-  isEditActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.EDIT),
-  );
-  isNewActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.ADD),
-  );
+  currentModalState$ = this.store.select(productsFeature.selectCurrentProductModalState);
+  isEditActive$ = isModalState(this, ModalStates.EDIT);
+  isNewActive$ = isModalState(this, ModalStates.ADD);
   productModels$ = this.store.select(productsFeature.selectProductModels);
   productCategories$ = this.store.select(productsFeature.selectProductCategories);
 
@@ -578,6 +578,7 @@ import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from '
 import { createMockProductFacade } from './add.component.spec';
 import { ProductEditComponent } from './edit.component';
 import { ProductCrudFacade } from './crud.facade';
+import { createTestProduct } from './test/models';
 
 describe('ProductEditComponent', () => {
   let component: ProductEditComponent;
@@ -898,6 +899,7 @@ import { ModalStates } from 'imng-kendo-data-entry';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
 import { productGridState } from './list.grid-state';
+import { IProduct } from './test/models';
 
 @Component({
   selector: 'aw-product-list',
