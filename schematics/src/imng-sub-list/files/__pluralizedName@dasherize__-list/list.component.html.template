@@ -21,6 +21,11 @@
           <span class="k-icon k-i-check-circle"></span>
         </span>
       </div>
+      @if (dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]) {
+        <kendo-svgicon class="text-success font-weight-bolder h2" [icon]="icons.check" size="xlarge"></kendo-svgicon>
+      } @else {
+        <kendo-svgicon class="text-danger font-weight-bolder h2" [icon]="icons.cancel" size="xlarge"></kendo-svgicon>
+      }
     </ng-template>
 <%} else if (swaggerProperty.format === 'uuid') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">

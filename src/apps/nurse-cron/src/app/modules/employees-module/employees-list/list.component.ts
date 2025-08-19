@@ -16,7 +16,10 @@ import { IEmployee, EmployeeProperties } from '../../../models/employees-api';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class EmployeeListComponent extends KendoODataBasedComponent<IEmployee, EmployeeListFacade> {
+export class EmployeeListComponent extends KendoODataBasedComponent<
+  IEmployee,
+  EmployeeListFacade
+> {
   public readonly crudFacade = inject(EmployeeCrudFacade);
   public readonly props = EmployeeProperties;
   public currentItem: IEmployee | undefined;

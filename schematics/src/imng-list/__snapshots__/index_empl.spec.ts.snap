@@ -54,7 +54,7 @@ exports[`imng-list generation works: list.component.html 1`] = `
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item [svgIcon]="icons.menuIcon">
+        <kendo-menu-item [svgIcon]="icons.menu">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -63,7 +63,7 @@ exports[`imng-list generation works: list.component.html 1`] = `
                 (click)="editItem(dataItem)"
                 placement="left"
                 tooltip="Edit">
-                <span class="k-icon k-i-edit"></span>
+                <kendo-svgicon [icon]="icons.menu" size="xlarge"></kendo-svgicon>
                 Edit
               </button>
             </ng-template>
@@ -76,7 +76,7 @@ exports[`imng-list generation works: list.component.html 1`] = `
                 (click)="deleteItem(dataItem)"
                 placement="left"
                 tooltip="Delete">
-                <span class="k-icon k-i-delete"></span>
+                <kendo-svgicon [icon]="icons.trash" size="xlarge"></kendo-svgicon>
                 Delete
               </button>
             </ng-template>
@@ -161,11 +161,11 @@ exports[`imng-list generation works: list.component.html 1`] = `
   </kendo-grid-column>
   <kendo-grid-column [field]="props.IS_ENABLED" [width]="100" title="Is Enabled" filter="boolean" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf="dataItem[props.IS_ENABLED]">
-        <span class="text-success font-weight-bolder h2" tooltip="Is Enabled">
-          <span class="k-icon k-i-check-circle start-50" />
-        </span>
-      </div>
+     @if (dataItem[props.IS_ENABLED]) {
+        <kendo-svgicon class="text-success font-weight-bolder h2" [icon]="icons.check" size="xlarge"></kendo-svgicon>
+      } @else {
+        <kendo-svgicon class="text-danger font-weight-bolder h2" [icon]="icons.cancel" size="xlarge"></kendo-svgicon>
+      }
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Is Enabled">Is Enabled</span>

@@ -715,7 +715,7 @@ exports[`imng-module html file should work 1`] = `
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item [svgIcon]="icons.menuIcon">
+        <kendo-menu-item [svgIcon]="icons.menu">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -724,7 +724,7 @@ exports[`imng-module html file should work 1`] = `
                 (click)="editItem(dataItem)"
                 placement="left"
                 tooltip="Edit">
-                <span class="k-icon k-i-edit"></span>
+                <kendo-svgicon [icon]="icons.menu" size="xlarge"></kendo-svgicon>
                 Edit
               </button>
             </ng-template>
@@ -737,7 +737,7 @@ exports[`imng-module html file should work 1`] = `
                 (click)="deleteItem(dataItem)"
                 placement="left"
                 tooltip="Delete">
-                <span class="k-icon k-i-delete"></span>
+                <kendo-svgicon [icon]="icons.trash" size="xlarge"></kendo-svgicon>
                 Delete
               </button>
             </ng-template>
@@ -946,10 +946,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import { IconsModule } from '@progress/kendo-angular-icons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { MenusModule } from "@progress/kendo-angular-menu";
+import { MenusModule } from '@progress/kendo-angular-menu';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -969,6 +970,7 @@ import { ProductAddComponent, ProductEditComponent, ProductApiService, ProductCr
     GridModule,
     ExcelModule,
     PDFModule,
+    IconsModule,
     DialogModule,
     DateInputsModule,
     DropDownsModule,
