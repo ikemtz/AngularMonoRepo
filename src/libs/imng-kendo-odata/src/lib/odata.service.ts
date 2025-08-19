@@ -46,13 +46,28 @@ export class ODataService {
       tempState,
     )}${countClause}${cacheBustClause}`;
     return this.http
-      .get<ODataPayload<T> | T[]>(`${odataEndpoint}?${queryStr}`)
+      .get<
+        ODataPayload<T> | T[]
+      >(`${odataEndpoint}?${queryStr}${this.getAdditionalParams(options)}`)
       .pipe(
         mapToExtDataResult<T>(
           options.utcNullableProps || [],
           options.dateNullableProps || [],
         ),
       );
+  }
+
+  public getAdditionalParams(options: FetchOptions): string | undefined {
+    if (options.additionalParams) {
+      const keys = Object.keys(options.additionalParams);
+      const values = Object.values(options.additionalParams);
+      const queryStringParams = keys.map(
+        (key, index) =>
+          `&${encodeURIComponent(key)}=${encodeURIComponent(values[index])}`,
+      );
+      return queryStringParams.join('');
+    }
+    return undefined;
   }
 
   public fetchByPrimaryKey<T extends object>(
