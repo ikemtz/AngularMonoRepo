@@ -7,7 +7,8 @@ import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
 import { <%= camelize(pluralizedStoreName) %>Feature } from './<%= dasherize(singularizedName) %>.feature';
-import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';<% if (modelFolderLocation) { %>
+import { I<%= classify(name) %>, <%= classify(name) %>Properties } from '<%= modelFolderLocation %>';<% } %>
 import { environment } from '@env';
 
 @Injectable()

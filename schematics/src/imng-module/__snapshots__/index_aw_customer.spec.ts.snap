@@ -167,9 +167,9 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { CustomerCrudFacade } from './crud.facade';
 
-@Component({ 
+@Component({
   template: '',
-  standalone: false, 
+  standalone: false,
 })
 export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<CustomerCrudFacade>
   implements OnInit {
@@ -308,10 +308,10 @@ describe('CustomerCrudFacade', () => {
 exports[`imng-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
+
 import { customersFeature, customerActionTypes } from '../+state';
-import { map } from 'rxjs';
 
 @Injectable()
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
@@ -319,13 +319,9 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
 
   loading$ = this.store.select(customersFeature.selectLoading);
   currentEntity$ = this.store.select(customersFeature.selectCurrentCustomer);
-  currentModalState$ = this.store.select(customersFeature.selectCurrentModalState);
-  isEditActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.EDIT),
-  );
-  isNewActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.ADD),
-  );
+  currentModalState$ = this.store.select(customersFeature.selectCurrentCustomerModalState);
+  isEditActive$ = isModalState(this, ModalStates.EDIT);
+  isNewActive$ = isModalState(this, ModalStates.ADD);
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
   public setCurrentEntity(item: ICustomer, modalState: string): void {
@@ -586,7 +582,7 @@ exports[`imng-module html file should work 1`] = `
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item [svgIcon]="icons.menuIcon">
+        <kendo-menu-item [svgIcon]="icons.menu">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -595,7 +591,7 @@ exports[`imng-module html file should work 1`] = `
                 (click)="editItem(dataItem)"
                 placement="left"
                 tooltip="Edit">
-                <span class="k-icon k-i-edit"></span>
+                <kendo-svgicon [icon]="icons.menu" size="xlarge"></kendo-svgicon>
                 Edit
               </button>
             </ng-template>
@@ -608,7 +604,7 @@ exports[`imng-module html file should work 1`] = `
                 (click)="deleteItem(dataItem)"
                 placement="left"
                 tooltip="Delete">
-                <span class="k-icon k-i-delete"></span>
+                <kendo-svgicon [icon]="icons.trash" size="xlarge"></kendo-svgicon>
                 Delete
               </button>
             </ng-template>
@@ -757,9 +753,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import { IconsModule } from '@progress/kendo-angular-icons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { MenusModule } from "@progress/kendo-angular-menu";
+import { MenusModule } from '@progress/kendo-angular-menu';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -779,6 +776,7 @@ import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, Custom
     GridModule,
     ExcelModule,
     PDFModule,
+    IconsModule,
     DialogModule,
     DropDownsModule,
     MenusModule,

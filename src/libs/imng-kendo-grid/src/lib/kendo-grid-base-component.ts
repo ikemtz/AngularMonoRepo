@@ -1,7 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { toLocalTimeStamp, getRelatedValue } from 'imng-nrsrx-client-utils';
-import { menuIcon } from '@progress/kendo-svg-icons';
+import {
+  cancelIcon,
+  checkIcon,
+  editToolsIcon,
+  menuIcon,
+  trashIcon,
+} from '@progress/kendo-svg-icons';
 import {
   EnumProperties,
   getEnum,
@@ -10,8 +16,8 @@ import {
 } from 'openapi-ts-generator/enums';
 
 @Component({
-    template: '',
-    standalone: false
+  template: '',
+  standalone: false,
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export abstract class KendoGridBaseComponent<ENTITY>
@@ -21,7 +27,11 @@ export abstract class KendoGridBaseComponent<ENTITY>
   public readonly EnumProperties = EnumProperties;
   public readonly getRelatedValue = getRelatedValue;
   public icons = {
-    menuIcon: menuIcon,
+    check: checkIcon,
+    cancel: cancelIcon,
+    edit: editToolsIcon,
+    menu: menuIcon,
+    trash: trashIcon,
   };
 
   public getExportFileName(exportName: string): string {

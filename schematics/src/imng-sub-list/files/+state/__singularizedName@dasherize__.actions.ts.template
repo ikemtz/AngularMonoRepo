@@ -1,5 +1,7 @@
 import { ODataResult, ODataState } from 'imng-kendo-odata';
-import { createPayloadAction } from 'imng-ngrx-utils';
+import { createPayloadAction } from 'imng-ngrx-utils';<% if (modelFolderLocation) { %>
+import { I<%= classify(name) %> } from '<%= modelFolderLocation %>';<% } %>
+
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 export const load<%= classify(pluralizedName) %>Request = createPayloadAction<{ <%= camelize(parentName) %>Id: string, odataState: ODataState; }>(
     '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Request');

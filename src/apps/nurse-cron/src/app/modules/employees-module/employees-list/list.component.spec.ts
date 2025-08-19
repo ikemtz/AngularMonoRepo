@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { provideOidcMockFacade } from 'imng-oidc-client/testing';
+import { ModalStates } from 'imng-kendo-data-entry';
 
 import { EmployeeListComponent } from './list.component';
 import { EmployeeListFacade } from './list.facade';
@@ -61,14 +62,14 @@ describe('EmployeeListComponent', () => {
   test('it should handle AddItem', () => {
     component.addItem();
     expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({});
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({}, ModalStates.ADD);
   });
 
   test('it should handle EditItem', () => {
     const item = createTestEmployee();
     component.editItem(item);
     expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item, ModalStates.EDIT);
   });
 
   test('it should handle DeleteItem', () => {

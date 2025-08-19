@@ -9,7 +9,9 @@ import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
-import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
+import * as <%= camelize(singularizedName) %>ActionTypes from '../+state/<%= dasherize(singularizedName) %>.actions';
+import { <%= classify(singularizedName) %>ListFacade } from './list.facade';<% if (modelFolderLocation) { %>
+import { createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 import { environment } from '@env';
 
 describe('<%= classify(singularizedName) %>ListFacade', () => {

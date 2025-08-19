@@ -21,6 +21,7 @@ exports[`imng-crud generation works 2`] = `
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { environment } from '@env';
 
+
 @Injectable({
   providedIn: 'root',
 })

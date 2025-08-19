@@ -1,35 +1,35 @@
 <imng-data-entry-dialog id="dataEntryEmployees" name="dataEntryEmployees" [width]="700" [height]="550" [parentComponent]="this" autoFocusedElement="#last_name">
-  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="false" class="row needs-validation">
+  <form id="imng-form" novalidate [formGroup]="addEditForm" autocomplete="off" class="row needs-validation">
     <div class="col-md-6">
-      <label for="id" class="control-label">Id:</label>
+      <label for="id" class="control-label">Id: <span class="text-danger">*</span></label>
       <input id="id" type="text" class="form-control" [formControlName]="props.ID" />
       @if ((submitted$ | async) && formControlErrors(props.ID)) {
         <div class="invalid-feedback d-block">
-          @if (formControlErrors(props.ID)?.[RequiredError]) {
-            <div>Employee id is required</div>
-          }
+        @if (formControlErrors(props.ID)?.[RequiredError]) {
+          <div>Employee id is required</div>
+        }
         </div>
       }
     </div>
     <div class="col-md-6">
-      <label for="last_name" class="control-label">Last Name:</label>
+      <label for="last_name" class="control-label">Last Name: <span class="text-danger">*</span></label>
       <input id="last_name" type="text" class="form-control" [formControlName]="props.LAST_NAME" />
       @if ((submitted$ | async) && formControlErrors(props.LAST_NAME)) {
         <div class="invalid-feedback d-block">
-          @if (formControlErrors(props.LAST_NAME)?.[RequiredError]) {
-            <div>Employee last name is required</div>
-          }
+        @if (formControlErrors(props.LAST_NAME)?.[RequiredError]) {
+          <div>Employee last name is required</div>
+        }
         </div>
       }
     </div>
     <div class="col-md-6">
-      <label for="first_name" class="control-label">First Name:</label>
+      <label for="first_name" class="control-label">First Name: <span class="text-danger">*</span></label>
       <input id="first_name" type="text" class="form-control" [formControlName]="props.FIRST_NAME" />
       @if ((submitted$ | async) && formControlErrors(props.FIRST_NAME)) {
         <div class="invalid-feedback d-block">
-          @if (formControlErrors(props.FIRST_NAME)?.[RequiredError]) {
-            <div>Employee first name is required</div>
-          }
+        @if (formControlErrors(props.FIRST_NAME)?.[RequiredError]) {
+          <div>Employee first name is required</div>
+        }
         </div>
       }
     </div>
@@ -50,13 +50,13 @@
       <input id="photo" type="text" class="form-control" [formControlName]="props.PHOTO" />
     </div>
     <div class="col-md-6">
-      <label for="email" class="control-label">Email:</label>
+      <label for="email" class="control-label">Email: <span class="text-danger">*</span></label>
       <input id="email" type="text" class="form-control" [formControlName]="props.EMAIL" />
       @if ((submitted$ | async) && formControlErrors(props.EMAIL)) {
         <div class="invalid-feedback d-block">
-          @if (formControlErrors(props.EMAIL)?.[RequiredError]) {
-            <div>Employee email is required</div>
-          }
+        @if (formControlErrors(props.EMAIL)?.[RequiredError]) {
+          <div>Employee email is required</div>
+        }
         </div>
       }
     </div>
@@ -81,18 +81,17 @@
       <input id="zip" type="text" class="form-control" [formControlName]="props.ZIP" />
     </div>
     <div class="col-md-6">
-      <label for="is_enabled" class="control-label me-4 mt-4">Is Enabled:</label>
+      <label for="is_enabled" class="control-label me-4 mt-4">Is Enabled: <span class="text-danger">*</span></label>
       <input id="is_enabled" type="checkbox" [formControlName]="props.IS_ENABLED" />
     </div>
     <div class="col-md-6">
-      <label for="hire_date" class="control-label">Hire Date:</label>
-      <kendo-datepicker id="hire_date" class="form-control" [formControlName]="props.HIRE_DATE">
-      </kendo-datepicker>
+      <label for="hire_date" class="control-label">Hire Date: <span class="text-danger">*</span></label>
+      <kendo-datepicker id="hire_date" class="form-control" [formControlName]="props.HIRE_DATE" />
       @if ((submitted$ | async) && formControlErrors(props.HIRE_DATE)) {
         <div class="invalid-feedback d-block">
-          @if (formControlErrors(props.HIRE_DATE)?.[RequiredError]) {
-            <div>Employee hire date is required</div>
-          }
+        @if (formControlErrors(props.HIRE_DATE)?.[RequiredError]) {
+          <div>Employee hire date is required</div>
+        }
         </div>
       }
     </div>
@@ -105,35 +104,35 @@
       <input id="total_hours_of_service" type="number" class="form-control" [formControlName]="props.TOTAL_HOURS_OF_SERVICE" />
     </div>
     <div class="col-md-6">
-      <label for="certification_count" class="control-label">Certification Count:</label>
+      <label for="certification_count" class="control-label">Certification Count: <span class="text-danger">*</span></label>
       <input id="certification_count" type="number" class="form-control" [formControlName]="props.CERTIFICATION_COUNT" />
       @if ((submitted$ | async) && formControlErrors(props.CERTIFICATION_COUNT)) {
         <div class="invalid-feedback d-block">
-          @if (formControlErrors(props.CERTIFICATION_COUNT)?.[RequiredError]) {
-            <div>Employee certification count is required</div>
-          }
+        @if (formControlErrors(props.CERTIFICATION_COUNT)?.[RequiredError]) {
+          <div>Employee certification count is required</div>
+        }
         </div>
       }
     </div>
     <div class="col-md-6">
-      <label for="competency_count" class="control-label">Competency Count:</label>
+      <label for="competency_count" class="control-label">Competency Count: <span class="text-danger">*</span></label>
       <input id="competency_count" type="number" class="form-control" [formControlName]="props.COMPETENCY_COUNT" />
       @if ((submitted$ | async) && formControlErrors(props.COMPETENCY_COUNT)) {
         <div class="invalid-feedback d-block">
-          @if (formControlErrors(props.COMPETENCY_COUNT)?.[RequiredError]) {
-            <div>Employee competency count is required</div>
-          }
+        @if (formControlErrors(props.COMPETENCY_COUNT)?.[RequiredError]) {
+          <div>Employee competency count is required</div>
+        }
         </div>
       }
     </div>
     <div class="col-md-6">
-      <label for="health_item_count" class="control-label">Health Item Count:</label>
+      <label for="health_item_count" class="control-label">Health Item Count: <span class="text-danger">*</span></label>
       <input id="health_item_count" type="number" class="form-control" [formControlName]="props.HEALTH_ITEM_COUNT" />
       @if ((submitted$ | async) && formControlErrors(props.HEALTH_ITEM_COUNT)) {
         <div class="invalid-feedback d-block">
-          @if (formControlErrors(props.HEALTH_ITEM_COUNT)?.[RequiredError]) {
-            <div>Employee health item count is required</div>
-          }
+        @if (formControlErrors(props.HEALTH_ITEM_COUNT)?.[RequiredError]) {
+          <div>Employee health item count is required</div>
+        }
         </div>
       }
     </div>

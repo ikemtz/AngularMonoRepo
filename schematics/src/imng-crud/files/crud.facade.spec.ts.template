@@ -15,7 +15,8 @@ import { of } from 'rxjs';
 
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';
-import { <%= classify(name) %>ApiService } from './api.service';
+import { <%= classify(name) %>ApiService } from './api.service';<% if (modelFolderLocation) { %>
+import { createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 import { environment } from '@env';
 
 describe('<%= classify(name) %>CrudFacade', () => {

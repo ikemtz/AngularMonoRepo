@@ -4,6 +4,7 @@ exports[`imng-sub-list actions should work 1`] = `
 "import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createPayloadAction } from 'imng-ngrx-utils';
 
+
 export const loadSalesAgentsRequest = createPayloadAction<{ customerId: string, odataState: ODataState; }>(
     '[SalesAgents] Load SalesAgents Request');
 export const loadSalesAgentsSuccess = createPayloadAction<{ customerId: string, odataResult: ODataResult<ISalesAgent>; }>(
@@ -19,7 +20,7 @@ export const deleteSalesAgentRequest = createPayloadAction<{ customerId: string;
 `;
 
 exports[`imng-sub-list api.service should work 1`] = `
-"import { Injectable } from '@angular/core';
+"import { Injectable, inject } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env';
@@ -29,15 +30,15 @@ import { environment } from '@env';
 })
 export class SalesAgentApiService extends NrsrxBaseApiClientService<ISalesAgent> {
   public override url = environment.webApiEndpoints.salesAgents;
-  constructor(http: HttpClient) {
-    super(http);
+  constructor() {
+    super(inject(HttpClient));
   }
 }
 "
 `;
 
 exports[`imng-sub-list effects should work 1`] = `
-"import { Injectable } from '@angular/core';
+"import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ODataService } from 'imng-kendo-odata';
@@ -52,12 +53,12 @@ import { environment } from '@env';
 
 @Injectable()
 export class SalesAgentEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly apiService : SalesAgentApiService,
-  ) {}
+
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataService);
+  private readonly store = inject(Store);
+  private readonly apiService = inject(SalesAgentApiService);
+
 
   loadSalesAgentsEffect$ = createEffect(() => {
     return this.actions$.pipe(
@@ -109,6 +110,7 @@ import { salesAgentSelectors } from '../+state/sales-agent.selectors';
 @Injectable()
 export class SalesAgentListFacade implements IKendoODataGridFacade<ISalesAgent>, IDataDeleteFacade<ISalesAgent> {
   private _parentGridId = '';
+  private readonly store = inject(Store);
   public parentGrid$ = new BehaviorSubject<string>('');
   public get parentGridId() {
     return this._parentGridId;
@@ -128,8 +130,6 @@ export class SalesAgentListFacade implements IKendoODataGridFacade<ISalesAgent>,
   gridODataState$: Observable<ODataState> = this.parentGrid$.pipe(
     switchMap(x =>
       this.store.select(salesAgentSelectors.selectODataState$(x))));
-
-  constructor(private readonly store: Store) {}
 
   public loadEntities(odataState: ODataState): void {
     odataState = applyFilter({ ...odataState },
@@ -303,7 +303,7 @@ describe('SalesAgentListFacade', () => {
 `;
 
 exports[`imng-sub-list list component should work 1`] = `
-"import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+"import { Component, ChangeDetectionStrategy, Input, inject } from '@angular/core';
 import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { SalesAgentListFacade } from './list.facade';
@@ -315,13 +315,14 @@ import { salesAgentGridState } from './list.grid-state';
   styleUrls: ['./list.component.scss'],
   providers: [SalesAgentListFacade],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SalesAgentListComponent extends KendoODataBasedComponent<ISalesAgent, SalesAgentListFacade> {
   public readonly props = SalesAgentProperties;
   public currentItem: ISalesAgent | undefined;
 
-  constructor(facade: SalesAgentListFacade) {
-    super(facade, salesAgentGridState);
+  constructor() {
+    super(inject(SalesAgentListFacade), salesAgentGridState);
   }
 
   @Input()
@@ -410,17 +411,17 @@ exports[`imng-sub-list list html should work 1`] = `
     </div>
   </ng-template>
 
-  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="numeric" [hidden]="false>
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="numeric" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Id</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text" [hidden]="false>
+  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Name</span>
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column [field]="props.LOGIN_ID" [width]="100" title="Login Id" filter="text" [hidden]="false>
+  <kendo-grid-column [field]="props.LOGIN_ID" [width]="100" title="Login Id" filter="text" [hidden]="false">
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Login Id</span>
     </ng-template>

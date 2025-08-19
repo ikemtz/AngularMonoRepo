@@ -8,10 +8,11 @@ import { ODataState, createODataPayload, createODataResult, ODataService } from 
 import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
-import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects, employeeActionTypes } from '../+state';
+import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects } from '../+state';
+import * as employeeActionTypes from '../+state/employee.actions';
 import { EmployeeListFacade } from './list.facade';
-import { environment } from '@env';
 import { createTestEmployee } from '../../../models/employees-api';
+import { environment } from '@env';
 
 describe('EmployeeListFacade', () => {
   let facade: EmployeeListFacade;
@@ -19,7 +20,7 @@ describe('EmployeeListFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -33,7 +34,7 @@ describe('EmployeeListFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestEmployee()]))) } },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -42,7 +43,7 @@ describe('EmployeeListFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.inject(Store);
