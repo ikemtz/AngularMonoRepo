@@ -1,4 +1,5 @@
-import { ODataState } from 'imng-kendo-odata';
+import { ODataState } from 'imng-kendo-odata';<% if (modelFolderLocation) { %>
+import { <%= classify(singularizedName) %>Properties, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %><%= classify(swaggerProperty.propertyTypeName) %>Properties<% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
 
 export const <%= camelize(singularizedName) %>GridState: ODataState = {
   take: 20,

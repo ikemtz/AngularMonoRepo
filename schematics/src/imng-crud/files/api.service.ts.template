@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
 import { environment } from '@env';
+<% if (modelFolderLocation) { %>
+import { I<%= classify(name) %>, <%= classify(name) %>Properties } from '<%= modelFolderLocation %>';<% } %>
 
 @Injectable({
   providedIn: 'root',

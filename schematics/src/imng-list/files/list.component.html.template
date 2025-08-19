@@ -13,7 +13,7 @@
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item [svgIcon]="icons.menuIcon">
+        <kendo-menu-item [svgIcon]="icons.menu">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -22,7 +22,7 @@
                 (click)="editItem(dataItem)"
                 placement="left"
                 tooltip="Edit">
-                <span class="k-icon k-i-edit"></span>
+                <kendo-svgicon [icon]="icons.menu" size="xlarge"></kendo-svgicon>
                 Edit
               </button>
             </ng-template>
@@ -35,7 +35,7 @@
                 (click)="deleteItem(dataItem)"
                 placement="left"
                 tooltip="Delete">
-                <span class="k-icon k-i-delete"></span>
+                <kendo-svgicon [icon]="icons.trash" size="xlarge"></kendo-svgicon>
                 Delete
               </button>
             </ng-template>
@@ -51,11 +51,11 @@
 <%} else if (swaggerProperty.type === 'boolean') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]">
-        <span class="text-success font-weight-bolder h2" tooltip="<%= swaggerProperty.startCaseName %>">
-          <span class="k-icon k-i-check-circle start-50" />
-        </span>
-      </div>
+     @if (dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]) {
+        <kendo-svgicon class="text-success font-weight-bolder h2" [icon]="icons.check" size="xlarge"></kendo-svgicon>
+      } @else {
+        <kendo-svgicon class="text-danger font-weight-bolder h2" [icon]="icons.cancel" size="xlarge"></kendo-svgicon>
+      }
     </ng-template>
 <%} else if (swaggerProperty.format === 'uuid') { %>
   <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">

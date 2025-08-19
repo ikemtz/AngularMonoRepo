@@ -4,6 +4,7 @@ exports[`imng-module actions should work 1`] = `
 "import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
+import { IProduct, IProductModel, IProductCategory } from './test/models';
 
 export const loadProductsRequest = createPayloadAction<ODataState>(
     '[Products] Load Products Request');
@@ -44,6 +45,7 @@ import { of } from 'rxjs';
 
 import { ProductAddComponent } from './add.component';
 import { ProductCrudFacade } from './crud.facade';
+import { IProduct, createTestProduct } from './test/models';
 
 export function createMockProductFacade() {
   return {
@@ -187,10 +189,11 @@ import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { ProductCrudFacade } from './crud.facade';
+import { ProductProperties, IProductForm, ProductFormGroupFac, IProductModel, IProductCategory } from './test/models';
 
-@Component({ 
+@Component({
   template: '',
-  standalone: false, 
+  standalone: false,
 })
 export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<ProductCrudFacade>
   implements OnInit {
@@ -270,6 +273,7 @@ import { of } from 'rxjs';
 import { productsFeature, ProductListEffects, ProductCrudEffects } from '../+state';
 import { ProductCrudFacade } from './crud.facade';
 import { ProductApiService } from './api.service';
+import { createTestProduct } from './test/models';
 import { environment } from '@env';
 
 describe('ProductCrudFacade', () => {
@@ -352,10 +356,11 @@ describe('ProductCrudFacade', () => {
 exports[`imng-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
+
 import { productsFeature, productActionTypes } from '../+state';
-import { map } from 'rxjs';
+import { IProduct, IProductModel, IProductCategory } from './test/models';
 
 @Injectable()
 export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
@@ -363,13 +368,9 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
 
   loading$ = this.store.select(productsFeature.selectLoading);
   currentEntity$ = this.store.select(productsFeature.selectCurrentProduct);
-  currentModalState$ = this.store.select(productsFeature.selectCurrentModalState);
-  isEditActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.EDIT),
-  );
-  isNewActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.ADD),
-  );
+  currentModalState$ = this.store.select(productsFeature.selectCurrentProductModalState);
+  isEditActive$ = isModalState(this, ModalStates.EDIT);
+  isNewActive$ = isModalState(this, ModalStates.ADD);
   productModels$ = this.store.select(productsFeature.selectProductModels);
   productCategories$ = this.store.select(productsFeature.selectProductCategories);
 
@@ -578,6 +579,7 @@ import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from '
 import { createMockProductFacade } from './add.component.spec';
 import { ProductEditComponent } from './edit.component';
 import { ProductCrudFacade } from './crud.facade';
+import { IProduct, createTestProduct } from './test/models';
 
 describe('ProductEditComponent', () => {
   let component: ProductEditComponent;
@@ -713,7 +715,7 @@ exports[`imng-module html file should work 1`] = `
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item [svgIcon]="icons.menuIcon">
+        <kendo-menu-item [svgIcon]="icons.menu">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -722,7 +724,7 @@ exports[`imng-module html file should work 1`] = `
                 (click)="editItem(dataItem)"
                 placement="left"
                 tooltip="Edit">
-                <span class="k-icon k-i-edit"></span>
+                <kendo-svgicon [icon]="icons.menu" size="xlarge"></kendo-svgicon>
                 Edit
               </button>
             </ng-template>
@@ -735,7 +737,7 @@ exports[`imng-module html file should work 1`] = `
                 (click)="deleteItem(dataItem)"
                 placement="left"
                 tooltip="Delete">
-                <span class="k-icon k-i-delete"></span>
+                <kendo-svgicon [icon]="icons.trash" size="xlarge"></kendo-svgicon>
                 Delete
               </button>
             </ng-template>
@@ -898,6 +900,7 @@ import { ModalStates } from 'imng-kendo-data-entry';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
 import { productGridState } from './list.grid-state';
+import { IProduct, ProductProperties } from './test/models';
 
 @Component({
   selector: 'aw-product-list',
@@ -943,10 +946,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import { IconsModule } from '@progress/kendo-angular-icons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { MenusModule } from "@progress/kendo-angular-menu";
+import { MenusModule } from '@progress/kendo-angular-menu';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -966,6 +970,7 @@ import { ProductAddComponent, ProductEditComponent, ProductApiService, ProductCr
     GridModule,
     ExcelModule,
     PDFModule,
+    IconsModule,
     DialogModule,
     DateInputsModule,
     DropDownsModule,

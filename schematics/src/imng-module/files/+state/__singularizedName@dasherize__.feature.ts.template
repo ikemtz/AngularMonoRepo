@@ -2,19 +2,21 @@ import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
 import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 
-import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';<% if (modelFolderLocation) { %>
+import { I<%= classify(name) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+
 export const <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY = '<%= camelize(pluralizedName) %>';
 
 export interface State extends KendoODataGridState<I<%= classify(singularizedName) %>> {
-  current<%= classify(singularizedName) %>: I<%= classify(singularizedName) %> | undefined;<% if(openApiJsonUrl || openApiJsonFileName){ swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
-  currentModalState: string | undefined;
+  current<%= classify(singularizedName) %>: I<%= classify(singularizedName) %> | undefined;
+  current<%= classify(singularizedName) %>ModalState: string | undefined;<% if(openApiJsonUrl || openApiJsonFileName){ swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   <%= camelize(swaggerProperty.pluralizedName) %>: I<%= classify(swaggerProperty.propertyTypeName) %>[];<% })} %>
 }
 
 export const initialState: State = {
   ...createKendoODataGridInitialState(),
   current<%= classify(singularizedName) %>: undefined,
-  currentModalState: undefined,<% if(openApiJsonUrl || openApiJsonFileName){  swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  current<%= classify(singularizedName) %>ModalState: undefined,<% if(openApiJsonUrl || openApiJsonFileName){  swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   <%= camelize(swaggerProperty.pluralizedName) %>: [],<% })} %>
   loading: true,
 };
@@ -43,13 +45,13 @@ export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
     on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>,
       (state, { payload }) : State =>
         ({ ...state,
-        currentModalState: payload.modalState,
+        current<%= classify(singularizedName) %>ModalState: payload.modalState,
         current<%= classify(singularizedName) %>: payload.entity })),
     on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>,
       (state) : State => ({
         ...state, 
         current<%= classify(singularizedName) %>: undefined,
-        currentModalState: undefined,
+        current<%= classify(singularizedName) %>ModalState: undefined,
       })),
     on(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request,
       <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request,

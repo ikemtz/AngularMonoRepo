@@ -16,8 +16,8 @@ import { of } from 'rxjs';
 import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects } from '../+state';
 import { EmployeeCrudFacade } from './crud.facade';
 import { EmployeeApiService } from './api.service';
-import { environment } from '@env';
 import { createTestEmployee } from '../../../models/employees-api';
+import { environment } from '@env';
 
 describe('EmployeeCrudFacade', () => {
   let facade: EmployeeCrudFacade;
@@ -25,7 +25,7 @@ describe('EmployeeCrudFacade', () => {
   let httpClient: HttpClient;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
@@ -40,7 +40,7 @@ describe('EmployeeCrudFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestEmployee()]))) } },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -49,7 +49,7 @@ describe('EmployeeCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

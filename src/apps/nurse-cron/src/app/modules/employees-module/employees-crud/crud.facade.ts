@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade } from 'imng-kendo-data-entry';
-import { employeesFeature, employeeSelectors, employeeActionTypes } from '../+state';
-import { IEmployee } from '../../../models/employees-api';
+import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
+
+import { employeesFeature, employeeActionTypes } from '../+state';
+import { IEmployee,  } from '../../../models/employees-api';
 
 @Injectable()
 export class EmployeeCrudFacade implements IDataEntryFacade<IEmployee> {
@@ -10,11 +11,17 @@ export class EmployeeCrudFacade implements IDataEntryFacade<IEmployee> {
 
   loading$ = this.store.select(employeesFeature.selectLoading);
   currentEntity$ = this.store.select(employeesFeature.selectCurrentEmployee);
-  isEditActive$ = this.store.select(employeeSelectors.selectIsEditEmployeeActive);
-  isNewActive$ = this.store.select(employeeSelectors.selectIsNewEmployeeActive);
+  currentModalState$ = this.store.select(employeesFeature.selectCurrentEmployeeModalState);
+  isEditActive$ = isModalState(this, ModalStates.EDIT);
+  isNewActive$ = isModalState(this, ModalStates.ADD);
 
-  public setCurrentEntity(item: IEmployee): void {
-    this.store.dispatch(employeeActionTypes.setCurrentEmployee(item));
+  public setCurrentEntity(item: IEmployee, modalState: string): void {
+    this.store.dispatch(
+      employeeActionTypes.setCurrentEmployee({
+        modalState,
+        entity: item,
+      }),
+    );
   }
 
   public clearCurrentEntity(): void {

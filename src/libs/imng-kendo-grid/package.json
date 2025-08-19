@@ -12,6 +12,7 @@
     "@angular/common": ">= 14",
     "@angular/core": ">= 14",
     "@progress/kendo-angular-grid": ">= 6",
+    "@progress/kendo-svg-icons": ">= 1",
     "imng-kendo-odata": "*",
     "rxjs": "*"
   },

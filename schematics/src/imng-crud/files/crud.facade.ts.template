@@ -1,9 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
+import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
 import { ODataState } from 'imng-kendo-odata';<% } %>
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from '../+state';
-import { map } from 'rxjs';
+
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from '../+state';<% if (modelFolderLocation) { %>
+import { I<%= classify(singularizedName) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.name) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
 
 @Injectable()
 export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= classify(name) %>> {
@@ -11,13 +12,9 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
 
   loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
   currentEntity$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>);
-  currentModalState$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrentModalState);
-  isEditActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.EDIT),
-  );
-  isNewActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.ADD),
-  );<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  currentModalState$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(singularizedName) %>ModalState);
+  isEditActive$ = isModalState(this, ModalStates.EDIT);
+  isNewActive$ = isModalState(this, ModalStates.ADD);<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   <%= camelize(swaggerProperty.pluralizedName) %>$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.select<%= classify(swaggerProperty.pluralizedName) %>);<% }); %>
 
   public setCurrentEntity(item: I<%= classify(name) %>, modalState: string): void {

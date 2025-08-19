@@ -3,29 +3,47 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import {
+  GridModule,
+  ExcelModule,
+  PDFModule,
+} from '@progress/kendo-angular-grid';
+import { IconsModule } from '@progress/kendo-angular-icons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-import { MenusModule } from "@progress/kendo-angular-menu";
+import { MenusModule } from '@progress/kendo-angular-menu';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 import { EmployeesRoutingModule } from './employees.routing';
-import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects } from './+state';
+import {
+  employeesFeature,
+  EmployeeListEffects,
+  EmployeeCrudEffects,
+} from './+state';
 
 import { EmployeeListComponent, EmployeeListFacade } from './employees-list';
-import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, EmployeeCrudFacade  } from './employees-crud';
-
+import {
+  EmployeeAddComponent,
+  EmployeeEditComponent,
+  EmployeeApiService,
+  EmployeeCrudFacade,
+} from './employees-crud';
 
 @NgModule({
-  declarations: [EmployeeListComponent, EmployeeAddComponent, EmployeeEditComponent ],
+  declarations: [
+    EmployeeListComponent,
+    EmployeeAddComponent,
+    EmployeeEditComponent,
+  ],
   imports: [
     CommonModule,
     GridModule,
     ExcelModule,
     PDFModule,
+    IconsModule,
     DialogModule,
     DateInputsModule,
     MenusModule,
@@ -38,10 +56,6 @@ import { EmployeeAddComponent, EmployeeEditComponent, EmployeeApiService, Employ
     StoreModule.forFeature(employeesFeature),
     EffectsModule.forFeature([EmployeeListEffects, EmployeeCrudEffects]),
   ],
-  providers: [
-    EmployeeListFacade,
-    EmployeeCrudFacade,
-    EmployeeApiService, 
-  ],
+  providers: [EmployeeListFacade, EmployeeCrudFacade, EmployeeApiService],
 })
-export class EmployeesModule { }
+export class EmployeesModule {}
