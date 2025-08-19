@@ -1,4 +1,4 @@
-import { map, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface IDataEntryFacade<Entity> extends IBaseDataEntryFacade {
   currentEntity$: Observable<Entity | undefined>;
@@ -15,9 +15,4 @@ export interface IDataEntryFacade<Entity> extends IBaseDataEntryFacade {
 export interface IBaseDataEntryFacade {
   loading$: Observable<boolean>;
   clearCurrentEntity(): void;
-}
-export function isModalState(facade: IDataEntryFacade<unknown>, expectedModalState: string): Observable<boolean> {
-  return facade.currentModalState$?.pipe(
-    map((currentModalState) => currentModalState === expectedModalState)
-  ) || of(false);
 }

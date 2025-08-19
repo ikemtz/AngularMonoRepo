@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { ODataState } from './odata-state';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { createODataPayload } from './odata-payload';
 
 describe('ODataService', () => {
   let service: ODataService;
@@ -12,7 +13,12 @@ describe('ODataService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: HttpClient, useValue: {} }],
+      providers: [
+        {
+          provide: HttpClient,
+          useValue: { get: jest.fn(() => of(createODataPayload([]))) },
+        },
+      ],
     });
     service = TestBed.inject(ODataService);
     httpClient = TestBed.inject(HttpClient);
@@ -833,6 +839,48 @@ describe('ODataService', () => {
       `//idunno.com?$filter=id eq 'xyz'&$expand=childTable2,childTable1($select=id,name)&$select=id,name`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher.data[0]);
+  });
+
+  it('should support additionalParams', async () => {
+    const gridState: ODataState = {
+      expanders: [
+        { table: 'childTable2' },
+        { table: 'childTable1', selectors: ['id', 'name'] },
+      ],
+      selectors: ['id', 'name'],
+      inFilters: [
+        {
+          field: 'field1',
+          values: [
+            'x',
+            'y',
+            '1fd57024-3299-4523-b910-725fab258015',
+            '2b837a73-1d01-4414-ae92-c047a0ff0fe7',
+          ],
+        },
+      ],
+      childFilters: {
+        logic: 'or',
+        filters: [
+          {
+            field: 'name',
+            value: '😎🐱‍👤',
+            linqOperation: 'any',
+            childTableNavigationProperty: 'childTable1',
+            operator: 'eq',
+          },
+        ],
+      },
+    };
+    await readFirst(
+      service.fetch('//idunno.com', gridState, {
+        additionalParams: { foo: 'bar', baz: 'qux' },
+      }),
+    );
+    expect(httpClient.get).toHaveBeenCalledTimes(1);
+    expect(httpClient.get).toHaveBeenCalledWith(
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) and childTable1/any(o: o/name eq '%F0%9F%98%8E%F0%9F%90%B1%E2%80%8D%F0%9F%91%A4')&$count=true&foo=bar&baz=qux`,
+    );
   });
 });
 
