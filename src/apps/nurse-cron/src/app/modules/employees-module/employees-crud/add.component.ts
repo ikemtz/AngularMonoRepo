@@ -1,23 +1,17 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, inject } from '@angular/core';
-import { EmployeeCrudFacade } from './crud.facade';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { EmployeeBaseEntryComponent } from './base-entry.component';
 
 @Component({
-    selector: 'nrcrn-employee-add',
-    templateUrl: './add-edit.component.html',
-    styleUrls: ['./add-edit.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'nrcrn-employee-add',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class EmployeeAddComponent extends EmployeeBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Employee';
   public active$ = this.facade.isNewActive$;
 
-  constructor() {
-    const facade = inject(EmployeeCrudFacade);
-
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     this.addEditForm.patchValue({});

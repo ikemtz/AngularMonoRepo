@@ -1,38 +1,41 @@
 {
-    "$schema": "http://json-schema.org/schema",
-    "$id": "imng-list",
-    "type": "object",
-    "properties": {
-      "name": {
-        "type": "string",
-        "description": "Entity name",
-        "$default": {
-          "$source": "argv",
-          "index": 0
-        }
-      },
-      "storeName": {
-        "type": "string",
-        "description": "NGRX Feature Store name"
-      },
-      "path": {
-        "type": "string",
-        "description": "Directory where you would like the output to go"
-      },
-      "openApiJsonUrl": {
-        "type": "string",
-        "description": "URL of swagger page"
-      },
-      "openApiJsonFileName": {
-        "type": "string",
-        "description": "Relative file name and path"
-      },
-      "appPrefix": {
-        "type": "string",
-        "default": "imng",
-        "description": "Application selector prefix for components and directives."
+  "$schema": "http://json-schema.org/schema",
+  "$id": "imng-list",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Entity name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
       }
     },
-    "required": ["name", "path"]
-  }
-  
+    "storeName": {
+      "type": "string",
+      "description": "NGRX Feature Store name"
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory where you would like the output to go"
+    },
+    "openApiJsonUrl": {
+      "type": "string",
+      "description": "URL of OpenApi json document"
+    },
+    "openApiJsonFileName": {
+      "type": "string",
+      "description": "Relative file name and path of OpenApi json document"
+    },
+    "appPrefix": {
+      "type": "string",
+      "default": "imng",
+      "description": "Application selector prefix for components and directives."
+    },
+    "modelFolderLocation": {
+      "type": "string",
+      "description": "Location of the model folder (relative to the generated component root)"
+    }
+  },
+  "required": ["name", "path"]
+}

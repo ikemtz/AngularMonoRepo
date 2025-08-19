@@ -21,6 +21,7 @@ describe(`imng-module`, () => {
       path: `./test`,
       swaggerProperties: [],
       appPrefix: 'aw',
+      modelFolderLocation: './test/models'
     };
     tree = await runner.runSchematic(`imng-module`, options, Tree.empty());
   }, 30000);

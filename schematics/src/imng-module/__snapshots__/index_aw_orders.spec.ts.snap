@@ -215,9 +215,9 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { OrderCrudFacade } from './crud.facade';
 
-@Component({ 
+@Component({
   template: '',
-  standalone: false, 
+  standalone: false,
 })
 export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<OrderCrudFacade>
   implements OnInit {
@@ -441,10 +441,10 @@ describe('OrderCrudFacade', () => {
 exports[`imng-module AdventureWorks Orders crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates } from 'imng-kendo-data-entry';
+import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
+
 import { ordersFeature, orderActionTypes } from '../+state';
-import { map } from 'rxjs';
 
 @Injectable()
 export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
@@ -452,13 +452,9 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder> {
 
   loading$ = this.store.select(ordersFeature.selectLoading);
   currentEntity$ = this.store.select(ordersFeature.selectCurrentOrder);
-  currentModalState$ = this.store.select(ordersFeature.selectCurrentModalState);
-  isEditActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.EDIT),
-  );
-  isNewActive$ = this.currentModalState$.pipe(
-    map((modalState) => modalState === ModalStates.ADD),
-  );
+  currentModalState$ = this.store.select(ordersFeature.selectCurrentOrderModalState);
+  isEditActive$ = isModalState(this, ModalStates.EDIT);
+  isNewActive$ = isModalState(this, ModalStates.ADD);
   customers$ = this.store.select(ordersFeature.selectCustomers);
   shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
   billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
@@ -927,7 +923,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
   <kendo-grid-column [width]="75">
     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
       <kendo-menu title="Actions">
-        <kendo-menu-item [svgIcon]="icons.menuIcon">
+        <kendo-menu-item [svgIcon]="icons.menu">
           <kendo-menu-item>
             <ng-template kendoMenuItemLinkTemplate>
               <button
@@ -936,7 +932,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
                 (click)="editItem(dataItem)"
                 placement="left"
                 tooltip="Edit">
-                <span class="k-icon k-i-edit"></span>
+                <kendo-svgicon [icon]="icons.menu" size="xlarge"></kendo-svgicon>
                 Edit
               </button>
             </ng-template>
@@ -949,7 +945,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
                 (click)="deleteItem(dataItem)"
                 placement="left"
                 tooltip="Delete">
-                <span class="k-icon k-i-delete"></span>
+                <kendo-svgicon [icon]="icons.trash" size="xlarge"></kendo-svgicon>
                 Delete
               </button>
             </ng-template>
@@ -1020,11 +1016,11 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
   </kendo-grid-column>
   <kendo-grid-column [field]="props.IS_ONLINE_ORDER" [width]="100" title="Is Online Order" filter="boolean" [hidden]="false">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div *ngIf="dataItem[props.IS_ONLINE_ORDER]">
-        <span class="text-success font-weight-bolder h2" tooltip="Is Online Order">
-          <span class="k-icon k-i-check-circle start-50" />
-        </span>
-      </div>
+     @if (dataItem[props.IS_ONLINE_ORDER]) {
+        <kendo-svgicon class="text-success font-weight-bolder h2" [icon]="icons.check" size="xlarge"></kendo-svgicon>
+      } @else {
+        <kendo-svgicon class="text-danger font-weight-bolder h2" [icon]="icons.cancel" size="xlarge"></kendo-svgicon>
+      }
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6" title="Is Online Order">Is Online Order</span>
@@ -1244,10 +1240,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { GridModule, ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
+import { IconsModule } from '@progress/kendo-angular-icons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { MenusModule } from "@progress/kendo-angular-menu";
+import { MenusModule } from '@progress/kendo-angular-menu';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
@@ -1267,6 +1264,7 @@ import { OrderAddComponent, OrderEditComponent, OrderApiService, OrderCrudFacade
     GridModule,
     ExcelModule,
     PDFModule,
+    IconsModule,
     DialogModule,
     DateInputsModule,
     DropDownsModule,

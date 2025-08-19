@@ -26,7 +26,5 @@ export const employeeGridState: ODataState = {
     EmployeeProperties.COMPETENCY_COUNT,
     EmployeeProperties.HEALTH_ITEM_COUNT,
   ],
-  sort: [
-    { field: EmployeeProperties.LAST_NAME, dir: 'asc' },
-  ],
+  sort: [{ field: EmployeeProperties.LAST_NAME, dir: 'asc' }],
 };

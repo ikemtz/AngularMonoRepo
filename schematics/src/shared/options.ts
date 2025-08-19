@@ -16,6 +16,9 @@ export interface IOptions {
   /** Optional: File path of local OpenApi JSON document (If this is not provided, then you must specify openApiJsonUrl) */
   openApiJsonFileName?: string;
   /** Optional: This is the property that will used for initial sorting on list and auto focus on crud schematics */
+  modelFolderLocation?: string;
+  /** Optional: Location of model files relative to the module/component generated root */
+
   firstProperty?: PropertyInfo;
   /** Ignore: This is for internal schematic use only  */
   swaggerProperties: PropertyInfo[];

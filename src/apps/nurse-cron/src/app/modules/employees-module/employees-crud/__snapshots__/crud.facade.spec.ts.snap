@@ -1,9 +1,10 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`EmployeeCrudFacade used in NgModule clearCurrentEntity() should set currentEmployee to null 1`] = `
 {
   "employees": {
     "currentEmployee": undefined,
+    "currentEmployeeModalState": undefined,
     "error": undefined,
     "gridData": {
       "data": [],

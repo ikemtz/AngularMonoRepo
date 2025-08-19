@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createEffect, Actions, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ODataService } from 'imng-kendo-odata';
@@ -13,12 +13,12 @@ import { environment } from '@env';
 
 @Injectable()
 export class <%= classify(singularizedName) %>Effects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly odataService: ODataService,
-    private readonly store: Store,
-    private readonly apiService : <%= classify(singularizedName) %>ApiService,
-  ) {}
+
+  private readonly actions$ = inject(Actions);
+  private readonly odataService = inject(ODataService);
+  private readonly store = inject(Store);
+  private readonly apiService = inject(<%= classify(singularizedName) %>ApiService);
+
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
   load<%= classify(pluralizedName) %>Effect$ = createEffect(() => {
     return this.actions$.pipe(

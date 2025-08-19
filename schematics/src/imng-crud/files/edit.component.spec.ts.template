@@ -9,7 +9,8 @@ import { of } from 'rxjs';<% } %>
 import { mockConsoleError<% if (hasDates || hasObjects) { %>, mockConsoleGroup, mockConsoleWarn<% } %>, readFirst } from 'imng-ngrx-utils/testing';
 <% if (hasObjects) { %>import { createMock<%= classify(name) %>Facade } from './add.component.spec';<% } %>
 import { <%= classify(name) %>EditComponent } from './edit.component';
-import { <%= classify(name) %>CrudFacade } from './crud.facade';
+import { <%= classify(name) %>CrudFacade } from './crud.facade';<% if (modelFolderLocation) { %>
+import { I<%= classify(singularizedName) %>, createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 
 describe('<%= classify(name) %>EditComponent', () => {
   let component: <%= classify(name) %>EditComponent;

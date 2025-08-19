@@ -9,7 +9,8 @@ import { mockConsoleError<% if (hasDates || hasObjects) { %>, mockConsoleGroup, 
 import { of } from 'rxjs';<% } %>
 
 import { <%= classify(name) %>AddComponent } from './add.component';
-import { <%= classify(name) %>CrudFacade } from './crud.facade';
+import { <%= classify(name) %>CrudFacade } from './crud.facade';<% if (modelFolderLocation) { %>
+import { I<%= classify(singularizedName) %>, createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 
 <% if (hasObjects) { %>export function createMock<%= classify(name) %>Facade() {
   return {

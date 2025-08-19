@@ -1,25 +1,19 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { EmployeeBaseEntryComponent } from './base-entry.component';
-import { EmployeeCrudFacade } from './crud.facade';
 
 @Component({
-    selector: 'nrcrn-employee-edit',
-    templateUrl: './add-edit.component.html',
-    styleUrls: ['./add-edit.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'nrcrn-employee-edit',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class EmployeeEditComponent extends EmployeeBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Employee';
   public active$ = this.facade.isEditActive$;
 
-  constructor() {
-    const facade = inject(EmployeeCrudFacade);
-
-    super(facade);
-  }
   public override initForm(): void {
     super.initForm();
     if (this.addEditForm) {
