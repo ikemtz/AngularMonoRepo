@@ -18,6 +18,11 @@ export interface FetchOptions {
    * Default: false;
    */
   bustCache?: boolean;
+  /**
+   * Additional parameters to be added to the request.
+   * This is useful for passing additional query parameters that are not part of the OData state.
+   */
+  additionalParams?: Record<string, string>;
 }
 
 export interface BoundChildTableProperty {
