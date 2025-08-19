@@ -62,7 +62,8 @@ export class ODataService {
       const keys = Object.keys(options.additionalParams);
       const values = Object.values(options.additionalParams);
       const queryStringParams = keys.map(
-        (key, index) => `&${key}=${values[index]}`,
+        (key, index) =>
+          `&${encodeURIComponent(key)}=${encodeURIComponent(values[index])}`,
       );
       return queryStringParams.join('');
     }

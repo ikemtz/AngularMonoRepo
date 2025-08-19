@@ -874,12 +874,12 @@ describe('ODataService', () => {
     };
     await readFirst(
       service.fetch('//idunno.com', gridState, {
-        additionalParams: { foo: 'bar', baz: 'qux' },
+        additionalParams: { foo: 'bar', baz: 'qux', specialUri: `<=&'>` },
       }),
     );
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) and childTable1/any(o: o/name eq '%F0%9F%98%8E%F0%9F%90%B1%E2%80%8D%F0%9F%91%A4')&$count=true&foo=bar&baz=qux`,
+      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) and childTable1/any(o: o/name eq '%F0%9F%98%8E%F0%9F%90%B1%E2%80%8D%F0%9F%91%A4')&$count=true&foo=bar&baz=qux&specialUri=%3C%3D%26'%3E`,
     );
   });
 });
