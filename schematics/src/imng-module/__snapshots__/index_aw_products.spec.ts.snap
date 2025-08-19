@@ -4,6 +4,7 @@ exports[`imng-module actions should work 1`] = `
 "import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
+import { IProduct, IProductModel, IProductCategory } from './test/models';
 
 export const loadProductsRequest = createPayloadAction<ODataState>(
     '[Products] Load Products Request');
@@ -44,7 +45,7 @@ import { of } from 'rxjs';
 
 import { ProductAddComponent } from './add.component';
 import { ProductCrudFacade } from './crud.facade';
-import { createTestProduct } from './test/models';
+import { IProduct, createTestProduct } from './test/models';
 
 export function createMockProductFacade() {
   return {
@@ -188,11 +189,11 @@ import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { ProductCrudFacade } from './crud.facade';
-import { IProduct, IProductModel, IProductCategory } from './test/models';
+import { ProductProperties, IProductForm, ProductFormGroupFac, IProductModel, IProductCategory } from './test/models';
 
-@Component({ 
+@Component({
   template: '',
-  standalone: false, 
+  standalone: false,
 })
 export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<ProductCrudFacade>
   implements OnInit {
@@ -578,7 +579,7 @@ import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from '
 import { createMockProductFacade } from './add.component.spec';
 import { ProductEditComponent } from './edit.component';
 import { ProductCrudFacade } from './crud.facade';
-import { createTestProduct } from './test/models';
+import { IProduct, createTestProduct } from './test/models';
 
 describe('ProductEditComponent', () => {
   let component: ProductEditComponent;
@@ -899,7 +900,7 @@ import { ModalStates } from 'imng-kendo-data-entry';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
 import { productGridState } from './list.grid-state';
-import { IProduct } from './test/models';
+import { IProduct, ProductProperties } from './test/models';
 
 @Component({
   selector: 'aw-product-list',

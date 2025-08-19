@@ -4,11 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
-import { mockConsoleError, mockConsoleGroup, mockConsoleWarn } from 'imng-ngrx-utils/testing';
+import { mockConsoleError, mockConsoleGroup, mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
 
 import { EmployeeAddComponent } from './add.component';
 import { EmployeeCrudFacade } from './crud.facade';
-import { createTestEmployee, IEmployee } from '../../../models/employees-api';
+import { IEmployee, createTestEmployee } from '../../../models/employees-api';
 
 
 
@@ -24,7 +24,7 @@ describe('EmployeeAddComponent', () => {
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
       declarations: [EmployeeAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule,],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule, ],
       providers: [{ provide: EmployeeCrudFacade, useValue: createDataEntryMockFacade() }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();

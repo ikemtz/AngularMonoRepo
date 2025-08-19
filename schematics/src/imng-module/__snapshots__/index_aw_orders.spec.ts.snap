@@ -215,9 +215,9 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { OrderCrudFacade } from './crud.facade';
 
-@Component({ 
+@Component({
   template: '',
-  standalone: false, 
+  standalone: false,
 })
 export abstract class OrderBaseEntryComponent extends BaseDataEntryComponent<OrderCrudFacade>
   implements OnInit {

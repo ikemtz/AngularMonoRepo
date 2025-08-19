@@ -167,9 +167,9 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { CustomerCrudFacade } from './crud.facade';
 
-@Component({ 
+@Component({
   template: '',
-  standalone: false, 
+  standalone: false,
 })
 export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<CustomerCrudFacade>
   implements OnInit {

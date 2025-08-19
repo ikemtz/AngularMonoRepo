@@ -91,7 +91,7 @@
     "help": "nx help",
     "nx": "nx",
     "schematic:module:emp": "nx g imng-schematics:module employee --path=./apps/nurse-cron/src/app/modules --openApiJsonUrl=https://im-wa-empo-nrcrn.azurewebsites.net/swagger/v1/swagger.json --force --appPrefix=nrcrn",
-    "schematic:module:emp_local": "nx g imng-kendo-schematics:module employee --path=./apps/nurse-cron/src/app/modules --openApiJsonFileName=../../../open-api-docs/nrcrn-empl-odata.json --force --appPrefix=nrcrn",
+    "schematic:module:emp_local": "nx g imng-kendo-schematics:module employee --path=./apps/nurse-cron/src/app/modules --openApiJsonFileName=../../../open-api-docs/nrcrn-empl-odata.json --force --appPrefix=nrcrn --modelFolderLocation=../../../models/employees-api",
     "test": "snyk test"
   },
   "private": false,
