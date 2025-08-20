@@ -1,4 +1,4 @@
-import { ModalStates } from '../../src/lib/modal-states';
+import { ModalStates } from 'imng-kendo-data-entry';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { Observable } from 'rxjs';
 
