@@ -5,7 +5,6 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
-import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
 import { Observable, of } from 'rxjs';
 
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
@@ -116,10 +115,6 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
       list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(2);
-    });
-
-    test('it should handle DeleteItem', async () => {
-      await testDeleteCurrentEntity(facade, httpClient);
     });
   });
 });

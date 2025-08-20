@@ -165,7 +165,6 @@ import { ProductBaseEntryComponent } from './base-entry.component';
 })
 export class ProductAddComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Product';
-  public active$ = this.facade.isNewActive$;
 
   public override initForm(): void {
     super.initForm();
@@ -262,8 +261,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
-  testAddSetAndClearCurrentEntity,
-  testEditSetAndClearCurrentEntity,
+  testDeleteCurrentEntity,
+  testModalStateAddAndClearCurrentEntity,
+  testModalStateEditAndClearCurrentEntity,
   testSaveCurrentEntity,
   testUpdateCurrentEntity,
 } from 'imng-kendo-data-entry/testing';
@@ -316,24 +316,27 @@ describe('ProductCrudFacade', () => {
     });
 
     test('clearCurrentEntity() should set currentProduct to null', async () => {
-      let isNewActive = await readFirst(facade.isNewActive$);
-      expect(isNewActive).toBeFalsy();
+      let currentModalState = await readFirst(facade.currentModalState$);
+      expect(currentModalState).toBeUndefined();
 
       facade.clearCurrentEntity();
-      isNewActive = await readFirst(facade.isNewActive$);
+      currentModalState = await readFirst(facade.currentModalState$);
 
-      expect(isNewActive).toBeFalsy();
+      expect(currentModalState).toBeUndefined();
       expect(await readFirst(store)).toMatchSnapshot();
     });
 
-    test('New Entity Set And Clear CurrentEntity', async () =>
-      testAddSetAndClearCurrentEntity<ProductCrudFacade>(facade));
-    test('Existing Entity Set And Clear CurrentEntity', async () =>
-      testEditSetAndClearCurrentEntity<ProductCrudFacade>(facade));
+    test('Add Modal State And Clear CurrentEntity', async () =>
+      testModalStateAddAndClearCurrentEntity<ProductCrudFacade>(facade));
+    test('Edit Modal state And Clear CurrentEntity', async () =>
+      testModalStateEditAndClearCurrentEntity<ProductCrudFacade>(facade));
     test('Save CurrentEntity', async () =>
       testSaveCurrentEntity<ProductCrudFacade>(facade, httpClient));
     test('Update CurrentEntity', async () =>
       testUpdateCurrentEntity<ProductCrudFacade>(facade, httpClient));
+    test('it should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
+    });
 
     test('should load ProductModels', async () => {
       facade.loadProductModels({});
@@ -356,21 +359,19 @@ describe('ProductCrudFacade', () => {
 exports[`imng-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
+import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
 
 import { productsFeature, productActionTypes } from '../+state';
 import { IProduct, IProductModel, IProductCategory } from './test/models';
 
 @Injectable()
-export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
+export class ProductCrudFacade implements IDataEntryFacade<IProduct>, IDataDeleteFacade<IProduct> {
   private readonly store = inject(Store);
 
   loading$ = this.store.select(productsFeature.selectLoading);
   currentEntity$ = this.store.select(productsFeature.selectCurrentProduct);
   currentModalState$ = this.store.select(productsFeature.selectCurrentProductModalState);
-  isEditActive$ = isModalState(this, ModalStates.EDIT);
-  isNewActive$ = isModalState(this, ModalStates.ADD);
   productModels$ = this.store.select(productsFeature.selectProductModels);
   productCategories$ = this.store.select(productsFeature.selectProductCategories);
 
@@ -393,6 +394,10 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct> {
 
   public updateExistingEntity(item: IProduct): void {
     this.store.dispatch(productActionTypes.updateProductRequest(item));
+  }
+
+  public deleteExistingEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.deleteProductRequest(item));
   }
 
   public loadProductModels(state: ODataState): void {
@@ -680,13 +685,10 @@ import { ProductBaseEntryComponent } from './base-entry.component';
 })
 export class ProductEditComponent extends ProductBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Product';
-  public active$ = this.facade.isEditActive$;
 
   public override initForm(): void {
     super.initForm();
-    if (this.addEditForm) {
-      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
-    }
+    this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
   }
 
   public save(): void {
@@ -881,13 +883,22 @@ exports[`imng-module html file should work 1`] = `
   </kendo-grid-pdf>
   <kendo-grid-excel [fileName]="getExportFileName('Products')" [fetchData]="excelData" />
 </kendo-grid>
-@if (crudFacade.isNewActive$ | async) {
-  <aw-product-add />
-}
-@if (crudFacade.isEditActive$ | async) {
-  <aw-product-edit />
-}
-"
+
+@switch (crudFacade.currentModalState$ | async) {
+  @case (modalStates.ADD) {
+    <aw-product-add />
+  }
+  @case (modalStates.EDIT) {
+    <aw-product-edit />
+  }
+  @case (modalStates.DELETE) {
+    <imng-data-delete-dialog
+      [facade]="crudFacade"
+      [dataItem]="crudFacade.currentEntity$ | async">
+      <div>Are you sure you want to delete this record?</div>
+    </imng-data-delete-dialog>
+  }
+}"
 `;
 
 exports[`imng-module list component should work 1`] = `
@@ -915,6 +926,7 @@ export class ProductListComponent extends KendoODataBasedComponent<IProduct, Pro
   public readonly productModelProps = ProductModelProperties;
   public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
+  public readonly modalStates = ModalStates;
 
   constructor() {
     super(inject(ProductListFacade), productGridState, inject(Router));
@@ -929,7 +941,7 @@ export class ProductListComponent extends KendoODataBasedComponent<IProduct, Pro
   }
 
   public deleteItem(item: IProduct): void {
-    this.facade.deleteExistingEntity(item);
+    this.crudFacade.setCurrentEntity(item, ModalStates.DELETE);
   }
 
   public detailExpanded(evt: DetailExpandEvent): void {
