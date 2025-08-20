@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { formGroupPatcher } from 'imng-kendo-data-entry';
 
 import { EmployeeBaseEntryComponent } from './base-entry.component';
@@ -10,15 +15,19 @@ import { EmployeeBaseEntryComponent } from './base-entry.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class EmployeeEditComponent extends EmployeeBaseEntryComponent implements OnInit, OnDestroy {
+export class EmployeeEditComponent
+  extends EmployeeBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Edit Employee';
-  public active$ = this.facade.isEditActive$;
 
   public override initForm(): void {
     super.initForm();
-    if (this.addEditForm) {
-      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
-    }
+    this.allSubscriptions.push(
+      this.facade.currentEntity$
+        .pipe(formGroupPatcher(this.addEditForm))
+        .subscribe(),
+    );
   }
 
   public save(): void {
