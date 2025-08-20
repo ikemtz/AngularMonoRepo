@@ -5,8 +5,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
-  testAddSetAndClearCurrentEntity,
-  testEditSetAndClearCurrentEntity,
+  testDeleteCurrentEntity,
+  testModalStateAddAndClearCurrentEntity,
+  testModalStateEditAndClearCurrentEntity,
   testSaveCurrentEntity,
   testUpdateCurrentEntity,
 } from 'imng-kendo-data-entry/testing';
@@ -59,24 +60,27 @@ describe('<%= classify(name) %>CrudFacade', () => {
     });
 
     test('clearCurrentEntity() should set current<%= classify(name) %> to null', async () => {
-      let isNewActive = await readFirst(facade.isNewActive$);
-      expect(isNewActive).toBeFalsy();
+      let currentModalState = await readFirst(facade.currentModalState$);
+      expect(currentModalState).toBeUndefined();
 
       facade.clearCurrentEntity();
-      isNewActive = await readFirst(facade.isNewActive$);
+      currentModalState = await readFirst(facade.currentModalState$);
 
-      expect(isNewActive).toBeFalsy();
+      expect(currentModalState).toBeUndefined();
       expect(await readFirst(store)).toMatchSnapshot();
     });
 
-    test('New Entity Set And Clear CurrentEntity', async () =>
-      testAddSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
-    test('Existing Entity Set And Clear CurrentEntity', async () =>
-      testEditSetAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
+    test('Add Modal State And Clear CurrentEntity', async () =>
+      testModalStateAddAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
+    test('Edit Modal state And Clear CurrentEntity', async () =>
+      testModalStateEditAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
     test('Save CurrentEntity', async () =>
       testSaveCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));
     test('Update CurrentEntity', async () =>
-      testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+      testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));
+    test('it should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
+    });<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
 
     test('should load <%= classify(swaggerProperty.pluralizedName) %>', async () => {
       facade.load<%= classify(swaggerProperty.pluralizedName) %>({});

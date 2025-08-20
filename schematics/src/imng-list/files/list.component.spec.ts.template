@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 import { ModalStates } from 'imng-kendo-data-entry';
@@ -23,7 +23,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
       declarations: [<%= classify(singularizedName) %>ListComponent],
       imports: [],
       providers: [
-        { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
+        { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade()) },
         { provide: <%= classify(singularizedName) %>CrudFacade, useValue: createDataEntryMockFacade() },
         provideRouter(<%= camelize(singularizedName) %>Routes),
         provideOidcMockFacade(),
@@ -75,7 +75,10 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   test('it should handle DeleteItem', () => {
     const item = createTest<%= classify(singularizedName) %>();
     component.deleteItem(item);
-    expect(listFacade.deleteExistingEntity).toHaveBeenCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toHaveBeenCalledWith(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      item,
+      ModalStates.DELETE,
+    );
   });
 });
