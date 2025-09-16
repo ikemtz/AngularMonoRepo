@@ -45,7 +45,7 @@ import { of } from 'rxjs';
 
 import { ProductAddComponent } from './add.component';
 import { ProductCrudFacade } from './crud.facade';
-import { IProduct, createTestProduct } from './test/models';
+import { IProduct, createTestProduct, createTestProductModel, createTestProductCategory } from './test/models';
 
 export function createMockProductFacade() {
   return {
@@ -188,7 +188,7 @@ import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { ProductCrudFacade } from './crud.facade';
-import { ProductProperties, IProductForm, ProductFormGroupFac, IProductModel, IProductCategory } from './test/models';
+import { ProductProperties, IProductForm, ProductFormGroupFac, IProductModel, ProductModelProperties, IProductCategory, ProductCategoryProperties } from './test/models';
 
 @Component({
   template: '',
@@ -911,7 +911,7 @@ import { ModalStates } from 'imng-kendo-data-entry';
 import { ProductListFacade } from './list.facade';
 import { ProductCrudFacade } from '../products-crud';
 import { productGridState } from './list.grid-state';
-import { IProduct, ProductProperties } from './test/models';
+import { IProduct, ProductProperties, ProductModelProperties, ProductCategoryProperties } from './test/models';
 
 @Component({
   selector: 'aw-product-list',

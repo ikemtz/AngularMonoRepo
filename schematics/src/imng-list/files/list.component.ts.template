@@ -7,7 +7,7 @@ import { ModalStates } from 'imng-kendo-data-entry';
 import { <%= classify(singularizedName) %>ListFacade } from './list.facade';
 import { <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-crud';
 import { <%= camelize(singularizedName) %>GridState } from './list.grid-state';<% if (modelFolderLocation) { %>
-import { I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>Properties } from '<%= modelFolderLocation %>';<% } %>
+import { I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>Properties, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %><%= classify(swaggerProperty.propertyTypeName) %>Properties<% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
 
 @Component({
   selector: '<%= appPrefix %>-<%= dasherize(singularizedName) %>-list',
