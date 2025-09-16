@@ -1187,7 +1187,7 @@ exports[`imng-module AdventureWorks Orders html file should work 1`] = `
     <imng-data-delete-dialog
       [facade]="crudFacade"
       [dataItem]="crudFacade.currentEntity$ | async">
-      <div>Are you sure you want to delete this record?</div>
+      <div class="text-center">Are you sure you want to delete this record?</div>
     </imng-data-delete-dialog>
   }
 }"
