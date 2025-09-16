@@ -5,7 +5,7 @@ import { BaseDataEntryComponent } from 'imng-kendo-data-entry';<% if (hasObjects
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';<% } %>
 
 import { <%= classify(name) %>CrudFacade } from './crud.facade';<% if (modelFolderLocation) { %>
-import { <%= classify(singularizedName) %>Properties, I<%= classify(singularizedName) %>Form, <%= classify(singularizedName) %>FormGroupFac, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+import { <%= classify(singularizedName) %>Properties, I<%= classify(singularizedName) %>Form, <%= classify(singularizedName) %>FormGroupFac, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %>, <%= classify(swaggerProperty.propertyTypeName) %>Properties<% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
 
 @Component({
   template: '',
@@ -25,7 +25,7 @@ export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEn
     this.<%= camelize(swaggerProperty.pluralizedName) %>$ = this.facade.<%= camelize(swaggerProperty.pluralizedName) %>$.pipe(
       switchMap(<%= camelize(swaggerProperty.pluralizedName) %> => this.<%= camelize(swaggerProperty.name) %>Filter$.pipe(
         map(<%= camelize(swaggerProperty.name) %>Filter => <%= camelize(swaggerProperty.name) %>Filter ? <%= camelize(swaggerProperty.pluralizedName) %>
-          .filter(<%= camelize(swaggerProperty.name) %> => (<% swaggerProperty.properties.filter(f => f.name !== 'id' && f.htmlInputType !== 'object' && !f.hidden).forEach(function(swaggerSubProperty, i, arr){%>
+          .filter(<%= camelize(swaggerProperty.name) %> => (<% swaggerProperty.properties.filter(f => f.name !== 'id' && f.htmlInputType !== 'object' && f.htmlInputType !== 'checkbox' && !f.hidden).forEach(function(swaggerSubProperty, i, arr){%>
             (<%= camelize(swaggerProperty.name) %>.<%= camelize(swaggerSubProperty.name) %> && <%= camelize(swaggerProperty.name) %>.<%= camelize(swaggerSubProperty.name) %><% if(swaggerSubProperty.format){ %>.toString()<% } %>.toLowerCase().indexOf(<%= camelize(swaggerProperty.name) %>Filter) >= 0)<% if (i + 1 != arr.length) { %> ||<% } }) %>
           )) : <%= camelize(swaggerProperty.pluralizedName) %>
     ))));<% }) %>
