@@ -47,6 +47,11 @@ export interface CompositeChildFilterDescriptor {
    */
   filters?: Array<CompositeChildFilterDescriptor | ChildFilterDescriptor>;
   existsFilters?: Array<ChildExistsFilterDescriptor>;
+  /** This is used when combining the child filter with other filters on the parent.
+   * If not specified it will default to 'and'.
+   * Example: (childFilter) and (regularFilter)
+   * Example: (childFilter) or (regularFilter)
+   */
   externalLogic?: 'and' | 'or';
 }
 /** This is used to filter records that have child records that exists or match a filter.
