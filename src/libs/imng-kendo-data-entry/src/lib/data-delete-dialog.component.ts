@@ -47,8 +47,8 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
 })
 export class DataDeleteDialogComponent {
   public readonly minWidth = input<number | undefined>(undefined);
-  public readonly width = input(400);
-  public readonly height = input(200);
+  public readonly width = input(450);
+  public readonly height = input(225);
   public readonly dataItem = input.required<unknown>();
   public readonly dialogTitle = input('Deletion Confirmation');
   public readonly facade = input.required<{
