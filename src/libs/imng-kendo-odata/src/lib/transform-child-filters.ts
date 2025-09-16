@@ -70,7 +70,7 @@ export function transformCompositeChildFilter(
     if (queryString.match(/\$filter=/)) {
       queryString = queryString.replace(
         /\$filter=/,
-        `$filter=${tempFilterString} and `,
+        `$filter=${tempFilterString} ${compositeChildFilter.externalLogic || 'and'} `,
       );
     } else {
       queryString += `&$filter=${tempFilterString}`;

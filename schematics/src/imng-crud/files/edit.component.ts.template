@@ -12,13 +12,10 @@ import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component'
 })
 export class <%= classify(name) %>EditComponent extends <%= classify(name) %>BaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit <%= classify(name) %>';
-  public active$ = this.facade.isEditActive$;
 
   public override initForm(): void {
     super.initForm();
-    if (this.addEditForm) {
-      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
-    }
+    this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
   }
 
   public save(): void {

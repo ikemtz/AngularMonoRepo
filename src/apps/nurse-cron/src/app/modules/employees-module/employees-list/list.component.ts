@@ -23,6 +23,7 @@ export class EmployeeListComponent extends KendoODataBasedComponent<
   public readonly crudFacade = inject(EmployeeCrudFacade);
   public readonly props = EmployeeProperties;
   public currentItem: IEmployee | undefined;
+  public readonly modalStates = ModalStates;
 
   constructor() {
     super(inject(EmployeeListFacade), employeeGridState, inject(Router));
@@ -37,7 +38,7 @@ export class EmployeeListComponent extends KendoODataBasedComponent<
   }
 
   public deleteItem(item: IEmployee): void {
-    this.facade.deleteExistingEntity(item);
+    this.crudFacade.setCurrentEntity(item, ModalStates.DELETE);
   }
 
   public detailExpanded(evt: DetailExpandEvent): void {

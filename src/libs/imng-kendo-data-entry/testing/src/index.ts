@@ -5,3 +5,4 @@ export * from './data-delete-facade-http-tests';
 export * from './data-delete-mock.facade';
 export * from './test-trigger-event-helpers';
 export * from './mock-data-entry-dialog.component';
+export * from './data-entry-modal-state-facade-tests';

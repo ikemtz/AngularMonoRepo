@@ -7,6 +7,7 @@ import { map, switchMap } from 'rxjs/operators';
 import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>import { <%= classify(singularizedName) %>ApiService } from '../<%= dasherize(pluralizedName) %>-crud/api.service';
 <% } %><% if (modelFolderLocation) { %>import { <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+import { environment } from '@env';
 
 @Injectable()
 export class <%= classify(singularizedName) %>CrudEffects {

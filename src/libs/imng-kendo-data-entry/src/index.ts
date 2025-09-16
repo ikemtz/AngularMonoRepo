@@ -7,3 +7,5 @@ export * from './lib/reducer-collection-logic';
 export * from './lib/form-group-patcher';
 export * from './lib/dialog-buttons.directive';
 export * from './lib/modal-states';
+export * from './lib/is-modal-state';
+export * from './lib/data-delete-dialog.component';
