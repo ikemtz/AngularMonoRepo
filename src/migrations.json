@@ -14,6 +14,16 @@
       "subject": "Enhance OData service with additionalParams support and update related tests; add isModalState utility function and its tests"
     },
     "targetVersion": "latest",
-    "confirmedPackageUpdates": true
+    "confirmedPackageUpdates": true,
+    "runningMigrations": [],
+    "completedMigrations": {
+      "20.0.0-rc_0-tap-response": {
+        "type": "successful",
+        "name": "20.0.0-rc_0-tap-response",
+        "changedFiles": [],
+        "ref": "6bd1c4e71da6f5f4890ca7191592234fa75944db",
+        "nextSteps": []
+      }
+    }
   }
 }
