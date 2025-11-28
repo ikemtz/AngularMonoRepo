@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { createDataEntryMockFacade, createDataDeleteMockFacade } from 'imng-kendo-data-entry/testing';
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
 import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 import { ModalStates } from 'imng-kendo-data-entry';
@@ -23,12 +23,15 @@ describe('EmployeeListComponent', () => {
       declarations: [EmployeeListComponent],
       imports: [],
       providers: [
-        { provide: EmployeeListFacade, useValue: createODataGridMockFacade(createDataDeleteMockFacade()) },
+        {
+          provide: EmployeeListFacade,
+          useValue: createODataGridMockFacade(),
+        },
         { provide: EmployeeCrudFacade, useValue: createDataEntryMockFacade() },
         provideRouter(employeeRoutes),
         provideOidcMockFacade(),
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -62,20 +65,29 @@ describe('EmployeeListComponent', () => {
   test('it should handle AddItem', () => {
     component.addItem();
     expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({}, ModalStates.ADD);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      {},
+      ModalStates.ADD,
+    );
   });
 
   test('it should handle EditItem', () => {
     const item = createTestEmployee();
     component.editItem(item);
     expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
-    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item, ModalStates.EDIT);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      item,
+      ModalStates.EDIT,
+    );
   });
 
   test('it should handle DeleteItem', () => {
     const item = createTestEmployee();
     component.deleteItem(item);
-    expect(listFacade.deleteExistingEntity).toHaveBeenCalledTimes(1);
-    expect(listFacade.deleteExistingEntity).toHaveBeenCalledWith(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      item,
+      ModalStates.DELETE,
+    );
   });
 });

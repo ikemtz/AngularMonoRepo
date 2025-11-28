@@ -103,8 +103,8 @@ export class OidcFacade {
   }
 
   public addUserSignedOut(): void {
-    this.oidcService.removeOidcUser();
-    this.store.dispatch(oidcActions.onUserSignedOut());
+    this.oidcService?.removeOidcUser();
+    this.store?.dispatch(oidcActions.onUserSignedOut());
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

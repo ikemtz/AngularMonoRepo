@@ -101,9 +101,19 @@
   </kendo-grid-pdf>
   <kendo-grid-excel [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [fetchData]="excelData" />
 </kendo-grid>
-@if (crudFacade.isNewActive$ | async) {
-  <<%= appPrefix %>-<%= dasherize(name) %>-add />
-}
-@if (crudFacade.isEditActive$ | async) {
-  <<%= appPrefix %>-<%= dasherize(name) %>-edit />
+
+@switch (crudFacade.currentModalState$ | async) {
+  @case (modalStates.ADD) {
+    <<%= appPrefix %>-<%= dasherize(name) %>-add />
+  }
+  @case (modalStates.EDIT) {
+    <<%= appPrefix %>-<%= dasherize(name) %>-edit />
+  }
+  @case (modalStates.DELETE) {
+    <imng-data-delete-dialog
+      [facade]="crudFacade"
+      [dataItem]="crudFacade.currentEntity$ | async">
+      <div class="text-center">Are you sure you want to delete this record?</div>
+    </imng-data-delete-dialog>
+  }
 }

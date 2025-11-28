@@ -142,7 +142,6 @@ import { CustomerBaseEntryComponent } from './base-entry.component';
 })
 export class CustomerAddComponent extends CustomerBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add Customer';
-  public active$ = this.facade.isNewActive$;
 
   public override initForm(): void {
     super.initForm();
@@ -222,8 +221,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import {
-  testAddSetAndClearCurrentEntity,
-  testEditSetAndClearCurrentEntity,
+  testDeleteCurrentEntity,
+  testModalStateAddAndClearCurrentEntity,
+  testModalStateEditAndClearCurrentEntity,
   testSaveCurrentEntity,
   testUpdateCurrentEntity,
 } from 'imng-kendo-data-entry/testing';
@@ -275,24 +275,27 @@ describe('CustomerCrudFacade', () => {
     });
 
     test('clearCurrentEntity() should set currentCustomer to null', async () => {
-      let isNewActive = await readFirst(facade.isNewActive$);
-      expect(isNewActive).toBeFalsy();
+      let currentModalState = await readFirst(facade.currentModalState$);
+      expect(currentModalState).toBeUndefined();
 
       facade.clearCurrentEntity();
-      isNewActive = await readFirst(facade.isNewActive$);
+      currentModalState = await readFirst(facade.currentModalState$);
 
-      expect(isNewActive).toBeFalsy();
+      expect(currentModalState).toBeUndefined();
       expect(await readFirst(store)).toMatchSnapshot();
     });
 
-    test('New Entity Set And Clear CurrentEntity', async () =>
-      testAddSetAndClearCurrentEntity<CustomerCrudFacade>(facade));
-    test('Existing Entity Set And Clear CurrentEntity', async () =>
-      testEditSetAndClearCurrentEntity<CustomerCrudFacade>(facade));
+    test('Add Modal State And Clear CurrentEntity', async () =>
+      testModalStateAddAndClearCurrentEntity<CustomerCrudFacade>(facade));
+    test('Edit Modal state And Clear CurrentEntity', async () =>
+      testModalStateEditAndClearCurrentEntity<CustomerCrudFacade>(facade));
     test('Save CurrentEntity', async () =>
       testSaveCurrentEntity<CustomerCrudFacade>(facade, httpClient));
     test('Update CurrentEntity', async () =>
       testUpdateCurrentEntity<CustomerCrudFacade>(facade, httpClient));
+    test('it should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
+    });
 
     test('should load SalesAgents', async () => {
       facade.loadSalesAgents({});
@@ -308,20 +311,18 @@ describe('CustomerCrudFacade', () => {
 exports[`imng-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataEntryFacade, ModalStates, isModalState } from 'imng-kendo-data-entry';
+import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ODataState } from 'imng-kendo-odata';
 
 import { customersFeature, customerActionTypes } from '../+state';
 
 @Injectable()
-export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
+export class CustomerCrudFacade implements IDataEntryFacade<ICustomer>, IDataDeleteFacade<ICustomer> {
   private readonly store = inject(Store);
 
   loading$ = this.store.select(customersFeature.selectLoading);
   currentEntity$ = this.store.select(customersFeature.selectCurrentCustomer);
   currentModalState$ = this.store.select(customersFeature.selectCurrentCustomerModalState);
-  isEditActive$ = isModalState(this, ModalStates.EDIT);
-  isNewActive$ = isModalState(this, ModalStates.ADD);
   salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
   public setCurrentEntity(item: ICustomer, modalState: string): void {
@@ -343,6 +344,10 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer> {
 
   public updateExistingEntity(item: ICustomer): void {
     this.store.dispatch(customerActionTypes.updateCustomerRequest(item));
+  }
+
+  public deleteExistingEntity(item: ICustomer): void {
+    this.store.dispatch(customerActionTypes.deleteCustomerRequest(item));
   }
 
   public loadSalesAgents(state: ODataState): void {
@@ -547,13 +552,10 @@ import { CustomerBaseEntryComponent } from './base-entry.component';
 })
 export class CustomerEditComponent extends CustomerBaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Edit Customer';
-  public active$ = this.facade.isEditActive$;
 
   public override initForm(): void {
     super.initForm();
-    if (this.addEditForm) {
-      this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
-    }
+    this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
   }
 
   public save(): void {
@@ -690,13 +692,22 @@ exports[`imng-module html file should work 1`] = `
   </kendo-grid-pdf>
   <kendo-grid-excel [fileName]="getExportFileName('Customers')" [fetchData]="excelData" />
 </kendo-grid>
-@if (crudFacade.isNewActive$ | async) {
-  <aw-customer-add />
-}
-@if (crudFacade.isEditActive$ | async) {
-  <aw-customer-edit />
-}
-"
+
+@switch (crudFacade.currentModalState$ | async) {
+  @case (modalStates.ADD) {
+    <aw-customer-add />
+  }
+  @case (modalStates.EDIT) {
+    <aw-customer-edit />
+  }
+  @case (modalStates.DELETE) {
+    <imng-data-delete-dialog
+      [facade]="crudFacade"
+      [dataItem]="crudFacade.currentEntity$ | async">
+      <div class="text-center">Are you sure you want to delete this record?</div>
+    </imng-data-delete-dialog>
+  }
+}"
 `;
 
 exports[`imng-module list component should work 1`] = `
@@ -722,6 +733,7 @@ export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, C
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public currentItem: ICustomer | undefined;
+  public readonly modalStates = ModalStates;
 
   constructor() {
     super(inject(CustomerListFacade), customerGridState, inject(Router));
@@ -736,7 +748,7 @@ export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, C
   }
 
   public deleteItem(item: ICustomer): void {
-    this.facade.deleteExistingEntity(item);
+    this.crudFacade.setCurrentEntity(item, ModalStates.DELETE);
   }
 
   public detailExpanded(evt: DetailExpandEvent): void {

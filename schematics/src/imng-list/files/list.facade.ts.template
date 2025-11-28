@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
@@ -8,7 +7,7 @@ import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(storeName) %>
 import { I<%= classify(name) %> } from '<%= modelFolderLocation %>';<% } %>
 
 @Injectable()
-export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
+export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>> {
   private readonly store = inject(Store);
 
   loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
@@ -22,9 +21,5 @@ export class <%= classify(singularizedName) %>ListFacade implements IKendoODataG
 
   public reloadEntities(): void {
     this.store.dispatch(<%= camelize(storeName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request());
-  }
-
-  public deleteExistingEntity(entity: I<%= classify(name) %>): void {
-    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.delete<%= classify(name) %>Request(entity));
   }
 }

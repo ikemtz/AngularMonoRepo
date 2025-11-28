@@ -10,7 +10,7 @@ import { of } from 'rxjs';<% } %>
 
 import { <%= classify(name) %>AddComponent } from './add.component';
 import { <%= classify(name) %>CrudFacade } from './crud.facade';<% if (modelFolderLocation) { %>
-import { I<%= classify(singularizedName) %>, createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
+import { I<%= classify(singularizedName) %>, createTest<%= classify(singularizedName) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>createTest<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
 
 <% if (hasObjects) { %>export function createMock<%= classify(name) %>Facade() {
   return {

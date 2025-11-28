@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { EmployeeBaseEntryComponent } from './base-entry.component';
 
 @Component({
@@ -8,9 +13,11 @@ import { EmployeeBaseEntryComponent } from './base-entry.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class EmployeeAddComponent extends EmployeeBaseEntryComponent implements OnInit, OnDestroy {
+export class EmployeeAddComponent
+  extends EmployeeBaseEntryComponent
+  implements OnInit, OnDestroy
+{
   public dialogTitle = 'Add Employee';
-  public active$ = this.facade.isNewActive$;
 
   public override initForm(): void {
     super.initForm();

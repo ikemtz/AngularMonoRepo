@@ -47,6 +47,12 @@ export interface CompositeChildFilterDescriptor {
    */
   filters?: Array<CompositeChildFilterDescriptor | ChildFilterDescriptor>;
   existsFilters?: Array<ChildExistsFilterDescriptor>;
+  /** This is used when combining the child filter with other filters on the parent.
+   * If not specified it will default to 'and'.
+   * Example: (childFilter) and (regularFilter)
+   * Example: (childFilter) or (regularFilter)
+   */
+  externalLogic?: 'and' | 'or';
 }
 /** This is used to filter records that have child records that exists or match a filter.
  *  @See {@link https://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Toc371341806}
