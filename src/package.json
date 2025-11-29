@@ -143,7 +143,7 @@
     "typescript": "5.8.3"
   },
   "dependencies": {
-    "@angular/animations": "20.1.4",
+    "@angular/animations": "20.2.1",
     "@angular/common": "20.1.4",
     "@angular/compiler": "20.1.4",
     "@angular/core": "20.1.4",
