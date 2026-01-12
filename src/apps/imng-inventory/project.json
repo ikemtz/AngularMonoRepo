@@ -82,7 +82,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/imng-inventory"],
       "options": {
-        "jestConfig": "apps/imng-inventory/jest.config.ts"
+        "jestConfig": "apps/imng-inventory/jest.config.ts",
+        "tsConfig": "apps/imng-inventory/tsconfig.spec.json"
       }
     }
   }
