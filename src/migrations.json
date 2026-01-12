@@ -1,0 +1,29 @@
+{
+  "migrations": [
+    {
+      "description": "Replace deprecated tapResponse signature",
+      "version": "20.0.0-rc.0",
+      "factory": "./20_0_0-rc_0-tap-response/index",
+      "package": "@ngrx/operators",
+      "name": "20.0.0-rc_0-tap-response"
+    }
+  ],
+  "nx-console": {
+    "initialGitRef": {
+      "ref": "02847fd0a3bf2eb41fa7ab002c531b76566ca087",
+      "subject": "Enhance OData service with additionalParams support and update related tests; add isModalState utility function and its tests"
+    },
+    "targetVersion": "latest",
+    "confirmedPackageUpdates": true,
+    "runningMigrations": [],
+    "completedMigrations": {
+      "20.0.0-rc_0-tap-response": {
+        "type": "successful",
+        "name": "20.0.0-rc_0-tap-response",
+        "changedFiles": [],
+        "ref": "6bd1c4e71da6f5f4890ca7191592234fa75944db",
+        "nextSteps": []
+      }
+    }
+  }
+}
