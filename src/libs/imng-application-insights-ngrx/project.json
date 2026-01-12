@@ -10,15 +10,14 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-application-insights-ngrx"],
       "options": {
-        "project": "libs/imng-application-insights-ngrx/ng-package.json"
+        "project": "libs/imng-application-insights-ngrx/ng-package.json",
+        "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -28,7 +27,8 @@
         "{workspaceRoot}/coverage/libs/imng-application-insights-ngrx"
       ],
       "options": {
-        "jestConfig": "libs/imng-application-insights-ngrx/jest.config.ts"
+        "jestConfig": "libs/imng-application-insights-ngrx/jest.config.ts",
+        "tsConfig": "libs/imng-application-insights-ngrx/tsconfig.spec.json"
       }
     },
     "lint": {
