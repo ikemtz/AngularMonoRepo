@@ -10,7 +10,6 @@ import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component'
 })
 export class <%= classify(name) %>AddComponent extends <%= classify(name) %>BaseEntryComponent implements OnInit, OnDestroy {
   public dialogTitle = 'Add <%= classify(name) %>';
-  public active$ = this.facade.isNewActive$;
 
   public override initForm(): void {
     super.initForm();

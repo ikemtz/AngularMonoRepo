@@ -22,7 +22,7 @@
     "pluralize": "^8.x",
     "@nx/angular": ">=19.x",
     "@angular/core": ">=18.x",
-    "jest": ">=29.x"
+    "jest": "*"
   },
   "dependencies": {
     "@angular-devkit/core": ">=18.x",

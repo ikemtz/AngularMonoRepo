@@ -57,16 +57,17 @@ export class ODataService {
       );
   }
 
-  public getAdditionalParams(options: FetchOptions): string | undefined {
+  public getAdditionalParams(options: FetchOptions): string {
     if (options.additionalParams) {
       const keys = Object.keys(options.additionalParams);
       const values = Object.values(options.additionalParams);
       const queryStringParams = keys.map(
-        (key, index) => `&${key}=${values[index]}`,
+        (key, index) =>
+          `&${encodeURIComponent(key)}=${encodeURIComponent(values[index])}`,
       );
       return queryStringParams.join('');
     }
-    return undefined;
+    return '';
   }
 
   public fetchByPrimaryKey<T extends object>(

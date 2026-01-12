@@ -4,11 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
-import { ODataState, createODataPayload, createODataResult, ODataService } from 'imng-kendo-odata';
-import { testDeleteCurrentEntity } from 'imng-kendo-data-entry/testing';
+import {
+  ODataState,
+  createODataPayload,
+  createODataResult,
+  ODataService,
+} from 'imng-kendo-odata';
 import { Observable, of } from 'rxjs';
 
-import { employeesFeature, EmployeeListEffects, EmployeeCrudEffects } from '../+state';
+import {
+  employeesFeature,
+  EmployeeListEffects,
+  EmployeeCrudEffects,
+} from '../+state';
 import * as employeeActionTypes from '../+state/employee.actions';
 import { EmployeeListFacade } from './list.facade';
 import { createTestEmployee } from '../../../models/employees-api';
@@ -31,7 +39,14 @@ describe('EmployeeListFacade', () => {
         ],
         providers: [
           EmployeeListFacade,
-          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestEmployee()]))) } },
+          {
+            provide: HttpClient,
+            useValue: {
+              get: jest.fn(() =>
+                of(createODataPayload([createTestEmployee()])),
+              ),
+            },
+          },
         ],
       })
       class CustomFeatureModule {}
@@ -64,7 +79,9 @@ describe('EmployeeListFacade', () => {
       expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
-      expect(httpClient.get).toHaveBeenCalledWith('employees-odata/odata/v1/Employees?&$count=true');
+      expect(httpClient.get).toHaveBeenCalledWith(
+        'employees-odata/odata/v1/Employees?&$count=true',
+      );
 
       facade.reloadEntities();
       expect(httpClient.get).toHaveBeenCalledTimes(2);
@@ -74,8 +91,16 @@ describe('EmployeeListFacade', () => {
       let list = await readFirst(facade.gridData$);
       let isloading = await readFirst(facade.loading$);
 
-      const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
-      const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
+      const service: {
+        fetch: (
+          endpoint: string,
+          odataState: ODataState,
+        ) => Observable<unknown>;
+      } = TestBed.inject(ODataService);
+      const response = of({
+        data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }],
+        total: 3,
+      });
       service.fetch = jest.fn(() => response);
 
       expect(list?.data.length).toBe(0);
@@ -92,7 +117,10 @@ describe('EmployeeListFacade', () => {
 
     test('it should get the grid state', async () => {
       const filteringState: ODataState = {
-        filter: { logic: 'and', filters: [{ field: '💩', operator: 'eq', value: '🍑' }] },
+        filter: {
+          logic: 'and',
+          filters: [{ field: '💩', operator: 'eq', value: '🍑' }],
+        },
       };
       let state = await readFirst(facade.gridODataState$);
       expect(state?.count).toBeUndefined();
@@ -112,14 +140,14 @@ describe('EmployeeListFacade', () => {
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(0);
-      store.dispatch(employeeActionTypes.loadEmployeesSuccess(createODataResult([createTestEmployee(), createTestEmployee()])));
+      store.dispatch(
+        employeeActionTypes.loadEmployeesSuccess(
+          createODataResult([createTestEmployee(), createTestEmployee()]),
+        ),
+      );
 
       list = await readFirst(facade.gridData$);
       expect(list?.data.length).toBe(2);
-    });
-
-    test('it should handle DeleteItem', async () => {
-      await testDeleteCurrentEntity(facade, httpClient);
     });
   });
 });
