@@ -6,6 +6,7 @@
     "ms-azuretools.vscode-docker",
     "firsttris.vscode-jest-runner",
     "dbaeumer.vscode-eslint",
-    "ikemtz.imng-snippets"
+    "ikemtz.imng-snippets",
+    "github.copilot-chat"
   ]
 }
