@@ -60,6 +60,8 @@ HttpErrorResponse {
   "message": "Http failure response for (unknown url): undefined undefined",
   "name": "HttpErrorResponse",
   "ok": false,
+  "redirected": undefined,
+  "responseType": undefined,
   "status": 0,
   "statusText": "Unknown Error",
   "type": undefined,

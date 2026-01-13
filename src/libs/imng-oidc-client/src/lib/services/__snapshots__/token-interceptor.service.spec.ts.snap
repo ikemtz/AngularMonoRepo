@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`TokenInterceptorService should support exceptionHandling = true 1`] = `
 HttpErrorResponse {
@@ -12,6 +12,8 @@ HttpErrorResponse {
   "message": "Http failure response for (unknown url): undefined undefined",
   "name": "HttpErrorResponse",
   "ok": false,
+  "redirected": undefined,
+  "responseType": undefined,
   "status": 0,
   "statusText": "Unknown Error",
   "type": undefined,

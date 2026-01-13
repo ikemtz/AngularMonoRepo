@@ -10,15 +10,14 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-odata-client"],
       "options": {
-        "project": "libs/imng-odata-client/ng-package.json"
+        "project": "libs/imng-odata-client/ng-package.json",
+        "tsConfig": "libs/imng-odata-client/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/imng-odata-client/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/imng-odata-client/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -26,7 +25,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-odata-client"],
       "options": {
-        "jestConfig": "libs/imng-odata-client/jest.config.ts"
+        "jestConfig": "libs/imng-odata-client/jest.config.ts",
+        "tsConfig": "libs/imng-odata-client/tsconfig.spec.json"
       }
     },
     "lint": {

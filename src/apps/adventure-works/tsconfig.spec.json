@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "commonjs",
+    "module": "preserve",
     "types": ["jest", "node"],
     "target": "es2016",
     "paths": {
@@ -36,7 +36,9 @@
       "imng-prime-table-odata/testing": [
         "libs/imng-prime-table-odata/testing/src/index.ts"
       ]
-    }
+    },
+    "moduleResolution": "bundler",
+    "isolatedModules": true
   },
   "files": ["src/test-setup.ts"],
   "include": ["**/*.test.ts", "**/*.spec.ts", "**/*.d.ts", "jest.config.ts"]
