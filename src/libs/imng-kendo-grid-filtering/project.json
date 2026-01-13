@@ -16,15 +16,14 @@
         }
       ],
       "options": {
-        "project": "libs/imng-kendo-grid-filtering/ng-package.json"
+        "project": "libs/imng-kendo-grid-filtering/ng-package.json",
+        "tsConfig": "libs/imng-kendo-grid-filtering/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/imng-kendo-grid-filtering/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/imng-kendo-grid-filtering/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -32,7 +31,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-grid-filtering"],
       "options": {
-        "jestConfig": "libs/imng-kendo-grid-filtering/jest.config.ts"
+        "jestConfig": "libs/imng-kendo-grid-filtering/jest.config.ts",
+        "tsConfig": "libs/imng-kendo-grid-filtering/tsconfig.spec.json"
       }
     },
     "lint": {

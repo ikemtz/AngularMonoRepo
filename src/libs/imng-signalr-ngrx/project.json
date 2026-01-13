@@ -16,15 +16,14 @@
         }
       ],
       "options": {
-        "project": "libs/imng-signalr-ngrx/ng-package.json"
+        "project": "libs/imng-signalr-ngrx/ng-package.json",
+        "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/imng-signalr-ngrx/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -32,7 +31,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-signalr-ngrx"],
       "options": {
-        "jestConfig": "libs/imng-signalr-ngrx/jest.config.ts"
+        "jestConfig": "libs/imng-signalr-ngrx/jest.config.ts",
+        "tsConfig": "libs/imng-signalr-ngrx/tsconfig.spec.json"
       }
     },
     "lint": {

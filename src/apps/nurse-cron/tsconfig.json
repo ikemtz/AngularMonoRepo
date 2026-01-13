@@ -39,7 +39,10 @@
       "imng-nrsrx-client-utils": ["libs/imng-nrsrx-client-utils/src/index.ts"],
       "imng-oidc-client": ["libs/imng-oidc-client/src/index.ts"],
       "imng-signalr-ngrx": ["libs/imng-signalr-ngrx/src/index.ts"]
-    }
+    },
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "lib": ["dom", "es2022"]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

@@ -91,7 +91,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/adventure-works"],
       "options": {
-        "jestConfig": "apps/adventure-works/jest.config.ts"
+        "jestConfig": "apps/adventure-works/jest.config.ts",
+        "tsConfig": "apps/adventure-works/tsconfig.spec.json"
       }
     }
   }

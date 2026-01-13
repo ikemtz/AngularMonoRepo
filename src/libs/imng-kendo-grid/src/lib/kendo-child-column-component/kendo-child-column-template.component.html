@@ -1,13 +1,17 @@
-<div *ngFor="let item of currentData | slice: 0:visibleRecCount">
-  {{ item }}
-</div>
-<button
-  type="button"
-  *ngIf="showMore && currentData?.length > visibleRecCount"
-  class="btn btn-sm btn-primary"
-  [title]="formatToolTip()"
-  (click)="moreClicked()"
->
-  More ...
-  <span class="badge bg-secondary">{{ currentData.length - visibleRecCount }}</span>
-</button>
+@for (item of currentData | slice: 0 : visibleRecCount; track $index) {
+  <div>
+    {{ item }}
+  </div>
+}
+@if (showMore && currentData?.length > visibleRecCount) {
+  <button
+    type="button"
+    class="btn btn-sm btn-primary"
+    [title]="formatToolTip()"
+    (click)="moreClicked()">
+    More ...
+    <span class="badge bg-secondary">{{
+      currentData.length - visibleRecCount
+    }}</span>
+  </button>
+}
