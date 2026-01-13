@@ -10,7 +10,8 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-kendo-data-entry"],
       "options": {
-        "project": "libs/imng-kendo-data-entry/ng-package.json"
+        "project": "libs/imng-kendo-data-entry/ng-package.json",
+        "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json"
       },
       "dependsOn": [
         {
@@ -22,9 +23,7 @@
         "production": {
           "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -32,7 +31,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-data-entry"],
       "options": {
-        "jestConfig": "libs/imng-kendo-data-entry/jest.config.ts"
+        "jestConfig": "libs/imng-kendo-data-entry/jest.config.ts",
+        "tsConfig": "libs/imng-kendo-data-entry/tsconfig.spec.json"
       }
     },
     "lint": {

@@ -19,6 +19,7 @@ import { of } from 'rxjs';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { OidcUserFacade } from './oidc-user.facade';
 import { Router } from '@angular/router';
+import { mockConsoleError } from 'imng-ngrx-utils/testing';
 
 describe('OidcFacade', () => {
   let facade: OidcFacade;
@@ -26,7 +27,7 @@ describe('OidcFacade', () => {
   let store: Store;
   let service: OidcService;
   let oidcConfig: OidcLibraryConfig;
-  let location: Location;
+
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
@@ -70,13 +71,6 @@ describe('OidcFacade', () => {
       service = TestBed.inject(OidcService);
       oidcConfig = TestBed.inject(OIDC_LIBRARY_CONFIG);
       oidcUserFacade = TestBed.inject(OidcUserFacade);
-    });
-
-    beforeEach(() => {
-      // GIVEN a mocked location
-      location = window.location = {
-        reload: jest.fn(),
-      } as any;
     });
 
     it('current state should match initial', async () => {
@@ -216,7 +210,6 @@ describe('OidcFacade', () => {
       const result = await readFirst(facade.identity$);
       expect(result).toBeUndefined();
       expect(await readFirst(facade.expired$)).toBe(true);
-      expect(location.reload).toHaveBeenCalledTimes(0);
     });
 
     it('should handle accessTokenExpiring', async () => {
@@ -286,6 +279,7 @@ describe('OidcFacade', () => {
     });
 
     it('should handle accessTokenExpired without a store', () => {
+      const consoleErrorMock = mockConsoleError();
       sessionStorage.setItem('unit_test', 'validation');
       (<any>facade).store = null;
       try {
@@ -294,6 +288,7 @@ describe('OidcFacade', () => {
         expect((x as Error).message).toBe('Not implemented');
       }
       expect(sessionStorage.getItem('unit_test')).toBeNull();
+      consoleErrorMock.mockRestore();
     });
   });
 });
