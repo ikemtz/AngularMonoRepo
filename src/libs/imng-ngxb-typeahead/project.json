@@ -16,15 +16,14 @@
         }
       ],
       "options": {
-        "project": "libs/imng-ngxb-typeahead/ng-package.json"
+        "project": "libs/imng-ngxb-typeahead/ng-package.json",
+        "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -32,7 +31,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-ngxb-typeahead"],
       "options": {
-        "jestConfig": "libs/imng-ngxb-typeahead/jest.config.ts"
+        "jestConfig": "libs/imng-ngxb-typeahead/jest.config.ts",
+        "tsConfig": "libs/imng-ngxb-typeahead/tsconfig.spec.json"
       }
     },
     "lint": {

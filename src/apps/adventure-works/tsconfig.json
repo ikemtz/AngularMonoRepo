@@ -40,7 +40,10 @@
       "imng-odata-client": ["libs/imng-odata-client/src/index.ts"],
       "imng-oidc-client": ["libs/imng-oidc-client/src/index.ts"],
       "imng-prime-table-odata": ["libs/imng-prime-table-odata/src/index.ts"]
-    }
+    },
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "lib": ["dom", "es2022"]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

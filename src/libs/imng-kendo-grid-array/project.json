@@ -16,15 +16,14 @@
         }
       ],
       "options": {
-        "project": "libs/imng-kendo-grid-array/ng-package.json"
+        "project": "libs/imng-kendo-grid-array/ng-package.json",
+        "tsConfig": "libs/imng-kendo-grid-array/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/imng-kendo-grid-array/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/imng-kendo-grid-array/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -32,7 +31,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-grid-array"],
       "options": {
-        "jestConfig": "libs/imng-kendo-grid-array/jest.config.ts"
+        "jestConfig": "libs/imng-kendo-grid-array/jest.config.ts",
+        "tsConfig": "libs/imng-kendo-grid-array/tsconfig.spec.json"
       }
     },
     "lint": {

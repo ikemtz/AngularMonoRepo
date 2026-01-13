@@ -2,10 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "commonjs",
+    "module": "preserve",
     "types": ["jest", "node"],
     "target": "es2016",
-
     "paths": {
       "@env*": ["apps/nurse-cron/src/environments/environment.ts"],
       "imng-application-insights-ngrx": [
@@ -25,7 +24,6 @@
       "imng-oidc-client": ["libs/imng-oidc-client/src/index.ts"],
       "imng-prime-table-odata": ["libs/imng-prime-table-odata/src/index.ts"],
       "imng-signalr-ngrx": ["libs/imng-signalr-ngrx/src/index.ts"],
-
       "imng-kendo-data-entry/testing": [
         "libs/imng-kendo-data-entry/testing/src/index.ts"
       ],
@@ -39,7 +37,9 @@
       "imng-prime-table-odata/testing": [
         "libs/imng-prime-table-odata/testing/src/index.ts"
       ]
-    }
+    },
+    "moduleResolution": "bundler",
+    "isolatedModules": true
   },
   "files": ["src/test-setup.ts"],
   "include": ["**/*.test.ts", "**/*.spec.ts", "**/*.d.ts", "jest.config.ts"]
