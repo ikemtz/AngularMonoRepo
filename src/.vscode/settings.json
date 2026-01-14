@@ -19,5 +19,6 @@
   "github.copilot.chat.languageContext.fix.typescript.enabled": true,
   "github.copilot.chat.languageContext.inline.typescript.enabled": true,
   "editor.experimental.preferTreeSitter.typescript": false,
-  "typescript.implementationsCodeLens.enabled": true
+  "typescript.implementationsCodeLens.enabled": true,
+  "terminal.integrated.cwd": "\\c\\repos\\AngularMonoRepo\\src"
 }
