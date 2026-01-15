@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ImngODataGridDirective should create an instance 1`] = `
+exports[`IMNG_KENDO_GRID_ODATA should create an instance 1`] = `
 {
   "data": {
     "data": [],
@@ -14,7 +14,7 @@ exports[`ImngODataGridDirective should create an instance 1`] = `
 }
 `;
 
-exports[`ImngODataGridDirective should fire AfterViewInit 1`] = `
+exports[`IMNG_KENDO_GRID_ODATA should fire AfterViewInit 1`] = `
 {
   "data": {
     "data": [],
@@ -28,7 +28,7 @@ exports[`ImngODataGridDirective should fire AfterViewInit 1`] = `
 }
 `;
 
-exports[`ImngODataGridDirective should fire OnInit 1`] = `
+exports[`IMNG_KENDO_GRID_ODATA should fire OnInit 1`] = `
 {
   "data": {
     "data": [],

@@ -1,4 +1,4 @@
-import { ImngODataGridDirective } from './kendo-odata-grid.directive';
+import { IMNG_KENDO_GRID_ODATA } from './kendo-odata-grid.directive';
 import { waitForAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import {
@@ -8,16 +8,16 @@ import {
 } from '@angular/core';
 import { MockGridComponent } from 'imng-kendo-grid/testing';
 
-describe('ImngODataGridDirective', () => {
+describe('IMNG_KENDO_GRID_ODATA', () => {
   let gridComponent: MockGridComponent;
   let fixture: ComponentFixture<MockGridComponent>;
-  let directive: ImngODataGridDirective;
+  let directive: IMNG_KENDO_GRID_ODATA;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
         { provide: ChangeDetectorRef, useValue: { markForCheck: jest.fn() } },
-        ImngODataGridDirective,
+        IMNG_KENDO_GRID_ODATA,
         { provide: GridComponent, useClass: MockGridComponent },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -27,7 +27,7 @@ describe('ImngODataGridDirective', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MockGridComponent);
     gridComponent = fixture.componentInstance;
-    directive = TestBed.inject(ImngODataGridDirective);
+    directive = TestBed.inject(IMNG_KENDO_GRID_ODATA);
     fixture.detectChanges();
   });
   it('should create an instance', () => {
@@ -61,16 +61,9 @@ describe('ImngODataGridDirective', () => {
     expect(gridComponent.dataStateChange.subscribe).toHaveBeenCalledTimes(0);
     const allSubscriptions = (directive as unknown as { allSubscriptions: [] })
       .allSubscriptions;
-    expect(allSubscriptions.length).toBe(5);
+    expect(allSubscriptions).toHaveLength(5);
 
     directive.ngOnDestroy();
-    expect(allSubscriptions.length).toBe(0);
-  });
-
-  it('should fire AfterViewInit', () => {
-    directive.odataComponent = gridComponent as never;
-    directive.ngOnInit();
-    directive.ngAfterViewInit();
-    directive.ngOnDestroy();
+    expect(allSubscriptions).toHaveLength(0);
   });
 });

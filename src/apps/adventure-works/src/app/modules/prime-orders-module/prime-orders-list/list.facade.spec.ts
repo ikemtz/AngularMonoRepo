@@ -66,12 +66,12 @@ describe('OrderListFacade', () => {
      */
     test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
       let list = await readFirst(facade.tableData$);
-      expect(list.length).toBe(0);
+      expect(list).toHaveLength(0);
       facade.loadEntities({});
 
       list = await readFirst(facade.tableData$);
       const activeEffectCount = await readFirst(facade.activeEffectCount$);
-      expect(list.length).toBe(1);
+      expect(list).toHaveLength(1);
       expect(activeEffectCount).toBe(0);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
@@ -98,14 +98,14 @@ describe('OrderListFacade', () => {
       });
       service.fetch = jest.fn(() => response);
 
-      expect(list.length).toBe(0);
+      expect(list).toHaveLength(0);
       expect(activeEffectCount).toBe(0);
       facade.reloadEntities();
 
       list = await readFirst(facade.tableData$);
       activeEffectCount = await readFirst(facade.activeEffectCount$);
 
-      expect(list.length).toBe(3);
+      expect(list).toHaveLength(3);
       expect(activeEffectCount).toBe(0);
       expect(service.fetch).toHaveBeenCalledTimes(1);
     });
@@ -133,7 +133,7 @@ describe('OrderListFacade', () => {
      */
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.tableData$);
-      expect(list.length).toBe(0);
+      expect(list).toHaveLength(0);
       store.dispatch(
         orderActionTypes.loadOrdersSuccess(
           createODataResult<IOrder>([createTestOrder(), createTestOrder()]),
@@ -141,7 +141,7 @@ describe('OrderListFacade', () => {
       );
 
       list = await readFirst(facade.tableData$);
-      expect(list.length).toBe(2);
+      expect(list).toHaveLength(2);
     });
   });
 });

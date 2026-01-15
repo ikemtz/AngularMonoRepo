@@ -84,14 +84,14 @@ describe('ProductCrudFacade', () => {
       facade.loadProductModels({});
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.productModels$);
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
 
     test('should load ProductCategories', async () => {
       facade.loadProductCategories({});
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.productCategories$);
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
   });
 });
