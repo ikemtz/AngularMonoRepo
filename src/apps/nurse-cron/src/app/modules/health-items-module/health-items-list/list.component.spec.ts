@@ -22,8 +22,7 @@ describe('HealthItemListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [HealthItemListComponent],
-      imports: [],
+      imports: [HealthItemListComponent],
       providers: [
         {
           provide: HealthItemListFacade,

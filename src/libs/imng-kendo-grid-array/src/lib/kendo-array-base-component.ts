@@ -18,7 +18,6 @@ import { KendoGridBaseComponent } from 'imng-kendo-grid';
 
 @Component({
   template: '',
-  standalone: false,
 })
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   extends KendoGridBaseComponent<LISTED_ENTITY>

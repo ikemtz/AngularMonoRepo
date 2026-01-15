@@ -42,8 +42,12 @@ describe('CustomerAddComponent', () => {
     consoleWarnMock = mockConsoleWarn();
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
-      declarations: [CustomerAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DropDownsModule],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        DropDownsModule,
+        CustomerAddComponent,
+      ],
       providers: [
         {
           provide: CustomerCrudFacade,

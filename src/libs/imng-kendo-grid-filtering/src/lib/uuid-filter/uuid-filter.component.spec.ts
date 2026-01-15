@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ColumnComponent, FilterService } from '@progress/kendo-angular-grid';
-import { UuidFilterComponent } from './uuid-filter.component';
+import { IMNG_KENDO_GRID_UUID_FILTER } from './uuid-filter.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UuidFilterComponent', () => {
-  let component: UuidFilterComponent;
-  let fixture: ComponentFixture<UuidFilterComponent>;
+  let component: IMNG_KENDO_GRID_UUID_FILTER;
+  let fixture: ComponentFixture<IMNG_KENDO_GRID_UUID_FILTER>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UuidFilterComponent],
+      imports: [IMNG_KENDO_GRID_UUID_FILTER],
       providers: [
         { provide: FilterService, useValue: {} },
         { provide: ColumnComponent, useValue: {} },
@@ -19,7 +19,7 @@ describe('UuidFilterComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UuidFilterComponent);
+    fixture = TestBed.createComponent(IMNG_KENDO_GRID_UUID_FILTER);
     component = fixture.componentInstance;
   });
 

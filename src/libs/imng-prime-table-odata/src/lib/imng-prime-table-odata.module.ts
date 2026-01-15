@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
+import { IMNG_PRIME_TABLE } from './prime-odata-table.directive';
 import { TableModule } from 'primeng/table';
-import { SearchCaptionComponent } from './search-caption/search-caption.component';
+import { IMNG_PRIME_SEARCH_CAPTION } from './search-caption/search-caption.component';
 
 @NgModule({
-  imports: [CommonModule, TableModule],
-  declarations: [
-    ImngPrimeODataTableDirective,
-    SearchCaptionComponent
+  imports: [
+    CommonModule,
+    TableModule,
+    IMNG_PRIME_TABLE,
+    IMNG_PRIME_SEARCH_CAPTION,
   ],
-  exports: [
-    ImngPrimeODataTableDirective,
-    SearchCaptionComponent
-  ],
+  exports: [IMNG_PRIME_TABLE, IMNG_PRIME_SEARCH_CAPTION],
 })
-export class ImngPrimeTableODataModule { }
+export class ImngPrimeTableODataModule {}

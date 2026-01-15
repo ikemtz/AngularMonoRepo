@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SupportComponent } from './support.component';
+import { IMNG_USER_SUPPORT } from './support.component';
 import { OidcFacade } from '../+state/oidc.facade';
 import { OidcUserFacade } from '../+state/oidc-user.facade';
 import { of } from 'rxjs';
 
-describe('SupportComponent', () => {
-  let component: SupportComponent;
-  let fixture: ComponentFixture<SupportComponent>;
+describe('IMNG_USER_SUPPORT', () => {
+  let component: IMNG_USER_SUPPORT;
+  let fixture: ComponentFixture<IMNG_USER_SUPPORT>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SupportComponent],
+      imports: [IMNG_USER_SUPPORT],
       providers: [
         { provide: OidcFacade, useValue: {} },
         { provide: OidcUserFacade, useValue: { profile$: of() } },
@@ -20,7 +19,7 @@ describe('SupportComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SupportComponent);
+    fixture = TestBed.createComponent(IMNG_USER_SUPPORT);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

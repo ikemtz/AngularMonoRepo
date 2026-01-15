@@ -20,8 +20,11 @@ describe('CompetencyEditComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CompetencyEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        CompetencyEditComponent,
+      ],
       providers: [
         {
           provide: CompetencyCrudFacade,

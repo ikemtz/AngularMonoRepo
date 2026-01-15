@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DataEntryDialogComponent } from './data-entry-dialog.component';
+import { IMNG_KENDO_DATA_ENTRY_DIALOG } from './data-entry-dialog.component';
 import {
   Component,
   NO_ERRORS_SCHEMA,
@@ -17,16 +17,17 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 
-const template =
-  '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>';
 describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DataEntryDialogComponent, TestHostComponent],
-      imports: [NoopAnimationsModule],
+      imports: [
+        NoopAnimationsModule,
+        IMNG_KENDO_DATA_ENTRY_DIALOG,
+        TestHostComponent,
+      ],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() },
@@ -66,8 +67,9 @@ describe('DataEntryDialogComponent', () => {
 
 @Component({
   selector: 'imng-thc',
-  template: template,
-  standalone: false,
+  imports: [IMNG_KENDO_DATA_ENTRY_DIALOG],
+  template:
+    '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>',
 })
 export class TestHostComponent
   extends BaseDataEntryComponent<DataEntryMockFacade>
@@ -91,7 +93,7 @@ export class TestHostComponent
 }
 
 describe('DataEntryDialog', () => {
-  let component: DataEntryDialogComponent;
+  let component: IMNG_KENDO_DATA_ENTRY_DIALOG;
   const parentComponent = {
     dialogTitle: '🔥',
     loading$: '💩',
@@ -102,7 +104,7 @@ describe('DataEntryDialog', () => {
   };
 
   beforeEach(() => {
-    component = new DataEntryDialogComponent();
+    component = new IMNG_KENDO_DATA_ENTRY_DIALOG();
     component.parentComponent = parentComponent as never;
   });
 

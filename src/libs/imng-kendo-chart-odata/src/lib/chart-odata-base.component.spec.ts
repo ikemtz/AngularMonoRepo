@@ -12,7 +12,7 @@ describe('ChartODataBaseComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ChartODataTestComponent],
+      imports: [ChartODataTestComponent],
       providers: [],
     }).compileComponents();
   });
@@ -29,9 +29,8 @@ describe('ChartODataBaseComponent', () => {
 });
 
 @Component({
-    selector: 'imng-test-component',
-    template: '<h1></h1>',
-    standalone: false
+  selector: 'imng-test-component',
+  template: '<h1></h1>',
 })
 export class ChartODataTestComponent extends ChartODataBaseComponent<ChartODataMockFacade> {
   constructor() {

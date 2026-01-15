@@ -3,7 +3,7 @@ import { ODataGridMockFacade } from './kendo-odata-grid-mock.facade';
 
 export function createODataGridMockFacade(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  mockFacade?: ODataGridMockFacade | any
+  mockFacade?: ODataGridMockFacade | any,
 ): ODataGridMockFacade {
   const localFacade = new ODataGridMockFacade();
   if (!mockFacade) {
@@ -12,6 +12,7 @@ export function createODataGridMockFacade(
   mockFacade.loading$ = mockFacade.loading$ || localFacade.loading$;
   mockFacade.gridODataState$ =
     mockFacade.gridODataState$ || localFacade.gridODataState$;
+  mockFacade.gridData$ = mockFacade.gridData$ || localFacade.gridData$;
   mockFacade.gridPagerSettings$ =
     mockFacade.gridPagerSettings$ || localFacade.gridPagerSettings$;
   mockFacade.loadEntities =

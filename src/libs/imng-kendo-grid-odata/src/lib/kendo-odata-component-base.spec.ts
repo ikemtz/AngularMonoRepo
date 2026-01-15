@@ -18,7 +18,7 @@ describe('KendoODataBasedComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [KendoODataGridTestComponent],
+      imports: [KendoODataGridTestComponent],
     }).compileComponents();
   });
 
@@ -141,9 +141,8 @@ const initialGridState: ODataState = {
   filter: { logic: 'and', filters: [{ field: 'x', operator: 'eq', value: 1 }] },
 };
 @Component({
-    selector: 'imng-test-component',
-    template: '<h1></h1>',
-    standalone: false
+  selector: 'imng-test-component',
+  template: '<h1></h1>',
 })
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,
