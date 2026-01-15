@@ -84,21 +84,21 @@ describe('OrderCrudFacade', () => {
       facade.loadCustomers({});
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.customers$);
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
 
     test('should load ShipToAddresses', async () => {
       facade.loadShipToAddresses({});
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.shipToAddresses$);
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
 
     test('should load BillToAddresses', async () => {
       facade.loadBillToAddresses({});
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.billToAddresses$);
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
   });
 });

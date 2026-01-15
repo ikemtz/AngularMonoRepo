@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Employees Reducer valid Oidc actions onSignInError 1`] = `
 {
@@ -56,7 +56,7 @@ exports[`Employees Reducer valid Oidc actions onUserFound 1`] = `
 }
 `;
 
-exports[`Employees Reducer valid Oidc actions onUserLoading 1`] = `
+exports[`Employees Reducer valid Oidc actions onUserLoading snapshot 1`] = `
 {
   "audiences": [],
   "errors": {

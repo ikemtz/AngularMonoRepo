@@ -81,7 +81,7 @@ describe('KendoGridBaseComponent', () => {
     expect(result).toBeUndefined();
   });
 
-  it('should handle getExportFileName', async () => {
+  it('should have the proper length getExportFileName', async () => {
     const component = new MockGridComponent();
     const result = component.getExportFileName('unit-test');
     expect(result).toHaveLength(28);

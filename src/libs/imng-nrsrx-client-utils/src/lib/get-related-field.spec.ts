@@ -1,3 +1,4 @@
+/// <reference types="jest" />
 import { getRelatedField, isRelatedFieldOptions } from './get-related-field';
 
 describe('getRelatedField', () => {
@@ -9,7 +10,7 @@ describe('getRelatedField', () => {
     expect(result).toEqual('parent/child/subChild/x');
   });
 
-  it('should work', () => {
+  it('should work with separator', () => {
     const result = getRelatedField({
       seperator: '-',
       segments: ['parent', 'child', 'subChild', 'x'],

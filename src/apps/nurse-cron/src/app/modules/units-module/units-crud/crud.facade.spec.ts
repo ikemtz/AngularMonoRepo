@@ -85,7 +85,7 @@ describe('UnitCrudFacade', () => {
       facade.loadBuildings({});
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.buildings$);
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
   });
 });

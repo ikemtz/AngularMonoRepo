@@ -67,12 +67,12 @@ describe('ProductListFacade', () => {
      */
     test('loadEntities() should return a list of (1) with loading == false and httpClient.get is invoked', async () => {
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list.data).toHaveLength(0);
       facade.loadEntities({});
 
       list = await readFirst(facade.gridData$);
       const loading = await readFirst(facade.loading$);
-      expect(list.data.length).toBe(1);
+      expect(list.data).toHaveLength(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
@@ -99,14 +99,14 @@ describe('ProductListFacade', () => {
       });
       service.fetch = jest.fn(() => response);
 
-      expect(list.data.length).toBe(0);
+      expect(list.data).toHaveLength(0);
       expect(isloading).toBe(true);
       facade.reloadEntities();
 
       list = await readFirst(facade.gridData$);
       isloading = await readFirst(facade.loading$);
 
-      expect(list.data.length).toBe(3);
+      expect(list.data).toHaveLength(3);
       expect(isloading).toBe(false);
       expect(service.fetch).toHaveBeenCalledTimes(1);
     });
@@ -135,7 +135,7 @@ describe('ProductListFacade', () => {
      */
     test('gridData$ should return the loaded list; and loaded flag == true', async () => {
       let list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(0);
+      expect(list.data).toHaveLength(0);
       store.dispatch(
         productActionTypes.loadProductsSuccess(
           createODataResult([createTestProduct(), createTestProduct()]),
@@ -143,7 +143,7 @@ describe('ProductListFacade', () => {
       );
 
       list = await readFirst(facade.gridData$);
-      expect(list.data.length).toBe(2);
+      expect(list.data).toHaveLength(2);
     });
 
     test('it should handle DeleteItem', async () => {

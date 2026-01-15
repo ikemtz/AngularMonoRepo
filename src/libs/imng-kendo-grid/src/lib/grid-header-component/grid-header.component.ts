@@ -6,11 +6,17 @@ import {
   KENDO_GRID_EXCEL_EXPORT,
   KENDO_GRID_PDF_EXPORT,
 } from '@progress/kendo-angular-grid';
+import { SVGIcon, filePdfIcon, fileExcelIcon } from '@progress/kendo-svg-icons';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'imng-kendo-odata-grid-header',
-  imports: [CommonModule, KENDO_GRID],
+  imports: [
+    CommonModule,
+    KENDO_GRID,
+    KENDO_GRID_PDF_EXPORT,
+    KENDO_GRID_EXCEL_EXPORT,
+  ],
   template: `<div class="mr-5 pr-5">
     @if (entityName) {
       <button
@@ -49,7 +55,7 @@ import { Observable } from 'rxjs';
         type="button"
         title="Export To PDF"
         kendoGridPDFCommand
-        icon="file-pdf"
+        [svgIcon]="icons['filePdfIcon']"
         class="btn btn-sm mx-1"
         (click)="parentGrid.saveAsPDF()">
         <span class="k-icon k-i-pdf"></span> Export to PDF
@@ -57,11 +63,11 @@ import { Observable } from 'rxjs';
     }
     @if (hideExports !== true) {
       <button
-        name="imngExportExcel'"
+        name="imngExportExcel"
         type="button"
         title="Export To Excel"
         kendoGridExcelCommand
-        icon="file-excel"
+        [svgIcon]="icons['fileExcelIcon']"
         class="btn btn-sm mx-1"
         (click)="parentGrid.saveAsExcel()">
         <span class="k-icon k-i-excel"></span> Export To Excel
@@ -105,7 +111,10 @@ import { Observable } from 'rxjs';
 })
 export class IMNG_KENDO_GRID_HEADER {
   parentGrid = inject<GridComponent>(GridComponent);
-
+  public icons: Record<string, SVGIcon> = {
+    filePdfIcon: filePdfIcon,
+    fileExcelIcon: fileExcelIcon,
+  };
   @Input()
   public entityName = '';
   @Input()

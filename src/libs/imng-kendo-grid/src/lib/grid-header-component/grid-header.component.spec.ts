@@ -5,14 +5,11 @@ import {
   ContextService,
   ExcelService,
   GridComponent,
-  KENDO_GRID_EXCEL_EXPORT,
-  KENDO_GRID_PDF_EXPORT,
   PDFCommandDirective,
   PDFService,
 } from '@progress/kendo-angular-grid';
 import { of } from 'rxjs';
 import { IMNG_KENDO_GRID_HEADER } from './grid-header.component';
-import { KENDO_BUTTON, KENDO_BUTTONS } from '@progress/kendo-angular-buttons';
 
 describe('ImngGridHeaderComponent', () => {
   let component: IMNG_KENDO_GRID_HEADER;

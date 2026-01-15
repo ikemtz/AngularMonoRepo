@@ -86,7 +86,7 @@ describe('CustomerCrudFacade', () => {
       facade.loadSalesAgents({});
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       const result = await readFirst(facade.salesAgents$);
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
   });
 });
