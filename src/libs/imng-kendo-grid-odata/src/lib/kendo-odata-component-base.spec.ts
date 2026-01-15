@@ -143,7 +143,6 @@ const initialGridState: ODataState = {
 @Component({
   selector: 'imng-test-component',
   template: '<h1></h1>',
-  standalone: true,
 })
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,

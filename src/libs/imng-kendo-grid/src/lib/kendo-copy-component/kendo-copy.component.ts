@@ -19,7 +19,6 @@ import { copyIcon } from '@progress/kendo-svg-icons';
     ></a>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class IMNG_KENDO_COPY implements OnInit {
   public readonly copyIcon = copyIcon;

@@ -101,7 +101,6 @@ describe('KendoArrayBaseComponent', () => {
       <kendo-grid-column field="id" />
     </kendo-grid>
     {{ hasHiddenColumns$ | async }}`,
-  standalone: true,
 })
 export class KendoArrayGridTestComponent
   extends KendoArrayBasedComponent<object, object>

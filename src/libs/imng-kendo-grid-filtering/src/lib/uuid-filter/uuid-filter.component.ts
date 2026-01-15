@@ -34,7 +34,6 @@ import { Subscriptions } from 'imng-ngrx-utils';
     </kendo-grid-string-filter-menu>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class IMNG_KENDO_GRID_UUID_FILTER {
   filterService = inject<FilterService>(FilterService);

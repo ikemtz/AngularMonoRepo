@@ -18,7 +18,6 @@ import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

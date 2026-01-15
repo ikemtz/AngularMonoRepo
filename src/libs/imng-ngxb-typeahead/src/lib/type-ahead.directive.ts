@@ -36,7 +36,6 @@ import { of } from 'rxjs';
  */
 @Directive({
   selector: '[imngTypeahead]',
-  standalone: true,
 })
 export class IMNG_TYPE_AHEAD<T>
   extends TypeaheadDirective

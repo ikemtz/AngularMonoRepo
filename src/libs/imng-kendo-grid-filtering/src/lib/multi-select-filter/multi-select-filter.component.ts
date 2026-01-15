@@ -78,7 +78,6 @@ import { CommonModule } from '@angular/common';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class IMNG_KENDO_GRID_MULTISELECT_FILTER implements AfterViewInit {
   readonly filterService = inject(FilterService);

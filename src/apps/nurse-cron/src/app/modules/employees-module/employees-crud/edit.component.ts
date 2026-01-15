@@ -20,7 +20,6 @@ import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

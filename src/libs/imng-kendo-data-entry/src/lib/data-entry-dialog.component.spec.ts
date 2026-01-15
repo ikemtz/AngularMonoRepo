@@ -70,7 +70,6 @@ describe('DataEntryDialogComponent', () => {
   imports: [IMNG_KENDO_DATA_ENTRY_DIALOG],
   template:
     '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>',
-  standalone: true,
 })
 export class TestHostComponent
   extends BaseDataEntryComponent<DataEntryMockFacade>

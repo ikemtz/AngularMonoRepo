@@ -64,7 +64,6 @@ describe('DialogButtonsDirective', () => {
 
 @Component({
   selector: 'imng-thc',
-  standalone: true,
   imports: [IMNG_KENDO_DATA_ENTRY_DIALOG, IMNG_KENDO_DIALOG_BUTTONS],
   template: ` <imng-data-entry-dialog
     [width]="700"

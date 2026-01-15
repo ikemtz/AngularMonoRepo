@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, RouterModule],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
-  standalone: true,
 })
 export class NavBarComponent {
   private readonly oidcFacade = inject(OidcFacade);

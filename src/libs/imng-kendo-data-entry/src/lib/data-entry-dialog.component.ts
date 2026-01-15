@@ -55,7 +55,6 @@ import { CommonModule } from '@angular/common';
       </button>
     </ng-template>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class IMNG_KENDO_DATA_ENTRY_DIALOG implements OnInit {
   @Input() public minWidth?: number; //NOSONAR

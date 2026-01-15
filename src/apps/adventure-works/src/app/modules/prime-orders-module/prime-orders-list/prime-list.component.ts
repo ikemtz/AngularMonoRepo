@@ -35,7 +35,6 @@ const initialGridState: PrimeTableState = {
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class PrimeOrderListComponent extends ImngPrimeODataTableBaseComponent<
   IOrder,

@@ -12,7 +12,6 @@ import {
 
 @Component({
   template: '',
-  standalone: true,
 })
 export abstract class EmployeeBaseEntryComponent
   extends BaseDataEntryComponent<EmployeeCrudFacade>

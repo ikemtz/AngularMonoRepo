@@ -57,7 +57,6 @@ import { AsyncPipe } from '@angular/common';
       </div>
     }
   </div>`,
-  standalone: true,
 })
 export class IMNG_USER_SUPPORT {
   readonly facade = inject(OidcFacade);

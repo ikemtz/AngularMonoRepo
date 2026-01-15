@@ -7,7 +7,6 @@ import { Observable, Subscription } from 'rxjs';
   selector: 'nrcrn-messaging',
   templateUrl: './messaging.component.html',
   styleUrls: ['./messaging.component.scss'],
-  standalone: true,
 })
 export class MessagingComponent implements OnInit, OnDestroy {
   private readonly signalrFacade = inject(SignalrFacade);

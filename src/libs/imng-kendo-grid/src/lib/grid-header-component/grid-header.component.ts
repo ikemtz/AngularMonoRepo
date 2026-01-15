@@ -102,7 +102,6 @@ import { Observable } from 'rxjs';
       }
     `,
   ],
-  standalone: true,
 })
 export class IMNG_KENDO_GRID_HEADER {
   parentGrid = inject<GridComponent>(GridComponent);

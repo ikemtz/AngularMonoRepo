@@ -20,5 +20,5 @@
   "github.copilot.chat.languageContext.inline.typescript.enabled": true,
   "editor.experimental.preferTreeSitter.typescript": false,
   "typescript.implementationsCodeLens.enabled": true,
-  "terminal.integrated.cwd": "c:\\repos\\AngularMonoRepo\\src"
+  "nxConsole.nxWorkspacePath": ""
 }

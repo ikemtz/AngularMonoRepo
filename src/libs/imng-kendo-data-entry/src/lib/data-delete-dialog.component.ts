@@ -46,7 +46,6 @@ import { CommonModule } from '@angular/common';
       </button>
     </ng-template>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class IMNG_KENDO_DELETE_DIALOG {
   public readonly minWidth = input<number | undefined>(undefined);

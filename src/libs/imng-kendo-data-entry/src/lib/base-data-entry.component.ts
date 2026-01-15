@@ -36,7 +36,6 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
  */
 @Component({
   template: '',
-  standalone: true,
 })
 export abstract class BaseDataEntryComponent<
   FACADE extends IBaseDataEntryFacade,

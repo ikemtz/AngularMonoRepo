@@ -34,7 +34,6 @@ import {
       </button>
     }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE implements OnInit {
   readonly changeDetectorRef = inject(ChangeDetectorRef);

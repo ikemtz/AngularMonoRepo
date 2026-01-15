@@ -26,7 +26,6 @@ const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 
 @Component({
   template: '',
-  standalone: true,
 })
 export abstract class KendoODataBasedComponent<
   ENTITY,

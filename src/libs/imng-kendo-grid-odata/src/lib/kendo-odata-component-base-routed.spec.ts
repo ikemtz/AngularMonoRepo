@@ -104,7 +104,6 @@ const initialGridState: ODataState = {
   selector: 'imng-test-component',
   imports: [AsyncPipe],
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
-  standalone: true,
 })
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,

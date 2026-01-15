@@ -12,7 +12,6 @@ import { HealthItemCrudFacade } from './crud.facade';
 
 @Component({
   template: '',
-  standalone: true,
 })
 export abstract class HealthItemBaseEntryComponent
   extends BaseDataEntryComponent<HealthItemCrudFacade>
