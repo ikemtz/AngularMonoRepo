@@ -4,7 +4,6 @@ import { IMNG_KENDO_GRID_ARRAY } from './kendo-array-grid.directive';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 
 @NgModule({
-  declarations: [],
   imports: [CommonModule, ImngKendoGridModule, IMNG_KENDO_GRID_ARRAY],
   exports: [IMNG_KENDO_GRID_ARRAY],
 })

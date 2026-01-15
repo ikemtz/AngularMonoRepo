@@ -5,7 +5,6 @@ import { ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     PDFModule,

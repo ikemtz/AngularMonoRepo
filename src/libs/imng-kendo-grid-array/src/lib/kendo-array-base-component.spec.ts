@@ -1,4 +1,4 @@
-///reference types="jest" />
+///<reference types="jest" />
 import { AsyncPipe } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
@@ -19,7 +19,7 @@ describe('KendoArrayBaseComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [KendoArrayGridTestComponent, IMNG_KENDO_GRID_ARRAY],
+      imports: [KendoArrayGridTestComponent, IMNG_KENDO_GRID_ARRAY],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         {

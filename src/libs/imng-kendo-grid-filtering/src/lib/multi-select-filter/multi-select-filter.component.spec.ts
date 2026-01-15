@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FilterService } from '@progress/kendo-angular-grid';
 
-import { MultiSelectFilterComponent } from './multi-select-filter.component';
+import { IMNG_KENDO_GRID_MULTISELECT_FILTER } from './multi-select-filter.component';
 
 describe('CheckboxFilterComponent', () => {
-  let component: MultiSelectFilterComponent;
-  let fixture: ComponentFixture<MultiSelectFilterComponent>;
+  let component: IMNG_KENDO_GRID_MULTISELECT_FILTER;
+  let fixture: ComponentFixture<IMNG_KENDO_GRID_MULTISELECT_FILTER>;
   let filterService: FilterService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MultiSelectFilterComponent],
+      imports: [IMNG_KENDO_GRID_MULTISELECT_FILTER],
       providers: [{ provide: FilterService, useValue: { filter: jest.fn() } }],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultiSelectFilterComponent);
+    fixture = TestBed.createComponent(IMNG_KENDO_GRID_MULTISELECT_FILTER);
     filterService = TestBed.inject(FilterService);
     component = fixture.componentInstance;
     component.isPrimitive = true;
