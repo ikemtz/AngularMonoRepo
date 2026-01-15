@@ -2,24 +2,20 @@ import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { ButtonsModule } from '@progress/kendo-angular-buttons';
-import { DialogModule } from '@progress/kendo-angular-dialog';
 import { IdleEffects } from './+state/idle.effects';
 import { IdleFacade } from './+state/idle.facade';
 import { idleFeature } from './+state/idle.reducer';
 import { IdleConfig, IDLE_CONFIG } from './idle-config';
-import { IdleWarningComponent } from './idle-warning/idle-warning.component';
+import { IMNG_KENDO_IDLE_WARNING } from './idle-warning/idle-warning.component';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forFeature(idleFeature),
     EffectsModule.forFeature([IdleEffects]),
-    DialogModule,
-    ButtonsModule,
+    IMNG_KENDO_IDLE_WARNING,
   ],
-  declarations: [IdleWarningComponent],
-  exports: [IdleWarningComponent],
+  exports: [IMNG_KENDO_IDLE_WARNING],
 })
 export class ImngNgrxIdleModule {
   static forRoot(

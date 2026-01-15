@@ -10,8 +10,7 @@ describe('NavBarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NavBarComponent],
-      imports: [RouterTestingModule],
+      imports: [NavBarComponent, RouterTestingModule],
       providers: [
         { provide: OidcFacade, useValue: {} },
         { provide: OidcUserFacade, useValue: {} },

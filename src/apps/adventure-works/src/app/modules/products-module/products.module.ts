@@ -28,11 +28,6 @@ import {
 } from './products-crud';
 
 @NgModule({
-  declarations: [
-    ProductListComponent,
-    ProductAddComponent,
-    ProductEditComponent,
-  ],
   imports: [
     CommonModule,
     GridModule,
@@ -49,6 +44,9 @@ import {
     ProductsRoutingModule,
     StoreModule.forFeature(productsFeature),
     EffectsModule.forFeature([ProductEffects]),
+    ProductListComponent,
+    ProductAddComponent,
+    ProductEditComponent,
   ],
   providers: [ProductListFacade, ProductCrudFacade, ProductApiService],
 })

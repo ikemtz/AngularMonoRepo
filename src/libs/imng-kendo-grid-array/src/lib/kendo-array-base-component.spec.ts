@@ -1,3 +1,5 @@
+///reference types="jest" />
+import { AsyncPipe } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   Component,
@@ -5,10 +7,10 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import { KendoArrayBasedComponent } from './kendo-array-base-component';
-import { ImngArrayGridDirective } from './kendo-array-grid.directive';
+import { IMNG_KENDO_GRID_ARRAY } from './kendo-array-grid.directive';
 import { of } from 'rxjs';
 import { Subscribable } from 'imng-ngrx-utils';
-import { GridComponent } from '@progress/kendo-angular-grid';
+import { GridComponent, KENDO_GRID } from '@progress/kendo-angular-grid';
 import { MockGridComponent } from 'imng-kendo-grid/testing';
 
 describe('KendoArrayBaseComponent', () => {
@@ -17,7 +19,7 @@ describe('KendoArrayBaseComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [KendoArrayGridTestComponent, ImngArrayGridDirective],
+      declarations: [KendoArrayGridTestComponent, IMNG_KENDO_GRID_ARRAY],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         {
@@ -93,12 +95,12 @@ describe('KendoArrayBaseComponent', () => {
 });
 
 @Component({
-    selector: 'imng-test-component',
-    template: ` <kendo-grid [imngArrayGrid]="this">
+  selector: 'imng-test-component',
+  imports: [AsyncPipe, KENDO_GRID, IMNG_KENDO_GRID_ARRAY],
+  template: ` <kendo-grid [imngArrayGrid]="this">
       <kendo-grid-column field="id" />
     </kendo-grid>
     {{ hasHiddenColumns$ | async }}`,
-    standalone: false
 })
 export class KendoArrayGridTestComponent
   extends KendoArrayBasedComponent<object, object>

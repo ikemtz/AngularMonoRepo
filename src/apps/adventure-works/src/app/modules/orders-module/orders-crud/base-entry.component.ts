@@ -19,7 +19,6 @@ import { OrderCrudFacade } from './crud.facade';
 
 @Component({
   template: '',
-  standalone: false,
 })
 export abstract class OrderBaseEntryComponent
   extends BaseDataEntryComponent<OrderCrudFacade>

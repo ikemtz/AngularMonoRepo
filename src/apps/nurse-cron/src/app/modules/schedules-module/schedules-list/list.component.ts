@@ -1,12 +1,23 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  ImngKendoGridODataModule,
+  KendoODataBasedComponent,
+} from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { ScheduleListFacade } from './list.facade';
-import { ScheduleCrudFacade } from '../schedules-crud';
+import {
+  ScheduleAddComponent,
+  ScheduleCrudFacade,
+  ScheduleEditComponent,
+} from '../schedules-crud';
 import { ScheduleProperties, ISchedule } from '../../../models/schedules-odata';
+import { AsyncPipe, SlicePipe } from '@angular/common';
+import { KENDO_MENUS } from '@progress/kendo-angular-menu';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -22,19 +33,30 @@ const initialGridState: ODataState = {
     ScheduleProperties.SCHEDULED_HOURS,
     ScheduleProperties.APPROVED_ON_UTC,
   ],
-  sort: [
-    { field: ScheduleProperties.UNIT_ID, dir: 'asc' },
-  ],
+  sort: [{ field: ScheduleProperties.UNIT_ID, dir: 'asc' }],
 };
 
 @Component({
-    selector: 'nrcrn-schedule-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'nrcrn-schedule-list',
+  imports: [
+    AsyncPipe,
+    SlicePipe,
+    KENDO_GRID,
+    KENDO_MENUS,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ImngKendoGridFilteringModule,
+    ScheduleAddComponent,
+    ScheduleEditComponent,
+  ],
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScheduleListComponent extends KendoODataBasedComponent<ISchedule, ScheduleListFacade> {
+export class ScheduleListComponent extends KendoODataBasedComponent<
+  ISchedule,
+  ScheduleListFacade
+> {
   readonly crudFacade = inject(ScheduleCrudFacade);
 
   public readonly props = ScheduleProperties;

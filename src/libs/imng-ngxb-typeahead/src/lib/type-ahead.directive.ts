@@ -36,9 +36,8 @@ import { of } from 'rxjs';
  */
 @Directive({
   selector: '[imngTypeahead]',
-  standalone: false,
 })
-export class ImngTypeaheadDirective<T>
+export class IMNG_TYPE_AHEAD<T>
   extends TypeaheadDirective
   implements OnInit, OnDestroy, Subscribable
 {

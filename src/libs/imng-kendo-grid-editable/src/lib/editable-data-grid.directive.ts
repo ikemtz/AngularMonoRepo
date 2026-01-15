@@ -23,9 +23,8 @@ import { IdType } from 'imng-nrsrx-client-utils';
 
 @Directive({
   selector: '[imngEditableDataGrid]',
-  standalone: false,
 })
-export class ImngEditableDataGridDirective
+export class IMNG_KENDO_EDITABLE_GRID
   implements OnInit, OnDestroy, Subscribable
 {
   readonly gridComponent = inject(GridComponent);

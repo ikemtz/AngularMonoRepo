@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ImngEditableDataGridDirective } from './editable-data-grid.directive';
+import { IMNG_KENDO_EDITABLE_GRID } from './editable-data-grid.directive';
 import { GridModule } from '@progress/kendo-angular-grid';
 
 @NgModule({
-  declarations: [ImngEditableDataGridDirective],
+  declarations: [IMNG_KENDO_EDITABLE_GRID],
   imports: [CommonModule, GridModule],
-  exports: [ImngEditableDataGridDirective],
+  exports: [IMNG_KENDO_EDITABLE_GRID],
 })
 export class ImngKendoGridEditableModule {}

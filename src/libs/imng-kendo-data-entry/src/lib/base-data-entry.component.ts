@@ -36,11 +36,10 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
  */
 @Component({
   template: '',
-  standalone: false,
 })
 export abstract class BaseDataEntryComponent<
-    FACADE extends IBaseDataEntryFacade,
-  >
+  FACADE extends IBaseDataEntryFacade,
+>
   implements OnInit, OnDestroy, Subscribable
 {
   @Input() public width: string | number = 800; //NOSONAR

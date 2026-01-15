@@ -15,7 +15,6 @@ import { of } from 'rxjs';
 @Component({
   selector: 'imng-mock-grid',
   template: '',
-  standalone: true,
 })
 export class MockGridComponent {
   public readonly facade = {

@@ -16,10 +16,11 @@ import {
 } from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
 import { ODataState } from 'imng-kendo-odata';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'imng-multi-select-filter',
-
+  imports: [CommonModule],
   template: `
     <ul>
       @if (showTextFilter) {
@@ -77,9 +78,8 @@ import { ODataState } from 'imng-kendo-odata';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
-export class MultiSelectFilterComponent implements AfterViewInit {
+export class IMNG_KENDO_GRID_MULTISELECT_FILTER implements AfterViewInit {
   readonly filterService = inject(FilterService);
   readonly changeDetectorRef = inject(ChangeDetectorRef);
   readonly elementRef = inject(ElementRef);

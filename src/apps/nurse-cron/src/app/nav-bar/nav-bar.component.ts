@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { OidcFacade, OidcUserFacade, IOidcUser } from 'imng-oidc-client';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'nrcrn-nav-bar',
-    templateUrl: './nav-bar.component.html',
-    styleUrls: ['./nav-bar.component.scss'],
-    standalone: false
+  selector: 'nrcrn-nav-bar',
+  imports: [CommonModule, RouterModule],
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent {
   private readonly oidcFacade = inject(OidcFacade);

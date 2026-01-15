@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  GridModule,
-  ExcelModule,
-  PDFModule,
-} from '@progress/kendo-angular-grid';
+import { ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { MenusModule } from '@progress/kendo-angular-menu';
@@ -29,14 +25,8 @@ import {
 } from './buildings-crud';
 
 @NgModule({
-  declarations: [
-    BuildingListComponent,
-    BuildingAddComponent,
-    BuildingEditComponent,
-  ],
   imports: [
     CommonModule,
-    GridModule,
     ExcelModule,
     PDFModule,
     DialogModule,
@@ -50,6 +40,9 @@ import {
     BuildingsRoutingModule,
     StoreModule.forFeature(buildingsFeature),
     EffectsModule.forFeature([BuildingEffects]),
+    BuildingListComponent,
+    BuildingAddComponent,
+    BuildingEditComponent,
   ],
   providers: [BuildingListFacade, BuildingCrudFacade, BuildingApiService],
 })

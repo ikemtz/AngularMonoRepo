@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ImngGridChildColumnTemplateComponent } from './kendo-child-column-template.component';
+import { IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE } from './kendo-child-column-template.component';
 
-describe('ImngGridChildColumnTemplateComponent', () => {
-  let component: ImngGridChildColumnTemplateComponent;
-  let fixture: ComponentFixture<ImngGridChildColumnTemplateComponent>;
+describe('IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE', () => {
+  let component: IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE;
+  let fixture: ComponentFixture<IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ImngGridChildColumnTemplateComponent],
+      imports: [IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImngGridChildColumnTemplateComponent);
+    fixture = TestBed.createComponent(IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

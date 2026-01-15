@@ -1,3 +1,4 @@
+import { SlicePipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -11,6 +12,7 @@ import {
 
 @Component({
   selector: 'imng-kendo-grid-child-column-template',
+  imports: [SlicePipe],
   template: `@for (
       item of currentData | slice: 0 : visibleRecCount;
       track item
@@ -32,9 +34,8 @@ import {
       </button>
     }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
-export class ImngGridChildColumnTemplateComponent implements OnInit {
+export class IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE implements OnInit {
   readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   private _data: unknown[] = [];
