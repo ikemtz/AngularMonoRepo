@@ -26,12 +26,12 @@ const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 
 @Component({
   template: '',
-  standalone: false,
+  standalone: true,
 })
 export abstract class KendoODataBasedComponent<
-    ENTITY,
-    FACADE extends IKendoODataGridFacade<ENTITY>,
-  >
+  ENTITY,
+  FACADE extends IKendoODataGridFacade<ENTITY>,
+>
   extends KendoGridBaseComponent<ENTITY>
   implements OnInit, OnDestroy, Subscribable
 {

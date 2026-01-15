@@ -6,10 +6,13 @@ import {
   ContentChild,
   input,
 } from '@angular/core';
-import { DialogButtonsDirective } from './dialog-buttons.directive';
+import { IMNG_KENDO_DIALOG_BUTTONS } from './dialog-buttons.directive';
+import { KENDO_DIALOG } from '@progress/kendo-angular-dialog';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'imng-data-delete-dialog',
+  imports: [CommonModule, KENDO_DIALOG],
   template: `<kendo-dialog
       [width]="width()"
       [minWidth]="minWidth() ?? width()"
@@ -43,9 +46,9 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
       </button>
     </ng-template>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  standalone: true,
 })
-export class DataDeleteDialogComponent {
+export class IMNG_KENDO_DELETE_DIALOG {
   public readonly minWidth = input<number | undefined>(undefined);
   public readonly width = input(450);
   public readonly height = input(225);
@@ -62,7 +65,7 @@ export class DataDeleteDialogComponent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() public cancelButtonText?: string = 'Cancel';
   @Input() public deleteButtonText?: string = 'Delete';
-  @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
+  @ContentChild(IMNG_KENDO_DIALOG_BUTTONS, { static: true, read: TemplateRef })
   /**
    * Example Usage:
    * <imng-data-delete-dialog>

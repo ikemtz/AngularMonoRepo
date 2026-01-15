@@ -1,18 +1,31 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  ImngKendoGridODataModule,
+  KendoODataBasedComponent,
+} from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { ProductListFacade } from './list.facade';
-import { ProductCrudFacade } from '../products-crud';
+import {
+  ProductAddComponent,
+  ProductCrudFacade,
+  ProductEditComponent,
+} from '../products-crud';
 import {
   IProduct,
   ProductCategoryProperties,
   ProductModelProperties,
   ProductProperties,
 } from '../../../models/odata';
+import { AsyncPipe, SlicePipe } from '@angular/common';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_MENUS } from '@progress/kendo-angular-menu';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -52,10 +65,22 @@ const initialGridState: ODataState = {
 
 @Component({
   selector: 'aw-product-list',
+  imports: [
+    AsyncPipe,
+    SlicePipe,
+    KENDO_GRID,
+    KENDO_MENUS,
+    KENDO_SVGICON,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ImngKendoGridFilteringModule,
+    ImngDataEntryDialogModule,
+    ProductAddComponent,
+    ProductEditComponent,
+  ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false
 })
 export class ProductListComponent extends KendoODataBasedComponent<
   IProduct,
@@ -68,8 +93,6 @@ export class ProductListComponent extends KendoODataBasedComponent<
   public readonly productModelProps = ProductModelProperties;
   public readonly productCategoryProps = ProductCategoryProperties;
   public currentItem: IProduct | undefined;
-
-
 
   constructor() {
     super(inject(ProductListFacade), initialGridState, inject(Router));

@@ -22,8 +22,7 @@ describe('OrderListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [OrderListComponent],
-      imports: [],
+      imports: [OrderListComponent],
       providers: [
         {
           provide: OrderListFacade,

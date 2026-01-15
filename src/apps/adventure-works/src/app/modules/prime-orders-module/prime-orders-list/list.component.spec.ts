@@ -5,15 +5,14 @@ import { createODataTableMockFacade } from 'imng-prime-table-odata/testing';
 import { PrimeOrderListComponent } from './prime-list.component';
 import { PrimeOrderListFacade } from './prime-list.facade';
 
-describe('OrderListComponent', () => {
+describe('PrimeOrderListComponent', () => {
   let component: PrimeOrderListComponent;
   let fixture: ComponentFixture<PrimeOrderListComponent>;
   let listFacade: PrimeOrderListFacade;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [PrimeOrderListComponent],
-      imports: [],
+      imports: [PrimeOrderListComponent],
       providers: [
         {
           provide: PrimeOrderListFacade,

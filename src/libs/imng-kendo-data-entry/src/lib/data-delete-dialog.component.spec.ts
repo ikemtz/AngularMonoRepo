@@ -1,17 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DataDeleteDialogComponent } from './data-delete-dialog.component';
+import { IMNG_KENDO_DELETE_DIALOG } from './data-delete-dialog.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 describe('DataDeleteDialogComponent', () => {
-  let fixture: ComponentFixture<DataDeleteDialogComponent>;
-  let component: DataDeleteDialogComponent;
+  let fixture: ComponentFixture<IMNG_KENDO_DELETE_DIALOG>;
+  let component: IMNG_KENDO_DELETE_DIALOG;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DataDeleteDialogComponent],
+      imports: [IMNG_KENDO_DELETE_DIALOG],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
+      providers: [provideNoopAnimations()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DataDeleteDialogComponent);
+    fixture = TestBed.createComponent(IMNG_KENDO_DELETE_DIALOG);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('dataItem', { id: '😎' });
     fixture.componentRef.setInput('facade', {

@@ -11,8 +11,8 @@ import { OidcUserFacade } from './+state/oidc-user.facade';
 import { OidcEffects } from './+state/oidc.effects';
 import { OidcFacade } from './+state/oidc.facade';
 import { oidcFeature } from './+state/oidc.reducer';
-import { AccessDeniedComponent } from './components/access-denied.component';
-import { LogoutSuccessComponent } from './components/logout-success.component';
+import { IMNG_ACCESS_DENIED } from './components/access-denied.component';
+import { IMNG_LOGOUT_SUCCESS } from './components/logout-success.component';
 import { ImngOidcClientRoutingModule } from './img-oidc-client-routing.module';
 import {
   OIDC_CLIENT_CONFIG,
@@ -22,22 +22,20 @@ import { OIDC_LIBRARY_CONFIG } from './models/oidc-library-config';
 import { AuthGuard } from './services/auth-guard';
 import { OidcService } from './services/oidc.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
-import { SupportComponent } from './support/support.component';
+import { IMNG_USER_SUPPORT } from './support/support.component';
 import { oidcConfigurator } from './util/oidc-client-configurator';
 
 @NgModule({
-  declarations: [
-    AccessDeniedComponent,
-    SupportComponent,
-    LogoutSuccessComponent,
-  ],
   imports: [
     CommonModule,
     StoreModule.forFeature(oidcFeature),
     EffectsModule.forFeature([OidcEffects]),
     ImngOidcClientRoutingModule,
+    IMNG_ACCESS_DENIED,
+    IMNG_USER_SUPPORT,
+    IMNG_LOGOUT_SUCCESS,
   ],
-  exports: [AccessDeniedComponent, SupportComponent, LogoutSuccessComponent],
+  exports: [IMNG_ACCESS_DENIED, IMNG_USER_SUPPORT, IMNG_LOGOUT_SUCCESS],
   providers: [
     {
       provide: OIDC_LIBRARY_CONFIG,

@@ -21,9 +21,9 @@ import {
 
 @Directive({
   selector: '[imngArrayGrid]',
-  standalone: false,
+  standalone: true,
 })
-export class ImngArrayGridDirective
+export class IMNG_KENDO_GRID_ARRAY
   implements OnInit, AfterViewInit, OnDestroy, Subscribable
 {
   readonly gridComponent = inject(GridComponent);

@@ -7,11 +7,12 @@ import {
 import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 
 @Component({
-    selector: 'imng-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'imng-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  // eslint-disable-next-line @angular-eslint/prefer-standalone
+  standalone: false,
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild(BarcodeScannerLivestreamComponent)
@@ -26,7 +27,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onValueChanges(result: { codeResult: { code: string; }; } | any): void {
+  onValueChanges(result: { codeResult: { code: string } } | any): void {
     this.barcodeValue = result.codeResult.code;
     console.log(JSON.stringify(result)); //NOSONAR
   }

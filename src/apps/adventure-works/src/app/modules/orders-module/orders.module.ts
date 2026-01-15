@@ -35,12 +35,6 @@ import { MenusModule } from '@progress/kendo-angular-menu';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 @NgModule({
-  declarations: [
-    OrderListComponent,
-    OrderAddComponent,
-    OrderEditComponent,
-    OrderLineItemListComponent,
-  ],
   imports: [
     CommonModule,
     GridModule,
@@ -58,6 +52,10 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
     DateInputsModule,
     MenusModule,
     DropDownsModule,
+    OrderListComponent,
+    OrderAddComponent,
+    OrderEditComponent,
+    OrderLineItemListComponent,
   ],
   providers: [
     OrderListFacade,

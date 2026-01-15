@@ -34,13 +34,7 @@ describe('OrderEditComponent', () => {
     consoleWarnMock = mockConsoleWarn();
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
-      declarations: [OrderEditComponent],
-      imports: [
-        ReactiveFormsModule,
-        NoopAnimationsModule,
-        DatePickerModule,
-        DropDownsModule,
-      ],
+      imports: [ReactiveFormsModule, NoopAnimationsModule, OrderEditComponent],
       providers: [
         {
           provide: OrderCrudFacade,

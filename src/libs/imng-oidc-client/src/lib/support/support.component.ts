@@ -3,9 +3,11 @@ import { OidcFacade } from '../+state/oidc.facade';
 import { OidcUserFacade } from '../+state/oidc-user.facade';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'imng-support',
+  imports: [AsyncPipe],
   template: `<div class="container pt-5 mt-5">
     <div class="row h3 text-center">
       <div class="col-md-12 text-center">OIDC Support</div>
@@ -55,9 +57,9 @@ import { map } from 'rxjs/operators';
       </div>
     }
   </div>`,
-  standalone: false,
+  standalone: true,
 })
-export class SupportComponent {
+export class IMNG_USER_SUPPORT {
   readonly facade = inject(OidcFacade);
   readonly oidcUserFacade = inject(OidcUserFacade);
 
