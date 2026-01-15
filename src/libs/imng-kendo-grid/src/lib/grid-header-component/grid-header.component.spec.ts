@@ -1,20 +1,51 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GridComponent } from '@progress/kendo-angular-grid';
+import {
+  ColumnInfoService,
+  ContextService,
+  ExcelService,
+  GridComponent,
+  KENDO_GRID_EXCEL_EXPORT,
+  KENDO_GRID_PDF_EXPORT,
+  PDFCommandDirective,
+  PDFService,
+} from '@progress/kendo-angular-grid';
 import { of } from 'rxjs';
-import { ImngGridHeaderComponent } from './grid-header.component';
+import { IMNG_KENDO_GRID_HEADER } from './grid-header.component';
+import { KENDO_BUTTON, KENDO_BUTTONS } from '@progress/kendo-angular-buttons';
 
 describe('ImngGridHeaderComponent', () => {
-  let component: ImngGridHeaderComponent;
-  let fixture: ComponentFixture<ImngGridHeaderComponent>;
-
+  let component: IMNG_KENDO_GRID_HEADER;
+  let fixture: ComponentFixture<IMNG_KENDO_GRID_HEADER>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ImngGridHeaderComponent],
+      imports: [IMNG_KENDO_GRID_HEADER, PDFCommandDirective],
       providers: [
         {
           provide: GridComponent,
           useValue: {},
+        },
+        {
+          provide: PDFService,
+          useValue: {},
+        },
+        {
+          provide: ExcelService,
+          useValue: {},
+        },
+        {
+          provide: ColumnInfoService,
+          useValue: {},
+        },
+        {
+          provide: ContextService,
+          useValue: {
+            localization: {
+              get: jest.fn(),
+              rtl: true,
+              changes: of({ rtl: true }),
+            },
+          },
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -22,7 +53,7 @@ describe('ImngGridHeaderComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImngGridHeaderComponent);
+    fixture = TestBed.createComponent(IMNG_KENDO_GRID_HEADER);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

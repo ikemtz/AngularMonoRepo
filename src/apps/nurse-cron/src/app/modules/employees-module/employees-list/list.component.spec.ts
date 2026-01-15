@@ -20,8 +20,7 @@ describe('EmployeeListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [EmployeeListComponent],
-      imports: [],
+      imports: [EmployeeListComponent],
       providers: [
         {
           provide: EmployeeListFacade,

@@ -1,12 +1,27 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  ImngKendoGridODataModule,
+  KendoODataBasedComponent,
+} from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { UnitListFacade } from './list.facade';
-import { UnitCrudFacade } from '../units-crud';
-import { UnitProperties, BuildingProperties, IUnit } from '../../../models/units-odata';
+import {
+  UnitAddComponent,
+  UnitCrudFacade,
+  UnitEditComponent,
+} from '../units-crud';
+import {
+  UnitProperties,
+  BuildingProperties,
+  IUnit,
+} from '../../../models/units-odata';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { AsyncPipe, SlicePipe } from '@angular/common';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
+import { KENDO_MENUS } from '@progress/kendo-angular-menu';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -19,9 +34,7 @@ const initialGridState: ODataState = {
     UnitProperties.DELETED_BY,
     UnitProperties.DELETED_ON_UTC,
   ],
-  sort: [
-    { field: UnitProperties.BUILDING_ID, dir: 'asc' },
-  ],
+  sort: [{ field: UnitProperties.BUILDING_ID, dir: 'asc' }],
   expanders: [
     {
       table: UnitProperties.BUILDING,
@@ -38,19 +51,32 @@ const initialGridState: ODataState = {
         BuildingProperties.GPS_DATA,
         BuildingProperties.DELETED_BY,
         BuildingProperties.DELETED_ON_UTC,
-      ]
+      ],
     },
-  ]
+  ],
 };
 
 @Component({
-    selector: 'nrcrn-unit-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'nrcrn-unit-list',
+  imports: [
+    AsyncPipe,
+    SlicePipe,
+    KENDO_GRID,
+    KENDO_MENUS,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ImngKendoGridFilteringModule,
+    UnitEditComponent,
+    UnitAddComponent,
+  ],
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UnitListComponent extends KendoODataBasedComponent<IUnit, UnitListFacade> {
+export class UnitListComponent extends KendoODataBasedComponent<
+  IUnit,
+  UnitListFacade
+> {
   readonly crudFacade = inject(UnitCrudFacade);
 
   public readonly props = UnitProperties;

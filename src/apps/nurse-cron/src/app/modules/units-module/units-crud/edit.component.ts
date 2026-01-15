@@ -4,18 +4,32 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { formGroupPatcher } from 'imng-kendo-data-entry';
+import {
+  formGroupPatcher,
+  ImngDataEntryDialogModule,
+} from 'imng-kendo-data-entry';
 import { normalizeRequest } from 'imng-nrsrx-client-utils';
 import { IUnit } from '../../../models/units-odata';
 
 import { UnitBaseEntryComponent } from './base-entry.component';
+import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';
 
 @Component({
-    selector: 'nrcrn-unit-edit',
-    templateUrl: './add-edit.component.html',
-    styleUrls: ['./add-edit.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'nrcrn-unit-edit',
+  imports: [
+    AsyncPipe,
+    CommonModule,
+    ReactiveFormsModule,
+    KENDO_DROPDOWNS,
+    KENDO_DATEPICKER,
+    ImngDataEntryDialogModule,
+  ],
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnitEditComponent
   extends UnitBaseEntryComponent

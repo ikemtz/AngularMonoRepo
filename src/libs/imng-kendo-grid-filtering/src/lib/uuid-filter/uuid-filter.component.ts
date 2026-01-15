@@ -4,7 +4,11 @@ import {
   Input,
   inject,
 } from '@angular/core';
-import { ColumnComponent, FilterService } from '@progress/kendo-angular-grid';
+import {
+  ColumnComponent,
+  FilterService,
+  KENDO_GRID,
+} from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { Subscriptions } from 'imng-ngrx-utils';
 
@@ -18,6 +22,7 @@ import { Subscriptions } from 'imng-ngrx-utils';
  */
 @Component({
   selector: 'imng-uuid-filter',
+  imports: [KENDO_GRID],
   template: `
     <kendo-grid-string-filter-menu
       [column]="column"
@@ -29,9 +34,8 @@ import { Subscriptions } from 'imng-ngrx-utils';
     </kendo-grid-string-filter-menu>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
-export class UuidFilterComponent {
+export class IMNG_KENDO_GRID_UUID_FILTER {
   filterService = inject<FilterService>(FilterService);
   column = inject<ColumnComponent>(ColumnComponent);
 

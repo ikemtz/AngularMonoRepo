@@ -94,7 +94,6 @@ const initialGridState: PrimeTableState = {
 };
 @Component({
   selector: 'imng-test-component',
-  standalone: true,
   imports: [CommonModule],
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })

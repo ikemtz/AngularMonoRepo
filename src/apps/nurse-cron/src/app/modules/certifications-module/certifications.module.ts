@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  GridModule,
-  ExcelModule,
-  PDFModule,
-} from '@progress/kendo-angular-grid';
+import { ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { MenusModule } from '@progress/kendo-angular-menu';
@@ -32,14 +28,8 @@ import {
 } from './certifications-crud';
 
 @NgModule({
-  declarations: [
-    CertificationListComponent,
-    CertificationAddComponent,
-    CertificationEditComponent,
-  ],
   imports: [
     CommonModule,
-    GridModule,
     ExcelModule,
     PDFModule,
     DialogModule,
@@ -53,6 +43,9 @@ import {
     CertificationsRoutingModule,
     StoreModule.forFeature(certificationsFeature),
     EffectsModule.forFeature([CertificationEffects]),
+    CertificationListComponent,
+    CertificationAddComponent,
+    CertificationEditComponent,
   ],
   providers: [
     CertificationListFacade,

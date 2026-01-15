@@ -22,8 +22,7 @@ describe('ProductListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ProductListComponent],
-      imports: [],
+      imports: [ProductListComponent],
       providers: [
         {
           provide: ProductListFacade,

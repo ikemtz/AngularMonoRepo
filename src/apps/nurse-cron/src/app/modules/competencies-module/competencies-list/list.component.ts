@@ -1,12 +1,28 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  ImngKendoGridODataModule,
+  KendoODataBasedComponent,
+} from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { CompetencyListFacade } from './list.facade';
-import { CompetencyCrudFacade } from '../competencies-crud';
-import { CompetencyProperties, ICompetency } from '../../../models/competencies-odata';
+import {
+  CompetencyAddComponent,
+  CompetencyCrudFacade,
+  CompetencyEditComponent,
+} from '../competencies-crud';
+import {
+  CompetencyProperties,
+  ICompetency,
+} from '../../../models/competencies-odata';
+import { AsyncPipe, SlicePipe } from '@angular/common';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_MENUS } from '@progress/kendo-angular-menu';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -16,19 +32,32 @@ const initialGridState: ODataState = {
     CompetencyProperties.NAME,
     CompetencyProperties.IS_ENABLED,
   ],
-  sort: [
-    { field: CompetencyProperties.NAME, dir: 'asc' },
-  ],
+  sort: [{ field: CompetencyProperties.NAME, dir: 'asc' }],
 };
 
 @Component({
-    selector: 'nrcrn-competency-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'nrcrn-competency-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    AsyncPipe,
+    SlicePipe,
+    KENDO_GRID,
+    KENDO_MENUS,
+    KENDO_SVGICON,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ImngKendoGridFilteringModule,
+    ImngDataEntryDialogModule,
+    CompetencyAddComponent,
+    CompetencyEditComponent,
+  ],
 })
-export class CompetencyListComponent extends KendoODataBasedComponent<ICompetency, CompetencyListFacade> {
+export class CompetencyListComponent extends KendoODataBasedComponent<
+  ICompetency,
+  CompetencyListFacade
+> {
   readonly crudFacade = inject(CompetencyCrudFacade);
 
   public readonly props = CompetencyProperties;

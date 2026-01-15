@@ -4,16 +4,29 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { formGroupPatcher } from 'imng-kendo-data-entry';
+import {
+  formGroupPatcher,
+  ImngDataEntryDialogModule,
+} from 'imng-kendo-data-entry';
 
 import { ProductBaseEntryComponent } from './base-entry.component';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';
+import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
 
 @Component({
-    selector: 'aw-product-edit',
-    templateUrl: './add-edit.component.html',
-    styleUrls: ['./add-edit.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'aw-product-edit',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    KENDO_DROPDOWNS,
+    KENDO_DATEPICKER,
+    ImngDataEntryDialogModule,
+  ],
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductEditComponent
   extends ProductBaseEntryComponent

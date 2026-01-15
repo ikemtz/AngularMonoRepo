@@ -16,7 +16,6 @@ import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
 
 @Directive({
   selector: '[imngODataGrid]',
-  standalone: false,
 })
 export class ImngODataGridDirective
   implements OnInit, AfterViewInit, OnDestroy, Subscribable
