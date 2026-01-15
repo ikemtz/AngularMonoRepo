@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { IdleFacade } from '../+state/idle.facade';
 import { of } from 'rxjs';
 import { readFirst } from 'imng-ngrx-utils/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('IMNG_KENDO_IDLE_WARNING', () => {
   let component: IMNG_KENDO_IDLE_WARNING;
@@ -11,7 +12,7 @@ describe('IMNG_KENDO_IDLE_WARNING', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [IMNG_KENDO_IDLE_WARNING],
+      imports: [NoopAnimationsModule, IMNG_KENDO_IDLE_WARNING],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         {
