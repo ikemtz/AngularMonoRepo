@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { IMNG_KENDO_GRID_HEADER } from './grid-header-component/grid-header.component';
 import { IMNG_KENDO_GRID_CHILD_COLUMN_TEMPLATE } from './kendo-child-column-component/kendo-child-column-template.component';
 import { IMNG_KENDO_COPY } from './kendo-copy-component/kendo-copy.component';
-import { IconsModule } from '@progress/kendo-angular-icons';
 
 @NgModule({
   imports: [

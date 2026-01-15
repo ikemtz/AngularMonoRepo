@@ -1,9 +1,7 @@
-
 import * as oidcActions from './oidc.actions';
 import { initialState, oidcFeature } from './oidc.reducer';
 
 describe('Employees Reducer', () => {
-
   describe('valid Oidc actions', () => {
     it('getOidcUser', () => {
       const action = oidcActions.getOidcUser();
@@ -11,7 +9,7 @@ describe('Employees Reducer', () => {
       expect(result.isLoading).toBe(false);
     });
 
-    it('onUserLoading', () => {
+    it('onUserLoading snapshot', () => {
       const action = oidcActions.onUserLoading();
       const result = oidcFeature.reducer(initialState, action);
       expect(result).toMatchSnapshot();
