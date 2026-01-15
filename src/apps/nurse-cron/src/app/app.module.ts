@@ -10,15 +10,14 @@ import { AppRoutingModule } from './app.routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ImngOidcClientModule } from 'imng-oidc-client';
 import { ImngAppInsightsNgrxModule } from 'imng-application-insights-ngrx';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImngSignalrNgrxModule } from 'imng-signalr-ngrx';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ImngNgrxIdleModule } from 'imng-kendo-ngrx-idle';
 import { environment } from '../environments/environment';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent, MessagingComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,11 +34,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ImngOidcClientModule.forRoot(environment.oidc_options),
     ImngAppInsightsNgrxModule.forRoot(environment.appInsights),
     ImngSignalrNgrxModule.forRoot(environment.signalr),
-    BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),
     ImngNgrxIdleModule.forRoot(environment.idleConfig),
+
+    MessagingComponent,
+    NavBarComponent,
   ],
-  providers: [ODataService],
+  providers: [ODataService, provideAnimations()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

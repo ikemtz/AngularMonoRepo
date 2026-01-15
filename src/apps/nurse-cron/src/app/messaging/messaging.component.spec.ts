@@ -9,7 +9,7 @@ describe('MessagingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MessagingComponent],
+      imports: [MessagingComponent],
       providers: [
         {
           provide: SignalrFacade,

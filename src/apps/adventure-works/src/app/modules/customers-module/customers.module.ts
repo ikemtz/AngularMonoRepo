@@ -28,11 +28,6 @@ import {
 } from './customers-crud';
 
 @NgModule({
-  declarations: [
-    CustomerListComponent,
-    CustomerAddComponent,
-    CustomerEditComponent,
-  ],
   imports: [
     CommonModule,
     GridModule,
@@ -48,6 +43,9 @@ import {
     CustomersRoutingModule,
     StoreModule.forFeature(customersFeature),
     EffectsModule.forFeature([CustomerEffects]),
+    CustomerListComponent,
+    CustomerAddComponent,
+    CustomerEditComponent,
   ],
   providers: [CustomerListFacade, CustomerCrudFacade, CustomerApiService],
 })

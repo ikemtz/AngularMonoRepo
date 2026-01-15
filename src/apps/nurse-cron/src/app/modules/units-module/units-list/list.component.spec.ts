@@ -22,8 +22,7 @@ describe('UnitListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UnitListComponent],
-      imports: [],
+      imports: [UnitListComponent],
       providers: [
         {
           provide: UnitListFacade,

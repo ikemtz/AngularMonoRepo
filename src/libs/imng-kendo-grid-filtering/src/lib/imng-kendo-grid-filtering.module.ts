@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MultiSelectFilterComponent } from './multi-select-filter/multi-select-filter.component';
-import { GridModule } from '@progress/kendo-angular-grid';
-import { UuidFilterComponent } from './uuid-filter/uuid-filter.component';
+import { IMNG_KENDO_GRID_MULTISELECT_FILTER } from './multi-select-filter/multi-select-filter.component';
+import { IMNG_KENDO_GRID_UUID_FILTER } from './uuid-filter/uuid-filter.component';
 
 @NgModule({
-  imports: [CommonModule, GridModule],
-  declarations: [
-    MultiSelectFilterComponent,
-    UuidFilterComponent
+  imports: [
+    CommonModule,
+    IMNG_KENDO_GRID_MULTISELECT_FILTER,
+    IMNG_KENDO_GRID_UUID_FILTER,
   ],
-  exports: [MultiSelectFilterComponent, UuidFilterComponent]
+  exports: [IMNG_KENDO_GRID_MULTISELECT_FILTER, IMNG_KENDO_GRID_UUID_FILTER],
 })
-export class ImngKendoGridFilteringModule { }
+export class ImngKendoGridFilteringModule {}

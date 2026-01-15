@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Route } from '@angular/router';
-import { SupportComponent } from './support/support.component';
-import { AccessDeniedComponent } from './components/access-denied.component';
+import { IMNG_USER_SUPPORT } from './support/support.component';
+import { IMNG_ACCESS_DENIED } from './components/access-denied.component';
 import { AuthGuard } from './services/auth-guard';
-import { LogoutSuccessComponent } from './components/logout-success.component';
+import { IMNG_LOGOUT_SUCCESS } from './components/logout-success.component';
 
 const routes: Routes = [
-  { path: 'support', component: SupportComponent },
-  { path: 'access-denied', component: AccessDeniedComponent },
-  { path: 'logout', component: LogoutSuccessComponent },
+  { path: 'support', component: IMNG_USER_SUPPORT },
+  { path: 'access-denied', component: IMNG_ACCESS_DENIED },
+  { path: 'logout', component: IMNG_LOGOUT_SUCCESS },
 ];
 
 @NgModule({
@@ -19,18 +19,18 @@ export class ImngOidcClientRoutingModule {}
 
 export const oidcSupportRoute: Route = {
   path: 'oidc/support',
-  component: SupportComponent,
+  component: IMNG_USER_SUPPORT,
   canActivate: [AuthGuard],
 };
 
 export const oidcAccessDeniedRoute: Route = {
   path: 'oidc/access-denied',
-  component: AccessDeniedComponent,
+  component: IMNG_ACCESS_DENIED,
 };
 
 export const oidcLogoutRoute: Route = {
   path: 'oidc/logout',
-  component: LogoutSuccessComponent,
+  component: IMNG_LOGOUT_SUCCESS,
 };
 
 export const oidcRoutes: Route[] = [

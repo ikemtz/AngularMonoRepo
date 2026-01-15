@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DataEntryDialogComponent } from './data-entry-dialog.component';
+import { IMNG_KENDO_DATA_ENTRY_DIALOG } from './data-entry-dialog.component';
 import {
   Component,
   NO_ERRORS_SCHEMA,
@@ -14,7 +14,7 @@ import {
   createDataEntryMockFacade,
 } from '../../testing/src/data-entry-mock.facade';
 import { FormGroup, FormControl } from '@angular/forms';
-import { DialogButtonsDirective } from './dialog-buttons.directive';
+import { IMNG_KENDO_DIALOG_BUTTONS } from './dialog-buttons.directive';
 import { By } from '@angular/platform-browser';
 
 describe('DialogButtonsDirective', () => {
@@ -23,12 +23,12 @@ describe('DialogButtonsDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DataEntryDialogComponent,
+      imports: [
+        NoopAnimationsModule,
+        IMNG_KENDO_DATA_ENTRY_DIALOG,
         TestHostComponent,
-        DialogButtonsDirective,
+        IMNG_KENDO_DIALOG_BUTTONS,
       ],
-      imports: [NoopAnimationsModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: DataEntryMockFacade, useValue: createDataEntryMockFacade() },
@@ -64,6 +64,8 @@ describe('DialogButtonsDirective', () => {
 
 @Component({
   selector: 'imng-thc',
+  standalone: true,
+  imports: [IMNG_KENDO_DATA_ENTRY_DIALOG, IMNG_KENDO_DIALOG_BUTTONS],
   template: ` <imng-data-entry-dialog
     [width]="700"
     [height]="550"
@@ -79,7 +81,6 @@ describe('DialogButtonsDirective', () => {
       </button>
     </ng-template>
   </imng-data-entry-dialog>`,
-  standalone: false,
 })
 export class TestHostComponent extends BaseDataEntryComponent<DataEntryMockFacade> {
   public dialogTitle = 'MockDataEntryComponent';

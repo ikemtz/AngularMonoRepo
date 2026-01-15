@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  GridModule,
-  ExcelModule,
-  PDFModule,
-} from '@progress/kendo-angular-grid';
+import { ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { IconsModule } from '@progress/kendo-angular-icons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
@@ -33,14 +29,8 @@ import {
 } from './employees-crud';
 
 @NgModule({
-  declarations: [
-    EmployeeListComponent,
-    EmployeeAddComponent,
-    EmployeeEditComponent,
-  ],
   imports: [
     CommonModule,
-    GridModule,
     ExcelModule,
     PDFModule,
     IconsModule,
@@ -55,6 +45,9 @@ import {
     EmployeesRoutingModule,
     StoreModule.forFeature(employeesFeature),
     EffectsModule.forFeature([EmployeeListEffects, EmployeeCrudEffects]),
+    EmployeeListComponent,
+    EmployeeAddComponent,
+    EmployeeEditComponent,
   ],
   providers: [EmployeeListFacade, EmployeeCrudFacade, EmployeeApiService],
 })
