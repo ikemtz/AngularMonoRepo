@@ -1,13 +1,33 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  ImngKendoGridODataModule,
+  KendoODataBasedComponent,
+} from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { OrderListFacade } from './list.facade';
-import { OrderCrudFacade } from '../orders-crud';
-import { CustomerProperties, IOrder, OrderProperties, orderStatusTypeValues, shippingTypeValues } from '../../../models/odata';
+import {
+  OrderAddComponent,
+  OrderCrudFacade,
+  OrderEditComponent,
+} from '../orders-crud';
+import {
+  CustomerProperties,
+  IOrder,
+  OrderProperties,
+  orderStatusTypeValues,
+  shippingTypeValues,
+} from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
+import { AsyncPipe, SlicePipe } from '@angular/common';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_MENUS } from '@progress/kendo-angular-menu';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
+import { OrderLineItemListComponent } from '../order-line-items-list';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -37,22 +57,39 @@ const initialGridState: ODataState = {
     OrderProperties.SHIP_TO_ADDRESS,
     OrderProperties.BILL_TO_ADDRESS,
   ],
-  sort: [
-    { field: OrderProperties.ORDER_ID, dir: 'asc' },
-  ],
+  sort: [{ field: OrderProperties.ORDER_ID, dir: 'asc' }],
   expanders: [
-    { table: OrderProperties.CUSTOMER, selectors: [CustomerProperties.NAME, CustomerProperties.COMPANY_NAME] }
-  ]
+    {
+      table: OrderProperties.CUSTOMER,
+      selectors: [CustomerProperties.NAME, CustomerProperties.COMPANY_NAME],
+    },
+  ],
 };
 
 @Component({
   selector: 'aw-order-list',
+  imports: [
+    AsyncPipe,
+    SlicePipe,
+    KENDO_GRID,
+    KENDO_MENUS,
+    KENDO_SVGICON,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ImngKendoGridFilteringModule,
+    ImngDataEntryDialogModule,
+    OrderAddComponent,
+    OrderEditComponent,
+    OrderLineItemListComponent,
+  ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false
 })
-export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderListFacade> {
+export class OrderListComponent extends KendoODataBasedComponent<
+  IOrder,
+  OrderListFacade
+> {
   readonly crudFacade = inject(OrderCrudFacade);
 
   public readonly props = OrderProperties;
@@ -60,13 +97,16 @@ export class OrderListComponent extends KendoODataBasedComponent<IOrder, OrderLi
   public readonly shippingTypes = shippingTypeValues;
   public currentItem: IOrder | undefined;
 
-
   constructor() {
     super(inject(OrderListFacade), initialGridState, inject(Router));
   }
 
   public addItem(): void {
-    this.crudFacade.setCurrentEntity({ orderLineItemODataState: {}, orderLineItemOData: { data: [], total: 0 }, orderLineItemPagerSettings: false });
+    this.crudFacade.setCurrentEntity({
+      orderLineItemODataState: {},
+      orderLineItemOData: { data: [], total: 0 },
+      orderLineItemPagerSettings: false,
+    });
   }
 
   public editItem(item: IExtOrder): void {

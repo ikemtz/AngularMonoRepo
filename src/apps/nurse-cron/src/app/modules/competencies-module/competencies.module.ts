@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  GridModule,
-  ExcelModule,
-  PDFModule,
-} from '@progress/kendo-angular-grid';
+import { ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { MenusModule } from '@progress/kendo-angular-menu';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
@@ -31,14 +27,8 @@ import {
 } from './competencies-crud';
 
 @NgModule({
-  declarations: [
-    CompetencyListComponent,
-    CompetencyAddComponent,
-    CompetencyEditComponent,
-  ],
   imports: [
     CommonModule,
-    GridModule,
     ExcelModule,
     PDFModule,
     DialogModule,
@@ -51,6 +41,9 @@ import {
     CompetenciesRoutingModule,
     StoreModule.forFeature(competenciesFeature),
     EffectsModule.forFeature([CompetencyEffects]),
+    CompetencyListComponent,
+    CompetencyAddComponent,
+    CompetencyEditComponent,
   ],
   providers: [CompetencyListFacade, CompetencyCrudFacade, CompetencyApiService],
 })

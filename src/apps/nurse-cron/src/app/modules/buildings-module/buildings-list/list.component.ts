@@ -1,12 +1,25 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DetailExpandEvent } from '@progress/kendo-angular-grid';
-import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  ImngKendoGridODataModule,
+  KendoODataBasedComponent,
+} from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
 import { BuildingListFacade } from './list.facade';
-import { BuildingCrudFacade } from '../buildings-crud';
+import {
+  BuildingAddComponent,
+  BuildingCrudFacade,
+  BuildingEditComponent,
+} from '../buildings-crud';
 import { BuildingProperties, IBuilding } from '../../../models/units-odata';
+import { AsyncPipe, SlicePipe } from '@angular/common';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_MENUS } from '@progress/kendo-angular-menu';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 const initialGridState: ODataState = {
   take: 20,
@@ -33,7 +46,20 @@ const initialGridState: ODataState = {
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    SlicePipe,
+    KENDO_GRID,
+    KENDO_MENUS,
+    KENDO_SVGICON,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ImngKendoGridFilteringModule,
+    ImngDataEntryDialogModule,
+    BuildingAddComponent,
+    BuildingEditComponent,
+  ],
 })
 export class BuildingListComponent extends KendoODataBasedComponent<
   IBuilding,

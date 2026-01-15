@@ -16,8 +16,7 @@ describe('OrderLineItemListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [OrderLineItemListComponent],
-      imports: [],
+      imports: [OrderLineItemListComponent],
       providers: [
         {
           provide: OrderLineItemListFacade,

@@ -17,7 +17,6 @@ import {
 } from './prime-orders-list';
 
 @NgModule({
-  declarations: [PrimeOrderListComponent],
   imports: [
     CommonModule,
     TableModule,
@@ -26,6 +25,7 @@ import {
     OrdersRoutingModule,
     StoreModule.forFeature(ordersFeature),
     EffectsModule.forFeature([OrderEffects]),
+    PrimeOrderListComponent,
   ],
   providers: [PrimeOrderListFacade],
 })

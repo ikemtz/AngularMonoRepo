@@ -17,7 +17,7 @@ import { ProductCrudFacade } from './crud.facade';
 
 @Component({
   template: '',
-  standalone: false,
+  standalone: true,
 })
 export abstract class ProductBaseEntryComponent
   extends BaseDataEntryComponent<ProductCrudFacade>

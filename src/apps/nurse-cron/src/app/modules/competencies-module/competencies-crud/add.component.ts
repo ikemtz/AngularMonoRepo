@@ -8,13 +8,23 @@ import { normalizeRequest } from 'imng-nrsrx-client-utils';
 
 import { CompetencyBaseEntryComponent } from './base-entry.component';
 import { ICompetency } from '../../../models/competencies-odata';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 
 @Component({
-    selector: 'nrcrn-competency-add',
-    templateUrl: './add-edit.component.html',
-    styleUrls: ['./add-edit.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'nrcrn-competency-add',
+  templateUrl: './add-edit.component.html',
+  styleUrls: ['./add-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    KENDO_DROPDOWNS,
+    ImngDataEntryDialogModule,
+  ],
 })
 export class CompetencyAddComponent
   extends CompetencyBaseEntryComponent

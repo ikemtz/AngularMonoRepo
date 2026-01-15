@@ -8,7 +8,7 @@ import {
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { ODataState } from 'imng-kendo-odata';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 describe('KendoODataBasedComponentRouted', () => {
   let component: KendoODataGridTestComponent;
@@ -17,8 +17,7 @@ describe('KendoODataBasedComponentRouted', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule],
-      declarations: [KendoODataGridTestComponent],
+      imports: [CommonModule, KendoODataGridTestComponent],
       providers: [
         {
           provide: Router,
@@ -103,8 +102,9 @@ const initialGridState: ODataState = {
 };
 @Component({
   selector: 'imng-test-component',
+  imports: [AsyncPipe],
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
-  standalone: false,
+  standalone: true,
 })
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,

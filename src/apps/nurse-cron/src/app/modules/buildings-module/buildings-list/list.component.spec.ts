@@ -22,8 +22,7 @@ describe('BuildingListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [BuildingListComponent],
-      imports: [],
+      imports: [BuildingListComponent],
       providers: [
         {
           provide: BuildingListFacade,

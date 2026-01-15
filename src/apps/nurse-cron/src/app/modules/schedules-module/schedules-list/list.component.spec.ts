@@ -22,8 +22,7 @@ describe('ScheduleListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ScheduleListComponent],
-      imports: [],
+      imports: [ScheduleListComponent],
       providers: [
         {
           provide: ScheduleListFacade,

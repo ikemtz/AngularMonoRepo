@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  GridModule,
-  ExcelModule,
-  PDFModule,
-} from '@progress/kendo-angular-grid';
+import { ExcelModule, PDFModule } from '@progress/kendo-angular-grid';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
@@ -30,10 +26,8 @@ import {
 } from './units-crud';
 
 @NgModule({
-  declarations: [UnitListComponent, UnitAddComponent, UnitEditComponent],
   imports: [
     CommonModule,
-    GridModule,
     ExcelModule,
     PDFModule,
     DialogModule,
@@ -48,6 +42,9 @@ import {
     UnitsRoutingModule,
     StoreModule.forFeature(unitsFeature),
     EffectsModule.forFeature([UnitEffects]),
+    UnitListComponent,
+    UnitAddComponent,
+    UnitEditComponent,
   ],
   providers: [UnitListFacade, UnitCrudFacade, UnitApiService],
 })

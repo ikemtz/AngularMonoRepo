@@ -1,20 +1,21 @@
+/// <reference types="jest" />
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ImngKendoCopyComponent } from './kendo-copy.component';
+import { IMNG_KENDO_COPY } from './kendo-copy.component';
 
 describe('ImngKendoCopyComponent', () => {
-  let component: ImngKendoCopyComponent;
-  let fixture: ComponentFixture<ImngKendoCopyComponent>;
+  let component: IMNG_KENDO_COPY;
+  let fixture: ComponentFixture<IMNG_KENDO_COPY>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ImngKendoCopyComponent],
+      imports: [IMNG_KENDO_COPY],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImngKendoCopyComponent);
+    fixture = TestBed.createComponent(IMNG_KENDO_COPY);
     component = fixture.componentInstance;
-    component.copyValue = "x";
+    component.copyValue = 'x';
     fixture.detectChanges();
   });
 

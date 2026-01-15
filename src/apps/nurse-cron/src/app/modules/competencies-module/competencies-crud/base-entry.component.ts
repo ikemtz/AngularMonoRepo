@@ -12,7 +12,7 @@ import { CompetencyCrudFacade } from './crud.facade';
 
 @Component({
   template: '',
-  standalone: false,
+  standalone: true,
 })
 export abstract class CompetencyBaseEntryComponent
   extends BaseDataEntryComponent<CompetencyCrudFacade>

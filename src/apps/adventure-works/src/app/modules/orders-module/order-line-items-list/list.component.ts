@@ -1,9 +1,22 @@
-import { Component, ChangeDetectionStrategy, Input, inject } from '@angular/core';
-import { KendoODataBasedComponent } from 'imng-kendo-grid-odata';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  inject,
+} from '@angular/core';
+import {
+  ImngKendoGridODataModule,
+  KendoODataBasedComponent,
+} from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 import { OrderLineItemListFacade } from './list.facade';
 import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
-
+import { SlicePipe } from '@angular/common';
+import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_MENUS } from '@progress/kendo-angular-menu';
+import { ImngKendoGridModule } from 'imng-kendo-grid';
+import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
 
 const initialGridState: ODataState = {
   take: 5,
@@ -19,19 +32,29 @@ const initialGridState: ODataState = {
     OrderLineItemProperties.ORDER,
     OrderLineItemProperties.PRODUCT,
   ],
-  sort: [
-    { field: OrderLineItemProperties.ORDER_ID, dir: 'asc' },
-  ],
+  sort: [{ field: OrderLineItemProperties.ORDER_ID, dir: 'asc' }],
 };
 
 @Component({
   selector: 'aw-order-line-item-list',
+  imports: [
+    SlicePipe,
+    KENDO_GRID,
+    KENDO_MENUS,
+    KENDO_SVGICON,
+    ImngKendoGridModule,
+    ImngKendoGridODataModule,
+    ImngKendoGridFilteringModule,
+  ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false
+  standalone: true,
 })
-export class OrderLineItemListComponent extends KendoODataBasedComponent<IOrderLineItem, OrderLineItemListFacade> {
+export class OrderLineItemListComponent extends KendoODataBasedComponent<
+  IOrderLineItem,
+  OrderLineItemListFacade
+> {
   public readonly props = OrderLineItemProperties;
   public currentItem: IOrderLineItem | undefined;
 
