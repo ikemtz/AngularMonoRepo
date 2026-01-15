@@ -17,9 +17,8 @@ import { IdType } from 'imng-nrsrx-client-utils';
 
 @Directive({
   selector: '[imngODataTable]',
-  standalone: false,
 })
-export class ImngPrimeODataTableDirective implements OnInit, OnDestroy {
+export class IMNG_PRIME_TABLE implements OnInit, OnDestroy {
   readonly tableComponent = inject(Table);
   readonly changeDetectorRef = inject(ChangeDetectorRef);
 

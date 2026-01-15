@@ -1,4 +1,5 @@
-import { ImngEditableDataGridDirective } from './editable-data-grid.directive';
+///<reference types="node" />
+import { IMNG_KENDO_EDITABLE_GRID } from './editable-data-grid.directive';
 import { of } from 'rxjs';
 import { dir } from 'console';
 import { GridDataEntryHelper } from './grid-data-entry.helper';
@@ -15,12 +16,12 @@ export const formGroupFac = () =>
   });
 
 describe('ImngEditableDataGridDirective', () => {
-  let directive: ImngEditableDataGridDirective;
+  let directive: IMNG_KENDO_EDITABLE_GRID;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
-        ImngEditableDataGridDirective,
+        IMNG_KENDO_EDITABLE_GRID,
         {
           provide: GridComponent,
           useValue: {
@@ -38,7 +39,7 @@ describe('ImngEditableDataGridDirective', () => {
   }));
 
   beforeEach(() => {
-    directive = TestBed.inject(ImngEditableDataGridDirective);
+    directive = TestBed.inject(IMNG_KENDO_EDITABLE_GRID);
   });
   it('should create an instance', () => {
     dir();

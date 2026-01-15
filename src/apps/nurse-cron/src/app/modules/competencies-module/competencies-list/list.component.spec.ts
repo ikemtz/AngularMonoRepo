@@ -22,8 +22,7 @@ describe('CompetencyListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CompetencyListComponent],
-      imports: [],
+      imports: [CompetencyListComponent],
       providers: [
         {
           provide: CompetencyListFacade,

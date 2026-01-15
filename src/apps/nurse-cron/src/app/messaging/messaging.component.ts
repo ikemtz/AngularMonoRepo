@@ -4,10 +4,9 @@ import { take, filter, tap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
-    selector: 'nrcrn-messaging',
-    templateUrl: './messaging.component.html',
-    styleUrls: ['./messaging.component.scss'],
-    standalone: false
+  selector: 'nrcrn-messaging',
+  templateUrl: './messaging.component.html',
+  styleUrls: ['./messaging.component.scss'],
 })
 export class MessagingComponent implements OnInit, OnDestroy {
   private readonly signalrFacade = inject(SignalrFacade);
@@ -25,10 +24,10 @@ export class MessagingComponent implements OnInit, OnDestroy {
             this.signalrFacade.sendMessage({
               methodName: 'SendMessage',
               data: 'Signed In',
-            })
-          )
+            }),
+          ),
         )
-        .subscribe()
+        .subscribe(),
     );
     this.lastMessage$ = this.signalrFacade.lastReceivedMessage$;
     this.signalrFacade.connect();

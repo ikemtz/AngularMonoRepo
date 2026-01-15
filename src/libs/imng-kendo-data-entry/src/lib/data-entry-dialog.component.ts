@@ -9,11 +9,14 @@ import {
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from './base-data-entry.component';
-import { DialogButtonsDirective } from './dialog-buttons.directive';
+import { IMNG_KENDO_DIALOG_BUTTONS } from './dialog-buttons.directive';
+import { KENDO_DIALOG } from '@progress/kendo-angular-dialog';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'imng-data-entry-dialog[parentComponent]',
-    template: `<kendo-dialog
+  selector: 'imng-data-entry-dialog[parentComponent]',
+  imports: [CommonModule, KENDO_DIALOG],
+  template: `<kendo-dialog
       [width]="width"
       [minWidth]="minWidth ?? width"
       [height]="height"
@@ -24,7 +27,8 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
       }}</kendo-dialog-titlebar>
       <ng-content />
       <kendo-dialog-actions>
-        <ng-container *ngTemplateOutlet="
+        <ng-container
+          *ngTemplateOutlet="
             dialogBtnsTemplate || defaultDialogActionsTpl;
             context: dialogActionBtnsCtx
           " />
@@ -32,6 +36,7 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
     </kendo-dialog>
     <ng-template #defaultDialogActionsTpl>
       <button
+        id="imngCancelDataEntry"
         name="imngCancelDataEntry"
         kendoButton
         (click)="cancel()"
@@ -39,6 +44,7 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
         {{ cancelButtonText }}
       </button>
       <button
+        id="imngSubmitDataEntry"
         name="imngSubmitDataEntry"
         [attr.form]="formId"
         type="submit"
@@ -48,10 +54,9 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
         {{ submitButtonText }}
       </button>
     </ng-template>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataEntryDialogComponent implements OnInit {
+export class IMNG_KENDO_DATA_ENTRY_DIALOG implements OnInit {
   @Input() public minWidth?: number; //NOSONAR
   @Input() public width = 800; //NOSONAR
   @Input() public height = 600; //NOSONAR
@@ -63,7 +68,7 @@ export class DataEntryDialogComponent implements OnInit {
   @Input() public parentComponent?: BaseDataEntryComponent<any>; //NOSONAR
   @Input() public cancelButtonText?: string = 'Cancel';
   @Input() public submitButtonText?: string = 'Submit';
-  @ContentChild(DialogButtonsDirective, { static: true, read: TemplateRef })
+  @ContentChild(IMNG_KENDO_DIALOG_BUTTONS, { static: true, read: TemplateRef })
   /**
    * Example Usage:
    * <imng-data-entry-dialog>

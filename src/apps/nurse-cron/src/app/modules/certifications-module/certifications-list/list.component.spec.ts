@@ -22,8 +22,7 @@ describe('CertificationListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CertificationListComponent],
-      imports: [],
+      imports: [CertificationListComponent],
       providers: [
         {
           provide: CertificationListFacade,

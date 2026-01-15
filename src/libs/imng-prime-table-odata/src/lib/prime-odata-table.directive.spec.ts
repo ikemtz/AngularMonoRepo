@@ -6,20 +6,20 @@ import { Subject } from 'rxjs';
 import { createODataTableMockFacade } from '../../testing/src';
 import { PrimeTableState } from './models/prime-table-state';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
-import { ImngPrimeODataTableDirective } from './prime-odata-table.directive';
+import { IMNG_PRIME_TABLE } from './prime-odata-table.directive';
 import { IEnumValue, getEnumKey } from 'openapi-ts-generator/enums';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 describe('ImngPrimeODataTableDirective', () => {
   let tableComponent: Table;
-  let directive: ImngPrimeODataTableDirective;
+  let directive: IMNG_PRIME_TABLE;
 
   let facade: IPrimeODataTableFacade<{ id?: IdType | null }>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
-        ImngPrimeODataTableDirective,
+        IMNG_PRIME_TABLE,
         { provide: ChangeDetectorRef, useValue: {} },
         {
           provide: Table,
@@ -36,7 +36,7 @@ describe('ImngPrimeODataTableDirective', () => {
     }).compileComponents();
 
     tableComponent = TestBed.inject(Table);
-    directive = TestBed.inject(ImngPrimeODataTableDirective);
+    directive = TestBed.inject(IMNG_PRIME_TABLE);
     (directive as { tableComponent: unknown }).tableComponent = tableComponent;
   }));
 

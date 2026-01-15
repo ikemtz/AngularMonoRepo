@@ -2,7 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import {
   mockConsoleError,
@@ -28,8 +27,11 @@ describe('CertificationAddComponent', () => {
     consoleWarnMock = mockConsoleWarn();
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
-      declarations: [CertificationAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule, DatePickerModule],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        CertificationAddComponent,
+      ],
       providers: [
         {
           provide: CertificationCrudFacade,

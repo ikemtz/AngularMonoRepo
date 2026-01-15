@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
 
 @Component({
-    selector: 'aw-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'aw-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  // eslint-disable-next-line @angular-eslint/prefer-standalone
+  standalone: false,
 })
 export class AppComponent {
   public readonly year: number;

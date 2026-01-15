@@ -1,3 +1,4 @@
+/// <reference types="jest" />
 import { firstValueFrom, lastValueFrom, Observable, toArray } from 'rxjs';
 
 export function readFirst<T>(o: Observable<T>): Promise<T> {

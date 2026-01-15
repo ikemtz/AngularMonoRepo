@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,6 +37,7 @@ import { environment } from '../environments/environment';
 
     BrowserAnimationsModule,
     ImngNgrxIdleModule.forRoot(environment.idleConfig),
+    NavBarComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

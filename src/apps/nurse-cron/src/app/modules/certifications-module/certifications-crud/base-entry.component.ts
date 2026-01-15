@@ -12,7 +12,6 @@ import { CertificationCrudFacade } from './crud.facade';
 
 @Component({
   template: '',
-  standalone: false,
 })
 export abstract class CertificationBaseEntryComponent
   extends BaseDataEntryComponent<CertificationCrudFacade>

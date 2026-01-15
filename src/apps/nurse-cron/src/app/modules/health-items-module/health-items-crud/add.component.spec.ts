@@ -19,8 +19,11 @@ describe('HealthItemAddComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [HealthItemAddComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        HealthItemAddComponent,
+      ],
       providers: [
         {
           provide: HealthItemCrudFacade,

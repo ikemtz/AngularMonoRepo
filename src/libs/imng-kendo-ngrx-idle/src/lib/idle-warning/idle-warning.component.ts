@@ -2,9 +2,13 @@ import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { IdleFacade } from '../+state/idle.facade';
 import { BehaviorSubject, Subscription, interval, Observable } from 'rxjs';
 import { tap, filter, switchMap, map } from 'rxjs/operators';
+import { KENDO_DIALOG } from '@progress/kendo-angular-dialog';
+import { AsyncPipe } from '@angular/common';
+import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
 
 @Component({
   selector: 'imng-idle-warning',
+  imports: [AsyncPipe, KENDO_DIALOG, KENDO_BUTTON],
   template: `@if (isSessionTimingOut$ | async) {
     <kendo-dialog
       title="Idle Session Warning"
@@ -27,9 +31,8 @@ import { tap, filter, switchMap, map } from 'rxjs/operators';
       }
     `,
   ],
-  standalone: false,
 })
-export class IdleWarningComponent implements OnInit, OnDestroy {
+export class IMNG_KENDO_IDLE_WARNING implements OnInit, OnDestroy {
   readonly idleFacade = inject(IdleFacade);
 
   public readonly isSessionTimingOut$ = new BehaviorSubject<boolean>(false);

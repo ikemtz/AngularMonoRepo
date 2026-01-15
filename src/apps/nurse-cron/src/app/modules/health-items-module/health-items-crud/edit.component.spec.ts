@@ -20,8 +20,11 @@ describe('HealthItemEditComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [HealthItemEditComponent],
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
+      imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        HealthItemEditComponent,
+      ],
       providers: [
         {
           provide: HealthItemCrudFacade,

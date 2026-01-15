@@ -5,9 +5,13 @@ import { PrimeOrderListFacade } from './prime-list.facade';
 import { IOrder, OrderProperties } from '../../../models/odata';
 import { Observable } from 'rxjs';
 import {
+  IMNG_PRIME_SEARCH_CAPTION,
+  IMNG_PRIME_TABLE,
   ImngPrimeODataTableBaseComponent,
   PrimeTableState,
 } from 'imng-prime-table-odata';
+import { DatePipe } from '@angular/common';
+import { TableModule } from 'primeng/table';
 
 const initialGridState: PrimeTableState = {
   rows: 10,
@@ -27,10 +31,10 @@ const initialGridState: PrimeTableState = {
 
 @Component({
   selector: 'aw-prime-order-list',
+  imports: [DatePipe, TableModule, IMNG_PRIME_TABLE, IMNG_PRIME_SEARCH_CAPTION],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false
 })
 export class PrimeOrderListComponent extends ImngPrimeODataTableBaseComponent<
   IOrder,
@@ -39,8 +43,6 @@ export class PrimeOrderListComponent extends ImngPrimeODataTableBaseComponent<
   public readonly props = OrderProperties;
   public currentItem: IOrder | undefined;
   public readonly data$: Observable<IOrder[]>;
-
-
 
   constructor() {
     const facade = inject(PrimeOrderListFacade);
