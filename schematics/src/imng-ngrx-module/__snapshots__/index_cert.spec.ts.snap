@@ -2,22 +2,87 @@
 
 exports[`imng-ngrx-module generation works - Certifications 1`] = `
 [
-  "/test/certifications-ngrx-module/+state/certification-crud.effects.ts",
-  "/test/certifications-ngrx-module/+state/certification-list.effects.ts",
-  "/test/certifications-ngrx-module/+state/certification-lookup.effects.ts",
   "/test/certifications-ngrx-module/+state/certification.actions.ts",
+  "/test/certifications-ngrx-module/+state/certification.crud.effects.ts",
   "/test/certifications-ngrx-module/+state/certification.feature.ts",
+  "/test/certifications-ngrx-module/+state/certification.list.effects.ts",
+  "/test/certifications-ngrx-module/+state/certification.lookup.effects.ts",
   "/test/certifications-ngrx-module/+state/index.ts",
-  "/test/certifications-ngrx-module/certification-api.service.ts",
-  "/test/certifications-ngrx-module/certification-crud.facade.spec.ts",
-  "/test/certifications-ngrx-module/certification-crud.facade.ts",
-  "/test/certifications-ngrx-module/certification-list.facade.spec.ts",
-  "/test/certifications-ngrx-module/certification-list.facade.ts",
-  "/test/certifications-ngrx-module/certification-lookup.facade.spec.ts",
-  "/test/certifications-ngrx-module/certification-lookup.facade.ts",
+  "/test/certifications-ngrx-module/certification.api.service.ts",
+  "/test/certifications-ngrx-module/certification.crud.facade.spec.ts",
+  "/test/certifications-ngrx-module/certification.crud.facade.ts",
+  "/test/certifications-ngrx-module/certification.list.facade.spec.ts",
+  "/test/certifications-ngrx-module/certification.list.facade.ts",
+  "/test/certifications-ngrx-module/certification.lookup.facade.spec.ts",
+  "/test/certifications-ngrx-module/certification.lookup.facade.ts",
   "/test/certifications-ngrx-module/certifications.module.spec.ts",
   "/test/certifications-ngrx-module/certifications.module.ts",
+  "/test/certifications-ngrx-module/index.ts",
 ]
 `;
 
-exports[`imng-ngrx-module generation works - Certifications 2`] = `undefined`;
+exports[`imng-ngrx-module generation works - Certifications 2`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as certificationActionTypes from './certification.actions';
+
+export const CERTIFICATIONS_FEATURE_KEY = 'certifications';
+
+export interface State extends KendoODataGridState<ICertification> {
+  currentCertification: ICertification | undefined;
+  currentCertificationModalState: string | undefined;
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentCertification: undefined,
+  currentCertificationModalState: undefined,
+  loading: true,
+};
+
+export const certificationsFeature = createFeature({
+  name: CERTIFICATIONS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(certificationActionTypes.loadCertificationsRequest,
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(certificationActionTypes.loadCertificationsSuccess,
+      certificationActionTypes.reloadCertificationsSuccess,
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(certificationActionTypes.setCurrentCertification,
+      (state, { payload }) : State =>
+        ({ ...state,
+        currentCertificationModalState: payload.modalState,
+        currentCertification: payload.entity })),
+    on(certificationActionTypes.clearCurrentCertification,
+      (state) : State => ({
+        ...state, 
+        currentCertification: undefined,
+        currentCertificationModalState: undefined,
+      })),
+    on(certificationActionTypes.saveCertificationRequest,
+      certificationActionTypes.updateCertificationRequest,
+      certificationActionTypes.deleteCertificationRequest,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
+  )
+});
+"
+`;

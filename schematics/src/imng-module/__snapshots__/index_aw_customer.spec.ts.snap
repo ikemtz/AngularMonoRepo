@@ -213,6 +213,61 @@ export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<
 "
 `;
 
+exports[`imng-module crud effects should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import * as customerActionTypes from './customer.actions';
+import { CustomerApiService } from '../customers-crud/api.service';
+
+import { environment } from '@env';
+
+@Injectable()
+export class CustomerCrudEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+    private readonly customerApiService = inject(CustomerApiService);
+
+
+  saveCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.saveCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.saveCustomerRequest>) => this.customerApiService.post(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+
+  updateCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.updateCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.updateCustomerRequest>) => this.customerApiService.put(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+
+  deleteCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.deleteCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.deleteCustomerRequest>) => this.customerApiService.delete(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+
+  loadSalesAgentsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.loadSalesAgentsRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.loadSalesAgentsRequest>) => this.odataService
+        .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, action.payload)
+        .pipe(map(t => customerActionTypes.loadSalesAgentsSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
 exports[`imng-module crud facade spec template should work 1`] = `
 "import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
@@ -566,7 +621,78 @@ export class CustomerEditComponent extends CustomerBaseEntryComponent implements
 "
 `;
 
-exports[`imng-module effects should work 1`] = `undefined`;
+exports[`imng-module features should work 1`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as customerActionTypes from './customer.actions';
+
+export const CUSTOMERS_FEATURE_KEY = 'customers';
+
+export interface State extends KendoODataGridState<ICustomer> {
+  currentCustomer: ICustomer | undefined;
+  currentCustomerModalState: string | undefined;
+  salesAgents: ISalesAgent[];
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentCustomer: undefined,
+  currentCustomerModalState: undefined,
+  salesAgents: [],
+  loading: true,
+};
+
+export const customersFeature = createFeature({
+  name: CUSTOMERS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(customerActionTypes.loadCustomersRequest,
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(customerActionTypes.loadCustomersSuccess,
+      customerActionTypes.reloadCustomersSuccess,
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(customerActionTypes.setCurrentCustomer,
+      (state, { payload }) : State =>
+        ({ ...state,
+        currentCustomerModalState: payload.modalState,
+        currentCustomer: payload.entity })),
+    on(customerActionTypes.clearCurrentCustomer,
+      (state) : State => ({
+        ...state, 
+        currentCustomer: undefined,
+        currentCustomerModalState: undefined,
+      })),
+    on(customerActionTypes.saveCustomerRequest,
+      customerActionTypes.updateCustomerRequest,
+      customerActionTypes.deleteCustomerRequest,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      })),
+    on(customerActionTypes.loadSalesAgentsSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        salesAgents: payload.data
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
+  )
+});
+"
+`;
 
 exports[`imng-module html file should work 1`] = `
 "<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
@@ -758,6 +884,55 @@ export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, C
 "
 `;
 
+exports[`imng-module list effects should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import { customersFeature } from './customer.feature';
+import * as customerActionTypes from './customer.actions';
+import { environment } from '@env';
+
+@Injectable()
+export class CustomerListEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+    private readonly store = inject(Store);
+
+
+  loadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.loadCustomersRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataService
+        .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload, {
+          dateNullableProps: [CustomerProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => customerActionTypes.loadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  reloadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.reloadCustomersRequest),
+      concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
+      switchMap(([action, odataState]) => this.odataService
+        .fetch<ICustomer>(environment.odataEndpoints.customers, odataState, {
+          bustCache: true,
+          dateNullableProps: [CustomerProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => customerActionTypes.reloadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
 exports[`imng-module module should work 1`] = `
 "import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -810,8 +985,6 @@ import { CustomerAddComponent, CustomerEditComponent, CustomerApiService, Custom
 export class CustomersModule { }
 "
 `;
-
-exports[`imng-module reducers should work 1`] = `undefined`;
 
 exports[`imng-module tree files should match 1`] = `
 [

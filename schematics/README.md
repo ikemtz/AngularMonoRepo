@@ -43,12 +43,12 @@ Schema: [src/imng-ngrx-module/schema.json](src/imng-ngrx-module/schema.json)
 
 All of the above schematics have the same options.
 
-| Option                  | Description                                                                                                    | Required | Default                   |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------- | -------- | ------------------------- |
-| name                    | Module or component name (should be singular and should be listed as a component in the OpenApi spec document) | Yes      |                           |
-| path                    | Output directory for generated files                                                                           | Yes      |                           |
-| open-api-json-url       | URL to an OpenAPI JSON document                                                                                | No       |                           |
-| open-api-json-file-name | Relative file path to an OpenAPI JSON document                                                                 | No       |                           |
-| storeName               | NGRX feature store name                                                                                        | No       | {pluralized(name)}Feature |
-| app-prefix              | Application selector prefix for components/directives                                                          | No       | imng                      |
-| model-folder-location   | Location of the model folder relative to the generated module root                                             | No       |                           |
+| Option              | Description                                                                                                    | Required | Default                   |
+| ------------------- | -------------------------------------------------------------------------------------------------------------- | -------- | ------------------------- |
+| name                | Module or component name (should be singular and should be listed as a component in the OpenApi spec document) | Yes      |                           |
+| path                | Output directory for generated files                                                                           | Yes      |                           |
+| openApiJsonUrl      | URL to an OpenAPI JSON document                                                                                | No       |                           |
+| openApiJsonFileName | Relative file path to an OpenAPI JSON document                                                                 | No       |                           |
+| storeName           | NGRX feature store name                                                                                        | No       | {pluralized(name)}Feature |
+| appPrefix           | Application selector prefix for components/directives                                                          | No       | imng                      |
+| modelFolderLocation | Location of the model folder relative to the generated module root                                             | No       |                           |

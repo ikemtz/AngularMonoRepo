@@ -15,26 +15,32 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
-import { <%= classify(name) %>CrudFacade } from './crud.facade';
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from './+state';
+import { <%= classify(name) %>LookupFacade } from './lookup.facade';
 import { <%= classify(name) %>ApiService } from './api.service';<% if (modelFolderLocation) { %>
 import { createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 import { environment } from '@env';
 
-describe('<%= classify(name) %>CrudFacade', () => {
-  let facade: <%= classify(name) %>CrudFacade;
+describe('<%= classify(name) %>LookupFacade', () => {
+  let facade: <%= classify(name) %>LookupFacade;
   let store: Store;
   let httpClient: HttpClient;
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach(() => {}); //NOSONAR
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
           StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects]),
+          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>ListEffects,
+          <%= classify(singularizedStoreName) %>LookupEffects,
+          <%= classify(singularizedStoreName) %>CrudEffects,
+          ]),
         ],
         providers: [
-          <%= classify(name) %>CrudFacade,
+          <%= classify(name) %>LookupFacade,
           <%= classify(name) %>ApiService,
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTest<%= classify(name) %>()]))) } },
         ],
@@ -53,31 +59,16 @@ describe('<%= classify(name) %>CrudFacade', () => {
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       store = TestBed.inject(Store);
-      facade = TestBed.inject(<%= classify(name) %>CrudFacade);
+      facade = TestBed.inject(<%= classify(name) %>LookupFacade);
       httpClient = TestBed.inject(HttpClient);
     });
 
-    test('clearCurrentEntity() should set current<%= classify(name) %> to null', async () => {
-      let currentModalState = await readFirst(facade.currentModalState$);
-      expect(currentModalState).toBeUndefined();
-
-      facade.clearCurrentEntity();
-      currentModalState = await readFirst(facade.currentModalState$);
-
-      expect(currentModalState).toBeUndefined();
-      expect(await readFirst(store)).toMatchSnapshot();
-    });
-
-    test('Add Modal State And Clear CurrentEntity', async () =>
-      testModalStateAddAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
-    test('Edit Modal state And Clear CurrentEntity', async () =>
-      testModalStateEditAndClearCurrentEntity<<%= classify(name) %>CrudFacade>(facade));
-    test('Save CurrentEntity', async () =>
-      testSaveCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));
-    test('Update CurrentEntity', async () =>
-      testUpdateCurrentEntity<<%= classify(name) %>CrudFacade>(facade, httpClient));
-    test('it should handle DeleteItem', async () => {
-      await testDeleteCurrentEntity(facade, httpClient);
-    });
+    <% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    test('should load <%= classify(swaggerProperty.pluralizedName) %>', async () => {
+      facade.load<%= classify(swaggerProperty.pluralizedName) %>({});
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      const result = await readFirst(facade.<%= camelize(swaggerProperty.pluralizedName) %>$);
+      expect(result.length).toBe(1);
+    });<% }); %>
   });
 });

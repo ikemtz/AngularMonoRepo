@@ -32,68 +32,33 @@ describe(`imng-module AdventureWorks Orders`, () => {
 
   test(`module should work`, () => {
     const file = tree.get(
-      `/test/orders-module/orders.module.ts`
+      `/test/orders-ngrx-module/orders.module.ts`
     );
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`list component should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-list/list.component.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`base crud component should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-crud/base-entry.component.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
   test(`crud facade template should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-crud/crud.facade.ts`);
+    const file = tree.get(`/test/orders-ngrx-module/order.crud.facade.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`crud facade spec template should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-crud/crud.facade.spec.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`crud html template should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-crud/add-edit.component.html`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`add component template should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-crud/add.component.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`edit component template should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-crud/edit.component.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`add component spec template should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-crud/add.component.spec.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`edit component spec template should work`, () => {
-    const file = tree.get(`/test/orders-module/orders-crud/edit.component.spec.ts`);
+    const file = tree.get(`/test/orders-ngrx-module/order.crud.facade.spec.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`actions should work`, () => {
-    const file = tree.get(`/test/orders-module/+state/order.actions.ts`);
+    const file = tree.get(`/test/orders-ngrx-module/+state/order.actions.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`reducers should work`, () => {
-    const file = tree.get(`/test/orders-module/+state/order.reducer.ts`);
+  test(`feature should work`, () => {
+    const file = tree.get(`/test/orders-ngrx-module/+state/order.feature.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`effects should work`, () => {
-    const effectsFile = tree.get(`/test/orders-module/+state/order.effects.ts`
+  test(`list effects should work`, () => {
+    const effectsFile = tree.get(`/test/orders-ngrx-module/+state/order.list.effects.ts`
     );
     const content = effectsFile?.content.toString();
     expect(content).toMatchSnapshot();
@@ -101,7 +66,7 @@ describe(`imng-module AdventureWorks Orders`, () => {
   test(`list facade should work`, () => {
     const fileName = `/test/${plural(dasherize(options.name))}-ngrx-module/${dasherize(
       singular(options.name)
-    )}-list.facade.spec.ts`;
+    )}.list.facade.spec.ts`;
     const listFacadeSpecFile = tree.get(fileName);
     const content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(
@@ -109,11 +74,5 @@ describe(`imng-module AdventureWorks Orders`, () => {
         plural(options.name)
       )}-odata/odata/v1/${classify(plural(options.name))}?&$count=true');`
     );
-  });
-  test(`html file should work`, () => {
-    const htmlFile = tree.get(`/test/orders-module/orders-list/list.component.html`
-    );
-    const content = htmlFile?.content.toString();
-    expect(content).toMatchSnapshot();
   });
 });

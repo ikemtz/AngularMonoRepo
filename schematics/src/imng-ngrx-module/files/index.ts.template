@@ -1,0 +1,6 @@
+export * from './+state';
+export { <%= classify(pluralizedName) %>Module } from './<%= dasherize(pluralizedStoreName) %>.module';
+export { <%= classify(singularizedName) %>ApiService } from './<%= dasherize(singularizedName) %>.api.service';
+export { <%= classify(singularizedName) %>CrudFacade } from './<%= dasherize(singularizedName) %>.crud.facade';
+export { <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(singularizedName) %>.list.facade';
+export { <%= classify(singularizedName) %>LookupFacade } from './<%= dasherize(singularizedName) %>.lookup.facade';
