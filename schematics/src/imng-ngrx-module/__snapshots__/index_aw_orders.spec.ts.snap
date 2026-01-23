@@ -1,48 +1,357 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`imng-module AdventureWorks Orders actions should work 1`] = `undefined`;
+exports[`imng-module AdventureWorks Orders actions should work 1`] = `
+"import { createAction } from '@ngrx/store';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
 
-exports[`imng-module AdventureWorks Orders add component spec template should work 1`] = `undefined`;
+export const loadOrdersRequest = createPayloadAction<ODataState>(
+    '[Orders] Load Orders Request');
+export const loadOrdersSuccess = createPayloadAction<ODataResult<IOrder>>(
+    '[Orders] Load Orders Success');
+export const reloadOrdersRequest = createAction(
+    '[Orders] Reload Orders Request');
+export const reloadOrdersSuccess = createPayloadAction<ODataResult<IOrder>>(
+    '[Orders] Reload Orders Success');
 
-exports[`imng-module AdventureWorks Orders add component template should work 1`] = `undefined`;
+export const clearCurrentOrder = createAction('[Orders] Clear Current Order');
+export const setCurrentOrder = createModalAction<IOrder>('[Orders] Set Current Order');
+export const saveOrderRequest = createPayloadAction<IOrder>('[Orders] Save Order Request');
+export const updateOrderRequest = createPayloadAction<IOrder>('[Orders] Update Order Request');
+export const deleteOrderRequest = createPayloadAction<IOrder>('[Orders] Delete Order Request');
 
-exports[`imng-module AdventureWorks Orders base crud component should work 1`] = `undefined`;
+export const loadCustomersRequest = createPayloadAction<ODataState>(
+    '[Orders] Load Customers Request');
+export const loadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>>(
+    '[Orders] Load Customers Success');
+export const loadShipToAddressesRequest = createPayloadAction<ODataState>(
+    '[Orders] Load ShipToAddresses Request');
+export const loadShipToAddressesSuccess = createPayloadAction<ODataResult<IOrderAddress>>(
+    '[Orders] Load ShipToAddresses Success');
+export const loadBillToAddressesRequest = createPayloadAction<ODataState>(
+    '[Orders] Load BillToAddresses Request');
+export const loadBillToAddressesSuccess = createPayloadAction<ODataResult<IOrderAddress>>(
+    '[Orders] Load BillToAddresses Success');
+"
+`;
 
-exports[`imng-module AdventureWorks Orders crud facade spec template should work 1`] = `undefined`;
+exports[`imng-module AdventureWorks Orders crud facade spec template should work 1`] = `
+"///<reference types="jest" />
+import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import {
+  testDeleteCurrentEntity,
+  testModalStateAddAndClearCurrentEntity,
+  testModalStateEditAndClearCurrentEntity,
+  testSaveCurrentEntity,
+  testUpdateCurrentEntity,
+} from 'imng-kendo-data-entry/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
 
-exports[`imng-module AdventureWorks Orders crud facade template should work 1`] = `undefined`;
+import { ordersFeature, OrderListEffects, OrderCrudEffects } from './+state';
+import { OrderCrudFacade } from './order.crud.facade';
+import { OrderApiService } from './order.api.service';
+import { environment } from '@env';
 
-exports[`imng-module AdventureWorks Orders crud html template should work 1`] = `undefined`;
+describe('OrderCrudFacade', () => {
+  let facade: OrderCrudFacade;
+  let store: Store;
+  let httpClient: HttpClient;
 
-exports[`imng-module AdventureWorks Orders edit component spec template should work 1`] = `undefined`;
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(ordersFeature),
+          EffectsModule.forFeature([OrderListEffects, OrderCrudEffects]),
+        ],
+        providers: [
+          OrderCrudFacade,
+          OrderApiService,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestOrder()]))) } },
+        ],
+      })
+      class CustomFeatureModule {}
 
-exports[`imng-module AdventureWorks Orders edit component template should work 1`] = `undefined`;
+      @NgModule({
+        imports: [
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
 
-exports[`imng-module AdventureWorks Orders effects should work 1`] = `undefined`;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(OrderCrudFacade);
+      httpClient = TestBed.inject(HttpClient);
+    });
 
-exports[`imng-module AdventureWorks Orders html file should work 1`] = `undefined`;
+    test('clearCurrentEntity() should set currentOrder to null', async () => {
+      let currentModalState = await readFirst(facade.currentModalState$);
+      expect(currentModalState).toBeUndefined();
 
-exports[`imng-module AdventureWorks Orders list component should work 1`] = `undefined`;
+      facade.clearCurrentEntity();
+      currentModalState = await readFirst(facade.currentModalState$);
 
-exports[`imng-module AdventureWorks Orders module should work 1`] = `undefined`;
+      expect(currentModalState).toBeUndefined();
+      expect(await readFirst(store)).toMatchSnapshot();
+    });
 
-exports[`imng-module AdventureWorks Orders reducers should work 1`] = `undefined`;
+    test('Add Modal State And Clear CurrentEntity', async () =>
+      testModalStateAddAndClearCurrentEntity<OrderCrudFacade>(facade));
+    test('Edit Modal state And Clear CurrentEntity', async () =>
+      testModalStateEditAndClearCurrentEntity<OrderCrudFacade>(facade));
+    test('Save CurrentEntity', async () =>
+      testSaveCurrentEntity<OrderCrudFacade>(facade, httpClient));
+    test('Update CurrentEntity', async () =>
+      testUpdateCurrentEntity<OrderCrudFacade>(facade, httpClient));
+    test('it should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
+    });
+  });
+});
+"
+`;
+
+exports[`imng-module AdventureWorks Orders crud facade template should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
+import { ODataState } from 'imng-kendo-odata';
+
+import { ordersFeature, orderActionTypes } from './+state';
+
+@Injectable()
+export class OrderCrudFacade implements IDataEntryFacade<IOrder>, IDataDeleteFacade<IOrder> {
+  private readonly store = inject(Store);
+
+  loading$ = this.store.select(ordersFeature.selectLoading);
+  currentEntity$ = this.store.select(ordersFeature.selectCurrentOrder);
+  currentModalState$ = this.store.select(ordersFeature.selectCurrentOrderModalState);
+  customers$ = this.store.select(ordersFeature.selectCustomers);
+  shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
+  billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
+
+  public setCurrentEntity(item: IOrder, modalState: string): void {
+    this.store.dispatch(
+      orderActionTypes.setCurrentOrder({
+        modalState,
+        entity: item,
+      }),
+    );
+  }
+
+  public clearCurrentEntity(): void {
+    this.store.dispatch(orderActionTypes.clearCurrentOrder());
+  }
+
+  public saveNewEntity(item: IOrder): void {
+    this.store.dispatch(orderActionTypes.saveOrderRequest(item));
+  }
+
+  public updateExistingEntity(item: IOrder): void {
+    this.store.dispatch(orderActionTypes.updateOrderRequest(item));
+  }
+
+  public deleteExistingEntity(item: IOrder): void {
+    this.store.dispatch(orderActionTypes.deleteOrderRequest(item));
+  }
+}
+"
+`;
+
+exports[`imng-module AdventureWorks Orders feature should work 1`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as orderActionTypes from './order.actions';
+
+export const ORDERS_FEATURE_KEY = 'orders';
+
+export interface State extends KendoODataGridState<IOrder> {
+  currentOrder: IOrder | undefined;
+  currentOrderModalState: string | undefined;
+  customers: ICustomer[];
+  shipToAddresses: IOrderAddress[];
+  billToAddresses: IOrderAddress[];
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentOrder: undefined,
+  currentOrderModalState: undefined,
+  customers: [],
+  shipToAddresses: [],
+  billToAddresses: [],
+  loading: true,
+};
+
+export const ordersFeature = createFeature({
+  name: ORDERS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(orderActionTypes.loadOrdersRequest,
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(orderActionTypes.loadOrdersSuccess,
+      orderActionTypes.reloadOrdersSuccess,
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(orderActionTypes.setCurrentOrder,
+      (state, { payload }) : State =>
+        ({ ...state,
+        currentOrderModalState: payload.modalState,
+        currentOrder: payload.entity })),
+    on(orderActionTypes.clearCurrentOrder,
+      (state) : State => ({
+        ...state, 
+        currentOrder: undefined,
+        currentOrderModalState: undefined,
+      })),
+    on(orderActionTypes.saveOrderRequest,
+      orderActionTypes.updateOrderRequest,
+      orderActionTypes.deleteOrderRequest,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      })),
+    on(orderActionTypes.loadCustomersSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        customers: payload.data
+      })),
+    on(orderActionTypes.loadShipToAddressesSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        shipToAddresses: payload.data
+      })),
+    on(orderActionTypes.loadBillToAddressesSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        billToAddresses: payload.data
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
+  )
+});
+"
+`;
+
+exports[`imng-module AdventureWorks Orders list effects should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import { ordersFeature } from './order.feature';
+import * as orderActionTypes from './order.actions';
+import { environment } from '@env';
+
+@Injectable()
+export class OrderListEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+    private readonly store = inject(Store);
+
+
+  loadOrdersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(orderActionTypes.loadOrdersRequest),
+      switchMap((action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) => this.odataService
+        .fetch<IOrder>(environment.odataEndpoints.orders, action.payload, {
+          dateNullableProps: [OrderProperties.SHIP_DATE, OrderProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => orderActionTypes.loadOrdersSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  reloadOrdersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(orderActionTypes.reloadOrdersRequest),
+      concatLatestFrom(() => this.store.select(ordersFeature.selectGridODataState)),
+      switchMap(([action, odataState]) => this.odataService
+        .fetch<IOrder>(environment.odataEndpoints.orders, odataState, {
+          bustCache: true,
+          dateNullableProps: [OrderProperties.SHIP_DATE, OrderProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => orderActionTypes.reloadOrdersSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-module AdventureWorks Orders module should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+
+import { ordersFeature, OrderListEffects, OrderLookupEffects, OrderCrudEffects } from './+state';
+
+import { OrderApiService } from './order.api.service';
+import { OrderCrudFacade  } from './order.crud.facade';
+import { OrderListFacade } from './order.list.facade';
+import { OrderLookupFacade } from './order.lookup.facade';
+
+
+@NgModule({
+  imports: [
+    StoreModule.forFeature(ordersFeature),
+    EffectsModule.forFeature([OrderCrudEffects, OrderListEffects, OrderLookupEffects, ]),
+  ],
+  providers: [
+    ODataService,
+    OrderApiService,
+    
+    OrderCrudFacade,
+    OrderListFacade,
+    OrderLookupFacade,
+  ],
+})
+export class OrdersModule { }
+"
+`;
 
 exports[`imng-module AdventureWorks Orders tree files should match 1`] = `
 [
   "/test/orders-ngrx-module/+state/index.ts",
-  "/test/orders-ngrx-module/+state/order-crud.effects.ts",
-  "/test/orders-ngrx-module/+state/order-list.effects.ts",
-  "/test/orders-ngrx-module/+state/order-lookup.effects.ts",
   "/test/orders-ngrx-module/+state/order.actions.ts",
+  "/test/orders-ngrx-module/+state/order.crud.effects.ts",
   "/test/orders-ngrx-module/+state/order.feature.ts",
-  "/test/orders-ngrx-module/order-api.service.ts",
-  "/test/orders-ngrx-module/order-crud.facade.spec.ts",
-  "/test/orders-ngrx-module/order-crud.facade.ts",
-  "/test/orders-ngrx-module/order-list.facade.spec.ts",
-  "/test/orders-ngrx-module/order-list.facade.ts",
-  "/test/orders-ngrx-module/order-lookup.facade.spec.ts",
-  "/test/orders-ngrx-module/order-lookup.facade.ts",
+  "/test/orders-ngrx-module/+state/order.list.effects.ts",
+  "/test/orders-ngrx-module/+state/order.lookup.effects.ts",
+  "/test/orders-ngrx-module/index.ts",
+  "/test/orders-ngrx-module/order.api.service.ts",
+  "/test/orders-ngrx-module/order.crud.facade.spec.ts",
+  "/test/orders-ngrx-module/order.crud.facade.ts",
+  "/test/orders-ngrx-module/order.list.facade.spec.ts",
+  "/test/orders-ngrx-module/order.list.facade.ts",
+  "/test/orders-ngrx-module/order.lookup.facade.spec.ts",
+  "/test/orders-ngrx-module/order.lookup.facade.ts",
   "/test/orders-ngrx-module/orders.module.spec.ts",
   "/test/orders-ngrx-module/orders.module.ts",
 ]

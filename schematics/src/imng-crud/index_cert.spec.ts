@@ -11,7 +11,7 @@ import { plural } from 'pluralize';
 const collectionPath = path.join(__dirname, `../collection.json`);
 
 describe(`imng-crud`, () => {
-  test.only(`generation works`, async () => {
+  test(`generation works`, async () => {
     const runner = new SchematicTestRunner(`schematics`, collectionPath);
     const options: IOptions = {
       name: `certification`,

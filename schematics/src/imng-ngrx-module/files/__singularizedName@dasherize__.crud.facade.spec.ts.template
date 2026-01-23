@@ -15,9 +15,9 @@ import {
 import { createODataPayload } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
-import { <%= classify(name) %>CrudFacade } from './crud.facade';
-import { <%= classify(name) %>ApiService } from './api.service';<% if (modelFolderLocation) { %>
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from './+state';
+import { <%= classify(name) %>CrudFacade } from './<%= dasherize(singularizedName) %>.crud.facade';
+import { <%= classify(name) %>ApiService } from './<%= dasherize(singularizedName) %>.api.service';<% if (modelFolderLocation) { %>
 import { createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 import { environment } from '@env';
 

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
 import { ODataState } from 'imng-kendo-odata';<% } %>
 
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from '../+state';<% if (modelFolderLocation) { %>
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from './+state';<% if (modelFolderLocation) { %>
 import { I<%= classify(singularizedName) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.name) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
 
 @Injectable()
