@@ -32,4 +32,68 @@ exports[`imng-module generation works - Certifications 1`] = `
 ]
 `;
 
-exports[`imng-module generation works - Certifications 2`] = `undefined`;
+exports[`imng-module generation works - Certifications 2`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as certificationActionTypes from './certification.actions';
+
+export const CERTIFICATIONS_FEATURE_KEY = 'certifications';
+
+export interface State extends KendoODataGridState<ICertification> {
+  currentCertification: ICertification | undefined;
+  currentCertificationModalState: string | undefined;
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentCertification: undefined,
+  currentCertificationModalState: undefined,
+  loading: true,
+};
+
+export const certificationsFeature = createFeature({
+  name: CERTIFICATIONS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(certificationActionTypes.loadCertificationsRequest,
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(certificationActionTypes.loadCertificationsSuccess,
+      certificationActionTypes.reloadCertificationsSuccess,
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(certificationActionTypes.setCurrentCertification,
+      (state, { payload }) : State =>
+        ({ ...state,
+        currentCertificationModalState: payload.modalState,
+        currentCertification: payload.entity })),
+    on(certificationActionTypes.clearCurrentCertification,
+      (state) : State => ({
+        ...state, 
+        currentCertification: undefined,
+        currentCertificationModalState: undefined,
+      })),
+    on(certificationActionTypes.saveCertificationRequest,
+      certificationActionTypes.updateCertificationRequest,
+      certificationActionTypes.deleteCertificationRequest,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
+  )
+});
+"
+`;

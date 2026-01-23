@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(storeName) %>ActionTypes } from '../+state';<% if (modelFolderLocation) { %>
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(storeName) %>ActionTypes } from './+state';<% if (modelFolderLocation) { %>
 import { I<%= classify(name) %> } from '<%= modelFolderLocation %>';<% } %>
 
 @Injectable()

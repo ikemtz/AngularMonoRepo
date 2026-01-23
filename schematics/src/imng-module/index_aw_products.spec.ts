@@ -57,11 +57,6 @@ describe(`imng-module`, () => {
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`selectors template should work`, () => {
-    const file = tree.get(`/test/products-module/+state/product.selectors.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
   test(`crud html template should work`, () => {
     const file = tree.get(`/test/products-module/products-crud/add-edit.component.html`);
     const content = file?.content.toString();
@@ -92,13 +87,19 @@ describe(`imng-module`, () => {
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`reducers should work`, () => {
-    const file = tree.get(`/test/products-module/+state/product.reducer.ts`);
+  test(`feature should work`, () => {
+    const file = tree.get(`/test/products-module/+state/product.feature.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`effects should work`, () => {
-    const effectsFile = tree.get(`/test/products-module/+state/product.effects.ts`
+  test(`list effects should work`, () => {
+    const effectsFile = tree.get(`/test/products-module/+state/product-list.effects.ts`
+    );
+    const content = effectsFile?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`crud effects should work`, () => {
+    const effectsFile = tree.get(`/test/products-module/+state/product-crud.effects.ts`
     );
     const content = effectsFile?.content.toString();
     expect(content).toMatchSnapshot();

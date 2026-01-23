@@ -32,18 +32,18 @@ describe(`imng-ngrx-module`, () => {
 
   test(`module should work`, () => {
     const file = tree.get(
-      `/test/customers-module/customers.module.ts`
+      `/test/customers-ngrx-module/customers.module.ts`
     );
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`crud facade template should work`, () => {
-    const file = tree.get(`/test/customers-ngrx-module/customers-crud.facade.ts`);
+    const file = tree.get(`/test/customers-ngrx-module/customer.crud.facade.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`crud facade spec template should work`, () => {
-    const file = tree.get(`/test/customers-ngrx-module/customers-crud.facade.spec.ts`);
+    const file = tree.get(`/test/customers-ngrx-module/customer.crud.facade.spec.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
@@ -58,7 +58,7 @@ describe(`imng-ngrx-module`, () => {
     expect(content).toMatchSnapshot();
   });
   test(`effects should work`, () => {
-    const effectsFile = tree.get(`/test/customers-ngrx-module/+state/customer-list.effects.ts`
+    const effectsFile = tree.get(`/test/customers-ngrx-module/+state/customer.list.effects.ts`
     );
     const content = effectsFile?.content.toString();
     expect(content).toMatchSnapshot();
@@ -67,7 +67,7 @@ describe(`imng-ngrx-module`, () => {
     const fileName =
       `/test/${plural(dasherize(options.name))}-ngrx-module/${dasherize(
         singular(options.name)
-      )}-list.facade.spec.ts`;
+      )}.list.facade.spec.ts`;
     const listFacadeSpecFile = tree.get(fileName);
     const content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(

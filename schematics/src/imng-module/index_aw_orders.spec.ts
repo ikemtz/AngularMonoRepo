@@ -87,13 +87,19 @@ describe(`imng-module AdventureWorks Orders`, () => {
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`reducers should work`, () => {
-    const file = tree.get(`/test/orders-module/+state/order.reducer.ts`);
+  test(`features should work`, () => {
+    const file = tree.get(`/test/orders-module/+state/order.feature.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`effects should work`, () => {
-    const effectsFile = tree.get(`/test/orders-module/+state/order.effects.ts`
+  test(`list effects should work`, () => {
+    const effectsFile = tree.get(`/test/orders-module/+state/order-list.effects.ts`
+    );
+    const content = effectsFile?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`crud effects should work`, () => {
+    const effectsFile = tree.get(`/test/orders-module/+state/order-crud.effects.ts`
     );
     const content = effectsFile?.content.toString();
     expect(content).toMatchSnapshot();
