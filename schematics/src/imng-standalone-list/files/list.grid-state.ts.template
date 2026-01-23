@@ -1,0 +1,20 @@
+import { ODataState } from 'imng-kendo-odata';<% if (modelFolderLocation) { %>
+import { <%= classify(singularizedName) %>Properties, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %><%= classify(swaggerProperty.propertyTypeName) %>Properties<% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+
+export const <%= camelize(singularizedName) %>GridState: ODataState = {
+  take: 20,
+  skip: 0,
+  selectors: [<% swaggerProperties.filter(t => t.htmlInputType !== 'object' || t.enum).forEach(function (swaggerProperty) { %>
+    <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%}) %>
+  ],
+  sort: [
+    { field: <%= classify(singularizedName) %>Properties.<%= firstProperty?.snakeCaseName.toUpperCase() %>, dir: 'asc' },
+  ], <% if (hasObjects) { %>
+  expanders: [<% swaggerObjectProperties.filter(t => !t.enum).forEach(function (swaggerProperty) { %>
+    { table: <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %>,
+      selectors: [<% swaggerProperty.properties.forEach(function (subSwaggerProperty) { %>
+        <%= classify(swaggerProperty.propertyTypeName) %>Properties.<%= subSwaggerProperty.snakeCaseName.toUpperCase() %>, <%}) %>
+        ]
+  }, <% }) %>
+  ]<% } %>
+};

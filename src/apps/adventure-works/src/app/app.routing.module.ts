@@ -13,6 +13,14 @@ export const appRoutes: Routes = [
     canActivateChild: [AuthGuard],
   },
   {
+    path: 'standalone-customers',
+    loadComponent: () =>
+      import('./modules/customers-list/list.component').then(
+        (m) => m.CustomerListComponent,
+      ),
+    canActivateChild: [AuthGuard],
+  },
+  {
     path: 'products',
     loadChildren: () =>
       import('./modules/products-module/products.module').then(
