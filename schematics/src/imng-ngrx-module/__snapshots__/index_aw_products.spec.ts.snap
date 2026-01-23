@@ -4,7 +4,7 @@ exports[`imng-ngrx-module actions should work 1`] = `
 "import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
-import { IProduct, IProductModel, IProductCategory } from './test/models';
+import { IProduct, IProductModel, IProductCategory } from '../../../models/webapi';
 
 export const loadProductsRequest = createPayloadAction<ODataState>(
     '[Products] Load Products Request');
@@ -41,8 +41,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import * as productActionTypes from './product.actions';
 import { ProductApiService } from '../product.api.service';
-import { IProductModel, IProductCategory } from './test/models';
-import { environment } from '@env';
+
 
 @Injectable()
 export class ProductCrudEffects {
@@ -99,7 +98,7 @@ import { of } from 'rxjs';
 import { productsFeature, ProductListEffects, ProductCrudEffects } from './+state';
 import { ProductCrudFacade } from './product.crud.facade';
 import { ProductApiService } from './product.api.service';
-import { createTestProduct } from './test/models';
+import { createTestProduct } from '../../../models/webapi';
 import { environment } from '@env';
 
 describe('ProductCrudFacade', () => {
@@ -169,10 +168,9 @@ exports[`imng-ngrx-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
-import { ODataState } from 'imng-kendo-odata';
 
 import { productsFeature, productActionTypes } from './+state';
-import { IProduct, IProductModel, IProductCategory } from './test/models';
+import { IProduct } from '../../../models/webapi';
 
 @Injectable()
 export class ProductCrudFacade implements IDataEntryFacade<IProduct>, IDataDeleteFacade<IProduct> {
@@ -181,8 +179,6 @@ export class ProductCrudFacade implements IDataEntryFacade<IProduct>, IDataDelet
   loading$ = this.store.select(productsFeature.selectLoading);
   currentEntity$ = this.store.select(productsFeature.selectCurrentProduct);
   currentModalState$ = this.store.select(productsFeature.selectCurrentProductModalState);
-  productModels$ = this.store.select(productsFeature.selectProductModels);
-  productCategories$ = this.store.select(productsFeature.selectProductCategories);
 
   public setCurrentEntity(item: IProduct, modalState: string): void {
     this.store.dispatch(
@@ -218,7 +214,7 @@ import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGrid
 import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 
 import * as productActionTypes from './product.actions';
-import { IProduct, IProductModel, IProductCategory } from './test/models';
+import { IProduct, IProductModel, IProductCategory } from '../../../models/webapi';
 
 export const PRODUCTS_FEATURE_KEY = 'products';
 
@@ -304,7 +300,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { productsFeature } from './product.feature';
 import * as productActionTypes from './product.actions';
-import { IProduct, ProductProperties } from './test/models';
+import { IProduct, ProductProperties } from '../../../models/webapi';
 import { environment } from '@env';
 
 @Injectable()
@@ -351,7 +347,7 @@ import { handleEffectError } from 'imng-ngrx-utils';
 import { map, switchMap } from 'rxjs/operators';
 
 import * as productActionTypes from './product.actions';
-import { IProductModel, IProductCategory } from './test/models';
+import { IProductModel, IProductCategory } from '../../../models/webapi';
 import { environment } from '@env';
 
 @Injectable()

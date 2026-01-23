@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataState } from 'imng-kendo-odata';
 
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(storeName) %>ActionTypes } from './+state';<% if (modelFolderLocation) { %>
-import { I<%= classify(name) %> } from '<%= modelFolderLocation %>';<% } %>
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from './+state';<% if (modelFolderLocation) { %>
+import { I<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 
 @Injectable()
 export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>> {
@@ -16,10 +16,10 @@ export class <%= classify(singularizedName) %>ListFacade implements IKendoODataG
   gridODataState$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectGridODataState);
 
   public loadEntities(state: ODataState): void {
-    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(state));
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.load<%= classify(pluralizedName) %>Request(state));
   }
 
   public reloadEntities(): void {
-    this.store.dispatch(<%= camelize(storeName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request());
+    this.store.dispatch(<%= camelize(singularizedStoreName) %>ActionTypes.reload<%= classify(pluralizedName) %>Request());
   }
 }

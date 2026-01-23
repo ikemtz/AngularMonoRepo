@@ -22,7 +22,7 @@ describe(`imng-ngrx-module`, () => {
       path: `./test`,
       swaggerProperties: [],
       appPrefix: 'aw',
-      modelFolderLocation: './test/models',
+      modelFolderLocation: '../../../models/webapi',
     };
     tree = await runner.runSchematic(`imng-ngrx-module`, options, Tree.empty());
   }, 30000);

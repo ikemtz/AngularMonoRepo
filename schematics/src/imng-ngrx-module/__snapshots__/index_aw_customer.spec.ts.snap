@@ -4,6 +4,7 @@ exports[`imng-ngrx-module actions should work 1`] = `
 "import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
+import { ICustomer, ISalesAgent } from '../../../models/webapi';
 
 export const loadCustomersRequest = createPayloadAction<ODataState>(
     '[Customers] Load Customers Request');
@@ -24,6 +25,51 @@ export const loadSalesAgentsRequest = createPayloadAction<ODataState>(
     '[Customers] Load SalesAgents Request');
 export const loadSalesAgentsSuccess = createPayloadAction<ODataResult<ISalesAgent>>(
     '[Customers] Load SalesAgents Success');
+"
+`;
+
+exports[`imng-ngrx-module crud effect should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import * as customerActionTypes from './customer.actions';
+import { CustomerApiService } from '../customer.api.service';
+
+
+@Injectable()
+export class CustomerCrudEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+    private readonly customerApiService = inject(CustomerApiService);
+
+
+  saveCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.saveCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.saveCustomerRequest>) => this.customerApiService.post(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+
+  updateCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.updateCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.updateCustomerRequest>) => this.customerApiService.put(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+
+  deleteCustomerEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.deleteCustomerRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.deleteCustomerRequest>) => this.customerApiService.delete(action.payload).pipe(
+        map(() => customerActionTypes.reloadCustomersRequest()),
+        handleEffectError(action))));
+  });
+}
 "
 `;
 
@@ -48,6 +94,7 @@ import { of } from 'rxjs';
 import { customersFeature, CustomerListEffects, CustomerCrudEffects } from './+state';
 import { CustomerCrudFacade } from './customer.crud.facade';
 import { CustomerApiService } from './customer.api.service';
+import { createTestCustomer } from '../../../models/webapi';
 import { environment } from '@env';
 
 describe('CustomerCrudFacade', () => {
@@ -117,9 +164,9 @@ exports[`imng-ngrx-module crud facade template should work 1`] = `
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
-import { ODataState } from 'imng-kendo-odata';
 
 import { customersFeature, customerActionTypes } from './+state';
+import { ICustomer } from '../../../models/webapi';
 
 @Injectable()
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer>, IDataDeleteFacade<ICustomer> {
@@ -128,7 +175,6 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer>, IDataDel
   loading$ = this.store.select(customersFeature.selectLoading);
   currentEntity$ = this.store.select(customersFeature.selectCurrentCustomer);
   currentModalState$ = this.store.select(customersFeature.selectCurrentCustomerModalState);
-  salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
 
   public setCurrentEntity(item: ICustomer, modalState: string): void {
     this.store.dispatch(
@@ -158,93 +204,13 @@ export class CustomerCrudFacade implements IDataEntryFacade<ICustomer>, IDataDel
 "
 `;
 
-exports[`imng-ngrx-module effects should work 1`] = `
-"import { Injectable, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
-import { ODataService } from 'imng-kendo-odata';
-import { handleEffectError } from 'imng-ngrx-utils';
-import { map, switchMap } from 'rxjs/operators';
-
-import { customersFeature } from './customer.feature';
-import * as customerActionTypes from './customer.actions';
-import { environment } from '@env';
-
-@Injectable()
-export class CustomerListEffects {
-    private readonly actions$ = inject(Actions);
-    private readonly odataService = inject(ODataService);
-    private readonly store = inject(Store);
-
-
-  loadCustomersEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(customerActionTypes.loadCustomersRequest),
-      switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataService
-        .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload, {
-          dateNullableProps: [CustomerProperties.UPDATED_ON_UTC],
-        })
-        .pipe(
-          map(t => customerActionTypes.loadCustomersSuccess(t)),
-          handleEffectError(action))));
-  });
-
-  reloadCustomersEffect$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(customerActionTypes.reloadCustomersRequest),
-      concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
-      switchMap(([action, odataState]) => this.odataService
-        .fetch<ICustomer>(environment.odataEndpoints.customers, odataState, {
-          bustCache: true,
-          dateNullableProps: [CustomerProperties.UPDATED_ON_UTC],
-        })
-        .pipe(
-          map(t => customerActionTypes.reloadCustomersSuccess(t)),
-          handleEffectError(action))));
-  });
-}
-"
-`;
-
-exports[`imng-ngrx-module module should work 1`] = `
-"import { NgModule } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { ODataService } from 'imng-kendo-odata';
-
-import { customersFeature, CustomerListEffects, CustomerLookupEffects, CustomerCrudEffects } from './+state';
-
-import { CustomerApiService } from './customer.api.service';
-import { CustomerCrudFacade  } from './customer.crud.facade';
-import { CustomerListFacade } from './customer.list.facade';
-import { CustomerLookupFacade } from './customer.lookup.facade';
-
-
-@NgModule({
-  imports: [
-    StoreModule.forFeature(customersFeature),
-    EffectsModule.forFeature([CustomerCrudEffects, CustomerListEffects, CustomerLookupEffects, ]),
-  ],
-  providers: [
-    ODataService,
-    CustomerApiService,
-    
-    CustomerCrudFacade,
-    CustomerListFacade,
-    CustomerLookupFacade,
-  ],
-})
-export class CustomersModule { }
-"
-`;
-
-exports[`imng-ngrx-module reducers should work 1`] = `
+exports[`imng-ngrx-module feature should work 1`] = `
 "import { createReducer, on, createFeature } from '@ngrx/store';
 import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
 import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 
 import * as customerActionTypes from './customer.actions';
+import { ICustomer, ISalesAgent } from '../../../models/webapi';
 
 export const CUSTOMERS_FEATURE_KEY = 'customers';
 
@@ -309,6 +275,230 @@ export const customersFeature = createFeature({
     on(imngEffectError, imngEffectErrorReducer),
   )
 });
+"
+`;
+
+exports[`imng-ngrx-module list effect should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import { customersFeature } from './customer.feature';
+import * as customerActionTypes from './customer.actions';
+import { ICustomer, CustomerProperties } from '../../../models/webapi';
+import { environment } from '@env';
+
+@Injectable()
+export class CustomerListEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+    private readonly store = inject(Store);
+
+
+  loadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.loadCustomersRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataService
+        .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload, {
+          dateNullableProps: [CustomerProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => customerActionTypes.loadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  reloadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.reloadCustomersRequest),
+      concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
+      switchMap(([action, odataState]) => this.odataService
+        .fetch<ICustomer>(environment.odataEndpoints.customers, odataState, {
+          bustCache: true,
+          dateNullableProps: [CustomerProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => customerActionTypes.reloadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-ngrx-module list facade template should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
+import { ODataState } from 'imng-kendo-odata';
+
+import { customersFeature, customerActionTypes } from './+state';
+import { ICustomer } from '../../../models/webapi';
+
+@Injectable()
+export class CustomerListFacade implements IKendoODataGridFacade<ICustomer> {
+  private readonly store = inject(Store);
+
+  loading$ = this.store.select(customersFeature.selectLoading);
+  gridData$ = this.store.select(customersFeature.selectGridData);
+  gridPagerSettings$ = this.store.select(customersFeature.selectGridPagerSettings);
+  gridODataState$ = this.store.select(customersFeature.selectGridODataState);
+
+  public loadEntities(state: ODataState): void {
+    this.store.dispatch(customerActionTypes.loadCustomersRequest(state));
+  }
+
+  public reloadEntities(): void {
+    this.store.dispatch(customerActionTypes.reloadCustomersRequest());
+  }
+}
+"
+`;
+
+exports[`imng-ngrx-module lookup effect should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import * as customerActionTypes from './customer.actions';
+import { ISalesAgent } from '../../../models/webapi';
+import { environment } from '@env';
+
+@Injectable()
+export class CustomerLookupEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+
+
+  loadSalesAgentsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.loadSalesAgentsRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.loadSalesAgentsRequest>) => this.odataService
+        .fetch<ISalesAgent>(environment.odataEndpoints.salesAgents, action.payload)
+        .pipe(map(t => customerActionTypes.loadSalesAgentsSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-ngrx-module lookup facade spec template should work 1`] = `
+"///<reference types="jest" />
+import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
+
+import { customersFeature, CustomerListEffects, CustomerLookupEffects, CustomerCrudEffects } from './+state';
+import { CustomerLookupFacade } from './customer.lookup.facade';
+import { createTestCustomer } from '../../../models/webapi';
+import { environment } from '@env';
+
+describe('CustomerLookupFacade', () => {
+  let facade: CustomerLookupFacade;
+  let httpClient: HttpClient;
+
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(customersFeature),
+          EffectsModule.forFeature([CustomerListEffects,
+          CustomerLookupEffects,
+          CustomerCrudEffects,
+          ]),
+        ],
+        providers: [
+          CustomerLookupFacade,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestCustomer()]))) } },
+        ],
+      })
+      class CustomFeatureModule {}
+
+      @NgModule({
+        imports: [
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      facade = TestBed.inject(CustomerLookupFacade);
+      httpClient = TestBed.inject(HttpClient);
+    });
+
+    
+    test('should load SalesAgents', async () => {
+      facade.loadSalesAgents({});
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      const result = await readFirst(facade.salesAgents$);
+      expect(result).toHaveLength(1);
+    });
+  });
+});
+"
+`;
+
+exports[`imng-ngrx-module lookup facade template should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ODataState } from 'imng-kendo-odata';
+
+import { customersFeature, customerActionTypes } from './+state';
+
+@Injectable()
+export class CustomerLookupFacade {
+  private readonly store = inject(Store);
+
+  salesAgents$ = this.store.select(customersFeature.selectSalesAgents);
+
+
+  public loadSalesAgents(state: ODataState): void {
+    this.store.dispatch(customerActionTypes.loadSalesAgentsRequest(state));
+  }
+}
+"
+`;
+
+exports[`imng-ngrx-module module should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+
+import { customersFeature, CustomerListEffects, CustomerLookupEffects, CustomerCrudEffects } from './+state';
+
+import { CustomerApiService } from './customer.api.service';
+import { CustomerCrudFacade  } from './customer.crud.facade';
+import { CustomerListFacade } from './customer.list.facade';
+import { CustomerLookupFacade } from './customer.lookup.facade';
+
+
+@NgModule({
+  imports: [
+    StoreModule.forFeature(customersFeature),
+    EffectsModule.forFeature([CustomerCrudEffects, CustomerListEffects, CustomerLookupEffects, ]),
+  ],
+  providers: [
+    ODataService,
+    CustomerApiService,
+    
+    CustomerCrudFacade,
+    CustomerListFacade,
+    CustomerLookupFacade,
+  ],
+})
+export class CustomersModule { }
 "
 `;
 

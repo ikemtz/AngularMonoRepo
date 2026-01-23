@@ -1,14 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
+import { Store } from '@ngrx/store';<% if (hasObjects) { %>
 import { ODataState } from 'imng-kendo-odata';<% } %>
 
-import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from '../+state';<% if (modelFolderLocation) { %>
-import { I<%= classify(singularizedName) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.name) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from './+state';
 
 @Injectable()
-export class <%= classify(name) %>LookupFacade implements IDataEntryFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
+export class <%= classify(name) %>LookupFacade {
   private readonly store = inject(Store);
+<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  <%= camelize(swaggerProperty.pluralizedName) %>$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.select<%= classify(swaggerProperty.pluralizedName) %>);<% }); %>
 
 <% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   public load<%= classify(swaggerProperty.pluralizedName) %>(state: ODataState): void {

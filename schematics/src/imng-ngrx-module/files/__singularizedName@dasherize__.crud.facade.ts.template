@@ -1,10 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
-import { ODataState } from 'imng-kendo-odata';<% } %>
+import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
 
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from './+state';<% if (modelFolderLocation) { %>
-import { I<%= classify(singularizedName) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.name) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+import { I<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 
 @Injectable()
 export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
@@ -12,8 +11,7 @@ export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= cl
 
   loading$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectLoading);
   currentEntity$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(name) %>);
-  currentModalState$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(singularizedName) %>ModalState);<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
-  <%= camelize(swaggerProperty.pluralizedName) %>$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.select<%= classify(swaggerProperty.pluralizedName) %>);<% }); %>
+  currentModalState$ = this.store.select(<%= camelize(pluralizedStoreName) %>Feature.selectCurrent<%= classify(singularizedName) %>ModalState);
 
   public setCurrentEntity(item: I<%= classify(name) %>, modalState: string): void {
     this.store.dispatch(
