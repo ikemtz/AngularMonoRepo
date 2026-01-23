@@ -22,6 +22,7 @@ describe(`imng-module AdventureWorks Orders`, () => {
       path: `./test`,
       swaggerProperties: [],
       appPrefix: 'aw',
+      modelFolderLocation: '../../../models/webapi',
     };
     tree = await runner.runSchematic(`imng-ngrx-module`, options, Tree.empty());
   }, 30000);

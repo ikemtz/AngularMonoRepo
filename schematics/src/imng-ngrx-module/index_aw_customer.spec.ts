@@ -22,6 +22,7 @@ describe(`imng-ngrx-module`, () => {
       path: `./test`,
       swaggerProperties: [],
       appPrefix: 'aw',
+      modelFolderLocation: '../../../models/webapi',
     };
     tree = await runner.runSchematic(`imng-ngrx-module`, options, Tree.empty());
   }, 30000);
@@ -34,6 +35,21 @@ describe(`imng-ngrx-module`, () => {
     const file = tree.get(
       `/test/customers-ngrx-module/customers.module.ts`
     );
+    const content = file?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`list facade template should work`, () => {
+    const file = tree.get(`/test/customers-ngrx-module/customer.list.facade.ts`);
+    const content = file?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`lookup facade template should work`, () => {
+    const file = tree.get(`/test/customers-ngrx-module/customer.lookup.facade.ts`);
+    const content = file?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`lookup facade spec template should work`, () => {
+    const file = tree.get(`/test/customers-ngrx-module/customer.lookup.facade.spec.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
@@ -52,13 +68,25 @@ describe(`imng-ngrx-module`, () => {
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`reducers should work`, () => {
+  test(`feature should work`, () => {
     const file = tree.get(`/test/customers-ngrx-module/+state/customer.feature.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`effects should work`, () => {
+  test(`list effect should work`, () => {
     const effectsFile = tree.get(`/test/customers-ngrx-module/+state/customer.list.effects.ts`
+    );
+    const content = effectsFile?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`crud effect should work`, () => {
+    const effectsFile = tree.get(`/test/customers-ngrx-module/+state/customer.crud.effects.ts`
+    );
+    const content = effectsFile?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`lookup effect should work`, () => {
+    const effectsFile = tree.get(`/test/customers-ngrx-module/+state/customer.lookup.effects.ts`
     );
     const content = effectsFile?.content.toString();
     expect(content).toMatchSnapshot();

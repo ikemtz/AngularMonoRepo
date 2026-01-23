@@ -39,6 +39,12 @@ This schematic will generate an Angular module with an NGRX feature store, effec
 
 Schema: [src/imng-ngrx-module/schema.json](src/imng-ngrx-module/schema.json)
 
+Example command:
+
+```sh
+ng generate imng-kendo-schematics:imng-ngrx-module --name=Customer --path=. --appPrefix=aw --modelFolderLocation=../../../models/webapi --openApiJsonUrl=https://awod-ikemtz.azurewebsites.net/swagger/v1/swagger.json
+```
+
 ## Schematic Options
 
 All of the above schematics have the same options.

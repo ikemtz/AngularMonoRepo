@@ -4,6 +4,7 @@ exports[`imng-module AdventureWorks Orders actions should work 1`] = `
 "import { createAction } from '@ngrx/store';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
+import { IOrder, IOrderStatusTypes, IShippingTypes, ICustomer, IOrderAddress, IOrderAddress } from '../../../models/webapi';
 
 export const loadOrdersRequest = createPayloadAction<ODataState>(
     '[Orders] Load Orders Request');
@@ -56,6 +57,7 @@ import { of } from 'rxjs';
 import { ordersFeature, OrderListEffects, OrderCrudEffects } from './+state';
 import { OrderCrudFacade } from './order.crud.facade';
 import { OrderApiService } from './order.api.service';
+import { createTestOrder } from '../../../models/webapi';
 import { environment } from '@env';
 
 describe('OrderCrudFacade', () => {
@@ -125,9 +127,9 @@ exports[`imng-module AdventureWorks Orders crud facade template should work 1`] 
 "import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
-import { ODataState } from 'imng-kendo-odata';
 
 import { ordersFeature, orderActionTypes } from './+state';
+import { IOrder } from '../../../models/webapi';
 
 @Injectable()
 export class OrderCrudFacade implements IDataEntryFacade<IOrder>, IDataDeleteFacade<IOrder> {
@@ -136,9 +138,6 @@ export class OrderCrudFacade implements IDataEntryFacade<IOrder>, IDataDeleteFac
   loading$ = this.store.select(ordersFeature.selectLoading);
   currentEntity$ = this.store.select(ordersFeature.selectCurrentOrder);
   currentModalState$ = this.store.select(ordersFeature.selectCurrentOrderModalState);
-  customers$ = this.store.select(ordersFeature.selectCustomers);
-  shipToAddresses$ = this.store.select(ordersFeature.selectShipToAddresses);
-  billToAddresses$ = this.store.select(ordersFeature.selectBillToAddresses);
 
   public setCurrentEntity(item: IOrder, modalState: string): void {
     this.store.dispatch(
@@ -174,6 +173,7 @@ import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGrid
 import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
 
 import * as orderActionTypes from './order.actions';
+import { IOrder, IOrderStatusTypes, IShippingTypes, ICustomer, IOrderAddress, IOrderAddress } from '../../../models/webapi';
 
 export const ORDERS_FEATURE_KEY = 'orders';
 
@@ -266,6 +266,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { ordersFeature } from './order.feature';
 import * as orderActionTypes from './order.actions';
+import { IOrder, OrderProperties } from '../../../models/webapi';
 import { environment } from '@env';
 
 @Injectable()

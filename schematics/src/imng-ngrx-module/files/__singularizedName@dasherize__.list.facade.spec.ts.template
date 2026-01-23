@@ -9,7 +9,7 @@ import { ODataState, createODataPayload, createODataResult, ODataService } from 
 import { Observable, of } from 'rxjs';
 
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects, <%= camelize(singularizedName) %>ActionTypes } from './+state';
-import { <%= classify(singularizedName) %>ListFacade } from './list.facade';<% if (modelFolderLocation) { %>
+import { <%= classify(singularizedName) %>ListFacade } from  './<%= dasherize(singularizedName) %>.list.facade';<% if (modelFolderLocation) { %>
 import { createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 import { environment } from '@env';
 
