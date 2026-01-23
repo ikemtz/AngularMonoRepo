@@ -62,7 +62,7 @@
     "eslint-plugin-typescript": "^0.14.0",
     "jest": "^30.2.0",
     "jest-junit": "^16.0.0",
-    "prettier": "3.8.1",
+    "prettier": "^3.8.1",
     "schematics": "^0.2.0",
     "snyk": "^1.1302.1",
     "ts-jest": "^29.4.6",

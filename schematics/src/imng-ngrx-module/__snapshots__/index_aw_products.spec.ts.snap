@@ -385,6 +385,7 @@ exports[`imng-ngrx-module module should work 1`] = `
 "import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
 
 import { productsFeature, ProductListEffects, ProductLookupEffects, ProductCrudEffects } from './+state';
 
@@ -395,7 +396,6 @@ import { ProductLookupFacade } from './product.lookup.facade';
 
 
 @NgModule({
-  declarations: [ProductListComponent, ProductAddComponent, ProductEditComponent ],
   imports: [
     StoreModule.forFeature(productsFeature),
     EffectsModule.forFeature([ProductCrudEffects, ProductListEffects, ProductLookupEffects, ]),
@@ -410,7 +410,7 @@ import { ProductLookupFacade } from './product.lookup.facade';
   ],
 })
 export class ProductsModule { }
- "
+"
 `;
 
 exports[`imng-ngrx-module tree files should match 1`] = `

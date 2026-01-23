@@ -308,6 +308,7 @@ exports[`imng-module AdventureWorks Orders module should work 1`] = `
 "import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
 
 import { ordersFeature, OrderListEffects, OrderLookupEffects, OrderCrudEffects } from './+state';
 
@@ -318,7 +319,6 @@ import { OrderLookupFacade } from './order.lookup.facade';
 
 
 @NgModule({
-  declarations: [OrderListComponent, OrderAddComponent, OrderEditComponent ],
   imports: [
     StoreModule.forFeature(ordersFeature),
     EffectsModule.forFeature([OrderCrudEffects, OrderListEffects, OrderLookupEffects, ]),
@@ -333,7 +333,7 @@ import { OrderLookupFacade } from './order.lookup.facade';
   ],
 })
 export class OrdersModule { }
- "
+"
 `;
 
 exports[`imng-module AdventureWorks Orders tree files should match 1`] = `
