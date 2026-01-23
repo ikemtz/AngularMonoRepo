@@ -1,0 +1,16 @@
+import { Injectable } from '@angular/core';
+import { NrsrxBaseApiClientService } from 'imng-nrsrx-client-utils';
+import { environment } from '@env';
+<% if (modelFolderLocation) { %>
+import { I<%= classify(name) %>, <%= classify(name) %>Properties } from '<%= modelFolderLocation %>';<% } %>
+
+@Injectable({
+  providedIn: 'root',
+})
+export class <%= classify(name) %>ApiService extends NrsrxBaseApiClientService<I<%= classify(name) %>> {
+  public override url = environment.webApiEndpoints.<%= camelize(pluralizedName) %>;
+<% if (swaggerProperties.filter(t => t.format === 'date')) { %>
+  public override dateOnlyPropertyNames = [<% swaggerProperties.filter(t => t.format === 'date').forEach(function (swaggerProperty, index, dateProperties) {  %>
+    <%= classify(singularizedName) %>Properties.<%= swaggerProperty.snakeCaseName.toUpperCase() %><% if (index + 1 < dateProperties.length) { %>,<% }}) %>];
+<% } %>
+}

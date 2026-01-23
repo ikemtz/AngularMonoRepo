@@ -1,4 +1,4 @@
-import * as pluralize from 'pluralize';
+import { plural, singular } from 'pluralize';
 import { PropertyInfo, OpenApiComponent, OpenApiDocument } from './open-api-component';
 import { IOptions } from './options';
 import { mapPropertyAttributes } from './rules';
@@ -10,12 +10,12 @@ export function mapProperties(properties: { [key: string]: PropertyInfo; }, opti
   const filteredProperties: PropertyInfo[] = [];
   for (const propertyKey in properties) {
     const originalProperty = properties[propertyKey];
-    originalProperty.hidden = excludedFields.indexOf(propertyKey) >= 0;
+    originalProperty.hidden = excludedFields.includes(propertyKey);
     if (originalProperty.type !== 'array') {
       const property = mapPropertyAttributes(options, originalProperty, {
         ...properties[propertyKey],
         name: propertyKey,
-        required: (openApiComponent.required ?? []).indexOf(propertyKey) > -1,
+        required: (openApiComponent.required ?? []).includes(propertyKey),
       });
 
       mapReferencedProperties(property, propertyKey, openApiComponent, openApiDoc);
@@ -33,8 +33,8 @@ function mapReferencedProperties(property: PropertyInfo, propertyKey: string, op
   if (propTypeNames) {
     const typeName: string = propTypeNames.pop() || '';
     property.propertyTypeName = typeName;
-    property.pluralizedPropertyTypeName = pluralize.plural(typeName);
-    property.singularizedPropertyTypeName = pluralize.singular(typeName);
+    property.pluralizedPropertyTypeName = plural(typeName);
+    property.singularizedPropertyTypeName = singular(typeName);
     const refComponent = openApiDoc.components.schemas[typeName];
     property.enum = refComponent.enum;
     if (property.enum) {

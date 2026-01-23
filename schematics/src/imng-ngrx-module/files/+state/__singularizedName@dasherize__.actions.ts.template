@@ -1,0 +1,25 @@
+import { createAction } from '@ngrx/store';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';<% if (modelFolderLocation) { %>
+import { I<%= classify(name) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+<% if (openApiJsonUrl || openApiJsonFileName) { %>
+export const load<%= classify(pluralizedName) %>Request = createPayloadAction<ODataState>(
+    '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Request');
+export const load<%= classify(pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(name) %>>>(
+    '[<%= classify(pluralizedName) %>] Load <%= classify(pluralizedName) %> Success');
+export const reload<%= classify(pluralizedName) %>Request = createAction(
+    '[<%= classify(pluralizedName) %>] Reload <%= classify(pluralizedName) %> Request');
+export const reload<%= classify(pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(name) %>>>(
+    '[<%= classify(pluralizedName) %>] Reload <%= classify(pluralizedName) %> Success');
+
+export const clearCurrent<%= classify(name) %> = createAction('[<%= classify(pluralizedName) %>] Clear Current <%= classify(name) %>');
+export const setCurrent<%= classify(name) %> = createModalAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Set Current <%= classify(name) %>');
+export const save<%= classify(name) %>Request = createPayloadAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Save <%= classify(name) %> Request');
+export const update<%= classify(name) %>Request = createPayloadAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Update <%= classify(name) %> Request');
+export const delete<%= classify(name) %>Request = createPayloadAction<I<%= classify(name) %>>('[<%= classify(pluralizedName) %>] Delete <%= classify(name) %> Request');
+<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+export const load<%= classify(swaggerProperty.pluralizedName) %>Request = createPayloadAction<ODataState>(
+    '[<%= classify(pluralizedName) %>] Load <%= classify(swaggerProperty.pluralizedName) %> Request');
+export const load<%= classify(swaggerProperty.pluralizedName) %>Success = createPayloadAction<ODataResult<I<%= classify(swaggerProperty.propertyTypeName) %>>>(
+    '[<%= classify(pluralizedName) %>] Load <%= classify(swaggerProperty.pluralizedName) %> Success');<% }) %>
+<% } %>

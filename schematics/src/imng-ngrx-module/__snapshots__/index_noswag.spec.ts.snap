@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-ngrx-module generation works 1`] = `[ReferenceError: swaggerObjectProperties is not defined]`;

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-ngrx-module actions should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module add component spec template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module add component template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module base crud component should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module crud facade spec template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module crud facade template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module crud html template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module edit component spec template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module edit component template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module effects should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module html file should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module list component should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module module should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module reducers should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module selectors template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module tree files should match 1`] = `
+[
+  "/test/products-ngrx-module/+state/index.ts",
+  "/test/products-ngrx-module/+state/product-crud.effects.ts",
+  "/test/products-ngrx-module/+state/product-list.effects.ts",
+  "/test/products-ngrx-module/+state/product-lookup.effects.ts",
+  "/test/products-ngrx-module/+state/product.actions.ts",
+  "/test/products-ngrx-module/+state/product.feature.ts",
+  "/test/products-ngrx-module/product-api.service.ts",
+  "/test/products-ngrx-module/product-crud.facade.spec.ts",
+  "/test/products-ngrx-module/product-crud.facade.ts",
+  "/test/products-ngrx-module/product-list.facade.spec.ts",
+  "/test/products-ngrx-module/product-list.facade.ts",
+  "/test/products-ngrx-module/product-lookup.facade.spec.ts",
+  "/test/products-ngrx-module/product-lookup.facade.ts",
+  "/test/products-ngrx-module/products.module.spec.ts",
+  "/test/products-ngrx-module/products.module.ts",
+]
+`;

@@ -1,19 +1,25 @@
-module.exports = {
-  testMatch: ["**/+(*.)+(spec|test).+(ts)?(x)"],
+export default {
+  preset: 'ts-jest/presets/default-esm',
+  testEnvironment: 'node',
+  transformIgnorePatterns: [
+    "node_modules/(?!(ora)/)"
+  ],
+  testMatch: ['**/+(*.)+(spec|test).+(ts)?(x)'],
   transform: {
-    "^.+\\.(ts|js|html)$": "ts-jest",
+    '^.+\\.(ts|js|html)$': ['ts-jest', { useESM: true }],
   },
-  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
-  moduleFileExtensions: ["ts", "js", "html"],
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  moduleFileExtensions: ['ts', 'js', 'html'],
   collectCoverage: true,
-  coverageReporters: ["html", "lcov", "cobertura"],
+  coverageReporters: ['html', 'lcov', 'cobertura'],
   reporters: [
-    "default",
+    'default',
     [
-      "jest-junit",
+      'jest-junit',
       {
-        outputDirectory: ".",
-        outputName: "./junit.schematics.xml",
+        outputDirectory: '.',
+        outputName: './junit.schematics.xml',
       },
     ],
   ],

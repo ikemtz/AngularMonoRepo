@@ -1,11 +1,12 @@
+import { describe, expect, test } from '@jest/globals';
 import { Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 import { IOptions } from '../shared';
-import * as pluralize from 'pluralize';
+import { plural } from 'pluralize';
 import { classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
@@ -31,7 +32,7 @@ describe('imng-list', () => {
     expect(tree.files.sort()).toMatchSnapshot();
 
     const htmlFile = tree.get(
-      `/test/${pluralize(options.name)}-list/list.component.html`
+      `/test/${plural(options.name)}-list/list.component.html`
     );
     let content = htmlFile?.content.toString();
     expect(content).toContain(`[field]="props.IS_ENABLED"`);
@@ -39,7 +40,7 @@ describe('imng-list', () => {
     expect(content).toContain(`<${options.appPrefix}-${options.name}-edit `);
 
     const stateFile = tree.get(
-      `/test/${pluralize(options.name)}-list/list.grid-state.ts`
+      `/test/${plural(options.name)}-list/list.grid-state.ts`
     );
     content = stateFile?.content.toString();
     expect(content).toContain(
@@ -47,13 +48,13 @@ describe('imng-list', () => {
     );
 
     const componentFile = tree.get(
-      `/test/${pluralize(options.name)}-list/list.component.ts`
+      `/test/${plural(options.name)}-list/list.component.ts`
     );
     content = componentFile?.content.toString();
     expect(content).toContain(`'${options.appPrefix}-${options.name}-list'`);
 
     const facadeSpecFile = tree.get(
-      `/test/${pluralize(options.name)}-list/list.facade.spec.ts`
+      `/test/${plural(options.name)}-list/list.facade.spec.ts`
     );
     content = facadeSpecFile?.content.toString();
     expect(content).toContain(

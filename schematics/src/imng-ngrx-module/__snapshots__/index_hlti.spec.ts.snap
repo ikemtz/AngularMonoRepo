@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-module generation works - Health Items 1`] = `
+[
+  "/test/health-items-ngrx-module/+state/health-item-crud.effects.ts",
+  "/test/health-items-ngrx-module/+state/health-item-list.effects.ts",
+  "/test/health-items-ngrx-module/+state/health-item-lookup.effects.ts",
+  "/test/health-items-ngrx-module/+state/health-item.actions.ts",
+  "/test/health-items-ngrx-module/+state/health-item.feature.ts",
+  "/test/health-items-ngrx-module/+state/index.ts",
+  "/test/health-items-ngrx-module/health-item-api.service.ts",
+  "/test/health-items-ngrx-module/health-item-crud.facade.spec.ts",
+  "/test/health-items-ngrx-module/health-item-crud.facade.ts",
+  "/test/health-items-ngrx-module/health-item-list.facade.spec.ts",
+  "/test/health-items-ngrx-module/health-item-list.facade.ts",
+  "/test/health-items-ngrx-module/health-item-lookup.facade.spec.ts",
+  "/test/health-items-ngrx-module/health-item-lookup.facade.ts",
+  "/test/health-items-ngrx-module/health-items.module.spec.ts",
+  "/test/health-items-ngrx-module/health-items.module.ts",
+]
+`;

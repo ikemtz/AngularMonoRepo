@@ -1,11 +1,12 @@
+import { describe, expect, test } from '@jest/globals';
 import { Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 import { IOptions } from '../shared';
-import * as pluralize from 'pluralize';
+import { plural } from 'pluralize';
 import { dasherize, classify } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, '../collection.json');
@@ -35,39 +36,39 @@ describe('imng-module', () => {
     });
 
     const listEffectsFile = tree.get(
-      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
+      `/test/${plural(dasherize(options.name))}-module/+state/${dasherize(
         options.name
       )}-list.effects.ts`
     );
     content = listEffectsFile?.content.toString();
     expect(content).toContain(
       `${options.name}ActionTypes.reload${classify(
-        pluralize(options.name)
+        plural(options.name)
       )}Request),`
     );
 
     const crudEffectsFile = tree.get(
-      `/test/${pluralize(dasherize(options.name))}-module/+state/${dasherize(
+      `/test/${plural(dasherize(options.name))}-module/+state/${dasherize(
         options.name
       )}-crud.effects.ts`
     );
     content = crudEffectsFile?.content.toString();
     expect(content).toContain(
       `import { ${classify(options.name)}ApiService } from '../${dasherize(
-        pluralize(options.name)
+        plural(options.name)
       )}-crud/api.service';`
     );
 
     const listFacadeSpecFile = tree.get(
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
+      `/test/${plural(dasherize(options.name))}-module/${dasherize(
+        plural(options.name)
       )}-list/list.facade.spec.ts`
     );
     content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(
       `expect(httpClient.get).toHaveBeenCalledWith('${dasherize(
-        pluralize(options.name)
-      )}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`
+        plural(options.name)
+      )}-odata/odata/v1/${classify(plural(options.name))}?&$count=true');`
     );
   });
 });

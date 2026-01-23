@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-ngrx-module generation works - Certifications 1`] = `
+[
+  "/test/certifications-ngrx-module/+state/certification-crud.effects.ts",
+  "/test/certifications-ngrx-module/+state/certification-list.effects.ts",
+  "/test/certifications-ngrx-module/+state/certification-lookup.effects.ts",
+  "/test/certifications-ngrx-module/+state/certification.actions.ts",
+  "/test/certifications-ngrx-module/+state/certification.feature.ts",
+  "/test/certifications-ngrx-module/+state/index.ts",
+  "/test/certifications-ngrx-module/certification-api.service.ts",
+  "/test/certifications-ngrx-module/certification-crud.facade.spec.ts",
+  "/test/certifications-ngrx-module/certification-crud.facade.ts",
+  "/test/certifications-ngrx-module/certification-list.facade.spec.ts",
+  "/test/certifications-ngrx-module/certification-list.facade.ts",
+  "/test/certifications-ngrx-module/certification-lookup.facade.spec.ts",
+  "/test/certifications-ngrx-module/certification-lookup.facade.ts",
+  "/test/certifications-ngrx-module/certifications.module.spec.ts",
+  "/test/certifications-ngrx-module/certifications.module.ts",
+]
+`;
+
+exports[`imng-ngrx-module generation works - Certifications 2`] = `undefined`;

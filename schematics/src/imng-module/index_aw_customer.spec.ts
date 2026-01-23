@@ -1,12 +1,14 @@
+import { beforeAll, describe, expect, test } from '@jest/globals';
 import { Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 import { IOptions } from '../shared';
-import * as pluralize from 'pluralize';
+
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
+import { plural } from 'pluralize';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
 
@@ -34,7 +36,7 @@ describe(`imng-module`, () => {
       `/test/customers-module/customers.module.ts`
     );
     const content = file?.content.toString();
-    expect(content).toMatchSnapshot()
+    expect(content).toMatchSnapshot();
   });
   test(`list component should work`, () => {
     const file = tree.get(`/test/customers-module/customers-list/list.component.ts`);
@@ -99,15 +101,15 @@ describe(`imng-module`, () => {
   });
   test(`list facade should work`, () => {
     const listFacadeSpecFile = tree.get(
-      `/test/${pluralize(dasherize(options.name))}-module/${dasherize(
-        pluralize(options.name)
+      `/test/${plural(dasherize(options.name))}-module/${dasherize(
+        plural(options.name)
       )}-list/list.facade.spec.ts`
     );
     const content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(
       `expect(httpClient.get).toHaveBeenCalledWith('${dasherize(
-        pluralize(options.name)
-      )}-odata/odata/v1/${classify(pluralize(options.name))}?&$count=true');`
+        plural(options.name)
+      )}-odata/odata/v1/${classify(plural(options.name))}?&$count=true');`
     );
   });
   test(`html file should work`, () => {
