@@ -30,7 +30,7 @@ describe(`imng-ngrx-module`, () => {
     const listEffectsFile = tree.get(
       `/test/${plural(dasherize(options.name))}-ngrx-module/+state/${dasherize(
         options.name
-      )}-list.effects.ts`
+      )}.list.effects.ts`
     );
     const listContent = listEffectsFile?.content.toString();
     expect(listContent).toContain(
@@ -41,19 +41,19 @@ describe(`imng-ngrx-module`, () => {
     const crudEffectsFile = tree.get(
       `/test/${plural(dasherize(options.name))}-ngrx-module/+state/${dasherize(
         options.name
-      )}-crud.effects.ts`
+      )}.crud.effects.ts`
     );
     const crudContent = crudEffectsFile?.content.toString();
     expect(crudContent).toContain(
       `import { ${classify(options.name)}ApiService } from '../${dasherize(
         singular(options.name)
-      )}-api.service';`
+      )}.api.service';`
     );
 
     const listFacadeSpecFile = tree.get(
       `/test/${plural(dasherize(options.name))}-ngrx-module/${dasherize(
         singular(options.name)
-      )}-list.facade.spec.ts`
+      )}.list.facade.spec.ts`
     );
     const content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(

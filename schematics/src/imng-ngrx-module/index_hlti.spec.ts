@@ -29,19 +29,19 @@ describe('imng-module', () => {
     const effectsFile = tree.get(
       `/test/${plural(dasherize(options.name))}-ngrx-module/+state/${dasherize(
         options.name
-      )}-crud.effects.ts`
+      )}.crud.effects.ts`
     );
     let content = effectsFile?.content.toString();
     expect(content).toContain(
       `import { ${classify(options.name)}ApiService } from '../${dasherize(
         singular(options.name)
-      )}-api.service';`
+      )}.api.service';`
     );
 
     const listFacadeSpecFile = tree.get(
       `/test/${plural(dasherize(options.name))}-ngrx-module/${dasherize(
         singular(options.name)
-      )}-list.facade.spec.ts`
+      )}.list.facade.spec.ts`
     );
     content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(

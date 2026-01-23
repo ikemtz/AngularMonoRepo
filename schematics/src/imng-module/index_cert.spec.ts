@@ -64,12 +64,12 @@ describe('imng-module', () => {
       )}-odata/odata/v1/${classify(plural(options.name))}?&$count=true');`
     );
 
-    const reducerFile = tree.get(
+    const featureFile = tree.get(
       `/test/${plural(dasherize(options.name))}-module/+state/${dasherize(
         options.name
-      )}.reducer.ts`
+      )}.feature.ts`
     );
-    content = reducerFile?.content.toString();
+    content = featureFile?.content.toString();
     expect(content).toMatchSnapshot();
   });
 });

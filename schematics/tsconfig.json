@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es2018", "dom"],
+    "isolatedModules": true,
     "declaration": true,
     "module": "node20",
     "moduleResolution": "node16",

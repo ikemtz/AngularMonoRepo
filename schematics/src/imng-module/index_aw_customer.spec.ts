@@ -88,13 +88,19 @@ describe(`imng-module`, () => {
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`reducers should work`, () => {
-    const file = tree.get(`/test/customers-module/+state/customer.reducer.ts`);
+  test(`features should work`, () => {
+    const file = tree.get(`/test/customers-module/+state/customer.feature.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`effects should work`, () => {
-    const effectsFile = tree.get(`/test/customers-module/+state/customer.effects.ts`
+  test(`list effects should work`, () => {
+    const effectsFile = tree.get(`/test/customers-module/+state/customer-list.effects.ts`
+    );
+    const content = effectsFile?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`crud effects should work`, () => {
+    const effectsFile = tree.get(`/test/customers-module/+state/customer-crud.effects.ts`
     );
     const content = effectsFile?.content.toString();
     expect(content).toMatchSnapshot();

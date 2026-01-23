@@ -4,7 +4,7 @@ import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 import { IOptions } from '../shared';
 import { plural } from 'pluralize';
 import { classify } from '@angular-devkit/core/src/utils/strings';

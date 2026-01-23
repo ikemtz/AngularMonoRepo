@@ -31,95 +31,55 @@ describe(`imng-ngrx-module`, () => {
   });
 
   test(`module should work`, () => {
-    const file = tree.get(`/test/products-module/products.module.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`list component should work`, () => {
-    const file = tree.get(
-      `/test/products-module/products-list/list.component.ts`,
-    );
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`base crud component should work`, () => {
-    const file = tree.get(
-      `/test/products-module/products-crud/base-entry.component.ts`,
-    );
+    const file = tree.get(`/test/products-ngrx-module/products.module.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`crud facade template should work`, () => {
-    const file = tree.get(`/test/products-module/products-crud/crud.facade.ts`);
+    const file = tree.get(`/test/products-ngrx-module/product.crud.facade.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`crud facade spec template should work`, () => {
     const file = tree.get(
-      `/test/products-module/products-crud/crud.facade.spec.ts`,
-    );
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`selectors template should work`, () => {
-    const file = tree.get(`/test/products-module/+state/product.selectors.ts`);
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`crud html template should work`, () => {
-    const file = tree.get(
-      `/test/products-module/products-crud/add-edit.component.html`,
-    );
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`add component template should work`, () => {
-    const file = tree.get(
-      `/test/products-module/products-crud/add.component.ts`,
-    );
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`edit component template should work`, () => {
-    const file = tree.get(
-      `/test/products-module/products-crud/edit.component.ts`,
-    );
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`add component spec template should work`, () => {
-    const file = tree.get(
-      `/test/products-module/products-crud/add.component.spec.ts`,
-    );
-    const content = file?.content.toString();
-    expect(content).toMatchSnapshot();
-  });
-  test(`edit component spec template should work`, () => {
-    const file = tree.get(
-      `/test/products-module/products-crud/edit.component.spec.ts`,
+      `/test/products-ngrx-module/product.crud.facade.spec.ts`,
     );
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`actions should work`, () => {
-    const file = tree.get(`/test/products-module/+state/product.actions.ts`);
+    const file = tree.get(`/test/products-ngrx-module/+state/product.actions.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`reducers should work`, () => {
-    const file = tree.get(`/test/products-module/+state/product.reducer.ts`);
+  test(`feature should work`, () => {
+    const file = tree.get(`/test/products-ngrx-module/+state/product.feature.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
-  test(`effects should work`, () => {
+  test(`list effects should work`, () => {
     const effectsFile = tree.get(
-      `/test/products-module/+state/product.effects.ts`,
+      `/test/products-ngrx-module/+state/product.list.effects.ts`,
+    );
+    const content = effectsFile?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`crud effects should work`, () => {
+    const effectsFile = tree.get(
+      `/test/products-ngrx-module/+state/product.crud.effects.ts`,
+    );
+    const content = effectsFile?.content.toString();
+    expect(content).toMatchSnapshot();
+  });
+  test(`lookup effects should work`, () => {
+    const effectsFile = tree.get(
+      `/test/products-ngrx-module/+state/product.lookup.effects.ts`,
     );
     const content = effectsFile?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`list facade should work`, () => {
-    const fileName = `/test/${plural(dasherize(options.name))}-ngrx-module/${singular(dasherize(options.name))}-list.facade.spec.ts`;
+    const fileName = `/test/${plural(dasherize(options.name))}-ngrx-module/${singular(dasherize(options.name))}.list.facade.spec.ts`;
     const listFacadeSpecFile = tree.get(fileName);
     const content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(
@@ -127,12 +87,5 @@ describe(`imng-ngrx-module`, () => {
         plural(options.name),
       )}-odata/odata/v1/${classify(plural(options.name))}?&$count=true');`,
     );
-  });
-  test(`html file should work`, () => {
-    const htmlFile = tree.get(
-      `/test/products-module/products-list/list.component.html`,
-    );
-    const content = htmlFile?.content.toString();
-    expect(content).toMatchSnapshot();
   });
 });

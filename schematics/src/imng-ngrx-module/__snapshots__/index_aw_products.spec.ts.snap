@@ -1,50 +1,434 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`imng-ngrx-module actions should work 1`] = `undefined`;
+exports[`imng-ngrx-module actions should work 1`] = `
+"import { createAction } from '@ngrx/store';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
+import { IProduct, IProductModel, IProductCategory } from './test/models';
 
-exports[`imng-ngrx-module add component spec template should work 1`] = `undefined`;
+export const loadProductsRequest = createPayloadAction<ODataState>(
+    '[Products] Load Products Request');
+export const loadProductsSuccess = createPayloadAction<ODataResult<IProduct>>(
+    '[Products] Load Products Success');
+export const reloadProductsRequest = createAction(
+    '[Products] Reload Products Request');
+export const reloadProductsSuccess = createPayloadAction<ODataResult<IProduct>>(
+    '[Products] Reload Products Success');
 
-exports[`imng-ngrx-module add component template should work 1`] = `undefined`;
+export const clearCurrentProduct = createAction('[Products] Clear Current Product');
+export const setCurrentProduct = createModalAction<IProduct>('[Products] Set Current Product');
+export const saveProductRequest = createPayloadAction<IProduct>('[Products] Save Product Request');
+export const updateProductRequest = createPayloadAction<IProduct>('[Products] Update Product Request');
+export const deleteProductRequest = createPayloadAction<IProduct>('[Products] Delete Product Request');
 
-exports[`imng-ngrx-module base crud component should work 1`] = `undefined`;
+export const loadProductModelsRequest = createPayloadAction<ODataState>(
+    '[Products] Load ProductModels Request');
+export const loadProductModelsSuccess = createPayloadAction<ODataResult<IProductModel>>(
+    '[Products] Load ProductModels Success');
+export const loadProductCategoriesRequest = createPayloadAction<ODataState>(
+    '[Products] Load ProductCategories Request');
+export const loadProductCategoriesSuccess = createPayloadAction<ODataResult<IProductCategory>>(
+    '[Products] Load ProductCategories Success');
+"
+`;
 
-exports[`imng-ngrx-module crud facade spec template should work 1`] = `undefined`;
+exports[`imng-ngrx-module crud effects should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
 
-exports[`imng-ngrx-module crud facade template should work 1`] = `undefined`;
+import * as productActionTypes from './product.actions';
+import { ProductApiService } from '../product.api.service';
+import { IProductModel, IProductCategory } from './test/models';
+import { environment } from '@env';
 
-exports[`imng-ngrx-module crud html template should work 1`] = `undefined`;
+@Injectable()
+export class ProductCrudEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+    private readonly productApiService = inject(ProductApiService);
 
-exports[`imng-ngrx-module edit component spec template should work 1`] = `undefined`;
 
-exports[`imng-ngrx-module edit component template should work 1`] = `undefined`;
+  saveProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.saveProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.saveProductRequest>) => this.productApiService.post(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
 
-exports[`imng-ngrx-module effects should work 1`] = `undefined`;
+  updateProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.updateProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.updateProductRequest>) => this.productApiService.put(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
 
-exports[`imng-ngrx-module html file should work 1`] = `undefined`;
+  deleteProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.deleteProductRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.deleteProductRequest>) => this.productApiService.delete(action.payload).pipe(
+        map(() => productActionTypes.reloadProductsRequest()),
+        handleEffectError(action))));
+  });
+}
+"
+`;
 
-exports[`imng-ngrx-module list component should work 1`] = `undefined`;
+exports[`imng-ngrx-module crud facade spec template should work 1`] = `
+"///<reference types="jest" />
+import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import {
+  testDeleteCurrentEntity,
+  testModalStateAddAndClearCurrentEntity,
+  testModalStateEditAndClearCurrentEntity,
+  testSaveCurrentEntity,
+  testUpdateCurrentEntity,
+} from 'imng-kendo-data-entry/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
 
-exports[`imng-ngrx-module module should work 1`] = `undefined`;
+import { productsFeature, ProductListEffects, ProductCrudEffects } from './+state';
+import { ProductCrudFacade } from './product.crud.facade';
+import { ProductApiService } from './product.api.service';
+import { createTestProduct } from './test/models';
+import { environment } from '@env';
 
-exports[`imng-ngrx-module reducers should work 1`] = `undefined`;
+describe('ProductCrudFacade', () => {
+  let facade: ProductCrudFacade;
+  let store: Store;
+  let httpClient: HttpClient;
 
-exports[`imng-ngrx-module selectors template should work 1`] = `undefined`;
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(productsFeature),
+          EffectsModule.forFeature([ProductListEffects, ProductCrudEffects]),
+        ],
+        providers: [
+          ProductCrudFacade,
+          ProductApiService,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestProduct()]))) } },
+        ],
+      })
+      class CustomFeatureModule {}
+
+      @NgModule({
+        imports: [
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(ProductCrudFacade);
+      httpClient = TestBed.inject(HttpClient);
+    });
+
+    test('clearCurrentEntity() should set currentProduct to null', async () => {
+      let currentModalState = await readFirst(facade.currentModalState$);
+      expect(currentModalState).toBeUndefined();
+
+      facade.clearCurrentEntity();
+      currentModalState = await readFirst(facade.currentModalState$);
+
+      expect(currentModalState).toBeUndefined();
+      expect(await readFirst(store)).toMatchSnapshot();
+    });
+
+    test('Add Modal State And Clear CurrentEntity', async () =>
+      testModalStateAddAndClearCurrentEntity<ProductCrudFacade>(facade));
+    test('Edit Modal state And Clear CurrentEntity', async () =>
+      testModalStateEditAndClearCurrentEntity<ProductCrudFacade>(facade));
+    test('Save CurrentEntity', async () =>
+      testSaveCurrentEntity<ProductCrudFacade>(facade, httpClient));
+    test('Update CurrentEntity', async () =>
+      testUpdateCurrentEntity<ProductCrudFacade>(facade, httpClient));
+    test('it should handle DeleteItem', async () => {
+      await testDeleteCurrentEntity(facade, httpClient);
+    });
+  });
+});
+"
+`;
+
+exports[`imng-ngrx-module crud facade template should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
+import { ODataState } from 'imng-kendo-odata';
+
+import { productsFeature, productActionTypes } from './+state';
+import { IProduct, IProductModel, IProductCategory } from './test/models';
+
+@Injectable()
+export class ProductCrudFacade implements IDataEntryFacade<IProduct>, IDataDeleteFacade<IProduct> {
+  private readonly store = inject(Store);
+
+  loading$ = this.store.select(productsFeature.selectLoading);
+  currentEntity$ = this.store.select(productsFeature.selectCurrentProduct);
+  currentModalState$ = this.store.select(productsFeature.selectCurrentProductModalState);
+  productModels$ = this.store.select(productsFeature.selectProductModels);
+  productCategories$ = this.store.select(productsFeature.selectProductCategories);
+
+  public setCurrentEntity(item: IProduct, modalState: string): void {
+    this.store.dispatch(
+      productActionTypes.setCurrentProduct({
+        modalState,
+        entity: item,
+      }),
+    );
+  }
+
+  public clearCurrentEntity(): void {
+    this.store.dispatch(productActionTypes.clearCurrentProduct());
+  }
+
+  public saveNewEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.saveProductRequest(item));
+  }
+
+  public updateExistingEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.updateProductRequest(item));
+  }
+
+  public deleteExistingEntity(item: IProduct): void {
+    this.store.dispatch(productActionTypes.deleteProductRequest(item));
+  }
+}
+"
+`;
+
+exports[`imng-ngrx-module feature should work 1`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as productActionTypes from './product.actions';
+import { IProduct, IProductModel, IProductCategory } from './test/models';
+
+export const PRODUCTS_FEATURE_KEY = 'products';
+
+export interface State extends KendoODataGridState<IProduct> {
+  currentProduct: IProduct | undefined;
+  currentProductModalState: string | undefined;
+  productModels: IProductModel[];
+  productCategories: IProductCategory[];
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentProduct: undefined,
+  currentProductModalState: undefined,
+  productModels: [],
+  productCategories: [],
+  loading: true,
+};
+
+export const productsFeature = createFeature({
+  name: PRODUCTS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(productActionTypes.loadProductsRequest,
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(productActionTypes.loadProductsSuccess,
+      productActionTypes.reloadProductsSuccess,
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(productActionTypes.setCurrentProduct,
+      (state, { payload }) : State =>
+        ({ ...state,
+        currentProductModalState: payload.modalState,
+        currentProduct: payload.entity })),
+    on(productActionTypes.clearCurrentProduct,
+      (state) : State => ({
+        ...state, 
+        currentProduct: undefined,
+        currentProductModalState: undefined,
+      })),
+    on(productActionTypes.saveProductRequest,
+      productActionTypes.updateProductRequest,
+      productActionTypes.deleteProductRequest,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      })),
+    on(productActionTypes.loadProductModelsSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        productModels: payload.data
+      })),
+    on(productActionTypes.loadProductCategoriesSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        productCategories: payload.data
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
+  )
+});
+"
+`;
+
+exports[`imng-ngrx-module list effects should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import { productsFeature } from './product.feature';
+import * as productActionTypes from './product.actions';
+import { IProduct, ProductProperties } from './test/models';
+import { environment } from '@env';
+
+@Injectable()
+export class ProductListEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+    private readonly store = inject(Store);
+
+
+  loadProductsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductsRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductsRequest>) => this.odataService
+        .fetch<IProduct>(environment.odataEndpoints.products, action.payload, {
+          dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE, ProductProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => productActionTypes.loadProductsSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  reloadProductsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.reloadProductsRequest),
+      concatLatestFrom(() => this.store.select(productsFeature.selectGridODataState)),
+      switchMap(([action, odataState]) => this.odataService
+        .fetch<IProduct>(environment.odataEndpoints.products, odataState, {
+          bustCache: true,
+          dateNullableProps: [ProductProperties.SELL_END_DATE, ProductProperties.DISCONTINUED_DATE, ProductProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => productActionTypes.reloadProductsSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-ngrx-module lookup effects should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import * as productActionTypes from './product.actions';
+import { IProductModel, IProductCategory } from './test/models';
+import { environment } from '@env';
+
+@Injectable()
+export class ProductLookupEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+
+
+  loadProductModelsEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductModelsRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductModelsRequest>) => this.odataService
+        .fetch<IProductModel>(environment.odataEndpoints.productModels, action.payload)
+        .pipe(map(t => productActionTypes.loadProductModelsSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  loadProductCategoriesEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productActionTypes.loadProductCategoriesRequest),
+      switchMap((action: ReturnType<typeof productActionTypes.loadProductCategoriesRequest>) => this.odataService
+        .fetch<IProductCategory>(environment.odataEndpoints.productCategories, action.payload)
+        .pipe(map(t => productActionTypes.loadProductCategoriesSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-ngrx-module module should work 1`] = `
+"import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+
+import { productsFeature, ProductListEffects, ProductLookupEffects, ProductCrudEffects } from './+state';
+
+import { ProductApiService } from './product.api.service';
+import { ProductCrudFacade  } from './product.crud.facade';
+import { ProductListFacade } from './product.list.facade';
+import { ProductLookupFacade } from './product.lookup.facade';
+
+
+@NgModule({
+  imports: [
+    StoreModule.forFeature(productsFeature),
+    EffectsModule.forFeature([ProductCrudEffects, ProductListEffects, ProductLookupEffects, ]),
+  ],
+  providers: [
+    ODataService,
+    ProductApiService,
+    
+    ProductCrudFacade,
+    ProductListFacade,
+    ProductLookupFacade,
+  ],
+})
+export class ProductsModule { }
+"
+`;
 
 exports[`imng-ngrx-module tree files should match 1`] = `
 [
   "/test/products-ngrx-module/+state/index.ts",
-  "/test/products-ngrx-module/+state/product-crud.effects.ts",
-  "/test/products-ngrx-module/+state/product-list.effects.ts",
-  "/test/products-ngrx-module/+state/product-lookup.effects.ts",
   "/test/products-ngrx-module/+state/product.actions.ts",
+  "/test/products-ngrx-module/+state/product.crud.effects.ts",
   "/test/products-ngrx-module/+state/product.feature.ts",
-  "/test/products-ngrx-module/product-api.service.ts",
-  "/test/products-ngrx-module/product-crud.facade.spec.ts",
-  "/test/products-ngrx-module/product-crud.facade.ts",
-  "/test/products-ngrx-module/product-list.facade.spec.ts",
-  "/test/products-ngrx-module/product-list.facade.ts",
-  "/test/products-ngrx-module/product-lookup.facade.spec.ts",
-  "/test/products-ngrx-module/product-lookup.facade.ts",
+  "/test/products-ngrx-module/+state/product.list.effects.ts",
+  "/test/products-ngrx-module/+state/product.lookup.effects.ts",
+  "/test/products-ngrx-module/index.ts",
+  "/test/products-ngrx-module/product.api.service.ts",
+  "/test/products-ngrx-module/product.crud.facade.spec.ts",
+  "/test/products-ngrx-module/product.crud.facade.ts",
+  "/test/products-ngrx-module/product.list.facade.spec.ts",
+  "/test/products-ngrx-module/product.list.facade.ts",
+  "/test/products-ngrx-module/product.lookup.facade.spec.ts",
+  "/test/products-ngrx-module/product.lookup.facade.ts",
   "/test/products-ngrx-module/products.module.spec.ts",
   "/test/products-ngrx-module/products.module.ts",
 ]
