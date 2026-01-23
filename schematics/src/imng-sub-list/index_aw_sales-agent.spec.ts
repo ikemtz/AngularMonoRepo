@@ -1,9 +1,10 @@
+import { beforeAll, describe, expect, test } from '@jest/globals';
 import { Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-import * as path from 'path';
+import * as path from 'node:path';
 import { IOptions } from '../shared';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
@@ -22,7 +23,7 @@ describe(`imng-sub-list`, () => {
       appPrefix: 'aw',
     };
     tree = await runner.runSchematic(`imng-sub-list`, options, Tree.empty());
-  })
+  });
   test(`tree files should match`, () => {
     expect(tree.files).toMatchSnapshot();
   });

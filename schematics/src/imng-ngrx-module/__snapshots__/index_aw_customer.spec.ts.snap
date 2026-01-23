@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-ngrx-module actions should work 1`] = `
+"import { createAction } from '@ngrx/store';
+import { ODataResult, ODataState } from 'imng-kendo-odata';
+import { createModalAction, createPayloadAction } from 'imng-ngrx-utils';
+
+export const loadCustomersRequest = createPayloadAction<ODataState>(
+    '[Customers] Load Customers Request');
+export const loadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>>(
+    '[Customers] Load Customers Success');
+export const reloadCustomersRequest = createAction(
+    '[Customers] Reload Customers Request');
+export const reloadCustomersSuccess = createPayloadAction<ODataResult<ICustomer>>(
+    '[Customers] Reload Customers Success');
+
+export const clearCurrentCustomer = createAction('[Customers] Clear Current Customer');
+export const setCurrentCustomer = createModalAction<ICustomer>('[Customers] Set Current Customer');
+export const saveCustomerRequest = createPayloadAction<ICustomer>('[Customers] Save Customer Request');
+export const updateCustomerRequest = createPayloadAction<ICustomer>('[Customers] Update Customer Request');
+export const deleteCustomerRequest = createPayloadAction<ICustomer>('[Customers] Delete Customer Request');
+
+export const loadSalesAgentsRequest = createPayloadAction<ODataState>(
+    '[Customers] Load SalesAgents Request');
+export const loadSalesAgentsSuccess = createPayloadAction<ODataResult<ISalesAgent>>(
+    '[Customers] Load SalesAgents Success');
+"
+`;
+
+exports[`imng-ngrx-module crud facade spec template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module crud facade template should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module effects should work 1`] = `
+"import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import { customersFeature } from './customer.feature';
+import * as customerActionTypes from './customer.actions';
+import { environment } from '@env';
+
+@Injectable()
+export class CustomerListEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+    private readonly store = inject(Store);
+
+
+  loadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.loadCustomersRequest),
+      switchMap((action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) => this.odataService
+        .fetch<ICustomer>(environment.odataEndpoints.customers, action.payload, {
+          dateNullableProps: [CustomerProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => customerActionTypes.loadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+
+  reloadCustomersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(customerActionTypes.reloadCustomersRequest),
+      concatLatestFrom(() => this.store.select(customersFeature.selectGridODataState)),
+      switchMap(([action, odataState]) => this.odataService
+        .fetch<ICustomer>(environment.odataEndpoints.customers, odataState, {
+          bustCache: true,
+          dateNullableProps: [CustomerProperties.UPDATED_ON_UTC],
+        })
+        .pipe(
+          map(t => customerActionTypes.reloadCustomersSuccess(t)),
+          handleEffectError(action))));
+  });
+}
+"
+`;
+
+exports[`imng-ngrx-module module should work 1`] = `undefined`;
+
+exports[`imng-ngrx-module reducers should work 1`] = `
+"import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as customerActionTypes from './customer.actions';
+
+export const CUSTOMERS_FEATURE_KEY = 'customers';
+
+export interface State extends KendoODataGridState<ICustomer> {
+  currentCustomer: ICustomer | undefined;
+  currentCustomerModalState: string | undefined;
+  salesAgents: ISalesAgent[];
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  currentCustomer: undefined,
+  currentCustomerModalState: undefined,
+  salesAgents: [],
+  loading: true,
+};
+
+export const customersFeature = createFeature({
+  name: CUSTOMERS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(customerActionTypes.loadCustomersRequest,
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(customerActionTypes.loadCustomersSuccess,
+      customerActionTypes.reloadCustomersSuccess,
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(customerActionTypes.setCurrentCustomer,
+      (state, { payload }) : State =>
+        ({ ...state,
+        currentCustomerModalState: payload.modalState,
+        currentCustomer: payload.entity })),
+    on(customerActionTypes.clearCurrentCustomer,
+      (state) : State => ({
+        ...state, 
+        currentCustomer: undefined,
+        currentCustomerModalState: undefined,
+      })),
+    on(customerActionTypes.saveCustomerRequest,
+      customerActionTypes.updateCustomerRequest,
+      customerActionTypes.deleteCustomerRequest,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      })),
+    on(customerActionTypes.loadSalesAgentsSuccess,
+      (state, { payload }): State => ({
+        ...state,
+        salesAgents: payload.data
+      })),
+    on(imngEffectError, imngEffectErrorReducer),
+  )
+});
+"
+`;
+
+exports[`imng-ngrx-module tree files should match 1`] = `
+[
+  "/test/customers-ngrx-module/+state/customer-crud.effects.ts",
+  "/test/customers-ngrx-module/+state/customer-list.effects.ts",
+  "/test/customers-ngrx-module/+state/customer-lookup.effects.ts",
+  "/test/customers-ngrx-module/+state/customer.actions.ts",
+  "/test/customers-ngrx-module/+state/customer.feature.ts",
+  "/test/customers-ngrx-module/+state/index.ts",
+  "/test/customers-ngrx-module/customer-api.service.ts",
+  "/test/customers-ngrx-module/customer-crud.facade.spec.ts",
+  "/test/customers-ngrx-module/customer-crud.facade.ts",
+  "/test/customers-ngrx-module/customer-list.facade.spec.ts",
+  "/test/customers-ngrx-module/customer-list.facade.ts",
+  "/test/customers-ngrx-module/customer-lookup.facade.spec.ts",
+  "/test/customers-ngrx-module/customer-lookup.facade.ts",
+  "/test/customers-ngrx-module/customers.module.spec.ts",
+  "/test/customers-ngrx-module/customers.module.ts",
+]
+`;

@@ -1,0 +1,25 @@
+import { Injectable, inject } from '@angular/core';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { ODataService } from 'imng-kendo-odata';
+import { handleEffectError } from 'imng-ngrx-utils';
+import { map, switchMap } from 'rxjs/operators';
+
+import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';
+<% if (modelFolderLocation) { %>import { <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+import { environment } from '@env';
+
+@Injectable()
+export class <%= classify(singularizedName) %>LookupEffects {
+    private readonly actions$ = inject(Actions);
+    private readonly odataService = inject(ODataService);
+
+<%  if(swaggerObjectProperties){ swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  load<%= classify(swaggerProperty.pluralizedName) %>Effect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request),
+      switchMap((action: ReturnType<typeof <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Request>) => this.odataService
+        .fetch<I<%= classify(swaggerProperty.propertyTypeName) %>>(environment.odataEndpoints.<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>, action.payload)
+        .pipe(map(t => <%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Success(t)),
+          handleEffectError(action))));
+  });
+<% }) } %>}

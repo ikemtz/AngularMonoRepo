@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-module AdventureWorks Orders actions should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders add component spec template should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders add component template should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders base crud component should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders crud facade spec template should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders crud facade template should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders crud html template should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders edit component spec template should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders edit component template should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders effects should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders html file should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders list component should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders module should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders reducers should work 1`] = `undefined`;
+
+exports[`imng-module AdventureWorks Orders tree files should match 1`] = `
+[
+  "/test/orders-ngrx-module/+state/index.ts",
+  "/test/orders-ngrx-module/+state/order-crud.effects.ts",
+  "/test/orders-ngrx-module/+state/order-list.effects.ts",
+  "/test/orders-ngrx-module/+state/order-lookup.effects.ts",
+  "/test/orders-ngrx-module/+state/order.actions.ts",
+  "/test/orders-ngrx-module/+state/order.feature.ts",
+  "/test/orders-ngrx-module/order-api.service.ts",
+  "/test/orders-ngrx-module/order-crud.facade.spec.ts",
+  "/test/orders-ngrx-module/order-crud.facade.ts",
+  "/test/orders-ngrx-module/order-list.facade.spec.ts",
+  "/test/orders-ngrx-module/order-list.facade.ts",
+  "/test/orders-ngrx-module/order-lookup.facade.spec.ts",
+  "/test/orders-ngrx-module/order-lookup.facade.ts",
+  "/test/orders-ngrx-module/orders.module.spec.ts",
+  "/test/orders-ngrx-module/orders.module.ts",
+]
+`;

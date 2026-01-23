@@ -12,21 +12,20 @@ import {
 import { strings, normalize, FileDoesNotExistException } from '@angular-devkit/core';
 import axios from 'axios';
 import { PropertyInfo, OpenApiDocument } from './open-api-component';
-import * as pluralize from 'pluralize';
+import { plural, singular } from 'pluralize';
 import { Observable, from, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IOptions } from './options';
 import * as _ from 'lodash';
-import * as fs from 'fs';
-import * as https from 'https';
-import * as http from 'http';
+import * as fs from 'node:fs';
+import * as https from 'node:https';
+import * as http from 'node:http';
 import { snakeCase } from 'lodash';
 import { mapProperties } from './map-properties';
 
 export function getSwaggerDoc(options: IOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let jsonDoc: Observable<any> | null = null;
+    let jsonDoc: Observable<OpenApiDocument> | null = null;
     if (options.openApiJsonFileName) {
       const fileName = getFileNames(options.openApiJsonFileName);
       context.logger.info(`Getting Swagger Document @${fileName}`);
@@ -38,11 +37,11 @@ export function getSwaggerDoc(options: IOptions): Rule {
       jsonDoc = of(apiDoc);
     } else if (options.openApiJsonUrl) {
       context.logger.info(`Getting Swagger Document @${options.openApiJsonUrl}`);
-      const httpsAgent = options.openApiJsonUrl.toLowerCase().startsWith("https") ? new https.Agent({
+      const httpsAgent = options.openApiJsonUrl.toLowerCase().startsWith('https') ? new https.Agent({
         rejectUnauthorized: false,
       }) : new http.Agent();
       jsonDoc = from(axios.get(options.openApiJsonUrl, {
-        httpsAgent: httpsAgent
+        httpsAgent
       })).pipe(map(m => m.data));
     }
     if (jsonDoc) {
@@ -59,7 +58,7 @@ function getFileNames(openApiJsonFileName: string) {
   if (fs.existsSync(fileName)) {
     return fileName;
   }
-  throw new FileDoesNotExistException(fileName)
+  throw new FileDoesNotExistException(fileName);
 }
 
 export function processOpenApiDoc(data: OpenApiDocument, options: IOptions, host: Tree): Tree {
@@ -75,7 +74,7 @@ export function processOpenApiDoc(data: OpenApiDocument, options: IOptions, host
   const mappedProperties = mapProperties(properties, options, openApiComponent, data);
   mappedProperties.filteredProperties.filter(f => f.$ref).forEach(property => {
     const componentName = property.$ref?.split('/').pop();
-    const component = data.components.schemas[componentName ?? '']
+    const component = data.components.schemas[componentName ?? ''];
     if (component) {
       property.properties = mapProperties(component.properties, options, component, data).filteredProperties;
       property.firstProperty = property.properties.find(prop => prop.name?.toLowerCase() !== 'id');
@@ -107,7 +106,7 @@ export function mapPropertyAttributes(options: IOptions, source: PropertyInfo, d
     dest.htmlInputType = 'object';
     dest.filterExpression = 'text';
     dest.$ref = source.$ref;
-    dest.pluralizedName = pluralize(dest.name ?? '', plural);
+    dest.pluralizedName = plural(dest.name ?? '');
     dest.testFactoryValue = '{}';
   }
   else {
@@ -121,20 +120,20 @@ export function mapPropertyAttributes(options: IOptions, source: PropertyInfo, d
   return dest;
 }
 
-const singular = 1;
-const plural = 2;
-export function generateFiles(options: IOptions, templateType: 'list' | 'crud' | 'module' | 'sub-list'): Rule {
+type TemplateType = 'list' | 'crud' | 'module' | 'ngrx-module' | 'sub-list';
+
+export function generateFiles(options: IOptions, templateType: TemplateType): Rule {
   return (tree: Tree, context: SchematicContext) => {
     context.logger.info(`Running ${strings.capitalize(templateType)} Schematic`);
 
-    const singularizedName = pluralize(options.name, singular);
-    const pluralizedName = pluralize(options.name, plural);
-    const pluralizedParentName = pluralize(options.parentName ?? options.name, plural);
-    const singularizedParentName = pluralize(options.parentName ?? options.name, singular);
-    const snakeCasedParentName = snakeCase(singularizedParentName).toUpperCase()
+    const singularizedName = singular(options.name);
+    const pluralizedName = plural(options.name);
+    const pluralizedParentName = plural(options.parentName ?? options.name);
+    const singularizedParentName = singular(options.parentName ?? options.name);
+    const snakeCasedParentName = snakeCase(singularizedParentName).toUpperCase();
     const startCasedPluralName = _.startCase(pluralizedName);
-    const singularizedStoreName = pluralize(options.storeName ?? options.parentName ?? options.name, singular);
-    const pluralizedStoreName = pluralize(singularizedStoreName, plural);
+    const singularizedStoreName = singular(options.storeName ?? options.parentName ?? options.name);
+    const pluralizedStoreName = plural(singularizedStoreName);
 
     const folderName = templateType === 'sub-list' ?
       normalize(`${options.path}`)

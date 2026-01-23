@@ -11,6 +11,12 @@
       "factory": "./imng-module/index#imngModule",
       "schema": "./imng-module/schema.json"
     },
+    "imng-ngrx-module": {
+      "aliases": ["ngrx-module"],
+      "description": "imng-schematics - Creates an NGRX module.",
+      "factory": "./imng-ngrx-module/index#imngNgrxModule",
+      "schema": "./imng-ngrx-module/schema.json"
+    },
     "imng-list": {
       "aliases": ["list"],
       "description": "imng-schematics - Creates a kendo odata grid component.",

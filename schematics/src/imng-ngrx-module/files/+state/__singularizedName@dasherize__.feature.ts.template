@@ -1,0 +1,70 @@
+import { createReducer, on, createFeature } from '@ngrx/store';
+import { createKendoODataGridInitialState, getODataPagerSettings, KendoODataGridState } from 'imng-kendo-grid-odata';
+import { imngEffectError, imngEffectErrorReducer } from 'imng-ngrx-utils';
+
+import * as <%= camelize(singularizedName) %>ActionTypes from './<%= dasherize(singularizedName) %>.actions';<% if (modelFolderLocation) { %>
+import { I<%= classify(name) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+
+export const <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY = '<%= camelize(pluralizedName) %>';
+
+export interface State extends KendoODataGridState<I<%= classify(singularizedName) %>> {
+  current<%= classify(singularizedName) %>: I<%= classify(singularizedName) %> | undefined;
+  current<%= classify(singularizedName) %>ModalState: string | undefined;<% if(openApiJsonUrl || openApiJsonFileName){ swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  <%= camelize(swaggerProperty.pluralizedName) %>: I<%= classify(swaggerProperty.propertyTypeName) %>[];<% })} %>
+}
+
+export const initialState: State = {
+  ...createKendoODataGridInitialState(),
+  current<%= classify(singularizedName) %>: undefined,
+  current<%= classify(singularizedName) %>ModalState: undefined,<% if(openApiJsonUrl || openApiJsonFileName){  swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  <%= camelize(swaggerProperty.pluralizedName) %>: [],<% })} %>
+  loading: true,
+};
+
+export const <%= camelize(pluralizedStoreName) %>Feature = createFeature({
+  name: <%= underscore(pluralizedName).toUpperCase() %>_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,<% if (openApiJsonUrl || openApiJsonFileName) { %>
+    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Request,
+      (state, { payload }) : State => ({
+        ...state,
+        gridODataState: payload,
+        loading: true,
+        error: null, })),
+    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(pluralizedName) %>Success,
+      <%= camelize(singularizedName) %>ActionTypes.reload<%= classify(pluralizedName) %>Success,
+      (state, { payload }) : State => ({
+        ...state,
+        loading: false,
+        gridPagerSettings: getODataPagerSettings({
+          gridData: payload,
+          gridODataState: state.gridODataState,
+        }),
+        gridData: payload,
+        error: null, })),
+    on(<%= camelize(singularizedName) %>ActionTypes.setCurrent<%= classify(singularizedName) %>,
+      (state, { payload }) : State =>
+        ({ ...state,
+        current<%= classify(singularizedName) %>ModalState: payload.modalState,
+        current<%= classify(singularizedName) %>: payload.entity })),
+    on(<%= camelize(singularizedName) %>ActionTypes.clearCurrent<%= classify(singularizedName) %>,
+      (state) : State => ({
+        ...state, 
+        current<%= classify(singularizedName) %>: undefined,
+        current<%= classify(singularizedName) %>ModalState: undefined,
+      })),
+    on(<%= camelize(singularizedName) %>ActionTypes.save<%= classify(singularizedName) %>Request,
+      <%= camelize(singularizedName) %>ActionTypes.update<%= classify(singularizedName) %>Request,
+      <%= camelize(singularizedName) %>ActionTypes.delete<%= classify(singularizedName) %>Request,
+      (state) : State => ({
+        ...state,
+        loading: true,
+      })),<% if(openApiJsonUrl || openApiJsonFileName){ swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    on(<%= camelize(singularizedName) %>ActionTypes.load<%= classify(swaggerProperty.pluralizedName) %>Success,
+      (state, { payload }): State => ({
+        ...state,
+        <%= camelize(swaggerProperty.pluralizedName) %>: payload.data
+      })),<% }) } %>
+    on(imngEffectError, imngEffectErrorReducer),
+  )<% } %>
+});

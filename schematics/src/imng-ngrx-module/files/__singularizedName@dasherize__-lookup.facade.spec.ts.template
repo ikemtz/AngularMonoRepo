@@ -1,0 +1,74 @@
+///<reference types="jest" />
+import { NgModule } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, Store } from '@ngrx/store';
+import { readFirst } from 'imng-ngrx-utils/testing';
+import {
+  testDeleteCurrentEntity,
+  testModalStateAddAndClearCurrentEntity,
+  testModalStateEditAndClearCurrentEntity,
+  testSaveCurrentEntity,
+  testUpdateCurrentEntity,
+} from 'imng-kendo-data-entry/testing';
+import { createODataPayload } from 'imng-kendo-odata';
+import { of } from 'rxjs';
+
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedStoreName) %>ListEffects, <%= classify(singularizedStoreName) %>CrudEffects } from '../+state';
+import { <%= classify(name) %>LookupFacade } from './lookup.facade';
+import { <%= classify(name) %>ApiService } from './api.service';<% if (modelFolderLocation) { %>
+import { createTest<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
+import { environment } from '@env';
+
+describe('<%= classify(name) %>LookupFacade', () => {
+  let facade: <%= classify(name) %>LookupFacade;
+  let store: Store;
+  let httpClient: HttpClient;
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  beforeEach(() => {}); //NOSONAR
+
+  describe('used in NgModule', () => {
+    beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
+          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>ListEffects,
+          <%= classify(singularizedStoreName) %>LookupEffects,
+          <%= classify(singularizedStoreName) %>CrudEffects,
+          ]),
+        ],
+        providers: [
+          <%= classify(name) %>LookupFacade,
+          <%= classify(name) %>ApiService,
+          { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTest<%= classify(name) %>()]))) } },
+        ],
+      })
+      class CustomFeatureModule {}
+
+      @NgModule({
+        imports: [
+          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ],
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(<%= classify(name) %>LookupFacade);
+      httpClient = TestBed.inject(HttpClient);
+    });
+
+    <% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    test('should load <%= classify(swaggerProperty.pluralizedName) %>', async () => {
+      facade.load<%= classify(swaggerProperty.pluralizedName) %>({});
+      expect(httpClient.get).toHaveBeenCalledTimes(1);
+      const result = await readFirst(facade.<%= camelize(swaggerProperty.pluralizedName) %>$);
+      expect(result.length).toBe(1);
+    });<% }); %>
+  });
+});

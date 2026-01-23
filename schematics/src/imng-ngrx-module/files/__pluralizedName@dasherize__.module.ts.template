@@ -1,0 +1,29 @@
+import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedName) %>ListEffects, <%= classify(singularizedName) %>LookupEffects, <%= classify(singularizedName) %>CrudEffects } from './+state';
+<% if (openApiJsonUrl || openApiJsonFileName) { %>
+import { <%= classify(singularizedName) %>ApiService } from './<%= dasherize(singularizedName) %>-api.service.ts';
+import { <%= classify(singularizedName) %>CrudFacade  } from './<%= dasherize(singularizedName) %>-crud.facade.ts';
+import { <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(singularizedName) %>-list.facade.ts';
+import { <%= classify(singularizedName) %>LookupFacade } from './<%= dasherize(singularizedName) %>-lookup.facade.ts';
+<% } %>
+
+@NgModule({
+  declarations: [<% if (openApiJsonUrl || openApiJsonFileName) { %><%= classify(singularizedName) %>ListComponent, <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent <% } %>],
+  imports: [
+    StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
+    EffectsModule.forFeature([<%= classify(singularizedName) %>CrudEffects, <%= classify(singularizedName) %>ListEffects, <%= classify(singularizedName) %>LookupEffects, ]),
+  ],
+  providers: [
+    ODataService,
+    <%= classify(singularizedName) %>ApiService,
+    <% if (openApiJsonUrl || openApiJsonFileName) { %>
+    <%= classify(singularizedName) %>CrudFacade,
+    <%= classify(singularizedName) %>ListFacade,
+    <%= classify(singularizedName) %>LookupFacade,<% } %>
+  ],
+})
+export class <%= classify(pluralizedName) %>Module { }
+ 

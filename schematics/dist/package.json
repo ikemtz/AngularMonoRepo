@@ -19,7 +19,7 @@
   "license": "MIT",
   "schematics": "./schematics/collection.json",
   "peerDependencies": {
-    "pluralize": "^8.x",
+    "pluralize": ">=8.x",
     "@nx/angular": ">=19.x",
     "@angular/core": ">=18.x",
     "jest": "*"
