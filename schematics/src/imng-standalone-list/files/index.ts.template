@@ -1,0 +1,2 @@
+export { <%= classify(singularizedName) %>ListComponent } from './list.component';
+export { <%= camelize(singularizedName) %>GridState } from './list.grid-state';

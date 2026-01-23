@@ -131,7 +131,7 @@ import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
 import { ordersFeature, orderActionTypes } from './+state';
 import { IOrder } from '../../../models/webapi';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class OrderCrudFacade implements IDataEntryFacade<IOrder>, IDataDeleteFacade<IOrder> {
   private readonly store = inject(Store);
 
