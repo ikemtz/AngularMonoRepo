@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CustomerCrudFacade used in NgModule clearCurrentEntity() should set currentCustomer to null 1`] = `
+{
+  "customers": {
+    "currentCustomer": undefined,
+    "currentCustomerModalState": undefined,
+    "error": undefined,
+    "gridData": {
+      "data": [],
+      "total": 0,
+    },
+    "gridODataState": {},
+    "gridPagerSettings": false,
+    "loading": true,
+    "salesAgents": [],
+  },
+}
+`;
