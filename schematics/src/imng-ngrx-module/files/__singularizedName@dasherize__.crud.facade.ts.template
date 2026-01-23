@@ -5,7 +5,7 @@ import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from './+state';<% if (modelFolderLocation) { %>
 import { I<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class <%= classify(name) %>CrudFacade implements IDataEntryFacade<I<%= classify(name) %>>, IDataDeleteFacade<I<%= classify(name) %>> {
   private readonly store = inject(Store);
 

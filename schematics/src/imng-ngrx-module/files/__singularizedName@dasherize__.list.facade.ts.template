@@ -6,7 +6,7 @@ import { ODataState } from 'imng-kendo-odata';
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from './+state';<% if (modelFolderLocation) { %>
 import { I<%= classify(singularizedName) %> } from '<%= modelFolderLocation %>';<% } %>
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class <%= classify(singularizedName) %>ListFacade implements IKendoODataGridFacade<I<%= classify(name) %>> {
   private readonly store = inject(Store);
 
