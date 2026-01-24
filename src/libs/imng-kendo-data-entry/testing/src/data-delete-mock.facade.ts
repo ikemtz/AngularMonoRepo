@@ -2,6 +2,7 @@
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 
 export class DataDeleteMockFacade implements IDataDeleteFacade<unknown> {
+  setCurrentEntity = jest.fn();
   deleteExistingEntity = jest.fn();
 }
 
