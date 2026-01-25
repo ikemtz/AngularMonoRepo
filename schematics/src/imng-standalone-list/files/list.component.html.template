@@ -1,0 +1,119 @@
+<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+  <ng-template kendoGridToolbarTemplate>
+    <div class="w-100 d-flex justify-content-between">
+      <h3><%= startCasedPluralName %></h3>
+      <imng-kendo-odata-grid-header
+        entityName="<%= classify(name) %>"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (resetFiltersClicked)="resetFilters()"
+        [hasHiddenColumns$]="hasHiddenColumns$" />
+    </div>
+  </ng-template>
+  <kendo-grid-column [width]="75">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <kendo-menu title="Actions">
+        <kendo-menu-item [svgIcon]="icons.menu">
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="editItem(dataItem)"
+                placement="left"
+                tooltip="Edit">
+                <kendo-svgicon [icon]="icons.menu" size="xlarge"></kendo-svgicon>
+                Edit
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="deleteItem(dataItem)"
+                placement="left"
+                tooltip="Delete">
+                <kendo-svgicon [icon]="icons.trash" size="xlarge"></kendo-svgicon>
+                Delete
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+        </kendo-menu-item>
+      </kendo-menu>
+    </ng-template>
+  </kendo-grid-column>
+<% swaggerProperties.forEach(function(swaggerProperty) {%><% if ((swaggerProperty.format === 'date-time') && swaggerProperty.name.toLowerCase().endsWith('utc') ) { %>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy HH:mm}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
+<%} else if (swaggerProperty.format === 'date-time' || swaggerProperty.format === 'date') { %>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" format="{0:MM/dd/yy}" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
+<%} else if (swaggerProperty.type === 'boolean') { %>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
+    <ng-template kendoGridCellTemplate let-dataItem>
+     @if (dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]) {
+        <kendo-svgicon class="text-success font-weight-bolder h2" [icon]="icons.check" size="xlarge"></kendo-svgicon>
+      } @else {
+        <kendo-svgicon class="text-danger font-weight-bolder h2" [icon]="icons.cancel" size="xlarge"></kendo-svgicon>
+      }
+    </ng-template>
+<%} else if (swaggerProperty.format === 'uuid') { %>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="`${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`"
+        [copyValue]="dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]" />
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter" />
+    </ng-template>
+<%} else if (swaggerProperty.enum) { %>
+  <kendo-grid-column
+    [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>"
+    [width]="100"
+    title="<%= swaggerProperty.startCaseName %>"
+    filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
+    <ng-template kendoGridFilterMenuTemplate let-column="column">
+      <imng-multi-select-filter
+        [isPrimitive]="false"
+        [odataState]="facade.gridODataState$ | async"
+        [textField]="EnumProperties.DISPLAY_TEXT"
+        [valueField]="EnumProperties.NAME"
+        [data]="<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>"
+        [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" />
+    </ng-template>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ getEnumText(<%= camelize(swaggerProperty.pluralizedPropertyTypeName) %>, dataItem[props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>]) }}
+    </ng-template>
+<%} else if (swaggerProperty.htmlInputType === 'object') { %>
+  <kendo-grid-column
+    [field]="getRelatedField(props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>, <%= camelize(swaggerProperty.name) %>Props.<%= swaggerProperty.firstProperty?.snakeCaseName.toUpperCase() %>)"
+    [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
+<%} else { %>
+  <kendo-grid-column [field]="props.<%= swaggerProperty.snakeCaseName.toUpperCase() %>" [width]="100" title="<%= swaggerProperty.startCaseName %>" filter="<%= swaggerProperty.filterExpression %>" [hidden]="<%= swaggerProperty.hidden %>">
+<%} %>    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="<%= swaggerProperty.startCaseName %>"><%= swaggerProperty.startCaseName %></span>
+    </ng-template>
+  </kendo-grid-column><% }) %>
+
+  <kendo-grid-pdf [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
+  </kendo-grid-pdf>
+  <kendo-grid-excel [fileName]="getExportFileName('<%= classify(pluralizedName) %>')" [fetchData]="excelData" />
+</kendo-grid>
+
+@switch (crudFacade.currentModalState$ | async) {
+  @case (modalStates.ADD) {
+    <<%= appPrefix %>-<%= dasherize(name) %>-add />
+  }
+  @case (modalStates.EDIT) {
+    <<%= appPrefix %>-<%= dasherize(name) %>-edit />
+  }
+  @case (modalStates.DELETE) {
+    <imng-data-delete-dialog
+      [facade]="crudFacade"
+      [dataItem]="crudFacade.currentEntity$ | async">
+      <div class="text-center">Are you sure you want to delete this record?</div>
+    </imng-data-delete-dialog>
+  }
+}

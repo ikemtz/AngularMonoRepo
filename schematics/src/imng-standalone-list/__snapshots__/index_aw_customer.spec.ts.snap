@@ -1,0 +1,359 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-standalone-list barrel should work 1`] = `
+"export { CustomerListComponent } from './list.component';
+export { customerGridState } from './list.grid-state';
+"
+`;
+
+exports[`imng-standalone-list component should work 1`] = `
+"import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AsyncPipe, SlicePipe } from '@angular/common';
+import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import { KENDO_MENU } from '@progress/kendo-angular-menu';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { IMNG_KENDO_COPY, IMNG_KENDO_GRID_HEADER } from 'imng-kendo-grid';
+import { IMNG_KENDO_GRID_UUID_FILTER } from 'imng-kendo-grid-filtering';
+import {
+  IMNG_KENDO_GRID_ODATA,
+  KendoODataBasedComponent,
+} from 'imng-kendo-grid-odata';
+import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
+
+import { CustomerListFacade, CustomerCrudFacade, CustomersModule } from '../customers-ngrx-module';
+import { customerGridState } from './list.grid-state';
+import { ICustomer, CustomerProperties, SalesAgentProperties } from '../../models/webapi';
+
+@Component({
+  selector: 'aw-customer-list',
+    imports: [
+    SlicePipe,
+    AsyncPipe,
+    KENDO_GRID,
+    KENDO_MENU,
+    KENDO_SVGICON,
+    IMNG_KENDO_GRID_HEADER,
+    IMNG_KENDO_GRID_ODATA,
+    IMNG_KENDO_GRID_UUID_FILTER,
+    IMNG_KENDO_COPY,
+    IMNG_KENDO_DELETE_DIALOG,
+    CustomersModule,
+  ],
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+})
+export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, CustomerListFacade> {
+  public readonly crudFacade = inject(CustomerCrudFacade);
+  public readonly props = CustomerProperties;
+  public readonly salesAgentProps = SalesAgentProperties;
+  public currentItem: ICustomer | undefined;
+  public readonly modalStates = ModalStates;
+
+  constructor() {
+    super(inject(CustomerListFacade), customerGridState, inject(Router));
+  }
+
+  public addItem(): void {
+    this.crudFacade.setCurrentEntity({}, ModalStates.ADD);
+  }
+
+  public editItem(item: ICustomer): void {
+    this.crudFacade.setCurrentEntity(item, ModalStates.EDIT);
+  }
+
+  public deleteItem(item: ICustomer): void {
+    this.crudFacade.setCurrentEntity(item, ModalStates.DELETE);
+  }
+
+  public detailExpanded(evt: DetailExpandEvent): void {
+    this.currentItem = evt.dataItem;
+  }
+}
+"
+`;
+
+exports[`imng-standalone-list component spec should work 1`] = `
+"///<reference types="jest" />
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  createDataDeleteMockFacade,
+  createDataEntryMockFacade,
+} from 'imng-kendo-data-entry/testing';
+import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
+import { ModalStates } from 'imng-kendo-data-entry';
+
+import { CustomerListComponent } from './list.component';
+import { CustomerListFacade, CustomerCrudFacade } from '../customers-ngrx-module';
+import { createTestCustomer } from '../../models/webapi';
+
+describe('CustomerListComponent', () => {
+  let component: CustomerListComponent;
+  let fixture: ComponentFixture<CustomerListComponent>;
+  let listFacade: CustomerListFacade;
+  let crudFacade: CustomerCrudFacade;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({ 
+      imports: [CustomerListComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    })
+    .overrideComponent(CustomerListComponent, {
+      set: { 
+        providers: [
+          { provide: CustomerListFacade, useValue: createODataGridMockFacade() },
+          { provide: CustomerCrudFacade, useValue: 
+            {
+              ...createDataEntryMockFacade(),
+              ...createDataDeleteMockFacade(),
+            },
+          },
+          provideOidcMockFacade(),
+        ]}})
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CustomerListComponent);
+    component = fixture.componentInstance;    
+    listFacade = component.facade;
+    crudFacade = component.crudFacade;
+    fixture.detectChanges(); 
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();
+  });
+
+  test('it should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  test('it should handle DetailExpanded', () => {
+    const dataItem = createTestCustomer();
+    component.detailExpanded({ dataItem } as never);
+    expect(component.currentItem).toEqual(dataItem);
+  });
+
+  test('it should handle reload', () => {
+    component.reloadEntities();
+    expect(listFacade.reloadEntities).toHaveBeenCalledTimes(1);
+  });
+
+  test('it should handle AddItem', () => {
+    component.addItem();
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({}, ModalStates.ADD);
+  });
+
+  test('it should handle EditItem', () => {
+    const item = createTestCustomer();
+    component.editItem(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item, ModalStates.EDIT);
+  });
+
+  test('it should handle DeleteItem', () => {
+    const item = createTestCustomer();
+    component.deleteItem(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      item,
+      ModalStates.DELETE,
+    );
+  });
+});
+"
+`;
+
+exports[`imng-standalone-list grid state should work 1`] = `
+"import { ODataState } from 'imng-kendo-odata';
+import { CustomerProperties, SalesAgentProperties } from '../../models/webapi';
+
+export const customerGridState: ODataState = {
+  take: 20,
+  skip: 0,
+  selectors: [
+    CustomerProperties.ID, 
+    CustomerProperties.NUM, 
+    CustomerProperties.NAME, 
+    CustomerProperties.COMPANY_NAME, 
+    CustomerProperties.SALES_AGENT_ID, 
+    CustomerProperties.EMAIL_ADDRESS, 
+    CustomerProperties.PHONE, 
+    CustomerProperties.CREATED_BY, 
+    CustomerProperties.CREATED_ON_UTC, 
+    CustomerProperties.UPDATED_BY, 
+    CustomerProperties.UPDATED_ON_UTC, 
+  ],
+  sort: [
+    { field: CustomerProperties.NUM, dir: 'asc' },
+  ], 
+  expanders: [
+    { table: CustomerProperties.SALES_AGENT,
+      selectors: [
+        SalesAgentProperties.ID, 
+        SalesAgentProperties.NAME, 
+        SalesAgentProperties.LOGIN_ID, 
+        ]
+  }, 
+  ]
+};"
+`;
+
+exports[`imng-standalone-list html should work 1`] = `
+"<kendo-grid (detailExpand)="detailExpanded($event)" [height]="800" kendoGridFocusable [imngODataGrid]="this">
+  <ng-template kendoGridToolbarTemplate>
+    <div class="w-100 d-flex justify-content-between">
+      <h3>Customers</h3>
+      <imng-kendo-odata-grid-header
+        entityName="Customer"
+        (addItemClicked)="addItem()"
+        (reloadEntitiesClicked)="reloadEntities()"
+        (resetFiltersClicked)="resetFilters()"
+        [hasHiddenColumns$]="hasHiddenColumns$" />
+    </div>
+  </ng-template>
+  <kendo-grid-column [width]="75">
+    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+      <kendo-menu title="Actions">
+        <kendo-menu-item [svgIcon]="icons.menu">
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="editItem(dataItem)"
+                placement="left"
+                tooltip="Edit">
+                <kendo-svgicon [icon]="icons.menu" size="xlarge"></kendo-svgicon>
+                Edit
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+          <kendo-menu-item>
+            <ng-template kendoMenuItemLinkTemplate>
+              <button
+                type="button"
+                class="btn btn-sm mx-3 my-2 text-start"
+                (click)="deleteItem(dataItem)"
+                placement="left"
+                tooltip="Delete">
+                <kendo-svgicon [icon]="icons.trash" size="xlarge"></kendo-svgicon>
+                Delete
+              </button>
+            </ng-template>
+          </kendo-menu-item>
+        </kendo-menu-item>
+      </kendo-menu>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text" [hidden]="false">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <imng-kendo-copy
+        [displayValue]="\`\${(dataItem[props.ID] | slice: 0 : 4)}.-.\${(dataItem[props.ID] | slice: -4)}\`"
+        [copyValue]="dataItem[props.ID]" />
+    </ng-template>
+    <ng-template kendoGridFilterMenuTemplate let-filter>
+      <imng-uuid-filter [filter]="filter" />
+    </ng-template>
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Id">Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NUM" [width]="100" title="Num" filter="text" [hidden]="false">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Num">Num</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.NAME" [width]="100" title="Name" filter="text" [hidden]="false">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Name">Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.COMPANY_NAME" [width]="100" title="Company Name" filter="text" [hidden]="false">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Company Name">Company Name</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.SALES_AGENT_ID" [width]="100" title="Sales Agent Id" filter="numeric" [hidden]="false">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Sales Agent Id">Sales Agent Id</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.EMAIL_ADDRESS" [width]="100" title="Email Address" filter="text" [hidden]="false">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Email Address">Email Address</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.PHONE" [width]="100" title="Phone" filter="text" [hidden]="false">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Phone">Phone</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.CREATED_BY" [width]="100" title="Created By" filter="text" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Created By">Created By</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.CREATED_ON_UTC" [width]="100" format="{0:MM/dd/yy HH:mm}" title="Created On Utc" filter="date" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Created On Utc">Created On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.UPDATED_BY" [width]="100" title="Updated By" filter="text" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Updated By">Updated By</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column [field]="props.UPDATED_ON_UTC" [width]="100" format="{0:MM/dd/yy HH:mm}" title="Updated On Utc" filter="date" [hidden]="true">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Updated On Utc">Updated On Utc</span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    [field]="getRelatedField(props.SALES_AGENT, salesAgentProps.NAME)"
+    [width]="100" title="Sales Agent" filter="text" [hidden]="false">
+    <ng-template class="header" kendoGridHeaderTemplate let-column>
+      <span class="h6" title="Sales Agent">Sales Agent</span>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-pdf [fileName]="getExportFileName('Customers')" [allPages]="false">
+    <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm" />
+  </kendo-grid-pdf>
+  <kendo-grid-excel [fileName]="getExportFileName('Customers')" [fetchData]="excelData" />
+</kendo-grid>
+
+@switch (crudFacade.currentModalState$ | async) {
+  @case (modalStates.ADD) {
+    <aw-customer-add />
+  }
+  @case (modalStates.EDIT) {
+    <aw-customer-edit />
+  }
+  @case (modalStates.DELETE) {
+    <imng-data-delete-dialog
+      [facade]="crudFacade"
+      [dataItem]="crudFacade.currentEntity$ | async">
+      <div class="text-center">Are you sure you want to delete this record?</div>
+    </imng-data-delete-dialog>
+  }
+}"
+`;
+
+exports[`imng-standalone-list tree files should match 1`] = `
+[
+  "/test/customers-list/index.ts",
+  "/test/customers-list/list.component.html",
+  "/test/customers-list/list.component.scss",
+  "/test/customers-list/list.component.spec.ts",
+  "/test/customers-list/list.component.ts",
+  "/test/customers-list/list.grid-state.ts",
+]
+`;

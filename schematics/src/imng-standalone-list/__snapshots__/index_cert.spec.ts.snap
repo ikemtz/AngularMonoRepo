@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-standalone-list generation works 1`] = `
+[
+  "/test/certifications-list/index.ts",
+  "/test/certifications-list/list.component.html",
+  "/test/certifications-list/list.component.scss",
+  "/test/certifications-list/list.component.spec.ts",
+  "/test/certifications-list/list.component.ts",
+  "/test/certifications-list/list.facade.spec.ts",
+  "/test/certifications-list/list.facade.ts",
+  "/test/certifications-list/list.grid-state.ts",
+]
+`;

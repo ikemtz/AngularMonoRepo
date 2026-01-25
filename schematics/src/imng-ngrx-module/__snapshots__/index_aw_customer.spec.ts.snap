@@ -168,7 +168,7 @@ import { IDataDeleteFacade, IDataEntryFacade } from 'imng-kendo-data-entry';
 import { customersFeature, customerActionTypes } from './+state';
 import { ICustomer } from '../../../models/webapi';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CustomerCrudFacade implements IDataEntryFacade<ICustomer>, IDataDeleteFacade<ICustomer> {
   private readonly store = inject(Store);
 
@@ -337,7 +337,7 @@ import { ODataState } from 'imng-kendo-odata';
 import { customersFeature, customerActionTypes } from './+state';
 import { ICustomer } from '../../../models/webapi';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CustomerListFacade implements IKendoODataGridFacade<ICustomer> {
   private readonly store = inject(Store);
 
@@ -456,7 +456,7 @@ import { ODataState } from 'imng-kendo-odata';
 
 import { customersFeature, customerActionTypes } from './+state';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CustomerLookupFacade {
   private readonly store = inject(Store);
 

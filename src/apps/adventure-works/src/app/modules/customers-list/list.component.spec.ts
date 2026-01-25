@@ -1,0 +1,106 @@
+///<reference types="jest" />
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  createDataDeleteMockFacade,
+  createDataEntryMockFacade,
+} from 'imng-kendo-data-entry/testing';
+import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
+import { ModalStates } from 'imng-kendo-data-entry';
+
+import { CustomerListComponent } from './list.component';
+import {
+  CustomerListFacade,
+  CustomerCrudFacade,
+} from '../customers-ngrx-module';
+import { createTestCustomer } from '../../models/webapi';
+
+describe('CustomerListComponent', () => {
+  let component: CustomerListComponent;
+  let fixture: ComponentFixture<CustomerListComponent>;
+  let listFacade: CustomerListFacade;
+  let crudFacade: CustomerCrudFacade;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [CustomerListComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(CustomerListComponent, {
+        set: {
+          providers: [
+            {
+              provide: CustomerListFacade,
+              useValue: createODataGridMockFacade(),
+            },
+            {
+              provide: CustomerCrudFacade,
+              useValue: {
+                ...createDataEntryMockFacade(),
+                ...createDataDeleteMockFacade(),
+              },
+            },
+            provideOidcMockFacade(),
+          ],
+        },
+      })
+      .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CustomerListComponent);
+    component = fixture.componentInstance;
+    listFacade = component.facade;
+    crudFacade = component.crudFacade;
+    fixture.detectChanges();
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();
+  });
+
+  test('it should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  test('it should handle DetailExpanded', () => {
+    const dataItem = createTestCustomer();
+    component.detailExpanded({ dataItem } as never);
+    expect(component.currentItem).toEqual(dataItem);
+  });
+
+  test('it should handle reload', () => {
+    component.reloadEntities();
+    expect(listFacade.reloadEntities).toHaveBeenCalledTimes(1);
+  });
+
+  test('it should handle AddItem', () => {
+    component.addItem();
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      {},
+      ModalStates.ADD,
+    );
+  });
+
+  test('it should handle EditItem', () => {
+    const item = createTestCustomer();
+    component.editItem(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      item,
+      ModalStates.EDIT,
+    );
+  });
+
+  test('it should handle DeleteItem', () => {
+    const item = createTestCustomer();
+    component.deleteItem(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      item,
+      ModalStates.DELETE,
+    );
+  });
+});
