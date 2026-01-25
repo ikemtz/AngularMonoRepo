@@ -4,7 +4,7 @@ import { ODataState } from 'imng-kendo-odata';<% } %>
 
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= camelize(singularizedStoreName) %>ActionTypes } from './+state';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class <%= classify(name) %>LookupFacade {
   private readonly store = inject(Store);
 <% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>

@@ -1,0 +1,91 @@
+///<reference types="jest" />
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  createDataDeleteMockFacade,
+  createDataEntryMockFacade,
+} from 'imng-kendo-data-entry/testing';
+import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+import { provideOidcMockFacade } from 'imng-oidc-client/testing';
+import { ModalStates } from 'imng-kendo-data-entry';
+
+import { <%= classify(singularizedName) %>ListComponent } from './list.component';
+import { <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-ngrx-module';<% if (modelFolderLocation) { %>
+import { createTest<%= classify(name) %> } from '<%= modelFolderLocation %>';<% } %>
+
+describe('<%= classify(singularizedName) %>ListComponent', () => {
+  let component: <%= classify(singularizedName) %>ListComponent;
+  let fixture: ComponentFixture<<%= classify(singularizedName) %>ListComponent>;
+  let listFacade: <%= classify(singularizedName) %>ListFacade;
+  let crudFacade: <%= classify(singularizedName) %>CrudFacade;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({ 
+      imports: [<%= classify(singularizedName) %>ListComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    })
+    .overrideComponent(CustomerListComponent, {
+      set: { 
+        providers: [
+          { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade() },
+          { provide: <%= classify(singularizedName) %>CrudFacade, useValue: 
+            {
+              ...createDataEntryMockFacade(),
+              ...createDataDeleteMockFacade(),
+            },
+          },
+          provideOidcMockFacade(),
+        ]}})
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(<%= classify(singularizedName) %>ListComponent);
+    component = fixture.componentInstance;    
+    listFacade = component.facade;
+    crudFacade = component.crudFacade;
+    fixture.detectChanges(); 
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();
+  });
+
+  test('it should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  test('it should handle DetailExpanded', () => {
+    const dataItem = createTest<%= classify(name) %>();
+    component.detailExpanded({ dataItem } as never);
+    expect(component.currentItem).toEqual(dataItem);
+  });
+
+  test('it should handle reload', () => {
+    component.reloadEntities();
+    expect(listFacade.reloadEntities).toHaveBeenCalledTimes(1);
+  });
+
+  test('it should handle AddItem', () => {
+    component.addItem();
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith({}, ModalStates.ADD);
+  });
+
+  test('it should handle EditItem', () => {
+    const item = createTest<%= classify(singularizedName) %>();
+    component.editItem(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(item, ModalStates.EDIT);
+  });
+
+  test('it should handle DeleteItem', () => {
+    const item = createTest<%= classify(singularizedName) %>();
+    component.deleteItem(item);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledTimes(1);
+    expect(crudFacade.setCurrentEntity).toHaveBeenCalledWith(
+      item,
+      ModalStates.DELETE,
+    );
+  });
+});

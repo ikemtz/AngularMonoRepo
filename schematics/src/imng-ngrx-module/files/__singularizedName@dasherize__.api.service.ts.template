@@ -4,9 +4,7 @@ import { environment } from '@env';
 <% if (modelFolderLocation) { %>
 import { I<%= classify(name) %>, <%= classify(name) %>Properties } from '<%= modelFolderLocation %>';<% } %>
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({providedIn: 'root'})
 export class <%= classify(name) %>ApiService extends NrsrxBaseApiClientService<I<%= classify(name) %>> {
   public override url = environment.webApiEndpoints.<%= camelize(pluralizedName) %>;
 <% if (swaggerProperties.filter(t => t.format === 'date')) { %>
