@@ -8,17 +8,17 @@ import {
   formGroupPatcher,
   ImngDataEntryDialogModule,
 } from 'imng-kendo-data-entry';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';
 import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
+
 import { CustomerBaseEntryComponent } from './base-entry.component';
 
 @Component({
   selector: 'aw-customer-edit',
   imports: [
     AsyncPipe,
-    NgClass,
     ReactiveFormsModule,
     KENDO_DROPDOWNS,
     KENDO_DATEPICKER,
@@ -33,17 +33,14 @@ export class CustomerEditComponent
   implements OnInit, OnDestroy
 {
   public dialogTitle = 'Edit Customer';
-  public active$ = this.facade.isEditActive$;
 
   public override initForm(): void {
     super.initForm();
-    if (this.addEditForm) {
-      this.allSubscriptions.push(
-        this.facade.currentEntity$
-          .pipe(formGroupPatcher(this.addEditForm))
-          .subscribe(),
-      );
-    }
+    this.allSubscriptions.push(
+      this.facade.currentEntity$
+        .pipe(formGroupPatcher(this.addEditForm))
+        .subscribe(),
+    );
   }
 
   public save(): void {

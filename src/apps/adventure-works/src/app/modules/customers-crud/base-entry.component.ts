@@ -2,15 +2,16 @@ import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+
+import { CustomerLookupFacade } from '../customers-ngrx-module/customer.lookup.facade';
+import { CustomerCrudFacade } from '../customers-ngrx-module/customer.crud.facade';
 import {
-  CustomerFormGroupFac,
   CustomerProperties,
   ICustomerForm,
+  CustomerFormGroupFac,
   ISalesAgent,
   SalesAgentProperties,
-} from '../../../models/webapi';
-
-import { CustomerCrudFacade } from './crud.facade';
+} from '../../models/webapi';
 
 @Component({
   template: '',
@@ -19,6 +20,7 @@ export abstract class CustomerBaseEntryComponent
   extends BaseDataEntryComponent<CustomerCrudFacade>
   implements OnInit
 {
+  public readonly customerLookupFacade = inject(CustomerLookupFacade);
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
   public readonly salesAgents$: Observable<ISalesAgent[]>;
@@ -27,7 +29,7 @@ export abstract class CustomerBaseEntryComponent
 
   constructor() {
     super(inject(CustomerCrudFacade));
-    this.salesAgents$ = this.facade.salesAgents$.pipe(
+    this.salesAgents$ = this.customerLookupFacade.salesAgents$.pipe(
       switchMap((salesAgents) =>
         this.salesAgentFilter$.pipe(
           map((salesAgentFilter) =>
@@ -47,8 +49,8 @@ export abstract class CustomerBaseEntryComponent
   }
 
   public override ngOnInit(): void {
-    super.ngOnInit();
-    this.facade.loadSalesAgents({
+    this.initForm();
+    this.customerLookupFacade.loadSalesAgents({
       selectors: [
         SalesAgentProperties.ID,
         SalesAgentProperties.NAME,

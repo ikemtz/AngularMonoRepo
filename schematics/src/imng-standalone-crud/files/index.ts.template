@@ -1,0 +1,2 @@
+export { <%= classify(name) %>AddComponent } from './add.component';
+export { <%= classify(name) %>EditComponent } from './edit.component';

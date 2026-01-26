@@ -1,21 +1,27 @@
 <imng-data-entry-dialog
+  id="dataEntryCustomers"
+  name="dataEntryCustomers"
   [width]="700"
   [height]="550"
   [parentComponent]="this"
   autoFocusedElement="#num">
-  <form novalidate [formGroup]="addEditForm" autocomplete="off" class="row">
+  <form
+    id="imng-form"
+    novalidate
+    [formGroup]="addEditForm"
+    autocomplete="off"
+    class="row needs-validation">
     <div class="col-md-6">
-      <label for="id" class="control-label mr-4">Id:</label>
+      <label for="id" class="control-label"
+        >Id: <span class="text-danger">*</span></label
+      >
       <input
         id="id"
         type="text"
         class="form-control"
-        [formControlName]="props.ID"
-        [ngClass]="{
-          'is-invalid': (submitted$ | async) && formControlErrors(props.ID),
-        }" />
+        [formControlName]="props.ID" />
       @if ((submitted$ | async) && formControlErrors(props.ID)) {
-        <div class="invalid-feedback">
+        <div class="invalid-feedback d-block">
           @if (formControlErrors(props.ID)?.[RequiredError]) {
             <div>Customer id is required</div>
           }
@@ -23,17 +29,16 @@
       }
     </div>
     <div class="col-md-6">
-      <label for="num" class="control-label mr-4">Num:</label>
+      <label for="num" class="control-label"
+        >Num: <span class="text-danger">*</span></label
+      >
       <input
         id="num"
         type="text"
         class="form-control"
-        [formControlName]="props.NUM"
-        [ngClass]="{
-          'is-invalid': (submitted$ | async) && formControlErrors(props.NUM),
-        }" />
+        [formControlName]="props.NUM" />
       @if ((submitted$ | async) && formControlErrors(props.NUM)) {
-        <div class="invalid-feedback">
+        <div class="invalid-feedback d-block">
           @if (formControlErrors(props.NUM)?.[RequiredError]) {
             <div>Customer num is required</div>
           }
@@ -48,7 +53,7 @@
       }
     </div>
     <div class="col-md-6">
-      <label for="name" class="control-label mr-4">Name:</label>
+      <label for="name" class="control-label">Name:</label>
       <input
         id="name"
         type="text"
@@ -56,39 +61,41 @@
         [formControlName]="props.NAME" />
     </div>
     <div class="col-md-6">
-      <label for="company_name" class="control-label mr-4">Company Name:</label>
+      <label for="company_name" class="control-label"
+        >Company Name: <span class="text-danger">*</span></label
+      >
       <input
         id="company_name"
         type="text"
         class="form-control"
-        [formControlName]="props.COMPANY_NAME"
-        [ngClass]="{
-          'is-invalid':
-            (submitted$ | async) && formControlErrors(props.COMPANY_NAME),
-        }" />
+        [formControlName]="props.COMPANY_NAME" />
       @if ((submitted$ | async) && formControlErrors(props.COMPANY_NAME)) {
-        <div class="invalid-feedback">
+        <div class="invalid-feedback d-block">
           @if (formControlErrors(props.COMPANY_NAME)?.[RequiredError]) {
             <div>Customer company name is required</div>
+          }
+          @if (formControlErrors(props.COMPANY_NAME)?.[MinLengthError]) {
+            <div>
+              Customer company name requires a min length of
+              {{ formMinLengthError(props.COMPANY_NAME)?.requiredLength }},
+              currently only
+              {{ formMinLengthError(props.COMPANY_NAME)?.actualLength }}.
+            </div>
           }
         </div>
       }
     </div>
     <div class="col-md-6">
-      <label for="sales_agent_id" class="control-label mr-4"
-        >Sales Agent Id:</label
+      <label for="sales_agent_id" class="control-label"
+        >Sales Agent Id: <span class="text-danger">*</span></label
       >
       <input
         id="sales_agent_id"
         type="number"
         class="form-control"
-        [formControlName]="props.SALES_AGENT_ID"
-        [ngClass]="{
-          'is-invalid':
-            (submitted$ | async) && formControlErrors(props.SALES_AGENT_ID),
-        }" />
+        [formControlName]="props.SALES_AGENT_ID" />
       @if ((submitted$ | async) && formControlErrors(props.SALES_AGENT_ID)) {
-        <div class="invalid-feedback">
+        <div class="invalid-feedback d-block">
           @if (formControlErrors(props.SALES_AGENT_ID)?.[RequiredError]) {
             <div>Customer sales agent id is required</div>
           }
@@ -96,9 +103,7 @@
       }
     </div>
     <div class="col-md-6">
-      <label for="email_address" class="control-label mr-4"
-        >Email Address:</label
-      >
+      <label for="email_address" class="control-label">Email Address:</label>
       <input
         id="email_address"
         type="text"
@@ -106,7 +111,7 @@
         [formControlName]="props.EMAIL_ADDRESS" />
     </div>
     <div class="col-md-6">
-      <label for="phone" class="control-label mr-4">Phone:</label>
+      <label for="phone" class="control-label">Phone:</label>
       <input
         id="phone"
         type="text"
@@ -114,7 +119,7 @@
         [formControlName]="props.PHONE" />
     </div>
     <div class="col-md-6">
-      <label for="sales_agent" class="control-label mr-4">Sales Agent:</label>
+      <label for="sales_agent" class="control-label">Sales Agent:</label>
       <kendo-multicolumncombobox
         id="sales_agent"
         placeholder="Select a sales agent..."

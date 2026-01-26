@@ -4,21 +4,17 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import {
-  formGroupPatcher,
-  ImngDataEntryDialogModule,
-} from 'imng-kendo-data-entry';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';
 import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
-import { CustomerBaseEntryComponent } from './base-entry.component';
+import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
 
 @Component({
-  selector: 'aw-customer-edit',
+  selector: '<%= appPrefix %>-<%= dasherize(name) %>-add',
   imports: [
     AsyncPipe,
-    NgClass,
     ReactiveFormsModule,
     KENDO_DROPDOWNS,
     KENDO_DATEPICKER,
@@ -28,26 +24,17 @@ import { CustomerBaseEntryComponent } from './base-entry.component';
   styleUrls: ['./add-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerEditComponent
-  extends CustomerBaseEntryComponent
-  implements OnInit, OnDestroy
-{
-  public dialogTitle = 'Edit Customer';
-  public active$ = this.facade.isEditActive$;
+export class <%= classify(name) %>AddComponent extends <%= classify(name) %>BaseEntryComponent implements OnInit, OnDestroy {
+  public dialogTitle = 'Add <%= classify(name) %>';
 
   public override initForm(): void {
     super.initForm();
-    if (this.addEditForm) {
-      this.allSubscriptions.push(
-        this.facade.currentEntity$
-          .pipe(formGroupPatcher(this.addEditForm))
-          .subscribe(),
-      );
-    }
+    this.addEditForm.patchValue({});
   }
 
   public save(): void {
     const val = this.addEditForm.value;
-    this.facade.updateExistingEntity(val);
+    val.id = undefined;
+    this.facade.saveNewEntity(val);
   }
 }
