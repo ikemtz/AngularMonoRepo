@@ -22,6 +22,8 @@ import {
   CustomerProperties,
   SalesAgentProperties,
 } from '../../models/webapi';
+import { CustomerEditComponent } from '../customers-crud/edit.component';
+import { CustomerAddComponent } from '../customers-crud/add.component';
 
 @Component({
   selector: 'aw-customer-list',
@@ -36,12 +38,13 @@ import {
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
+    CustomerEditComponent,
+    CustomerAddComponent,
   ],
   providers: [CustomerCrudFacade, CustomerListFacade],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class CustomerListComponent extends KendoODataBasedComponent<
   ICustomer,

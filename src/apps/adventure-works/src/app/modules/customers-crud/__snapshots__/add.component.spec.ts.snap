@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CustomerAddComponent should save 1`] = `
+{
+  "companyName": "COMPANY_NAME",
+  "customerAddresses": [],
+  "emailAddress": "EMAIL_ADDRESS",
+  "id": undefined,
+  "name": "NAME",
+  "num": "NUM_NUM_NUM_NUM",
+  "orders": [],
+  "phone": "PHONE",
+  "salesAgent": {
+    "customers": [],
+    "id": 0,
+    "loginId": "LOGIN_ID",
+    "name": "NAME",
+  },
+  "salesAgentId": 0,
+}
+`;
+
+exports[`CustomerAddComponent should support SalesAgent filters 1`] = `[]`;

@@ -29,12 +29,12 @@ import { I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>Pr
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
-    <%= classify(pluralizedName) %>Module,
+    <%= classify(singularizedName) %>AddComponent,
+    <%= classify(singularizedName) %>EditComponent,
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataBasedComponent<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
   public readonly crudFacade = inject(<%= classify(singularizedName) %>CrudFacade);

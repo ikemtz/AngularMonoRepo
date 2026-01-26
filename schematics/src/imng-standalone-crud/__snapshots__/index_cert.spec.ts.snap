@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`imng-standalone-crud generation works 1`] = `
+[
+  "/test/certifications-crud/add-edit.component.html",
+  "/test/certifications-crud/add-edit.component.scss",
+  "/test/certifications-crud/add.component.spec.ts",
+  "/test/certifications-crud/add.component.ts",
+  "/test/certifications-crud/base-entry.component.ts",
+  "/test/certifications-crud/edit.component.spec.ts",
+  "/test/certifications-crud/edit.component.ts",
+  "/test/certifications-crud/index.ts",
+]
+`;

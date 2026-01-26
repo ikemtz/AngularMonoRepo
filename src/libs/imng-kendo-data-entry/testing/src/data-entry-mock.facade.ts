@@ -4,7 +4,8 @@ import { IDataEntryFacade } from 'imng-kendo-data-entry';
 
 export class DataEntryMockFacade implements IDataEntryFacade<unknown> {
   public loading$: Observable<boolean> = of(false);
-  public currentEntity$: Observable<unknown> = of(null);
+  public currentEntity$: Observable<unknown> = of({});
+  public currentModalState$?: Observable<string | undefined> = of('');
   public isEditActive$: Observable<boolean> = of(false);
   public isNewActive$: Observable<boolean> = of(false);
   public setCurrentEntity = jest.fn();
