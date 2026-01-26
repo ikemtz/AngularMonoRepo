@@ -6,7 +6,15 @@ import {
   KENDO_GRID_EXCEL_EXPORT,
   KENDO_GRID_PDF_EXPORT,
 } from '@progress/kendo-angular-grid';
-import { SVGIcon, filePdfIcon, fileExcelIcon } from '@progress/kendo-svg-icons';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import {
+  SVGIcon,
+  fileAddIcon,
+  filePdfIcon,
+  fileExcelIcon,
+  filterClearIcon,
+  arrowsNoRepeatIcon,
+} from '@progress/kendo-svg-icons';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,6 +24,7 @@ import { Observable } from 'rxjs';
     KENDO_GRID,
     KENDO_GRID_PDF_EXPORT,
     KENDO_GRID_EXCEL_EXPORT,
+    KENDO_SVGICON,
   ],
   template: `<div class="mr-5 pr-5">
     @if (entityName) {
@@ -26,7 +35,8 @@ import { Observable } from 'rxjs';
         primary="true"
         (click)="addItemClicked.emit()"
         class="btn btn-sm btn-primary mx-1">
-        <span class="k-icon k-i-plus-circle"></span> Add {{ entityName }}
+        <kendo-svgicon [icon]="icons['fileAddIcon']"></kendo-svgicon>
+        Add {{ entityName }}
       </button>
     }
     @if (hideResetFilters !== true) {
@@ -36,7 +46,8 @@ import { Observable } from 'rxjs';
         title="Reset Filters"
         (click)="resetFiltersClicked.emit()"
         class="btn btn-sm mx-1">
-        <span class="k-icon k-i-filter-clear"></span> Reset Filters
+        <kendo-svgicon [icon]="icons['filterClearIcon']"></kendo-svgicon> Reset
+        Filters
       </button>
     }
     @if (hideReloadData !== true) {
@@ -46,7 +57,8 @@ import { Observable } from 'rxjs';
         title="Clear Cache And Reload Data"
         (click)="reloadEntitiesClicked.emit()"
         class="btn btn-sm mx-1">
-        <span class="k-icon k-i-reset"></span> Reload Data
+        <kendo-svgicon [icon]="icons['arrowsNoRepeatIcon']"></kendo-svgicon>
+        Reload Data
       </button>
     }
     @if (hideExports !== true) {
@@ -58,7 +70,7 @@ import { Observable } from 'rxjs';
         [svgIcon]="icons['filePdfIcon']"
         class="btn btn-sm mx-1"
         (click)="parentGrid.saveAsPDF()">
-        <span class="k-icon k-i-pdf"></span> Export to PDF
+        Export to PDF
       </button>
     }
     @if (hideExports !== true) {
@@ -70,7 +82,7 @@ import { Observable } from 'rxjs';
         [svgIcon]="icons['fileExcelIcon']"
         class="btn btn-sm mx-1"
         (click)="parentGrid.saveAsExcel()">
-        <span class="k-icon k-i-excel"></span> Export To Excel
+        Export To Excel
       </button>
     }
     @if (hideColumnChooser !== true) {
@@ -113,7 +125,10 @@ export class IMNG_KENDO_GRID_HEADER {
   parentGrid = inject<GridComponent>(GridComponent);
   public icons: Record<string, SVGIcon> = {
     filePdfIcon: filePdfIcon,
+    fileAddIcon: fileAddIcon,
     fileExcelIcon: fileExcelIcon,
+    filterClearIcon: filterClearIcon,
+    arrowsNoRepeatIcon: arrowsNoRepeatIcon,
   };
   @Input()
   public entityName = '';
