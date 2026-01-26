@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 import { CustomerBaseEntryComponent } from './base-entry.component';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgClass } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';
 import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
@@ -15,7 +15,8 @@ import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 @Component({
   selector: 'aw-customer-add',
   imports: [
-    CommonModule,
+    AsyncPipe,
+    NgClass,
     ReactiveFormsModule,
     KENDO_DROPDOWNS,
     KENDO_DATEPICKER,

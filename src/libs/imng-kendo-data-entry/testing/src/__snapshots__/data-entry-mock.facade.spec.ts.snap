@@ -1,9 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Testing createDataEntryMockFacade should create 1`] = `
 DataEntryMockFacade {
   "clearCurrentEntity": [MockFunction],
   "currentEntity$": Observable {
+    "_subscribe": [Function],
+  },
+  "currentModalState$": Observable {
     "_subscribe": [Function],
   },
   "isEditActive$": Observable {

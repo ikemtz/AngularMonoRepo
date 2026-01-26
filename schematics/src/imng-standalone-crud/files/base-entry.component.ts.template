@@ -1,0 +1,55 @@
+import { OnInit, Component, inject } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { BaseDataEntryComponent } from 'imng-kendo-data-entry';<% if (hasObjects) { %>
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';<% } %>
+
+import { <%= classify(name) %>LookupFacade } from '../<%= dasherize(pluralizedName) %>-ngrx-module/<%= dasherize(singularizedName) %>.lookup.facade';
+import { <%= classify(name) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-ngrx-module/<%= dasherize(singularizedName) %>.crud.facade';<% if (modelFolderLocation) { %>
+import { <%= classify(singularizedName) %>Properties, I<%= classify(singularizedName) %>Form, <%= classify(singularizedName) %>FormGroupFac, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>I<%= classify(swaggerProperty.propertyTypeName) %>, <%= classify(swaggerProperty.propertyTypeName) %>Properties<% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+
+@Component({
+  template: '',
+})
+export abstract class <%= classify(name) %>BaseEntryComponent extends BaseDataEntryComponent<<%= classify(name) %>CrudFacade>
+  implements OnInit {
+  public readonly <%= camelize(singularizedName) %>LookupFacade = inject(<%= classify(singularizedName) %>LookupFacade);
+  public readonly props = <%= classify(name) %>Properties;<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.propertyTypeName) %>Properties;
+  public readonly <%= camelize(swaggerProperty.pluralizedName) %>$: Observable<I<%= classify(swaggerProperty.propertyTypeName) %>[]>;
+  public readonly <%= camelize(swaggerProperty.name) %>Filter$ = new BehaviorSubject('');<% }) %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
+  public readonly <%= camelize(swaggerProperty.pluralizedName) %>$ = new BehaviorSubject(<%= camelize(swaggerProperty.singularizedPropertyTypeName) %>Values);<% }) %>
+  public addEditForm: FormGroup<I<%= classify(name) %>Form>;
+
+  constructor() {
+    super(inject(<%= classify(name) %>CrudFacade));<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    this.<%= camelize(swaggerProperty.pluralizedName) %>$ = this.<%= camelize(singularizedName) %>LookupFacade.<%= camelize(swaggerProperty.pluralizedName) %>$.pipe(
+      switchMap(<%= camelize(swaggerProperty.pluralizedName) %> => this.<%= camelize(swaggerProperty.name) %>Filter$.pipe(
+        map(<%= camelize(swaggerProperty.name) %>Filter => <%= camelize(swaggerProperty.name) %>Filter ? <%= camelize(swaggerProperty.pluralizedName) %>
+          .filter(<%= camelize(swaggerProperty.name) %> => (<% swaggerProperty.properties.filter(f => f.name !== 'id' && f.htmlInputType !== 'object' && f.htmlInputType !== 'checkbox' && !f.hidden).forEach(function(swaggerSubProperty, i, arr){%>
+            (<%= camelize(swaggerProperty.name) %>.<%= camelize(swaggerSubProperty.name) %> && <%= camelize(swaggerProperty.name) %>.<%= camelize(swaggerSubProperty.name) %><% if(swaggerSubProperty.format){ %>.toString()<% } %>.toLowerCase().includes(<%= camelize(swaggerProperty.name) %>Filter))<% if (i + 1 != arr.length) { %> ||<% } }) %>
+          )) : <%= camelize(swaggerProperty.pluralizedName) %>
+    ))));<% }) %>
+  }
+
+  public override ngOnInit(): void {
+    this.initForm();<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    this.<%= camelize(singularizedName) %>LookupFacade.load<%= classify(swaggerProperty.pluralizedName) %>({ selectors: [<% swaggerProperty.properties.filter(t=> !t.hidden).forEach(function(swaggerSubProperty){ %>
+      <%= classify(swaggerProperty.propertyTypeName) %>Properties.<%= swaggerSubProperty.snakeCaseName.toUpperCase() %>,<% }) %>] });<% }) %>
+  }
+
+  public initForm(): void {
+    this.addEditForm = <%= classify(name) %>FormGroupFac();
+  }
+
+  public cancel(): void {
+    this.facade.clearCurrentEntity();
+  }
+<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+  public handle<%= classify(swaggerProperty.name) %>Filter(value: string) {
+    this.<%= camelize(swaggerProperty.name) %>Filter$.next(value.toLowerCase());
+  }<% }) %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
+  public handle<%= classify(swaggerProperty.name) %>Filter(value: string) {
+    this.<%= camelize(swaggerProperty.pluralizedName) %>$.next(<%= camelize(swaggerProperty.singularizedPropertyTypeName) %>Values.filter(t =>
+      t.name?.toLowerCase().includes(value)));
+  }<% }) %>
+}

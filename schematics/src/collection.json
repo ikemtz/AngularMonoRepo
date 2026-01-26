@@ -29,6 +29,12 @@
       "factory": "./imng-standalone-list/index#imngStandaloneList",
       "schema": "./imng-standalone-list/schema.json"
     },
+    "imng-standalone-crud": {
+      "aliases": ["standalone-crud"],
+      "description": "imng-schematics - Creates a standalone kendo odata grid component.",
+      "factory": "./imng-standalone-crud/index#imngStandaloneCrud",
+      "schema": "./imng-standalone-crud/schema.json"
+    },
     "imng-crud": {
       "aliases": ["crud"],
       "description": "imng-schematics - Creates a kendo data entry component.",

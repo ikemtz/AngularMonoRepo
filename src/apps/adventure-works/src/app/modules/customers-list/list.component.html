@@ -155,12 +155,12 @@
 </kendo-grid>
 
 @switch (crudFacade.currentModalState$ | async) {
-  <!-- @case (modalStates.ADD) {
+  @case (modalStates.ADD) {
     <aw-customer-add />
   }
   @case (modalStates.EDIT) {
     <aw-customer-edit />
-  } -->
+  }
   @case (modalStates.DELETE) {
     <imng-data-delete-dialog
       [facade]="crudFacade"

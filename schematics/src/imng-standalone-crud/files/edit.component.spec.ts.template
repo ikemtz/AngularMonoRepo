@@ -1,0 +1,115 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';<% if (hasDates) { %>
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';<% } %><% if (hasObjects) { %>
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';<% } %>
+import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
+import { mockConsoleError<% if (hasDates || hasObjects) { %>, mockConsoleGroup, mockConsoleWarn<% } %>, readFirst } from 'imng-ngrx-utils/testing';<% if (hasObjects) { %>
+import { of } from 'rxjs';<% } %>
+
+import { <%= classify(name) %>EditComponent } from './edit.component';
+import { <%= classify(name) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-ngrx-module/<%= dasherize(singularizedName) %>.crud.facade';
+import { <%= classify(name) %>LookupFacade } from '../<%= dasherize(pluralizedName) %>-ngrx-module/<%= dasherize(singularizedName) %>.lookup.facade';<% if (modelFolderLocation) { %>
+import { I<%= classify(singularizedName) %>, createTest<%= classify(singularizedName) %>, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %>createTest<%= classify(swaggerProperty.propertyTypeName) %><% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+
+describe('<%= classify(name) %>EditComponent', () => {
+  let component: <%= classify(name) %>EditComponent;
+  let fixture: ComponentFixture<<%= classify(name) %>EditComponent>;
+  let crudFacade: <%= classify(name) %>CrudFacade;
+  let lookupFacade: <%= classify(name) %>LookupFacade;<% if (hasDates || hasObjects) { %>
+  let consoleWarnMock: jest.SpyInstance<void>;
+  let consoleGroupMock: jest.SpyInstance<void>;<% } %>
+
+  beforeEach(waitForAsync(() => {<% if (hasDates || hasObjects) { %>
+    consoleWarnMock = mockConsoleWarn();
+    consoleGroupMock = mockConsoleGroup();<% } %>
+    TestBed.configureTestingModule({
+      imports: [<%= classify(name) %>EditComponent, ReactiveFormsModule, NoopAnimationsModule, <% if (hasDates) { %>DatePickerModule, <% } %><% if (hasObjects) { %>DropDownsModule, <% } %>],<% if (hasObjects) { %>
+      providers: [
+        { provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade() },<% if (hasObjects) { %>
+        { provide: <%= classify(name) %>LookupFacade, useValue: {<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    <%= camelize(swaggerProperty.pluralizedName) %>$: of([ createTest<%= classify(swaggerProperty.propertyTypeName) %>()]),
+    load<%= classify(swaggerProperty.pluralizedName) %>: jest.fn(),<% }); %>
+  } }<% } %>],<% } %><% else { %>
+      providers: [
+        { provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade() },<% if (hasObjects) { %>
+        { provide: <%= classify(name) %>LookupFacade, useValue: {<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    <%= camelize(swaggerProperty.pluralizedName) %>$: of([ createTest<%= classify(swaggerProperty.propertyTypeName) %>()]),
+    load<%= classify(swaggerProperty.pluralizedName) %>: jest.fn(),<% }); %>
+  } }<% } %>],<% } %>
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(<%= classify(name) %>EditComponent);
+    component = fixture.componentInstance;
+    crudFacade = component.facade;
+    lookupFacade = component.<%= camelize(name) %>LookupFacade;
+    fixture.detectChanges();
+  });
+
+  test('should create', () => {
+    expect(component).toBeTruthy();<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    expect(lookupFacade.load<%= classify(swaggerProperty.pluralizedName) %>).toHaveBeenCalled();
+    <% }); %>
+  });
+
+  afterAll(() => {
+    component.ngOnDestroy();<% if (hasDates || hasObjects) { %>
+    consoleWarnMock.mockRestore();
+    consoleGroupMock.mockRestore();<% } %>
+  });
+
+  test('should update', () => {
+    component.initForm();
+    component.addEditForm.patchValue(createTest<%= classify(name) %>());<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+    component.addEditForm.controls.<%= camelize(swaggerProperty.propertyTypeName) %>.patchValue(createTest<%= classify(swaggerProperty.propertyTypeName) %>());<% }); %>
+    let item: I<%= classify(name) %> | undefined;
+    crudFacade.updateExistingEntity = jest.fn(x => (item = x));
+    expect(component.getFormErrors()).toStrictEqual([]);
+    component.onSubmit();
+    expect(crudFacade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(crudFacade.updateExistingEntity).toHaveBeenCalledTimes(1);
+<% if (hasDates) { %>
+    expect(item).toMatchSnapshot({
+<% swaggerProperties.filter(t=> (t.format === 'date-time' || t.format === 'date') && !t.hidden).forEach(function(swaggerProperty)
+ {%>      <%= swaggerProperty.name %>: expect.any(Date),
+<% }); %>    });
+<% } else { %>
+    expect(item).toMatchSnapshot();
+<% } %>
+  });
+
+  /**
+   * Note: if this test fails, then you're missing validators in your forms.
+   * Using form validators is typically a good idea.
+   */
+  test('should not update', () => {
+    const consoleErrorMock = mockConsoleError();
+    component.addEditForm?.patchValue({});
+    component.onSubmit();
+    expect(crudFacade.saveNewEntity).toHaveBeenCalledTimes(0);
+    expect(crudFacade.updateExistingEntity).toHaveBeenCalledTimes(0);
+    consoleErrorMock.mockRestore();
+  });
+
+  test('should cancel', () => {
+    component.cancel();
+    expect(crudFacade.clearCurrentEntity).toHaveBeenCalledTimes(1);
+  });<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
+
+  test('should support <%= classify(swaggerProperty.name) %> filters', async () => {
+    component.handle<%= classify(swaggerProperty.name) %>Filter('xy');
+    const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);
+    expect(result).toMatchSnapshot();
+  });<% }); %>
+
+<% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>
+  test('should handle <%= classify(swaggerProperty.name) %> filters', async () => {
+    component.handle<%= classify(swaggerProperty.name) %>Filter('abc-xyz');
+    const result = await readFirst(component.<%= camelize(swaggerProperty.pluralizedName) %>$);
+    expect(result).toMatchSnapshot();
+  });<% }); %>
+});
