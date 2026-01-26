@@ -4,6 +4,7 @@
       "ref": "2f786d23479970500b9a68cf9047dd5cecdaedb3",
       "subject": "Bump lodash from 4.17.21 to 4.17.23 in /src (#644)"
     },
-    "targetVersion": "latest"
+    "targetVersion": "latest",
+    "confirmedPackageUpdates": true
   }
 }
