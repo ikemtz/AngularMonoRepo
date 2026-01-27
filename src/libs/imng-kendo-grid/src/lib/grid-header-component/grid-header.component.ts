@@ -68,8 +68,7 @@ import { Observable } from 'rxjs';
         title="Export To PDF"
         kendoGridPDFCommand
         [svgIcon]="icons['filePdfIcon']"
-        class="btn btn-sm mx-1"
-        (click)="parentGrid.saveAsPDF()">
+        class="btn btn-sm mx-1">
         Export to PDF
       </button>
     }
@@ -80,8 +79,7 @@ import { Observable } from 'rxjs';
         title="Export To Excel"
         kendoGridExcelCommand
         [svgIcon]="icons['fileExcelIcon']"
-        class="btn btn-sm mx-1"
-        (click)="parentGrid.saveAsExcel()">
+        class="btn btn-sm mx-1">
         Export To Excel
       </button>
     }

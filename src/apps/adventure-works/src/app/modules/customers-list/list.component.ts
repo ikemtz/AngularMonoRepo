@@ -15,6 +15,7 @@ import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
 import {
   CustomerListFacade,
   CustomerCrudFacade,
+  CustomersModule,
 } from '../customers-ngrx-module';
 import { customerGridState } from './list.grid-state';
 import {
@@ -22,8 +23,7 @@ import {
   CustomerProperties,
   SalesAgentProperties,
 } from '../../models/webapi';
-import { CustomerEditComponent } from '../customers-crud/edit.component';
-import { CustomerAddComponent } from '../customers-crud/add.component';
+import { CustomerAddComponent, CustomerEditComponent } from '../customers-crud';
 
 @Component({
   selector: 'aw-customer-list',
@@ -38,10 +38,10 @@ import { CustomerAddComponent } from '../customers-crud/add.component';
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
-    CustomerEditComponent,
+    CustomersModule,
     CustomerAddComponent,
+    CustomerEditComponent,
   ],
-  providers: [CustomerCrudFacade, CustomerListFacade],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
