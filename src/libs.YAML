@@ -30,7 +30,13 @@ jobs:
           command: 'custom'
           workingDir: 'src'
           customCommand: 'install --legacy-peer-deps'
-
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: 'npx kendo-ui-license activate'
+          workingDirectory: 'src'
+        env:
+          TELERIK_LICENSE: $(TELERIK_LICENSE)
       - task: Bash@3
         displayName: 'running versioneer'
         inputs:

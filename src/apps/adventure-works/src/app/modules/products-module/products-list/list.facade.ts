@@ -9,15 +9,17 @@ import * as productActionTypes from '../+state/product.actions';
 import { IProduct } from '../../../models/odata';
 
 @Injectable()
-export class ProductListFacade implements IKendoODataGridFacade<IProduct>, IDataDeleteFacade<IProduct> {
+export class ProductListFacade
+  implements IKendoODataGridFacade<IProduct>, IDataDeleteFacade<IProduct>
+{
   private readonly store = inject(Store);
 
   loading$ = this.store.select(productsFeature.selectLoading);
   gridData$ = this.store.select(productsFeature.selectGridData);
-  gridPagerSettings$ = this.store.select(productsFeature.selectGridPagerSettings);
+  gridPagerSettings$ = this.store.select(
+    productsFeature.selectGridPagerSettings,
+  );
   gridODataState$ = this.store.select(productsFeature.selectGridODataState);
-
-
 
   public loadEntities(state: ODataState): void {
     this.store.dispatch(productActionTypes.loadProductsRequest(state));

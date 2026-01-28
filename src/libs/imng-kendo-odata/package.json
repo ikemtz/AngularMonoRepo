@@ -7,9 +7,9 @@
     "OData"
   ],
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
-    "@progress/kendo-data-query": ">= 1",
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@progress/kendo-data-query": "*",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
   },

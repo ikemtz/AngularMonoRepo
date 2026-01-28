@@ -1,7 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`ProductListComponent it should getFormatSrc 1`] = `
-SafeUrlImpl {
-  "changingThisBreaksApplicationSecurity": "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
-}
-`;
+exports[`ProductListComponent it should getFormatSrc 1`] = `"test.png"`;

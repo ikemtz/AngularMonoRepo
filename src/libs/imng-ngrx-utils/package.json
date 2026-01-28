@@ -6,10 +6,10 @@
     "NGRX"
   ],
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
-    "@angular/forms": ">= 14",
-    "@ngrx/store": ">= 14",
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@angular/forms": "*",
+    "@ngrx/store": "*",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
   },

@@ -11,9 +11,6 @@ import {
 } from './+state';
 
 import { CustomerApiService } from './customer.api.service';
-import { CustomerCrudFacade } from './customer.crud.facade';
-import { CustomerListFacade } from './customer.list.facade';
-import { CustomerLookupFacade } from './customer.lookup.facade';
 
 @NgModule({
   imports: [
@@ -24,13 +21,6 @@ import { CustomerLookupFacade } from './customer.lookup.facade';
       CustomerLookupEffects,
     ]),
   ],
-  providers: [
-    ODataService,
-    CustomerApiService,
-
-    CustomerCrudFacade,
-    CustomerListFacade,
-    CustomerLookupFacade,
-  ],
+  providers: [ODataService, CustomerApiService],
 })
 export class CustomersModule {}

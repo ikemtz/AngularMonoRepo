@@ -30,16 +30,6 @@ import {
 @NgModule({
   imports: [
     CommonModule,
-    GridModule,
-    ExcelModule,
-    PDFModule,
-    DialogModule,
-    DateInputsModule,
-    DropDownsModule,
-    ImngDataEntryDialogModule,
-    ImngKendoGridFilteringModule,
-    ImngKendoGridModule,
-    ImngKendoGridODataModule,
     ReactiveFormsModule,
     ProductsRoutingModule,
     StoreModule.forFeature(productsFeature),
