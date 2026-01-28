@@ -1,6 +1,8 @@
 ///<reference types="jest" />
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
@@ -20,23 +22,24 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
   let crudFacade: <%= classify(singularizedName) %>CrudFacade;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ 
-      imports: [<%= classify(singularizedName) %>ListComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-    })
-    .overrideComponent(CustomerListComponent, {
-      set: { 
-        providers: [
-          { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade() },
-          { provide: <%= classify(singularizedName) %>CrudFacade, useValue: 
-            {
-              ...createDataEntryMockFacade(),
-              ...createDataDeleteMockFacade(),
-            },
+    TestBed.configureTestingModule({
+      imports: [
+        <%= classify(singularizedName) %>ListComponent,
+        StoreModule.forRoot(),
+        EffectsModule.forRoot([]),
+      ],
+      providers: [
+        { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade() },
+        { provide: <%= classify(singularizedName) %>CrudFacade, useValue:
+          {
+            ...createDataEntryMockFacade(),
+            ...createDataDeleteMockFacade(),
           },
-          provideOidcMockFacade(),
-        ]}})
-    .compileComponents();
+        },
+        provideOidcMockFacade(),
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

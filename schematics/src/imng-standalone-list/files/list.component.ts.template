@@ -15,6 +15,7 @@ import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
 import { <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade, <%= classify(pluralizedName) %>Module } from '../<%= dasherize(pluralizedName) %>-ngrx-module';
 import { <%= camelize(singularizedName) %>GridState } from './list.grid-state';<% if (modelFolderLocation) { %>
 import { I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>Properties, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %><%= classify(swaggerProperty.propertyTypeName) %>Properties<% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
+import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent } from '../<%= dasherize(pluralizedName) %>-crud';
 
 @Component({
   selector: '<%= appPrefix %>-<%= dasherize(singularizedName) %>-list',
@@ -29,6 +30,7 @@ import { I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>Pr
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
+    <%= classify(pluralizedName) %>Module,
     <%= classify(singularizedName) %>AddComponent,
     <%= classify(singularizedName) %>EditComponent,
   ],

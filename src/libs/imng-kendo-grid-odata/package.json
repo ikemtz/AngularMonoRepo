@@ -9,12 +9,12 @@
     "OData"
   ],
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
-    "@angular/router": ">= 14",
-    "@ngrx/store": ">= 14",
-    "@progress/kendo-angular-grid": ">= 6",
-    "@progress/kendo-data-query": ">= 1",
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@angular/router": "*",
+    "@ngrx/store": "*",
+    "@progress/kendo-angular-grid": "*",
+    "@progress/kendo-data-query": "*",
     "imng-kendo-odata": "*",
     "imng-kendo-grid": "*",
     "imng-ngrx-utils": "*",

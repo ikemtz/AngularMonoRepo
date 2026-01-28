@@ -9,10 +9,10 @@
   ],
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
-    "@angular/router": ">= 14",
-    "primeng": ">= 14",
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@angular/router": "*",
+    "primeng": "*",
     "imng-odata-client": "*"
   },
   "dependencies": {

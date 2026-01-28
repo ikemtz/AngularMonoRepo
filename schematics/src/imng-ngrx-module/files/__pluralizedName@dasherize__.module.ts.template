@@ -6,9 +6,6 @@ import { ODataService } from 'imng-kendo-odata';
 import { <%= camelize(pluralizedStoreName) %>Feature, <%= classify(singularizedName) %>ListEffects, <%= classify(singularizedName) %>LookupEffects, <%= classify(singularizedName) %>CrudEffects } from './+state';
 <% if (openApiJsonUrl || openApiJsonFileName) { %>
 import { <%= classify(singularizedName) %>ApiService } from './<%= dasherize(singularizedName) %>.api.service';
-import { <%= classify(singularizedName) %>CrudFacade  } from './<%= dasherize(singularizedName) %>.crud.facade';
-import { <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(singularizedName) %>.list.facade';
-import { <%= classify(singularizedName) %>LookupFacade } from './<%= dasherize(singularizedName) %>.lookup.facade';
 <% } %>
 
 @NgModule({
@@ -18,11 +15,7 @@ import { <%= classify(singularizedName) %>LookupFacade } from './<%= dasherize(s
   ],
   providers: [
     ODataService,
-    <%= classify(singularizedName) %>ApiService,
-    <% if (openApiJsonUrl || openApiJsonFileName) { %>
-    <%= classify(singularizedName) %>CrudFacade,
-    <%= classify(singularizedName) %>ListFacade,
-    <%= classify(singularizedName) %>LookupFacade,<% } %>
+    <%= classify(singularizedName) %>ApiService
   ],
 })
 export class <%= classify(pluralizedName) %>Module { }

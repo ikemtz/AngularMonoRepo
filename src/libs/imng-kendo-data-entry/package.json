@@ -3,15 +3,15 @@
   "description": "A library to make integrating Angular Kendo forms and NGRX a bit simpler.",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
-    "@angular/forms": ">= 14",
-    "@angular/platform-browser": ">= 14",
-    "@ngrx/store": ">= 14",
-    "@progress/kendo-angular-dialog": ">= 6",
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@angular/forms": "*",
+    "@angular/platform-browser": "*",
+    "@ngrx/store": "*",
+    "@progress/kendo-angular-dialog": "*",
     "imng-ngrx-utils": "*",
     "imng-nrsrx-client-utils": "*",
-    "openapi-ts-generator": ">= 7.284.4",
+    "openapi-ts-generator": "*",
     "rxjs": "*"
   },
   "dependencies": {

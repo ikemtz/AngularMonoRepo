@@ -1,6 +1,8 @@
 ///<reference types="jest" />
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
@@ -24,28 +26,24 @@ describe('CustomerListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CustomerListComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    })
-      .overrideComponent(CustomerListComponent, {
-        set: {
-          providers: [
-            {
-              provide: CustomerListFacade,
-              useValue: createODataGridMockFacade(),
-            },
-            {
-              provide: CustomerCrudFacade,
-              useValue: {
-                ...createDataEntryMockFacade(),
-                ...createDataDeleteMockFacade(),
-              },
-            },
-            provideOidcMockFacade(),
-          ],
+      imports: [
+        CustomerListComponent,
+        StoreModule.forRoot(),
+        EffectsModule.forRoot([]),
+      ],
+      providers: [
+        { provide: CustomerListFacade, useValue: createODataGridMockFacade() },
+        {
+          provide: CustomerCrudFacade,
+          useValue: {
+            ...createDataEntryMockFacade(),
+            ...createDataDeleteMockFacade(),
+          },
         },
-      })
-      .compileComponents();
+        provideOidcMockFacade(),
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

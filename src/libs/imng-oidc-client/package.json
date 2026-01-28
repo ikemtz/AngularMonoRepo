@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "description": "Small library to facilitate the integration of the ng-oidc-client library with the Auth0 identity provider.",
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
-    "@angular/router": ">= 14",
-    "@ngrx/store": ">= 14",
-    "@ngrx/effects": ">= 14",
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@angular/router": "*",
+    "@ngrx/store": "*",
+    "@ngrx/effects": "*",
     "imng-ngrx-utils": "*",
     "imng-nrsrx-client-utils": "*",
-    "oidc-client": ">=1.x",
+    "oidc-client": "*",
     "rxjs": "*"
   },
   "dependencies": {

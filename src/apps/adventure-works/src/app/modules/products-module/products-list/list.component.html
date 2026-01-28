@@ -19,9 +19,7 @@
   <kendo-grid-column [field]="props.ID" [width]="100" title="Id" filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="
-          `${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`
-        "
+        [displayValue]="`${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`"
         [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -103,9 +101,7 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="
-          `${(dataItem[props.PRODUCT_CATEGORY_ID] | slice: 0 : 4)}.-.${(dataItem[props.PRODUCT_CATEGORY_ID] | slice: -4)}`
-        "
+        [displayValue]="`${(dataItem[props.PRODUCT_CATEGORY_ID] | slice: 0 : 4)}.-.${(dataItem[props.PRODUCT_CATEGORY_ID] | slice: -4)}`"
         [copyValue]="dataItem[props.PRODUCT_CATEGORY_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -122,9 +118,7 @@
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="
-          `${(dataItem[props.PRODUCT_MODEL_ID] | slice: 0 : 4)}.-.${(dataItem[props.PRODUCT_MODEL_ID] | slice: -4)}`
-        "
+        [displayValue]="`${(dataItem[props.PRODUCT_MODEL_ID] | slice: 0 : 4)}.-.${(dataItem[props.PRODUCT_MODEL_ID] | slice: -4)}`"
         [copyValue]="dataItem[props.PRODUCT_MODEL_ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -173,9 +167,9 @@
     title="Thumb Nail Photo"
     filter="text">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <img
+      <!-- <img
         [src]="getFormatSrc(dataItem[props.THUMB_NAIL_PHOTO])"
-        [alt]="dataItem[props.NAME]" />
+        [alt]="dataItem[props.NAME]" /> -->
     </ng-template>
   </kendo-grid-column>
   <kendo-grid-column

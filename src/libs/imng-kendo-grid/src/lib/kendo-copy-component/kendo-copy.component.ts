@@ -4,12 +4,12 @@ import {
   ChangeDetectionStrategy,
   OnInit,
 } from '@angular/core';
-import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_ICONS } from '@progress/kendo-angular-icons';
 import { copyIcon } from '@progress/kendo-svg-icons';
 
 @Component({
   selector: 'imng-kendo-copy[copyValue]',
-  imports: [KENDO_SVGICON],
+  imports: [KENDO_ICONS],
   template: `
     <a (click)="copy()" [title]="'Copy the full value: ' + copyValue"
       >{{ displayValue }}&nbsp;

@@ -386,9 +386,6 @@ import { ODataService } from 'imng-kendo-odata';
 import { productsFeature, ProductListEffects, ProductLookupEffects, ProductCrudEffects } from './+state';
 
 import { ProductApiService } from './product.api.service';
-import { ProductCrudFacade  } from './product.crud.facade';
-import { ProductListFacade } from './product.list.facade';
-import { ProductLookupFacade } from './product.lookup.facade';
 
 
 @NgModule({
@@ -398,11 +395,7 @@ import { ProductLookupFacade } from './product.lookup.facade';
   ],
   providers: [
     ODataService,
-    ProductApiService,
-    
-    ProductCrudFacade,
-    ProductListFacade,
-    ProductLookupFacade,
+    ProductApiService
   ],
 })
 export class ProductsModule { }

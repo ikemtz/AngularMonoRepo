@@ -8,11 +8,11 @@
     "DataGrid"
   ],
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
-    "@angular/forms": ">= 14",
-    "@progress/kendo-angular-grid": ">= 6",
-    "@progress/kendo-data-query": ">= 1",
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@angular/forms": "*",
+    "@progress/kendo-angular-grid": "*",
+    "@progress/kendo-data-query": "*",
     "imng-ngrx-utils": "*",
     "imng-nrsrx-client-utils": "*",
     "rxjs": "*"
