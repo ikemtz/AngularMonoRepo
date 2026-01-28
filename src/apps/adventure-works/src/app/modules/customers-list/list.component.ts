@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AsyncPipe, SlicePipe } from '@angular/common';
 import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
 import { KENDO_MENU } from '@progress/kendo-angular-menu';
-import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_ICONS } from '@progress/kendo-angular-icons';
 import { IMNG_KENDO_COPY, IMNG_KENDO_GRID_HEADER } from 'imng-kendo-grid';
 import { IMNG_KENDO_GRID_UUID_FILTER } from 'imng-kendo-grid-filtering';
 import {
@@ -15,6 +15,7 @@ import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
 import {
   CustomerListFacade,
   CustomerCrudFacade,
+  CustomersModule,
 } from '../customers-ngrx-module';
 import { customerGridState } from './list.grid-state';
 import {
@@ -22,8 +23,7 @@ import {
   CustomerProperties,
   SalesAgentProperties,
 } from '../../models/webapi';
-import { CustomerEditComponent } from '../customers-crud/edit.component';
-import { CustomerAddComponent } from '../customers-crud/add.component';
+import { CustomerAddComponent, CustomerEditComponent } from '../customers-crud';
 
 @Component({
   selector: 'aw-customer-list',
@@ -32,16 +32,16 @@ import { CustomerAddComponent } from '../customers-crud/add.component';
     AsyncPipe,
     KENDO_GRID,
     KENDO_MENU,
-    KENDO_SVGICON,
+    KENDO_ICONS,
     IMNG_KENDO_GRID_HEADER,
     IMNG_KENDO_GRID_ODATA,
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
-    CustomerEditComponent,
+    CustomersModule,
     CustomerAddComponent,
+    CustomerEditComponent,
   ],
-  providers: [CustomerCrudFacade, CustomerListFacade],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

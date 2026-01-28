@@ -27,7 +27,6 @@ import { CustomerLookupFacade } from './customer.lookup.facade';
   providers: [
     ODataService,
     CustomerApiService,
-
     CustomerCrudFacade,
     CustomerListFacade,
     CustomerLookupFacade,

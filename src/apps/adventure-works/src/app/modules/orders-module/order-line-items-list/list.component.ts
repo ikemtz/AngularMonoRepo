@@ -13,7 +13,7 @@ import { OrderLineItemListFacade } from './list.facade';
 import { IOrderLineItem, OrderLineItemProperties } from '../../../models/odata';
 import { SlicePipe } from '@angular/common';
 import { KENDO_GRID } from '@progress/kendo-angular-grid';
-import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_ICONS } from '@progress/kendo-angular-icons';
 import { KENDO_MENUS } from '@progress/kendo-angular-menu';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
 import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
@@ -41,7 +41,7 @@ const initialGridState: ODataState = {
     SlicePipe,
     KENDO_GRID,
     KENDO_MENUS,
-    KENDO_SVGICON,
+    KENDO_ICONS,
     ImngKendoGridModule,
     ImngKendoGridODataModule,
     ImngKendoGridFilteringModule,

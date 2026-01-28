@@ -9,11 +9,11 @@ import {
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
 import {
   SVGIcon,
-  fileAddIcon,
   filePdfIcon,
   fileExcelIcon,
   filterClearIcon,
   arrowsNoRepeatIcon,
+  plusIcon,
 } from '@progress/kendo-svg-icons';
 import { Observable } from 'rxjs';
 
@@ -68,8 +68,7 @@ import { Observable } from 'rxjs';
         title="Export To PDF"
         kendoGridPDFCommand
         [svgIcon]="icons['filePdfIcon']"
-        class="btn btn-sm mx-1"
-        (click)="parentGrid.saveAsPDF()">
+        class="btn btn-sm mx-1">
         Export to PDF
       </button>
     }
@@ -80,8 +79,7 @@ import { Observable } from 'rxjs';
         title="Export To Excel"
         kendoGridExcelCommand
         [svgIcon]="icons['fileExcelIcon']"
-        class="btn btn-sm mx-1"
-        (click)="parentGrid.saveAsExcel()">
+        class="btn btn-sm mx-1">
         Export To Excel
       </button>
     }
@@ -125,7 +123,7 @@ export class IMNG_KENDO_GRID_HEADER {
   parentGrid = inject<GridComponent>(GridComponent);
   public icons: Record<string, SVGIcon> = {
     filePdfIcon: filePdfIcon,
-    fileAddIcon: fileAddIcon,
+    plusIcon: plusIcon,
     fileExcelIcon: fileExcelIcon,
     filterClearIcon: filterClearIcon,
     arrowsNoRepeatIcon: arrowsNoRepeatIcon,
