@@ -1,11 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`error handlers handleEffectError should work 1`] = `
-ZoneAwarePromise {
-  "__zone_symbol__state": true,
-  "__zone_symbol__value": "[unit] test",
-}
-`;
+exports[`error handlers handleEffectError should work 1`] = `Promise {}`;
 
 exports[`error handlers imngEffectError should work 1`] = `
 {

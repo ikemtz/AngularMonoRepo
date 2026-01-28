@@ -314,9 +314,6 @@ import { ODataService } from 'imng-kendo-odata';
 import { ordersFeature, OrderListEffects, OrderLookupEffects, OrderCrudEffects } from './+state';
 
 import { OrderApiService } from './order.api.service';
-import { OrderCrudFacade  } from './order.crud.facade';
-import { OrderListFacade } from './order.list.facade';
-import { OrderLookupFacade } from './order.lookup.facade';
 
 
 @NgModule({
@@ -326,11 +323,7 @@ import { OrderLookupFacade } from './order.lookup.facade';
   ],
   providers: [
     ODataService,
-    OrderApiService,
-    
-    OrderCrudFacade,
-    OrderListFacade,
-    OrderLookupFacade,
+    OrderApiService
   ],
 })
 export class OrdersModule { }

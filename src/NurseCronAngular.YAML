@@ -31,6 +31,12 @@ jobs:
           workingDir: 'src'
           customCommand: 'install --legacy-peer-deps'
 
+      - script: npx kendo-ui-license activate
+        displayName: 'Activate Kendo UI License'
+        inputs:
+          workingDir: 'src'
+        env:
+          TELERIK_LICENSE: $(TELERIK_LICENSE)
       - task: Bash@3
         displayName: 'running versioneer'
         inputs:

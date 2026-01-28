@@ -6,9 +6,8 @@ import {
   KENDO_GRID_EXCEL_EXPORT,
   KENDO_GRID_PDF_EXPORT,
 } from '@progress/kendo-angular-grid';
-import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_ICONS } from '@progress/kendo-angular-icons';
 import {
-  SVGIcon,
   filePdfIcon,
   fileExcelIcon,
   filterClearIcon,
@@ -24,7 +23,7 @@ import { Observable } from 'rxjs';
     KENDO_GRID,
     KENDO_GRID_PDF_EXPORT,
     KENDO_GRID_EXCEL_EXPORT,
-    KENDO_SVGICON,
+    KENDO_ICONS,
   ],
   template: `<div class="mr-5 pr-5">
     @if (entityName) {
@@ -35,7 +34,7 @@ import { Observable } from 'rxjs';
         primary="true"
         (click)="addItemClicked.emit()"
         class="btn btn-sm btn-primary mx-1">
-        <kendo-svgicon [icon]="icons['fileAddIcon']"></kendo-svgicon>
+        <kendo-svg-icon [icon]="plusIcon"></kendo-svg-icon>
         Add {{ entityName }}
       </button>
     }
@@ -46,8 +45,7 @@ import { Observable } from 'rxjs';
         title="Reset Filters"
         (click)="resetFiltersClicked.emit()"
         class="btn btn-sm mx-1">
-        <kendo-svgicon [icon]="icons['filterClearIcon']"></kendo-svgicon> Reset
-        Filters
+        <kendo-svgicon [icon]="filterClearIcon"></kendo-svgicon> Reset Filters
       </button>
     }
     @if (hideReloadData !== true) {
@@ -57,7 +55,7 @@ import { Observable } from 'rxjs';
         title="Clear Cache And Reload Data"
         (click)="reloadEntitiesClicked.emit()"
         class="btn btn-sm mx-1">
-        <kendo-svgicon [icon]="icons['arrowsNoRepeatIcon']"></kendo-svgicon>
+        <kendo-svgicon [icon]="arrowsNoRepeatIcon"></kendo-svgicon>
         Reload Data
       </button>
     }
@@ -67,7 +65,7 @@ import { Observable } from 'rxjs';
         type="button"
         title="Export To PDF"
         kendoGridPDFCommand
-        [svgIcon]="icons['filePdfIcon']"
+        [svgIcon]="filePdfIcon"
         class="btn btn-sm mx-1">
         Export to PDF
       </button>
@@ -78,7 +76,7 @@ import { Observable } from 'rxjs';
         type="button"
         title="Export To Excel"
         kendoGridExcelCommand
-        [svgIcon]="icons['fileExcelIcon']"
+        [svgIcon]="fileExcelIcon"
         class="btn btn-sm mx-1">
         Export To Excel
       </button>
@@ -121,13 +119,12 @@ import { Observable } from 'rxjs';
 })
 export class IMNG_KENDO_GRID_HEADER {
   parentGrid = inject<GridComponent>(GridComponent);
-  public icons: Record<string, SVGIcon> = {
-    filePdfIcon: filePdfIcon,
-    plusIcon: plusIcon,
-    fileExcelIcon: fileExcelIcon,
-    filterClearIcon: filterClearIcon,
-    arrowsNoRepeatIcon: arrowsNoRepeatIcon,
-  };
+  public readonly filePdfIcon = filePdfIcon;
+  public readonly plusIcon = plusIcon;
+  public readonly fileExcelIcon = fileExcelIcon;
+  public readonly filterClearIcon = filterClearIcon;
+  public readonly arrowsNoRepeatIcon = arrowsNoRepeatIcon;
+
   @Input()
   public entityName = '';
   @Input()

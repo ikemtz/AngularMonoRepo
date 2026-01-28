@@ -13,6 +13,7 @@ import { createTestProduct } from '../../../models/odata';
 import { provideRouter } from '@angular/router';
 import { productRoutes } from '../products.routing';
 import { provideOidcMockFacade } from 'imng-oidc-client/testing';
+import { DomSanitizer } from '@angular/platform-browser';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -31,6 +32,13 @@ describe('ProductListComponent', () => {
         { provide: ProductCrudFacade, useValue: createDataEntryMockFacade() },
         provideRouter(productRoutes),
         provideOidcMockFacade(),
+        {
+          provide: DomSanitizer,
+          useValue: {
+            bypassSecurityTrustHtml: jest.fn(),
+            bypassSecurityTrustUrl: jest.fn(() => 'test.png'),
+          },
+        },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
