@@ -9,11 +9,11 @@ import {
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
 import {
   SVGIcon,
-  fileAddIcon,
   filePdfIcon,
   fileExcelIcon,
   filterClearIcon,
   arrowsNoRepeatIcon,
+  plusIcon,
 } from '@progress/kendo-svg-icons';
 import { Observable } from 'rxjs';
 
@@ -123,7 +123,7 @@ export class IMNG_KENDO_GRID_HEADER {
   parentGrid = inject<GridComponent>(GridComponent);
   public icons: Record<string, SVGIcon> = {
     filePdfIcon: filePdfIcon,
-    fileAddIcon: fileAddIcon,
+    plusIcon: plusIcon,
     fileExcelIcon: fileExcelIcon,
     filterClearIcon: filterClearIcon,
     arrowsNoRepeatIcon: arrowsNoRepeatIcon,

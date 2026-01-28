@@ -21,7 +21,7 @@ import {
   ProductProperties,
 } from '../../../models/odata';
 import { AsyncPipe, SlicePipe } from '@angular/common';
-import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_ICONS } from '@progress/kendo-angular-icons';
 import { KENDO_MENUS } from '@progress/kendo-angular-menu';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
@@ -70,7 +70,7 @@ const initialGridState: ODataState = {
     SlicePipe,
     KENDO_GRID,
     KENDO_MENUS,
-    KENDO_SVGICON,
+    KENDO_ICONS,
     ImngKendoGridModule,
     ImngKendoGridODataModule,
     ImngKendoGridFilteringModule,
@@ -87,7 +87,7 @@ export class ProductListComponent extends KendoODataBasedComponent<
   ProductListFacade
 > {
   readonly crudFacade = inject(ProductCrudFacade);
-  private domSanitizer = inject(DomSanitizer);
+  private readonly domSanitizer = inject(DomSanitizer);
 
   public readonly props = ProductProperties;
   public readonly productModelProps = ProductModelProperties;

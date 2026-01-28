@@ -9,10 +9,10 @@
     "DataGrid"
   ],
   "peerDependencies": {
-    "@angular/common": ">= 14",
-    "@angular/core": ">= 14",
-    "@progress/kendo-angular-grid": ">= 6",
-    "@progress/kendo-svg-icons": ">= 1",
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@progress/kendo-angular-grid": "*",
+    "@progress/kendo-svg-icons": "*",
     "imng-kendo-odata": "*",
     "rxjs": "*"
   },

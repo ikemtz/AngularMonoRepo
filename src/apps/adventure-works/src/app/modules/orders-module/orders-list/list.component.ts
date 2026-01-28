@@ -22,7 +22,7 @@ import {
 } from '../../../models/odata';
 import { IExtOrder } from '../models/ext-order';
 import { AsyncPipe, SlicePipe } from '@angular/common';
-import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_ICONS } from '@progress/kendo-angular-icons';
 import { KENDO_MENUS } from '@progress/kendo-angular-menu';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { ImngKendoGridModule } from 'imng-kendo-grid';
@@ -73,7 +73,7 @@ const initialGridState: ODataState = {
     SlicePipe,
     KENDO_GRID,
     KENDO_MENUS,
-    KENDO_SVGICON,
+    KENDO_ICONS,
     ImngKendoGridModule,
     ImngKendoGridODataModule,
     ImngKendoGridFilteringModule,

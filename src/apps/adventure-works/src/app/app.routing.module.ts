@@ -6,14 +6,6 @@ import { HomeComponent } from './home/home.component';
 export const appRoutes: Routes = [
   {
     path: 'customers',
-    loadChildren: () =>
-      import('./modules/customers-module/customers.module').then(
-        (m) => m.CustomersModule,
-      ),
-    canActivateChild: [AuthGuard],
-  },
-  {
-    path: 'standalone-customers',
     loadComponent: () =>
       import('./modules/customers-list/list.component').then(
         (m) => m.CustomerListComponent,
