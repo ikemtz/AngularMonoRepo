@@ -9,9 +9,9 @@
     "@angular/platform-browser": "*",
     "@ngrx/store": "*",
     "@progress/kendo-angular-dialog": "*",
-    "imng-ngrx-utils": "*",
-    "imng-nrsrx-client-utils": "*",
-    "openapi-ts-generator": "*",
+    "imng-ngrx-utils": "0.0.0",
+    "imng-nrsrx-client-utils": "0.0.0",
+    "openapi-ts-generator": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {

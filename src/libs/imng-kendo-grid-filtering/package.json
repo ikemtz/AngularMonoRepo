@@ -12,8 +12,8 @@
     "@angular/core": "*",
     "@progress/kendo-angular-grid": "*",
     "@progress/kendo-data-query": "*",
-    "imng-kendo-odata": "*",
-    "imng-nrsrx-client-utils": "*",
+    "imng-kendo-odata": "0.0.0",
+    "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {

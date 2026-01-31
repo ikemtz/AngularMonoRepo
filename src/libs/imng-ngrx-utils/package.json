@@ -10,7 +10,7 @@
     "@angular/core": "*",
     "@angular/forms": "*",
     "@ngrx/store": "*",
-    "imng-nrsrx-client-utils": "*",
+    "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {

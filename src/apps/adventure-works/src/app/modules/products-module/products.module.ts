@@ -3,18 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-import { DialogModule } from '@progress/kendo-angular-dialog';
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import {
-  GridModule,
-  ExcelModule,
-  PDFModule,
-} from '@progress/kendo-angular-grid';
-import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
-import { ImngKendoGridModule } from 'imng-kendo-grid';
-import { ImngKendoGridFilteringModule } from 'imng-kendo-grid-filtering';
-import { ImngKendoGridODataModule } from 'imng-kendo-grid-odata';
 
 import { ProductsRoutingModule } from './products.routing';
 import { productsFeature } from './+state/product.reducer';

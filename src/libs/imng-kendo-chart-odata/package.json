@@ -14,7 +14,7 @@
     "@angular/core": "*",
     "@progress/kendo-data-query": "*",
     "@progress/kendo-angular-charts": "*",
-    "imng-nrsrx-client-utils": "*",
+    "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {

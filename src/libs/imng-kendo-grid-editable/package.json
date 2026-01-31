@@ -13,8 +13,8 @@
     "@angular/forms": "*",
     "@progress/kendo-angular-grid": "*",
     "@progress/kendo-data-query": "*",
-    "imng-ngrx-utils": "*",
-    "imng-nrsrx-client-utils": "*",
+    "imng-ngrx-utils": "0.0.0",
+    "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {

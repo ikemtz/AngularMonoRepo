@@ -8,8 +8,8 @@
     "@angular/router": "*",
     "@ngrx/store": "*",
     "@ngrx/effects": "*",
-    "imng-ngrx-utils": "*",
-    "imng-nrsrx-client-utils": "*",
+    "imng-ngrx-utils": "0.0.0",
+    "imng-nrsrx-client-utils": "0.0.0",
     "oidc-client": "*",
     "rxjs": "*"
   },

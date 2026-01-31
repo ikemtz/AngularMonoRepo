@@ -11,6 +11,7 @@ import {
 import {
   EnumProperties,
   getEnum,
+  getEnumKey,
   getEnumDisplayText,
   IEnumValue,
 } from 'openapi-ts-generator/enums';
@@ -24,6 +25,9 @@ export abstract class KendoGridBaseComponent<ENTITY>
 {
   public readonly allSubscriptions = new Subscriptions();
   public readonly EnumProperties = EnumProperties;
+  public readonly getEnum = getEnum;
+  public readonly getEnumDisplayText = getEnumDisplayText;
+  public readonly getEnumKey = getEnumKey;
   public readonly getRelatedValue = getRelatedValue;
   public icons = {
     check: checkIcon,
@@ -40,21 +44,7 @@ export abstract class KendoGridBaseComponent<ENTITY>
   public getRelatedField(...segments: string[]): string {
     return segments.join('.');
   }
-  public getEnumKey(data: IEnumValue[], nameValue: string): number | undefined {
-    return this.getEnum(data, nameValue)?.key;
-  }
-  public getEnumText(
-    data: IEnumValue[],
-    looupValue: string,
-  ): string | undefined {
-    return getEnumDisplayText(data, looupValue);
-  }
-  public getEnum(
-    data: IEnumValue[],
-    looupValue: string,
-  ): IEnumValue | undefined {
-    return getEnum(data, looupValue);
-  }
+
   public ngOnDestroy(): void {
     this.allSubscriptions.unsubscribeAll();
   }
