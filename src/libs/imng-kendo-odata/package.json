@@ -10,7 +10,7 @@
     "@angular/common": "*",
     "@angular/core": "*",
     "@progress/kendo-data-query": "*",
-    "imng-nrsrx-client-utils": "*",
+    "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {
