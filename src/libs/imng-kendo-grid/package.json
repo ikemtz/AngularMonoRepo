@@ -14,7 +14,7 @@
     "@progress/kendo-angular-grid": "*",
     "@progress/kendo-svg-icons": "*",
     "imng-kendo-odata": "0.0.0",
-    "openapi-ts-generator": "0.0.0",
+    "openapi-ts-generator": ">=10.0.0",
     "rxjs": "*"
   },
   "dependencies": {

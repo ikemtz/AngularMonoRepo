@@ -18,3 +18,7 @@ sed -i "$applicationRegex" ./apps/*/src/environments/environment*ts
 
 latestValue="s/latest/${buildNumber}/g"
 sed -i "$latestValue" ./libs/imng-angular-core/package.json
+
+imngPackageRegex='s/(imng-[a-z-]*)": "0.0.0/$1": "'
+imngPackageRegex="${imngPackageRegex}${buildNumber}/gm;t"
+sed -i "$imngPackageRegex" ./libs/imng-*/package.json
