@@ -4,7 +4,7 @@
   "peerDependencies": {
     "@angular/common": "*",
     "@angular/core": "*",
-    "imng-nrsrx-client-utils": "*",
+    "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"
   },
   "keywords": [

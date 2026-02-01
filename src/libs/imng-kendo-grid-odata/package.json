@@ -15,10 +15,10 @@
     "@ngrx/store": "*",
     "@progress/kendo-angular-grid": "*",
     "@progress/kendo-data-query": "*",
-    "imng-kendo-odata": "*",
-    "imng-kendo-grid": "*",
-    "imng-ngrx-utils": "*",
-    "imng-nrsrx-client-utils": "*",
+    "imng-kendo-odata": "0.0.0",
+    "imng-kendo-grid": "0.0.0",
+    "imng-ngrx-utils": "0.0.0",
+    "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {
