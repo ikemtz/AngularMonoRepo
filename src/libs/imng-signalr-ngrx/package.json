@@ -12,8 +12,8 @@
     "@ngrx/store": "*",
     "@ngrx/effects": "*",
     "@microsoft/signalr": "*",
-    "imng-ngrx-utils": "*",
-    "imng-oidc-client": "*"
+    "imng-ngrx-utils": "0.0.0",
+    "imng-oidc-client": "0.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

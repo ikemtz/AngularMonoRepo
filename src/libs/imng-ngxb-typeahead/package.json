@@ -13,7 +13,7 @@
     "@angular/platform-browser": ">= 14",
     "@progress/kendo-data-query": ">= 1",
     "ngx-bootstrap": ">=10",
-    "imng-ngrx-utils": "*",
+    "imng-ngrx-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {

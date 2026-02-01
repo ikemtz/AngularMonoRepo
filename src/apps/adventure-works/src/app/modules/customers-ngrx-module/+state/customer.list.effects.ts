@@ -8,7 +8,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { customersFeature } from './customer.feature';
 import * as customerActionTypes from './customer.actions';
-import { ICustomer, CustomerProperties } from '../../../models/webapi';
+import { ICustomer } from '../../../models/webapi';
 import { environment } from '@env';
 
 @Injectable()

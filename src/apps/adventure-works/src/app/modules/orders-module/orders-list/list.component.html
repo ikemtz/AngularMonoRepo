@@ -57,9 +57,7 @@
     [hidden]="true">
     <ng-template kendoGridCellTemplate let-dataItem>
       <imng-kendo-copy
-        [displayValue]="
-          `${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`
-        "
+        [displayValue]="`${(dataItem[props.ID] | slice: 0 : 4)}.-.${(dataItem[props.ID] | slice: -4)}`"
         [copyValue]="dataItem[props.ID]" />
     </ng-template>
     <ng-template kendoGridFilterMenuTemplate let-filter>
@@ -132,7 +130,7 @@
         [field]="props.STATUS_TYPE" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ getEnumText(orderStatusTypes, dataItem[props.STATUS_TYPE]) }}
+      {{ getEnumDisplayText(orderStatusTypes, dataItem[props.STATUS_TYPE]) }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Status Type</span>
@@ -192,7 +190,7 @@
         [field]="props.SHIPPING_TYPE" />
     </ng-template>
     <ng-template kendoGridCellTemplate let-dataItem>
-      {{ getEnumText(shippingTypes, dataItem[props.SHIPPING_TYPE]) }}
+      {{ getEnumDisplayText(shippingTypes, dataItem[props.SHIPPING_TYPE]) }}
     </ng-template>
     <ng-template class="header" kendoGridHeaderTemplate let-column>
       <span class="h6">Shipping Type</span>
