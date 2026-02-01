@@ -348,3 +348,4 @@ src/.nx
 refresh-local-branch.sh
 schematics/.swp
 src/telerik-license.txt
+src/UsersIkemtAppDataLocalTempnx-*

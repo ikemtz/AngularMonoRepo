@@ -11,9 +11,9 @@
     "@angular/common": "*",
     "@angular/core": "*",
     "@progress/kendo-angular-grid": "*",
-    "imng-kendo-grid": "*",
-    "imng-kendo-odata": "*",
-    "imng-ngrx-utils": "*",
+    "imng-kendo-grid": "0.0.0",
+    "imng-kendo-odata": "0.0.0",
+    "imng-ngrx-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {

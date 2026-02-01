@@ -14,8 +14,8 @@
     "@ngrx/store": "*",
     "@progress/kendo-angular-dialog": "*",
     "@progress/kendo-angular-buttons": "*",
-    "imng-oidc-client": "*",
-    "imng-ngrx-utils": "*",
+    "imng-oidc-client": "0.0.0",
+    "imng-ngrx-utils": "0.0.0",
     "rxjs": "*"
   },
   "dependencies": {
