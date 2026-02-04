@@ -160,7 +160,7 @@
     "@microsoft/signalr": "^10.0.0",
     "@ngrx/effects": "21.0.0",
     "@ngrx/operators": "21.0.0",
-    "@ngrx/router-store": "21.0.0",
+    "@ngrx/router-store": "21.0.1",
     "@ngrx/store": "21.0.0",
     "@ngrx/store-devtools": "21.0.0",
     "@progress/kendo-angular-buttons": "^22.0.1",
