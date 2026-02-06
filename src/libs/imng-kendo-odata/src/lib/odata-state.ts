@@ -1,17 +1,34 @@
 import {
-  State,
   FilterDescriptor,
-  CompositeFilterDescriptor,
   SortDescriptor,
+  GroupDescriptor,
 } from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
+import { ICompositeFilter } from 'imng-odata-client';
 
-export interface ODataState extends State {
+export interface ODataState {
+  /**
+   * The number of reco rds to be skipped by the pager.
+   */
+  skip?: number;
+  /**
+   * The number of records to take.
+   */
+  take?: number;
+  /**
+   * The descriptors used for sorting.
+   */
+  sort?: Array<SortDescriptor>;
+  /**
+   * The descriptors used for grouping.
+   */
+  group?: Array<GroupDescriptor>;
   expanders?: Array<Expander>;
   selectors?: string[];
   inFilters?: InFilter[];
   notInFilters?: InFilter[];
   childFilters?: CompositeChildFilterDescriptor;
+  filter?: ICompositeFilter;
   count?: boolean;
   transformations?: string;
   compute?: Array<Computation | string>;
@@ -89,7 +106,7 @@ export interface Expander {
   table: string;
   selectors?: string[];
   expanders?: Array<Expander | string>;
-  filter?: CompositeFilterDescriptor;
+  filter?: ICompositeFilter;
   sort?: Array<SortDescriptor>;
   count?: boolean;
 }

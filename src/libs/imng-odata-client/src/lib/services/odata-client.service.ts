@@ -1,21 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { getFilterOperator } from '../helpers/get-filter-operator';
 import {
-  ChildFilter,
-  CompositeFilter,
   Expander,
   FetchOptions,
-  Filter,
-  isChildFilter,
-  isCompositeFilter,
   isExpander,
   ODataQuery,
   ODataResult,
 } from '../models';
 import { mapData } from '../operators/map-data';
+import { processFilters } from '../helpers/filter-processor';
 
+export const uuidRegex = /T\d{2}:\d{2}:\d{2}.\d{3}Z/gi;
 @Injectable({
   providedIn: 'root',
 })
@@ -35,7 +31,7 @@ export class ODataClientService {
 
   public getODataString(query: ODataQuery, options: FetchOptions = {}): string {
     let queryString = '';
-    queryString = this.processFilters(query, options, queryString);
+    queryString = processFilters(query, queryString);
     queryString = this.processOrderBy(query, queryString);
     queryString = this.processSelectors(query, queryString);
     queryString = this.processExpanders(query, queryString);
@@ -73,7 +69,7 @@ export class ODataClientService {
         count: element.count ?? false,
         expand: undefined,
       };
-      result += `${this.getODataString(query).replace(/&/g, ';')};`;
+      result += `${this.getODataString(query).replaceAll('&', ';')};`;
       if (element.expand) {
         const expanders = element.expand.map((expander) => {
           if (isExpander(expander)) {
@@ -98,46 +94,11 @@ export class ODataClientService {
       return queryString;
     }
     const sortString = query.orderBy
-      .map((m) => `${m.field}${m.dir === 'desc' ? '+desc' : ''}`)
+      .map((m) => `${m.field}${m.dir === 'desc' ? ' desc' : ''}`)
       .join(',');
     return `${queryString}&$orderby=${sortString}`;
   }
-  processFilters(
-    query: ODataQuery,
-    _options: FetchOptions,
-    queryString: string,
-  ): string {
-    if (!query.filter?.filters?.length) {
-      return queryString;
-    }
-    const filterString = this.serializeCompositeFilter(query.filter);
-    return `${queryString}&$filter=${filterString}`;
-  }
-  serializeCompositeFilter(filter: CompositeFilter): string {
-    const filterLogicSeperator = `+${filter.logic}+`;
-    return `(${filter.filters
-      .map((m) =>
-        isCompositeFilter(m)
-          ? this.serializeCompositeFilter(m)
-          : this.serializeFilter(m),
-      )
-      .filter((m) => m && m !== '()')
-      .join(filterLogicSeperator)})`;
-  }
 
-  public serializeFilter(filter: Filter | ChildFilter): string {
-    const odataStringFunction =
-      filter.operator?.toODataString ||
-      getFilterOperator(filter.operator?.name || 'equals').toODataString;
-    if (isChildFilter(filter)) {
-      const childFieldName = `o/${filter.field}`;
-      return `${filter.childTable}/${
-        filter.linqOperation
-      }(o: ${odataStringFunction(childFieldName, filter.value as never)})`;
-    } else {
-      return odataStringFunction(filter.field, filter.value as never);
-    }
-  }
   processSimpleParameters(
     parameterName: 'skip' | 'top',
     query: ODataQuery,
@@ -153,7 +114,7 @@ export class ODataClientService {
   }
   processCacheBusting(options: FetchOptions, queryString: string): string {
     if (options.bustCache) {
-      const timeStamp = new Date().toISOString().replace(/[-:.TZ]/g, '');
+      const timeStamp = new Date().toISOString().replaceAll(/[-:.TZ]/g, '');
       return `${queryString}&timestamp=${timeStamp}`;
     }
     return queryString;
@@ -184,7 +145,7 @@ export class ODataClientService {
       (date) =>
         (queryString = queryString.replace(
           date,
-          date.replace(/T\d{2}:\d{2}:\d{2}.\d{3}Z/g, ''),
+          date.replaceAll(uuidRegex, ''),
         )),
     );
     return queryString;
@@ -206,7 +167,7 @@ export class ODataClientService {
     }
     guidMatches.forEach(
       (guid) =>
-        (queryString = queryString.replace(guid, guid.replace(/'/g, ''))),
+        (queryString = queryString.replaceAll(guid, guid.replaceAll("'", ''))),
     );
     return queryString;
   }
