@@ -75,7 +75,7 @@ describe('UnitListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'units-odata/odata/v1/Units?&$count=true',
+        'units-odata/odata/v1/Units?$count=true',
       );
 
       facade.reloadEntities();

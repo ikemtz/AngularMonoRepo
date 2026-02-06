@@ -1,10 +1,10 @@
-import { ChildFilter } from './child-filter';
-import { Filter } from './filter';
+import { IChildFilter } from './child-filter';
+import { IFilter } from './filter';
 
 /**
  * A complex filter expression.
  */
-export interface CompositeFilter {
+export interface ICompositeFilter {
   /**
    * The logical operation to use when the `filter.filters` option is set.
    *
@@ -16,11 +16,11 @@ export interface CompositeFilter {
   /**
    * The nested filter expressions
    */
-  filters: Array<Filter | ChildFilter | CompositeFilter>;
+  filters: Array<IFilter | IChildFilter | ICompositeFilter>;
 }
 
 export function isCompositeFilter(
-  source: CompositeFilter | Filter | ChildFilter,
-): source is CompositeFilter {
-  return !!(source as CompositeFilter)?.filters;
+  source: ICompositeFilter | IFilter | IChildFilter,
+): source is ICompositeFilter {
+  return !!(source as ICompositeFilter)?.filters;
 }
