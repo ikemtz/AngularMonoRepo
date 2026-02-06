@@ -9,15 +9,15 @@
 import { OrderLineItemProperties } from './order-line-item.properties';
 
 export function createTestOrderLineItem() {
-    return { 
-      [OrderLineItemProperties.ID]: 'ID',
-      [OrderLineItemProperties.ORDER_ID]: 'ORDER_ID',
-      [OrderLineItemProperties.ORDER_QTY]: 0,
-      [OrderLineItemProperties.PRODUCT_ID]: 'PRODUCT_ID',
-      [OrderLineItemProperties.UNIT_PRICE]: 0,
-      [OrderLineItemProperties.UNIT_PRICE_DISCOUNT]: 0,
-      [OrderLineItemProperties.LINE_TOTAL]: 0, 
-      [OrderLineItemProperties.ORDER]: undefined,
-      [OrderLineItemProperties.PRODUCT]: undefined,
-    };
+  return {
+    [OrderLineItemProperties.ID]: 'ID',
+    [OrderLineItemProperties.ORDER_ID]: 'ORDER_ID',
+    [OrderLineItemProperties.ORDER_QTY]: 0,
+    [OrderLineItemProperties.PRODUCT_ID]: 'PRODUCT_ID',
+    [OrderLineItemProperties.UNIT_PRICE]: 0,
+    [OrderLineItemProperties.UNIT_PRICE_DISCOUNT]: 0,
+    [OrderLineItemProperties.LINE_TOTAL]: 0,
+    [OrderLineItemProperties.ORDER]: undefined,
+    [OrderLineItemProperties.PRODUCT]: undefined,
+  };
 }

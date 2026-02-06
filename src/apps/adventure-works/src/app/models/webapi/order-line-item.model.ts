@@ -9,7 +9,7 @@
 import { IOrder } from './order.model';
 import { IProduct } from './product.model';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface IOrderLineItem {
   id?: string | null;
   orderId?: string;

@@ -9,23 +9,23 @@
 import { ProductProperties } from './product.properties';
 
 export function createTestProduct() {
-    return { 
-      [ProductProperties.ID]: 'ID',
-      [ProductProperties.NAME]: 'NAME',
-      [ProductProperties.NUM]: 'NUM_NUM_NUM_NUM',
-      [ProductProperties.COLOR]: 'COLOR',
-      [ProductProperties.STANDARD_COST]: 0,
-      [ProductProperties.LIST_PRICE]: 0,
-      [ProductProperties.SIZE]: 'SIZE',
-      [ProductProperties.WEIGHT]: 0,
-      [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
-      [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
-      [ProductProperties.SELL_START_DATE]: new Date(),
-      [ProductProperties.SELL_END_DATE]: new Date(),
-      [ProductProperties.DISCONTINUED_DATE]: new Date(),
-      [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO', 
-      [ProductProperties.PRODUCT_MODEL]: undefined,
-      [ProductProperties.PRODUCT_CATEGORY]: undefined,
-      [ProductProperties.ORDER_LINE_ITEMS]: [],
-    };
+  return {
+    [ProductProperties.ID]: 'ID',
+    [ProductProperties.NAME]: 'NAME',
+    [ProductProperties.NUM]: 'NUM_NUM_NUM_NUM',
+    [ProductProperties.COLOR]: 'COLOR',
+    [ProductProperties.STANDARD_COST]: 0,
+    [ProductProperties.LIST_PRICE]: 0,
+    [ProductProperties.SIZE]: 'SIZE',
+    [ProductProperties.WEIGHT]: 0,
+    [ProductProperties.PRODUCT_CATEGORY_ID]: 'PRODUCT_CATEGORY_ID',
+    [ProductProperties.PRODUCT_MODEL_ID]: 'PRODUCT_MODEL_ID',
+    [ProductProperties.SELL_START_DATE]: new Date(),
+    [ProductProperties.SELL_END_DATE]: new Date(),
+    [ProductProperties.DISCONTINUED_DATE]: new Date(),
+    [ProductProperties.THUMB_NAIL_PHOTO]: 'THUMB_NAIL_PHOTO',
+    [ProductProperties.PRODUCT_MODEL]: undefined,
+    [ProductProperties.PRODUCT_CATEGORY]: undefined,
+    [ProductProperties.ORDER_LINE_ITEMS]: [],
+  };
 }

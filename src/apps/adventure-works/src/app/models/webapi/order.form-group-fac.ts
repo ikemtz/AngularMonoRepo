@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* istanbul ignore file */
 /**
@@ -18,29 +19,36 @@ import { IOrderLineItemForm } from './order-line-item.form';
 
 export function OrderFormGroupFac(): FormGroup<IOrderForm> {
   return new FormGroup<IOrderForm>({
-    id: new FormControl<string | null | undefined>(null),
-    orderId: new FormControl<number>(0, {
+    id: new FormControl<string | null | undefined>(undefined),
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    orderId: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    revisionNum: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    revisionNum: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    date: new FormControl<Date>(new Date(), {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    date: new FormControl<Date>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    dueDate: new FormControl<Date>(new Date(), {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    dueDate: new FormControl<Date>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    shipDate: new FormControl<Date | null | undefined>(null),
-    isOnlineOrder: new FormControl<boolean>(false, {
+
+    shipDate: new FormControl<Date | null | undefined>(undefined),
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    isOnlineOrder: new FormControl<boolean>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    num: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    num: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -48,42 +56,55 @@ export function OrderFormGroupFac(): FormGroup<IOrderForm> {
       ]),
       nonNullable: true,
     }),
-    purchaseOrderNum: new FormControl<string | null | undefined>(null, {
+
+    purchaseOrderNum: new FormControl<string | null | undefined>(undefined, {
       validators: Validators.maxLength(25),
     }),
-    customerId: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    customerId: new FormControl<string>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    shipToAddressId: new FormControl<string | null | undefined>(null),
-    billToAddressId: new FormControl<string | null | undefined>(null),
-    creditCardApprovalCode: new FormControl<string | null | undefined>(null, {
-      validators: Validators.maxLength(15),
-    }),
-    subTotal: new FormControl<number>(0, {
+
+    shipToAddressId: new FormControl<string | null | undefined>(undefined),
+
+    billToAddressId: new FormControl<string | null | undefined>(undefined),
+
+    creditCardApprovalCode: new FormControl<string | null | undefined>(
+      undefined,
+      { validators: Validators.maxLength(15) },
+    ),
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    subTotal: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    taxAmt: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    taxAmt: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    freight: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    freight: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    totalDue: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    totalDue: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    comment: new FormControl<string | null | undefined>(null, {
+
+    comment: new FormControl<string | null | undefined>(undefined, {
       validators: Validators.maxLength(500),
     }),
-    statusType: new FormControl<OrderStatusTypes>(OrderStatusTypes.Processing, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    statusType: new FormControl<OrderStatusTypes | string>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    shippingType: new FormControl<ShippingTypes>(ShippingTypes.Other, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    shippingType: new FormControl<ShippingTypes | string>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),

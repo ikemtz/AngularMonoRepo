@@ -5,7 +5,7 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-/* tslint:disable */
+/* eslint-disable */
 export enum CustomerProperties {
   ID = 'id',
   NUM = 'num',

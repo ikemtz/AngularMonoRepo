@@ -5,6 +5,7 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
+import { IEnumValue } from 'openapi-ts-generator/enums';
 
 export enum OrderStatusTypes {
   Processing = 0,
@@ -13,9 +14,16 @@ export enum OrderStatusTypes {
   Received = 50,
 }
 
-export const orderStatusTypeValues = [
-  { key: 0, name: 'Processing', displayText: 'Processing'},
-  { key: 10, name: 'WaitingOnShipping', displayText: 'Waiting On Shipping'},
-  { key: 20, name: 'InTransit', displayText: 'In Transit'},
-  { key: 50, name: 'Received', displayText: 'Received'},
+export enum OrderStatusTypeNames {
+  PROCESSING = 'Processing',
+  WAITING_ON_SHIPPING = 'WaitingOnShipping',
+  IN_TRANSIT = 'InTransit',
+  RECEIVED = 'Received',
+}
+
+export const orderStatusTypeValues: IEnumValue[] = [
+  { key: 0, name: 'Processing', displayText: 'Processing' },
+  { key: 10, name: 'WaitingOnShipping', displayText: 'Waiting On Shipping' },
+  { key: 20, name: 'InTransit', displayText: 'In Transit' },
+  { key: 50, name: 'Received', displayText: 'Received' },
 ];

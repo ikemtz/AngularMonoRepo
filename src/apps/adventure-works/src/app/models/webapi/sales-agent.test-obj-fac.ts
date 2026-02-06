@@ -9,10 +9,10 @@
 import { SalesAgentProperties } from './sales-agent.properties';
 
 export function createTestSalesAgent() {
-    return { 
-      [SalesAgentProperties.ID]: 0,
-      [SalesAgentProperties.NAME]: 'NAME',
-      [SalesAgentProperties.LOGIN_ID]: 'LOGIN_ID', 
-      [SalesAgentProperties.CUSTOMERS]: [],
-    };
+  return {
+    [SalesAgentProperties.ID]: 0,
+    [SalesAgentProperties.NAME]: 'NAME',
+    [SalesAgentProperties.LOGIN_ID]: 'LOGIN_ID',
+    [SalesAgentProperties.CUSTOMERS]: [],
+  };
 }

@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { Observable, of } from 'rxjs';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
@@ -15,7 +16,6 @@ export class DataEntryMockFacade implements IDataEntryFacade<unknown> {
 }
 
 export function createDataEntryMockFacade(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mockFacade?: IDataEntryFacade<unknown> | any,
 ): IDataEntryFacade<unknown> {
   const localFacade = new DataEntryMockFacade();
