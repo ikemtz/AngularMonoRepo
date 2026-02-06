@@ -78,7 +78,7 @@ describe('ScheduleListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'schedules-odata/odata/v1/schedules?&$count=true',
+        'schedules-odata/odata/v1/schedules?$count=true',
       );
 
       facade.reloadEntities();

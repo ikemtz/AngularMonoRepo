@@ -15,8 +15,9 @@ import {
   FilterDescriptor,
 } from '@progress/kendo-data-query';
 import { IdType } from 'imng-nrsrx-client-utils';
-import { ODataState } from 'imng-kendo-odata';
+import { ICompositeFilter, ODataState } from 'imng-kendo-odata';
 import { CommonModule } from '@angular/common';
+import { IFilter } from 'imng-odata-client';
 
 @Component({
   selector: 'imng-multi-select-filter',
@@ -114,16 +115,13 @@ export class IMNG_KENDO_GRID_MULTISELECT_FILTER implements AfterViewInit {
     }
     this.currentData = this.data;
     const tempValue = this.odataState?.filter?.filters.map(
-      (f: CompositeFilterDescriptor | FilterDescriptor) =>
-        (f as CompositeFilterDescriptor).filters
+      (f: ICompositeFilter | IFilter) =>
+        (f as ICompositeFilter).filters
           .filter(
-            (x: FilterDescriptor | CompositeFilterDescriptor) =>
-              (x as FilterDescriptor).field === this.field,
+            (x: IFilter | ICompositeFilter) =>
+              (x as IFilter).field === this.field,
           )
-          .map(
-            (x: FilterDescriptor | CompositeFilterDescriptor) =>
-              (x as FilterDescriptor).value,
-          ),
+          .map((x: IFilter | ICompositeFilter) => (x as IFilter).value),
     );
     this.value = tempValue?.length ? tempValue?.flat() || [] : [];
 
@@ -134,18 +132,21 @@ export class IMNG_KENDO_GRID_MULTISELECT_FILTER implements AfterViewInit {
   }
 
   public isItemSelected(item: unknown) {
-    return this.value.some((x) => x === this.valueAccessor(item));
+    return this.value.includes(this.valueAccessor(item));
   }
 
   public onSelectionChange(item: unknown, li: HTMLLIElement) {
-    if (this.value.some((x) => x === item)) {
+    if (this.value.includes(item)) {
       this.value = this.value.filter((x) => x !== item);
     } else {
       this.value.push(item);
     }
     const currentFilter: CompositeFilterDescriptor = {
       logic: this.odataState?.filter?.logic ?? 'and',
-      filters: this.odataState?.filter?.filters ?? [],
+      filters:
+        (this.odataState?.filter?.filters as
+          | CompositeFilterDescriptor[]
+          | FilterDescriptor[]) ?? [],
     };
     if (
       currentFilter.filters.some(
@@ -184,11 +185,10 @@ export class IMNG_KENDO_GRID_MULTISELECT_FILTER implements AfterViewInit {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public onInput(e: { target: { value: IdType } } | any): void {
-    //NOSONAR
     this.currentData = distinct(
       [
         ...this.currentData.filter((dataItem: unknown) =>
-          this.value.some((val) => val === this.valueAccessor(dataItem)),
+          this.value.includes(this.valueAccessor(dataItem)),
         ),
         ...filterBy(this.data, {
           operator: 'contains',
