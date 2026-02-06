@@ -40,7 +40,9 @@ export function serializeFilter(filter: IFilter | IChildFilter): string {
       ? getFilterOperator(filter.operator)
       : getFilterOperator(filter.operator?.name || 'equals');
   const odataStringFunction = operator.toODataString;
-  if (isChildFilter(filter)) {
+  if (filter.field === undefined) {
+    return '';
+  } else if (isChildFilter(filter)) {
     const childFieldName = `o/${filter.field}`;
     return `${filter.childTable}/${
       filter.linqOperation
