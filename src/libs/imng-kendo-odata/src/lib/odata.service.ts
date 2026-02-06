@@ -17,6 +17,7 @@ import { translateChildFilterExpression } from './translate-child-filter-express
 import { processChildFilterDescriptors } from './transform-child-filters';
 import { translateChildSortingExpression } from './translate-child-sorting-expression';
 import { ODataPayload } from './odata-payload';
+import { processFilters, uuidRegex } from 'imng-odata-client';
 
 @Injectable({
   providedIn: 'root',
@@ -40,11 +41,11 @@ export class ODataService {
     const countClause = tempState.count === false ? '' : '&$count=true';
     const cacheBustClause =
       options.bustCache === true
-        ? `&timestamp=${new Date().toISOString().replace(/[-:.TZ]/g, '')}`
+        ? `&timestamp=${new Date().toISOString().replaceAll(/[-:.TZ]/g, '')}`
         : '';
     const queryStr = `${this.getODataString(
       tempState,
-    )}${countClause}${cacheBustClause}`;
+    )}${countClause}${cacheBustClause}`.replace(/^&/, '');
     return this.http
       .get<
         ODataPayload<T> | T[]
@@ -84,14 +85,17 @@ export class ODataService {
       },
     };
 
-    const queryStr = this.getODataString(request);
+    const queryStr = this.getODataString(request).replace(/^&/, '');
     return this.http
       .get<ODataPayload<T> | T[]>(`${odataEndpoint}?${queryStr}`)
       .pipe(mapToExtDataResult<T>(), firstRecord<T>());
   }
 
   public getODataString(state: ODataState): string {
-    let queryString = toODataString(state);
+    const filter = state.filter;
+    state.filter = undefined;
+    let queryString = toODataString(state as State);
+    queryString = processFilters({ filter: filter }, queryString);
     queryString = this.processExpanders(state, queryString);
     queryString = this.processSelectors(state, queryString);
     queryString = processChildFilterDescriptors(state, queryString);
@@ -129,7 +133,7 @@ export class ODataService {
       (date) =>
         (queryString = queryString.replace(
           date,
-          date.replace(/T\d{2}:\d{2}:\d{2}.\d{3}Z/g, ''),
+          date.replaceAll(uuidRegex, ''),
         )),
     );
     return queryString;
@@ -151,7 +155,7 @@ export class ODataService {
     }
     guidMatches.forEach(
       (guid) =>
-        (queryString = queryString.replace(guid, guid.replace(/'/g, ''))),
+        (queryString = queryString.replaceAll(guid, guid.replaceAll("'", ''))),
     );
     return queryString;
   }
@@ -168,7 +172,7 @@ export class ODataService {
       const expansionStrings = state.expanders.map((element) =>
         this.getExpansionString(element),
       );
-      queryString += `&$expand=${expansionStrings.join(',')}`;
+      queryString += `&$expand=${expansionStrings.join(',').replaceAll(';;', ';')}`;
     }
     return queryString;
   }
@@ -186,11 +190,12 @@ export class ODataService {
         result += `$select=${element.selectors.join()};`;
       }
       if (element.filter || element.sort) {
-        const state: State = {
-          sort: element.sort,
-          filter: element.filter,
-        };
-        result += `${toODataString(state).replace('&', ';')};`;
+        let expansionODataString = toODataString({ sort: element.sort });
+        expansionODataString = processFilters(
+          { filter: element.filter },
+          expansionODataString,
+        );
+        result += `${expansionODataString.replace('&', ';')};`;
       }
       if (element.expanders) {
         const expanders = element.expanders.map((expander) => {
@@ -219,7 +224,9 @@ export class ODataService {
       return queryString;
     }
     inFilters.forEach((inFilter) => {
-      const deDupedVals = Array.from(new Set(inFilter.values.filter((f) => f)));
+      const deDupedVals = Array.from(
+        new Set(inFilter.values.filter((f) => !!f)),
+      );
       const inVals = deDupedVals
         .map((m) => {
           if (isaNumber(m)) {
@@ -235,7 +242,7 @@ export class ODataService {
       })`;
       if (!queryString || queryString.trim().length === 0) {
         queryString = `$filter=${inFilterString}`;
-      } else if (queryString.match(/\$filter=/)) {
+      } else if (new RegExp(/\$filter=/).exec(queryString)) {
         queryString = queryString.replace(
           /\$filter=/,
           `$filter=${inFilterString} ${inFilter.logic ?? 'and'} `,

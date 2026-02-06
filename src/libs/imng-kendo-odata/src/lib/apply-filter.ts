@@ -1,21 +1,21 @@
-import { FilterDescriptor } from '@progress/kendo-data-query';
 import { findMatchingFilters } from './find-filter';
 import { ODataState } from './odata-state';
 import { updateFilter } from './update-filter';
+import { IFilter } from 'imng-odata-client';
 
-export function applyFilter(odataState: ODataState, filter: FilterDescriptor): ODataState {
-  if (!odataState.filter) {
-    odataState.filter = { logic: 'and', filters: [] };
-  }
-  const matchedFilter = findMatchingFilters(odataState, filter.field as string);
-  if (!matchedFilter) {
+export function applyFilter(
+  odataState: ODataState,
+  filter: IFilter,
+): ODataState {
+  odataState.filter ??= { logic: 'and', filters: [] };
+  const matchedFilter = findMatchingFilters(odataState, filter.field);
+  if (matchedFilter) {
+    updateFilter(odataState.filter, filter);
+  } else {
     odataState.filter.filters.push({
       logic: 'and',
-      filters: [filter]
+      filters: [filter],
     });
-  }
-  else {
-    updateFilter(odataState.filter, filter);
   }
   return odataState;
 }

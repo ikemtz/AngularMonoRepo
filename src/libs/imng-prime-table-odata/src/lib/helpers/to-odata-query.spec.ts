@@ -59,7 +59,7 @@ describe('toODataQuery', () => {
     });
     const odataString = svc.getODataString(query);
     expect(odataString).toBe(
-      `$filter=((abc/bdf/xyz+eq+'123'))&$orderby=abc,xyz+desc&$count=true`,
+      `$filter=(abc/bdf/xyz eq '123')&$orderby=abc,xyz desc&$count=true`,
     );
   });
   it('should convert with no filters', () => {
