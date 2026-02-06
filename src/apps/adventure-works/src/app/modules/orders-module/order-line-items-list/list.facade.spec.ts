@@ -91,7 +91,7 @@ describe('OrderLineItemListFacade', () => {
 
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        `aw-odata/odata/v1/OrderLineItems?$filter=orderId eq 'ORDER_ID'&$count=true`,
+        `aw-odata/odata/v1/OrderLineItems?$filter=(orderId eq 'ORDER_ID')&$count=true`,
       );
 
       facade.reloadEntities();

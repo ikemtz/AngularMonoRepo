@@ -78,7 +78,7 @@ describe('BuildingListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'buildings-odata/odata/v1/Buildings?&$count=true',
+        'buildings-odata/odata/v1/Buildings?$count=true',
       );
 
       facade.reloadEntities();

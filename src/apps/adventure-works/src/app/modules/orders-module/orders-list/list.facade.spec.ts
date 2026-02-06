@@ -86,7 +86,7 @@ describe('OrderListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'aw-odata/odata/v1/Orders?&$count=true',
+        'aw-odata/odata/v1/Orders?$count=true',
       );
 
       facade.reloadEntities();

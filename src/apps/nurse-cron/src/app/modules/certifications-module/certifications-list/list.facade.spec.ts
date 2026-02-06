@@ -78,7 +78,7 @@ describe('CertificationListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'certifications-odata/odata/v1/Certifications?&$count=true',
+        'certifications-odata/odata/v1/Certifications?$count=true',
       );
 
       facade.reloadEntities();

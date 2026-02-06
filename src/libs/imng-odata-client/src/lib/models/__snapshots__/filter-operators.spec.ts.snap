@@ -4,34 +4,34 @@ exports[`FilterOperators should support contains 1`] = `"contains(xyz,123)"`;
 
 exports[`FilterOperators should support endsWith 1`] = `"endswith(xyz,123)"`;
 
-exports[`FilterOperators should support equals 1`] = `"xyz+eq+123"`;
+exports[`FilterOperators should support equals 1`] = `"xyz eq 123"`;
 
-exports[`FilterOperators should support greaterThan 1`] = `"xyz+gt+123"`;
+exports[`FilterOperators should support greaterThan 1`] = `"xyz gt 123"`;
 
-exports[`FilterOperators should support greaterThanOrEquals 1`] = `"xyz+ge+'abc'"`;
+exports[`FilterOperators should support greaterThanOrEquals 1`] = `"xyz ge 'abc'"`;
 
-exports[`FilterOperators should support in 1`] = `"xyz+in+('abc',123)"`;
+exports[`FilterOperators should support in 1`] = `"xyz in ('abc',123)"`;
 
-exports[`FilterOperators should support isEmpty 1`] = `"xyz+eq+''"`;
+exports[`FilterOperators should support isEmpty 1`] = `"xyz eq ''"`;
 
-exports[`FilterOperators should support isNull 1`] = `"xyz+eq+null"`;
+exports[`FilterOperators should support isNull 1`] = `"xyz eq null"`;
 
-exports[`FilterOperators should support lessThan 1`] = `"xyz+lt+123"`;
+exports[`FilterOperators should support lessThan 1`] = `"xyz lt 123"`;
 
-exports[`FilterOperators should support lessThanOrEquals 1`] = `"xyz+le+123"`;
+exports[`FilterOperators should support lessThanOrEquals 1`] = `"xyz le 123"`;
 
-exports[`FilterOperators should support notContains 1`] = `"not+contains(xyz,123)"`;
+exports[`FilterOperators should support notContains 1`] = `"not contains(xyz,123)"`;
 
-exports[`FilterOperators should support notEmpty 1`] = `"xyz+ne+''"`;
+exports[`FilterOperators should support notEmpty 1`] = `"xyz ne ''"`;
 
-exports[`FilterOperators should support notEndsWith 1`] = `"not+endswith(xyz,123)"`;
+exports[`FilterOperators should support notEndsWith 1`] = `"not endswith(xyz,123)"`;
 
-exports[`FilterOperators should support notEquals 1`] = `"xyz+ne+123"`;
+exports[`FilterOperators should support notEquals 1`] = `"xyz ne 123"`;
 
-exports[`FilterOperators should support notIn 1`] = `"xyz+not+in+('abc',123)"`;
+exports[`FilterOperators should support notIn 1`] = `"xyz not in ('abc',123)"`;
 
-exports[`FilterOperators should support notNull 1`] = `"xyz+ne+null"`;
+exports[`FilterOperators should support notNull 1`] = `"xyz ne null"`;
 
-exports[`FilterOperators should support notStartsWith 1`] = `"not+startswith(xyz,'123')"`;
+exports[`FilterOperators should support notStartsWith 1`] = `"not startswith(xyz,'123')"`;
 
 exports[`FilterOperators should support startsWith 1`] = `"startswith(xyz,'123')"`;

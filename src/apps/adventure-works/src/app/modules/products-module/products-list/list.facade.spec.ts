@@ -76,7 +76,7 @@ describe('ProductListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'aw-odata/odata/v1/Products?&$count=true',
+        'aw-odata/odata/v1/Products?$count=true',
       );
 
       facade.reloadEntities();

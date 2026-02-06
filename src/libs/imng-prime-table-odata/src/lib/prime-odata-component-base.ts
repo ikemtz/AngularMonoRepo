@@ -11,9 +11,9 @@ import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Router } from '@angular/router';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import {
-  CompositeFilter,
+  ICompositeFilter,
   Expander,
-  Filter,
+  IFilter,
   isCompositeFilter,
 } from 'imng-odata-client';
 import {
@@ -37,7 +37,7 @@ const STATE = new InjectionToken<PrimeTableState>('imng-prime-table-state');
   template: '',
 })
 export abstract class ImngPrimeODataTableBaseComponent<
-  ENTITY extends { id?: IdType | null | undefined },
+  ENTITY extends { id?: IdType | null },
   FACADE extends IPrimeODataTableFacade<ENTITY>,
 >
   implements OnInit, OnDestroy, Subscribable
@@ -176,7 +176,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
    * This method ensures the proper handling of date filters in an OData query
    * @param filter
    */
-  public normalizeFilters(filter: Filter | CompositeFilter) {
+  public normalizeFilters(filter: IFilter | ICompositeFilter) {
     if (isCompositeFilter(filter)) {
       filter.filters.forEach(this.normalizeFilters);
     } else if (
