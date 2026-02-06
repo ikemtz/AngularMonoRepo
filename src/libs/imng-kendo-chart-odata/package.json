@@ -14,6 +14,7 @@
     "@angular/core": "*",
     "@progress/kendo-data-query": "*",
     "@progress/kendo-angular-charts": "*",
+    "imng-odata-client": "0.0.0",
     "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"
   },
@@ -23,7 +24,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+    "directory": "src/libs/imng-kendo-chart-odata",
+    "url": "git+https://github.com/ikemtz/AngularMonoRepo.git"
   },
   "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
   "private": false,

@@ -13,6 +13,7 @@
     "@progress/kendo-angular-grid": "*",
     "imng-kendo-grid": "0.0.0",
     "imng-kendo-odata": "0.0.0",
+    "imng-odata-client": "0.0.0",
     "imng-ngrx-utils": "0.0.0",
     "rxjs": "*"
   },
@@ -22,7 +23,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+    "directory": "src/libs/imng-kendo-grid-array",
+    "url": "git+https://github.com/ikemtz/AngularMonoRepo.git"
   },
   "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
   "private": false,
