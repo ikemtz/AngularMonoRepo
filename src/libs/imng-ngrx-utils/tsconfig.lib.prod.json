@@ -7,8 +7,7 @@
     "moduleResolution": "bundler"
   },
   "angularCompilerOptions": {
-    "compilationMode": "partial",
-    "types": ["jest"]
+    "compilationMode": "partial"
   },
   "exclude": ["jest.config.ts"]
 }

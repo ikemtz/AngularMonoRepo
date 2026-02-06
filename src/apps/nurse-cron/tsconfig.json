@@ -32,6 +32,7 @@
       "imng-kendo-grid-filtering": [
         "libs/imng-kendo-grid-filtering/src/index.ts"
       ],
+      "imng-odata-client": ["libs/imng-odata-client/src/index.ts"],
       "imng-kendo-grid-odata": ["libs/imng-kendo-grid-odata/src/index.ts"],
       "imng-kendo-ngrx-idle": ["libs/imng-kendo-ngrx-idle/src/index.ts"],
       "imng-kendo-odata": ["libs/imng-kendo-odata/src/index.ts"],

@@ -1,10 +1,12 @@
 import { IdType } from 'imng-nrsrx-client-utils';
 import { IFilterOperator } from './filter-operator';
+import { ICompositeFilter } from './composite-filter';
+import { IChildFilter } from './child-filter';
 
 /**
  * A basic filter expression.
  */
-export interface Filter {
+export interface IFilter {
   /**
    * The data item field to which the filter operator is applied.
    */
@@ -32,7 +34,7 @@ export interface Filter {
    * * `FilterOperators.isEmpty`
    * * `FilterOperators.notempty`
    */
-  operator: IFilterOperator;
+  operator: IFilterOperator | string;
   /**
    * The value to which the field is compared. Has to be of the same type as the field.
    */
@@ -41,4 +43,10 @@ export interface Filter {
    * Determines if the string comparison is case-insensitive.
    */
   ignoreCase?: boolean;
+}
+
+export function isFilter(
+  source: ICompositeFilter | IFilter | IChildFilter | string,
+): source is IFilter {
+  return !!(source as IFilter)?.field;
 }

@@ -37,7 +37,7 @@ describe('ODataService Exists Filter', () => {
     };
     await readFirst(service.fetch('//idunno.com', gridState));
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$filter=childTable1/any()`,
+      `//idunno.com?$filter=childTable1/any()`,
     );
   });
 
@@ -58,7 +58,7 @@ describe('ODataService Exists Filter', () => {
     };
     await readFirst(service.fetch('//idunno.com', gridState));
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$filter=childTable2/any() and childTable1/any()`,
+      `//idunno.com?$filter=childTable2/any() and childTable1/any()`,
     );
   });
 
@@ -83,7 +83,7 @@ describe('ODataService Exists Filter', () => {
     };
     await readFirst(service.fetch('//idunno.com', gridState));
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$filter=childTable2/all(ct2:ct2/Quantity lt 50) and childTable1/all(ct1:ct1/Quantity gt 100)`,
+      `//idunno.com?$filter=childTable2/all(ct2:ct2/Quantity lt 50) and childTable1/all(ct1:ct1/Quantity gt 100)`,
     );
   });
   it('should support multiple exists filters with regular filters', async () => {
@@ -111,7 +111,7 @@ describe('ODataService Exists Filter', () => {
     };
     await readFirst(service.fetch('//idunno.com', gridState));
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?$filter=childTable2/all(ct2:ct2/Quantity lt 50) and childTable1/any(ct1:ct1/Quantity gt 100) and contains(name,'test')`,
+      `//idunno.com?$filter=childTable2/all(ct2:ct2/Quantity lt 50) and childTable1/any(ct1:ct1/Quantity gt 100) and (contains(name,'test'))`,
     );
   });
 });

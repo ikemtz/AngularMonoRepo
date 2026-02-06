@@ -4,3 +4,4 @@ export * from './lib/services/odata-client.service';
 export * from './lib/helpers/get-filter-operator';
 export * from './lib/helpers/create-odata-result';
 export * from './lib/helpers/filter-serializers';
+export * from './lib/helpers/filter-processor';

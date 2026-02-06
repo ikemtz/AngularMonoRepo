@@ -13,7 +13,7 @@ export const serializeSimpleFilter = (
   field: string,
   operator: string,
   value?: IdType,
-): string => `${field}+${operator}+${serializeValue(value)}`;
+): string => `${field} ${operator} ${serializeValue(value)}`;
 
 export const serializeArrayFilter = (
   field: string,
@@ -21,7 +21,7 @@ export const serializeArrayFilter = (
   values?: IdType[],
 ): string =>
   values
-    ? `${field}+${operator}+(${values.map((m) => serializeValue(m)).join(',')})`
+    ? `${field} ${operator} (${values.map((m) => serializeValue(m)).join(',')})`
     : '';
 
 export const serializeFunctionFilter = (

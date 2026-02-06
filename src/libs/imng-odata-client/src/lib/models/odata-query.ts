@@ -1,4 +1,4 @@
-import { CompositeFilter } from './composite-filter';
+import { ICompositeFilter } from './composite-filter';
 import { Computation } from './computation';
 import { Expander } from './expander';
 import { Sort } from './sort';
@@ -19,7 +19,7 @@ export interface ODataQuery {
   /**
    * The descriptors used for filtering.
    */
-  filter?: CompositeFilter;
+  filter?: ICompositeFilter;
   /**
    * Used to specify the retrieval of related tables/entities.
    */
@@ -30,7 +30,7 @@ export interface ODataQuery {
   select?: string[];
   /**
    * Request a total count of records.
-   * Note: Filter expressions will affect this value.  
+   * Note: Filter expressions will affect this value.
    * Default: true
    */
   count?: boolean;
