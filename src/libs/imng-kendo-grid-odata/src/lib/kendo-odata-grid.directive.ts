@@ -13,6 +13,7 @@ import { merge, filter } from 'rxjs';
 import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { GridStateChangeEvent, hasHiddenColumns } from 'imng-kendo-grid';
+import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 
 @Directive({
   selector: '[imngODataGrid]',
@@ -71,7 +72,11 @@ export class IMNG_KENDO_GRID_ODATA
       ),
       this.facade.gridODataState$.pipe(filter((t) => !!t)).subscribe((t) => {
         this.gridComponent.pageSize = t?.take || 20; //NOSONAR
-        this.gridComponent.filter = t?.filter || { logic: 'and', filters: [] };
+        this.gridComponent.filter =
+          (t?.filter as CompositeFilterDescriptor) || {
+            logic: 'and',
+            filters: [],
+          };
         this.gridComponent.skip = t?.skip || 0;
         this.gridComponent.sort = t?.sort || [];
       }),
