@@ -136,7 +136,7 @@
     "ng-packagr": "21.1.0",
     "nx": "22.4.5",
     "openapi-mermaid": "^4.12.3",
-    "openapi-ts-generator": "^9.31.2",
+    "openapi-ts-generator": "^10.31.2",
     "postcss": "^8.5.3",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^9.6.0",
