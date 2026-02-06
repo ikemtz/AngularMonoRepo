@@ -5,6 +5,7 @@
     "entryFile": "src/index.ts"
   },
   "allowedNonPeerDependencies": [
+    "imng-odata-client",
     "imng-oidc-client",
     "imng-kendo-chart-odata",
     "imng-kendo-data-entry",
