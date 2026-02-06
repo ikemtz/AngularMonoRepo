@@ -5,6 +5,7 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
+import { IEnumValue } from 'openapi-ts-generator/enums';
 
 export enum ShippingTypes {
   Other = 1,
@@ -14,7 +15,15 @@ export enum ShippingTypes {
   CargoTransport = 5,
 }
 
-export const shippingTypeValues = [
+export enum ShippingTypeNames {
+  OTHER = 'Other',
+  AIR = 'Air',
+  TRUCK = 'Truck',
+  TRAIN = 'Train',
+  CARGO_TRANSPORT = 'CargoTransport',
+}
+
+export const shippingTypeValues: IEnumValue[] = [
   { key: 1, name: 'Other', displayText: 'Other' },
   { key: 2, name: 'Air', displayText: 'Air' },
   { key: 3, name: 'Truck', displayText: 'Truck' },

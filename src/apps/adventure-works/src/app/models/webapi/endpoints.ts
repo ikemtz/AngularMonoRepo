@@ -5,7 +5,7 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-/* tslint:disable */
+/* eslint-disable */
 export enum Endpoints {
   customers = 'aw-webapi/api/v1/Customers.json',
   orderLineItems = 'aw-webapi/api/v1/OrderLineItems.json',

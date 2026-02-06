@@ -9,10 +9,10 @@
 import { ProductModelProperties } from './product-model.properties';
 
 export function createTestProductModel() {
-    return { 
-      [ProductModelProperties.ID]: 'ID',
-      [ProductModelProperties.NAME]: 'NAME',
-      [ProductModelProperties.DESCRIPTION]: 'DESCRIPTION', 
-      [ProductModelProperties.PRODUCTS]: [],
-    };
+  return {
+    [ProductModelProperties.ID]: 'ID',
+    [ProductModelProperties.NAME]: 'NAME',
+    [ProductModelProperties.DESCRIPTION]: 'DESCRIPTION',
+    [ProductModelProperties.PRODUCTS]: [],
+  };
 }

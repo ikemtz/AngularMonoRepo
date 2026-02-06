@@ -8,7 +8,7 @@
 
 import { IOrder } from './order.model';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface IOrderAddress {
   id?: string | null;
   line1?: string;

@@ -30,7 +30,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "strictMetadataEmit": true,
-    "types": ["jest"]
+    "strictMetadataEmit": true
   }
 }

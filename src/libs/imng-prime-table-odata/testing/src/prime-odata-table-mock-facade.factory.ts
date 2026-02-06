@@ -1,4 +1,5 @@
 /* istanbul ignore file */
+import { jest } from '@jest/globals';
 import { ODataTableMockFacade } from './prime-odata-table-mock.facade';
 
 export function createODataTableMockFacade(

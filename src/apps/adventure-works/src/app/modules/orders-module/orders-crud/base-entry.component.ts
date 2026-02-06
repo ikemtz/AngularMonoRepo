@@ -47,28 +47,19 @@ export abstract class OrderBaseEntryComponent
             customerFilter
               ? customers.filter(
                   (customer) =>
-                    (customer.num &&
-                      customer.num.toLowerCase().indexOf(customerFilter) >=
-                        0) ||
-                    (customer.name &&
-                      customer.name.toLowerCase().indexOf(customerFilter) >=
-                        0) ||
-                    (customer.companyName &&
-                      customer.companyName
-                        .toLowerCase()
-                        .indexOf(customerFilter) >= 0) ||
-                    (customer.salesAgentId &&
-                      customer.salesAgentId
-                        .toString()
-                        .toLowerCase()
-                        .indexOf(customerFilter) >= 0) ||
-                    (customer.emailAddress &&
-                      customer.emailAddress
-                        .toLowerCase()
-                        .indexOf(customerFilter) >= 0) ||
-                    (customer.phone &&
-                      customer.phone.toLowerCase().indexOf(customerFilter) >=
-                        0),
+                    customer.num?.toLowerCase().includes(customerFilter) ||
+                    customer.name?.toLowerCase().includes(customerFilter) ||
+                    customer.companyName
+                      ?.toLowerCase()
+                      .includes(customerFilter) ||
+                    customer.salesAgentId
+                      ?.toString()
+                      .toLowerCase()
+                      .includes(customerFilter) ||
+                    customer.emailAddress
+                      ?.toLowerCase()
+                      .includes(customerFilter) ||
+                    customer.phone?.toLowerCase().includes(customerFilter),
                 )
               : customers,
           ),
@@ -82,30 +73,24 @@ export abstract class OrderBaseEntryComponent
             shipToAddressFilter
               ? shipToAddresses.filter(
                   (shipToAddress) =>
-                    (shipToAddress.line1 &&
-                      shipToAddress.line1
-                        .toLowerCase()
-                        .indexOf(shipToAddressFilter) >= 0) ||
-                    (shipToAddress.line2 &&
-                      shipToAddress.line2
-                        .toLowerCase()
-                        .indexOf(shipToAddressFilter) >= 0) ||
-                    (shipToAddress.city &&
-                      shipToAddress.city
-                        .toLowerCase()
-                        .indexOf(shipToAddressFilter) >= 0) ||
-                    (shipToAddress.stateProvince &&
-                      shipToAddress.stateProvince
-                        .toLowerCase()
-                        .indexOf(shipToAddressFilter) >= 0) ||
-                    (shipToAddress.countryRegion &&
-                      shipToAddress.countryRegion
-                        .toLowerCase()
-                        .indexOf(shipToAddressFilter) >= 0) ||
-                    (shipToAddress.postalCode &&
-                      shipToAddress.postalCode
-                        .toLowerCase()
-                        .indexOf(shipToAddressFilter) >= 0),
+                    shipToAddress.line1
+                      ?.toLowerCase()
+                      .includes(shipToAddressFilter) ||
+                    shipToAddress.line2
+                      ?.toLowerCase()
+                      .includes(shipToAddressFilter) ||
+                    shipToAddress.city
+                      ?.toLowerCase()
+                      .includes(shipToAddressFilter) ||
+                    shipToAddress.stateProvince
+                      ?.toLowerCase()
+                      .includes(shipToAddressFilter) ||
+                    shipToAddress.countryRegion
+                      ?.toLowerCase()
+                      .includes(shipToAddressFilter) ||
+                    shipToAddress.postalCode
+                      ?.toLowerCase()
+                      .includes(shipToAddressFilter),
                 )
               : shipToAddresses,
           ),
@@ -119,30 +104,24 @@ export abstract class OrderBaseEntryComponent
             billToAddressFilter
               ? billToAddresses.filter(
                   (billToAddress) =>
-                    (billToAddress.line1 &&
-                      billToAddress.line1
-                        .toLowerCase()
-                        .indexOf(billToAddressFilter) >= 0) ||
-                    (billToAddress.line2 &&
-                      billToAddress.line2
-                        .toLowerCase()
-                        .indexOf(billToAddressFilter) >= 0) ||
-                    (billToAddress.city &&
-                      billToAddress.city
-                        .toLowerCase()
-                        .indexOf(billToAddressFilter) >= 0) ||
-                    (billToAddress.stateProvince &&
-                      billToAddress.stateProvince
-                        .toLowerCase()
-                        .indexOf(billToAddressFilter) >= 0) ||
-                    (billToAddress.countryRegion &&
-                      billToAddress.countryRegion
-                        .toLowerCase()
-                        .indexOf(billToAddressFilter) >= 0) ||
-                    (billToAddress.postalCode &&
-                      billToAddress.postalCode
-                        .toLowerCase()
-                        .indexOf(billToAddressFilter) >= 0),
+                    billToAddress.line1
+                      ?.toLowerCase()
+                      .includes(billToAddressFilter) ||
+                    billToAddress.line2
+                      ?.toLowerCase()
+                      .includes(billToAddressFilter) ||
+                    billToAddress.city
+                      ?.toLowerCase()
+                      .includes(billToAddressFilter) ||
+                    billToAddress.stateProvince
+                      ?.toLowerCase()
+                      .includes(billToAddressFilter) ||
+                    billToAddress.countryRegion
+                      ?.toLowerCase()
+                      .includes(billToAddressFilter) ||
+                    billToAddress.postalCode
+                      ?.toLowerCase()
+                      .includes(billToAddressFilter),
                 )
               : billToAddresses,
           ),
@@ -208,16 +187,14 @@ export abstract class OrderBaseEntryComponent
   }
   public handleStatusTypeFilter(value: string) {
     this.statusTypes$.next(
-      orderStatusTypeValues.filter(
-        (t) => t.name.toLowerCase().indexOf(value) > -1,
+      orderStatusTypeValues.filter((t) =>
+        t.name?.toLowerCase().includes(value),
       ),
     );
   }
   public handleShippingTypeFilter(value: string) {
     this.shippingTypes$.next(
-      shippingTypeValues.filter(
-        (t) => t.name.toLowerCase().indexOf(value) > -1,
-      ),
+      shippingTypeValues.filter((t) => t.name?.toLowerCase().includes(value)),
     );
   }
 }
