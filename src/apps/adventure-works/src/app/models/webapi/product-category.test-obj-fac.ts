@@ -9,9 +9,9 @@
 import { ProductCategoryProperties } from './product-category.properties';
 
 export function createTestProductCategory() {
-    return { 
-      [ProductCategoryProperties.ID]: 'ID',
-      [ProductCategoryProperties.NAME]: 'NAME', 
-      [ProductCategoryProperties.PRODUCTS]: [],
-    };
+  return {
+    [ProductCategoryProperties.ID]: 'ID',
+    [ProductCategoryProperties.NAME]: 'NAME',
+    [ProductCategoryProperties.PRODUCTS]: [],
+  };
 }

@@ -1,7 +1,7 @@
-import { CompositeFilter } from './composite-filter';
-import { Filter } from './filter';
+import { ICompositeFilter } from './composite-filter';
+import { IFilter } from './filter';
 
-export interface ChildFilter extends Filter {
+export interface IChildFilter extends IFilter {
   /**
    * Used to support child entity filtering:
    * Child table name/navigation property
@@ -15,7 +15,7 @@ export interface ChildFilter extends Filter {
 }
 
 export function isChildFilter(
-  source: CompositeFilter | Filter | ChildFilter,
-): source is ChildFilter {
-  return !!(source as ChildFilter)?.childTable;
+  source: ICompositeFilter | IFilter | IChildFilter,
+): source is IChildFilter {
+  return !!(source as IChildFilter)?.childTable;
 }

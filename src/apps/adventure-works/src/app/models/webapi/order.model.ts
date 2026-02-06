@@ -12,7 +12,7 @@ import { ICustomer } from './customer.model';
 import { IOrderAddress } from './order-address.model';
 import { IOrderLineItem } from './order-line-item.model';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface IOrder {
   id?: string | null;
   orderId?: number;
@@ -32,8 +32,8 @@ export interface IOrder {
   freight?: number;
   totalDue?: number;
   comment?: string | null;
-  statusType?: OrderStatusTypes;
-  shippingType?: ShippingTypes;
+  statusType?: OrderStatusTypes | string;
+  shippingType?: ShippingTypes | string;
   customer?: Partial<ICustomer>;
   shipToAddress?: Partial<IOrderAddress>;
   billToAddress?: Partial<IOrderAddress>;

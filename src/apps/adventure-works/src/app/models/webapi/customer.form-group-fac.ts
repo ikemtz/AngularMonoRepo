@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* istanbul ignore file */
 /**
@@ -15,8 +16,9 @@ import { IOrderForm } from './order.form';
 
 export function CustomerFormGroupFac(): FormGroup<ICustomerForm> {
   return new FormGroup<ICustomerForm>({
-    id: new FormControl<string | null | undefined>(null),
-    num: new FormControl<string>('', {
+    id: new FormControl<string | null | undefined>(undefined),
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    num: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(10),
@@ -24,10 +26,12 @@ export function CustomerFormGroupFac(): FormGroup<ICustomerForm> {
       ]),
       nonNullable: true,
     }),
-    name: new FormControl<string | null | undefined>(null, {
+
+    name: new FormControl<string | null | undefined>(undefined, {
       validators: Validators.maxLength(512),
     }),
-    companyName: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    companyName: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -35,14 +39,17 @@ export function CustomerFormGroupFac(): FormGroup<ICustomerForm> {
       ]),
       nonNullable: true,
     }),
-    salesAgentId: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    salesAgentId: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    emailAddress: new FormControl<string | null | undefined>(null, {
+
+    emailAddress: new FormControl<string | null | undefined>(undefined, {
       validators: Validators.maxLength(250),
     }),
-    phone: new FormControl<string | null | undefined>(null, {
+
+    phone: new FormControl<string | null | undefined>(undefined, {
       validators: Validators.maxLength(25),
     }),
     salesAgent: new FormGroup<ISalesAgentForm>(

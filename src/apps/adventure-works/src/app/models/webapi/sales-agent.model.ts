@@ -8,7 +8,7 @@
 
 import { ICustomer } from './customer.model';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface ISalesAgent {
   id?: number | null;
   name?: string;

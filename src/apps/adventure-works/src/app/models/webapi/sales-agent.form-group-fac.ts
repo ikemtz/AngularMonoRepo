@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* istanbul ignore file */
 /**
@@ -12,8 +13,9 @@ import { ICustomerForm } from './customer.form';
 
 export function SalesAgentFormGroupFac(): FormGroup<ISalesAgentForm> {
   return new FormGroup<ISalesAgentForm>({
-    id: new FormControl<number | null | undefined>(null),
-    name: new FormControl<string>('', {
+    id: new FormControl<number | null | undefined>(undefined),
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    name: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -21,7 +23,8 @@ export function SalesAgentFormGroupFac(): FormGroup<ISalesAgentForm> {
       ]),
       nonNullable: true,
     }),
-    loginId: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    loginId: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),

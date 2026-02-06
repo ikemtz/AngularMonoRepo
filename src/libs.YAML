@@ -80,6 +80,15 @@ jobs:
           customCommand: 'run build:nrsrx-utils'
 
       - task: Npm@1
+        continueOnError: true
+        displayName: 'npm run build:odata-client'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run build:odata-client'
+
+      - task: Npm@1
         displayName: 'npm run build:data-entry'
         continueOnError: true
         inputs:
@@ -89,13 +98,13 @@ jobs:
           customCommand: 'run build:data-entry'
 
       - task: Npm@1
-        displayName: 'npm run build:odata'
+        displayName: 'npm run build:kendo-odata'
         continueOnError: true
         inputs:
           command: custom
           workingDir: 'src'
           verbose: false
-          customCommand: 'run build:odata'
+          customCommand: 'run build:kendo-odata'
 
       - task: Npm@1
         displayName: 'npm run build:grid'

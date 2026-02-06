@@ -32,8 +32,8 @@ export interface IOrderForm {
   freight: FormControl<number>;
   totalDue: FormControl<number>;
   comment: FormControl<string | null | undefined>;
-  statusType: FormControl<OrderStatusTypes>;
-  shippingType: FormControl<ShippingTypes>;
+  statusType: FormControl<OrderStatusTypes | string>;
+  shippingType: FormControl<ShippingTypes | string>;
   customer: FormGroup<ICustomerForm>;
   shipToAddress: FormGroup<IOrderAddressForm>;
   billToAddress: FormGroup<IOrderAddressForm>;

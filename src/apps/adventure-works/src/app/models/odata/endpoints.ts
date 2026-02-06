@@ -5,7 +5,7 @@
  * For issues or feature request, visit the repo: https://github.com/ikemtz/openapi-ts-generator
  * Do not edit.
  */
-/* tslint:disable */
+/* eslint-disable */
 export enum Endpoints {
   customerAddresses = 'aw-odata/odata/v1/CustomerAddresses',
   customers = 'aw-odata/odata/v1/Customers',
