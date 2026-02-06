@@ -10,7 +10,7 @@ import { ISalesAgent } from './sales-agent.model';
 import { ICustomerAddress } from './customer-address.model';
 import { IOrder } from './order.model';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface ICustomer {
   id?: string | null;
   num?: string;

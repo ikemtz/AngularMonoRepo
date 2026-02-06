@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* istanbul ignore file */
 /**
@@ -12,8 +13,9 @@ import { IProductForm } from './product.form';
 
 export function ProductModelFormGroupFac(): FormGroup<IProductModelForm> {
   return new FormGroup<IProductModelForm>({
-    id: new FormControl<string | null | undefined>(null),
-    name: new FormControl<string>('', {
+    id: new FormControl<string | null | undefined>(undefined),
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    name: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -21,7 +23,8 @@ export function ProductModelFormGroupFac(): FormGroup<IProductModelForm> {
       ]),
       nonNullable: true,
     }),
-    description: new FormControl<string | null | undefined>(null, {
+
+    description: new FormControl<string | null | undefined>(undefined, {
       validators: Validators.maxLength(500),
     }),
     products: new FormArray<FormGroup<IProductForm>>([]),

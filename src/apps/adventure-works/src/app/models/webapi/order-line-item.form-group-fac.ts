@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* istanbul ignore file */
 /**
@@ -15,28 +16,34 @@ import { ProductFormGroupFac } from './product.form-group-fac';
 
 export function OrderLineItemFormGroupFac(): FormGroup<IOrderLineItemForm> {
   return new FormGroup<IOrderLineItemForm>({
-    id: new FormControl<string | null | undefined>(null),
-    orderId: new FormControl<string>('', {
+    id: new FormControl<string | null | undefined>(undefined),
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    orderId: new FormControl<string>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    orderQty: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    orderQty: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    productId: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    productId: new FormControl<string>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    unitPrice: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    unitPrice: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    unitPriceDiscount: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    unitPriceDiscount: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    lineTotal: new FormControl<number>(0, {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    lineTotal: new FormControl<number>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),

@@ -9,16 +9,16 @@
 import { CustomerAddressProperties } from './customer-address.properties';
 
 export function createTestCustomerAddress() {
-    return { 
-      [CustomerAddressProperties.ID]: 'ID',
-      [CustomerAddressProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
-      [CustomerAddressProperties.ADDRESS_TYPE]: 'ADDRESS_TYPE',
-      [CustomerAddressProperties.LINE_1]: 'LINE_1',
-      [CustomerAddressProperties.LINE_2]: 'LINE_2',
-      [CustomerAddressProperties.CITY]: 'CITY',
-      [CustomerAddressProperties.STATE_PROVINCE]: 'STATE_PROVINCE',
-      [CustomerAddressProperties.COUNTRY_REGION]: 'COUNTRY_REGION',
-      [CustomerAddressProperties.POSTAL_CODE]: 'POSTAL_CODE', 
-      [CustomerAddressProperties.CUSTOMER]: undefined,
-    };
+  return {
+    [CustomerAddressProperties.ID]: 'ID',
+    [CustomerAddressProperties.CUSTOMER_ID]: 'CUSTOMER_ID',
+    [CustomerAddressProperties.ADDRESS_TYPE]: 'ADDRESS_TYPE',
+    [CustomerAddressProperties.LINE_1]: 'LINE_1',
+    [CustomerAddressProperties.LINE_2]: 'LINE_2',
+    [CustomerAddressProperties.CITY]: 'CITY',
+    [CustomerAddressProperties.STATE_PROVINCE]: 'STATE_PROVINCE',
+    [CustomerAddressProperties.COUNTRY_REGION]: 'COUNTRY_REGION',
+    [CustomerAddressProperties.POSTAL_CODE]: 'POSTAL_CODE',
+    [CustomerAddressProperties.CUSTOMER]: undefined,
+  };
 }

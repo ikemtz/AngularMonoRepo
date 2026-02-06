@@ -1,3 +1,4 @@
+import { describe, it } from '@jest/globals';
 import { testLoadSeriesData } from '.';
 import { BehaviorSubject, Observable } from 'rxjs';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -16,7 +17,7 @@ describe('Testing testLoadSeriesData', () => {
 class ChartODataMockFacade {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(private readonly service: any) {}
-  private _seriesData = new BehaviorSubject<
+  private readonly _seriesData = new BehaviorSubject<
     ChartSeriesDataPoint[] | GroupResult[]
   >([]);
   public seriesData$: Observable<ChartSeriesDataPoint[] | GroupResult[]> =

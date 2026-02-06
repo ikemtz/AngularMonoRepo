@@ -12,6 +12,7 @@
     "@angular/core": "*",
     "@progress/kendo-angular-grid": "*",
     "@progress/kendo-data-query": "*",
+    "imng-odata-client": "0.0.0",
     "imng-kendo-odata": "0.0.0",
     "imng-nrsrx-client-utils": "0.0.0",
     "rxjs": "*"

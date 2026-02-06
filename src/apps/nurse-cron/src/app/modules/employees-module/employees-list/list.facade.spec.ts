@@ -80,7 +80,7 @@ describe('EmployeeListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'employees-odata/odata/v1/Employees?&$count=true',
+        'employees-odata/odata/v1/Employees?$count=true',
       );
 
       facade.reloadEntities();

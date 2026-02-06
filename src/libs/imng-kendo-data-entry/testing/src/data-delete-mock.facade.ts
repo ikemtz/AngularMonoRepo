@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { IDataDeleteFacade } from 'imng-kendo-data-entry';
 

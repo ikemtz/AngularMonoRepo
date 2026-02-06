@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* istanbul ignore file */
 /**
@@ -13,12 +14,14 @@ import { CustomerFormGroupFac } from './customer.form-group-fac';
 
 export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
   return new FormGroup<ICustomerAddressForm>({
-    id: new FormControl<string | null | undefined>(null),
-    customerId: new FormControl<string>('', {
+    id: new FormControl<string | null | undefined>(undefined),
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    customerId: new FormControl<string>(undefined, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    addressType: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    addressType: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -26,7 +29,8 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
       ]),
       nonNullable: true,
     }),
-    line1: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    line1: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -34,10 +38,12 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
       ]),
       nonNullable: true,
     }),
-    line2: new FormControl<string | null | undefined>(null, {
+
+    line2: new FormControl<string | null | undefined>(undefined, {
       validators: Validators.maxLength(60),
     }),
-    city: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    city: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -45,7 +51,8 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
       ]),
       nonNullable: true,
     }),
-    stateProvince: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    stateProvince: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -53,7 +60,8 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
       ]),
       nonNullable: true,
     }),
-    countryRegion: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    countryRegion: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -61,7 +69,8 @@ export function CustomerAddressFormGroupFac(): FormGroup<ICustomerAddressForm> {
       ]),
       nonNullable: true,
     }),
-    postalCode: new FormControl<string>('', {
+    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
+    postalCode: new FormControl<string>(undefined, {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),

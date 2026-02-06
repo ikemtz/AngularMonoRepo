@@ -10,7 +10,7 @@ import { IProductModel } from './product-model.model';
 import { IProductCategory } from './product-category.model';
 import { IOrderLineItem } from './order-line-item.model';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface IProduct {
   id?: string | null;
   name?: string;

@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { IdType } from 'imng-nrsrx-client-utils';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {
@@ -6,9 +7,9 @@ import {
 } from 'imng-prime-table-odata';
 import { Observable, of } from 'rxjs';
 
-export class ODataTableMockFacade
-  implements IPrimeODataTableFacade<{ id?: IdType | null }>
-{
+export class ODataTableMockFacade implements IPrimeODataTableFacade<{
+  id?: IdType | null;
+}> {
   public activeEffectCount$: Observable<number> = of(0);
   public tableState$: Observable<PrimeTableState> = of({});
   public tableData$: Observable<{ id?: IdType | null }[]> = of([
