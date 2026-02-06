@@ -78,7 +78,7 @@ describe('HealthItemListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'health-items-odata/odata/v1/HealthItems?&$count=true',
+        'health-items-odata/odata/v1/HealthItems?$count=true',
       );
 
       facade.reloadEntities();

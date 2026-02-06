@@ -1,7 +1,7 @@
 import {
-  ChildFilter,
-  CompositeFilter,
-  Filter,
+  IChildFilter,
+  ICompositeFilter,
+  IFilter,
   getFilterOperator,
   isCompositeFilter,
   ODataQuery,
@@ -34,12 +34,12 @@ export function toODataQuery(val: PrimeTableState): ODataQuery {
           metaData.collection?.filter((filter) => filter.value).length,
       )
       .map(
-        (t): CompositeFilter => ({
+        (t): ICompositeFilter => ({
           logic: t.collection?.every((e) => e.operator === 'and')
             ? 'and'
             : 'or',
           filters: t.collection.map(
-            (m): Filter => ({
+            (m): IFilter => ({
               field: t.key,
               operator: getFilterOperator(m.matchMode || 'eq'),
               value: m.value,
@@ -63,22 +63,22 @@ export function toODataQuery(val: PrimeTableState): ODataQuery {
 }
 
 export function transformPrimeRelatedTableFilters(
-  filter: CompositeFilter,
-): CompositeFilter {
+  filter: ICompositeFilter,
+): ICompositeFilter {
   if (filter) {
     filter.filters = filter.filters.map((x) => {
       if (isCompositeFilter(x)) {
         return transformPrimeRelatedTableFilters(x);
       } else if (x.field.indexOf('/') > 0) {
         const fieldSegments = x.field.split('/');
-        return <ChildFilter>{
+        return <IChildFilter>{
           ...x,
-          childTable: fieldSegments[0].replace('.', '/'),
+          childTable: fieldSegments[0].replaceAll('.', '/'),
           field: fieldSegments.filter((v, i) => i > 0).join('/'),
           linqOperation: 'any',
         };
       } else if (x.field.indexOf('.') > 0) {
-        x.field = x.field.replace(/\./g, '/');
+        x.field = x.field.replaceAll('.', '/');
       }
       return x;
     });

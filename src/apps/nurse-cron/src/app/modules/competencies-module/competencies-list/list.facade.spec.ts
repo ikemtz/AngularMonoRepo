@@ -86,7 +86,7 @@ describe('CompetencyListFacade', () => {
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
       expect(httpClient.get).toHaveBeenCalledWith(
-        'competencies-odata/odata/v1/Competencies?&$count=true',
+        'competencies-odata/odata/v1/Competencies?$count=true',
       );
 
       facade.reloadEntities();

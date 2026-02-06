@@ -26,10 +26,12 @@ export function serializeCompositeFilter(filter: ICompositeFilter): string {
 export function serializeFilterItem(
   m: IFilter | IChildFilter | ICompositeFilter,
 ): string {
-  if (isCompositeFilter(m)) {
+  if (isCompositeFilter(m) && m.filters.length > 1) {
     return serializeCompositeFilter(m);
+  } else if (isCompositeFilter(m) && m.filters.length === 1) {
+    return serializeFilterItem(m.filters[0]);
   }
-  return serializeFilter(m);
+  return serializeFilter(m as IFilter | IChildFilter);
 }
 
 export function serializeFilter(filter: IFilter | IChildFilter): string {
