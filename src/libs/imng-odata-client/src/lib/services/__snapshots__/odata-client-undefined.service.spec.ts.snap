@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ODataClientService getODataString with Undefined filters should serialize ODataQueries with undefined field filters and sub filters 1`] = `"$filter=((contains(a,'1') or not contains(b,'2')))&$count=true"`;
