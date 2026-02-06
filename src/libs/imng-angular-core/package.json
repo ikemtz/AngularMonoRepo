@@ -21,13 +21,15 @@
     "imng-kendo-odata": "0.0.0",
     "imng-ngrx-utils": "0.0.0",
     "imng-nrsrx-client-utils": "0.0.0",
+    "imng-odata-client": "0.0.0",
     "imng-oidc-client": "0.0.0",
     "imng-signalr-ngrx": "0.0.0"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+    "directory": "src/libs/imng-angular-core",
+    "url": "git+https://github.com/ikemtz/AngularMonoRepo.git"
   },
   "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
   "private": false,

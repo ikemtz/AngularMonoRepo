@@ -13,8 +13,14 @@
     "@angular/core": "*",
     "@angular/router": "*",
     "primeng": "*",
-    "imng-odata-client": "*",
+    "imng-odata-client": "0.0.0",
     "openapi-ts-generator": ">=10.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "src/libs/imng-prime-table-odata",
+    "url": "git+https://github.com/ikemtz/AngularMonoRepo.git"
   },
   "dependencies": {
     "tslib": "^2.3.0"

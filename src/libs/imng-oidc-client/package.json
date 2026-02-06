@@ -24,7 +24,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ikemtz/AngularMonoRepo.git"
+    "directory": "src/libs/imng-oidc-client",
+    "url": "git+https://github.com/ikemtz/AngularMonoRepo.git"
   },
   "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
   "private": false,
