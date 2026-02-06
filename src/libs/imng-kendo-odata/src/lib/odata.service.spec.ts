@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { ODataState } from './odata-state';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { createODataPayload } from './odata-payload';
+import { ICompositeFilter } from 'imng-odata-client';
 
 describe('ODataService', () => {
   let service: ODataService;
@@ -59,7 +59,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7,1))&$count=true`,
+      `//idunno.com?$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7,1))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -93,7 +93,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7,1) eq false)&$count=true`,
+      `//idunno.com?$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7,1) eq false)&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -117,7 +117,7 @@ describe('ODataService', () => {
         { table: 'childTable1', selectors: ['id', 'name'] },
       ],
     };
-    const expectedRequestedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('xyz',1,2021-12-30T`;
+    const expectedRequestedUrlStart = `//idunno.com?$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('xyz',1,2021-12-30T`;
     const result = await readFirst(
       service.fetch('//idunno.com', gridState, {
         utcNullableProps: ['fireDate'],
@@ -148,7 +148,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in (1,2,6,4))&$count=true`,
+      `//idunno.com?$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in (1,2,6,4))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -335,7 +335,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=id eq 'abc';$expand=grandParentTable)&$select=id,name&$count=true`,
+      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=(id eq 'abc');$expand=grandParentTable)&$select=id,name&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -375,7 +375,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=id eq 'abc';$expand=grandParentTable($orderby=def))&$select=id,name&$count=true`,
+      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=(id eq 'abc');$expand=grandParentTable($orderby=def))&$select=id,name&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -426,7 +426,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=id eq 'abc';$expand=grandParentTableA($orderby=def),grandParentTableB($orderby=ghi desc),grandParentTableC($orderby=rst))&$select=id,name&$count=true`,
+      `//idunno.com?$filter=(fieldName eq 'xyz' and contains(fieldName2,'xyz'))&$expand=parentTable($select=id,field2;$orderby=xyz desc;$filter=(id eq 'abc');$expand=grandParentTableA($orderby=def),grandParentTableB($orderby=ghi desc),grandParentTableC($orderby=rst))&$select=id,name&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -487,7 +487,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=childTable1/any(o: o/name eq 'xy')&$count=true`,
+      `//idunno.com?$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=childTable1/any(o: o/name eq 'xy')&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -529,7 +529,7 @@ describe('ODataService', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(childTable4/any(o: o/name2 eq 'abc') or childTable1/any(o: o/name eq 'def'))&$count=true`,
+      `//idunno.com?$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(childTable4/any(o: o/name2 eq 'abc') or childTable1/any(o: o/name eq 'def'))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -558,7 +558,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$filter=employeeCertifications/any(o: contains(o/certificationName, '😎🐱‍👤'))&$count=true`,
+      `//idunno.com?$filter=employeeCertifications/any(o: contains(o/certificationName, '😎🐱‍👤'))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -587,7 +587,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$filter=employeeCertifications/any(o: o/certificationName eq 353)&$count=true`,
+      `//idunno.com?$filter=employeeCertifications/any(o: o/certificationName eq 353)&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -702,7 +702,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$filter=employeeCertifications/any(o: o/certificationName eq 69.99)&$count=true`,
+      `//idunno.com?$filter=employeeCertifications/any(o: o/certificationName eq 69.99)&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -721,7 +721,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$apply=groupby((columnName),aggregate(id with countdistinct as rowCount))&$count=true`,
+      `//idunno.com?$apply=groupby((columnName),aggregate(id with countdistinct as rowCount))&$count=true`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher);
   });
@@ -736,7 +736,7 @@ describe('ODataService', () => {
           { field: 'a.d', operator: 'eq', value: 123 },
         ],
       },
-    ] as CompositeFilterDescriptor[];
+    ] as ICompositeFilter[];
     const gridState: ODataState = {
       expanders: [
         { table: 'childTable2' },
@@ -754,7 +754,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
+      `//idunno.com?$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123))&$count=true`,
     );
   });
 
@@ -777,8 +777,8 @@ describe('ODataService', () => {
           },
         ],
       },
-    ] as CompositeFilterDescriptor[];
-    const expectedUrlStart = `//idunno.com?&$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
+    ] as ICompositeFilter[];
+    const expectedUrlStart = `//idunno.com?$expand=childTable2,childTable1($select=id,name),a($orderby=b)&$select=id,name&$filter=(a/any(o: o/b eq '123') and a/any(o: o/b eq 123) and a/any(o: o/b eq 2021-12-30T`;
     const gridState: ODataState = {
       expanders: [
         { table: 'childTable2' },
@@ -836,7 +836,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?$filter=id eq 'xyz'&$expand=childTable2,childTable1($select=id,name)&$select=id,name`,
+      `//idunno.com?$filter=(id eq 'xyz')&$expand=childTable2,childTable1($select=id,name)&$select=id,name`,
     );
     expect(result).toMatchSnapshot(jestPropertyMatcher.data[0]);
   });
@@ -879,7 +879,7 @@ describe('ODataService', () => {
     );
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith(
-      `//idunno.com?&$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) and childTable1/any(o: o/name eq '%F0%9F%98%8E%F0%9F%90%B1%E2%80%8D%F0%9F%91%A4')&$count=true&foo=bar&baz=qux&specialUri=%3C%3D%26'%3E`,
+      `//idunno.com?$expand=childTable2,childTable1($select=id,name)&$select=id,name&$filter=(field1 in ('x','y',1fd57024-3299-4523-b910-725fab258015,2b837a73-1d01-4414-ae92-c047a0ff0fe7)) and childTable1/any(o: o/name eq '%F0%9F%98%8E%F0%9F%90%B1%E2%80%8D%F0%9F%91%A4')&$count=true&foo=bar&baz=qux&specialUri=%3C%3D%26'%3E`,
     );
   });
 });

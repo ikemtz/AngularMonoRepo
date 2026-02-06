@@ -18,6 +18,11 @@ import {
   FilterDescriptor,
   isCompositeFilterDescriptor,
 } from '@progress/kendo-data-query';
+import {
+  ICompositeFilter,
+  IFilter,
+  isCompositeFilter,
+} from 'imng-odata-client';
 
 const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>(
   'imng-grid-odata-facade',
@@ -97,7 +102,11 @@ export abstract class KendoODataBasedComponent<
           this.expanders = t.expanders;
           this.transformations = t.transformations;
         }),
-        state.pipe(first()).subscribe((t) => (this.defaultFilter = t.filter)),
+        state
+          .pipe(first())
+          .subscribe(
+            (t) => (this.defaultFilter = t.filter as CompositeFilterDescriptor),
+          ),
       );
     } else {
       this.gridDataState = this.gridDataState
@@ -108,7 +117,7 @@ export abstract class KendoODataBasedComponent<
           }
         : state;
       this.expanders = state.expanders;
-      this.defaultFilter = state.filter;
+      this.defaultFilter = state.filter as CompositeFilterDescriptor;
       this.transformations = state.transformations;
     }
     if (gridRefresh$) {
@@ -124,7 +133,7 @@ export abstract class KendoODataBasedComponent<
     }
     this.loading$ = this.facade.loading$;
     this.gridDataResult$ = this.facade.gridData$?.pipe(
-      map((gridData) => (gridData ? gridData : { total: 0, data: [] })),
+      map((gridData) => gridData ?? { total: 0, data: [] }),
     );
     this.gridPagerSettings$ = this.facade.gridPagerSettings$;
   }
@@ -140,15 +149,27 @@ export abstract class KendoODataBasedComponent<
    * @param filter
    */
   public normalizeFilters(
-    filter: FilterDescriptor | CompositeFilterDescriptor,
+    filter:
+      | FilterDescriptor
+      | CompositeFilterDescriptor
+      | IFilter
+      | ICompositeFilter,
   ) {
-    if (isCompositeFilterDescriptor(filter)) {
-      filter.filters.forEach(this.normalizeFilters);
-    } else if (
-      (filter?.field as string)?.toUpperCase().endsWith('DATE') ||
-      (filter?.field as string)?.toUpperCase().endsWith('UTC')
+    if (
+      isCompositeFilterDescriptor(filter as CompositeFilterDescriptor) ||
+      isCompositeFilter(filter as ICompositeFilter)
     ) {
-      filter.value = new Date(filter.value);
+      (filter as CompositeFilterDescriptor | ICompositeFilter).filters.forEach(
+        this.normalizeFilters,
+      );
+    } else {
+      const filterObj = filter as IFilter;
+      const filterField = filterObj?.field?.toUpperCase();
+      if (filterField?.endsWith('DATE') || filterField?.endsWith('UTC')) {
+        (filter as IFilter).value = new Date(
+          (filter as IFilter).value as string,
+        );
+      }
     }
   }
 
@@ -161,7 +182,7 @@ export abstract class KendoODataBasedComponent<
   public resetFilters(): void {
     this.gridDataState = {
       ...this.gridDataState,
-      filter: this.defaultFilter,
+      filter: this.defaultFilter as ICompositeFilter,
     };
     if (!isObservable(this.state)) {
       this.gridDataState = {
@@ -178,6 +199,7 @@ export abstract class KendoODataBasedComponent<
       ...state,
       expanders: this.expanders,
       transformations: this.transformations,
+      filter: state.filter as ICompositeFilter,
     };
     this.loadEntities(this.gridDataState);
   }
