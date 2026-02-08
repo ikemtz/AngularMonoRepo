@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ODataClientService should filter out invalid filters should not include invalid filters 1`] = `"$count=true"`;
+
+exports[`ODataClientService should filter out invalid filters should not include invalid subfilters 1`] = `"$count=true"`;
+
+exports[`ODataClientService should filter out invalid filters should serialize ODataQueries without duplicate parentheses on filters 1`] = `"$filter=(a eq '1')&$count=true"`;

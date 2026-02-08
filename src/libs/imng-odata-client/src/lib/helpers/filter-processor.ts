@@ -13,6 +13,9 @@ export function processFilters(query: ODataQuery, queryString: string): string {
     return queryString;
   }
   const filterString = serializeCompositeFilter(query.filter);
+  if (filterString === '()') {
+    return queryString;
+  }
   return `${queryString}&$filter=${filterString}`;
 }
 
@@ -24,14 +27,35 @@ export function serializeCompositeFilter(filter: ICompositeFilter): string {
     .join(filterLogicSeperator)})`;
 }
 export function serializeFilterItem(
-  m: IFilter | IChildFilter | ICompositeFilter,
+  filter: IFilter | IChildFilter | ICompositeFilter,
 ): string {
-  if (isCompositeFilter(m) && m.filters.length > 1) {
-    return serializeCompositeFilter(m);
-  } else if (isCompositeFilter(m) && m.filters.length === 1) {
-    return serializeFilterItem(m.filters[0]);
+  if (isCompositeFilter(filter)) {
+    const subFilters = filter.filters.filter((subFilter) =>
+      isNotEmptyFilter(subFilter),
+    );
+    if (subFilters.length > 1) {
+      return serializeCompositeFilter(filter);
+    } else if (subFilters.length === 1) {
+      return serializeFilterItem(subFilters[0]);
+    } else {
+      return '';
+    }
   }
-  return serializeFilter(m as IFilter | IChildFilter);
+  return serializeFilter(filter);
+}
+
+export function isNotEmptyFilter(
+  filter: IFilter | IChildFilter | ICompositeFilter,
+): boolean {
+  if (isCompositeFilter(filter)) {
+    return filter.filters.every((filter) => isNotEmptyFilter(filter));
+  } else {
+    return (
+      filter.field !== undefined &&
+      filter.field !== null &&
+      filter.field.length > 0
+    );
+  }
 }
 
 export function serializeFilter(filter: IFilter | IChildFilter): string {
