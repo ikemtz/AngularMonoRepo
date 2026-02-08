@@ -20,7 +20,7 @@ export const serializeArrayFilter = (
   operator: string,
   values?: IdType[],
 ): string =>
-  values
+  values && values.length > 0
     ? `${field} ${operator} (${values.map((m) => serializeValue(m)).join(',')})`
     : '';
 

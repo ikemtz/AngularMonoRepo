@@ -31,13 +31,13 @@ export function parseDatesInCollection<T extends object>(
     );
 
     options.utcNullableProps?.forEach((t) => {
-      if (utcProps.indexOf(t) === -1) {
+      if (!utcProps.includes(t)) {
         utcProps.push(t);
       }
     });
 
     options.dateNullableProps?.forEach((t) => {
-      if (dateProps.indexOf(t) === -1) {
+      if (!dateProps.includes(t)) {
         dateProps.push(t);
       }
     });

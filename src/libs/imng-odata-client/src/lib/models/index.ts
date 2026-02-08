@@ -10,3 +10,4 @@ export * from './filter';
 export * from './odata-query';
 export * from './odata-result';
 export * from './sort';
+export * from './array-filter';
