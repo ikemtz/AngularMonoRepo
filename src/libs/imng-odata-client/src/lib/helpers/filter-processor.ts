@@ -2,6 +2,7 @@ import {
   IChildFilter,
   ICompositeFilter,
   IFilter,
+  isArrayFilter,
   isChildFilter,
   isCompositeFilter,
   ODataQuery,
@@ -40,8 +41,10 @@ export function serializeFilterItem(
     } else {
       return '';
     }
+  } else if (isNotEmptyFilter(filter)) {
+    return serializeFilter(filter);
   }
-  return serializeFilter(filter);
+  return '';
 }
 
 export function isNotEmptyFilter(
@@ -49,6 +52,12 @@ export function isNotEmptyFilter(
 ): boolean {
   if (isCompositeFilter(filter)) {
     return filter.filters.every((filter) => isNotEmptyFilter(filter));
+  } else if (isArrayFilter(filter)) {
+    return (
+      filter.value !== undefined &&
+      filter.value !== null &&
+      filter.value.length > 0
+    );
   } else {
     return (
       filter.field !== undefined &&
