@@ -16,7 +16,7 @@ describe('ODataClientService should filter out empty array filters', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should serialize ODataQueries without duplicate parentheses on filters', async () => {
+  it('should serialize ODataQueries and filter out empty array filters', async () => {
     const result = service.getODataString({
       filter: {
         logic: 'and',
