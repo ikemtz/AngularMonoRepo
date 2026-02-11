@@ -114,7 +114,7 @@ describe('PrimeODataBasedComponent', () => {
         { field: 'f', order: 1 },
       ],
     };
-    component.facade.loadEntities = jest.fn();
+    (component.facade as { loadEntities: jest.Mock }).loadEntities = jest.fn();
     component.loadEntities(primeTableState);
     expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({

@@ -11,7 +11,7 @@ import {
   CompositeFilterDescriptor,
   SortDescriptor,
 } from '@progress/kendo-data-query';
-import { ODataResult } from 'imng-kendo-odata';
+import { ICompositeFilter, ODataResult, ODataState } from 'imng-kendo-odata';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Subscribable } from 'imng-ngrx-utils';
 import { KendoGridBaseComponent } from 'imng-kendo-grid';
@@ -33,7 +33,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   @Input()
   public set detail(value: LISTED_ENTITY[]) {
     this._detail = value || [];
-    this.gridData = process(this._detail, this.state);
+    this.gridData = process(this._detail, this.state as State);
     this.changeDetectorRef?.markForCheck();
   }
 
@@ -43,7 +43,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract readonly props: any; //NOSONAR
-  public state: State = {
+  public state: ODataState = {
     skip: 0,
     take: 10,
   };
@@ -75,9 +75,9 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   public readonly markForCheck = (): void =>
     this.changeDetectorRef?.markForCheck();
 
-  public dataStateChange(state: DataStateChangeEvent | State): void {
-    this.state = state;
-    this.gridData = process(this._detail, this.state);
+  public dataStateChange(state: DataStateChangeEvent | ODataState): void {
+    this.state = state as ODataState;
+    this.gridData = process(this._detail, this.state as State);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -87,7 +87,7 @@ export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public filterChange(t: CompositeFilterDescriptor): void {
+  public filterChange(t: CompositeFilterDescriptor | ICompositeFilter): void {
     //NOSONAR
     //This is intentional
   }

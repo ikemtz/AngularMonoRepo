@@ -75,12 +75,15 @@ export function serializeFilter(filter: IFilter | IChildFilter): string {
   const odataStringFunction = operator.toODataString;
   if (filter.field === undefined || filter.field === null) {
     return '';
-  } else if (isChildFilter(filter)) {
-    const childFieldName = `o/${filter.field}`;
-    return `${filter.childTable}/${
-      filter.linqOperation
-    }(o: ${odataStringFunction(childFieldName, filter.value as never)})`;
   } else {
-    return odataStringFunction(filter.field, filter.value as never);
+    const field = filter.field.replaceAll('.', '/');
+    if (isChildFilter(filter)) {
+      const childFieldName = `o/${field}`;
+      return `${filter.childTable}/${
+        filter.linqOperation
+      }(o: ${odataStringFunction(childFieldName, filter.value as never)})`;
+    } else {
+      return odataStringFunction(field, filter.value as never);
+    }
   }
 }

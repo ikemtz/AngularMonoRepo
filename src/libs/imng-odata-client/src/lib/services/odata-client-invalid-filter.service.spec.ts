@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { ODataClientService } from './odata-client.service';
+import { getODataString, ODataClientService } from './odata-client.service';
 
 describe('ODataClientService should filter out invalid filters', () => {
   let service: ODataClientService;
@@ -17,7 +17,7 @@ describe('ODataClientService should filter out invalid filters', () => {
   });
 
   it('should serialize ODataQueries without duplicate parentheses on filters', async () => {
-    const result = service.getODataString({
+    const result = getODataString({
       filter: {
         logic: 'and',
         filters: [
@@ -58,7 +58,7 @@ describe('ODataClientService should filter out invalid filters', () => {
   });
 
   it('should not include invalid filters', async () => {
-    const result = service.getODataString({
+    const result = getODataString({
       filter: {
         logic: 'and',
         filters: [
@@ -90,7 +90,7 @@ describe('ODataClientService should filter out invalid filters', () => {
   });
 
   it('should not include invalid subfilters', async () => {
-    const result = service.getODataString({
+    const result = getODataString({
       filter: {
         logic: 'and',
         filters: [

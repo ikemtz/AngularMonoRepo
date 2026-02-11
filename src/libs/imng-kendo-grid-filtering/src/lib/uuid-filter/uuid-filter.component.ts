@@ -11,6 +11,7 @@ import {
 } from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { Subscriptions } from 'imng-ngrx-utils';
+import { ICompositeFilter } from 'imng-odata-client';
 
 /**
  * How To Use:
