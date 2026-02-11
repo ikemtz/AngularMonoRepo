@@ -4,7 +4,7 @@ import { readFirst } from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
 import { FilterOperators, ODataResult } from '../models';
 
-import { ODataClientService } from './odata-client.service';
+import { getODataString, ODataClientService } from './odata-client.service';
 
 const testODataResult = (): ODataResult<{
   id: string;
@@ -101,7 +101,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries with string Filters', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       select: ['A', 'b', '890'],
       filter: {
         logic: 'and',
@@ -155,7 +155,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize Expanders', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       expand: [
         {
           table: 'tableName',
@@ -228,7 +228,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries with a guid Filter', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       filter: {
         logic: 'and',
         filters: [
@@ -253,14 +253,14 @@ describe('ODataClientService', () => {
   });
 
   it('should handle top: 0', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       top: 0,
     });
     expect(queryString).toBe(`$top=0&$count=true`);
   });
 
   it('should serialize ODataQueries without expander counts', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       expand: [
         {
           table: 'xyz',
@@ -277,7 +277,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries with expander counts', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       expand: [
         {
           table: 'xyz',
@@ -294,7 +294,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries simple expander', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       expand: [
         {
           table: 'xyz',
@@ -306,7 +306,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries simple nested expander', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       expand: [
         {
           table: 'xyz',
@@ -319,7 +319,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries with a date Filter', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       select: ['A', 'b', '890'],
       filter: {
         logic: 'and',
@@ -345,7 +345,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries with an empty Filter', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       select: ['A', 'b', '890'],
       filter: {
         logic: 'and',
@@ -365,7 +365,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries with a contains Filter', () => {
-    const queryString = service.getODataString({
+    const queryString = getODataString({
       filter: {
         logic: 'and',
         filters: [
@@ -402,7 +402,7 @@ describe('ODataClientService', () => {
   });
 
   it('should serialize ODataQueries with cacheBusting', () => {
-    const queryString = service.getODataString(
+    const queryString = getODataString(
       {
         select: ['A', 'b', '890'],
       },

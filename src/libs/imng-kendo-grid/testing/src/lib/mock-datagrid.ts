@@ -12,6 +12,8 @@ import {
   SortDescriptor,
 } from '@progress/kendo-data-query';
 import { of } from 'rxjs';
+import { ICompositeFilter } from 'imng-odata-client';
+
 @Component({
   selector: 'imng-mock-grid',
   template: '',
@@ -26,7 +28,9 @@ export class MockGridComponent {
   public dataStateChange = new EventEmitter<DataStateChangeEvent>(false);
   public pageChange = new EventEmitter<PageChangeEvent>(false);
   public sortChange = new EventEmitter<Array<SortDescriptor>>(false);
-  public filterChange = new EventEmitter<CompositeFilterDescriptor>(false);
+  public filterChange = new EventEmitter<
+    CompositeFilterDescriptor | ICompositeFilter
+  >(false);
   public columnVisibilityChange = new EventEmitter<ColumnVisibilityChangeEvent>(
     false,
   );

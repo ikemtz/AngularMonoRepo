@@ -66,9 +66,12 @@ export abstract class KendoODataBasedComponent<
    * This is used to reset the filter when the "Clear Filter" button is clicked.
    *
    * @public
-   * @type {CompositeFilterDescriptor | undefined}
+   * @type {CompositeFilterDescriptor | ICompositeFilter | undefined}
    */
-  public defaultFilter: CompositeFilterDescriptor | undefined;
+  public defaultFilter:
+    | CompositeFilterDescriptor
+    | ICompositeFilter
+    | undefined;
 
   constructor(
     @Inject(FACADE) public readonly facade: FACADE,

@@ -6,11 +6,8 @@ import {
   createODataGridMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import {
-  CompositeFilterDescriptor,
-  FilterDescriptor,
-} from '@progress/kendo-data-query';
-import { ODataState } from 'imng-kendo-odata';
+import { FilterDescriptor } from '@progress/kendo-data-query';
+import { ICompositeFilter, ODataState } from 'imng-kendo-odata';
 import { of } from 'rxjs';
 
 describe('KendoODataObservableBasedComponent', () => {
@@ -82,7 +79,7 @@ describe('KendoODataObservableBasedComponent', () => {
         { field: 'f', dir: 'asc' },
       ],
     };
-    component.facade.loadEntities = jest.fn();
+    (component.facade as { loadEntities: jest.Mock }).loadEntities = jest.fn();
     component.loadEntities(odataState);
     expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({
@@ -109,7 +106,7 @@ describe('KendoODataObservableBasedComponent', () => {
   });
 
   it('should normalizeFilters CompositeFilter', () => {
-    const filter: CompositeFilterDescriptor = {
+    const filter: ICompositeFilter = {
       logic: 'and',
       filters: [
         { field: 'Date', operator: 'eq', value: '1/1/2022' },

@@ -18,6 +18,8 @@ import {
   CompositeFilterDescriptor,
   SortDescriptor,
 } from '@progress/kendo-data-query';
+import { ICompositeFilter } from 'imng-odata-client';
+import { ODataState } from 'imng-kendo-odata';
 
 @Directive({
   selector: '[imngArrayGrid]',
@@ -55,7 +57,7 @@ export class IMNG_KENDO_GRID_ARRAY
           this.gridComponent.pageSize = t.take;
           this.gridComponent.skip = t.skip;
           if (this.arrayComponent?.state) {
-            this.arrayComponent.state = t;
+            this.arrayComponent.state = t as ODataState;
             this.arrayComponent.dataStateChange(t);
             this.arrayComponent.markForCheck();
           }
@@ -68,10 +70,10 @@ export class IMNG_KENDO_GRID_ARRAY
         this.arrayComponent?.sortChange(t);
       }),
       this.gridComponent.filterChange.subscribe(
-        (t: CompositeFilterDescriptor) => {
+        (t: CompositeFilterDescriptor | ICompositeFilter) => {
           this.gridComponent.filter = t;
           if (this.arrayComponent) {
-            this.arrayComponent.state.filter = t;
+            this.arrayComponent.state.filter = t as ICompositeFilter;
             this.arrayComponent.markForCheck();
             this.arrayComponent.filterChange(t);
           }
