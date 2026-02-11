@@ -71,7 +71,7 @@ export class IMNG_KENDO_GRID_ARRAY
       }),
       this.gridComponent.filterChange.subscribe(
         (t: CompositeFilterDescriptor | ICompositeFilter) => {
-          this.gridComponent.filter = t;
+          this.gridComponent.filter = t as CompositeFilterDescriptor;
           if (this.arrayComponent) {
             this.arrayComponent.state.filter = t as ICompositeFilter;
             this.arrayComponent.markForCheck();
@@ -85,7 +85,8 @@ export class IMNG_KENDO_GRID_ARRAY
     );
 
     this.gridComponent.pageSize = this.arrayComponent?.state.take || 20; //NOSONAR
-    this.gridComponent.filter = this.arrayComponent?.state.filter || {
+    this.gridComponent.filter = (this.arrayComponent?.state
+      .filter as CompositeFilterDescriptor) || {
       logic: 'and',
       filters: [],
     };
