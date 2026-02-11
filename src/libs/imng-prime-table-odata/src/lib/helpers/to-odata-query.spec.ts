@@ -1,4 +1,4 @@
-import { ODataClientService } from 'imng-odata-client';
+import { getODataString, ODataClientService } from 'imng-odata-client';
 import { toODataQuery } from './to-odata-query';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
@@ -45,7 +45,6 @@ describe('toODataQuery', () => {
         },
       ],
     }).compileComponents();
-    const svc = TestBed.inject(ODataClientService);
     const query = toODataQuery({
       multiSortMeta: [
         { field: 'abc', order: 1 },
@@ -57,7 +56,7 @@ describe('toODataQuery', () => {
         ],
       },
     });
-    const odataString = svc.getODataString(query);
+    const odataString = getODataString(query);
     expect(odataString).toBe(
       `$filter=(abc/bdf/xyz eq '123')&$orderby=abc,xyz desc&$count=true`,
     );
