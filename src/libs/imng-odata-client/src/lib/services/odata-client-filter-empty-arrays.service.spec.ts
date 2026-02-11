@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { ODataClientService } from './odata-client.service';
+import { getODataString, ODataClientService } from './odata-client.service';
 
 describe('ODataClientService should filter out empty array filters', () => {
   let service: ODataClientService;
@@ -17,7 +17,7 @@ describe('ODataClientService should filter out empty array filters', () => {
   });
 
   it('should serialize ODataQueries and filter out empty array filters', async () => {
-    const result = service.getODataString({
+    const result = getODataString({
       filter: {
         logic: 'and',
         filters: [

@@ -11,7 +11,7 @@ import {
   filePdfIcon,
   fileExcelIcon,
   filterClearIcon,
-  arrowsNoRepeatIcon,
+  arrowRotateCcwIcon,
   plusIcon,
 } from '@progress/kendo-svg-icons';
 import { Observable } from 'rxjs';
@@ -55,7 +55,7 @@ import { Observable } from 'rxjs';
         title="Clear Cache And Reload Data"
         (click)="reloadEntitiesClicked.emit()"
         class="btn btn-sm mx-1">
-        <kendo-svgicon [icon]="arrowsNoRepeatIcon"></kendo-svgicon>
+        <kendo-svg-icon [icon]="arrowRotateCcwIcon"></kendo-svg-icon>
         Reload Data
       </button>
     }
@@ -123,7 +123,7 @@ export class IMNG_KENDO_GRID_HEADER {
   public readonly plusIcon = plusIcon;
   public readonly fileExcelIcon = fileExcelIcon;
   public readonly filterClearIcon = filterClearIcon;
-  public readonly arrowsNoRepeatIcon = arrowsNoRepeatIcon;
+  public readonly arrowRotateCcwIcon = arrowRotateCcwIcon;
 
   @Input()
   public entityName = '';

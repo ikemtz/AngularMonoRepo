@@ -81,7 +81,7 @@ describe('KendoODataBasedComponent', () => {
         { field: 'f', dir: 'asc' },
       ],
     };
-    component.facade.loadEntities = jest.fn();
+    (component.facade as { loadEntities: jest.Mock }).loadEntities = jest.fn();
     component.loadEntities(odataState);
     expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({

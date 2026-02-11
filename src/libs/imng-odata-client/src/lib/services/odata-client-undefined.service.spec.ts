@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { ODataClientService } from './odata-client.service';
+import { getODataString, ODataClientService } from './odata-client.service';
 
 describe('ODataClientService getODataString with Undefined filters', () => {
   let service: ODataClientService;
@@ -17,7 +17,7 @@ describe('ODataClientService getODataString with Undefined filters', () => {
   });
 
   it('should serialize ODataQueries with undefined field filters and sub filters', async () => {
-    const result = service.getODataString({
+    const result = getODataString({
       filter: {
         logic: 'and',
         filters: [

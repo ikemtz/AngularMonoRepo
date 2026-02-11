@@ -1,11 +1,15 @@
-import { CompositeFilterDescriptor, FilterDescriptor } from '@progress/kendo-data-query';
 import { findMatchingFilters } from './find-filter';
 import { isFilterDescriptor } from './isFilterDescriptor';
+import { ICompositeFilter, IFilter } from 'imng-odata-client';
 
 describe('findFilter', () => {
-  const genFilter = (x: string): FilterDescriptor => ({ field: x, operator: 'eq', value: 2 });
+  const genFilter = (x: string): IFilter => ({
+    field: x,
+    operator: 'eq',
+    value: 2,
+  });
   it('should find', () => {
-    const filters: CompositeFilterDescriptor = {
+    const filters: ICompositeFilter = {
       logic: 'and',
       filters: [genFilter('y'), genFilter('z')],
     };
@@ -14,7 +18,7 @@ describe('findFilter', () => {
   });
 
   it('should find sub filters', () => {
-    const filters: CompositeFilterDescriptor = {
+    const filters: ICompositeFilter = {
       logic: 'and',
       filters: [
         {
@@ -36,11 +40,14 @@ describe('findFilter', () => {
     expect(result).toMatchSnapshot();
   });
   it('should not find', () => {
-    const filters: CompositeFilterDescriptor = {
+    const filters: ICompositeFilter = {
       logic: 'and',
       filters: [genFilter('y'), genFilter('z')],
     };
-    const result = findMatchingFilters({ filter: { filters: [filters], logic: 'and' } }, 'x');
+    const result = findMatchingFilters(
+      { filter: { filters: [filters], logic: 'and' } },
+      'x',
+    );
     expect(result).toMatchSnapshot();
   });
   it('should work with non-filtered odata states', () => {
