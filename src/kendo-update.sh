@@ -1,0 +1,33 @@
+npm i --save --legacy-peer-deps \
+@progress/kendo-angular-buttons@latest \
+@progress/kendo-angular-charts@latest \
+@progress/kendo-angular-common@latest \
+@progress/kendo-angular-conversational-ui@latest \
+@progress/kendo-angular-dateinputs@latest \
+@progress/kendo-angular-dialog@latest \
+@progress/kendo-angular-dropdowns@latest \
+@progress/kendo-angular-excel-export@latest \
+@progress/kendo-angular-grid@latest \
+@progress/kendo-angular-icons@latest \
+@progress/kendo-angular-indicators@latest \
+@progress/kendo-angular-inputs@latest \
+@progress/kendo-angular-intl@latest \
+@progress/kendo-angular-l10n@latest \
+@progress/kendo-angular-label@latest \
+@progress/kendo-angular-layout@latest \
+@progress/kendo-angular-menu@latest \
+@progress/kendo-angular-navigation@latest \
+@progress/kendo-angular-pager@latest \
+@progress/kendo-angular-pdf-export@latest \
+@progress/kendo-angular-popup@latest \
+@progress/kendo-angular-progressbar@latest \
+@progress/kendo-angular-toolbar@latest \
+@progress/kendo-angular-treeview@latest \
+@progress/kendo-angular-upload@latest \
+@progress/kendo-angular-utils@latest \
+@progress/kendo-data-query@latest \
+@progress/kendo-drawing@latest \
+@progress/kendo-licensing@latest \
+@progress/kendo-svg-icons@latest \
+@progress/kendo-theme-bootstrap@latest \
+@progress/kendo-theme-default@latest
