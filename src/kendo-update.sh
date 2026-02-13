@@ -2,6 +2,7 @@ npm i --save --legacy-peer-deps \
 @progress/kendo-angular-buttons@latest \
 @progress/kendo-angular-charts@latest \
 @progress/kendo-angular-common@latest \
+@progress/kendo-angular-conversational-ui@latest \
 @progress/kendo-angular-dateinputs@latest \
 @progress/kendo-angular-dialog@latest \
 @progress/kendo-angular-dropdowns@latest \
