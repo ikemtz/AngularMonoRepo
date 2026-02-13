@@ -201,7 +201,7 @@
     "oidc-client": "^1.11.5",
     "primeicons": "^7.0.0",
     "primeng": "^21.1.1",
-    "rxjs": "7.8.1",
+    "rxjs": "7.8.2",
     "tslib": "^2.4.0",
     "zone.js": "0.16.0"
   }
