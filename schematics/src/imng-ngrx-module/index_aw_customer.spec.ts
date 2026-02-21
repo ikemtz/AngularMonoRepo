@@ -1,16 +1,16 @@
-import { beforeAll, describe, expect, test } from "@jest/globals";
-import { Tree } from "@angular-devkit/schematics";
+import { beforeAll, describe, expect, test } from '@jest/globals';
+import { Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
   UnitTestTree,
-} from "@angular-devkit/schematics/testing";
-import * as path from "node:path";
-import { IOptions } from "../shared";
-import { plural, singular } from "pluralize";
-import { classify, dasherize } from "@angular-devkit/core/src/utils/strings";
+} from '@angular-devkit/schematics/testing';
+import * as path from 'node:path';
+import { IOptions } from '../shared';
+import { plural, singular } from 'pluralize';
+import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
-
+const thirtySeconds = 30000;
 describe(`imng-ngrx-module`, () => {
   let tree: UnitTestTree;
   let options: IOptions;
@@ -21,18 +21,18 @@ describe(`imng-ngrx-module`, () => {
       openApiJsonUrl: `https://awod-ikemtz.azurewebsites.net/swagger/v1/swagger.json`,
       path: `./test`,
       swaggerProperties: [],
-      appPrefix: "aw",
-      modelFolderLocation: "../../../models/webapi",
+      appPrefix: 'aw',
+      modelFolderLocation: '../../../models/webapi',
     };
     tree = await runner.runSchematic(`imng-ngrx-module`, options, Tree.empty());
-  }, 30000);
+  }, thirtySeconds);
 
   test(`tree files should match`, () => {
     expect(tree.files.sort()).toMatchSnapshot();
   });
 
   test(`module should work`, () => {
-    const file = tree.get(`/test/customers-ngrx-module/customers.module.ts`);
+    const file = tree.get(`/test/customers-ngrx-module/customers-ngrx.module.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });

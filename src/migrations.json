@@ -1,9 +1,0 @@
-{
-  "nx-console": {
-    "initialGitRef": {
-      "ref": "352d819d1361e4141d782277828c9e85fb959900",
-      "subject": "chore(deps): bump axios from 1.13.2 to 1.13.5 in /schematics (#667)"
-    },
-    "targetVersion": "latest"
-  }
-}

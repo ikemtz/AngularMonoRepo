@@ -398,7 +398,7 @@ import { ProductApiService } from './product.api.service';
     ProductApiService
   ],
 })
-export class ProductsModule { }
+export class ProductsNgrxModule { }
 "
 `;
 
@@ -418,7 +418,7 @@ exports[`imng-ngrx-module tree files should match 1`] = `
   "/test/products-ngrx-module/product.list.facade.ts",
   "/test/products-ngrx-module/product.lookup.facade.spec.ts",
   "/test/products-ngrx-module/product.lookup.facade.ts",
-  "/test/products-ngrx-module/products.module.spec.ts",
-  "/test/products-ngrx-module/products.module.ts",
+  "/test/products-ngrx-module/products-ngrx.module.spec.ts",
+  "/test/products-ngrx-module/products-ngrx.module.ts",
 ]
 `;

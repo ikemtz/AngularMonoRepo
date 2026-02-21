@@ -38,6 +38,7 @@ libs=(
   "imng-oidc-client"
   "imng-prime-table-odata"
   "imng-signalr-ngrx"
+  "imng-kendo-testing-stubs"
 )
 for lib in "${libs[@]}"; do
   imngPackageRegex='s/Y": "[0-9.]*/Z": "X/gm;t'

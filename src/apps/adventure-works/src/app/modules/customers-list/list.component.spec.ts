@@ -1,8 +1,6 @@
 ///<reference types="jest" />
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
@@ -15,8 +13,14 @@ import { CustomerListComponent } from './list.component';
 import {
   CustomerListFacade,
   CustomerCrudFacade,
+  CustomersNgrxModule,
 } from '../customers-ngrx-module';
 import { createTestCustomer } from '../../models/webapi';
+import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  IMNG_KENDO_GRID_TESTING_STUBS,
+  provideGridComponent,
+} from 'imng-kendo-testing-stubs';
 
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
@@ -26,11 +30,7 @@ describe('CustomerListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CustomerListComponent,
-        StoreModule.forRoot(),
-        EffectsModule.forRoot([]),
-      ],
+      imports: [CustomerListComponent],
       providers: [
         { provide: CustomerListFacade, useValue: createODataGridMockFacade() },
         {
@@ -43,7 +43,17 @@ describe('CustomerListComponent', () => {
         provideOidcMockFacade(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(CustomerListComponent, {
+        remove: {
+          imports: [KENDO_GRID, CustomersNgrxModule],
+        },
+        add: {
+          imports: [...IMNG_KENDO_GRID_TESTING_STUBS],
+          providers: [provideGridComponent()],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
