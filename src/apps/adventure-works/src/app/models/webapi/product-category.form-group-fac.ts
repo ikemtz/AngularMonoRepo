@@ -13,9 +13,8 @@ import { IProductForm } from './product.form';
 
 export function ProductCategoryFormGroupFac(): FormGroup<IProductCategoryForm> {
   return new FormGroup<IProductCategoryForm>({
-    id: new FormControl<string | null | undefined>(undefined),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    name: new FormControl<string>(undefined, {
+    id: new FormControl<string | null | undefined>(null),
+    name: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),

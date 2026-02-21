@@ -4,6 +4,13 @@
 /coverage
 /node_modules
 /libs/imng-snippets/src/assets
-
+/tmp
 /.nx/cache
 /.nx/workspace-data
+.angular
+.github
+.opencode
+.verdaccio
+.vscode
+junit.*.xml
+eslint-report.*
