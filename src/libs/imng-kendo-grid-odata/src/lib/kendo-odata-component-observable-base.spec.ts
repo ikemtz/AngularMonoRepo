@@ -5,7 +5,7 @@ import {
   ODataGridMockFacade,
   createODataGridMockFacade,
 } from '../../testing/src';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { mockConsoleWarn, readFirst } from 'imng-ngrx-utils/testing';
 import { FilterDescriptor } from '@progress/kendo-data-query';
 import { ICompositeFilter, ODataState } from 'imng-kendo-odata';
 import { of } from 'rxjs';
@@ -80,7 +80,9 @@ describe('KendoODataObservableBasedComponent', () => {
       ],
     };
     (component.facade as { loadEntities: jest.Mock }).loadEntities = jest.fn();
+    const mockConsole = mockConsoleWarn();
     component.loadEntities(odataState);
+    mockConsole.mockRestore();
     expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({
       sort: [

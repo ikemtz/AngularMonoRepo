@@ -7,7 +7,6 @@ import {
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';
 import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
 import { CustomerBaseEntryComponent } from './base-entry.component';
 
@@ -17,7 +16,6 @@ import { CustomerBaseEntryComponent } from './base-entry.component';
     AsyncPipe,
     ReactiveFormsModule,
     KENDO_DROPDOWNS,
-    KENDO_DATEPICKER,
     ImngDataEntryDialogModule,
   ],
   templateUrl: './add-edit.component.html',

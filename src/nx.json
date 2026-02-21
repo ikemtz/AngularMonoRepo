@@ -93,6 +93,11 @@
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
+    },
+    "@nx/angular:package": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
@@ -109,5 +114,10 @@
   },
   "useInferencePlugins": false,
   "defaultBase": "master",
-  "nxCloudId": "62359f15bf0c8571ede4a0e2"
+  "nxCloudId": "62359f15bf0c8571ede4a0e2",
+  "release": {
+    "version": {
+      "preVersionCommand": "npx nx run-many -t build"
+    }
+  }
 }

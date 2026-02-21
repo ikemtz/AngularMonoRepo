@@ -17,9 +17,8 @@ import { IOrderLineItemForm } from './order-line-item.form';
 
 export function ProductFormGroupFac(): FormGroup<IProductForm> {
   return new FormGroup<IProductForm>({
-    id: new FormControl<string | null | undefined>(undefined),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    name: new FormControl<string>(undefined, {
+    id: new FormControl<string | null | undefined>(null),
+    name: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(2),
@@ -27,8 +26,7 @@ export function ProductFormGroupFac(): FormGroup<IProductForm> {
       ]),
       nonNullable: true,
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    num: new FormControl<string>(undefined, {
+    num: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(10),
@@ -36,44 +34,33 @@ export function ProductFormGroupFac(): FormGroup<IProductForm> {
       ]),
       nonNullable: true,
     }),
-
-    color: new FormControl<string | null | undefined>(undefined, {
+    color: new FormControl<string | null | undefined>(null, {
       validators: Validators.compose([
         Validators.minLength(3),
         Validators.maxLength(15),
       ]),
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    standardCost: new FormControl<number>(undefined, {
+    standardCost: new FormControl<number>(0, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    listPrice: new FormControl<number>(undefined, {
+    listPrice: new FormControl<number>(0, {
       validators: Validators.required,
       nonNullable: true,
     }),
-
-    size: new FormControl<string | null | undefined>(undefined, {
+    size: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(5),
     }),
-
-    weight: new FormControl<number | null | undefined>(undefined),
-
-    productCategoryId: new FormControl<string | null | undefined>(undefined),
-
-    productModelId: new FormControl<string | null | undefined>(undefined),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    sellStartDate: new FormControl<Date>(undefined, {
+    weight: new FormControl<number | null | undefined>(null),
+    productCategoryId: new FormControl<string | null | undefined>(null),
+    productModelId: new FormControl<string | null | undefined>(null),
+    sellStartDate: new FormControl<Date>(new Date(), {
       validators: Validators.required,
       nonNullable: true,
     }),
-
-    sellEndDate: new FormControl<Date | null | undefined>(undefined),
-
-    discontinuedDate: new FormControl<Date | null | undefined>(undefined),
-
-    thumbNailPhoto: new FormControl<string | null | undefined>(undefined, {
+    sellEndDate: new FormControl<Date | null | undefined>(null),
+    discontinuedDate: new FormControl<Date | null | undefined>(null),
+    thumbNailPhoto: new FormControl<string | null | undefined>(null, {
       validators: Validators.maxLength(5000),
     }),
     productModel: new FormGroup<IProductModelForm>(
