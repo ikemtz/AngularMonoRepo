@@ -326,7 +326,7 @@ import { OrderApiService } from './order.api.service';
     OrderApiService
   ],
 })
-export class OrdersModule { }
+export class OrdersNgrxModule { }
 "
 `;
 
@@ -346,7 +346,7 @@ exports[`imng-module AdventureWorks Orders tree files should match 1`] = `
   "/test/orders-ngrx-module/order.list.facade.ts",
   "/test/orders-ngrx-module/order.lookup.facade.spec.ts",
   "/test/orders-ngrx-module/order.lookup.facade.ts",
-  "/test/orders-ngrx-module/orders.module.spec.ts",
-  "/test/orders-ngrx-module/orders.module.ts",
+  "/test/orders-ngrx-module/orders-ngrx.module.spec.ts",
+  "/test/orders-ngrx-module/orders-ngrx.module.ts",
 ]
 `;

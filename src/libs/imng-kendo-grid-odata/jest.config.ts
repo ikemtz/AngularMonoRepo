@@ -31,6 +31,7 @@ const config: Config = {
     'jest-preset-angular/build/serializers/html-comment',
   ],
   preset: '../../jest.preset.js',
+  setupFiles: ['./jest.setup.ts'],
 };
 
 export default config;

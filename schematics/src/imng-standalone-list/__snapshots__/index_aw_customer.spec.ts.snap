@@ -13,15 +13,16 @@ import { AsyncPipe, SlicePipe } from '@angular/common';
 import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
 import { KENDO_MENU } from '@progress/kendo-angular-menu';
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
-import { IMNG_KENDO_COPY, IMNG_KENDO_GRID_HEADER } from 'imng-kendo-grid';
+import { IMNG_KENDO_COPY } from 'imng-kendo-grid';
 import { IMNG_KENDO_GRID_UUID_FILTER } from 'imng-kendo-grid-filtering';
 import {
   IMNG_KENDO_GRID_ODATA,
+  IMNG_KENDO_ODATA_GRID_HEADER,
   KendoODataBasedComponent,
 } from 'imng-kendo-grid-odata';
 import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
 
-import { CustomerListFacade, CustomerCrudFacade, CustomersModule } from '../customers-ngrx-module';
+import { CustomerListFacade, CustomerCrudFacade, CustomersNgrxModule } from '../customers-ngrx-module';
 import { customerGridState } from './list.grid-state';
 import { ICustomer, CustomerProperties, SalesAgentProperties } from '../../models/webapi';
 import { CustomerAddComponent, CustomerEditComponent } from '../customers-crud';
@@ -34,12 +35,12 @@ import { CustomerAddComponent, CustomerEditComponent } from '../customers-crud';
     KENDO_GRID,
     KENDO_MENU,
     KENDO_SVGICON,
-    IMNG_KENDO_GRID_HEADER,
     IMNG_KENDO_GRID_ODATA,
+    IMNG_KENDO_ODATA_GRID_HEADER,
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
-    CustomersModule,
+    CustomersNgrxModule,
     CustomerAddComponent,
     CustomerEditComponent,
   ],
@@ -48,6 +49,7 @@ import { CustomerAddComponent, CustomerEditComponent } from '../customers-crud';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomerListComponent extends KendoODataBasedComponent<ICustomer, CustomerListFacade> {
+  public override readonly odataEndpoint = Endpoints.customers;
   public readonly crudFacade = inject(CustomerCrudFacade);
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;
@@ -81,8 +83,11 @@ exports[`imng-standalone-list component spec should work 1`] = `
 "///<reference types="jest" />
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  IMNG_KENDO_GRID_TESTING_STUBS,
+  provideGridComponent,
+} from 'imng-kendo-testing-stubs';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
@@ -92,7 +97,7 @@ import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 import { ModalStates } from 'imng-kendo-data-entry';
 
 import { CustomerListComponent } from './list.component';
-import { CustomerListFacade, CustomerCrudFacade } from '../customers-ngrx-module';
+import { CustomerListFacade, CustomerCrudFacade, CustomersNgrxModule } from '../customers-ngrx-module';
 import { createTestCustomer } from '../../models/webapi';
 
 describe('CustomerListComponent', () => {
@@ -103,11 +108,7 @@ describe('CustomerListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CustomerListComponent,
-        StoreModule.forRoot(),
-        EffectsModule.forRoot([]),
-      ],
+      imports: [ CustomerListComponent ],
       providers: [
         { provide: CustomerListFacade, useValue: createODataGridMockFacade() },
         { provide: CustomerCrudFacade, useValue:
@@ -119,7 +120,17 @@ describe('CustomerListComponent', () => {
         provideOidcMockFacade(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    })
+    .overrideComponent(CustomerListComponent, {
+      remove: {
+        imports: [KENDO_GRID, CustomersNgrxModule],
+      },
+      add: {
+        imports: [...IMNG_KENDO_GRID_TESTING_STUBS],
+        providers: [provideGridComponent()],
+      },
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -216,6 +227,7 @@ exports[`imng-standalone-list html should work 1`] = `
     <div class="w-100 d-flex justify-content-between">
       <h3>Customers</h3>
       <imng-kendo-odata-grid-header
+        [imngODataGrid]="this"
         entityName="Customer"
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
@@ -349,7 +361,8 @@ exports[`imng-standalone-list html should work 1`] = `
       <div class="text-center">Are you sure you want to delete this record?</div>
     </imng-data-delete-dialog>
   }
-}"
+}
+"
 `;
 
 exports[`imng-standalone-list tree files should match 1`] = `

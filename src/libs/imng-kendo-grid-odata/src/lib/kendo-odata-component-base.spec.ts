@@ -5,12 +5,13 @@ import {
   ODataGridMockFacade,
   createODataGridMockFacade,
 } from '../../testing/src';
-import { readFirst } from 'imng-ngrx-utils/testing';
+import { readFirst, mockConsoleWarn } from 'imng-ngrx-utils/testing';
 import {
   CompositeFilterDescriptor,
   FilterDescriptor,
 } from '@progress/kendo-data-query';
 import { ODataState } from 'imng-kendo-odata';
+import { of } from 'rxjs';
 
 describe('KendoODataBasedComponent', () => {
   let component: KendoODataGridTestComponent;
@@ -82,7 +83,9 @@ describe('KendoODataBasedComponent', () => {
       ],
     };
     (component.facade as { loadEntities: jest.Mock }).loadEntities = jest.fn();
+    const mockConsole = mockConsoleWarn();
     component.loadEntities(odataState);
+    mockConsole.mockRestore();
     expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({
       sort: [
@@ -105,6 +108,18 @@ describe('KendoODataBasedComponent', () => {
     const deserializedResult =
       component.deserializeODataState(serializedResult);
     expect(deserializedResult).toStrictEqual({});
+  });
+
+  it('should loadAllData when configured correctly', async () => {
+    component.odataEndpoint = 'http://example.com/odata';
+    component.useLoadAllDataExport = true;
+    component.odataService = {
+      fetch: jest.fn(() => of({ data: [{ id: 'testId' }], total: 3000 })),
+    } as never;
+    component.facade.gridData$ = of({ data: [{ id: 'apples' }], total: 1000 });
+    component.facade.gridODataState$ = of({ selectors: ['x', 'y', 'z'] });
+    expect(await readFirst(component.excelData())).toMatchSnapshot();
+    expect(component.odataService.fetch).toHaveBeenCalledTimes(10);
   });
 
   it('should normalizeFilters CompositeFilter', () => {

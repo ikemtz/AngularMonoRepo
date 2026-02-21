@@ -1,8 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
 import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
 import {
   mockConsoleError,
@@ -20,6 +19,12 @@ import {
   createTestCustomer,
   createTestSalesAgent,
 } from '../../models/webapi';
+import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  IMNG_KENDO_COMBOBOX_COLUMN_STUB,
+  IMNG_KENDO_MULTICOLUMNCOMBOBOX_STUB,
+} from 'imng-kendo-testing-stubs';
 
 describe('CustomerAddComponent', () => {
   let component: CustomerAddComponent;
@@ -36,10 +41,10 @@ describe('CustomerAddComponent', () => {
       imports: [
         CustomerAddComponent,
         ReactiveFormsModule,
-        NoopAnimationsModule,
-        DropDownsModule,
+        ImngDataEntryDialogModule,
       ],
       providers: [
+        provideAnimations(),
         { provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() },
         {
           provide: CustomerLookupFacade,
@@ -50,7 +55,17 @@ describe('CustomerAddComponent', () => {
         },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(CustomerAddComponent, {
+        remove: { imports: [KENDO_DROPDOWNS] },
+        add: {
+          imports: [
+            IMNG_KENDO_MULTICOLUMNCOMBOBOX_STUB,
+            IMNG_KENDO_COMBOBOX_COLUMN_STUB,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

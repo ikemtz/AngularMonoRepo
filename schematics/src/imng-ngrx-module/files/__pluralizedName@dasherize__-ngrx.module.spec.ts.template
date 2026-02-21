@@ -1,0 +1,17 @@
+///<reference types="jest" />
+import { TestBed } from '@angular/core/testing';
+import { <%= classify(pluralizedName) %>NgrxModule } from './<%= dasherize(pluralizedName) %>-ngrx.module';
+
+describe('<%= classify(pluralizedName) %>NgrxModule', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [<%= classify(pluralizedName) %>NgrxModule],
+    }).compileComponents();
+  });
+
+  test('should create', () => {
+    expect(<%= classify(pluralizedName) %>NgrxModule).toBeDefined();
+    const module = new <%= classify(pluralizedName) %>NgrxModule();
+    expect(module).toBeTruthy();
+  });
+});

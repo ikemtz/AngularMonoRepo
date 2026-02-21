@@ -16,34 +16,28 @@ import { ProductFormGroupFac } from './product.form-group-fac';
 
 export function OrderLineItemFormGroupFac(): FormGroup<IOrderLineItemForm> {
   return new FormGroup<IOrderLineItemForm>({
-    id: new FormControl<string | null | undefined>(undefined),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    orderId: new FormControl<string>(undefined, {
+    id: new FormControl<string | null | undefined>(null),
+    orderId: new FormControl<string>('', {
       validators: Validators.required,
       nonNullable: true,
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    orderQty: new FormControl<number>(undefined, {
+    orderQty: new FormControl<number>(0, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    productId: new FormControl<string>(undefined, {
+    productId: new FormControl<string>('', {
       validators: Validators.required,
       nonNullable: true,
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    unitPrice: new FormControl<number>(undefined, {
+    unitPrice: new FormControl<number>(0, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    unitPriceDiscount: new FormControl<number>(undefined, {
+    unitPriceDiscount: new FormControl<number>(0, {
       validators: Validators.required,
       nonNullable: true,
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    lineTotal: new FormControl<number>(undefined, {
+    lineTotal: new FormControl<number>(0, {
       validators: Validators.required,
       nonNullable: true,
     }),

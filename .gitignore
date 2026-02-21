@@ -349,3 +349,5 @@ refresh-local-branch.sh
 schematics/.swp
 src/telerik-license.txt
 src/UsersIkemtAppDataLocalTempnx-*
+src/eslint-report.html
+src/eslint-report.json

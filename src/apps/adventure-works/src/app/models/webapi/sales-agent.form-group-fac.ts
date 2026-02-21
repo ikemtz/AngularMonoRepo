@@ -13,9 +13,8 @@ import { ICustomerForm } from './customer.form';
 
 export function SalesAgentFormGroupFac(): FormGroup<ISalesAgentForm> {
   return new FormGroup<ISalesAgentForm>({
-    id: new FormControl<number | null | undefined>(undefined),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    name: new FormControl<string>(undefined, {
+    id: new FormControl<number | null | undefined>(null),
+    name: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
@@ -23,8 +22,7 @@ export function SalesAgentFormGroupFac(): FormGroup<ISalesAgentForm> {
       ]),
       nonNullable: true,
     }),
-    // @ts-expect-error this is intentional, we want the initial value to be undefined so that the required validator will work correctly.
-    loginId: new FormControl<string>(undefined, {
+    loginId: new FormControl<string>('', {
       validators: Validators.compose([
         Validators.required,
         Validators.minLength(1),
