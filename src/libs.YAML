@@ -89,6 +89,15 @@ jobs:
           customCommand: 'run build:odata-client'
 
       - task: Npm@1
+        continueOnError: true
+        displayName: 'npx nx build imng-kendo-testing-stubs'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run nx -- build imng-kendo-testing-stubs'
+
+      - task: Npm@1
         displayName: 'npm run build:data-entry'
         continueOnError: true
         inputs:
@@ -268,6 +277,15 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run test:grid'
+
+      - task: Npm@1
+        continueOnError: true
+        displayName: 'npx nx test imng-kendo-testing-stubs'
+        inputs:
+          command: custom
+          workingDir: 'src'
+          verbose: false
+          customCommand: 'run nx -- test imng-kendo-testing-stubs'
 
       - task: Npm@1
         displayName: 'npm run test:chart-odata'

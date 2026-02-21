@@ -10,9 +10,12 @@
     "Jest"
   ],
   "peerDependencies": {
-    "@angular/common": "*",
+    "@angular/forms": "*",
     "@angular/core": "*",
-    "jest": "*"
+    "@progress/kendo-svg-icons": "*",
+    "@progress/kendo-angular-grid": "*",
+    "@jest/globals": "*",
+    "rxjs": "*"
   },
   "sideEffects": false,
   "license": "MIT",
