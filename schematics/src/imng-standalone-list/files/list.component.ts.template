@@ -4,15 +4,16 @@ import { AsyncPipe, SlicePipe } from '@angular/common';
 import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
 import { KENDO_MENU } from '@progress/kendo-angular-menu';
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
-import { IMNG_KENDO_COPY, IMNG_KENDO_GRID_HEADER } from 'imng-kendo-grid';
+import { IMNG_KENDO_COPY } from 'imng-kendo-grid';
 import { IMNG_KENDO_GRID_UUID_FILTER } from 'imng-kendo-grid-filtering';
 import {
   IMNG_KENDO_GRID_ODATA,
+  IMNG_KENDO_ODATA_GRID_HEADER,
   KendoODataBasedComponent,
 } from 'imng-kendo-grid-odata';
 import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
 
-import { <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade, <%= classify(pluralizedName) %>Module } from '../<%= dasherize(pluralizedName) %>-ngrx-module';
+import { <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade, <%= classify(pluralizedName) %>NgrxModule } from '../<%= dasherize(pluralizedName) %>-ngrx-module';
 import { <%= camelize(singularizedName) %>GridState } from './list.grid-state';<% if (modelFolderLocation) { %>
 import { I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>Properties, <% swaggerObjectProperties.forEach(function(swaggerProperty, i, arr){ %><%= classify(swaggerProperty.propertyTypeName) %>Properties<% if(arr.length != i + 1) {%>, <%} }); %> } from '<%= modelFolderLocation %>';<% } %>
 import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularizedName) %>EditComponent } from '../<%= dasherize(pluralizedName) %>-crud';
@@ -25,12 +26,12 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
     KENDO_GRID,
     KENDO_MENU,
     KENDO_SVGICON,
-    IMNG_KENDO_GRID_HEADER,
     IMNG_KENDO_GRID_ODATA,
+    IMNG_KENDO_ODATA_GRID_HEADER,
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
-    <%= classify(pluralizedName) %>Module,
+    <%= classify(pluralizedName) %>NgrxModule,
     <%= classify(singularizedName) %>AddComponent,
     <%= classify(singularizedName) %>EditComponent,
   ],
@@ -39,6 +40,7 @@ import { <%= classify(singularizedName) %>AddComponent, <%= classify(singularize
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= classify(singularizedName) %>ListComponent extends KendoODataBasedComponent<I<%= classify(singularizedName) %>, <%= classify(singularizedName) %>ListFacade> {
+  public override readonly odataEndpoint = Endpoints.<%= camelize(pluralizedName) %>;
   public readonly crudFacade = inject(<%= classify(singularizedName) %>CrudFacade);
   public readonly props = <%= classify(singularizedName) %>Properties;<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
   public readonly <%= camelize(swaggerProperty.name) %>Props = <%= classify(swaggerProperty.propertyTypeName) %>Properties;<% }) %><% swaggerObjectProperties.filter(t=> t.enum).forEach(function(swaggerProperty){ %>

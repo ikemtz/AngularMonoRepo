@@ -1,8 +1,11 @@
 ///<reference types="jest" />
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  IMNG_KENDO_GRID_TESTING_STUBS,
+  provideGridComponent,
+} from 'imng-kendo-testing-stubs';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
@@ -12,7 +15,7 @@ import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 import { ModalStates } from 'imng-kendo-data-entry';
 
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
-import { <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade } from '../<%= dasherize(pluralizedName) %>-ngrx-module';<% if (modelFolderLocation) { %>
+import { <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade, <%= classify(pluralizedName) %>NgrxModule } from '../<%= dasherize(pluralizedName) %>-ngrx-module';<% if (modelFolderLocation) { %>
 import { createTest<%= classify(name) %> } from '<%= modelFolderLocation %>';<% } %>
 
 describe('<%= classify(singularizedName) %>ListComponent', () => {
@@ -23,11 +26,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        <%= classify(singularizedName) %>ListComponent,
-        StoreModule.forRoot(),
-        EffectsModule.forRoot([]),
-      ],
+      imports: [ <%= classify(singularizedName) %>ListComponent ],
       providers: [
         { provide: <%= classify(singularizedName) %>ListFacade, useValue: createODataGridMockFacade() },
         { provide: <%= classify(singularizedName) %>CrudFacade, useValue:
@@ -39,7 +38,17 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
         provideOidcMockFacade(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    })
+    .overrideComponent(CustomerListComponent, {
+      remove: {
+        imports: [KENDO_GRID, <%= classify(pluralizedName) %>NgrxModule],
+      },
+      add: {
+        imports: [...IMNG_KENDO_GRID_TESTING_STUBS],
+        providers: [provideGridComponent()],
+      },
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {

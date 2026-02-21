@@ -3,6 +3,7 @@
     <div class="w-100 d-flex justify-content-between">
       <h3><%= startCasedPluralName %></h3>
       <imng-kendo-odata-grid-header
+        [imngODataGrid]="this"
         entityName="<%= classify(name) %>"
         (addItemClicked)="addItem()"
         (reloadEntitiesClicked)="reloadEntities()"
