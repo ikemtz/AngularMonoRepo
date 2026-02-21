@@ -30,6 +30,7 @@ jobs:
           command: 'custom'
           workingDir: 'src'
           customCommand: 'install --legacy-peer-deps'
+
       - task: Bash@3
         inputs:
           targetType: 'inline'

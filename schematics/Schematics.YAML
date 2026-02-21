@@ -25,22 +25,23 @@ jobs:
         displayName: Cache NPM packages
 
       - task: Npm@1
-        displayName: 'npm install'
+        displayName: "npm install"
         inputs:
-          workingDir: 'schematics'
-          verbose: false
+          command: "custom"
+          workingDir: "schematics"
+          customCommand: "install --legacy-peer-deps"
 
       - task: Bash@3
-        displayName: 'running versioneer'
+        displayName: "running versioneer"
         inputs:
-          filePath: '$(System.DefaultWorkingDirectory)/schematics/versioneer.sh'
-          arguments: '$(Build.BuildNumber)'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/schematics/'
+          filePath: "$(System.DefaultWorkingDirectory)/schematics/versioneer.sh"
+          arguments: "$(Build.BuildNumber)"
+          workingDirectory: "$(System.DefaultWorkingDirectory)/schematics/"
 
       - task: SonarCloudPrepare@3
-        displayName: 'Prepare analysis on SonarCloud'
+        displayName: "Prepare analysis on SonarCloud"
         inputs:
-          SonarCloud: 'SonarCloud IkeMtz'
+          SonarCloud: "SonarCloud IkeMtz"
           organization: ikemtz
           scannerMode: CLI
           cliProjectKey: imng-Schematics
@@ -58,39 +59,39 @@ jobs:
             sonar.coverage.exclusions=**/node_modules/**,**/*.spec.ts
 
       - task: Npm@1
-        displayName: 'npm run lint'
+        displayName: "npm run lint"
         inputs:
           command: custom
-          workingDir: 'schematics'
+          workingDir: "schematics"
           verbose: false
-          customCommand: 'run lint'
+          customCommand: "run lint"
 
       - task: Npm@1
-        displayName: 'npm run build [DEVELOPMENT BUILD]'
+        displayName: "npm run build [DEVELOPMENT BUILD]"
         inputs:
           command: custom
-          workingDir: 'schematics'
+          workingDir: "schematics"
           verbose: false
-          customCommand: 'run build'
+          customCommand: "run build"
 
       - task: Npm@1
-        displayName: 'npm run test'
+        displayName: "npm run test"
         inputs:
           command: custom
-          workingDir: 'schematics'
+          workingDir: "schematics"
           verbose: false
-          customCommand: 'run test'
+          customCommand: "run test"
 
       - task: SonarCloudAnalyze@3
-        displayName: 'Run Code Analysis'
+        displayName: "Run Code Analysis"
 
       - task: SonarCloudPublish@3
-        displayName: 'Publish Quality Gate Result'
+        displayName: "Publish Quality Gate Result"
 
       - task: sonarcloud-buildbreaker@2
         inputs:
-          SonarCloud: 'SonarCloud IkeMtz'
-          organization: 'ikemtz'
+          SonarCloud: "SonarCloud IkeMtz"
+          organization: "ikemtz"
 
       # Snyk is erroneously throwing an error on package-lock.json sync issue
       #      - task: SnykSecurityScan@0
@@ -106,33 +107,33 @@ jobs:
       #        continueOnError: true
 
       - task: PublishCodeCoverageResults@1
-        displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'
+        displayName: "Publish code coverage from $(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml"
         inputs:
           codeCoverageTool: Cobertura
-          summaryFileLocation: '$(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml'
-          reportDirectory: '$(System.DefaultWorkingDirectory)/schematics/coverage/'
+          summaryFileLocation: "$(System.DefaultWorkingDirectory)/schematics/coverage/**/cobertura-coverage.xml"
+          reportDirectory: "$(System.DefaultWorkingDirectory)/schematics/coverage/"
           failIfCoverageEmpty: true
 
       - task: PublishTestResults@2
-        displayName: 'Publish Test Results junit.*.xml'
+        displayName: "Publish Test Results junit.*.xml"
         inputs:
-          testResultsFiles: 'schematics/junit.*.xml'
+          testResultsFiles: "schematics/junit.*.xml"
           mergeTestResults: true
           failTaskOnFailedTests: true
 
       - task: PublishBuildArtifacts@1
-        displayName: 'Publish Artifact: package-drop'
+        displayName: "Publish Artifact: package-drop"
         inputs:
-          PathtoPublish: 'schematics/dist'
-          ArtifactName: 'package-drop'
+          PathtoPublish: "schematics/dist"
+          ArtifactName: "package-drop"
 
       - task: GitTag@5
         inputs:
-          workingdir: '$(SYSTEM.DEFAULTWORKINGDIRECTORY)'
-          tagUser: 'ikemtz'
-          tagEmail: 'ikemtz@outlook.com'
-          tag: 'schm-$(Build.BuildNumber)'
-          tagMessage: 'schm-$(Build.BuildNumber)'
+          workingdir: "$(SYSTEM.DEFAULTWORKINGDIRECTORY)"
+          tagUser: "ikemtz"
+          tagEmail: "ikemtz@outlook.com"
+          tag: "schm-$(Build.BuildNumber)"
+          tagMessage: "schm-$(Build.BuildNumber)"
           useLightweightTags: true
         condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 trigger:
