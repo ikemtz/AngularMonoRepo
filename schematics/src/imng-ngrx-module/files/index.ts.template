@@ -1,5 +1,11 @@
-export * from './+state';
-export { <%= classify(pluralizedName) %>Module } from './<%= dasherize(pluralizedStoreName) %>.module';
+export {
+  <%= camelize(singularizedName) %>ActionTypes,
+  <%= camelize(pluralizedStoreName) %>Feature,
+  <%= classify(singularizedName) %>ListEffects,
+  <%= classify(singularizedName) %>LookupEffects,
+  <%= classify(singularizedName) %>CrudEffects,
+} from './+state';
+export { <%= classify(pluralizedName) %>NgrxModule } from './<%= dasherize(pluralizedStoreName) %>-ngrx.module';
 export { <%= classify(singularizedName) %>ApiService } from './<%= dasherize(singularizedName) %>.api.service';
 export { <%= classify(singularizedName) %>CrudFacade } from './<%= dasherize(singularizedName) %>.crud.facade';
 export { <%= classify(singularizedName) %>ListFacade } from './<%= dasherize(singularizedName) %>.list.facade';

@@ -18,4 +18,4 @@ import { <%= classify(singularizedName) %>ApiService } from './<%= dasherize(sin
     <%= classify(singularizedName) %>ApiService
   ],
 })
-export class <%= classify(pluralizedName) %>Module { }
+export class <%= classify(pluralizedName) %>NgrxModule { }
