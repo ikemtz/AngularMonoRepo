@@ -491,7 +491,7 @@ import { CustomerApiService } from './customer.api.service';
     CustomerApiService
   ],
 })
-export class CustomersModule { }
+export class CustomersNgrxModule { }
 "
 `;
 
@@ -510,8 +510,8 @@ exports[`imng-ngrx-module tree files should match 1`] = `
   "/test/customers-ngrx-module/customer.list.facade.ts",
   "/test/customers-ngrx-module/customer.lookup.facade.spec.ts",
   "/test/customers-ngrx-module/customer.lookup.facade.ts",
-  "/test/customers-ngrx-module/customers.module.spec.ts",
-  "/test/customers-ngrx-module/customers.module.ts",
+  "/test/customers-ngrx-module/customers-ngrx.module.spec.ts",
+  "/test/customers-ngrx-module/customers-ngrx.module.ts",
   "/test/customers-ngrx-module/index.ts",
 ]
 `;

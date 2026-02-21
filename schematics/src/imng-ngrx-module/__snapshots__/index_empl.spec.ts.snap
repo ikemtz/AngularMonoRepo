@@ -15,8 +15,8 @@ exports[`imng-ngrx-module generation works - employees 1`] = `
   "/test/employees-ngrx-module/employee.list.facade.ts",
   "/test/employees-ngrx-module/employee.lookup.facade.spec.ts",
   "/test/employees-ngrx-module/employee.lookup.facade.ts",
-  "/test/employees-ngrx-module/employees.module.spec.ts",
-  "/test/employees-ngrx-module/employees.module.ts",
+  "/test/employees-ngrx-module/employees-ngrx.module.spec.ts",
+  "/test/employees-ngrx-module/employees-ngrx.module.ts",
   "/test/employees-ngrx-module/index.ts",
 ]
 `;

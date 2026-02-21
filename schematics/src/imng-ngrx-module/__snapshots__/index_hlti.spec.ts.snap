@@ -15,8 +15,8 @@ exports[`imng-module generation works - Health Items 1`] = `
   "/test/health-items-ngrx-module/health-item.list.facade.ts",
   "/test/health-items-ngrx-module/health-item.lookup.facade.spec.ts",
   "/test/health-items-ngrx-module/health-item.lookup.facade.ts",
-  "/test/health-items-ngrx-module/health-items.module.spec.ts",
-  "/test/health-items-ngrx-module/health-items.module.ts",
+  "/test/health-items-ngrx-module/health-items-ngrx.module.spec.ts",
+  "/test/health-items-ngrx-module/health-items-ngrx.module.ts",
   "/test/health-items-ngrx-module/index.ts",
 ]
 `;

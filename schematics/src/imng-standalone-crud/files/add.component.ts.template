@@ -6,18 +6,18 @@ import {
 } from '@angular/core';
 import { ImngDataEntryDialogModule } from 'imng-kendo-data-entry';
 import { AsyncPipe } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';
-import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
+import { ReactiveFormsModule } from '@angular/forms';<% if (hasDates) { %>
+import { KENDO_DATEINPUTS } from '@progress/kendo-angular-dateinputs';<% } %><% if (hasObjects) { %>
+import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';<% } %>
 import { <%= classify(name) %>BaseEntryComponent } from './base-entry.component';
 
 @Component({
   selector: '<%= appPrefix %>-<%= dasherize(name) %>-add',
   imports: [
     AsyncPipe,
-    ReactiveFormsModule,
-    KENDO_DROPDOWNS,
-    KENDO_DATEPICKER,
+    ReactiveFormsModule,<% if (hasDates) { %>
+    KENDO_DATEINPUTS,<% } %><% if (hasObjects) { %>
+    KENDO_DROPDOWNS,<% } %>
     ImngDataEntryDialogModule,
   ],
   templateUrl: './add-edit.component.html',

@@ -1,0 +1,30 @@
+{
+  "name": "imng-kendo-testing-stubs",
+  "version": "0.0.1",
+  "keywords": [
+    "Angular",
+    "Kendo",
+    "Testing",
+    "Stubs",
+    "Mocks",
+    "Jest"
+  ],
+  "peerDependencies": {
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "jest": "*"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "src/libs/imng-kendo-testing-stubs",
+    "url": "git+https://github.com/ikemtz/AngularMonoRepo.git"
+  },
+  "icon": "https://avatars.githubusercontent.com/u/6444182?v=4",
+  "private": false,
+  "author": {
+    "name": "Isaac Martinez <@ikemtz>",
+    "url": "https://github.com/ikemtz"
+  }
+}
