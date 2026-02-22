@@ -285,22 +285,24 @@ export abstract class KendoODataBasedComponent<
       switchMap((queryData) => {
         return from(queryData.queries).pipe(
           concatMap((odataQuery) => {
-            return this.odataService!.fetch<ENTITY>(
-              this.odataEndpoint ?? '',
-              odataQuery ?? { skip: 0, take: 100 },
-            ).pipe(
-              tap(() => {
-                this.loadDataProgression$.next(
-                  Math.max(
-                    1,
-                    Math.trunc(
-                      ((odataQuery.skip ?? 0) / queryData.totalRecordCount) *
-                        100,
+            return this.odataService
+              .fetch<ENTITY>(
+                this.odataEndpoint ?? '',
+                odataQuery ?? { skip: 0, take: 100 },
+              )
+              .pipe(
+                tap(() => {
+                  this.loadDataProgression$.next(
+                    Math.max(
+                      1,
+                      Math.trunc(
+                        ((odataQuery.skip ?? 0) / queryData.totalRecordCount) *
+                          100,
+                      ),
                     ),
-                  ),
-                );
-              }),
-            );
+                  );
+                }),
+              );
           }),
           scan((accumulated, current) => ({
             total: queryData.totalRecordCount,

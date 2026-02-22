@@ -8,4 +8,4 @@ export {
 export { createKendoODataGridInitialState } from './lib/kendo-odata-initial-state-creator';
 export { ImngKendoGridODataModule } from './lib/kendo-odata-grid.module';
 export { IMNG_KENDO_GRID_ODATA } from './lib/kendo-odata-grid.directive';
-export { IMNG_KENDO_ODATA_GRID_HEADER } from './lib/grid-odata-header-component/grid-odata-header.component';
+export { IMNG_KENDO_GRID_ODATA_HEADER } from './lib/grid-odata-header-component/grid-odata-header.component';
