@@ -17,7 +17,7 @@ import { IMNG_KENDO_COPY } from 'imng-kendo-grid';
 import { IMNG_KENDO_GRID_UUID_FILTER } from 'imng-kendo-grid-filtering';
 import {
   IMNG_KENDO_GRID_ODATA,
-  IMNG_KENDO_ODATA_GRID_HEADER,
+  IMNG_KENDO_GRID_ODATA_HEADER,
   KendoODataBasedComponent,
 } from 'imng-kendo-grid-odata';
 import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
@@ -36,7 +36,7 @@ import { CustomerAddComponent, CustomerEditComponent } from '../customers-crud';
     KENDO_MENU,
     KENDO_SVGICON,
     IMNG_KENDO_GRID_ODATA,
-    IMNG_KENDO_ODATA_GRID_HEADER,
+    IMNG_KENDO_GRID_ODATA_HEADER,
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
@@ -226,7 +226,7 @@ exports[`imng-standalone-list html should work 1`] = `
   <ng-template kendoGridToolbarTemplate>
     <div class="w-100 d-flex justify-content-between">
       <h3>Customers</h3>
-      <imng-kendo-odata-grid-header
+      <imng-kendo-grid-odata-header
         [imngODataGrid]="this"
         entityName="Customer"
         (addItemClicked)="addItem()"

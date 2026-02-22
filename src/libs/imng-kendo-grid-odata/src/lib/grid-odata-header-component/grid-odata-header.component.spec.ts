@@ -1,14 +1,15 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GridComponent, KENDO_GRID } from '@progress/kendo-angular-grid';
+import { KENDO_GRID } from '@progress/kendo-angular-grid';
 import { BehaviorSubject, of } from 'rxjs';
-import { IMNG_KENDO_ODATA_GRID_HEADER } from './grid-odata-header.component';
+import { IMNG_KENDO_GRID_ODATA_HEADER } from './grid-odata-header.component';
 import {
   IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB,
   IMNG_KENDO_GRID_STUB,
   IMNG_KENDO_POPUP_STUB,
   IMNG_KENDO_PROGRESSBAR_STUB,
   IMNG_KENDO_SPLIT_BUTTON_STUB,
+  provideGridComponent,
 } from 'imng-kendo-testing-stubs';
 import { KENDO_BUTTONS } from '@progress/kendo-angular-buttons';
 import { ODataService } from 'imng-kendo-odata';
@@ -16,13 +17,13 @@ import { KENDO_POPUP } from '@progress/kendo-angular-popup';
 import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
 
 describe('ImngGridHeaderComponent', () => {
-  let component: IMNG_KENDO_ODATA_GRID_HEADER;
-  let fixture: ComponentFixture<IMNG_KENDO_ODATA_GRID_HEADER>;
+  let component: IMNG_KENDO_GRID_ODATA_HEADER;
+  let fixture: ComponentFixture<IMNG_KENDO_GRID_ODATA_HEADER>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IMNG_KENDO_ODATA_GRID_HEADER],
+      imports: [IMNG_KENDO_GRID_ODATA_HEADER],
       providers: [
-        { provide: GridComponent, useClass: IMNG_KENDO_GRID_STUB },
+        provideGridComponent(),
         {
           provide: ODataService,
           useValue: { fetch: jest.fn(() => of({ data: [], total: 0 })) },
@@ -30,7 +31,7 @@ describe('ImngGridHeaderComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     })
-      .overrideComponent(IMNG_KENDO_ODATA_GRID_HEADER, {
+      .overrideComponent(IMNG_KENDO_GRID_ODATA_HEADER, {
         remove: {
           imports: [KENDO_BUTTONS, KENDO_GRID, KENDO_POPUP, KENDO_PROGRESSBARS],
         },
@@ -48,7 +49,7 @@ describe('ImngGridHeaderComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IMNG_KENDO_ODATA_GRID_HEADER);
+    fixture = TestBed.createComponent(IMNG_KENDO_GRID_ODATA_HEADER);
     component = fixture.componentInstance;
     component.imngODataGrid = {
       odataService: {},

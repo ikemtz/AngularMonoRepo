@@ -282,33 +282,35 @@ export abstract class KendoODataBasedComponent<
         }
         return { totalRecordCount: totalRecordCount, queries: odataQueries };
       }),
-      switchMap((queryData) => {
-        return from(queryData.queries).pipe(
-          concatMap((odataQuery) => {
-            return this.odataService!.fetch<ENTITY>(
-              this.odataEndpoint ?? '',
-              odataQuery ?? { skip: 0, take: 100 },
-            ).pipe(
-              tap(() => {
-                this.loadDataProgression$.next(
-                  Math.max(
-                    1,
-                    Math.trunc(
-                      ((odataQuery.skip ?? 0) / queryData.totalRecordCount) *
-                        100,
+      switchMap((queryData) =>
+        from(queryData.queries).pipe(
+          concatMap((odataQuery) =>
+            (this.odataService ?? new ODataService())
+              .fetch<ENTITY>(
+                this.odataEndpoint ?? '',
+                odataQuery ?? { skip: 0, take: 100 },
+              )
+              .pipe(
+                tap(() => {
+                  this.loadDataProgression$.next(
+                    Math.max(
+                      1,
+                      Math.trunc(
+                        ((odataQuery.skip ?? 0) / queryData.totalRecordCount) *
+                          100,
+                      ),
                     ),
-                  ),
-                );
-              }),
-            );
-          }),
+                  );
+                }),
+              ),
+          ),
           scan((accumulated, current) => ({
             total: queryData.totalRecordCount,
             data: [...accumulated.data, ...current.data],
           })),
           last(),
-        );
-      }),
+        ),
+      ),
       tap(() => {
         this.useLoadAllDataExport = false;
         this.loadDataProgression$.next(0);
