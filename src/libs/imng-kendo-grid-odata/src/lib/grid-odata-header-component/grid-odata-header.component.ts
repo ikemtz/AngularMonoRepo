@@ -25,7 +25,7 @@ import { KENDO_POPUP } from '@progress/kendo-angular-popup';
 import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
 
 @Component({
-  selector: 'imng-kendo-odata-grid-header',
+  selector: 'imng-kendo-grid-odata-header',
   imports: [
     AsyncPipe,
     NgClass,
@@ -150,7 +150,7 @@ import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
     `,
   ],
 })
-export class IMNG_KENDO_ODATA_GRID_HEADER implements OnInit {
+export class IMNG_KENDO_GRID_ODATA_HEADER implements OnInit {
   public parentGrid = inject<GridComponent>(GridComponent);
   public readonly exportIcon = exportIcon;
   public readonly filePdfIcon = filePdfIcon;
@@ -213,7 +213,7 @@ export class IMNG_KENDO_ODATA_GRID_HEADER implements OnInit {
         svgIcon: fileExcelIcon,
       });
     }
-    this.loadDataProgression$ = this.imngODataGrid!.loadDataProgression$;
+    this.loadDataProgression$ = this.imngODataGrid.loadDataProgression$;
   }
 
   public configureGridForLoadAllData(
