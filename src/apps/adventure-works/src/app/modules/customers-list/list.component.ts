@@ -8,7 +8,7 @@ import { IMNG_KENDO_COPY } from 'imng-kendo-grid';
 import { IMNG_KENDO_GRID_UUID_FILTER } from 'imng-kendo-grid-filtering';
 import {
   IMNG_KENDO_GRID_ODATA,
-  IMNG_KENDO_ODATA_GRID_HEADER,
+  IMNG_KENDO_GRID_ODATA_HEADER,
   KendoODataBasedComponent,
 } from 'imng-kendo-grid-odata';
 import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
@@ -35,8 +35,8 @@ import { Endpoints } from '../../models/odata/endpoints';
     KENDO_GRID,
     KENDO_MENU,
     KENDO_ICONS,
-    IMNG_KENDO_ODATA_GRID_HEADER,
     IMNG_KENDO_GRID_ODATA,
+    IMNG_KENDO_GRID_ODATA_HEADER,
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
