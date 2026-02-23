@@ -43,6 +43,10 @@ export interface IFilter {
    * Determines if the string comparison is case-insensitive.
    */
   ignoreCase?: boolean;
+  /**
+  This is used to determine if the value being compared against a relative field (parentTable/idColumn) vs a static value ('12345').
+  */
+  isRelativeValue?: boolean;
 }
 
 export function isFilter(
