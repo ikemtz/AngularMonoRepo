@@ -1,5 +1,154 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`FilterOperators Filter mappings should match 1`] = `
+[
+  {
+    "filterName": "contains",
+    "key": "contains",
+  },
+  {
+    "filterName": "endswith",
+    "key": "endsWith",
+  },
+  {
+    "filterName": "endswith",
+    "key": "endswith",
+  },
+  {
+    "filterName": "equals",
+    "key": "equals",
+  },
+  {
+    "filterName": "equals",
+    "key": "eq",
+  },
+  {
+    "filterName": "equals",
+    "key": "dateIs",
+  },
+  {
+    "filterName": "greaterThan",
+    "key": "greaterThan",
+  },
+  {
+    "filterName": "greaterThan",
+    "key": "gt",
+  },
+  {
+    "filterName": "greaterThan",
+    "key": "dateAfter",
+  },
+  {
+    "filterName": "greaterThanOrEquals",
+    "key": "greaterThanOrEquals",
+  },
+  {
+    "filterName": "greaterThanOrEquals",
+    "key": "gte",
+  },
+  {
+    "filterName": "greaterThanOrEquals",
+    "key": "ge",
+  },
+  {
+    "filterName": "in",
+    "key": "in",
+  },
+  {
+    "filterName": "isEmpty",
+    "key": "isEmpty",
+  },
+  {
+    "filterName": "isNull",
+    "key": "isNull",
+  },
+  {
+    "filterName": "isNull",
+    "key": "isnull",
+  },
+  {
+    "filterName": "lessThan",
+    "key": "lessThan",
+  },
+  {
+    "filterName": "lessThan",
+    "key": "lt",
+  },
+  {
+    "filterName": "lessThan",
+    "key": "dateBefore",
+  },
+  {
+    "filterName": "lessThanOrEquals",
+    "key": "lessThanOrEquals",
+  },
+  {
+    "filterName": "lessThanOrEquals",
+    "key": "lte",
+  },
+  {
+    "filterName": "notContains",
+    "key": "notContains",
+  },
+  {
+    "filterName": "notContains",
+    "key": "doesnotcontain",
+  },
+  {
+    "filterName": "notEmpty",
+    "key": "notEmpty",
+  },
+  {
+    "filterName": "notEmpty",
+    "key": "isnotempty",
+  },
+  {
+    "filterName": "notEndsWith",
+    "key": "notEndsWith",
+  },
+  {
+    "filterName": "notEquals",
+    "key": "notEquals",
+  },
+  {
+    "filterName": "notEquals",
+    "key": "ne",
+  },
+  {
+    "filterName": "notEquals",
+    "key": "neq",
+  },
+  {
+    "filterName": "notEquals",
+    "key": "dateIsNot",
+  },
+  {
+    "filterName": "notIn",
+    "key": "notIn",
+  },
+  {
+    "filterName": "notNull",
+    "key": "notNull",
+  },
+  {
+    "filterName": "notNull",
+    "key": "isnotnull",
+  },
+  {
+    "filterName": "notStartsWith",
+    "key": "notStartsWith",
+  },
+  {
+    "filterName": "startsWith",
+    "key": "startsWith",
+  },
+  {
+    "filterName": "startsWith",
+    "key": "startswith",
+  },
+]
+`;
+
 exports[`FilterOperators should support contains 1`] = `"contains(xyz,123)"`;
 
 exports[`FilterOperators should support contains with relativeFields 1`] = `"contains(xyz,abc)"`;
