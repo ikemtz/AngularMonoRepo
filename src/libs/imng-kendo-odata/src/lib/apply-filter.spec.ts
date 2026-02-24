@@ -1,9 +1,14 @@
-import { FilterDescriptor } from '@progress/kendo-data-query';
 import { applyFilter } from './apply-filter';
 import { ODataState } from './odata-state';
+import { IFilter } from 'imng-odata-client';
 
 describe('applyFilter', () => {
-  const genFilter = (): FilterDescriptor => ({ field: 'ABC', operator: 'eq', value: 2 });
+  const genFilter = (): IFilter => ({
+    field: 'ABC',
+    operator: 'eq',
+    value: 2,
+    isRelativeValue: false,
+  });
   it('should should initialize', () => {
     const result = applyFilter({}, genFilter());
     expect(result).toMatchSnapshot();
@@ -16,10 +21,10 @@ describe('applyFilter', () => {
         filters: [
           {
             logic: 'and',
-            filters: [{ field: 'ABC', operator: 'lte', value: 6 }]
-          }
-        ]
-      }
+            filters: [{ field: 'ABC', operator: 'lte', value: 6 }],
+          },
+        ],
+      },
     };
 
     const result = applyFilter(state, genFilter());

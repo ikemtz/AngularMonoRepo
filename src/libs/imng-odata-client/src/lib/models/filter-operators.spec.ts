@@ -5,8 +5,24 @@ describe('FilterOperators', () => {
     const result = FilterOperators.contains.toODataString('xyz', 123 as never);
     expect(result).toMatchSnapshot();
   });
+  it('should support contains with relativeFields', () => {
+    const result = FilterOperators.contains.toODataString(
+      'xyz',
+      'abc' as never,
+      true,
+    );
+    expect(result).toMatchSnapshot();
+  });
   it('should support endsWith', () => {
     const result = FilterOperators.endsWith.toODataString('xyz', 123 as never);
+    expect(result).toMatchSnapshot();
+  });
+  it('should support endsWith with relativeFields', () => {
+    const result = FilterOperators.endsWith.toODataString(
+      'xyz',
+      'abc' as never,
+      true,
+    );
     expect(result).toMatchSnapshot();
   });
   it('should support equals', () => {
@@ -51,6 +67,14 @@ describe('FilterOperators', () => {
   });
   it('should support lessThan', () => {
     const result = FilterOperators.lessThan.toODataString('xyz', 123 as never);
+    expect(result).toMatchSnapshot();
+  });
+  it('should support lessThan with relativeFields', () => {
+    const result = FilterOperators.lessThan.toODataString(
+      'xyz',
+      'abc' as never,
+      true,
+    );
     expect(result).toMatchSnapshot();
   });
   it('should support lessThanOrEquals', () => {
