@@ -2,7 +2,11 @@
 
 exports[`FilterOperators should support contains 1`] = `"contains(xyz,123)"`;
 
+exports[`FilterOperators should support contains with relativeFields 1`] = `"contains(xyz,abc)"`;
+
 exports[`FilterOperators should support endsWith 1`] = `"endswith(xyz,123)"`;
+
+exports[`FilterOperators should support endsWith with relativeFields 1`] = `"endswith(xyz,abc)"`;
 
 exports[`FilterOperators should support equals 1`] = `"xyz eq 123"`;
 
@@ -17,6 +21,8 @@ exports[`FilterOperators should support isEmpty 1`] = `"xyz eq ''"`;
 exports[`FilterOperators should support isNull 1`] = `"xyz eq null"`;
 
 exports[`FilterOperators should support lessThan 1`] = `"xyz lt 123"`;
+
+exports[`FilterOperators should support lessThan with relativeFields 1`] = `"xyz lt abc"`;
 
 exports[`FilterOperators should support lessThanOrEquals 1`] = `"xyz le 123"`;
 

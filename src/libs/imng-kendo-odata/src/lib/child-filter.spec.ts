@@ -20,3 +20,25 @@ describe('Generated imng-odata-client toODataString should match Kendo ', () => 
     expect(kendoResult).toEqual(imngResult);
   });
 });
+
+describe('Generated imng-odata-client toODataString should match Kendo with relativeFields', () => {
+  it('kendo ser', () => {
+    const filters: ICompositeFilter = {
+      logic: 'and',
+      filters: [
+        { field: 'a.b.c', operator: 'eq', value: 1, isRelativeValue: true },
+        {
+          field: 'a.b.c',
+          operator: 'eq',
+          value: '1',
+          isRelativeValue: true,
+        },
+      ],
+    };
+    const kendoResult = toODataString({
+      filter: filters as CompositeFilterDescriptor,
+    });
+    const imngResult = getODataString({ filter: filters, count: false });
+    expect(kendoResult).toEqual(imngResult);
+  });
+});
