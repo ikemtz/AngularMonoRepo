@@ -19,8 +19,8 @@ export class FilterOperators {
    */
   public static readonly equals: IFilterOperator = {
     name: 'equals',
-    toODataString: (field: string, isRelativeValue: boolean, value?: IdType) =>
-      serializeSimpleFilter(field, 'eq', isRelativeValue, value),
+    toODataString: (field: string, value?: IdType, isRelativeValue = false) =>
+      serializeSimpleFilter(field, 'eq', value, isRelativeValue),
   };
   /**
    * The `gt` operator.
@@ -29,9 +29,9 @@ export class FilterOperators {
     name: 'greaterThan',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
-    ): string => serializeSimpleFilter(field, 'gt', isRelativeValue, value),
+      isRelativeValue = false,
+    ): string => serializeSimpleFilter(field, 'gt', value, isRelativeValue),
   };
   /**
    * The `ge` operator.
@@ -40,9 +40,9 @@ export class FilterOperators {
     name: 'greaterThanOrEquals',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
-    ): string => serializeSimpleFilter(field, 'ge', isRelativeValue, value),
+      isRelativeValue = false,
+    ): string => serializeSimpleFilter(field, 'ge', value, isRelativeValue),
   };
   /**
    * The `lt` operator.
@@ -51,9 +51,9 @@ export class FilterOperators {
     name: 'lessThan',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
-    ): string => serializeSimpleFilter(field, 'lt', isRelativeValue, value),
+      isRelativeValue = false,
+    ): string => serializeSimpleFilter(field, 'lt', value, isRelativeValue),
   };
   /**
    * The `le` operator.
@@ -62,9 +62,9 @@ export class FilterOperators {
     name: 'lessThanOrEquals',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
-    ): string => serializeSimpleFilter(field, 'le', isRelativeValue, value),
+      isRelativeValue = false,
+    ): string => serializeSimpleFilter(field, 'le', value, isRelativeValue),
   };
   /**
    * The `ne` operator.
@@ -73,9 +73,9 @@ export class FilterOperators {
     name: 'notEquals',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
-    ): string => serializeSimpleFilter(field, 'ne', isRelativeValue, value),
+      isRelativeValue = false,
+    ): string => serializeSimpleFilter(field, 'ne', value, isRelativeValue),
   };
   /**
    * The `in` operator.
@@ -84,9 +84,9 @@ export class FilterOperators {
     name: 'in',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       values?: IdType[],
-    ): string => serializeArrayFilter(field, 'in', isRelativeValue, values),
+      isRelativeValue = false,
+    ): string => serializeArrayFilter(field, 'in', values, isRelativeValue),
   };
   /**
    * The `not in` operator.
@@ -95,9 +95,9 @@ export class FilterOperators {
     name: 'notIn',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       values?: IdType[],
-    ): string => serializeArrayFilter(field, 'not in', isRelativeValue, values),
+      isRelativeValue = false,
+    ): string => serializeArrayFilter(field, 'not in', values, isRelativeValue),
   };
   /**
    * The `is not null` operator.
@@ -121,10 +121,10 @@ export class FilterOperators {
     name: 'contains',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
+      isRelativeValue = false,
     ): string =>
-      serializeFunctionFilter(field, 'contains', isRelativeValue, value),
+      serializeFunctionFilter(field, 'contains', value, isRelativeValue),
   };
   /**
    * The `not contain` operator.
@@ -133,10 +133,10 @@ export class FilterOperators {
     name: 'notContains',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
+      isRelativeValue = false,
     ): string =>
-      serializeFunctionFilter(field, 'not contains', isRelativeValue, value),
+      serializeFunctionFilter(field, 'not contains', value, isRelativeValue),
   };
   /**
    * The `ends with` operator.
@@ -145,10 +145,10 @@ export class FilterOperators {
     name: 'endswith',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
+      isRelativeValue = false,
     ): string =>
-      serializeFunctionFilter(field, 'endswith', isRelativeValue, value),
+      serializeFunctionFilter(field, 'endswith', value, isRelativeValue),
   };
   /**
    * The `not ends with` operator.
@@ -157,10 +157,10 @@ export class FilterOperators {
     name: 'notEndsWith',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
+      isRelativeValue = false,
     ): string =>
-      serializeFunctionFilter(field, 'not endswith', isRelativeValue, value),
+      serializeFunctionFilter(field, 'not endswith', value, isRelativeValue),
   };
   /**
    * The `startswith` operator.
@@ -169,10 +169,10 @@ export class FilterOperators {
     name: 'startsWith',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
+      isRelativeValue = false,
     ): string =>
-      serializeFunctionFilter(field, 'startswith', isRelativeValue, value),
+      serializeFunctionFilter(field, 'startswith', value, isRelativeValue),
   };
   /**
    * The `not start with` operator.
@@ -181,10 +181,10 @@ export class FilterOperators {
     name: 'notStartsWith',
     toODataString: (
       field: string,
-      isRelativeValue: boolean,
       value?: IdType,
+      isRelativeValue = false,
     ): string =>
-      serializeFunctionFilter(field, 'not startswith', isRelativeValue, value),
+      serializeFunctionFilter(field, 'not startswith', value, isRelativeValue),
   };
   /**
    * The `empty` operator.
@@ -192,7 +192,7 @@ export class FilterOperators {
   public static readonly isEmpty: IFilterOperator = {
     name: 'isEmpty',
     toODataString: (field: string): string =>
-      serializeSimpleFilter(field, 'eq', false, ''),
+      serializeSimpleFilter(field, 'eq', '', false),
   };
   /**
    * The `not empty` operator.
@@ -200,7 +200,7 @@ export class FilterOperators {
   public static readonly notEmpty: IFilterOperator = {
     name: 'notEmpty',
     toODataString: (field: string): string =>
-      serializeSimpleFilter(field, 'ne', false, ''),
+      serializeSimpleFilter(field, 'ne', '', false),
   };
 }
 

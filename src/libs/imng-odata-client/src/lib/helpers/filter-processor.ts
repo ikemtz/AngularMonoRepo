@@ -20,10 +20,12 @@ export function processFilters(query: ODataQuery, queryString: string): string {
   return `${queryString}&$filter=${filterString}`;
 }
 
-export function serializeCompositeFilter(filter: ICompositeFilter): string {
-  const filterLogicSeperator = ` ${filter.logic} `;
-  return `(${filter.filters
-    .map((m) => serializeFilterItem(m))
+export function serializeCompositeFilter(
+  compositeFilter: ICompositeFilter,
+): string {
+  const filterLogicSeperator = ` ${compositeFilter.logic} `;
+  return `(${compositeFilter.filters
+    .map((filter) => serializeFilterItem(filter))
     .filter((m) => m && m !== '()')
     .join(filterLogicSeperator)})`;
 }
@@ -81,7 +83,7 @@ export function serializeFilter(filter: IFilter | IChildFilter): string {
       const childFieldName = `o/${field}`;
       return `${filter.childTable}/${
         filter.linqOperation
-      }(o: ${odataStringFunction(childFieldName, filter.value as never)})`;
+      }(o: ${odataStringFunction(childFieldName, filter.value as never, filter.isRelativeValue)})`;
     } else {
       return odataStringFunction(field, filter.value as never);
     }

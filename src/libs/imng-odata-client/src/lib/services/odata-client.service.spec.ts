@@ -401,6 +401,45 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
+  it('should serialize ODataQueries with a contains Filter with relativeFields', () => {
+    const queryString = getODataString({
+      filter: {
+        logic: 'and',
+        filters: [
+          {
+            logic: 'and',
+            filters: [
+              {
+                childTable: 'sub-z',
+                linqOperation: 'all',
+                field: 'x',
+                operator: FilterOperators.contains,
+                value: 'z',
+                isRelativeValue: true,
+              },
+            ],
+          },
+          {
+            logic: 'and',
+            filters: [
+              {
+                childTable: 'sub-z',
+                linqOperation: 'all',
+                field: 'y',
+                operator: FilterOperators.contains,
+                value: 'z',
+                isRelativeValue: true,
+              },
+            ],
+          },
+        ],
+      },
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain('timestamp');
+    expect(queryString).toMatchSnapshot();
+  });
+
   it('should serialize ODataQueries with cacheBusting', () => {
     const queryString = getODataString(
       {

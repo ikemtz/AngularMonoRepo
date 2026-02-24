@@ -1,38 +1,40 @@
 import { IdType } from 'imng-nrsrx-client-utils';
 
 export function serializeValue(
-  isRelativeValue: boolean,
   value?: IdType,
+  isRelativeValue = false,
 ): string {
-  if (typeof value === 'string') {
-    return isRelativeValue ? value : `'${value}'`;
+  if (isRelativeValue) {
+    return value?.toString() ?? '';
+  } else if (typeof value === 'string') {
+    return `'${value}'`;
+  } else if (value instanceof Date) {
+    return `${value.toISOString().split('T')[0]}`;
   }
-  return value instanceof Date
-    ? `${value.toISOString().split('T')[0]}`
-    : `${value}`;
+  return `${value}`;
 }
 
 export const serializeSimpleFilter = (
   field: string,
   operator: string,
-  isRelativeValue: boolean,
   value?: IdType,
-): string => `${field} ${operator} ${serializeValue(isRelativeValue, value)}`;
+  isRelativeValue = false,
+): string => `${field} ${operator} ${serializeValue(value, isRelativeValue)}`;
 
 export const serializeArrayFilter = (
   field: string,
   operator: string,
-  isRelativeValue: boolean,
   values?: IdType[],
+  isRelativeValue = false,
 ): string =>
   values && values.length > 0
-    ? `${field} ${operator} (${values.map((m) => serializeValue(isRelativeValue, m)).join(',')})`
+    ? `${field} ${operator} (${values.map((value) => serializeValue(value, isRelativeValue)).join(',')})`
     : '';
 
 export const serializeFunctionFilter = (
   field: string,
   func: string,
-  isRelativeValue: boolean,
   value?: IdType,
+  isRelativeValue = false,
 ): string =>
-  value ? `${func}(${field},${serializeValue(isRelativeValue, value)})` : '';
+  value ? `${func}(${field},${serializeValue(value, isRelativeValue)})` : '';
