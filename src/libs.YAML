@@ -480,4 +480,5 @@ pr:
     include:
       - src/libs/*
       - src/package.json
+      - src/package-lock.json
       - src/libs.YAML
