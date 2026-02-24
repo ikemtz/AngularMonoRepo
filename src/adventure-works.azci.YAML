@@ -185,6 +185,7 @@ trigger:
       - src/apps/adventure-works/*
       - libs/*
       - src/package.json
+      - src/package-lock.json
       - src/adventure-works.azci.YAML
 pr:
   branches:
