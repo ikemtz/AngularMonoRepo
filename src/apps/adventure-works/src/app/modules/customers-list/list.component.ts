@@ -4,10 +4,11 @@ import { AsyncPipe, SlicePipe } from '@angular/common';
 import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
 import { KENDO_MENU } from '@progress/kendo-angular-menu';
 import { KENDO_ICONS } from '@progress/kendo-angular-icons';
-import { IMNG_KENDO_COPY, IMNG_KENDO_GRID_HEADER } from 'imng-kendo-grid';
+import { IMNG_KENDO_COPY } from 'imng-kendo-grid';
 import { IMNG_KENDO_GRID_UUID_FILTER } from 'imng-kendo-grid-filtering';
 import {
   IMNG_KENDO_GRID_ODATA,
+  IMNG_KENDO_GRID_ODATA_HEADER,
   KendoODataBasedComponent,
 } from 'imng-kendo-grid-odata';
 import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
@@ -15,7 +16,7 @@ import { IMNG_KENDO_DELETE_DIALOG, ModalStates } from 'imng-kendo-data-entry';
 import {
   CustomerListFacade,
   CustomerCrudFacade,
-  CustomersModule,
+  CustomersNgrxModule,
 } from '../customers-ngrx-module';
 import { customerGridState } from './list.grid-state';
 import {
@@ -24,6 +25,7 @@ import {
   SalesAgentProperties,
 } from '../../models/webapi';
 import { CustomerAddComponent, CustomerEditComponent } from '../customers-crud';
+import { Endpoints } from '../../models/odata/endpoints';
 
 @Component({
   selector: 'aw-customer-list',
@@ -33,14 +35,14 @@ import { CustomerAddComponent, CustomerEditComponent } from '../customers-crud';
     KENDO_GRID,
     KENDO_MENU,
     KENDO_ICONS,
-    IMNG_KENDO_GRID_HEADER,
     IMNG_KENDO_GRID_ODATA,
+    IMNG_KENDO_GRID_ODATA_HEADER,
     IMNG_KENDO_GRID_UUID_FILTER,
     IMNG_KENDO_COPY,
     IMNG_KENDO_DELETE_DIALOG,
     CustomerAddComponent,
     CustomerEditComponent,
-    CustomersModule,
+    CustomersNgrxModule,
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
@@ -50,6 +52,7 @@ export class CustomerListComponent extends KendoODataBasedComponent<
   ICustomer,
   CustomerListFacade
 > {
+  public override readonly odataEndpoint = Endpoints.customers;
   public readonly crudFacade = inject(CustomerCrudFacade);
   public readonly props = CustomerProperties;
   public readonly salesAgentProps = SalesAgentProperties;

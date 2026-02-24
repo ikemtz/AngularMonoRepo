@@ -15,8 +15,8 @@ exports[`imng-ngrx-module generation works - Certifications 1`] = `
   "/test/certifications-ngrx-module/certification.list.facade.ts",
   "/test/certifications-ngrx-module/certification.lookup.facade.spec.ts",
   "/test/certifications-ngrx-module/certification.lookup.facade.ts",
-  "/test/certifications-ngrx-module/certifications.module.spec.ts",
-  "/test/certifications-ngrx-module/certifications.module.ts",
+  "/test/certifications-ngrx-module/certifications-ngrx.module.spec.ts",
+  "/test/certifications-ngrx-module/certifications-ngrx.module.ts",
   "/test/certifications-ngrx-module/index.ts",
 ]
 `;

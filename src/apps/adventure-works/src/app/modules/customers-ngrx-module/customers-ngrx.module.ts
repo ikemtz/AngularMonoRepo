@@ -23,4 +23,4 @@ import { CustomerApiService } from './customer.api.service';
   ],
   providers: [ODataService, CustomerApiService],
 })
-export class CustomersModule {}
+export class CustomersNgrxModule {}

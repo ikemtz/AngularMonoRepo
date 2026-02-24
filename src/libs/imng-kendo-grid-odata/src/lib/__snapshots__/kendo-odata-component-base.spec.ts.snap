@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`KendoODataBasedComponent should loadAllData when configured correctly 1`] = `
+{
+  "data": [
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+    {
+      "id": "testId",
+    },
+  ],
+  "total": 1000,
+}
+`;
+
 exports[`KendoODataBasedComponent should normalizeFilters CompositeFilter 1`] = `
 {
   "filters": [

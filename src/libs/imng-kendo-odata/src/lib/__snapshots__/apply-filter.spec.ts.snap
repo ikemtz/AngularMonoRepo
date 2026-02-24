@@ -8,6 +8,7 @@ exports[`applyFilter should should initialize 1`] = `
         "filters": [
           {
             "field": "ABC",
+            "isRelativeValue": false,
             "operator": "eq",
             "value": 2,
           },

@@ -1,5 +1,19 @@
 /* eslint-disable @angular-eslint/prefer-inject */
-import { Observable, first, isObservable, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  concatMap,
+  first,
+  from,
+  isObservable,
+  last,
+  map,
+  scan,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { PagerSettings } from '@progress/kendo-angular-grid';
 import {
   OnInit,
@@ -7,8 +21,14 @@ import {
   InjectionToken,
   Inject,
   Component,
+  inject,
 } from '@angular/core';
-import { ODataState, ODataResult, Expander } from 'imng-kendo-odata';
+import {
+  ODataState,
+  ODataResult,
+  Expander,
+  ODataService,
+} from 'imng-kendo-odata';
 import { GridStateChangeEvent, KendoGridBaseComponent } from 'imng-kendo-grid';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
 import { Router } from '@angular/router';
@@ -33,12 +53,16 @@ const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
   template: '',
 })
 export abstract class KendoODataBasedComponent<
-  ENTITY,
+  ENTITY extends object,
   FACADE extends IKendoODataGridFacade<ENTITY>,
 >
   extends KendoGridBaseComponent<ENTITY>
   implements OnInit, OnDestroy, Subscribable
 {
+  public useLoadAllDataExport = false;
+  public odataService = inject(ODataService, { optional: true });
+
+  public odataEndpoint?: string;
   /**
    * This sets the amount of the maximum amount of sortable columns for this component.  Default = 5.
    */
@@ -47,6 +71,7 @@ export abstract class KendoODataBasedComponent<
    * This will allow you to provide a visual indicator that some of the columns have been hidden.
    */
   public hasHiddenColumns$: Observable<boolean>;
+  public loadDataProgression$ = new BehaviorSubject<number>(0);
   public gridStateQueryKey = 'odataState';
   public gridDataState: ODataState;
   public gridDataResult$: Observable<ODataResult<ENTITY>>;
@@ -207,8 +232,91 @@ export abstract class KendoODataBasedComponent<
     this.loadEntities(this.gridDataState);
   }
 
+  /**
+   * Gets an Observable of all data for Excel export.
+   *
+   * Returns all data from the OData endpoint if the endpoint is available and
+   * `useLoadAllDataExport` is enabled, otherwise returns the current grid data result.
+   *
+   * @returns {Observable<ODataResult<ENTITY>>} An Observable containing the OData result with entity data
+   */
   public excelData = (): Observable<ODataResult<ENTITY>> =>
-    this.gridDataResult$;
+    this.odataEndpoint && this.useLoadAllDataExport && this.odataService
+      ? this.loadAllData()
+      : this.gridDataResult$;
+
+  /**
+   * Loads all data from the OData service by fetching data in chunks of 100 items.
+   *
+   * This method retrieves the current grid data and OData state, then creates multiple
+   * OData queries to fetch all available data in batches. Each batch is limited to 100 items
+   * to manage memory and performance. The results from all batches are accumulated and returned
+   * as a single ODataResult.
+   *
+   * @returns {Observable<ODataResult<ENTITY>>} An observable that emits the complete accumulated result
+   *          containing the total count and combined data from all fetched batches. After emission,
+   *          sets the useLoadAllDataExport flag to false.
+   *
+   * @remarks
+   * - Uses `concatMap` to ensure requests are processed sequentially
+   * - Uses `scan` to accumulate results from each batch
+   * - Count is disabled on subsequent requests (count: false) to optimize performance
+   * - The useLoadAllDataExport flag is reset to false upon completion
+   */
+  public loadAllData(): Observable<ODataResult<ENTITY>> {
+    return this.facade.gridData$.pipe(
+      withLatestFrom(this.facade.gridODataState$),
+      take(1),
+      map(([data, state]) => ({ total: data?.total ?? 0, state: state })),
+      map(({ total, state }) => {
+        const odataQueries: ODataState[] = [];
+        const totalRecordCount = total;
+        while (total > 0) {
+          odataQueries.push({
+            ...state,
+            skip: odataQueries.length * 100,
+            take: 100,
+            count: false, // we don't need the count on subsequent requests
+          });
+          total -= 100;
+        }
+        return { totalRecordCount: totalRecordCount, queries: odataQueries };
+      }),
+      switchMap((queryData) =>
+        from(queryData.queries).pipe(
+          concatMap((odataQuery) =>
+            (this.odataService ?? new ODataService())
+              .fetch<ENTITY>(
+                this.odataEndpoint ?? '',
+                odataQuery ?? { skip: 0, take: 100 },
+              )
+              .pipe(
+                tap(() => {
+                  this.loadDataProgression$.next(
+                    Math.max(
+                      1,
+                      Math.trunc(
+                        ((odataQuery.skip ?? 0) / queryData.totalRecordCount) *
+                          100,
+                      ),
+                    ),
+                  );
+                }),
+              ),
+          ),
+          scan((accumulated, current) => ({
+            total: queryData.totalRecordCount,
+            data: [...accumulated.data, ...current.data],
+          })),
+          last(),
+        ),
+      ),
+      tap(() => {
+        this.useLoadAllDataExport = false;
+        this.loadDataProgression$.next(0);
+      }),
+    );
+  }
 
   public loadEntities(odataState: ODataState): void {
     odataState = this.validateSortParameters(odataState);

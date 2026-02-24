@@ -10,6 +10,7 @@ import { plural, singular } from 'pluralize';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 
 const collectionPath = path.join(__dirname, `../collection.json`);
+const thirtySeconds = 30000;
 
 describe(`imng-ngrx-module`, () => {
   let tree: UnitTestTree;
@@ -25,13 +26,13 @@ describe(`imng-ngrx-module`, () => {
       modelFolderLocation: '../../../models/webapi',
     };
     tree = await runner.runSchematic(`imng-ngrx-module`, options, Tree.empty());
-  }, 30000);
+  }, thirtySeconds);
   test(`tree files should match`, () => {
     expect(tree.files.sort()).toMatchSnapshot();
   });
 
   test(`module should work`, () => {
-    const file = tree.get(`/test/products-ngrx-module/products.module.ts`);
+    const file = tree.get(`/test/products-ngrx-module/products-ngrx.module.ts`);
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });

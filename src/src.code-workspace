@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"typescript.implementationsCodeLens.enabled": true,
+		"nxConsole.nxWorkspacePath": ""
+	}
+}
