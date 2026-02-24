@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Generated imng-odata-client toODataString should match Kendo with relativeFields kendo ser 1`] = `"$filter=(a/b/c eq 1 and a/b/c eq 1)"`;

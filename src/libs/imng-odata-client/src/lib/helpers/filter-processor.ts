@@ -85,7 +85,11 @@ export function serializeFilter(filter: IFilter | IChildFilter): string {
         filter.linqOperation
       }(o: ${odataStringFunction(childFieldName, filter.value as never, filter.isRelativeValue)})`;
     } else {
-      return odataStringFunction(field, filter.value as never);
+      return odataStringFunction(
+        field,
+        filter.value as never,
+        filter.isRelativeValue,
+      );
     }
   }
 }

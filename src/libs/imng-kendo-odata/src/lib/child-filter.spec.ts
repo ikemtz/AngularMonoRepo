@@ -39,6 +39,7 @@ describe('Generated imng-odata-client toODataString should match Kendo with rela
       filter: filters as CompositeFilterDescriptor,
     });
     const imngResult = getODataString({ filter: filters, count: false });
-    expect(kendoResult).toEqual(imngResult);
+    expect(kendoResult).not.toEqual(imngResult);
+    expect(imngResult).toMatchSnapshot();
   });
 });
