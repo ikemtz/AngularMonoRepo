@@ -196,4 +196,5 @@ pr:
       - src/apps/nurse-cron/*
       - libs/*
       - src/package.json
+      - src/package-lock.json
       - src/NurseCronAngular.YAML
