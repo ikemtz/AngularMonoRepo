@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ODataService Embedded Filter should support embedded filters with relativeValue 1`] = `
+[
+  [
+    "//idunno.com?$expand=childTable2($filter=(field1 eq abc)),childTable1($select=id,name;$filter=(field1 eq abc))&$select=id,name&$count=true",
+  ],
+]
+`;

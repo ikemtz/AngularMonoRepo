@@ -210,7 +210,10 @@ export class ODataService {
         result += `${/[(;]$/.exec(result) ? '' : ';'}$count=true`;
       }
       result += ')';
-      result = result.replace(/\(\)/, '').replace(/;\)/, ')');
+      result = result
+        .replace(/\(\)/, '')
+        .replace(/;\)/, ')')
+        .replace('(;', '(');
     }
     return result;
   }
