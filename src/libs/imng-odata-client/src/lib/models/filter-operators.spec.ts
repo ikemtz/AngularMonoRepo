@@ -1,4 +1,4 @@
-import { FilterOperators } from './filter-operators';
+import { filterOperators, FilterOperators } from './filter-operators';
 
 describe('FilterOperators', () => {
   it('should support contains', () => {
@@ -122,6 +122,14 @@ describe('FilterOperators', () => {
       'xyz',
       '123' as never,
     );
+    expect(result).toMatchSnapshot();
+  });
+
+  it('Filter mappings should match', () => {
+    const result = Object.keys(filterOperators).map((key) => ({
+      key: key,
+      filterName: filterOperators[key].name,
+    }));
     expect(result).toMatchSnapshot();
   });
 });
