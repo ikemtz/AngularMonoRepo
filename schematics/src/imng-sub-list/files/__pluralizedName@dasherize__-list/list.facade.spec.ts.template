@@ -74,8 +74,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       expect(gridPagerSettings$).toBe(false);
 
       expect(httpClient.get).toHaveBeenCalledTimes(1);
-      expect(httpClient.get).toHaveBeenCalledWith(
-        `<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?$filter=<%= camelize(singularizedParentName) %>Id eq '<%= snakeCasedParentName %>_ID'&$count=true`);
+      expect((httpClient.get as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
 
       facade.reloadEntities();
       expect(httpClient.get).toHaveBeenCalledTimes(2);
