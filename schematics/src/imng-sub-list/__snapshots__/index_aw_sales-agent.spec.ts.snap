@@ -227,8 +227,7 @@ describe('SalesAgentListFacade', () => {
       expect(gridPagerSettings$).toBe(false);
 
       expect(httpClient.get).toHaveBeenCalledTimes(1);
-      expect(httpClient.get).toHaveBeenCalledWith(
-        \`customers-odata/odata/v1/SalesAgents?$filter=customerId eq 'CUSTOMER_ID'&$count=true\`);
+      expect((httpClient.get as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
 
       facade.reloadEntities();
       expect(httpClient.get).toHaveBeenCalledTimes(2);
