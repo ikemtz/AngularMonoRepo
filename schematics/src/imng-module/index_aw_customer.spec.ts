@@ -7,7 +7,7 @@ import {
 import * as path from "node:path";
 import { IOptions } from "../shared";
 
-import { classify, dasherize } from "@angular-devkit/core/src/utils/strings";
+import { dasherize } from "@angular-devkit/core/src/utils/strings";
 import { plural } from "pluralize";
 
 const collectionPath = path.join(__dirname, `../collection.json`);
