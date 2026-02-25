@@ -343,11 +343,12 @@ src/documentation/**
 **/dist/*
 **/*.tar
 old-src
-schematics/eslint-report.json
 src/.nx
 refresh-local-branch.sh
 schematics/.swp
 src/telerik-license.txt
 src/UsersIkemtAppDataLocalTempnx-*
-src/eslint-report.html
-src/eslint-report.json
+**/eslint-report.html
+**/eslint-report.json
+**/.npmrc
+**/combined.pem
