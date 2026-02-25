@@ -8,7 +8,7 @@ import { ICompositeFilter } from 'imng-odata-client';
 
 export interface ODataState {
   /**
-   * The number of reco rds to be skipped by the pager.
+   * The number of records to be skipped by the pager.
    */
   skip?: number;
   /**
