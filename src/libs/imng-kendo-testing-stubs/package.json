@@ -12,7 +12,6 @@
   "peerDependencies": {
     "@angular/forms": "*",
     "@angular/core": "*",
-    "@progress/kendo-svg-icons": "*",
     "@progress/kendo-angular-grid": "*",
     "@jest/globals": "*",
     "rxjs": "*"
