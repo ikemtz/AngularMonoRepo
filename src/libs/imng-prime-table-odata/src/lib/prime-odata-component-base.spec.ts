@@ -100,7 +100,7 @@ describe('PrimeODataBasedComponent', () => {
     });
     const deserializedResult =
       component.deserializeTableState(serializedResult);
-    expect(deserializedResult.filters['xyzDate'].length).toBe(1);
+    expect(deserializedResult.filters['xyzDate']).toHaveLength(1);
   });
 
   it('should limit PrimeTableState sort parameters', () => {

@@ -5,8 +5,7 @@ import { SIGNALR_CONFIG } from '../models/signalr.configuration';
 import { OidcFacade } from 'imng-oidc-client';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { NullLogger } from '@microsoft/signalr';
-import { HttpTransportType } from '@microsoft/signalr';
+import { NullLogger, HttpTransportType } from '@microsoft/signalr';
 
 describe('HubConnectionInjectorService', () => {
   let service: HubConnectionInjectorService;
@@ -37,8 +36,8 @@ describe('HubConnectionInjectorService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
     expect(
-      (service as unknown as { allSubscriptions: [] }).allSubscriptions.length,
-    ).toBe(1);
+      (service as unknown as { allSubscriptions: [] }).allSubscriptions,
+    ).toHaveLength(1);
   });
 
   it('should be ngOnDestroy', () => {

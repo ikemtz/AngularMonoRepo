@@ -12,10 +12,9 @@
     "emitDecoratorMetadata": false,
     "module": "preserve",
     "declaration": true,
-    "sourceMap": true,
-    "inlineSourceMap": true,
     "declarationMap": true,
-    "emitBOM": true
+    "sourceMap": true,
+    "inlineSources": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

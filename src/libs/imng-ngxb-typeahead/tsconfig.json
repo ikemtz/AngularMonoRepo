@@ -23,7 +23,11 @@
     "target": "es2020",
     "module": "preserve",
     "moduleResolution": "bundler",
-    "lib": ["dom", "es2022"]
+    "lib": ["dom", "es2022"],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "inlineSources": true
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
