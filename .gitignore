@@ -351,3 +351,6 @@ src/telerik-license.txt
 src/UsersIkemtAppDataLocalTempnx-*
 src/eslint-report.html
 src/eslint-report.json
+schematics/.npmrc
+schematics/combined.pem
+schematics/eslint-report.html

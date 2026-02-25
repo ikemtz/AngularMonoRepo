@@ -18,6 +18,7 @@ import { of } from 'rxjs';
 export class IMNG_KENDO_GRID_STUB {
   @Input() public imngODataGrid?: never;
   @Input() public height = 500;
+  @Input() public resizable = true;
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
   public dataStateChange = of({});
