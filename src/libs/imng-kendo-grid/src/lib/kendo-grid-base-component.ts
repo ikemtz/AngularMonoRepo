@@ -13,7 +13,6 @@ import {
   getEnum,
   getEnumKey,
   getEnumDisplayText,
-  IEnumValue,
 } from 'openapi-ts-generator/enums';
 
 @Component({

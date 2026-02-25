@@ -133,7 +133,7 @@ describe('ImngPrimeODataTableDirective', () => {
   it('should fire destory', () => {
     directive.ngOnInit();
     directive.ngOnDestroy();
-    expect(directive.allSubscriptions.length).toBe(0);
+    expect(directive.allSubscriptions).toHaveLength(0);
   });
 
   it('should support getEnumKey', () => {

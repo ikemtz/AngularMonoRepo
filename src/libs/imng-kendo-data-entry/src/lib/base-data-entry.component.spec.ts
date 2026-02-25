@@ -26,9 +26,9 @@ describe('MockBaseComponent', () => {
 
   it('should destroy', () => {
     component.allSubscriptions.push(component.submitted$.subscribe());
-    expect(component.allSubscriptions.length).toEqual(1);
+    expect(component.allSubscriptions).toHaveLength(1);
     component.ngOnDestroy();
-    expect(component.allSubscriptions.length).toEqual(0);
+    expect(component.allSubscriptions).toHaveLength(0);
   });
 
   it('handle onSubmit', () => {

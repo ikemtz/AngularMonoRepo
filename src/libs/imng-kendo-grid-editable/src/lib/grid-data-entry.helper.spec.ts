@@ -96,10 +96,10 @@ describe('GridDataEntryHelper<>', () => {
     ]);
 
     let result = await readFirst(gridHelper.gridData$);
-    expect(result.length).toBe(3);
+    expect(result).toHaveLength(3);
     gridHelper.clearData();
     result = await readFirst(gridHelper.gridData$);
-    expect(result.length).toBe(0);
+    expect(result).toHaveLength(0);
   });
 
   it('should editHandler', async () => {
@@ -159,7 +159,7 @@ describe('GridDataEntryHelper<>', () => {
     expect(gridComponentMock.editRow).toHaveBeenCalledTimes(0);
     expect(gridComponentMock.closeRow).toHaveBeenCalledTimes(0);
     expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
-    expect(gridHelper.gridData.length).toBe(2);
+    expect(gridHelper.gridData).toHaveLength(2);
   });
 
   it('should handle add', async () => {
@@ -170,7 +170,7 @@ describe('GridDataEntryHelper<>', () => {
     ]);
     gridHelper.addItems({ id: '🐂' });
     expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
-    expect(gridHelper.gridData.length).toBe(4);
+    expect(gridHelper.gridData).toHaveLength(4);
   });
 
   it('should handle remove', async () => {
@@ -180,9 +180,9 @@ describe('GridDataEntryHelper<>', () => {
       { id: '🥜' },
     ]);
     gridHelper.removeItems({ id: '😜' });
-    expect(gridHelper.gridData.length).toBe(3);
+    expect(gridHelper.gridData).toHaveLength(3);
     gridHelper.removeItems(gridHelper.gridData[2]);
-    expect(gridHelper.gridData.length).toBe(2);
+    expect(gridHelper.gridData).toHaveLength(2);
     expect(await readFirst(gridHelper.gridData$)).toMatchSnapshot();
   });
 

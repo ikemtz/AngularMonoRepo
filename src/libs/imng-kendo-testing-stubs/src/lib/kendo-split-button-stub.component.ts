@@ -5,7 +5,6 @@ import {
   Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
-import { SVGIcon } from '@progress/kendo-svg-icons';
 
 @Component({
   selector: 'kendo-splitbutton',
@@ -15,6 +14,6 @@ import { SVGIcon } from '@progress/kendo-svg-icons';
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class IMNG_KENDO_SPLIT_BUTTON_STUB {
-  @Input() public svgIcon: SVGIcon | undefined;
+  @Input() public svgIcon: unknown;
   @Input() public data: never[] | undefined;
 }

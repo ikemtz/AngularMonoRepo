@@ -6,7 +6,6 @@ import {
   Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
-import { Align } from '@progress/kendo-angular-popup';
 
 @Component({
   selector: 'kendo-popup',
@@ -17,6 +16,6 @@ import { Align } from '@progress/kendo-angular-popup';
 })
 export class IMNG_KENDO_POPUP_STUB {
   @Input() anchor: ElementRef | HTMLElement | undefined;
-  @Input() anchorAlign: Align | undefined;
-  @Input() popupAlign: Align | undefined;
+  @Input() anchorAlign: unknown;
+  @Input() popupAlign: unknown;
 }

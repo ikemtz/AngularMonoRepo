@@ -183,8 +183,10 @@ export class IMNG_KENDO_GRID_MULTISELECT_FILTER implements AfterViewInit {
     this.onFocus(li);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onInput(e: { target: { value: IdType } } | any): void {
+  public onInput(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    e: { target: { value: IdType } } | any, //NOSONAR
+  ): void {
     this.currentData = distinct(
       [
         ...this.currentData.filter((dataItem: unknown) =>
