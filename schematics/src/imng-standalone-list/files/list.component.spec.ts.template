@@ -39,7 +39,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
-    .overrideComponent(CustomerListComponent, {
+    .overrideComponent(<%= classify(singularizedName) %>ListComponent, {
       remove: {
         imports: [KENDO_GRID, <%= classify(pluralizedName) %>NgrxModule],
       },
