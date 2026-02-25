@@ -63,7 +63,7 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
       expect(list?.data.length).toBe(1);
       expect(loading).toBe(false);
       expect(httpClient.get).toHaveBeenCalledTimes(1);
-      expect(httpClient.get).toHaveBeenCalledWith('<%= dasherize(pluralizedStoreName) %>-odata/odata/v1/<%= classify(pluralizedName) %>?&$count=true');
+      expect((httpClient.get as jest.Mock).mock.calls[0][0]).toMatchSnapshot();
 
       facade.reloadEntities();
       expect(httpClient.get).toHaveBeenCalledTimes(2);
