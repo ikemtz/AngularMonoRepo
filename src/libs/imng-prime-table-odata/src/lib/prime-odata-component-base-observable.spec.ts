@@ -6,7 +6,7 @@ import {
   createODataTableMockFacade,
 } from '../../testing/src';
 import { readFirst } from 'imng-ngrx-utils/testing';
-import { CompositeFilter, FilterOperators } from 'imng-odata-client';
+import { ICompositeFilter, FilterOperators } from 'imng-odata-client';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { PrimeTableState } from './models/prime-table-state';
@@ -102,7 +102,7 @@ describe('PrimeODataBasedComponent Observable State', () => {
   });
 
   it('should normalizeFilters CompositeFilter', () => {
-    const filter: CompositeFilter = {
+    const filter: ICompositeFilter = {
       logic: 'and',
       filters: [
         { field: 'Date', operator: FilterOperators.equals, value: '1/1/2022' },
@@ -142,7 +142,7 @@ describe('PrimeODataBasedComponent Observable State', () => {
     });
     const deserializedResult =
       component.deserializeTableState(serializedResult);
-    expect(deserializedResult.filters['xyzDate'].length).toBe(1);
+    expect(deserializedResult.filters['xyzDate']).toHaveLength(1);
   });
 
   it('should limit odataQuery sort parameters', () => {
@@ -156,7 +156,8 @@ describe('PrimeODataBasedComponent Observable State', () => {
         { field: 'f', order: 1 },
       ],
     };
-    component.facade.loadEntities = jest.fn();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (component.facade as any).loadEntities = jest.fn();
     component.loadEntities(primeTableState);
     expect(component.facade.loadEntities).toHaveBeenCalledTimes(1);
     expect(component.facade.loadEntities).toHaveBeenCalledWith({

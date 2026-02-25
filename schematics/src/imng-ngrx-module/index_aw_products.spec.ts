@@ -1,13 +1,13 @@
-import { beforeAll, describe, expect, test } from '@jest/globals';
-import { Tree } from '@angular-devkit/schematics';
+import { beforeAll, describe, expect, test } from "@jest/globals";
+import { Tree } from "@angular-devkit/schematics";
 import {
   SchematicTestRunner,
   UnitTestTree,
-} from '@angular-devkit/schematics/testing';
-import * as path from 'node:path';
-import { IOptions } from '../shared';
-import { plural, singular } from 'pluralize';
-import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
+} from "@angular-devkit/schematics/testing";
+import * as path from "node:path";
+import { IOptions } from "../shared";
+import { plural, singular } from "pluralize";
+import { dasherize } from "@angular-devkit/core/src/utils/strings";
 
 const collectionPath = path.join(__dirname, `../collection.json`);
 const thirtySeconds = 30000;
@@ -22,8 +22,8 @@ describe(`imng-ngrx-module`, () => {
       openApiJsonUrl: `https://awod-ikemtz.azurewebsites.net/swagger/v1/swagger.json`,
       path: `./test`,
       swaggerProperties: [],
-      appPrefix: 'aw',
-      modelFolderLocation: '../../../models/webapi',
+      appPrefix: "aw",
+      modelFolderLocation: "../../../models/webapi",
     };
     tree = await runner.runSchematic(`imng-ngrx-module`, options, Tree.empty());
   }, thirtySeconds);
@@ -49,12 +49,16 @@ describe(`imng-ngrx-module`, () => {
     expect(content).toMatchSnapshot();
   });
   test(`actions should work`, () => {
-    const file = tree.get(`/test/products-ngrx-module/+state/product.actions.ts`);
+    const file = tree.get(
+      `/test/products-ngrx-module/+state/product.actions.ts`,
+    );
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
   test(`feature should work`, () => {
-    const file = tree.get(`/test/products-ngrx-module/+state/product.feature.ts`);
+    const file = tree.get(
+      `/test/products-ngrx-module/+state/product.feature.ts`,
+    );
     const content = file?.content.toString();
     expect(content).toMatchSnapshot();
   });
@@ -84,9 +88,7 @@ describe(`imng-ngrx-module`, () => {
     const listFacadeSpecFile = tree.get(fileName);
     const content = listFacadeSpecFile?.content.toString();
     expect(content).toContain(
-      `expect(httpClient.get).toHaveBeenCalledWith('${dasherize(
-        plural(options.name),
-      )}-odata/odata/v1/${classify(plural(options.name))}?&$count=true');`,
+      `expect((httpClient.get as jest.Mock).mock.calls[0][0]).toMatchSnapshot();`,
     );
   });
 });

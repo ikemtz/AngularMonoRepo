@@ -16,7 +16,8 @@ export class DataEntryMockFacade implements IDataEntryFacade<unknown> {
 }
 
 export function createDataEntryMockFacade(
-  mockFacade?: IDataEntryFacade<unknown> | any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mockFacade?: IDataEntryFacade<unknown> | any, //NOSONAR
 ): IDataEntryFacade<unknown> {
   const localFacade = new DataEntryMockFacade();
   if (!mockFacade) {

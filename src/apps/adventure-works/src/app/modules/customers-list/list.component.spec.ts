@@ -19,8 +19,10 @@ import { createTestCustomer } from '../../models/webapi';
 import { KENDO_GRID } from '@progress/kendo-angular-grid';
 import {
   IMNG_KENDO_GRID_TESTING_STUBS,
+  IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
   provideGridComponent,
 } from 'imng-kendo-testing-stubs';
+import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
 
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
@@ -46,10 +48,13 @@ describe('CustomerListComponent', () => {
     })
       .overrideComponent(CustomerListComponent, {
         remove: {
-          imports: [KENDO_GRID, CustomersNgrxModule],
+          imports: [KENDO_GRID, KENDO_BUTTON, CustomersNgrxModule],
         },
         add: {
-          imports: [...IMNG_KENDO_GRID_TESTING_STUBS],
+          imports: [
+            ...IMNG_KENDO_GRID_TESTING_STUBS,
+            ...IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
+          ],
           providers: [provideGridComponent()],
         },
       })

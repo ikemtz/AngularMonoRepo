@@ -80,7 +80,7 @@ import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
           title="Add {{ entityName }}"
           primary="true"
           (click)="addItemClicked.emit()"
-          class="btn btn-sm btn-primary mx-1">
+          class="btn btn-sm btn-primary mx-1 imng-grid-odata-hdr-btn">
           <kendo-svg-icon [icon]="plusIcon"></kendo-svg-icon>
           Add {{ entityName }}
         </button>
@@ -91,7 +91,7 @@ import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
           type="button"
           title="Reset Filters"
           (click)="resetFiltersClicked.emit()"
-          class="btn btn-sm mx-1">
+          class="btn btn-sm mx-1 imng-grid-odata-hdr-btn">
           <kendo-svgicon [icon]="filterClearIcon"></kendo-svgicon> Reset Filters
         </button>
       }
@@ -101,7 +101,7 @@ import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
           type="button"
           title="Clear Cache And Reload Data"
           (click)="reloadEntitiesClicked.emit()"
-          class="btn btn-sm mx-1">
+          class="btn btn-sm mx-1 imng-grid-odata-hdr-btn">
           <kendo-svg-icon [icon]="arrowRotateCcwIcon"></kendo-svg-icon>
           Reload Data
         </button>
@@ -110,7 +110,8 @@ import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
         <kendo-splitbutton
           [data]="exportOptions"
           [svgIcon]="exportIcon"
-          textField="name">
+          textField="name"
+          class="btn btn-sm mx-1 imng-grid-odata-hdr-btn">
           Export Data
         </kendo-splitbutton>
       }

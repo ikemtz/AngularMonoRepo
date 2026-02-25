@@ -4,8 +4,10 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { KENDO_GRID } from '@progress/kendo-angular-grid';
 import {
   IMNG_KENDO_GRID_TESTING_STUBS,
+  IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
   provideGridComponent,
 } from 'imng-kendo-testing-stubs';
+import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
@@ -39,12 +41,15 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
-    .overrideComponent(CustomerListComponent, {
+    .overrideComponent(<%= classify(singularizedName) %>ListComponent, {
       remove: {
-        imports: [KENDO_GRID, <%= classify(pluralizedName) %>NgrxModule],
+        imports: [KENDO_GRID, KENDO_BUTTON, <%= classify(pluralizedName) %>NgrxModule],
       },
       add: {
-        imports: [...IMNG_KENDO_GRID_TESTING_STUBS],
+        imports: [
+          ...IMNG_KENDO_GRID_TESTING_STUBS,
+          ...IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
+        ],
         providers: [provideGridComponent()],
       },
     })
