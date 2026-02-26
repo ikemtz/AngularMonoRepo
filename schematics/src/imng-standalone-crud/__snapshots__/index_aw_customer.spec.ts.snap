@@ -320,7 +320,7 @@ describe('CustomerEditComponent', () => {
       IMNG_KENDO_DATA_ENTRY_DIALOG,
       getImngKendoDataEntryDialogOverride(),
     )
-    .overrideComponent(CustomerAddComponent, {
+    .overrideComponent(CustomerEditComponent, {
       remove: { imports: [KENDO_MULTICOLUMNCOMBOBOX, ] },
       add: {
         imports: [
@@ -329,7 +329,7 @@ describe('CustomerEditComponent', () => {
         ],
       },
     })
-      })compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
