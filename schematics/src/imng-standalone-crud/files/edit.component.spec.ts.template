@@ -1,10 +1,13 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';<% if (hasDates) { %>
-import { KENDO_DATEINPUTS } from '@progress/kendo-angular-dateinputs';<% } %><% if (hasObjects) { %>
-import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';<% } %>
-import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';<% if (hasDates || hasObjects) { %>
+import { ReactiveFormsModule } from '@angular/forms';<% if (hasDates) { %>
+import { KENDO_DATEPICKER } from '@progress/kendo-angular-dateinputs';<% } %><% if (hasObjects) { %>
+import { KENDO_MULTICOLUMNCOMBOBOX } from '@progress/kendo-angular-dropdowns';<% } %>
+import { IMNG_KENDO_DATA_ENTRY_DIALOG } from 'imng-kendo-data-entry';
+import { 
+  createDataEntryMockFacade,
+  getImngKendoDataEntryDialogOverride, 
+} from 'imng-kendo-data-entry/testing';<% if (hasDates || hasObjects) { %>
 import {<% if (hasDates) { %>
   IMNG_KENDO_DATEPICKER_STUB,<% } %><% if (hasObjects) { %>
   IMNG_KENDO_MULTICOLUMNCOMBOBOX_STUB,
@@ -30,7 +33,7 @@ describe('<%= classify(name) %>EditComponent', () => {
     consoleWarnMock = mockConsoleWarn();
     consoleGroupMock = mockConsoleGroup();<% } %>
     TestBed.configureTestingModule({
-      imports: [<%= classify(name) %>EditComponent, ReactiveFormsModule, NoopAnimationsModule, ],<% if (hasObjects) { %>
+      imports: [<%= classify(name) %>EditComponent, ReactiveFormsModule ],<% if (hasObjects) { %>
       providers: [
         { provide: <%= classify(name) %>CrudFacade, useValue: createDataEntryMockFacade() },<% if (hasObjects) { %>
         { provide: <%= classify(name) %>LookupFacade, useValue: {<% swaggerObjectProperties.filter(t=> !t.enum).forEach(function(swaggerProperty){ %>
@@ -44,7 +47,22 @@ describe('<%= classify(name) %>EditComponent', () => {
     load<%= classify(swaggerProperty.pluralizedName) %>: jest.fn(),<% }); %>
   } }<% } %>],<% } %>
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })    
+    .overrideComponent(
+      IMNG_KENDO_DATA_ENTRY_DIALOG,
+      getImngKendoDataEntryDialogOverride(),
+    )<% if (hasDates || hasObjects) { %>
+    .overrideComponent(<%= classify(name) %>EditComponent, {
+      remove: { imports: [<% if (hasDates) { %>KENDO_DATEPICKER, <% } %><% if (hasObjects) { %>KENDO_MULTICOLUMNCOMBOBOX, <% } %>] },
+      add: {
+        imports: [<% if (hasDates) { %>
+          IMNG_KENDO_DATEPICKER_STUB, <% } %><% if (hasObjects) { %>
+          IMNG_KENDO_MULTICOLUMNCOMBOBOX_STUB,
+          IMNG_KENDO_COMBOBOX_COLUMN_STUB,<% } %>
+        ],
+      },
+    })<% } %>
+      })compileComponents();
   }));
 
   beforeEach(() => {

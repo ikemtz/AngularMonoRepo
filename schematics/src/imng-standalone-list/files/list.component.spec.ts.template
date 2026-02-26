@@ -1,23 +1,29 @@
 ///<reference types="jest" />
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
 import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import { KENDO_MENU } from '@progress/kendo-angular-menu';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
 import {
   IMNG_KENDO_GRID_TESTING_STUBS,
-  IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
   provideGridComponent,
 } from 'imng-kendo-testing-stubs';
-import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
 } from 'imng-kendo-data-entry/testing';
-import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+import { 
+  createODataGridMockFacade,
+  getKendoGridODataHeaderOverride,
+} from 'imng-kendo-grid-odata/testing';
 import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 import { ModalStates } from 'imng-kendo-data-entry';
 
 import { <%= classify(singularizedName) %>ListComponent } from './list.component';
-import { <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade, <%= classify(pluralizedName) %>NgrxModule } from '../<%= dasherize(pluralizedName) %>-ngrx-module';<% if (modelFolderLocation) { %>
+import { <%= classify(singularizedName) %>ListFacade, <%= classify(singularizedName) %>CrudFacade, <%= classify(pluralizedName) %>NgrxModule } from '../<%= dasherize(pluralizedName) %>-ngrx-module';
+import { <%= classify(singularizedName) %>AddComponent } from '../<%= dasherize(pluralizedName) %>-crud/add.component';
+import { <%= classify(singularizedName) %>EditComponent } from '../<%= dasherize(pluralizedName) %>-crud/edit.component';<% if (modelFolderLocation) { %>
 import { createTest<%= classify(name) %> } from '<%= modelFolderLocation %>';<% } %>
 
 describe('<%= classify(singularizedName) %>ListComponent', () => {
@@ -41,15 +47,23 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
+    .overrideComponent(
+      IMNG_KENDO_GRID_ODATA_HEADER,
+      getKendoGridODataHeaderOverride(),
+    )
     .overrideComponent(<%= classify(singularizedName) %>ListComponent, {
       remove: {
-        imports: [KENDO_GRID, KENDO_BUTTON, <%= classify(pluralizedName) %>NgrxModule],
+        imports: [
+            KENDO_BUTTON,
+            KENDO_GRID,
+            KENDO_MENU,
+            KENDO_SVGICON,
+          <%= classify(singularizedName) %>AddComponent,
+          <%= classify(singularizedName) %>EditComponent,
+          <%= classify(pluralizedName) %>NgrxModule],
       },
       add: {
-        imports: [
-          ...IMNG_KENDO_GRID_TESTING_STUBS,
-          ...IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
-        ],
+        imports: [ ...IMNG_KENDO_GRID_TESTING_STUBS ],
         providers: [provideGridComponent()],
       },
     })

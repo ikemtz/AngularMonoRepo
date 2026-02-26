@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AsyncPipe, SlicePipe } from '@angular/common';
 import { DetailExpandEvent, KENDO_GRID } from '@progress/kendo-angular-grid';
 import { KENDO_MENU } from '@progress/kendo-angular-menu';
-import { KENDO_ICONS } from '@progress/kendo-angular-icons';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
 import { IMNG_KENDO_COPY } from 'imng-kendo-grid';
 import { IMNG_KENDO_GRID_UUID_FILTER } from 'imng-kendo-grid-filtering';
 import {
@@ -34,7 +34,7 @@ import { Endpoints } from '../../models/odata/endpoints';
     AsyncPipe,
     KENDO_GRID,
     KENDO_MENU,
-    KENDO_ICONS,
+    KENDO_SVGICON,
     IMNG_KENDO_GRID_ODATA,
     IMNG_KENDO_GRID_ODATA_HEADER,
     IMNG_KENDO_GRID_UUID_FILTER,
