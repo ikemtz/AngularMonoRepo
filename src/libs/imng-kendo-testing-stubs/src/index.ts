@@ -1,3 +1,6 @@
+import { IMNG_KENDO_DIALOG_ACTIONS_STUB } from './lib/kendo-dialog-actions-stub.component';
+import { IMNG_KENDO_DIALOG_STUB } from './lib/kendo-dialog-stub.component';
+import { IMNG_KENDO_DIALOG_TITLEBAR_STUB } from './lib/kendo-dialog-titlebar-stub.component';
 import { IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB } from './lib/kendo-grid-column-chooser-stub.component';
 import { IMNG_KENDO_GRID_COLUMN_STUB } from './lib/kendo-grid-column-stub.component';
 import { IMNG_KENDO_GRID_EXCEL_STUB } from './lib/kendo-grid-excel-stub.component';
@@ -26,6 +29,9 @@ export { IMNG_KENDO_DATEPICKER_STUB } from './lib/kendo-datepicker-stub.componen
 export { IMNG_KENDO_BUTTON_STUB } from './lib/kendo-button-stub.component';
 export { IMNG_KENDO_SPLITTER_STUB } from './lib/kendo-splitter-stub.component';
 export { IMNG_KENDO_SPLITTER_PANE_STUB } from './lib/kendo-splitter-pane-stub.component';
+export { IMNG_KENDO_DIALOG_STUB } from './lib/kendo-dialog-stub.component';
+export { IMNG_KENDO_DIALOG_TITLEBAR_STUB } from './lib/kendo-dialog-titlebar-stub.component';
+export { IMNG_KENDO_DIALOG_ACTIONS_STUB } from './lib/kendo-dialog-actions-stub.component';
 export { provideGridComponent } from './lib/provide-grid-component';
 
 export const IMNG_KENDO_GRID_TESTING_STUBS = [
@@ -46,4 +52,10 @@ export const IMNG_KENDO_GRID_HEADER_TESTING_STUBS = [
 export const IMNG_KENDO_SPLITTER_STUBS = [
   IMNG_KENDO_SPLITTER_STUB,
   IMNG_KENDO_SPLITTER_PANE_STUB,
+];
+
+export const IMNG_KENDO_DIALOG_STUBS = [
+  IMNG_KENDO_DIALOG_STUB,
+  IMNG_KENDO_DIALOG_TITLEBAR_STUB,
+  IMNG_KENDO_DIALOG_ACTIONS_STUB,
 ];
