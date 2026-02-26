@@ -1,11 +1,18 @@
 ///<reference types="jest" />
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { KENDO_MENU } from '@progress/kendo-angular-menu';
+import { IMNG_KENDO_GRID_ODATA_HEADER } from 'imng-kendo-grid-odata';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
 } from 'imng-kendo-data-entry/testing';
-import { createODataGridMockFacade } from 'imng-kendo-grid-odata/testing';
+import {
+  createODataGridMockFacade,
+  getKendoGridODataHeaderOverride,
+} from 'imng-kendo-grid-odata/testing';
 import { provideOidcMockFacade } from 'imng-oidc-client/testing';
 import { ModalStates } from 'imng-kendo-data-entry';
 
@@ -16,13 +23,13 @@ import {
   CustomersNgrxModule,
 } from '../customers-ngrx-module';
 import { createTestCustomer } from '../../models/webapi';
-import { KENDO_GRID } from '@progress/kendo-angular-grid';
 import {
   IMNG_KENDO_GRID_TESTING_STUBS,
   IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
   provideGridComponent,
 } from 'imng-kendo-testing-stubs';
-import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
+import { CustomerAddComponent } from '../customers-crud/add.component';
+import { CustomerEditComponent } from '../customers-crud/edit.component';
 
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
@@ -46,15 +53,23 @@ describe('CustomerListComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(
+        IMNG_KENDO_GRID_ODATA_HEADER,
+        getKendoGridODataHeaderOverride(),
+      )
       .overrideComponent(CustomerListComponent, {
         remove: {
-          imports: [KENDO_GRID, KENDO_BUTTON, CustomersNgrxModule],
+          imports: [
+            KENDO_GRID,
+            KENDO_MENU,
+            KENDO_SVGICON,
+            CustomerAddComponent,
+            CustomerEditComponent,
+            CustomersNgrxModule,
+          ],
         },
         add: {
-          imports: [
-            ...IMNG_KENDO_GRID_TESTING_STUBS,
-            ...IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
-          ],
+          imports: [...IMNG_KENDO_GRID_TESTING_STUBS],
           providers: [provideGridComponent()],
         },
       })
