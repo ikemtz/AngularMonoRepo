@@ -1,9 +1,12 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
-import { createDataEntryMockFacade } from 'imng-kendo-data-entry/testing';
+import { KENDO_MULTICOLUMNCOMBOBOX } from '@progress/kendo-angular-dropdowns';
+import { IMNG_KENDO_DATA_ENTRY_DIALOG } from 'imng-kendo-data-entry';
+import {
+  createDataEntryMockFacade,
+  getImngKendoDataEntryDialogOverride,
+} from 'imng-kendo-data-entry/testing';
 import {
   mockConsoleError,
   mockConsoleGroup,
@@ -37,11 +40,7 @@ describe('CustomerEditComponent', () => {
     consoleWarnMock = mockConsoleWarn();
     consoleGroupMock = mockConsoleGroup();
     TestBed.configureTestingModule({
-      imports: [
-        CustomerEditComponent,
-        ReactiveFormsModule,
-        NoopAnimationsModule,
-      ],
+      imports: [CustomerEditComponent, ReactiveFormsModule],
       providers: [
         { provide: CustomerCrudFacade, useValue: createDataEntryMockFacade() },
         {
@@ -54,8 +53,12 @@ describe('CustomerEditComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(
+        IMNG_KENDO_DATA_ENTRY_DIALOG,
+        getImngKendoDataEntryDialogOverride(),
+      )
       .overrideComponent(CustomerEditComponent, {
-        remove: { imports: [KENDO_DROPDOWNS] },
+        remove: { imports: [KENDO_MULTICOLUMNCOMBOBOX] },
         add: {
           imports: [
             IMNG_KENDO_MULTICOLUMNCOMBOBOX_STUB,
