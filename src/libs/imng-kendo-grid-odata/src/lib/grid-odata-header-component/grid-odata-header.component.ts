@@ -7,9 +7,15 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { GridComponent, KENDO_GRID } from '@progress/kendo-angular-grid';
-import { KENDO_ICONS } from '@progress/kendo-angular-icons';
-import { KENDO_BUTTONS } from '@progress/kendo-angular-buttons';
+import {
+  GridComponent,
+  ColumnChooserComponent,
+} from '@progress/kendo-angular-grid';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import {
+  KENDO_BUTTON,
+  KENDO_SPLITBUTTON,
+} from '@progress/kendo-angular-buttons';
 import {
   filePdfIcon,
   fileExcelIcon,
@@ -22,18 +28,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { KendoODataBasedComponent } from '../kendo-odata-component-base';
 import { IKendoODataGridFacade } from '../kendo-odata-grid-facade';
 import { KENDO_POPUP } from '@progress/kendo-angular-popup';
-import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
+import { KENDO_PROGRESSBAR } from '@progress/kendo-angular-progressbar';
 
 @Component({
   selector: 'imng-kendo-grid-odata-header',
   imports: [
     AsyncPipe,
     NgClass,
-    KENDO_GRID,
-    KENDO_ICONS,
-    KENDO_BUTTONS,
+    KENDO_BUTTON,
+    KENDO_SPLITBUTTON,
     KENDO_POPUP,
-    KENDO_PROGRESSBARS,
+    KENDO_PROGRESSBAR,
+    KENDO_SVGICON,
+    ColumnChooserComponent,
   ],
   template: ` <span
       #popupAnchor
