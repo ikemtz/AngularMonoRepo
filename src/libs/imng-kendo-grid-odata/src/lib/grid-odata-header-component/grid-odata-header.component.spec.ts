@@ -1,20 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  ColumnChooserComponent,
+  KENDO_GRID,
+} from '@progress/kendo-angular-grid';
 import { BehaviorSubject, of } from 'rxjs';
 import { IMNG_KENDO_GRID_ODATA_HEADER } from './grid-odata-header.component';
 import {
-  IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB,
-  IMNG_KENDO_GRID_STUB,
-  IMNG_KENDO_POPUP_STUB,
-  IMNG_KENDO_PROGRESSBAR_STUB,
-  IMNG_KENDO_SPLIT_BUTTON_STUB,
+  IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
   provideGridComponent,
 } from 'imng-kendo-testing-stubs';
-import { KENDO_BUTTONS } from '@progress/kendo-angular-buttons';
+import {
+  KENDO_BUTTON,
+  KENDO_SPLITBUTTON,
+} from '@progress/kendo-angular-buttons';
 import { ODataService } from 'imng-kendo-odata';
 import { KENDO_POPUP } from '@progress/kendo-angular-popup';
-import { KENDO_PROGRESSBARS } from '@progress/kendo-angular-progressbar';
+import { KENDO_PROGRESSBAR } from '@progress/kendo-angular-progressbar';
 
 describe('ImngGridHeaderComponent', () => {
   let component: IMNG_KENDO_GRID_ODATA_HEADER;
@@ -33,16 +35,17 @@ describe('ImngGridHeaderComponent', () => {
     })
       .overrideComponent(IMNG_KENDO_GRID_ODATA_HEADER, {
         remove: {
-          imports: [KENDO_BUTTONS, KENDO_GRID, KENDO_POPUP, KENDO_PROGRESSBARS],
+          imports: [
+            KENDO_BUTTON,
+            KENDO_GRID,
+            KENDO_POPUP,
+            KENDO_PROGRESSBAR,
+            KENDO_SPLITBUTTON,
+            ColumnChooserComponent,
+          ],
         },
         add: {
-          imports: [
-            IMNG_KENDO_SPLIT_BUTTON_STUB,
-            IMNG_KENDO_GRID_STUB,
-            IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB,
-            IMNG_KENDO_POPUP_STUB,
-            IMNG_KENDO_PROGRESSBAR_STUB,
-          ],
+          imports: [...IMNG_KENDO_GRID_HEADER_TESTING_STUBS],
         },
       })
       .compileComponents();

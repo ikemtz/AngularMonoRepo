@@ -28,6 +28,9 @@
         "libs/imng-application-insights-ngrx/src/index.ts"
       ],
       "imng-kendo-data-entry": ["libs/imng-kendo-data-entry/src/index.ts"],
+      "imng-kendo-data-entry/testing": [
+        "libs/imng-kendo-data-entry/testing/src/index.ts"
+      ],
       "imng-kendo-grid": ["libs/imng-kendo-grid/src/index.ts"],
       "imng-kendo-grid-filtering": [
         "libs/imng-kendo-grid-filtering/src/index.ts"
@@ -39,7 +42,8 @@
       "imng-ngrx-utils": ["libs/imng-ngrx-utils/src/index.ts"],
       "imng-nrsrx-client-utils": ["libs/imng-nrsrx-client-utils/src/index.ts"],
       "imng-oidc-client": ["libs/imng-oidc-client/src/index.ts"],
-      "imng-signalr-ngrx": ["libs/imng-signalr-ngrx/src/index.ts"]
+      "imng-signalr-ngrx": ["libs/imng-signalr-ngrx/src/index.ts"],
+      "imng-kendo-testing-stubs": ["libs/imng-kendo-testing-stubs/src/index.ts"]
     },
     "module": "preserve",
     "moduleResolution": "bundler",

@@ -44,7 +44,7 @@ async function validateInitialModalState(
   expect(status.currentModalState).toBeFalsy();
 }
 
-async function getEntityStatus<TFacade extends ModalStateTestableFacade>(
+export async function getEntityStatus<TFacade extends ModalStateTestableFacade>(
   facade: TFacade,
 ): Promise<{
   currentEntity: unknown;

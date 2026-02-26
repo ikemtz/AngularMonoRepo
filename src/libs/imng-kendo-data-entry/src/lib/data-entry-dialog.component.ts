@@ -12,10 +12,11 @@ import { BaseDataEntryComponent } from './base-data-entry.component';
 import { IMNG_KENDO_DIALOG_BUTTONS } from './dialog-buttons.directive';
 import { KENDO_DIALOG } from '@progress/kendo-angular-dialog';
 import { CommonModule } from '@angular/common';
+import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
 
 @Component({
   selector: 'imng-data-entry-dialog[parentComponent]',
-  imports: [CommonModule, KENDO_DIALOG],
+  imports: [CommonModule, KENDO_DIALOG, KENDO_BUTTON],
   template: `<kendo-dialog
       [width]="width"
       [minWidth]="minWidth ?? width"
