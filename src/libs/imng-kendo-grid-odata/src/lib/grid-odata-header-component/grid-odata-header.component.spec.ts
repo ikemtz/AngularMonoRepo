@@ -1,6 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import {
+  ColumnChooserComponent,
+  KENDO_GRID,
+} from '@progress/kendo-angular-grid';
 import { BehaviorSubject, of } from 'rxjs';
 import { IMNG_KENDO_GRID_ODATA_HEADER } from './grid-odata-header.component';
 import {
@@ -38,6 +41,7 @@ describe('ImngGridHeaderComponent', () => {
             KENDO_POPUP,
             KENDO_PROGRESSBAR,
             KENDO_SPLITBUTTON,
+            ColumnChooserComponent,
           ],
         },
         add: {
