@@ -40,14 +40,16 @@ export async function testEditSetAndClearCurrentEntity<
   expect(status.isEditActive).toBeFalsy();
   expect(status.isNewActive).toBeFalsy();
 }
-async function validateInitialState(facade: TestableFacade): Promise<void> {
+export async function validateInitialState(
+  facade: TestableFacade,
+): Promise<void> {
   const status = await getEntityStatus(facade);
   expect(status.currentEntity).toBeFalsy();
   expect(status.isEditActive).toBeFalsy();
   expect(status.isNewActive).toBeFalsy();
 }
 
-async function getEntityStatus<TFacade extends TestableFacade>(
+export async function getEntityStatus<TFacade extends TestableFacade>(
   facade: TFacade,
 ): Promise<{
   currentEntity: unknown;

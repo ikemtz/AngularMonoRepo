@@ -36,7 +36,8 @@
       "imng-ngrx-utils/testing": ["libs/imng-ngrx-utils/testing/src/index.ts"],
       "imng-prime-table-odata/testing": [
         "libs/imng-prime-table-odata/testing/src/index.ts"
-      ]
+      ],
+      "imng-kendo-testing-stubs": ["libs/imng-kendo-testing-stubs/src/index.ts"]
     },
     "moduleResolution": "bundler",
     "isolatedModules": true,
