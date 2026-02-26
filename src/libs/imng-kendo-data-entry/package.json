@@ -8,9 +8,11 @@
     "@angular/forms": "*",
     "@angular/platform-browser": "*",
     "@ngrx/store": "*",
+    "@progress/kendo-angular-buttons": "*",
     "@progress/kendo-angular-dialog": "*",
     "imng-ngrx-utils": "0.0.0",
     "imng-nrsrx-client-utils": "0.0.0",
+    "imng-kendo-testing-stubs": "0.0.0",
     "openapi-ts-generator": ">=10.0.0",
     "rxjs": "*"
   },
