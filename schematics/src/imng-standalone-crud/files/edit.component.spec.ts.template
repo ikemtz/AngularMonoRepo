@@ -52,7 +52,7 @@ describe('<%= classify(name) %>EditComponent', () => {
       IMNG_KENDO_DATA_ENTRY_DIALOG,
       getImngKendoDataEntryDialogOverride(),
     )<% if (hasDates || hasObjects) { %>
-    .overrideComponent(<%= classify(name) %>AddComponent, {
+    .overrideComponent(<%= classify(name) %>EditComponent, {
       remove: { imports: [<% if (hasDates) { %>KENDO_DATEPICKER, <% } %><% if (hasObjects) { %>KENDO_MULTICOLUMNCOMBOBOX, <% } %>] },
       add: {
         imports: [<% if (hasDates) { %>
