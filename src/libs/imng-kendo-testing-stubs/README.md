@@ -40,4 +40,5 @@ Here's an example of these stubs used in the setup of an Angular Testbed
 | `kendo-splitbutton`         | [IMNG_KENDO_SPLIT_BUTTON_STUB](./src/lib/kendo-split-button-stub.component.ts)                  |
 | `kendo-datepicker`          | [IMNG_KENDO_DATEPICKER_STUB](./src/lib/kendo-datepicker-stub.component.ts)                      |
 | `kendo-multicolumncombobox` | [IMNG_KENDO_MULTICOLUMNCOMBOBOX_STUB](./src/lib/kendo-multicolumncombobox-stub.component.ts.ts) |
+| `kendo-combobox`            | [IMNG_KENDO_COMBOBOX_STUB](./src/lib/kendo-combobox-stub.component.ts)                          |
 | `kendo-combobox-column`     | [IMNG_KENDO_COMBOBOX_COLUMN_STUB](./src/lib/kendo-combobox-column-stub.component.ts)            |

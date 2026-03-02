@@ -32,6 +32,7 @@ export { IMNG_KENDO_SPLITTER_PANE_STUB } from './lib/kendo-splitter-pane-stub.co
 export { IMNG_KENDO_DIALOG_STUB } from './lib/kendo-dialog-stub.component';
 export { IMNG_KENDO_DIALOG_TITLEBAR_STUB } from './lib/kendo-dialog-titlebar-stub.component';
 export { IMNG_KENDO_DIALOG_ACTIONS_STUB } from './lib/kendo-dialog-actions-stub.component';
+export { IMNG_KENDO_COMBOX_STUB } from './lib/kendo-combobox-stub.component'
 export { provideGridComponent } from './lib/provide-grid-component';
 
 export const IMNG_KENDO_GRID_TESTING_STUBS = [
