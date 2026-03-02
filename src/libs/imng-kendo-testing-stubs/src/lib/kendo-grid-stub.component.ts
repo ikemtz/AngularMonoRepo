@@ -22,4 +22,5 @@ export class IMNG_KENDO_GRID_STUB {
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
   public dataStateChange = of({});
+  public excelExport = of([]);
 }
