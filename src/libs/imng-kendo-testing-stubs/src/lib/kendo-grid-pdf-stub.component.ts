@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  input,
   Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
@@ -16,4 +17,7 @@ import {
 export class IMNG_KENDO_GRID_PDF_STUB {
   @Input() public allPages = false;
   @Input() public fileName = '';
+  @Input() public scale: number | string | undefined;
+  @Input() public paperSize: string | undefined;
+  @Input() public landscape = true;
 }

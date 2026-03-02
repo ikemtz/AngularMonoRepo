@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  GridComponent,
   KENDO_GRID,
   KENDO_GRID_EXCEL_EXPORT,
   KENDO_GRID_PDF_EXPORT,
@@ -118,7 +117,6 @@ import { Observable } from 'rxjs';
   ],
 })
 export class IMNG_KENDO_GRID_HEADER {
-  parentGrid = inject<GridComponent>(GridComponent);
   public readonly filePdfIcon = filePdfIcon;
   public readonly plusIcon = plusIcon;
   public readonly fileExcelIcon = fileExcelIcon;
