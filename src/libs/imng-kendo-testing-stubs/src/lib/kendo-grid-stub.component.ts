@@ -7,6 +7,7 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import { of } from 'rxjs';
+import { DataResult, GroupDescriptor } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'kendo-grid',
@@ -19,6 +20,9 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public imngODataGrid?: never;
   @Input() public height = 500;
   @Input() public resizable = true;
+  @Input() public data: never[] | DataResult = [];
+  @Input() public group: Array<GroupDescriptor> | null | undefined;
+
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
   public dataStateChange = of({});
