@@ -34,6 +34,7 @@ Here's an example of these stubs used in the setup of an Angular Testbed
 | `kendo-grid-excel`          | [IMNG_KENDO_GRID_EXCEL_STUB](./src/lib/kendo-grid-excel-stub.component.ts)                      |
 | `kendo-grid-pdf`            | [IMNG_KENDO_GRID_PDF_STUB](./src/lib/kendo-grid-pdf-stub.component.ts)                          |
 | `kendo-grid-pdf-margin`     | [IMNG_KENDO_GRID_PDF_MARGIN_STUB](./src/lib/kendo-grid-pdf-margin-stub.component.ts)            |
+| `kendo-grid-messages`       | [IMNG_KENDO_GRID_MESSAGES](./src//lib//kendo-grid-messages-stub.component.ts)                   |
 | `kendo-menu`                | [IMNG_KENDO_MENU_STUB](./src/lib/kendo-menu-stub.component.ts)                                  |
 | `kendo-popup`               | [IMNG_KENDO_POPUP_STUB](./src/lib/kendo-popup-stub.component.ts)                                |
 | `kendo-progressbar`         | [IMNG_KENDO_PROGRESSBAR_STUB](./src/lib/kendo-progress-bar-stub.component.ts)                   |
