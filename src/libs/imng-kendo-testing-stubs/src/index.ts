@@ -7,6 +7,8 @@ import { IMNG_KENDO_GRID_EXCEL_STUB } from './lib/kendo-grid-excel-stub.componen
 import { IMNG_KENDO_GRID_PDF_MARGIN_STUB } from './lib/kendo-grid-pdf-margin-stub.component';
 import { IMNG_KENDO_GRID_PDF_STUB } from './lib/kendo-grid-pdf-stub.component';
 import { IMNG_KENDO_GRID_STUB } from './lib/kendo-grid-stub.component';
+import { IMNG_KENDO_PANELBAR_ITEM_STUB } from './lib/kendo-panelbar-item-stub.component';
+import { IMNG_KENDO_PANELBAR_STUB } from './lib/kendo-panelbar-stub.component';
 import { IMNG_KENDO_POPUP_STUB } from './lib/kendo-popup-stub.component';
 import { IMNG_KENDO_PROGRESSBAR_STUB } from './lib/kendo-progress-bar-stub.component';
 import { IMNG_KENDO_SPLIT_BUTTON_STUB } from './lib/kendo-split-button-stub.component';
@@ -35,6 +37,8 @@ export { IMNG_KENDO_DIALOG_TITLEBAR_STUB } from './lib/kendo-dialog-titlebar-stu
 export { IMNG_KENDO_DIALOG_ACTIONS_STUB } from './lib/kendo-dialog-actions-stub.component';
 export { IMNG_KENDO_COMBOX_STUB } from './lib/kendo-combobox-stub.component';
 export { IMNG_KENDO_GRID_MESSAGES_STUB } from './lib/kendo-grid-messages-stub.component';
+export { IMNG_KENDO_PANELBAR_STUB } from './lib/kendo-panelbar-stub.component';
+export { IMNG_KENDO_PANELBAR_ITEM_STUB } from './lib/kendo-panelbar-item-stub.component';
 export { provideGridStubComponent } from './lib/provide-grid-stub-component';
 
 export const IMNG_KENDO_GRID_TESTING_STUBS = [
@@ -61,4 +65,9 @@ export const IMNG_KENDO_DIALOG_STUBS = [
   IMNG_KENDO_DIALOG_STUB,
   IMNG_KENDO_DIALOG_TITLEBAR_STUB,
   IMNG_KENDO_DIALOG_ACTIONS_STUB,
+];
+
+export const IMNG_KENDO_PANELBAR_STUBS = [
+  IMNG_KENDO_PANELBAR_STUB,
+  IMNG_KENDO_PANELBAR_ITEM_STUB,
 ];
