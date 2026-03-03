@@ -13,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_GRID_GROUP_COLUMN_STUB {
+export class IMNG_KENDO_GRID_COLUMN_GROUP_STUB {
   @Input() width = 50;
   @Input() field = '';
   @Input() title = '';

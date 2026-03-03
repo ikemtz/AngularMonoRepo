@@ -15,6 +15,7 @@ import { IMNG_KENDO_SPLITTER_STUB } from './lib/kendo-splitter-stub.component';
 
 export { IMNG_KENDO_GRID_STUB } from './lib/kendo-grid-stub.component';
 export { IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB } from './lib/kendo-grid-column-chooser-stub.component';
+export { IMNG_KENDO_GRID_COLUMN_GROUP_STUB } from './lib/kendo-grid-column-group-stub.component';
 export { IMNG_KENDO_PROGRESSBAR_STUB } from './lib/kendo-progress-bar-stub.component';
 export { IMNG_KENDO_POPUP_STUB } from './lib/kendo-popup-stub.component';
 export { IMNG_KENDO_SPLIT_BUTTON_STUB } from './lib/kendo-split-button-stub.component';
@@ -34,7 +35,7 @@ export { IMNG_KENDO_DIALOG_TITLEBAR_STUB } from './lib/kendo-dialog-titlebar-stu
 export { IMNG_KENDO_DIALOG_ACTIONS_STUB } from './lib/kendo-dialog-actions-stub.component';
 export { IMNG_KENDO_COMBOX_STUB } from './lib/kendo-combobox-stub.component';
 export { IMNG_KENDO_GRID_MESSAGES_STUB } from './lib/kendo-grid-messages-stub.component';
-export { provideGridComponent } from './lib/provide-grid-component';
+export { provideStubGridComponent } from './lib/provide-stub-grid-component';
 
 export const IMNG_KENDO_GRID_TESTING_STUBS = [
   IMNG_KENDO_GRID_STUB,
