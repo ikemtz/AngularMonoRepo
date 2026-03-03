@@ -4,6 +4,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   NO_ERRORS_SCHEMA,
   Input,
+  EventEmitter,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { jest } from '@jest/globals';
@@ -31,4 +32,10 @@ export class IMNG_KENDO_COMBOBOX_STUB {
   @Input() public valueField = 'valueField';
   @Input() public textField = 'textField';
   @Input() public data = [];
+  @Input() public disabled = false;
+  @Input() public filterable = true;
+
+  public filterChange = new EventEmitter<never>();
+  public selectionChange = new EventEmitter<never>();
+  public valueChange = new EventEmitter<never>();
 }
