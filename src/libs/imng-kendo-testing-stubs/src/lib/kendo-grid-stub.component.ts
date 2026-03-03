@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  EventEmitter,
   Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
@@ -22,10 +23,15 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public resizable = true;
   @Input() public data: never[] | DataResult = [];
   @Input() public group: Array<GroupDescriptor> | null | undefined;
-  @Input() public groupable = false;
+  @Input() public loading = false;
+  @Input() public kendoGridExpandDetailsBy:
+    | string
+    | ((dataItem: never) => never) = 'kendoGridExpandDetailsBy';
+  @Input() public expandedDetailKeys: never[] = [];
 
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
   public dataStateChange = of({});
   public excelExport = of([]);
+  public detailExpand: EventEmitter<never> = new EventEmitter<never>();
 }
