@@ -17,8 +17,12 @@ export class IMNG_KENDO_GRID_COLUMN_STUB {
   @Input() width = 50;
   @Input() field = '';
   @Input() title = '';
+  @Input() public editor = 'text';
+  @Input() public filter = 'text';
+  @Input() public format = 'text';
   @Input() public filterable = true;
   @Input() public sortable = true;
+  @Input() public groupable = true;
   @Input() public editable = false;
   @Input() public hidden = false;
   @Input() public headerClass = '';
