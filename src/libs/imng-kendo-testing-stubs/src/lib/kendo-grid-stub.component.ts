@@ -8,7 +8,12 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import { of } from 'rxjs';
-import { DataResult, GroupDescriptor } from '@progress/kendo-data-query';
+import {
+  CompositeFilterDescriptor,
+  DataResult,
+  GroupDescriptor,
+  SortDescriptor,
+} from '@progress/kendo-data-query';
 
 @Component({
   selector: 'kendo-grid',
@@ -29,9 +34,18 @@ export class IMNG_KENDO_GRID_STUB {
     | ((dataItem: never) => never) = 'kendoGridExpandDetailsBy';
   @Input() public expandedDetailKeys: never[] = [];
   @Input() public columnMenu = false;
+  @Input() public filter: CompositeFilterDescriptor | null | undefined;
   @Input() public filterable: boolean | string = false;
   @Input() public pageSize = 20;
+  @Input() public skip = 0;
+  @Input() public reorderable = true;
   @Input() public resizable: boolean | string = true;
+  @Input() public sort: Array<SortDescriptor> | null | undefined = [];
+  @Input() public sortable:
+    | boolean
+    | string
+    | { allowUnsort: boolean; mode: string } = true;
+  @Input() public navigable = true;
 
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
@@ -47,7 +61,8 @@ export class IMNG_KENDO_GRID_STUB {
   public sortChange: EventEmitter<Array<never>> = new EventEmitter<
     Array<never>
   >();
-
+  public columnVisibilityChange: EventEmitter<never> =
+    new EventEmitter<never>();
   public detailCollapse: EventEmitter<never> = new EventEmitter<never>();
   public edit: EventEmitter<never> = new EventEmitter<never>();
   public cancel: EventEmitter<never> = new EventEmitter<never>();
