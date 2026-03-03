@@ -28,6 +28,8 @@ export class IMNG_KENDO_GRID_STUB {
     | string
     | ((dataItem: never) => never) = 'kendoGridExpandDetailsBy';
   @Input() public expandedDetailKeys: never[] = [];
+  @Input() public columnMenu = false;
+  @Input() public filterable: boolean | string = false;
 
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
