@@ -22,6 +22,7 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public resizable = true;
   @Input() public data: never[] | DataResult = [];
   @Input() public group: Array<GroupDescriptor> | null | undefined;
+  @Input() public groupable = false;
 
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
