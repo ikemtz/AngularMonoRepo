@@ -7,22 +7,17 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'kendo-grid-column',
+  selector: 'kendo-grid-column-group',
   template: '',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_GRID_COLUMN_STUB {
+export class IMNG_KENDO_GRID_GROUP_COLUMN_STUB {
   @Input() width = 50;
   @Input() field = '';
   @Input() title = '';
-  @Input() public editor = 'text';
-  @Input() public filter = 'text';
-  @Input() public format = 'text';
   @Input() public locked = false;
-  @Input() public filterable = true;
-  @Input() public sortable = true;
   @Input() public groupable = true;
   @Input() public editable = false;
   @Input() public hidden = false;
