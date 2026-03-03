@@ -8,7 +8,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { IMNG_KENDO_GRID_ODATA_HEADER } from './grid-odata-header.component';
 import {
   IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
-  provideStubGridComponent,
+  provideGridStubComponent,
 } from 'imng-kendo-testing-stubs';
 import {
   KENDO_BUTTON,
@@ -25,7 +25,7 @@ describe('ImngGridHeaderComponent', () => {
     await TestBed.configureTestingModule({
       imports: [IMNG_KENDO_GRID_ODATA_HEADER],
       providers: [
-        provideStubGridComponent(),
+        provideGridStubComponent(),
         {
           provide: ODataService,
           useValue: { fetch: jest.fn(() => of({ data: [], total: 0 })) },

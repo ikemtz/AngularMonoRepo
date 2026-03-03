@@ -35,7 +35,7 @@ export { IMNG_KENDO_DIALOG_TITLEBAR_STUB } from './lib/kendo-dialog-titlebar-stu
 export { IMNG_KENDO_DIALOG_ACTIONS_STUB } from './lib/kendo-dialog-actions-stub.component';
 export { IMNG_KENDO_COMBOX_STUB } from './lib/kendo-combobox-stub.component';
 export { IMNG_KENDO_GRID_MESSAGES_STUB } from './lib/kendo-grid-messages-stub.component';
-export { provideStubGridComponent } from './lib/provide-stub-grid-component';
+export { provideGridStubComponent } from './lib/provide-grid-stub-component';
 
 export const IMNG_KENDO_GRID_TESTING_STUBS = [
   IMNG_KENDO_GRID_STUB,

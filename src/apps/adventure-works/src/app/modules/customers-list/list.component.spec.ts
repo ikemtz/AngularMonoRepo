@@ -26,7 +26,7 @@ import { createTestCustomer } from '../../models/webapi';
 import {
   IMNG_KENDO_GRID_TESTING_STUBS,
   IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
-  provideGridComponent,
+  provideGridStubComponent,
 } from 'imng-kendo-testing-stubs';
 import { CustomerAddComponent } from '../customers-crud/add.component';
 import { CustomerEditComponent } from '../customers-crud/edit.component';
@@ -70,7 +70,7 @@ describe('CustomerListComponent', () => {
         },
         add: {
           imports: [...IMNG_KENDO_GRID_TESTING_STUBS],
-          providers: [provideGridComponent()],
+          providers: [provideGridStubComponent()],
         },
       })
       .compileComponents();

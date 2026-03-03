@@ -7,7 +7,7 @@ import { KENDO_MENU } from '@progress/kendo-angular-menu';
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
 import {
   IMNG_KENDO_GRID_TESTING_STUBS,
-  provideGridComponent,
+  provideGridStubComponent,
 } from 'imng-kendo-testing-stubs';
 import {
   createDataDeleteMockFacade,
@@ -64,7 +64,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
       },
       add: {
         imports: [ ...IMNG_KENDO_GRID_TESTING_STUBS ],
-        providers: [provideGridComponent()],
+        providers: [provideGridStubComponent()],
       },
     })
     .compileComponents();
