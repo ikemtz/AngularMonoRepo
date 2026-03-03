@@ -20,10 +20,9 @@ import { DataResult, GroupDescriptor } from '@progress/kendo-data-query';
 export class IMNG_KENDO_GRID_STUB {
   @Input() public imngODataGrid?: never;
   @Input() public height = 500;
-  @Input() public resizable = true;
   @Input() public data: never[] | DataResult = [];
   @Input() public group: Array<GroupDescriptor> | null | undefined;
-  @Input() public groupable = false;
+  @Input() public groupable: boolean | string = false;
   @Input() public loading = false;
   @Input() public kendoGridExpandDetailsBy:
     | string
@@ -32,10 +31,29 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public columnMenu = false;
   @Input() public filterable: boolean | string = false;
   @Input() public pageSize = 20;
+  @Input() public resizable: boolean | string = true;
 
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
-  public dataStateChange = of({});
   public excelExport = of([]);
+
   public detailExpand: EventEmitter<never> = new EventEmitter<never>();
+  public dataStateChange: EventEmitter<never> = new EventEmitter<never>();
+  public filterChange: EventEmitter<never> = new EventEmitter<never>();
+  public pageChange: EventEmitter<never> = new EventEmitter<never>();
+  public groupChange: EventEmitter<Array<never>> = new EventEmitter<
+    Array<never>
+  >();
+  public sortChange: EventEmitter<Array<never>> = new EventEmitter<
+    Array<never>
+  >();
+
+  public detailCollapse: EventEmitter<never> = new EventEmitter<never>();
+  public edit: EventEmitter<never> = new EventEmitter<never>();
+  public cancel: EventEmitter<never> = new EventEmitter<never>();
+  public save: EventEmitter<never> = new EventEmitter<never>();
+  public remove: EventEmitter<never> = new EventEmitter<never>();
+  public add: EventEmitter<never> = new EventEmitter<never>();
+  public cellClose: EventEmitter<never> = new EventEmitter<never>();
+  public cellClick: EventEmitter<never> = new EventEmitter<never>();
 }
