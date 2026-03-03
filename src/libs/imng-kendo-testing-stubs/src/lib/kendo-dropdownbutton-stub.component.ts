@@ -9,7 +9,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { jest } from '@jest/globals';
 
 @Component({
-  selector: 'kendo-combobox',
+  selector: 'kendo-dropdownbutton',
   template: '',
   standalone: true,
   providers: [
@@ -26,9 +26,10 @@ import { jest } from '@jest/globals';
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_COMBOBOX_STUB {
-  @Input() public valuePrimitive = false;
-  @Input() public valueField = 'valueField';
-  @Input() public textField = 'textField';
+export class IMNG_KENDO_DROPDOWNBUTTON_STUB {
   @Input() public data = [];
+  @Input() public fillMode = 'fillMode';
+  @Input() public textField = 'textField';
+  @Input() public size = 'size';
+  @Input() public disabled = false;
 }

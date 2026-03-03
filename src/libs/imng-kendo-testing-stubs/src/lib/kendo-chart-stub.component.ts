@@ -2,24 +2,20 @@ import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  EventEmitter,
   Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'button[kendoButton]',
+  selector: 'kendo-chart',
   template: '',
   standalone: true,
   providers: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_BUTTON_STUB {
+export class IMNG_KENDO_CHART_STUB {
   @Input() public svgIcon: unknown;
-  @Input() public disabled: boolean | undefined;
-  @Input() public rounded: unknown;
-  @Input() public fillMode: unknown;
-  click: EventEmitter<never> | undefined;
+  @Input() public height = 400;
+  @Input() public categoryAxis: unknown;
 }

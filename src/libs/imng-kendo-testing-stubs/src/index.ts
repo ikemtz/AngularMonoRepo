@@ -1,3 +1,9 @@
+import { IMNG_KENDO_BUTTON_GROUP_STUB } from './lib/kendo-button-group-stub.component';
+import { IMNG_KENDO_CHART_LEGEND_STUB } from './lib/kendo-chart-legend-stub.component';
+import { IMNG_KENDO_CHART_SERIES_ITEM_STUB } from './lib/kendo-chart-series-item-stub.component';
+import { IMNG_KENDO_CHART_SERIES_STUB } from './lib/kendo-chart-series-stub.component';
+import { IMNG_KENDO_CHART_STUB } from './lib/kendo-chart-stub.component';
+import { IMNG_KENDO_CHART_TITLE_STUB } from './lib/kendo-chart-title-stub.component';
 import { IMNG_KENDO_DIALOG_ACTIONS_STUB } from './lib/kendo-dialog-actions-stub.component';
 import { IMNG_KENDO_DIALOG_STUB } from './lib/kendo-dialog-stub.component';
 import { IMNG_KENDO_DIALOG_TITLEBAR_STUB } from './lib/kendo-dialog-titlebar-stub.component';
@@ -14,6 +20,9 @@ import { IMNG_KENDO_PROGRESSBAR_STUB } from './lib/kendo-progress-bar-stub.compo
 import { IMNG_KENDO_SPLIT_BUTTON_STUB } from './lib/kendo-split-button-stub.component';
 import { IMNG_KENDO_SPLITTER_PANE_STUB } from './lib/kendo-splitter-pane-stub.component';
 import { IMNG_KENDO_SPLITTER_STUB } from './lib/kendo-splitter-stub.component';
+import { IMNG_KENDO_TEXTAREA_PREFIX_STUB } from './lib/kendo-textarea-prefix-stub.component';
+import { IMNG_KENDO_TEXTAREA_STUB } from './lib/kendo-textarea-stub.component';
+import { IMNG_KENDO_TEXTAREA_SUFFIX_STUB } from './lib/kendo-textarea-suffix-stub.component';
 
 export { IMNG_KENDO_GRID_STUB } from './lib/kendo-grid-stub.component';
 export { IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB } from './lib/kendo-grid-column-chooser-stub.component';
@@ -35,10 +44,23 @@ export { IMNG_KENDO_SPLITTER_PANE_STUB } from './lib/kendo-splitter-pane-stub.co
 export { IMNG_KENDO_DIALOG_STUB } from './lib/kendo-dialog-stub.component';
 export { IMNG_KENDO_DIALOG_TITLEBAR_STUB } from './lib/kendo-dialog-titlebar-stub.component';
 export { IMNG_KENDO_DIALOG_ACTIONS_STUB } from './lib/kendo-dialog-actions-stub.component';
-export { IMNG_KENDO_COMBOX_STUB } from './lib/kendo-combobox-stub.component';
+export { IMNG_KENDO_COMBOBOX_STUB } from './lib/kendo-combobox-stub.component';
 export { IMNG_KENDO_GRID_MESSAGES_STUB } from './lib/kendo-grid-messages-stub.component';
 export { IMNG_KENDO_PANELBAR_STUB } from './lib/kendo-panelbar-stub.component';
 export { IMNG_KENDO_PANELBAR_ITEM_STUB } from './lib/kendo-panelbar-item-stub.component';
+export { IMNG_KENDO_CHART_LEGEND_STUB } from './lib/kendo-chart-legend-stub.component';
+export { IMNG_KENDO_CHART_SERIES_ITEM_STUB } from './lib/kendo-chart-series-item-stub.component';
+export { IMNG_KENDO_CHART_SERIES_STUB } from './lib/kendo-chart-series-stub.component';
+export { IMNG_KENDO_CHART_STUB } from './lib/kendo-chart-stub.component';
+export { IMNG_KENDO_CHART_TITLE_STUB } from './lib/kendo-chart-title-stub.component';
+export { IMNG_KENDO_TEXTAREA_PREFIX_STUB } from './lib/kendo-textarea-prefix-stub.component';
+export { IMNG_KENDO_TEXTAREA_STUB } from './lib/kendo-textarea-stub.component';
+export { IMNG_KENDO_TEXTAREA_SUFFIX_STUB } from './lib/kendo-textarea-suffix-stub.component';
+export { IMNG_KENDO_TEXTBOX_STUB } from './lib/kendo-textbox-stub.component';
+export { IMNG_KENDO_BUTTON_GROUP_STUB } from './lib/kendo-button-group-stub.component';
+export { IMNG_KENDO_DROPDOWNBUTTON_STUB } from './lib/kendo-dropdownbutton-stub.component';
+export { IMNG_KENDO_DROPDOWNLIST_STUB } from './lib/kendo-dropdownlist-stub.component';
+
 export { provideGridStubComponent } from './lib/provide-grid-stub-component';
 
 export const IMNG_KENDO_GRID_TESTING_STUBS = [
@@ -54,6 +76,7 @@ export const IMNG_KENDO_GRID_HEADER_TESTING_STUBS = [
   IMNG_KENDO_POPUP_STUB,
   IMNG_KENDO_PROGRESSBAR_STUB,
   IMNG_KENDO_SPLIT_BUTTON_STUB,
+  IMNG_KENDO_BUTTON_GROUP_STUB,
 ];
 
 export const IMNG_KENDO_SPLITTER_STUBS = [
@@ -70,4 +93,18 @@ export const IMNG_KENDO_DIALOG_STUBS = [
 export const IMNG_KENDO_PANELBAR_STUBS = [
   IMNG_KENDO_PANELBAR_STUB,
   IMNG_KENDO_PANELBAR_ITEM_STUB,
+];
+
+export const IMNG_KENDO_CHART_STUBS = [
+  IMNG_KENDO_CHART_STUB,
+  IMNG_KENDO_CHART_LEGEND_STUB,
+  IMNG_KENDO_CHART_TITLE_STUB,
+  IMNG_KENDO_CHART_SERIES_STUB,
+  IMNG_KENDO_CHART_SERIES_ITEM_STUB,
+];
+
+export const IMNG_KENDO_TEXTAREA_STUBS = [
+  IMNG_KENDO_TEXTAREA_STUB,
+  IMNG_KENDO_TEXTAREA_PREFIX_STUB,
+  IMNG_KENDO_TEXTAREA_SUFFIX_STUB,
 ];
