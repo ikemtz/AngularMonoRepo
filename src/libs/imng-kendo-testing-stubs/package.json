@@ -12,6 +12,7 @@
   "peerDependencies": {
     "@angular/forms": "*",
     "@angular/core": "*",
+    "@progress/kendo-data-query": "*",
     "@progress/kendo-angular-grid": "*",
     "@jest/globals": "*",
     "rxjs": "*"

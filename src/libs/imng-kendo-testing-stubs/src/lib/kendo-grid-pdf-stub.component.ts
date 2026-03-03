@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  input,
   Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
