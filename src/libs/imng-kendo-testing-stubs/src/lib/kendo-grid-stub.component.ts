@@ -30,6 +30,7 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public expandedDetailKeys: never[] = [];
   @Input() public columnMenu = false;
   @Input() public filterable: boolean | string = false;
+  @Input() public pageSize = 20;
 
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
