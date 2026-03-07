@@ -32,7 +32,7 @@ export class <%= classify(name) %>AddComponent extends <%= classify(name) %>Base
     this.addEditForm.patchValue({});
   }
 
-  public save(): void {
+  public override save(): void {
     const val = this.addEditForm.value;
     val.id = undefined;
     this.facade.saveNewEntity(val);

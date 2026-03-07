@@ -36,7 +36,7 @@ export class <%= classify(name) %>EditComponent extends <%= classify(name) %>Bas
     this.allSubscriptions.push(this.facade.currentEntity$.pipe(formGroupPatcher(this.addEditForm)).subscribe());
   }
 
-  public save(): void {
+  public override save(): void {
     const val = this.addEditForm.value;
     this.facade.updateExistingEntity(val);
   }
