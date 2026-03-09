@@ -10,7 +10,7 @@ import { KENDO_POPUP } from '@progress/kendo-angular-popup';
 import { KENDO_PROGRESSBAR } from '@progress/kendo-angular-progressbar';
 import {
   IMNG_KENDO_BUTTON_STUB,
-  IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
+  IMNG_KENDO_GRID_HEADER_STUBS,
 } from 'imng-kendo-testing-stubs';
 
 export function getKendoGridODataHeaderOverride(): MetadataOverride<Component> {
@@ -26,10 +26,7 @@ export function getKendoGridODataHeaderOverride(): MetadataOverride<Component> {
       ],
     },
     add: {
-      imports: [
-        ...IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
-        IMNG_KENDO_BUTTON_STUB,
-      ],
+      imports: [...IMNG_KENDO_GRID_HEADER_STUBS, IMNG_KENDO_BUTTON_STUB],
     },
   };
 }
