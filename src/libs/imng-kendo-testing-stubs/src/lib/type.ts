@@ -8,5 +8,5 @@ export type CssClassType =
 export type StyleType = undefined | { [key: string]: string };
 export type FilterVariant = 'default' | 'multiCheckbox';
 export type FieldDataType = 'text' | 'numeric' | 'date' | 'boolean';
-export type InputAttributesValue = { [key: string]: string };
+export type InputAttributesType = { [key: string]: string };
 export type ItemDisabledFn = () => boolean;

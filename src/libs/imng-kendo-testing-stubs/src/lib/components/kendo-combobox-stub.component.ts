@@ -10,7 +10,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { jest } from '@jest/globals';
 import { Observable } from 'rxjs';
 import { AdaptiveMode, DropDownFillMode } from '../types/dropdowns';
-import { InputAttributesValue, ItemDisabledFn } from '../type';
+import { InputAttributesType, ItemDisabledFn } from '../type';
 
 @Component({
   selector: 'kendo-combobox',
@@ -40,7 +40,7 @@ export class IMNG_KENDO_COMBOBOX_STUB {
   @Input() public disabled?: boolean;
   @Input() public fillMode?: DropDownFillMode;
   @Input() public filterable?: boolean;
-  @Input() public inputAttributes?: InputAttributesValue;
+  @Input() public inputAttributes?: InputAttributesType;
   @Input() public itemDisabled?: ItemDisabledFn;
   @Input() public listHeight?: number;
   @Input() public loading?: boolean;
