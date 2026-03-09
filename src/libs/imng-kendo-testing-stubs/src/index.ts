@@ -21,6 +21,7 @@ import { IMNG_KENDO_PROGRESSBAR_STUB } from './lib/components/kendo-progress-bar
 import { IMNG_KENDO_SPLIT_BUTTON_STUB } from './lib/components/kendo-split-button-stub.component';
 import { IMNG_KENDO_SPLITTER_PANE_STUB } from './lib/components/kendo-splitter-pane-stub.component';
 import { IMNG_KENDO_SPLITTER_STUB } from './lib/components/kendo-splitter-stub.component';
+import { IMNG_SVG_ICON_STUB } from './lib/components/kendo-svg-icon-stub.component';
 import { IMNG_KENDO_TEXTAREA_PREFIX_STUB } from './lib/components/kendo-textarea-prefix-stub.component';
 import { IMNG_KENDO_TEXTAREA_STUB } from './lib/components/kendo-textarea-stub.component';
 import { IMNG_KENDO_TEXTAREA_SUFFIX_STUB } from './lib/components/kendo-textarea-suffix-stub.component';
@@ -62,6 +63,7 @@ export { IMNG_KENDO_BUTTON_GROUP_STUB } from './lib/components/kendo-button-grou
 export { IMNG_KENDO_DROPDOWNBUTTON_STUB } from './lib/components/kendo-dropdownbutton-stub.component';
 export { IMNG_KENDO_DROPDOWNLIST_STUB } from './lib/components/kendo-dropdownlist-stub.component';
 export { IMNG_KENDO_GRID_COMMAND_COLUMN_STUB } from './lib/components/kendo-grid-command-column-stub.components';
+export { IMNG_SVG_ICON_STUB } from './lib/components/kendo-svg-icon-stub.component';
 
 export { provideGridStubComponent } from './lib/components/provide-grid-stub-component';
 
@@ -80,6 +82,7 @@ export const IMNG_KENDO_GRID_HEADER_STUBS = [
   IMNG_KENDO_PROGRESSBAR_STUB,
   IMNG_KENDO_SPLIT_BUTTON_STUB,
   IMNG_KENDO_BUTTON_GROUP_STUB,
+  IMNG_SVG_ICON_STUB,
 ];
 
 export const IMNG_KENDO_SPLITTER_STUBS = [

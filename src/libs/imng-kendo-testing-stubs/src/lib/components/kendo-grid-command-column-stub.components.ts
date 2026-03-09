@@ -6,7 +6,6 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import { CssClassType, StyleType } from '../type';
-import { jest } from '@jest/globals';
 
 @Component({
   selector: 'kendo-grid-command-column',

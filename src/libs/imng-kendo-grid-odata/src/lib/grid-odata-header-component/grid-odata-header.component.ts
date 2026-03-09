@@ -99,7 +99,8 @@ import { KENDO_PROGRESSBAR } from '@progress/kendo-angular-progressbar';
           title="Reset Filters"
           (click)="resetFiltersClicked.emit()"
           class="btn btn-sm mx-1 imng-grid-odata-hdr-btn">
-          <kendo-svgicon [icon]="filterClearIcon"></kendo-svgicon> Reset Filters
+          <kendo-svg-icon [icon]="filterClearIcon"></kendo-svg-icon> Reset
+          Filters
         </button>
       }
       @if (hideReloadData !== true) {

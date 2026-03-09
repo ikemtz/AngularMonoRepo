@@ -7,7 +7,7 @@ import {
 import { BehaviorSubject, of } from 'rxjs';
 import { IMNG_KENDO_GRID_ODATA_HEADER } from './grid-odata-header.component';
 import {
-  IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
+  IMNG_KENDO_GRID_HEADER_STUBS,
   provideGridStubComponent,
 } from 'imng-kendo-testing-stubs';
 import {
@@ -17,6 +17,7 @@ import {
 import { ODataService } from 'imng-kendo-odata';
 import { KENDO_POPUP } from '@progress/kendo-angular-popup';
 import { KENDO_PROGRESSBAR } from '@progress/kendo-angular-progressbar';
+import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
 
 describe('ImngGridHeaderComponent', () => {
   let component: IMNG_KENDO_GRID_ODATA_HEADER;
@@ -41,11 +42,12 @@ describe('ImngGridHeaderComponent', () => {
             KENDO_POPUP,
             KENDO_PROGRESSBAR,
             KENDO_SPLITBUTTON,
+            KENDO_SVGICON,
             ColumnChooserComponent,
           ],
         },
         add: {
-          imports: [...IMNG_KENDO_GRID_HEADER_TESTING_STUBS],
+          imports: [...IMNG_KENDO_GRID_HEADER_STUBS],
         },
       })
       .compileComponents();

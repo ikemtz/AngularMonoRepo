@@ -24,7 +24,7 @@ import {
 } from '../customers-ngrx-module';
 import { createTestCustomer } from '../../models/webapi';
 import {
-  IMNG_KENDO_GRID_TESTING_STUBS,
+  IMNG_KENDO_GRID_STUBS,
   IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
   provideGridStubComponent,
 } from 'imng-kendo-testing-stubs';
@@ -69,7 +69,7 @@ describe('CustomerListComponent', () => {
           ],
         },
         add: {
-          imports: [...IMNG_KENDO_GRID_TESTING_STUBS],
+          imports: [...IMNG_KENDO_GRID_STUBS],
           providers: [provideGridStubComponent()],
         },
       })
