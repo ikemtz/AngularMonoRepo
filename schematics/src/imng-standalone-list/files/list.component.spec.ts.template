@@ -6,7 +6,7 @@ import { KENDO_GRID } from '@progress/kendo-angular-grid';
 import { KENDO_MENU } from '@progress/kendo-angular-menu';
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
 import {
-  IMNG_KENDO_GRID_TESTING_STUBS,
+  IMNG_KENDO_GRID_STUBS,
   provideGridStubComponent,
 } from 'imng-kendo-testing-stubs';
 import {
@@ -63,7 +63,7 @@ describe('<%= classify(singularizedName) %>ListComponent', () => {
           <%= classify(pluralizedName) %>NgrxModule],
       },
       add: {
-        imports: [ ...IMNG_KENDO_GRID_TESTING_STUBS ],
+        imports: [ ...IMNG_KENDO_GRID_STUBS ],
         providers: [provideGridStubComponent()],
       },
     })
