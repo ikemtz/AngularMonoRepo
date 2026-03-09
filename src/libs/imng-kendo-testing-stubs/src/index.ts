@@ -63,7 +63,7 @@ export { IMNG_KENDO_DROPDOWNLIST_STUB } from './lib/kendo-dropdownlist-stub.comp
 
 export { provideGridStubComponent } from './lib/provide-grid-stub-component';
 
-export const IMNG_KENDO_GRID_TESTING_STUBS = [
+export const IMNG_KENDO_GRID_STUBS = [
   IMNG_KENDO_GRID_STUB,
   IMNG_KENDO_GRID_COLUMN_STUB,
   IMNG_KENDO_GRID_EXCEL_STUB,
@@ -71,7 +71,7 @@ export const IMNG_KENDO_GRID_TESTING_STUBS = [
   IMNG_KENDO_GRID_PDF_MARGIN_STUB,
 ];
 
-export const IMNG_KENDO_GRID_HEADER_TESTING_STUBS = [
+export const IMNG_KENDO_GRID_HEADER_STUBS = [
   IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB,
   IMNG_KENDO_POPUP_STUB,
   IMNG_KENDO_PROGRESSBAR_STUB,
