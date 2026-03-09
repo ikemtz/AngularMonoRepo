@@ -31,14 +31,14 @@ export class IMNG_KENDO_DROPDOWNLIST_STUB {
   @Input() public valuePrimitive = false;
   @Input() public valueField = 'valueField';
   @Input() public textField = 'textField';
-  @Input() public defaultItem: unknown | undefined;
+  @Input() public defaultItem?: unknown;
   @Input() public filterable = true;
   @Input() public disabled = false;
   @Input() public itemDisabled = false;
   @Input() public loading = false;
   @Input() public readonly = false;
   @Input() public listHeight = 200;
-  @Input() public popupSettings: unknown | undefined;
+  @Input() public popupSettings?: unknown;
   @Input() public data = [];
 
   public selectionChange = new EventEmitter<unknown>();

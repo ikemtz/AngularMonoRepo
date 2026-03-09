@@ -14,5 +14,5 @@ import {
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class IMNG_KENDO_GRID_MESSAGES_STUB {
-  @Input() public filterIsTrue: string | undefined;
+  @Input() public filterIsTrue?: string;
 }

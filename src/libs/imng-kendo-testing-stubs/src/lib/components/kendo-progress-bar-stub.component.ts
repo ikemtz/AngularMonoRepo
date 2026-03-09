@@ -14,15 +14,14 @@ import {
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class IMNG_KENDO_PROGRESSBAR_STUB {
-  @Input() value: number | undefined;
-  @Input() min: number | undefined;
-  @Input() max: number | undefined;
-  @Input() label:
+  @Input() value?: number;
+  @Input() min?: number;
+  @Input() max?: number;
+  @Input() label?:
     | boolean
     | {
         visible: boolean;
         format: string;
         position: string;
-      }
-    | undefined;
+      };
 }

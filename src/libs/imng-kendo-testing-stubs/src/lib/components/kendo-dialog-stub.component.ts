@@ -21,7 +21,7 @@ export class IMNG_KENDO_DIALOG_STUB {
   @Input() public height: testType;
   @Input() public width: testType;
   @Input() public minWidth: testType;
-  @Input() public autoFocusedElement: string | undefined;
+  @Input() public autoFocusedElement?: string;
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() public close: EventEmitter<unknown> = new EventEmitter<unknown>(); //NOSONAR
 }

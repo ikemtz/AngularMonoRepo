@@ -15,5 +15,5 @@ import {
 })
 export class IMNG_KENDO_SPLIT_BUTTON_STUB {
   @Input() public svgIcon: unknown;
-  @Input() public data: never[] | undefined;
+  @Input() public data?: never[];
 }

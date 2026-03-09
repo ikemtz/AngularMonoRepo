@@ -7,6 +7,7 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import { jest } from '@jest/globals';
+import { SeriesDefault } from '../interfaces/series-default';
 
 @Component({
   selector: 'kendo-chart',
@@ -20,19 +21,19 @@ export class IMNG_KENDO_CHART_STUB {
   @Input() public axisDefaults: unknown;
   @Input() public categoryAxis: unknown;
   @Input() public chartArea: unknown;
-  @Input() public drilldownLevel: number | undefined;
+  @Input() public drilldownLevel?: number;
   @Input() public legend: unknown;
   @Input() public noData = true;
   @Input() public paneDefaults: unknown;
-  @Input() public panes: undefined | unknown[];
+  @Input() public panes?: unknown[];
   @Input() public pannable: unknown = false;
   @Input() public plotArea: unknown;
   @Input() public popupSettings: unknown;
   @Input() public renderAs: 'canvas' | 'svg' = 'svg';
   @Input() public resizeRateLimit = 10;
-  @Input() public series: undefined | unknown[];
-  @Input() public seriesColors: undefined | string[];
-  @Input() public seriesDefaults: undefined;
+  @Input() public series?: unknown[];
+  @Input() public seriesColors?: string[];
+  @Input() public seriesDefaults?: SeriesDefault;
   @Input() public subTitle: unknown;
   @Input() public svgIcon: unknown;
   @Input() public title: unknown;
@@ -43,7 +44,7 @@ export class IMNG_KENDO_CHART_STUB {
   @Input() public yAxis: unknown;
   @Input() public zoomable: unknown;
 
-  public surface: unknown = undefined;
+  public surface?: unknown;
 
   public axisLabelClick = new EventEmitter<unknown>();
   public drag = new EventEmitter<unknown>();

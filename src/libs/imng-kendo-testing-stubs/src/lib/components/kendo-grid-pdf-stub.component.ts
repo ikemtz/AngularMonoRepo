@@ -16,7 +16,7 @@ import {
 export class IMNG_KENDO_GRID_PDF_STUB {
   @Input() public allPages = false;
   @Input() public fileName = '';
-  @Input() public scale: number | string | undefined;
-  @Input() public paperSize: string | undefined;
+  @Input() public scale?: number | string;
+  @Input() public paperSize?: string;
   @Input() public landscape = true;
 }

@@ -26,7 +26,7 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public imngODataGrid?: never;
   @Input() public height = 500;
   @Input() public data: never[] | DataResult = [];
-  @Input() public group: Array<GroupDescriptor> | null | undefined;
+  @Input() public group?: Array<GroupDescriptor> | null;
   @Input() public groupable: boolean | string = false;
   @Input() public loading = false;
   @Input() public kendoGridExpandDetailsBy:
@@ -34,13 +34,13 @@ export class IMNG_KENDO_GRID_STUB {
     | ((dataItem: never) => never) = 'kendoGridExpandDetailsBy';
   @Input() public expandedDetailKeys: never[] = [];
   @Input() public columnMenu = false;
-  @Input() public filter: CompositeFilterDescriptor | null | undefined;
+  @Input() public filter?: CompositeFilterDescriptor | null;
   @Input() public filterable: boolean | string = false;
   @Input() public pageSize = 20;
   @Input() public skip = 0;
   @Input() public reorderable = true;
   @Input() public resizable: boolean | string = true;
-  @Input() public sort: Array<SortDescriptor> | null | undefined = [];
+  @Input() public sort?: Array<SortDescriptor> | null = [];
   @Input() public sortable:
     | boolean
     | string

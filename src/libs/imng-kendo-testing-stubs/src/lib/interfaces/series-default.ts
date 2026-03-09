@@ -1,0 +1,48 @@
+import { SeriesType } from '../types/charts';
+import { Border } from './border';
+import { Series } from './series';
+import { SeriesStack } from './series-stack';
+import { SeriesVisualArgs } from './series-visual-args';
+
+export interface SeriesDefault {
+  area?: Series;
+  bar?: Series;
+  border?: Border;
+  bubble?: Series;
+  bullet?: Series;
+  candlestick?: Series;
+  column?: Series;
+  donut?: Series;
+  focusHighlight?: unknown;
+  funnel?: Series;
+  gap?: number;
+  highlight?: unknown;
+  labels?: unknown;
+  line?: Series;
+  notes?: unknown;
+  ohlc?: Series;
+  overlay?: unknown;
+  pie?: Series;
+  polarArea?: Series;
+  polarLine?: Series;
+  polarScatter?: Series;
+  pyramid?: Series;
+  radarArea?: Series;
+  radarColumn?: Series;
+  radarLine?: Series;
+  rangeArea?: Series;
+  rangeBar?: Series;
+  rangeColumn?: Series;
+  scatter?: Series;
+  scatterLine?: Series;
+  spacing?: number;
+  stack?: string | boolean | SeriesStack;
+  tooltip?: unknown;
+  type?: SeriesType;
+  verticalArea?: Series;
+  verticalBullet?: Series;
+  verticalLine?: Series;
+  verticalRangeArea?: Series;
+  visual?: (e: SeriesVisualArgs) => Element;
+  waterfall?: Series;
+}

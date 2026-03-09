@@ -9,6 +9,8 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { jest } from '@jest/globals';
 import { Observable } from 'rxjs';
+import { AdaptiveMode, DropDownFillMode } from '../types/dropdowns';
+import { InputAttributesValue, ItemDisabledFn } from '../type';
 
 @Component({
   selector: 'kendo-combobox',
@@ -29,20 +31,20 @@ import { Observable } from 'rxjs';
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class IMNG_KENDO_COMBOBOX_STUB {
-  @Input() public adaptiveMode = 'none';
-  @Input() public adaptiveSubtitle: string | undefined;
+  @Input() public adaptiveMode: AdaptiveMode = 'none';
+  @Input() public adaptiveSubtitle?: string;
   @Input() public adaptiveTitle = '';
   @Input() public allowCustom = false;
   @Input() public clearButton = true;
-  @Input() public data: unknown = [];
-  @Input() public disabled = false;
-  @Input() public fillMode = undefined;
-  @Input() public filterable: undefined | boolean;
-  @Input() public inputAttributes: undefined | { [key: string]: string };
-  @Input() public itemDisabled: undefined | (() => boolean);
-  @Input() public listHeight: undefined | number;
-  @Input() public loading: undefined | boolean;
-  @Input() public placeholder: undefined | string;
+  @Input() public data?: unknown;
+  @Input() public disabled?: boolean;
+  @Input() public fillMode?: DropDownFillMode;
+  @Input() public filterable?: boolean;
+  @Input() public inputAttributes?: InputAttributesValue;
+  @Input() public itemDisabled?: ItemDisabledFn;
+  @Input() public listHeight?: number;
+  @Input() public loading?: boolean;
+  @Input() public placeholder?: string;
   @Input() public popupSettings: unknown;
   @Input() public readonly = false;
   @Input() public rounded: unknown;
@@ -50,13 +52,13 @@ export class IMNG_KENDO_COMBOBOX_STUB {
   @Input() public size: unknown;
   @Input() public suggest = false;
   @Input() public tabindex = 0;
-  @Input() public textField: string | undefined = 'textField';
+  @Input() public textField?: string;
   @Input() public value: unknown;
-  @Input() public valueField: string | undefined = 'valueField';
-  @Input() public valueNormalizer:
-    | undefined
-    | ((text: Observable<string>) => Observable<never>);
-  @Input() public valuePrimitive: undefined | boolean;
+  @Input() public valueField?: string;
+  @Input() public valueNormalizer?: (
+    text: Observable<string>,
+  ) => Observable<never>;
+  @Input() public valuePrimitive?: boolean;
   @Input() public virtual: unknown;
   public isOpen = false;
   public close = new EventEmitter<never>();

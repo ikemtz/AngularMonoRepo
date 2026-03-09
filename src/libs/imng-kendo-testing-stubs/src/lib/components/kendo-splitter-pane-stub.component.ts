@@ -1,21 +1,19 @@
 import {
-  ChangeDetectionStrategy,
   Component,
+  ChangeDetectionStrategy,
   CUSTOM_ELEMENTS_SCHEMA,
-  ElementRef,
-  Input,
   NO_ERRORS_SCHEMA,
+  Input,
 } from '@angular/core';
 
 @Component({
-  selector: 'kendo-popup',
+  selector: 'kendo-splitter-pane',
   template: '',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_POPUP_STUB {
-  @Input() anchor: ElementRef | HTMLElement | undefined;
-  @Input() anchorAlign: unknown;
-  @Input() popupAlign: unknown;
+export class IMNG_KENDO_SPLITTER_PANE_STUB {
+  @Input() size?: string;
+  @Input() collapsible?: boolean;
 }

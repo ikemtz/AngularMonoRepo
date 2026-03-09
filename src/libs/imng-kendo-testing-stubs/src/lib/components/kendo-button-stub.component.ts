@@ -18,8 +18,8 @@ import {
 })
 export class IMNG_KENDO_BUTTON_STUB {
   @Input() public svgIcon: unknown;
-  @Input() public disabled: boolean | undefined;
+  @Input() public disabled?: boolean;
   @Input() public rounded: unknown;
   @Input() public fillMode: unknown;
-  click: EventEmitter<never> | undefined;
+  click?: EventEmitter<never>;
 }

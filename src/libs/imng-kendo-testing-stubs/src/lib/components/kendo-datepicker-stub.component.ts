@@ -42,16 +42,16 @@ export class IMNG_KENDO_DATEPICKER_STUB {
   @Input() public bottomView: unknown = 'month';
   @Input() public calendarType: unknown = 'infinite';
   @Input() public clearButton = false;
-  @Input() public disabled: undefined | boolean = undefined;
-  @Input() public disabledDates: undefined | unknown[] = undefined;
+  @Input() public disabled?: boolean;
+  @Input() public disabledDates?: unknown[];
   @Input() public enableMouseWheel = true;
   @Input() public fillMode: unknown;
-  @Input() public focusedDate: undefined | Date;
+  @Input() public focusedDate?: Date;
   @Input() public footer = false;
   @Input() public format: unknown;
   @Input() public formatPlaceholder: unknown;
   @Input() public incompleteDateValidation = false;
-  @Input() public inputAttributes: undefined | { [key: string]: string };
+  @Input() public inputAttributes?: { [key: string]: string };
   @Input() public max = new Date(2099, 12, 31);
   @Input() public min = new Date(1900, 1, 1);
   @Input() public navigation: unknown;
@@ -59,18 +59,18 @@ export class IMNG_KENDO_DATEPICKER_STUB {
   @Input() public popupSettings: unknown;
   @Input() public rangeValidation = true;
   @Input() public readonly = false;
-  @Input() public readOnlyInput: undefined | boolean;
+  @Input() public readOnlyInput?: boolean;
   @Input() public rounded: unknown;
-  @Input() public showOtherMonthDays: undefined | boolean;
+  @Input() public showOtherMonthDays?: boolean;
   @Input() public size: unknown;
   @Input() public tabindex = 0;
   @Input() public topView: unknown = 'century';
   @Input() public twoDigitYearMax = 68;
-  @Input() public value: undefined | Date;
+  @Input() public value?: Date;
   @Input() public weekDaysFormat: unknown = 'short';
   @Input() public weekNumber = false;
 
-  public isOpen: undefined | boolean;
+  public isOpen?: boolean;
 
   public close = new EventEmitter<unknown>();
   public blur = new EventEmitter<unknown>();

@@ -1,19 +1,19 @@
 import {
-  Component,
   ChangeDetectionStrategy,
+  Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  NO_ERRORS_SCHEMA,
   Input,
+  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 
 @Component({
-  selector: 'kendo-splitter-pane',
+  selector: 'kendo-grid-column-chooser',
   template: '',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_SPLITTER_PANE_STUB {
-  @Input() size: string | undefined;
-  @Input() collapsible: boolean | undefined;
+export class IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB {
+  @Input() public allowHideAll?: boolean;
+  @Input() public autoSync?: boolean;
 }

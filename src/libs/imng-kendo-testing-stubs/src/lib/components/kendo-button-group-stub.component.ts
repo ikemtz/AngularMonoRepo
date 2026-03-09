@@ -21,5 +21,5 @@ export class IMNG_KENDO_BUTTON_GROUP_STUB {
   @Input() public width: number | string = '20%';
   @Input() public selection = 'selection';
   @Input() public tabIndex = 0;
-  navigate: EventEmitter<never> | undefined;
+  public navigate?: EventEmitter<never>;
 }
