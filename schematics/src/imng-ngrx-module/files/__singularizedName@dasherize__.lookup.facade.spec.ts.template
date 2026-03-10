@@ -21,10 +21,13 @@ describe('<%= classify(name) %>LookupFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(<%= camelize(pluralizedStoreName) %>Feature),
-          EffectsModule.forFeature([<%= classify(singularizedStoreName) %>ListEffects,
-          <%= classify(singularizedStoreName) %>LookupEffects,
-          <%= classify(singularizedStoreName) %>CrudEffects,
+          StoreModule.forRoot({
+            [<%= camelize(pluralizedStoreName) %>Feature.name]: <%= camelize(pluralizedStoreName) %>Feature.reducer
+          }, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([
+            <%= classify(singularizedStoreName) %>ListEffects,
+            <%= classify(singularizedStoreName) %>LookupEffects,
+            <%= classify(singularizedStoreName) %>CrudEffects,
           ]),
         ],
         providers: [
@@ -32,17 +35,8 @@ describe('<%= classify(name) %>LookupFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTest<%= classify(name) %>()]))) } },
         ],
       })
-      class CustomFeatureModule {}
-
-      @NgModule({
-        imports: [
-          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule,
-        ],
-      })
-      class RootModule {}
-      TestBed.configureTestingModule({ imports: [RootModule] });
+      class TestModule {}
+      TestBed.configureTestingModule({ imports: [TestModule] });
 
       facade = TestBed.inject(<%= classify(name) %>LookupFacade);
       httpClient = TestBed.inject(HttpClient);

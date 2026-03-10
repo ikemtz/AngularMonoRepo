@@ -110,8 +110,12 @@ describe('ProductCrudFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(productsFeature),
-          EffectsModule.forFeature([ProductListEffects, ProductCrudEffects]),
+          StoreModule.forRoot({
+            [productsFeature.name]: productsFeature.reducer
+          }, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([
+            ProductListEffects,
+            ProductCrudEffects]),
         ],
         providers: [
           ProductCrudFacade,
@@ -119,17 +123,8 @@ describe('ProductCrudFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestProduct()]))) } },
         ],
       })
-      class CustomFeatureModule {}
-
-      @NgModule({
-        imports: [
-          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule,
-        ],
-      })
-      class RootModule {}
-      TestBed.configureTestingModule({ imports: [RootModule] });
+      class TestModule {}
+      TestBed.configureTestingModule({ imports: [TestModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       store = TestBed.inject(Store);

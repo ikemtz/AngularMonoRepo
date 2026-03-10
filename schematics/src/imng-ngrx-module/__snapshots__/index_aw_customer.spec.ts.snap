@@ -106,8 +106,12 @@ describe('CustomerCrudFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(customersFeature),
-          EffectsModule.forFeature([CustomerListEffects, CustomerCrudEffects]),
+          StoreModule.forRoot({
+            [customersFeature.name]: customersFeature.reducer
+          }, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([
+            CustomerListEffects,
+            CustomerCrudEffects]),
         ],
         providers: [
           CustomerCrudFacade,
@@ -115,17 +119,8 @@ describe('CustomerCrudFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestCustomer()]))) } },
         ],
       })
-      class CustomFeatureModule {}
-
-      @NgModule({
-        imports: [
-          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule,
-        ],
-      })
-      class RootModule {}
-      TestBed.configureTestingModule({ imports: [RootModule] });
+      class TestModule {}
+      TestBed.configureTestingModule({ imports: [TestModule] });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       store = TestBed.inject(Store);
@@ -410,10 +405,13 @@ describe('CustomerLookupFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(customersFeature),
-          EffectsModule.forFeature([CustomerListEffects,
-          CustomerLookupEffects,
-          CustomerCrudEffects,
+          StoreModule.forRoot({
+            [customersFeature.name]: customersFeature.reducer
+          }, { runtimeChecks: environment.runtimeChecks }),
+          EffectsModule.forRoot([
+            CustomerListEffects,
+            CustomerLookupEffects,
+            CustomerCrudEffects,
           ]),
         ],
         providers: [
@@ -421,17 +419,8 @@ describe('CustomerLookupFacade', () => {
           { provide: HttpClient, useValue: { get: jest.fn(() => of(createODataPayload([createTestCustomer()]))) } },
         ],
       })
-      class CustomFeatureModule {}
-
-      @NgModule({
-        imports: [
-          StoreModule.forRoot({}, { runtimeChecks: environment.runtimeChecks }),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule,
-        ],
-      })
-      class RootModule {}
-      TestBed.configureTestingModule({ imports: [RootModule] });
+      class TestModule {}
+      TestBed.configureTestingModule({ imports: [TestModule] });
 
       facade = TestBed.inject(CustomerLookupFacade);
       httpClient = TestBed.inject(HttpClient);
