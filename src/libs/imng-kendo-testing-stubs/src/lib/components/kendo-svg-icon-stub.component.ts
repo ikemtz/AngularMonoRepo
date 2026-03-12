@@ -16,7 +16,7 @@ import { SVGIcon } from '../interfaces/svg-icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_SVG_ICON_STUB {
+export class IMNG_KENDO_SVG_ICON_STUB {
   @Input() public flip?: IconFlip;
   @Input() public icon?: SVGIcon;
   @Input() public size?: IconSize;

@@ -53,6 +53,7 @@ Here's an example of these stubs used in the setup of an Angular Testbed
 | `kendo-grid-pdf`            | [IMNG_KENDO_GRID_PDF_STUB](./src/lib/components/kendo-grid-pdf-stub.component.ts)                        |
 | `kendo-grid-pdf-margin`     | [IMNG_KENDO_GRID_PDF_MARGIN_STUB](./src/lib/components/kendo-grid-pdf-margin-stub.component.ts)          |
 | `kendo-menu`                | [IMNG_KENDO_MENU_STUB](./src/lib/components/kendo-menu-stub.component.ts)                                |
+| `kendo-menu-item`           | [IMNG_KENDO_MENU_ITEM_STUB](./src/lib/components/kendo-menu-item-stub.component.ts)                      |
 | `kendo-multicolumncombobox` | [IMNG_KENDO_MULTICOLUMNCOMBOBOX_STUB](./src/lib/components/kendo-multicolumncombobox-stub.component.ts)  |
 | `kendo-panelbar`            | [IMNG_KENDO_PANELBAR_STUB](./src/lib/components/kendo-panelbar-stub.component.ts)                        |
 | `kendo-panelbar-item`       | [IMNG_KENDO_PANELBAR_ITEM_STUB](./src/lib/components/kendo-panelbar-item-stub.component.ts)              |
@@ -66,3 +67,5 @@ Here's an example of these stubs used in the setup of an Angular Testbed
 | `kendo-textarea-prefix`     | [IMNG_KENDO_TEXTAREA_PREFIX_STUB](./src/lib/components/kendo-textarea-prefix-stub.component.ts)          |
 | `kendo-textarea-suffix`     | [IMNG_KENDO_TEXTAREA_SUFFIX_STUB](./src/lib/components/kendo-textarea-suffix-stub.component.ts)          |
 | `kendo-textbox`             | [IMNG_KENDO_TEXTBOX_STUB](./src/lib/components/kendo-textbox-stub.component.ts)                          |
+| `kendo-tabstrip`            | [IMNG_KENDO_TABSTRIP_STUB](./src/lib/components/kendo-tabstrip-stub.component.ts)                        |
+| `kendo-tabstrip-tab`        | [IMNG_KENDO_TABSTRIP_TAB_STUB](./src/lib/components/kendo-tabstrip-tab-stub.component.ts)                |
