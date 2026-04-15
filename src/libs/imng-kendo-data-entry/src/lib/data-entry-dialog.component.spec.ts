@@ -49,7 +49,7 @@ describe('DataEntryDialogComponent', () => {
 
   test('HTML should have custom buttons', () => {
     fixture.detectChanges();
-    expect(fixture.nativeElement).toContain('😈');
+    expect(fixture.nativeElement.innerHTML).toContain('😈');
   });
 
   it('should handle close()', () => {
