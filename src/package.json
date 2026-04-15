@@ -151,7 +151,7 @@
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "5.9.3",
-    "verdaccio": "^6.2.7"
+    "verdaccio": "^6.5.0"
   },
   "dependencies": {
     "@angular/animations": "21.1.1",
