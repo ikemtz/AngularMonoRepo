@@ -210,7 +210,10 @@ export const ordersFeature = createFeature({
           gridODataState: state.gridODataState,
         }),
         gridData: payload,
-        error: null, })),
+        error: null,
+        currentOrder: undefined,
+        currentOrderModalState: undefined, 
+      })),
     on(orderActionTypes.setCurrentOrder,
       (state, { payload }) : State =>
         ({ ...state,
@@ -218,7 +221,7 @@ export const ordersFeature = createFeature({
         currentOrder: payload.entity })),
     on(orderActionTypes.clearCurrentOrder,
       (state) : State => ({
-        ...state, 
+        ...state,
         currentOrder: undefined,
         currentOrderModalState: undefined,
       })),

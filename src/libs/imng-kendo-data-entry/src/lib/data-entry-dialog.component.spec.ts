@@ -16,6 +16,7 @@ import {
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
+import { IMNG_KENDO_DIALOG_BUTTONS } from './dialog-buttons.directive';
 
 describe('DataEntryDialogComponent', () => {
   let component: TestHostComponent;
@@ -26,6 +27,7 @@ describe('DataEntryDialogComponent', () => {
       imports: [
         NoopAnimationsModule,
         IMNG_KENDO_DATA_ENTRY_DIALOG,
+        IMNG_KENDO_DIALOG_BUTTONS,
         TestHostComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
@@ -43,6 +45,11 @@ describe('DataEntryDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  test('HTML should have custom buttons', () => {
+    fixture.detectChanges();
+    expect(fixture.nativeElement).toContain('😈');
   });
 
   it('should handle close()', () => {
@@ -67,9 +74,22 @@ describe('DataEntryDialogComponent', () => {
 
 @Component({
   selector: 'imng-thc',
-  imports: [IMNG_KENDO_DATA_ENTRY_DIALOG],
-  template:
-    '<imng-data-entry-dialog [width]="700" [height]="550" [parentComponent]="this"></imng-data-entry-dialog>',
+  imports: [IMNG_KENDO_DATA_ENTRY_DIALOG, IMNG_KENDO_DIALOG_BUTTONS],
+  template: `<imng-data-entry-dialog
+    [width]="700"
+    [height]="550"
+    [parentComponent]="this">
+    <ng-template imngDialogBtns let-coreButtons>
+      <button id="y" (click)="coreButtons.cancel()">😈</button>
+      <button
+        type="submit"
+        [attr.form]="formId"
+        id="x"
+        (click)="coreButtons.submit()">
+        {{ submitButtonText }}
+      </button>
+    </ng-template>
+  </imng-data-entry-dialog>`,
 })
 export class TestHostComponent
   extends BaseDataEntryComponent<DataEntryMockFacade>
