@@ -1,5 +1,5 @@
 const defaultDebugProxySettings = {
-  secure: true,
+  secure: false,
   changeOrigin: true,
   logLevel: 'debug',
   onProxyRes: (proxyRes) =>

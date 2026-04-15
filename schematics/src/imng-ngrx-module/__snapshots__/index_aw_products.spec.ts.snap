@@ -249,7 +249,10 @@ export const productsFeature = createFeature({
           gridODataState: state.gridODataState,
         }),
         gridData: payload,
-        error: null, })),
+        error: null,
+        currentProduct: undefined,
+        currentProductModalState: undefined, 
+      })),
     on(productActionTypes.setCurrentProduct,
       (state, { payload }) : State =>
         ({ ...state,
@@ -257,7 +260,7 @@ export const productsFeature = createFeature({
         currentProduct: payload.entity })),
     on(productActionTypes.clearCurrentProduct,
       (state) : State => ({
-        ...state, 
+        ...state,
         currentProduct: undefined,
         currentProductModalState: undefined,
       })),
