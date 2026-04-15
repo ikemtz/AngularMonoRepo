@@ -243,7 +243,10 @@ export const customersFeature = createFeature({
           gridODataState: state.gridODataState,
         }),
         gridData: payload,
-        error: null, })),
+        error: null,
+        currentCustomer: undefined,
+        currentCustomerModalState: undefined, 
+      })),
     on(customerActionTypes.setCurrentCustomer,
       (state, { payload }) : State =>
         ({ ...state,
@@ -251,7 +254,7 @@ export const customersFeature = createFeature({
         currentCustomer: payload.entity })),
     on(customerActionTypes.clearCurrentCustomer,
       (state) : State => ({
-        ...state, 
+        ...state,
         currentCustomer: undefined,
         currentCustomerModalState: undefined,
       })),

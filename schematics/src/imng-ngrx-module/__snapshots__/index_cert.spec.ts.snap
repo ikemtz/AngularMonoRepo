@@ -62,7 +62,10 @@ export const certificationsFeature = createFeature({
           gridODataState: state.gridODataState,
         }),
         gridData: payload,
-        error: null, })),
+        error: null,
+        currentCertification: undefined,
+        currentCertificationModalState: undefined, 
+      })),
     on(certificationActionTypes.setCurrentCertification,
       (state, { payload }) : State =>
         ({ ...state,
@@ -70,7 +73,7 @@ export const certificationsFeature = createFeature({
         currentCertification: payload.entity })),
     on(certificationActionTypes.clearCurrentCertification,
       (state) : State => ({
-        ...state, 
+        ...state,
         currentCertification: undefined,
         currentCertificationModalState: undefined,
       })),
