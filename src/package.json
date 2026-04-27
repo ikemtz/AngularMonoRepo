@@ -143,7 +143,7 @@
     "nx": "22.5.2",
     "openapi-mermaid": "^4.41.3",
     "openapi-ts-generator": "^10.52.2",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.10",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^9.6.0",
     "postcss-url": "10.1.3",
