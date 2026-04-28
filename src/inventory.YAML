@@ -3,6 +3,7 @@ pool:
   vmImage: ubuntu-latest
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm
+  nodeVersion: '22.x'
 
 resources:
   - repo: self
