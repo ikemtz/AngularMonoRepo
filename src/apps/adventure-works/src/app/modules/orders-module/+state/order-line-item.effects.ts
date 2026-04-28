@@ -29,7 +29,7 @@ export class OrderLineItemEffects {
         ) =>
           this.odataService
             .fetch<IOrderLineItem>(
-              environment.odataEnpoints.orderLineItems,
+              environment.odataEndpoints.orderLineItems,
               action.payload.odataState,
             )
             .pipe(
@@ -61,7 +61,7 @@ export class OrderLineItemEffects {
       switchMap(([action, odataState]) =>
         this.odataService
           .fetch<IOrderLineItem>(
-            environment.odataEnpoints.orderLineItems,
+            environment.odataEndpoints.orderLineItems,
             odataState || {},
             { bustCache: true },
           )

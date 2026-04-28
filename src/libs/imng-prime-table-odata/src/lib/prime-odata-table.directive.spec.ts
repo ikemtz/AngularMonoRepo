@@ -55,7 +55,7 @@ describe('ImngPrimeODataTableDirective', () => {
     expect(tableComponent).toMatchSnapshot();
     expect(directive).toBeTruthy();
   });
-  it('should handle lazyload', () => {
+  it('should handle lazyLoad', () => {
     (directive as { tableComponent: unknown }).tableComponent = tableComponent;
     directive.ngOnInit();
     tableComponent.globalFilterFields = ['xyz'];
@@ -73,7 +73,7 @@ describe('ImngPrimeODataTableDirective', () => {
     expect(tableComponent).toMatchSnapshot();
     expect(facade.loadEntities).toHaveBeenCalledTimes(1);
   });
-  it('should handle lazyload no sorting', () => {
+  it('should handle lazyLoad no sorting', () => {
     directive.ngOnInit();
     (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({
       first: 20,
@@ -86,7 +86,7 @@ describe('ImngPrimeODataTableDirective', () => {
     expect(tableComponent).toMatchSnapshot();
     expect(facade.loadEntities).toHaveBeenCalledTimes(1);
   });
-  it('should handle lazyload no filters', () => {
+  it('should handle lazyLoad no filters', () => {
     directive.ngOnInit();
     (tableComponent.onLazyLoad as unknown as Subject<LazyLoadEvent>).next({
       first: 20,
@@ -130,7 +130,7 @@ describe('ImngPrimeODataTableDirective', () => {
     expect(tableComponent).toMatchSnapshot();
     expect(facade.loadEntities).toHaveBeenCalledTimes(0);
   });
-  it('should fire destory', () => {
+  it('should fire destroy', () => {
     directive.ngOnInit();
     directive.ngOnDestroy();
     expect(directive.allSubscriptions).toHaveLength(0);

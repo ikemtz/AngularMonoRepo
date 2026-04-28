@@ -22,7 +22,7 @@ export class CustomerLookupEffects {
         ) =>
           this.odataService
             .fetch<ISalesAgent>(
-              environment.odataEnpoints.salesAgents,
+              environment.odataEndpoints.salesAgents,
               action.payload,
             )
             .pipe(

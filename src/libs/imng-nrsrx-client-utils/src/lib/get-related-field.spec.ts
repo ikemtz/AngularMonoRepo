@@ -12,7 +12,7 @@ describe('getRelatedField', () => {
 
   it('should work with separator', () => {
     const result = getRelatedField({
-      seperator: '-',
+      separator: '-',
       segments: ['parent', 'child', 'subChild', 'x'],
     });
 

@@ -7,6 +7,5 @@ import { IProduct } from '../../../models/webapi';
   providedIn: 'root',
 })
 export class ProductApiService extends NrsrxBaseApiClientService<IProduct> {
-  public override url = environment.webApiEnpoints.products;
-
+  public override url = environment.webApiEndpoints.products;
 }

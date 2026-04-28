@@ -8,7 +8,7 @@ exports[`error handlers imngEffectError should work 1`] = `
     "action": [Function],
     "error": [Error: should-work],
   },
-  "type": "[IMNG] Error Occured",
+  "type": "[IMNG] Error Occurred",
 }
 `;
 
