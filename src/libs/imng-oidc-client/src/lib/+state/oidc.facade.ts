@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { filter, take, map } from 'rxjs/operators';
 import { oidcSelectors } from './oidc.selectors';
 import { OidcService } from '../services/oidc.service';
-import { RequestArugments } from '../models/arguments.model';
+import { RequestArguments } from '../models/arguments.model';
 import { OidcEvent } from '../models/constants';
 import * as oidcActions from './oidc.actions';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -145,31 +145,31 @@ export class OidcFacade {
     );
   }
 
-  public signinPopup(args: RequestArugments): void {
+  public signinPopup(args: RequestArguments): void {
     this.store.dispatch(oidcActions.signInPopup(args));
   }
 
-  public signinRedirect(args?: RequestArugments): void {
+  public signinRedirect(args?: RequestArguments): void {
     this.store.dispatch(oidcActions.signInRedirect(args));
   }
 
-  public signinSilent(args: RequestArugments): void {
+  public signinSilent(args: RequestArguments): void {
     this.store.dispatch(oidcActions.signInSilent(args));
   }
 
-  public signoutPopup(args: RequestArugments): void {
+  public signoutPopup(args: RequestArguments): void {
     this.store.dispatch(oidcActions.signOutPopup(args));
   }
 
-  public signoutRedirect(args?: RequestArugments): void {
+  public signoutRedirect(args?: RequestArguments): void {
     this.store.dispatch(oidcActions.signOutRedirect(args));
   }
 
-  public getSigninUrl(args?: RequestArugments): Observable<SigninRequest> {
+  public getSigninUrl(args?: RequestArguments): Observable<SigninRequest> {
     return this.oidcService.getSigninUrl(args);
   }
 
-  getSignoutUrl(args?: RequestArugments): Observable<SignoutRequest> {
+  getSignoutUrl(args?: RequestArguments): Observable<SignoutRequest> {
     return this.oidcService.getSignoutUrl(args);
   }
 

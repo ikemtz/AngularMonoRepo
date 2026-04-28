@@ -6,7 +6,7 @@ import { ICustomer } from '../../models/webapi';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerApiService extends NrsrxBaseApiClientService<ICustomer> {
-  public override url = environment.webApiEnpoints.customers;
+  public override url = environment.webApiEndpoints.customers;
 
   public override dateOnlyPropertyNames = [];
 }

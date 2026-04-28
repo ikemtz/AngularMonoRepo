@@ -57,7 +57,7 @@ describe('PrimeODataBasedComponent', () => {
 
   it('should getRelatedField parent', async () => {
     const result = component.getRelatedField({
-      seperator: '.',
+      separator: '.',
       segments: ['x', 'y', 'z'],
     });
     expect(result).toBe('x.y.z');
@@ -65,7 +65,7 @@ describe('PrimeODataBasedComponent', () => {
 
   it('should getRelatedField child using interface', async () => {
     const result = component.getRelatedField({
-      seperator: '/',
+      separator: '/',
       segments: ['x', 'y', 'z'],
     });
     expect(result).toBe('x/y/z');

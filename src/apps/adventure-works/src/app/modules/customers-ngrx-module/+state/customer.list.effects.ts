@@ -24,7 +24,7 @@ export class CustomerListEffects {
         (action: ReturnType<typeof customerActionTypes.loadCustomersRequest>) =>
           this.odataService
             .fetch<ICustomer>(
-              environment.odataEnpoints.customers,
+              environment.odataEndpoints.customers,
               action.payload,
               {
                 dateNullableProps: [],
@@ -46,7 +46,7 @@ export class CustomerListEffects {
       ),
       switchMap(([action, odataState]) =>
         this.odataService
-          .fetch<ICustomer>(environment.odataEnpoints.customers, odataState, {
+          .fetch<ICustomer>(environment.odataEndpoints.customers, odataState, {
             bustCache: true,
             dateNullableProps: [],
           })
