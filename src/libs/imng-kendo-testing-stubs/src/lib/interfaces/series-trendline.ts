@@ -1,4 +1,4 @@
-import { TrendlineForecast } from './trendline-forecase';
+import { TrendlineForecast } from './trendline-forecast';
 
 export interface SeriesTrendline {
   forecast?: TrendlineForecast;

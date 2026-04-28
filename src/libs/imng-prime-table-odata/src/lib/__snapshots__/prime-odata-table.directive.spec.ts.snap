@@ -97,7 +97,7 @@ exports[`ImngPrimeODataTableDirective should fire OnInit 1`] = `
 }
 `;
 
-exports[`ImngPrimeODataTableDirective should handle lazyload 1`] = `
+exports[`ImngPrimeODataTableDirective should handle lazyLoad 1`] = `
 {
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "facade": {
@@ -277,7 +277,7 @@ exports[`ImngPrimeODataTableDirective should handle lazyload 1`] = `
 }
 `;
 
-exports[`ImngPrimeODataTableDirective should handle lazyload no filters 1`] = `
+exports[`ImngPrimeODataTableDirective should handle lazyLoad no filters 1`] = `
 {
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "facade": {
@@ -444,7 +444,7 @@ exports[`ImngPrimeODataTableDirective should handle lazyload no filters 1`] = `
 }
 `;
 
-exports[`ImngPrimeODataTableDirective should handle lazyload no sorting 1`] = `
+exports[`ImngPrimeODataTableDirective should handle lazyLoad no sorting 1`] = `
 {
   "currentPageReportTemplate": "Showing {first} to {last} of {totalRecords} entries",
   "facade": {

@@ -73,7 +73,7 @@ export class IMNG_KENDO_COMBOBOX_STUB {
   public selectionChange = new EventEmitter<never>();
   public valueChange = new EventEmitter<never>();
 
-  public focustItemAt = jest.fn();
+  public focusItemAt = jest.fn();
   public reset = jest.fn();
   public toggle = jest.fn();
 }

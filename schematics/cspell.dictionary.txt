@@ -1,0 +1,16 @@
+imng
+ngrx
+Nrsrx
+NOSONAR
+novalidate
+
+# Handlebar Stuff
+decamelize
+
+# Kendo Stuff
+svgicon
+xlarge
+Focusable
+DATEPICKER
+MULTICOLUMNCOMBOBOX
+dateinputs

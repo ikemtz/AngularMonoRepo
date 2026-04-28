@@ -30,7 +30,7 @@ export class ProductEffects {
         (action: ReturnType<typeof productActionTypes.loadProductsRequest>) =>
           this.odataService
             .fetch<IProduct>(
-              environment.odataEnpoints.products,
+              environment.odataEndpoints.products,
               action.payload,
               {
                 dateNullableProps: [
@@ -55,7 +55,7 @@ export class ProductEffects {
       ),
       switchMap(([action, odataState]) =>
         this.odataService
-          .fetch<IProduct>(environment.odataEnpoints.products, odataState, {
+          .fetch<IProduct>(environment.odataEndpoints.products, odataState, {
             bustCache: true,
             dateNullableProps: [
               ProductProperties.SELL_END_DATE,
@@ -120,7 +120,7 @@ export class ProductEffects {
         ) =>
           this.odataService
             .fetch<IProductModel>(
-              environment.odataEnpoints.productModels,
+              environment.odataEndpoints.productModels,
               action.payload,
             )
             .pipe(
@@ -142,7 +142,7 @@ export class ProductEffects {
         ) =>
           this.odataService
             .fetch<IProductCategory>(
-              environment.odataEnpoints.productCategories,
+              environment.odataEndpoints.productCategories,
               action.payload,
             )
             .pipe(

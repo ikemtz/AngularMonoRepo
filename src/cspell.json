@@ -1,0 +1,18 @@
+{
+  "dictionaries": ["custom-words"],
+  "ignorePaths": [
+    "dist",
+    "node_modules",
+    "coverage",
+    "tmp",
+    "out-tsc",
+    "**/*.d.ts"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "custom-words",
+      "path": "./cspell.dictionary.txt",
+      "addWords": true
+    }
+  ]
+}

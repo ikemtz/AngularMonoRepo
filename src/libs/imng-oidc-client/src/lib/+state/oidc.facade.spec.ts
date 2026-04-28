@@ -237,8 +237,8 @@ describe('OidcFacade', () => {
           }),
         ),
       );
-      const initialresult: any = await readFirst(facade.httpError$);
-      expect(initialresult).toMatchSnapshot();
+      const initialResult: any = await readFirst(facade.httpError$);
+      expect(initialResult).toMatchSnapshot();
       expect(await readFirst(facade.hasErrors$)).toBe(true);
       facade.clearErrors();
       const result: any = await readFirst(store);
@@ -251,8 +251,8 @@ describe('OidcFacade', () => {
         'this is an expected error during unit tests, do not be alarmed!',
       );
       facade.addSilentRenewError(exception);
-      const initialresult: any = await readFirst(facade.silentRenewError$);
-      expect(initialresult).toMatchSnapshot();
+      const initialResult: any = await readFirst(facade.silentRenewError$);
+      expect(initialResult).toMatchSnapshot();
       expect(await readFirst(facade.hasErrors$)).toBe(true);
       expect(await readFirst(facade.silentRenewError$)).toBe(exception);
       facade.clearErrors();
