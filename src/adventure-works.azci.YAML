@@ -4,7 +4,7 @@ pool:
 variables:
   AZP_BASHV3_OLD_SOURCE_BEHAVIOR: true
   npm_config_cache: $(Pipeline.Workspace)/.npm
-  nodeVersion: '22.x'
+  nodeVersion: '24.x'
 
 resources:
   - repo: self
@@ -16,6 +16,10 @@ jobs:
       - checkout: self
         persistCredentials: true
 
+      - task: UseNode@1
+        inputs:
+          version: '24.x'
+          checkLatest: true
       - task: Cache@2
         displayName: Cache NPM packages
         inputs:
