@@ -27,6 +27,7 @@ import { IMNG_KENDO_TABSTRIP_TAB_STUB } from './lib/components/kendo-tabstrip-ta
 import { IMNG_KENDO_TEXTAREA_PREFIX_STUB } from './lib/components/kendo-textarea-prefix-stub.component';
 import { IMNG_KENDO_TEXTAREA_STUB } from './lib/components/kendo-textarea-stub.component';
 import { IMNG_KENDO_TEXTAREA_SUFFIX_STUB } from './lib/components/kendo-textarea-suffix-stub.component';
+import { IMNG_KENDO_CHECKBOX_COLUMN_STUB } from './lib/components/kendo-checkbox-column-stub.component';
 
 export { IMNG_KENDO_GRID_STUB } from './lib/components/kendo-grid-stub.component';
 export { IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB } from './lib/components/kendo-grid-column-chooser-stub.component';
@@ -68,6 +69,7 @@ export { IMNG_KENDO_GRID_COMMAND_COLUMN_STUB } from './lib/components/kendo-grid
 export { IMNG_KENDO_SVG_ICON_STUB } from './lib/components/kendo-svg-icon-stub.component';
 export { IMNG_KENDO_TABSTRIP_STUB } from './lib/components/kendo-tabstrip-stub.component';
 export { IMNG_KENDO_TABSTRIP_TAB_STUB } from './lib/components/kendo-tabstrip-tab-stub.component';
+export { IMNG_KENDO_CHECKBOX_COLUMN_STUB } from './lib/components/kendo-checkbox-column-stub.component';
 
 export { provideGridStubComponent } from './lib/components/provide-grid-stub-component';
 
@@ -78,6 +80,7 @@ export const IMNG_KENDO_GRID_STUBS = [
   IMNG_KENDO_GRID_EXCEL_STUB,
   IMNG_KENDO_GRID_PDF_STUB,
   IMNG_KENDO_GRID_PDF_MARGIN_STUB,
+  IMNG_KENDO_CHECKBOX_COLUMN_STUB,
 ];
 
 export const IMNG_KENDO_GRID_HEADER_STUBS = [
