@@ -15,7 +15,10 @@ jobs:
     steps:
       - checkout: self
         persistCredentials: true
-
+      - task: UseNode@1
+        inputs:
+          version: '22.x'
+          checkLatest: true
       - task: Cache@2
         inputs:
           key: 'npm | "$(Agent.OS)" | schematics/package-lock.json'
