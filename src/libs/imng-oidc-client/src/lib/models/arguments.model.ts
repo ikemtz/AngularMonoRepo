@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface RequestArugments {
+export interface RequestArguments {
   // mandatory
   url?: string;
   client_id?: string;

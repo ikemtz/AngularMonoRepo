@@ -24,7 +24,7 @@ export class OrderEffects {
         (action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) =>
           this.odataService
             .fetch<IOrder>(
-              environment.odataEnpoints.orders,
+              environment.odataEndpoints.orders,
               toODataQuery(action.payload),
               {
                 dateNullableProps: [OrderProperties.SHIP_DATE],
@@ -45,7 +45,7 @@ export class OrderEffects {
       switchMap(([action, odataState]) =>
         this.odataService
           .fetch<IOrder>(
-            environment.odataEnpoints.orders,
+            environment.odataEndpoints.orders,
             toODataQuery(odataState),
             {
               bustCache: true,

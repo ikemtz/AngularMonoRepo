@@ -57,11 +57,11 @@ import { oidcConfigurator } from './util/oidc-client-configurator';
 })
 export class ImngOidcClientModule {
   static forRoot(
-    oidc0ptions: OidcClientConfig,
+    oidcOptions: OidcClientConfig,
   ): ModuleWithProviders<ImngOidcClientModule> {
     return {
       ngModule: ImngOidcClientModule,
-      providers: [{ provide: OIDC_CLIENT_CONFIG, useValue: oidc0ptions }],
+      providers: [{ provide: OIDC_CLIENT_CONFIG, useValue: oidcOptions }],
     };
   }
 }

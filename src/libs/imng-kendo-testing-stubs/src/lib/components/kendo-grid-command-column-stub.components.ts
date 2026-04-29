@@ -16,7 +16,7 @@ import { CssClassType, StyleType } from '../type';
 })
 export class IMNG_KENDO_GRID_COMMAND_COLUMN_STUB {
   @Input() public autoSize?: boolean;
-  @Input() public columnMendu = true;
+  @Input() public columnMenu = true;
   @Input() public class?: CssClassType;
   @Input() public filterClass?: CssClassType;
   @Input() public filterStyle?: StyleType;
