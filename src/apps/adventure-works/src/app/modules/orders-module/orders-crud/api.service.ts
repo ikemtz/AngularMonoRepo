@@ -7,5 +7,5 @@ import { IOrder } from '../../../models/odata';
   providedIn: 'root',
 })
 export class OrderApiService extends NrsrxBaseApiClientService<IOrder> {
-  public override url = environment.webApiEnpoints.orders;
+  public override url = environment.webApiEndpoints.orders;
 }

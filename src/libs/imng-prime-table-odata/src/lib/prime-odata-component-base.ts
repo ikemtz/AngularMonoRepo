@@ -149,7 +149,7 @@ export abstract class ImngPrimeODataTableBaseComponent<
     return `${exportName}-${toLocalTimeStamp()}`;
   }
   /**
-   * Naming convetion:
+   * Naming convention:
    * . => Parent table navigation separator
    * / => Child table navigation separator
    * @param segments

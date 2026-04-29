@@ -5,7 +5,7 @@ import { createPayloadAction } from './create-payload-action';
 export const imngEffectError = createPayloadAction<{
   action: Action;
   error: Error;
-}>('[IMNG] Error Occured');
+}>('[IMNG] Error Occurred');
 
 /**
  *  Will handle effect error and dispatch an imngEffectError action

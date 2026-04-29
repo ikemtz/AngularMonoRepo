@@ -19,7 +19,7 @@ export const environment = {
   signalr: {
     hostUrl: 'https://im-wa-coms-nrcrn.azurewebsites.net/notificationHub',
     logger: LogLevel.Trace,
-    clientMethods: ['OnMessageRecieved'],
+    clientMethods: ['OnMessageReceived'],
   },
   idleConfig: {
     timeoutWarningInMs: 540000, //9 minutes

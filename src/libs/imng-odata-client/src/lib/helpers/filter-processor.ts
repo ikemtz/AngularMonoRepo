@@ -23,11 +23,11 @@ export function processFilters(query: ODataQuery, queryString: string): string {
 export function serializeCompositeFilter(
   compositeFilter: ICompositeFilter,
 ): string {
-  const filterLogicSeperator = ` ${compositeFilter.logic} `;
+  const filterLogicSeparator = ` ${compositeFilter.logic} `;
   return `(${compositeFilter.filters
     .map((filter) => serializeFilterItem(filter))
     .filter((m) => m && m !== '()')
-    .join(filterLogicSeperator)})`;
+    .join(filterLogicSeparator)})`;
 }
 export function serializeFilterItem(
   filter: IFilter | IChildFilter | ICompositeFilter,
