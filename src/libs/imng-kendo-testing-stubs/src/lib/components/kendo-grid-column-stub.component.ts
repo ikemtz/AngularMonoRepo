@@ -19,7 +19,7 @@ import { ColumnSortSettings } from '../interfaces/column-sort-settings';
 export class IMNG_KENDO_GRID_COLUMN_STUB {
   @Input() public autoSize?: boolean;
   @Input() public cellRowSpan?: boolean | (() => number);
-  @Input() public columnMendu = true;
+  @Input() public columnMenu = true;
   @Input() public class?: CssClassType;
   @Input() public editable = true;
   @Input() public editor = 'text';

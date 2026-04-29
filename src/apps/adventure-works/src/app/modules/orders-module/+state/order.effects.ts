@@ -33,7 +33,7 @@ export class OrderEffects {
         (action: ReturnType<typeof orderActionTypes.loadOrdersRequest>) =>
           this.odataService
             .fetch<IExtOrder>(
-              environment.odataEnpoints.orders,
+              environment.odataEndpoints.orders,
               action.payload,
               {
                 dateNullableProps: [OrderProperties.SHIP_DATE],
@@ -55,7 +55,7 @@ export class OrderEffects {
       ),
       switchMap(([action, odataState]) =>
         this.odataService
-          .fetch<IExtOrder>(environment.odataEnpoints.orders, odataState, {
+          .fetch<IExtOrder>(environment.odataEndpoints.orders, odataState, {
             bustCache: true,
             dateNullableProps: [OrderProperties.SHIP_DATE],
           })
@@ -113,7 +113,7 @@ export class OrderEffects {
         (action: ReturnType<typeof orderActionTypes.loadCustomersRequest>) =>
           this.odataService
             .fetch<ICustomer>(
-              environment.odataEnpoints.customers,
+              environment.odataEndpoints.customers,
               action.payload,
             )
             .pipe(
@@ -135,7 +135,7 @@ export class OrderEffects {
         ) =>
           this.odataService
             .fetch<IOrderAddress>(
-              environment.odataEnpoints.customerAddresses,
+              environment.odataEndpoints.customerAddresses,
               action.payload,
             )
             .pipe(
@@ -157,7 +157,7 @@ export class OrderEffects {
         ) =>
           this.odataService
             .fetch<IOrderAddress>(
-              environment.odataEnpoints.customerAddresses,
+              environment.odataEndpoints.customerAddresses,
               action.payload,
             )
             .pipe(

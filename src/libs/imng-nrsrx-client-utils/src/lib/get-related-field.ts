@@ -1,8 +1,8 @@
 export function getRelatedField(options: IRelatedFieldOptions): string {
-  return options.segments.join(options.seperator || '/');
+  return options.segments.join(options.separator || '/');
 }
 export interface IRelatedFieldOptions {
-  seperator?: string;
+  separator?: string;
   segments: string[];
 }
 

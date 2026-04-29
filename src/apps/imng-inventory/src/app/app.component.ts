@@ -16,14 +16,14 @@ import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild(BarcodeScannerLivestreamComponent)
-  barecodeScanner?: BarcodeScannerLivestreamComponent;
+  barcodeScanner?: BarcodeScannerLivestreamComponent;
   public barcodeValue?: string;
   public readonly barcodeTypes = ['upc'];
 
   public errorMessage?: string;
 
   ngAfterViewInit(): void {
-    this.barecodeScanner?.start();
+    this.barcodeScanner?.start();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
