@@ -67,21 +67,21 @@ describe('<%= classify(singularizedName) %>ListFacade', () => {
 
     test('reloadEntities() should return empty list with loaded == true', async () => {
       let list = await readFirst(facade.gridData$);
-      let isloading = await readFirst(facade.loading$);
+      let isLoading = await readFirst(facade.loading$);
 
       const service: { fetch: (endpoint: string, odataState: ODataState) => Observable<unknown>; } = TestBed.inject(ODataService);
       const response = of({ data: [{ id: 'i ❤' }, { id: 'imng' }, { id: '💯' }], total: 3 });
       service.fetch = jest.fn(() => response);
 
       expect(list?.data.length).toBe(0);
-      expect(isloading).toBe(true);
+      expect(isLoading).toBe(true);
       facade.reloadEntities();
 
       list = await readFirst(facade.gridData$);
-      isloading = await readFirst(facade.loading$);
+      isLoading = await readFirst(facade.loading$);
 
       expect(list?.data.length).toBe(3);
-      expect(isloading).toBe(false);
+      expect(isLoading).toBe(false);
       expect(service.fetch).toHaveBeenCalledTimes(1);
     });
 
