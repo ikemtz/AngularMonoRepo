@@ -267,7 +267,11 @@ export class ODataService {
           .filter(isComputation)
           .map((f) => `${f.fieldA} ${f.operator} ${f.fieldB} as ${f.alias}`),
       );
-      queryString = `$compute=${computeStrings.join(',')}${queryString}`;
+      queryString =
+        `$compute=${computeStrings.join(',')}&${queryString}`.replace(
+          '&&',
+          '&',
+        );
     }
     return queryString;
   }
