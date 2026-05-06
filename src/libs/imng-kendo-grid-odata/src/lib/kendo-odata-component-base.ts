@@ -28,6 +28,7 @@ import {
   ODataResult,
   Expander,
   ODataService,
+  Computation,
 } from 'imng-kendo-odata';
 import { GridStateChangeEvent, KendoGridBaseComponent } from 'imng-kendo-grid';
 import { IKendoODataGridFacade } from './kendo-odata-grid-facade';
@@ -84,6 +85,7 @@ export abstract class KendoODataBasedComponent<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public abstract readonly props: any; //NOSONAR
   protected expanders?: Expander[];
+  protected compute?: (string | Computation)[];
   protected transformations?: string;
 
   /**
@@ -128,6 +130,7 @@ export abstract class KendoODataBasedComponent<
         state.subscribe((t) => {
           this.gridDataState = t;
           this.expanders = t.expanders;
+          this.compute = t.compute;
           this.transformations = t.transformations;
         }),
         state
@@ -142,9 +145,11 @@ export abstract class KendoODataBasedComponent<
             ...this.gridDataState,
             selectors: state.selectors,
             expanders: state.expanders,
+            compute: state.compute,
           }
         : state;
       this.expanders = state.expanders;
+      this.compute = state.compute;
       this.defaultFilter = state.filter as CompositeFilterDescriptor;
       this.transformations = state.transformations;
     }
@@ -226,6 +231,7 @@ export abstract class KendoODataBasedComponent<
     this.gridDataState = {
       ...state,
       expanders: this.expanders,
+      compute: this.compute,
       transformations: this.transformations,
       filter: state.filter as ICompositeFilter,
     };
@@ -322,6 +328,7 @@ export abstract class KendoODataBasedComponent<
     odataState = this.validateSortParameters(odataState);
     this.gridDataState = odataState;
     this.expanders = odataState.expanders;
+    this.compute = odataState.compute;
     this.transformations = odataState.transformations;
     this.facade.loadEntities(this.gridDataState);
     this.updateRouterState(odataState);
@@ -345,6 +352,7 @@ export abstract class KendoODataBasedComponent<
       const tempState = { ...state };
       delete tempState.selectors;
       delete tempState.expanders;
+      delete tempState.compute;
       this.router.navigate([], {
         relativeTo: this.router.routerState.root,
         queryParams: {
