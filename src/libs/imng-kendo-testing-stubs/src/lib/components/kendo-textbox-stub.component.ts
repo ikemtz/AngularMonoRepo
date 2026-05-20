@@ -8,7 +8,7 @@ import {
   Output,
   ElementRef,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { jest } from '@jest/globals';
 import { SVGIcon } from '../interfaces/svg-icon';
 import {
@@ -37,7 +37,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_TEXTBOX_STUB {
+export class IMNG_KENDO_TEXTBOX_STUB implements ControlValueAccessor {
   //NOSONAR
   @Input() public placeholder = 'placeholder';
   @Input() public clearButton = false;
@@ -69,4 +69,9 @@ export class IMNG_KENDO_TEXTBOX_STUB {
   public input?: ElementRef<never>;
   public blur = new EventEmitter<never>();
   public focus = new EventEmitter<never>();
+
+  public writeValue = jest.fn();
+  public registerOnChange = jest.fn();
+  public registerOnTouched = jest.fn();
+  public setDisabledState? = jest.fn();
 }
