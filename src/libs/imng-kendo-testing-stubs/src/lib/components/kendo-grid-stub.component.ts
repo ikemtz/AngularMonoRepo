@@ -68,29 +68,30 @@ export class IMNG_KENDO_GRID_STUB {
     | { allowUnsort: boolean; mode: string } = true;
   @Input() public navigable = true;
 
-  adaptiveMode?: AdaptiveMode = 'none';
-  autoSize? = false;
-  cellSelected?: CellSelectedFn;
-  dataLayoutMode?: DataLayoutMode | DataLayoutModeSettings = 'columns';
-  detailRowHeight?: number;
-  gridResizable?: boolean | GridResizableSettings = false;
+  @Input() public adaptiveMode?: AdaptiveMode = 'none';
+  @Input() public autoSize? = false;
+  @Input() public cellSelected?: CellSelectedFn;
+  @Input() public dataLayoutMode?: DataLayoutMode | DataLayoutModeSettings =
+    'columns';
+  @Input() public detailRowHeight?: number;
+  @Input() public gridResizable?: boolean | GridResizableSettings = false;
 
-  hideHeader? = false;
-  isDetailExpanded?: (args: RowArgs) => boolean;
-  isGroupExpanded?: (args: GroupRowArgs) => boolean;
-  isRowSelectable?: RowSelectableFn;
-  pageable?: boolean | PagerSettings = false;
-  rowClass?: RowClassFn;
-  rowHeight?: number;
-  rowReorderable?: boolean = false;
-  rowSelected?: RowSelectedFn;
-  rowSticky?: RowStickyFn;
-  scrollable?: ScrollMode = 'scrollable';
-  selectable?: boolean | SelectableSettings = false;
-  showInactiveTools?: boolean = false;
-  size?: GridSize;
-  trackBy?: TrackByFunction<GridItem>;
-  virtualColumns?: boolean = false;
+  @Input() public hideHeader? = false;
+  @Input() public isDetailExpanded?: (args: RowArgs) => boolean;
+  @Input() public isGroupExpanded?: (args: GroupRowArgs) => boolean;
+  @Input() public isRowSelectable?: RowSelectableFn;
+  @Input() public pageable?: boolean | PagerSettings = false;
+  @Input() public rowClass?: RowClassFn;
+  @Input() public rowHeight?: number;
+  @Input() public rowReorderable?: boolean = false;
+  @Input() public rowSelected?: RowSelectedFn;
+  @Input() public rowSticky?: RowStickyFn;
+  @Input() public scrollable?: ScrollMode = 'scrollable';
+  @Input() public selectable?: boolean | SelectableSettings = false;
+  @Input() public showInactiveTools?: boolean = false;
+  @Input() public size?: GridSize;
+  @Input() public trackBy?: TrackByFunction<GridItem>;
+  @Input() public virtualColumns?: boolean = false;
 
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
