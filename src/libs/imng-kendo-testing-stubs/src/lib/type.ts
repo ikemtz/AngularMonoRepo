@@ -99,3 +99,10 @@ export type RowSelectedFn = (context: RowArgs) => boolean;
 export type RowStickyFn = (context: RowArgs) => boolean;
 export type GridSize = 'small' | 'medium' | 'none';
 export type GridItem = DataItem | GroupItem | GroupFooterItem;
+export type InputFillMode = 'solid' | 'flat' | 'outline' | 'none';
+
+export type InputRounded = 'small' | 'medium' | 'large' | 'full' | 'none';
+export type CheckBoxRounded = 'small' | 'medium' | 'large' | 'none';
+export type IconShowOptions = 'initial' | true | false;
+export type InputSize = 'small' | 'medium' | 'large' | 'none';
+export type InputType = 'text' | 'password';
