@@ -4,7 +4,8 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   NO_ERRORS_SCHEMA,
   Input,
-  EventEmitter,
+  EventEmitter, 
+  Output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { jest } from '@jest/globals';
@@ -27,11 +28,11 @@ import { jest } from '@jest/globals';
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_TEXTBOX_STUB {
+export class IMNG_KENDO_TEXTBOX_STUB {//NOSONAR
   @Input() public placeholder = 'placeholder';
   @Input() public clearButton = false;
   @Input() public maxlength = 100;
   @Input() public type = 'type';
 
-  public valueChange = new EventEmitter<never>();
+  @Output() public valueChange = new EventEmitter<never>();
 }
