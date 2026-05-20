@@ -28,6 +28,15 @@ import { IMNG_KENDO_TEXTAREA_PREFIX_STUB } from './lib/components/kendo-textarea
 import { IMNG_KENDO_TEXTAREA_STUB } from './lib/components/kendo-textarea-stub.component';
 import { IMNG_KENDO_TEXTAREA_SUFFIX_STUB } from './lib/components/kendo-textarea-suffix-stub.component';
 import { IMNG_KENDO_CHECKBOX_COLUMN_STUB } from './lib/components/kendo-checkbox-column-stub.component';
+import { IMNG_KENDO_DRAWER_STUB } from './lib/components/kendo-drawer-stub.component';
+import { IMNG_KENDO_DRAWER_CONTENT_STUB } from './lib/components/kendo-drawer-content-stub.component';
+import { IMNG_KENDO_DRAWER_CONTAINER_STUB } from './lib/components/kendo-drawer-container-stub.component';
+import { IMNG_KENDO_TREELIST_SPACER_STUB } from './lib/components/kendo-treelist-spacer-stub.component';
+import { IMNG_KENDO_TREELIST_STUB } from './lib/components/kendo-treelist-stub.component';
+import { IMNG_KENDO_TREELIST_CHECKBOX_COLUMN_STUB } from './lib/components/kendo-tree-list-checkbox-column-stub.component';
+import { IMNG_KENDO_TREELIST_COLUMN_STUB } from './lib/components/kendo-tree-list-column-stub.component';
+import { IMNG_KENDO_TREELIST_PDF_STUB } from './lib/components/kendo-treelist-pdf-stub.component';
+import { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/components/kendo-treelist-excel-stub.component'; 
 
 export { IMNG_KENDO_GRID_STUB } from './lib/components/kendo-grid-stub.component';
 export { IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB } from './lib/components/kendo-grid-column-chooser-stub.component';
@@ -70,6 +79,16 @@ export { IMNG_KENDO_SVG_ICON_STUB } from './lib/components/kendo-svg-icon-stub.c
 export { IMNG_KENDO_TABSTRIP_STUB } from './lib/components/kendo-tabstrip-stub.component';
 export { IMNG_KENDO_TABSTRIP_TAB_STUB } from './lib/components/kendo-tabstrip-tab-stub.component';
 export { IMNG_KENDO_CHECKBOX_COLUMN_STUB } from './lib/components/kendo-checkbox-column-stub.component';
+export { IMNG_KENDO_DRAWER_STUB } from './lib/components/kendo-drawer-stub.component';
+export { IMNG_KENDO_DRAWER_CONTENT_STUB } from './lib/components/kendo-drawer-content-stub.component';
+export { IMNG_KENDO_DRAWER_CONTAINER_STUB } from './lib/components/kendo-drawer-container-stub.component';
+export { IMNG_KENDO_TREELIST_SPACER_STUB } from './lib/components/kendo-treelist-spacer-stub.component';
+export { IMNG_KENDO_TREELIST_STUB } from './lib/components/kendo-treelist-stub.component';
+export { IMNG_KENDO_TREELIST_CHECKBOX_COLUMN_STUB } from './lib/components/kendo-tree-list-checkbox-column-stub.component';
+export { IMNG_KENDO_TREELIST_COLUMN_STUB } from './lib/components/kendo-tree-list-column-stub.component';
+export { IMNG_KENDO_TREELIST_PDF_STUB } from './lib/components/kendo-treelist-pdf-stub.component';
+export { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/components/kendo-treelist-excel-stub.component';
+export { IMNG_KENDO_CONTEXTMENU_STUB } from './lib/components/kendo-context-menu-stub.component';
 
 export { provideGridStubComponent } from './lib/components/provide-grid-stub-component';
 
@@ -125,4 +144,19 @@ export const IMNG_KENDO_TEXTAREA_STUBS = [
 export const IMNG_KENDO_TABSTRIP_STUBS = [
   IMNG_KENDO_TABSTRIP_STUB,
   IMNG_KENDO_TABSTRIP_TAB_STUB,
+];
+
+export const IMNG_KENDO_DRAWER_STUBS = [
+  IMNG_KENDO_DRAWER_STUB,
+  IMNG_KENDO_DRAWER_CONTENT_STUB,
+  IMNG_KENDO_DRAWER_CONTAINER_STUB,
+];
+
+export const IMNG_KENDO_TREELIST_STUBS = [
+  IMNG_KENDO_TREELIST_STUB,
+  IMNG_KENDO_TREELIST_SPACER_STUB,
+  IMNG_KENDO_TREELIST_COLUMN_STUB,
+  IMNG_KENDO_TREELIST_CHECKBOX_COLUMN_STUB,
+  IMNG_KENDO_TREELIST_PDF_STUB,
+  IMNG_KENDO_TREELIST_EXCEL_STUB,
 ];
