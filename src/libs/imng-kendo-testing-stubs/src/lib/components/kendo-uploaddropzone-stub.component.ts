@@ -8,7 +8,7 @@ import {
 import { SVGIcon } from '../interfaces/svg-icon';
 
 @Component({
-  selector: 'kendo-upload',
+  selector: 'kendo-uploaddropzone',
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
