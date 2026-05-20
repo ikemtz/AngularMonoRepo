@@ -74,4 +74,13 @@ export class IMNG_KENDO_TEXTBOX_STUB implements ControlValueAccessor {
   public registerOnChange = jest.fn();
   public registerOnTouched = jest.fn();
   public setDisabledState? = jest.fn();
+
+  public svgIcon = jest.fn();
+  public handleInputFocus = jest.fn();
+  public handleInputBlur = jest.fn();
+  public handleInput = jest.fn();
+  public clearTitle = jest.fn();
+  public checkClearButton = jest.fn();
+  public clearValue = jest.fn();
+  public showErrorsInitial = jest.fn();
 }
