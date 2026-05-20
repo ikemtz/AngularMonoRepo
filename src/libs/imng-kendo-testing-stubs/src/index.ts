@@ -38,6 +38,8 @@ import { IMNG_KENDO_TREELIST_COLUMN_STUB } from './lib/components/kendo-tree-lis
 import { IMNG_KENDO_TREELIST_PDF_STUB } from './lib/components/kendo-treelist-pdf-stub.component';
 import { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/components/kendo-treelist-excel-stub.component';
 import { IMNG_KENDO_SELECTION_STUB } from './lib/directives/kendo-selection-stub.directive';
+import { IMNG_KENDO_UPLOADDROPZONE_STUB } from './lib/components/kendo-uploaddropzone-stub.component';
+import { IMNG_KENDO_UPLOAD_STUB } from './lib/components/kendo-upload-stub.component';
 
 export { IMNG_KENDO_GRID_STUB } from './lib/components/kendo-grid-stub.component';
 export { IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB } from './lib/components/kendo-grid-column-chooser-stub.component';
@@ -93,6 +95,7 @@ export { IMNG_KENDO_CONTEXTMENU_STUB } from './lib/components/kendo-context-menu
 export { IMNG_KENDO_SELECTION_STUB } from './lib/directives/kendo-selection-stub.directive';
 export { IMNG_KENDO_LOADER_STUB } from './lib/components/kendo-loader-stub.component';
 export { IMNG_KENDO_SWITCH_STUB } from './lib/components/kendo-switch-stub.component';
+export { IMNG_KENDO_UPLOADDROPZONE_STUB } from './lib/components/kendo-uploaddropzone-stub.component';
 export { IMNG_KENDO_UPLOAD_STUB } from './lib/components/kendo-upload-stub.component';
 
 export const IMNG_KENDO_GRID_STUBS = [
@@ -163,4 +166,9 @@ export const IMNG_KENDO_TREELIST_STUBS = [
   IMNG_KENDO_TREELIST_CHECKBOX_COLUMN_STUB,
   IMNG_KENDO_TREELIST_PDF_STUB,
   IMNG_KENDO_TREELIST_EXCEL_STUB,
+];
+
+export const IMNG_KENDO_UPLOAD_STUBS = [
+  IMNG_KENDO_UPLOAD_STUB,
+  IMNG_KENDO_UPLOADDROPZONE_STUB,
 ];
