@@ -1,0 +1,1 @@
+export type FilterableSettings = boolean | "row" | "menu" | "menu, row";
