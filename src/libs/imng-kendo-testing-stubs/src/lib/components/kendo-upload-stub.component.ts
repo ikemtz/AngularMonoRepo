@@ -7,7 +7,6 @@ import {
   NO_ERRORS_SCHEMA,
   OnDestroy,
   OnInit,
-  Output,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { ActionsLayout } from '../type';
@@ -57,26 +56,26 @@ export class IMNG_KENDO_UPLOAD_STUB
   @Input() public zoneId?: string;
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public cancel = new EventEmitter<never>();
-  @Output() public clear = new EventEmitter<never>();
-  @Output() public complete = new EventEmitter<never>();
+  public cancel = new EventEmitter<never>();
+  public clear = new EventEmitter<never>();
+  public complete = new EventEmitter<never>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public error = new EventEmitter<ErrorEvent>();
+  public error = new EventEmitter<ErrorEvent>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public blur = new EventEmitter<never>();
+  public blur = new EventEmitter<never>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public focus = new EventEmitter<never>();
+  public focus = new EventEmitter<never>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public pause = new EventEmitter<never>();
-  @Output() public remove = new EventEmitter<never>();
+  public pause = new EventEmitter<never>();
+  public remove = new EventEmitter<never>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public resume = new EventEmitter<unknown>();
+  public resume = new EventEmitter<unknown>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public select = new EventEmitter<never>();
-  @Output() public success = new EventEmitter<never>();
-  @Output() public upload = new EventEmitter<never>();
-  @Output() public uploadProgress = new EventEmitter<never>();
-  @Output() public valueChange = new EventEmitter<never[]>();
+  public select = new EventEmitter<never>();
+  public success = new EventEmitter<never>();
+  public upload = new EventEmitter<never>();
+  public uploadProgress = new EventEmitter<never>();
+  public valueChange = new EventEmitter<never[]>();
 
   public cancelUploadByUid = jest.fn();
   public clearFiles = jest.fn();

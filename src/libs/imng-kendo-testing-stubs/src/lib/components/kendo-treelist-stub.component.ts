@@ -7,7 +7,6 @@ import {
   TrackByFunction,
   QueryList,
   EventEmitter,
-  Output,
 } from '@angular/core';
 import { ColumnMenuSettings } from '../interfaces/column-menu-settings';
 import { Observable } from 'rxjs';
@@ -26,7 +25,8 @@ import { NavigationRow } from '../interfaces/navigation-row';
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
-export class IMNG_KENDO_TREELIST_STUB {//NOSONAR
+export class IMNG_KENDO_TREELIST_STUB {
+  //NOSONAR
   @Input('aria-label') public ariaLabel?: string;
   @Input() public autoSize = false;
   @Input() public columnMenu?: boolean | ColumnMenuSettings;
@@ -67,28 +67,28 @@ export class IMNG_KENDO_TREELIST_STUB {//NOSONAR
   public activeRow?: NavigationRow;
   public columns?: QueryList<unknown>;
 
-  @Output() public add?: EventEmitter<unknown>;
+  public add?: EventEmitter<unknown>;
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public cancel?: EventEmitter<unknown>;
-  @Output() public cellClick?: EventEmitter<unknown>;
-  @Output() public cellClose?: EventEmitter<unknown>;
-  @Output() public columnLockedChange?: EventEmitter<unknown>;
-  @Output() public columnReorder?: EventEmitter<unknown>;
-  @Output() public columnResize?: EventEmitter<unknown>;
-  @Output() public columnVisibilityChange?: EventEmitter<unknown>;
-  @Output() public contentScroll?: EventEmitter<unknown>;
-  @Output() public dataStateChange?: EventEmitter<unknown>;
-  @Output() public edit?: EventEmitter<unknown>;
-  @Output() public excelExport?: EventEmitter<unknown>;
-  @Output() public filterChange?: EventEmitter<unknown>;
-  @Output() public pageChange?: EventEmitter<unknown>;
-  @Output() public pdfExport?: EventEmitter<unknown>;
-  @Output() public remove?: EventEmitter<unknown>;
-  @Output() public rowReorder?: EventEmitter<unknown>;
-  @Output() public save?: EventEmitter<unknown>;
-  @Output() public scrollBottom?: EventEmitter<unknown>;
-  @Output() public selectionChange?: EventEmitter<unknown>;
-  @Output() public sortChange?: EventEmitter<unknown>;
+  public cancel?: EventEmitter<unknown>;
+  public cellClick?: EventEmitter<unknown>;
+  public cellClose?: EventEmitter<unknown>;
+  public columnLockedChange?: EventEmitter<unknown>;
+  public columnReorder?: EventEmitter<unknown>;
+  public columnResize?: EventEmitter<unknown>;
+  public columnVisibilityChange?: EventEmitter<unknown>;
+  public contentScroll?: EventEmitter<unknown>;
+  public dataStateChange?: EventEmitter<unknown>;
+  public edit?: EventEmitter<unknown>;
+  public excelExport?: EventEmitter<unknown>;
+  public filterChange?: EventEmitter<unknown>;
+  public pageChange?: EventEmitter<unknown>;
+  public pdfExport?: EventEmitter<unknown>;
+  public remove?: EventEmitter<unknown>;
+  public rowReorder?: EventEmitter<unknown>;
+  public save?: EventEmitter<unknown>;
+  public scrollBottom?: EventEmitter<unknown>;
+  public selectionChange?: EventEmitter<unknown>;
+  public sortChange?: EventEmitter<unknown>;
 
   public addRow = jest.fn();
   public autoFitColumn = jest.fn();

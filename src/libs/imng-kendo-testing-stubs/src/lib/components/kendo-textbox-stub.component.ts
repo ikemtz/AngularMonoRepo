@@ -5,7 +5,6 @@ import {
   NO_ERRORS_SCHEMA,
   Input,
   EventEmitter,
-  Output,
   ElementRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -62,9 +61,9 @@ export class IMNG_KENDO_TEXTBOX_STUB implements ControlValueAccessor {
   @Input() public type?: InputType = 'text';
   @Input() public value?: string;
 
-  @Output() public valueChange = new EventEmitter<never>();
-  @Output() public inputBlur = new EventEmitter<never>();
-  @Output() public inputFocus = new EventEmitter<never>();
+  public valueChange = new EventEmitter<never>();
+  public inputBlur = new EventEmitter<never>();
+  public inputFocus = new EventEmitter<never>();
 
   public input?: ElementRef<never>;
   public blur = new EventEmitter<never>();

@@ -6,7 +6,6 @@ import {
   EventEmitter,
   Input,
   NO_ERRORS_SCHEMA,
-  Output,
   TrackByFunction,
 } from '@angular/core';
 import { of } from 'rxjs';
@@ -97,54 +96,41 @@ export class IMNG_KENDO_GRID_STUB {
   public saveAsExcel = jest.fn();
   public excelExport = of([]);
 
-  @Output() public detailExpand: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public dataStateChange: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public filterChange: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public pageChange: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public groupChange: EventEmitter<Array<never>> = new EventEmitter<
+  public detailExpand: EventEmitter<never> = new EventEmitter<never>();
+  public dataStateChange: EventEmitter<never> = new EventEmitter<never>();
+  public filterChange: EventEmitter<never> = new EventEmitter<never>();
+  public pageChange: EventEmitter<never> = new EventEmitter<never>();
+  public groupChange: EventEmitter<Array<never>> = new EventEmitter<
     Array<never>
   >();
-  @Output() public sortChange: EventEmitter<Array<never>> = new EventEmitter<
+  public sortChange: EventEmitter<Array<never>> = new EventEmitter<
     Array<never>
   >();
-  @Output() public columnVisibilityChange: EventEmitter<never> =
+  public columnVisibilityChange: EventEmitter<never> =
     new EventEmitter<never>();
-  @Output() public detailCollapse: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public edit: EventEmitter<never> = new EventEmitter<never>();
+  public detailCollapse: EventEmitter<never> = new EventEmitter<never>();
+  public edit: EventEmitter<never> = new EventEmitter<never>();
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public cancel: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public save: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public remove: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public add: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public cellClose: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public cellClick: EventEmitter<never> = new EventEmitter<never>();
+  public cancel: EventEmitter<never> = new EventEmitter<never>();
+  public save: EventEmitter<never> = new EventEmitter<never>();
+  public remove: EventEmitter<never> = new EventEmitter<never>();
+  public add: EventEmitter<never> = new EventEmitter<never>();
+  public cellClose: EventEmitter<never> = new EventEmitter<never>();
+  public cellClick: EventEmitter<never> = new EventEmitter<never>();
 
-  @Output() public columnLockedChange: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public columnReorder: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public columnResize: EventEmitter<never[]> = new EventEmitter<
-    never[]
-  >();
-  @Output() public columnStickyChange: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public contentScroll: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public csvExport: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public gridStateChange: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public groupCollapse: EventEmitter<GroupRowArgs> =
+  public columnLockedChange: EventEmitter<never> = new EventEmitter<never>();
+  public columnReorder: EventEmitter<never> = new EventEmitter<never>();
+  public columnResize: EventEmitter<never[]> = new EventEmitter<never[]>();
+  public columnStickyChange: EventEmitter<never> = new EventEmitter<never>();
+  public contentScroll: EventEmitter<never> = new EventEmitter<never>();
+  public csvExport: EventEmitter<never> = new EventEmitter<never>();
+  public gridStateChange: EventEmitter<never> = new EventEmitter<never>();
+  public groupCollapse: EventEmitter<GroupRowArgs> =
     new EventEmitter<GroupRowArgs>();
-  @Output() public groupExpand: EventEmitter<GroupRowArgs> =
+  public groupExpand: EventEmitter<GroupRowArgs> =
     new EventEmitter<GroupRowArgs>();
-  @Output() public pdfExport: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public rowReorder: EventEmitter<never> = new EventEmitter<never>();
-  @Output() public scrollBottom: EventEmitter<never> =
-    new EventEmitter<never>();
-  @Output() public selectionChange: EventEmitter<never> =
-    new EventEmitter<never>();
+  public pdfExport: EventEmitter<never> = new EventEmitter<never>();
+  public rowReorder: EventEmitter<never> = new EventEmitter<never>();
+  public scrollBottom: EventEmitter<never> = new EventEmitter<never>();
+  public selectionChange: EventEmitter<never> = new EventEmitter<never>();
 }

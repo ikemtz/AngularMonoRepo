@@ -6,7 +6,6 @@ import {
   EventEmitter,
   Input,
   NO_ERRORS_SCHEMA,
-  Output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -77,5 +76,5 @@ export class IMNG_KENDO_DATEPICKER_STUB {
   public focus = new EventEmitter<unknown>();
   public open = new EventEmitter<unknown>();
   public toggle = jest.fn();
-  @Output() public valueChange = new EventEmitter<Date>();
+  public valueChange = new EventEmitter<Date>();
 }
