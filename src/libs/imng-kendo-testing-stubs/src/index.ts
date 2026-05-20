@@ -91,6 +91,9 @@ export { IMNG_KENDO_TREELIST_PDF_STUB } from './lib/components/kendo-treelist-pd
 export { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/components/kendo-treelist-excel-stub.component';
 export { IMNG_KENDO_CONTEXTMENU_STUB } from './lib/components/kendo-context-menu-stub.component';
 export { IMNG_KENDO_SELECTION_STUB } from './lib/directives/kendo-selection-stub.directive';
+export { IMNG_KENDO_LOADER_STUB } from './lib/components/kendo-loader-stub.component';
+export { IMNG_KENDO_SWITCH_STUB } from './lib/components/kendo-switch-stub.component';
+export { IMNG_KENDO_UPLOAD_STUB } from './lib/components/kendo-upload-stub.component';
 
 export const IMNG_KENDO_GRID_STUBS = [
   IMNG_KENDO_GRID_STUB,

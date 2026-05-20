@@ -106,3 +106,19 @@ export type CheckBoxRounded = 'small' | 'medium' | 'large' | 'none';
 export type IconShowOptions = 'initial' | true | false;
 export type InputSize = 'small' | 'medium' | 'large' | 'none';
 export type InputType = 'text' | 'password';
+
+export type LoaderType = 'pulsing' | 'infinite-spinner' | 'converging-spinner';
+export type LoaderThemeColor =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'dark'
+  | 'light'
+  | 'inverse';
+
+export type LoaderSize = 'small' | 'medium' | 'large';
+export type ActionsLayout = 'start' | 'center' | 'end' | 'stretched';
