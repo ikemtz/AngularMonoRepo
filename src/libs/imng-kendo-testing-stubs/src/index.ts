@@ -92,10 +92,6 @@ export { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/components/kendo-treelist-
 export { IMNG_KENDO_CONTEXTMENU_STUB } from './lib/components/kendo-context-menu-stub.component';
 export { IMNG_KENDO_SELECTION_STUB } from './lib/directives/kendo-selection-stub.directive';
 
-export { provideGridStubComponent } from './lib/providers/provide-grid-stub-component';
-export { provideDrawerStubComponent } from './lib/providers/provide-drawer-stub-component';
-export { provideTextboxStubComponent } from './lib/providers/provide-textbox-stub-component';
-
 export const IMNG_KENDO_GRID_STUBS = [
   IMNG_KENDO_GRID_STUB,
   IMNG_KENDO_GRID_COLUMN_STUB,
