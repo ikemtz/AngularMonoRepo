@@ -36,7 +36,8 @@ import { IMNG_KENDO_TREELIST_STUB } from './lib/components/kendo-treelist-stub.c
 import { IMNG_KENDO_TREELIST_CHECKBOX_COLUMN_STUB } from './lib/components/kendo-tree-list-checkbox-column-stub.component';
 import { IMNG_KENDO_TREELIST_COLUMN_STUB } from './lib/components/kendo-tree-list-column-stub.component';
 import { IMNG_KENDO_TREELIST_PDF_STUB } from './lib/components/kendo-treelist-pdf-stub.component';
-import { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/components/kendo-treelist-excel-stub.component'; 
+import { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/components/kendo-treelist-excel-stub.component';
+import { IMNG_KENDO_SELECTION_STUB } from './lib/directives/kendo-selection-stub.directive';
 
 export { IMNG_KENDO_GRID_STUB } from './lib/components/kendo-grid-stub.component';
 export { IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB } from './lib/components/kendo-grid-column-chooser-stub.component';
@@ -89,6 +90,7 @@ export { IMNG_KENDO_TREELIST_COLUMN_STUB } from './lib/components/kendo-tree-lis
 export { IMNG_KENDO_TREELIST_PDF_STUB } from './lib/components/kendo-treelist-pdf-stub.component';
 export { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/components/kendo-treelist-excel-stub.component';
 export { IMNG_KENDO_CONTEXTMENU_STUB } from './lib/components/kendo-context-menu-stub.component';
+export { IMNG_KENDO_SELECTION_STUB } from './lib/directives/kendo-selection-stub.directive';
 
 export { provideGridStubComponent } from './lib/components/provide-grid-stub-component';
 
@@ -100,6 +102,7 @@ export const IMNG_KENDO_GRID_STUBS = [
   IMNG_KENDO_GRID_PDF_STUB,
   IMNG_KENDO_GRID_PDF_MARGIN_STUB,
   IMNG_KENDO_CHECKBOX_COLUMN_STUB,
+  IMNG_KENDO_SELECTION_STUB,
 ];
 
 export const IMNG_KENDO_GRID_HEADER_STUBS = [
