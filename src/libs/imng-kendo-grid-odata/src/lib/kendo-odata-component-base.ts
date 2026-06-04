@@ -275,6 +275,9 @@ export abstract class KendoODataBasedComponent<
       take(1),
       map(([data, state]) => ({ total: data?.total ?? 0, state: state })),
       map(({ total, state }) => {
+        if (total <= state.take) {
+          return { totalRecordCount: total, queries: [state] };
+        }
         const odataQueries: ODataState[] = [];
         const totalRecordCount = total;
         while (total > 0) {
