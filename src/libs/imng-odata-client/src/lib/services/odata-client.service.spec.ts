@@ -252,6 +252,31 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
+  it('should serialize ODataQueries with an ampersand Filter', () => {
+    const queryString = getODataString({
+      filter: {
+        logic: 'and',
+        filters: [
+          {
+            field: 'xyz',
+            operator: FilterOperators.equals,
+            value: '&name',
+          },
+        ],
+      },
+      top: 123,
+      skip: 456,
+      expand: [{ table: 'xyz', select: ['id', 'abc'] }],
+      orderBy: [
+        { field: 'xyz', dir: 'desc' },
+        { field: 'id', dir: 'asc' },
+      ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain('timestamp');
+    expect(queryString).toMatchSnapshot();
+  });
+
   it('should handle top: 0', () => {
     const queryString = getODataString({
       top: 0,
