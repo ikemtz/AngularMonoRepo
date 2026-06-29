@@ -1,5 +1,5 @@
 export interface BatchInfo<T> {
-  batch: T[];
-  batchNumber: number;
-  batchCount: number;
+  data: T[];
+  num: number;
+  count: number;
 }
