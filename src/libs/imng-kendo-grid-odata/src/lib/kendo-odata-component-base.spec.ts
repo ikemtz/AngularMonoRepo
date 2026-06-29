@@ -117,7 +117,10 @@ describe('KendoODataBasedComponent', () => {
       fetch: jest.fn(() => of({ data: [{ id: 'testId' }], total: 3000 })),
     } as never;
     component.facade.gridData$ = of({ data: [{ id: 'apples' }], total: 1000 });
-    component.facade.gridODataState$ = of({ selectors: ['x', 'y', 'z'] });
+    component.facade.gridODataState$ = of({
+      selectors: ['x', 'y', 'z'],
+      take: 100,
+    });
     expect(await readFirst(component.excelData())).toMatchSnapshot();
     expect(component.odataService.fetch).toHaveBeenCalledTimes(10);
   });
