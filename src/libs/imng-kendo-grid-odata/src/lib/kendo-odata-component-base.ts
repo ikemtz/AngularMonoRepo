@@ -275,7 +275,7 @@ export abstract class KendoODataBasedComponent<
       take(1),
       map(([data, state]) => ({ total: data?.total ?? 0, state: state })),
       map(({ total, state }) => {
-        if (total <= state.take) {
+        if (!state?.take || total <= state.take) {
           return { totalRecordCount: total, queries: [state] };
         }
         const odataQueries: ODataState[] = [];
@@ -305,7 +305,7 @@ export abstract class KendoODataBasedComponent<
                     Math.max(
                       1,
                       Math.trunc(
-                        ((odataQuery.skip ?? 0) / queryData.totalRecordCount) *
+                        ((odataQuery?.skip ?? 0) / queryData.totalRecordCount) *
                           100,
                       ),
                     ),
