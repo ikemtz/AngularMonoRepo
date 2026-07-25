@@ -24,21 +24,6 @@
 [![Npm Packages](https://img.shields.io/npm/v/imng-schematics.svg)](npmjs.com/~ikemtz)
 [![npm](https://img.shields.io/npm/dt/imng-schematics)](npmjs.com/~ikemtz) [![CodeQL](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml)
 
-## AzConfig
-
-[![Build Status](<https://ikemtz.visualstudio.com/Devops/_apis/build/status/AZ%20Config/AZ%20Config%20(master)?branchName=master>)](https://ikemtz.visualstudio.com/Devops/_build?definitionId=29)
-[![Release Status](https://ikemtz.vsrm.visualstudio.com/_apis/public/Release/badge/9abb8a0b-71e1-4090-b59c-46edc077875f/7/7)](https://ikemtz.visualstudio.com/Devops/_release?view=all&_a=releases&definitionId=7)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=AzConfig&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AzConfig)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=AzConfig&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=AzConfig)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=AzConfig&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=AzConfig)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=AzConfig&metric=ncloc)](https://sonarcloud.io/dashboard?id=AzConfig)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AzConfig&metric=coverage)](https://sonarcloud.io/dashboard?id=AzConfig)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ikemtz/azconfig)](https://hub.docker.com/repository/docker/ikemtz/azconfig) [![CodeQL](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ikemtz/AngularMonoRepo/actions/workflows/codeql-analysis.yml)
-
-Running At: https://azconfig.azurewebsites.net/
-
-Source: https://github.com/ikemtz/AngularMonoRepo/tree/master/src/apps/imng-az-func-configr
-
 ## NurseCRON
 
 [![Build Status](<https://ikemtz.visualstudio.com/Devops/_apis/build/status/NurseCron/NurseCron%20Angular%20(master)?branchName=master>)](https://ikemtz.visualstudio.com/Devops/_build?definitionId=28)
