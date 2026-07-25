@@ -5,10 +5,8 @@ import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
 import { KENDO_GRID } from '@progress/kendo-angular-grid';
 import { KENDO_MENU } from '@progress/kendo-angular-menu';
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
-import {
-  IMNG_KENDO_GRID_STUBS,
-  provideGridStubComponent,
-} from 'imng-kendo-testing-stubs';
+import { IMNG_KENDO_GRID_STUBS } from 'imng-kendo-testing-stubs';
+import { provideGridStubComponent } from 'imng-kendo-grid/testing';
 import {
   createDataDeleteMockFacade,
   createDataEntryMockFacade,
