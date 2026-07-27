@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { OidcFacade, OidcUserFacade, IOidcUser } from 'imng-oidc-client';
 import { Observable } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'aw-nav-bar',
   imports: [CommonModule, RouterModule],
   templateUrl: './nav-bar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent {

@@ -10,6 +10,7 @@ import {
   EventEmitter,
   Output,
   inject,
+  input,
 } from '@angular/core';
 import {
   TypeaheadDirective,
@@ -51,7 +52,6 @@ export class IMNG_TYPE_AHEAD<T>
     const ngControl = inject(NgControl);
     const renderer = inject(Renderer2);
     const viewContainerRef = inject(ViewContainerRef);
-
     super(
       cis,
       {
@@ -68,13 +68,12 @@ export class IMNG_TYPE_AHEAD<T>
     this.typeaheadOnSelect = new EventEmitter<
       TypeaheadMatch | ImngMatchSelectedEvent<T>
     >(false);
-    this.typeaheadAsync = true;
-
-    //These are default values to avoid overtaxing the data endpoint
-    this.typeaheadMinLength = 1;
-    this.typeaheadWaitMs = 100;
   }
 
+  public override typeaheadAsync = input<boolean | undefined>(true);
+  public override typeaheadMinLength = input<number>(1);
+  public override typeaheadWaitMs = input<number>(100);
+  public facade = input<ImngTypeAheadFacade<T>>();
   @Input('imngTypeahead')
   set facade(typeAheadFacade: ImngTypeAheadFacade<T>) {
     this.typeahead = typeAheadFacade.matches$;

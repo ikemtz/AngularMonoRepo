@@ -22,6 +22,7 @@ import {
   Inject,
   Component,
   inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   ODataState,
@@ -51,6 +52,7 @@ const FACADE = new InjectionToken<IKendoODataGridFacade<unknown>>(
 const STATE = new InjectionToken<ODataState>('imng-grid-odata-odataState');
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export abstract class KendoODataBasedComponent<

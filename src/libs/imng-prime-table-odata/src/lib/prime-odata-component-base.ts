@@ -6,6 +6,7 @@ import {
   InjectionToken,
   Inject,
   Component,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { IPrimeODataTableFacade } from './prime-odata-table-facade';
 import { Router } from '@angular/router';
@@ -34,6 +35,7 @@ const FACADE = new InjectionToken<
 const STATE = new InjectionToken<PrimeTableState>('imng-prime-table-state');
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export abstract class ImngPrimeODataTableBaseComponent<
