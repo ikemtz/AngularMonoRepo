@@ -6,7 +6,6 @@ import {
   NO_ERRORS_SCHEMA,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries

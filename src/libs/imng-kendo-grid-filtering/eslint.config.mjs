@@ -15,7 +15,7 @@ export default [
   ...nx.configs['flat/angular'],
   ...compat
     .config({
-      extends: [],
+      extends: ['plugin:@angular-eslint/template/process-inline-templates'],
     })
     .map((config) => ({
       ...config,

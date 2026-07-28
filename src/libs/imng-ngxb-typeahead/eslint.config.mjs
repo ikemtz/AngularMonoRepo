@@ -1,6 +1,6 @@
 import { FlatCompat } from '@eslint/eslintrc';
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import js from '@eslint/js';
 import baseConfig from '../../eslint.config.mjs';
 import nx from '@nx/eslint-plugin';
@@ -41,7 +41,7 @@ export default [
       },
       languageOptions: {
         parserOptions: {
-          project: ['libs/imng-kendo-ngrx-idle/tsconfig.*?.json'],
+          project: ['libs/imng-ngxb-typeahead/tsconfig.*?.json'],
         },
       },
     })),

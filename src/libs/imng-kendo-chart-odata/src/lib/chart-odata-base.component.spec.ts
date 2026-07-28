@@ -4,7 +4,7 @@ import {
   ChartODataMockFacade,
   createChartODataMockFacade,
 } from '../../testing/src/lib/chart-odata-mock-facade';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 describe('ChartODataBaseComponent', () => {
   let component: ChartODataTestComponent;
