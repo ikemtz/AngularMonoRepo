@@ -45,6 +45,7 @@
       "ref": "e25fe2e2a9c07603fa2518a7fbd8f1643870c15a",
       "subject": "CSpell integration (#716)"
     },
-    "targetVersion": "latest"
+    "targetVersion": "latest",
+    "confirmedPackageUpdates": true
   }
 }
