@@ -6,6 +6,7 @@ import {
   NO_ERRORS_SCHEMA,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
 // tslint:disable-next-line: nx-enforce-module-boundaries
@@ -65,6 +66,7 @@ describe('DialogButtonsDirective', () => {
 @Component({
   selector: 'imng-thc',
   imports: [IMNG_KENDO_DATA_ENTRY_DIALOG, IMNG_KENDO_DIALOG_BUTTONS],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: ` <imng-data-entry-dialog
     [width]="700"
     [height]="550"
