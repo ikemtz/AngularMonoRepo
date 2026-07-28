@@ -211,15 +211,15 @@ export abstract class ProductBaseEntryComponent extends BaseDataEntryComponent<P
       switchMap(productModels => this.productModelFilter$.pipe(
         map(productModelFilter => productModelFilter ? productModels
           .filter(productModel => (
-            (productModel.name && productModel.name.toLowerCase().indexOf(productModelFilter) >= 0) ||
-            (productModel.description && productModel.description.toLowerCase().indexOf(productModelFilter) >= 0)
+            (productModel.name?.toLowerCase().includes(productModelFilter)) ||
+            (productModel.description?.toLowerCase().includes(productModelFilter))
           )) : productModels
     ))));
     this.productCategories$ = this.facade.productCategories$.pipe(
       switchMap(productCategories => this.productCategoryFilter$.pipe(
         map(productCategoryFilter => productCategoryFilter ? productCategories
           .filter(productCategory => (
-            (productCategory.name && productCategory.name.toLowerCase().indexOf(productCategoryFilter) >= 0)
+            (productCategory.name?.toLowerCase().includes(productCategoryFilter))
           )) : productCategories
     ))));
   }
