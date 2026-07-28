@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/prefer-inject */
-import { OnInit, Component, ChangeDetectionStrategy } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import {
@@ -11,7 +10,6 @@ import {
 import { CertificationCrudFacade } from './crud.facade';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export abstract class CertificationBaseEntryComponent
@@ -21,8 +19,8 @@ export abstract class CertificationBaseEntryComponent
   public readonly props = CertificationProperties;
   public addEditForm: FormGroup<ICertificationForm>;
 
-  constructor(facade: CertificationCrudFacade) {
-    super(facade);
+  constructor() {
+    super(inject(CertificationCrudFacade));
   }
   public override ngOnInit(): void {
     super.ngOnInit();

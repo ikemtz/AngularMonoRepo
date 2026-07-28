@@ -3,7 +3,6 @@ import {
   AfterViewInit,
   ViewChild,
   ViewEncapsulation,
-  ChangeDetectionStrategy
 } from '@angular/core';
 import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 
@@ -13,7 +12,6 @@ import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None,
   // eslint-disable-next-line @angular-eslint/prefer-standalone
-  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AppComponent implements AfterViewInit {

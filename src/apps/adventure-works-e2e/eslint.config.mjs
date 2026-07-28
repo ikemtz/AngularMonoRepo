@@ -1,6 +1,6 @@
 import { FlatCompat } from '@eslint/eslintrc';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import baseConfig from '../../eslint.config.mjs';
 
@@ -11,7 +11,7 @@ const compat = new FlatCompat({
 
 export default [
   ...baseConfig,
-  ...compat.extends('plugin:cypress/recommended'),
+  ...compat.extends(),
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     // Override or add rules here

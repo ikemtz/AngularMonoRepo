@@ -1,10 +1,12 @@
 import { FlatCompat } from '@eslint/eslintrc';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import nx from '@nx/eslint-plugin';
 import ngrxEslintPlugin from '@ngrx/eslint-plugin';
 import eslintPluginJest from 'eslint-plugin-jest';
+import angularTemplatePlugin from '@angular-eslint/eslint-plugin-template';
+import angularTemplateParser from '@angular-eslint/template-parser';
 import globals from 'globals';
 
 const compat = new FlatCompat({
@@ -32,7 +34,7 @@ export default [
   },
   ...compat
     .config({
-      extends: ['plugin:ngrx/all'],
+      extends: [],
     })
     .map((config) => ({
       ...config,
@@ -71,16 +73,45 @@ export default [
   },
   ...compat
     .config({
-      extends: ['plugin:@ngrx/all'],
+      extends: [],
     })
     .map((config) => ({
       ...config,
       files: ['**/*.ts'],
       rules: {
         ...config.rules,
+        ...ngrxEslintPlugin.configs.all,
       },
     })),
   {
-    ignores: ['libs/imng-oidc-client/src/assets', '**/gen-ts.js'],
+    files: ['**/*.html'],
+    plugins: {
+      '@angular-eslint/template': angularTemplatePlugin,
+    },
+    languageOptions: {
+      parser: angularTemplateParser,
+    },
+    rules: {
+      '@angular-eslint/template/interactive-supports-focus': 'warn',
+      '@angular-eslint/template/click-events-have-key-events': 'warn',
+    },
+  },
+  {
+    files: ['**/*.ts'],
+    plugins: {
+      '@angular-eslint/template': angularTemplatePlugin,
+    },
+    processor: '@angular-eslint/template/extract-inline-html',
+    rules: {
+      '@angular-eslint/template/interactive-supports-focus': 'warn',
+      '@angular-eslint/template/click-events-have-key-events': 'warn',
+    },
+  },
+  {
+    ignores: [
+      'libs/imng-oidc-client/src/assets',
+      '**/gen-ts.js',
+      '**/models/**/*.ts',
+    ],
   },
 ];

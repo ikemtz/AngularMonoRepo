@@ -4,7 +4,7 @@ import {
   ChartODataMockFacade,
   createChartODataMockFacade,
 } from '../../testing/src/lib/chart-odata-mock-facade';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 describe('ChartODataBaseComponent', () => {
   let component: ChartODataTestComponent;
@@ -30,8 +30,7 @@ describe('ChartODataBaseComponent', () => {
 
 @Component({
   selector: 'imng-test-component',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  template: '<h1></h1>',
+  template: '<h1>content</h1>',
 })
 export class ChartODataTestComponent extends ChartODataBaseComponent<ChartODataMockFacade> {
   constructor() {
