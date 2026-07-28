@@ -5,7 +5,6 @@ import {
   EventEmitter,
   Input,
   NO_ERRORS_SCHEMA,
-  Output,
 } from '@angular/core';
 
 type testType = number | string | undefined;
@@ -23,5 +22,5 @@ export class IMNG_KENDO_DIALOG_STUB {
   @Input() public minWidth: testType;
   @Input() public autoFocusedElement?: string;
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public close: EventEmitter<unknown> = new EventEmitter<unknown>(); //NOSONAR
+  public close: EventEmitter<unknown> = new EventEmitter<unknown>(); //NOSONAR
 }

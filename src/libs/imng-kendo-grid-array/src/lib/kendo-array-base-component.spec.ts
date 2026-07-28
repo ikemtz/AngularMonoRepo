@@ -5,6 +5,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   NO_ERRORS_SCHEMA,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { KendoArrayBasedComponent } from './kendo-array-base-component';
 import { IMNG_KENDO_GRID_ARRAY } from './kendo-array-grid.directive';
@@ -97,6 +98,7 @@ describe('KendoArrayBaseComponent', () => {
 @Component({
   selector: 'imng-test-component',
   imports: [AsyncPipe, KENDO_GRID, IMNG_KENDO_GRID_ARRAY],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: ` <kendo-grid [imngArrayGrid]="this">
       <kendo-grid-column field="id" />
     </kendo-grid>

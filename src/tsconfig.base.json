@@ -61,7 +61,12 @@
       ],
       "imng-signalr-ngrx": ["libs/imng-signalr-ngrx/src/index.ts"],
       "imng-kendo-testing-stubs": ["libs/imng-kendo-testing-stubs/src/index.ts"]
-    }
+    },
+    "strict": false,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }

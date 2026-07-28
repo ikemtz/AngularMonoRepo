@@ -1,4 +1,4 @@
-npm i --save --legacy-peer-deps \
+npm i --save --registry=https://registry.npmjs.com \
 @progress/kendo-angular-buttons@latest \
 @progress/kendo-angular-charts@latest \
 @progress/kendo-angular-common@latest \

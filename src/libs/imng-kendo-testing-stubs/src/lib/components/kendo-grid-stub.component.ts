@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Input,
   NO_ERRORS_SCHEMA,
+  TrackByFunction,
 } from '@angular/core';
 import { of } from 'rxjs';
 import {
@@ -14,6 +15,25 @@ import {
   GroupDescriptor,
   SortDescriptor,
 } from '@progress/kendo-data-query';
+import {
+  AdaptiveMode,
+  CellSelectedFn,
+  DataLayoutMode,
+  GridItem,
+  GridSize,
+  RowClassFn,
+  RowSelectableFn,
+  RowSelectedFn,
+  RowStickyFn,
+  ScrollMode,
+} from '../type';
+import { ColumnMenuSettings } from '../interfaces/column-menu-settings';
+import { DataLayoutModeSettings } from '../interfaces/data-layout-mode-settings';
+import { GridResizableSettings } from '../interfaces/grid-resizable-settings';
+import { RowArgs } from '../interfaces/row-args';
+import { GroupRowArgs } from '../interfaces/group-row-args';
+import { PagerSettings } from '../interfaces/pager-settings';
+import { SelectableSettings } from '../interfaces/selectable-settings';
 
 @Component({
   selector: 'kendo-grid',
@@ -33,7 +53,7 @@ export class IMNG_KENDO_GRID_STUB {
     | string
     | ((dataItem: never) => never) = 'kendoGridExpandDetailsBy';
   @Input() public expandedDetailKeys: never[] = [];
-  @Input() public columnMenu = false;
+  @Input() public columnMenu: boolean | ColumnMenuSettings = false;
   @Input() public filter?: CompositeFilterDescriptor | null;
   @Input() public filterable: boolean | string = false;
   @Input() public pageSize = 20;
@@ -46,6 +66,31 @@ export class IMNG_KENDO_GRID_STUB {
     | string
     | { allowUnsort: boolean; mode: string } = true;
   @Input() public navigable = true;
+
+  @Input() public adaptiveMode?: AdaptiveMode = 'none';
+  @Input() public autoSize? = false;
+  @Input() public cellSelected?: CellSelectedFn;
+  @Input() public dataLayoutMode?: DataLayoutMode | DataLayoutModeSettings =
+    'columns';
+  @Input() public detailRowHeight?: number;
+  @Input() public gridResizable?: boolean | GridResizableSettings = false;
+
+  @Input() public hideHeader? = false;
+  @Input() public isDetailExpanded?: (args: RowArgs) => boolean;
+  @Input() public isGroupExpanded?: (args: GroupRowArgs) => boolean;
+  @Input() public isRowSelectable?: RowSelectableFn;
+  @Input() public pageable?: boolean | PagerSettings = false;
+  @Input() public rowClass?: RowClassFn;
+  @Input() public rowHeight?: number;
+  @Input() public rowReorderable?: boolean = false;
+  @Input() public rowSelected?: RowSelectedFn;
+  @Input() public rowSticky?: RowStickyFn;
+  @Input() public scrollable?: ScrollMode = 'scrollable';
+  @Input() public selectable?: boolean | SelectableSettings = false;
+  @Input() public showInactiveTools?: boolean = false;
+  @Input() public size?: GridSize;
+  @Input() public trackBy?: TrackByFunction<GridItem>;
+  @Input() public virtualColumns?: boolean = false;
 
   public saveAsPDF = jest.fn();
   public saveAsExcel = jest.fn();
@@ -65,10 +110,27 @@ export class IMNG_KENDO_GRID_STUB {
     new EventEmitter<never>();
   public detailCollapse: EventEmitter<never> = new EventEmitter<never>();
   public edit: EventEmitter<never> = new EventEmitter<never>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   public cancel: EventEmitter<never> = new EventEmitter<never>();
   public save: EventEmitter<never> = new EventEmitter<never>();
   public remove: EventEmitter<never> = new EventEmitter<never>();
   public add: EventEmitter<never> = new EventEmitter<never>();
   public cellClose: EventEmitter<never> = new EventEmitter<never>();
   public cellClick: EventEmitter<never> = new EventEmitter<never>();
+
+  public columnLockedChange: EventEmitter<never> = new EventEmitter<never>();
+  public columnReorder: EventEmitter<never> = new EventEmitter<never>();
+  public columnResize: EventEmitter<never[]> = new EventEmitter<never[]>();
+  public columnStickyChange: EventEmitter<never> = new EventEmitter<never>();
+  public contentScroll: EventEmitter<never> = new EventEmitter<never>();
+  public csvExport: EventEmitter<never> = new EventEmitter<never>();
+  public gridStateChange: EventEmitter<never> = new EventEmitter<never>();
+  public groupCollapse: EventEmitter<GroupRowArgs> =
+    new EventEmitter<GroupRowArgs>();
+  public groupExpand: EventEmitter<GroupRowArgs> =
+    new EventEmitter<GroupRowArgs>();
+  public pdfExport: EventEmitter<never> = new EventEmitter<never>();
+  public rowReorder: EventEmitter<never> = new EventEmitter<never>();
+  public scrollBottom: EventEmitter<never> = new EventEmitter<never>();
+  public selectionChange: EventEmitter<never> = new EventEmitter<never>();
 }

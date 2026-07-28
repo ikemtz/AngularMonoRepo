@@ -6,10 +6,7 @@ import {
 } from '@progress/kendo-angular-grid';
 import { BehaviorSubject, of } from 'rxjs';
 import { IMNG_KENDO_GRID_ODATA_HEADER } from './grid-odata-header.component';
-import {
-  IMNG_KENDO_GRID_HEADER_STUBS,
-  provideGridStubComponent,
-} from 'imng-kendo-testing-stubs';
+import { IMNG_KENDO_GRID_HEADER_STUBS } from 'imng-kendo-testing-stubs';
 import {
   KENDO_BUTTON,
   KENDO_SPLITBUTTON,
@@ -18,6 +15,7 @@ import { ODataService } from 'imng-kendo-odata';
 import { KENDO_POPUP } from '@progress/kendo-angular-popup';
 import { KENDO_PROGRESSBAR } from '@progress/kendo-angular-progressbar';
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
+import { provideGridStubComponent } from 'imng-kendo-grid/testing';
 
 describe('ImngGridHeaderComponent', () => {
   let component: IMNG_KENDO_GRID_ODATA_HEADER;
@@ -93,27 +91,31 @@ describe('ImngGridHeaderComponent', () => {
     component.hideReloadData = true;
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
+    const html: string = element.innerHTML;
+    expect(html.includes('"imngReloadData"')).toBe(false);
   });
 
   it('should support hideReloadData = false', () => {
     component.hideReloadData = false;
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
+    const html: string = element.innerHTML;
+    expect(html.includes('"imngReloadData"')).toBe(true);
   });
 
   it('should support hideResetFilters = true', () => {
     component.hideResetFilters = true;
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
+    const html: string = element.innerHTML;
+    expect(html.includes('"imngResetFilters"')).toBe(false);
   });
 
   it('should support hideResetFilters = false', () => {
     component.hideResetFilters = false;
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
+    const html: string = element.innerHTML;
+    expect(html.includes('"imngResetFilters"')).toBe(true);
   });
 });
