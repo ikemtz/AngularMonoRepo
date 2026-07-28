@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
   inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   GridComponent,
@@ -134,6 +135,7 @@ import { KENDO_PROGRESSBAR } from '@progress/kendo-angular-progressbar';
           }" />
       }
     </div>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       .btn-sm {

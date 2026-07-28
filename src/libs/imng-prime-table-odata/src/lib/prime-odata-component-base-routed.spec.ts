@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ImngPrimeODataTableBaseComponent } from './prime-odata-component-base';
 import {
   ODataTableMockFacade,
@@ -95,6 +95,7 @@ const initialGridState: PrimeTableState = {
 @Component({
   selector: 'imng-test-component',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
 export class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
