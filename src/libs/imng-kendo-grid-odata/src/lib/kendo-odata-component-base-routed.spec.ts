@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import {
   ODataGridMockFacade,
@@ -103,6 +103,7 @@ const initialGridState: ODataState = {
 @Component({
   selector: 'imng-test-component',
   imports: [AsyncPipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<h1>{{ hasHiddenColumns$ | async }}</h1>',
 })
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<

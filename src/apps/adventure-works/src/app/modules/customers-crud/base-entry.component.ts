@@ -1,4 +1,4 @@
-import { OnInit, Component, inject } from '@angular/core';
+import { OnInit, Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
@@ -14,6 +14,7 @@ import {
 } from '../../models/webapi';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export abstract class CustomerBaseEntryComponent

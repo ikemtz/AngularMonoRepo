@@ -4,7 +4,7 @@ import {
   SortSettings,
   PageChangeEvent,
 } from '@progress/kendo-angular-grid';
-import { Input, ChangeDetectorRef, OnDestroy, Component } from '@angular/core';
+import { Input, ChangeDetectorRef, OnDestroy, Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   process,
   State,
@@ -17,6 +17,7 @@ import { Subscribable } from 'imng-ngrx-utils';
 import { KendoGridBaseComponent } from 'imng-kendo-grid';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export abstract class KendoArrayBasedComponent<PARENT_ENTITY, LISTED_ENTITY>

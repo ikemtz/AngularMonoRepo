@@ -24,9 +24,6 @@ describe('UnitCrudFacade', () => {
   let facade: UnitCrudFacade;
   let httpClient: HttpClient;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => {}); //NOSONAR
-
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({

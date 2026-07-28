@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import {
   ODataGridMockFacade,
@@ -142,7 +142,7 @@ const initialGridState: ODataState = {
 };
 @Component({
   selector: 'imng-test-component',
-  template: '<h1></h1>',
+  template: '<h1>content</h1>',
 })
 export class KendoODataGridTestComponent extends KendoODataBasedComponent<
   object,

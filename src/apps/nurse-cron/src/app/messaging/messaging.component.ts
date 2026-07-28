@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectionStrategy } from '@angular/core';
 import { SignalrFacade, ISignalrMessage } from 'imng-signalr-ngrx';
 import { take, filter, tap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
   selector: 'nrcrn-messaging',
   templateUrl: './messaging.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./messaging.component.scss'],
 })
 export class MessagingComponent implements OnInit, OnDestroy {
