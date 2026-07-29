@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/prefer-inject */
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import {
@@ -20,8 +19,8 @@ export abstract class ScheduleBaseEntryComponent
   public readonly props = ScheduleProperties;
   public addEditForm: FormGroup<IScheduleForm>;
 
-  constructor(facade: ScheduleCrudFacade) {
-    super(facade);
+  constructor() {
+    super(inject(ScheduleCrudFacade));
   }
   public override ngOnInit(): void {
     super.ngOnInit();
