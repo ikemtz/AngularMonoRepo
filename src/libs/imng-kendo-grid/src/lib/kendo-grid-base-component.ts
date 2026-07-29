@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscribable, Subscriptions } from 'imng-ngrx-utils';
 import { toLocalTimeStamp, getRelatedValue } from 'imng-nrsrx-client-utils';
 import {
@@ -16,7 +16,6 @@ import {
 } from 'openapi-ts-generator/enums';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

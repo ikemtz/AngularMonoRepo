@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/prefer-inject */
-import { OnInit, Component, ChangeDetectionStrategy } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
@@ -16,7 +16,6 @@ import {
 import { ProductCrudFacade } from './crud.facade';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export abstract class ProductBaseEntryComponent
@@ -41,14 +40,12 @@ export abstract class ProductBaseEntryComponent
             productModelFilter
               ? productModels.filter(
                   (productModel) =>
-                    (productModel.name &&
-                      productModel.name
-                        .toLowerCase()
-                        .indexOf(productModelFilter) >= 0) ||
-                    (productModel.description &&
-                      productModel.description
-                        .toLowerCase()
-                        .indexOf(productModelFilter) >= 0),
+                    productModel.name
+                      ?.toLowerCase()
+                      .includes(productModelFilter) ||
+                    productModel.description
+                      ?.toLowerCase()
+                      .includes(productModelFilter),
                 )
               : productModels,
           ),
@@ -60,12 +57,10 @@ export abstract class ProductBaseEntryComponent
         this.productCategoryFilter$.pipe(
           map((productCategoryFilter) =>
             productCategoryFilter
-              ? productCategories.filter(
-                  (productCategory) =>
-                    productCategory.name &&
-                    productCategory.name
-                      .toLowerCase()
-                      .indexOf(productCategoryFilter) >= 0,
+              ? productCategories.filter((productCategory) =>
+                  productCategory.name
+                    ?.toLowerCase()
+                    .includes(productCategoryFilter),
                 )
               : productCategories,
           ),

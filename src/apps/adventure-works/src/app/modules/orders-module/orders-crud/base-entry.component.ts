@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/prefer-inject */
-import { OnInit, Component, ChangeDetectionStrategy } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
@@ -18,7 +17,6 @@ import {
 import { OrderCrudFacade } from './crud.facade';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export abstract class OrderBaseEntryComponent
@@ -39,9 +37,9 @@ export abstract class OrderBaseEntryComponent
   public readonly shippingTypes$ = new BehaviorSubject(shippingTypeValues);
   public addEditForm: FormGroup<IOrderForm>;
 
-  constructor(facade: OrderCrudFacade) {
-    super(facade);
-    this.customers$ = facade.customers$.pipe(
+  constructor() {
+    super(inject(OrderCrudFacade));
+    this.customers$ = this.facade.customers$.pipe(
       switchMap((customers) =>
         this.customerFilter$.pipe(
           map((customerFilter) =>
@@ -67,7 +65,7 @@ export abstract class OrderBaseEntryComponent
         ),
       ),
     );
-    this.shipToAddresses$ = facade.shipToAddresses$.pipe(
+    this.shipToAddresses$ = this.facade.shipToAddresses$.pipe(
       switchMap((shipToAddresses) =>
         this.shipToAddressFilter$.pipe(
           map((shipToAddressFilter) =>
@@ -98,7 +96,7 @@ export abstract class OrderBaseEntryComponent
         ),
       ),
     );
-    this.billToAddresses$ = facade.billToAddresses$.pipe(
+    this.billToAddresses$ = this.facade.billToAddresses$.pipe(
       switchMap((billToAddresses) =>
         this.billToAddressFilter$.pipe(
           map((billToAddressFilter) =>

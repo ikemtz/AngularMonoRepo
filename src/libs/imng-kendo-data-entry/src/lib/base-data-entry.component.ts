@@ -6,7 +6,6 @@ import {
   Input,
   OnInit,
   OnDestroy,
-  ChangeDetectionStrategy
 } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import {
@@ -36,7 +35,6 @@ const FACADE = new InjectionToken<IBaseDataEntryFacade>(
  * @class BaseDataEntryComponent>
  */
 @Component({
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export abstract class BaseDataEntryComponent<

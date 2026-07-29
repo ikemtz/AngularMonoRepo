@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { IdleFacade } from '../+state/idle.facade';
 import { BehaviorSubject, Subscription, interval, Observable } from 'rxjs';
 import { tap, filter, switchMap, map } from 'rxjs/operators';
@@ -23,7 +23,6 @@ import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
       </kendo-dialog-actions>
     </kendo-dialog>
   }`,
-  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       .warn-msg {

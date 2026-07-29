@@ -1,7 +1,6 @@
 /* istanbul ignore file */
 import { jest } from '@jest/globals';
 import { PagerSettings } from '@progress/kendo-angular-grid';
-s;
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 import { ODataResult, ODataState } from 'imng-kendo-odata';
 import { Observable, of } from 'rxjs';

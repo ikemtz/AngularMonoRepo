@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   KENDO_GRID,
   KENDO_GRID_EXCEL_EXPORT,
@@ -91,7 +91,6 @@ import { Observable } from 'rxjs';
         }" />
     }
   </div>`,
-  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       .btn-sm {

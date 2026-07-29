@@ -1,4 +1,4 @@
-import { Component, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import {
   ColumnVisibilityChangeEvent,
   DataStateChangeEvent,
@@ -16,7 +16,6 @@ import { ICompositeFilter } from 'imng-odata-client';
 
 @Component({
   selector: 'imng-mock-grid',
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export class MockGridComponent {

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { KendoODataBasedComponent } from './kendo-odata-component-base';
 import {
   ODataGridMockFacade,

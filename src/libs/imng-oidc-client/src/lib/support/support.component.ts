@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OidcFacade } from '../+state/oidc.facade';
 import { OidcUserFacade } from '../+state/oidc-user.facade';
 import { Observable } from 'rxjs';
@@ -8,7 +8,6 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'imng-support',
   imports: [AsyncPipe],
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<div class="container pt-5 mt-5">
     <div class="row h3 text-center">
       <div class="col-md-12 text-center">OIDC Support</div>

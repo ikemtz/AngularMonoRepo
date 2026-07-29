@@ -54,7 +54,6 @@ describe('UnitCrudFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       facade = TestBed.inject(UnitCrudFacade);
       httpClient = TestBed.inject(HttpClient);
     });
