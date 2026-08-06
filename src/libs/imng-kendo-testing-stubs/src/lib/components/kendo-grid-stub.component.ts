@@ -44,6 +44,7 @@ import { SelectableSettings } from '../interfaces/selectable-settings';
 })
 export class IMNG_KENDO_GRID_STUB {
   @Input() public imngODataGrid?: never;
+  @Input() public imngArrayGrid?: never;
   @Input() public height = 500;
   @Input() public data: never[] | DataResult = [];
   @Input() public group?: Array<GroupDescriptor> | null;
