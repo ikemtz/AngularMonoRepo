@@ -1,6 +1,5 @@
 import { jest } from '@jest/globals';
 import { Observable, of } from 'rxjs';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   IChartODataFacade,
   ChartSeriesDataPoint,
