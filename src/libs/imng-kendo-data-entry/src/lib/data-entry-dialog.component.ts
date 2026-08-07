@@ -39,6 +39,7 @@ import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
       <button
         id="imngCancelDataEntry"
         name="imngCancelDataEntry"
+        [title]="cancelButtonText"
         kendoButton
         (click)="cancel()"
         class="btn btn-secondary btn-sm">
@@ -47,6 +48,7 @@ import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
       <button
         id="imngSubmitDataEntry"
         name="imngSubmitDataEntry"
+        [title]="submitButtonText"
         [attr.form]="formId"
         type="submit"
         kendoButton

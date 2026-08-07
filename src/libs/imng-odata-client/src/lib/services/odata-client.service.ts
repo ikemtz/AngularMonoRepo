@@ -46,6 +46,7 @@ export function getODataString(
   queryString = processCount(query, queryString);
   queryString = processCacheBusting(options, queryString);
   queryString = queryString.substring(1); // removing first &
+  queryString += getAdditionalParams(options);
   return queryString;
 }
 
@@ -62,6 +63,18 @@ export function processExpanders(
   return queryString;
 }
 
+export function getAdditionalParams(options: FetchOptions): string {
+  if (options.additionalParams) {
+    const keys = Object.keys(options.additionalParams);
+    const values = Object.values(options.additionalParams);
+    const queryStringParams = keys.map(
+      (key, index) =>
+        `&${encodeURIComponent(key)}=${encodeURIComponent(values[index])}`,
+    );
+    return queryStringParams.join('');
+  }
+  return '';
+}
 export function getExpansionString(element: Expander): string {
   let result = '';
   if (!element) {

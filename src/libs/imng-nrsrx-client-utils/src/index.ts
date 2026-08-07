@@ -13,3 +13,5 @@ export * from './lib/nrsrx-api-client';
 export * from './lib/num-pad';
 export * from './lib/to-date-only';
 export * from './lib/value-type';
+export * from './lib/batch-info';
+export * from './lib/get-batches';

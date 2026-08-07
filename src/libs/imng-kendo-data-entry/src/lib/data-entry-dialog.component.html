@@ -23,6 +23,7 @@
 <ng-template #defaultDialogActionsTpl>
   <button
     name="imngDataEntryCancelBtn"
+    [title]="cancelButtonText"
     kendoButton
     (click)="cancel()"
     class="btn btn-secondary btn-sm">
@@ -30,6 +31,7 @@
   </button>
   <button
     name="imngDataEntrySubmitBtn"
+    [title]="submitButtonText"
     [attr.form]="formId"
     type="submit"
     kendoButton
