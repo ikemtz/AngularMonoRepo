@@ -48,7 +48,7 @@
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
     "runningMigrations": [
-      "22-7-0-add-self-healing-to-gitignore"
+      "update-executor-lint-inputs"
     ],
     "completedMigrations": {
       "22-6-1-add-claude-worktrees-to-git-ignore": {
@@ -81,7 +81,14 @@
         "type": "successful",
         "name": "22-7-0-add-self-healing-to-gitignore",
         "changedFiles": [],
-        "ref": "71c8d43c830b5add26d612827f2c323af50252cb",
+        "ref": "67d38241f004aef1b4550054c5c1c8c016e465f7",
+        "nextSteps": []
+      },
+      "update-executor-lint-inputs": {
+        "type": "successful",
+        "name": "update-executor-lint-inputs",
+        "changedFiles": [],
+        "ref": "1033f126cca3086379f593c58313a92c6a1a4669",
         "nextSteps": []
       }
     }
