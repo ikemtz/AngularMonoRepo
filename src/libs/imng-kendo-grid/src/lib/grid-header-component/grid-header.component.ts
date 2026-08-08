@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 import {
   KENDO_GRID,
   KENDO_GRID_EXCEL_EXPORT,
@@ -18,26 +18,27 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'imng-kendo-odata-grid-header',
   imports: [
-    CommonModule,
+    AsyncPipe,
+    NgClass,
     KENDO_GRID,
     KENDO_GRID_PDF_EXPORT,
     KENDO_GRID_EXCEL_EXPORT,
     KENDO_ICONS,
   ],
   template: `<div class="mr-5 pr-5">
-    @if (entityName) {
+    @if (entityName()) {
       <button
         name="imngAddEntity"
         type="button"
-        title="Add {{ entityName }}"
+        title="Add {{ entityName() }}"
         primary="true"
         (click)="addItemClicked.emit()"
         class="btn btn-sm btn-primary mx-1">
         <kendo-svg-icon [icon]="plusIcon"></kendo-svg-icon>
-        Add {{ entityName }}
+        Add {{ entityName() }}
       </button>
     }
-    @if (hideResetFilters !== true) {
+    @if (hideResetFilters() !== true) {
       <button
         name="imngResetFilters"
         type="button"
@@ -47,7 +48,7 @@ import { Observable } from 'rxjs';
         <kendo-svgicon [icon]="filterClearIcon"></kendo-svgicon> Reset Filters
       </button>
     }
-    @if (hideReloadData !== true) {
+    @if (hideReloadData() !== true) {
       <button
         name="imngReloadData"
         type="button"
@@ -58,7 +59,7 @@ import { Observable } from 'rxjs';
         Reload Data
       </button>
     }
-    @if (hideExports !== true) {
+    @if (hideExports() !== true) {
       <button
         name="imngExportPDF"
         type="button"
@@ -69,7 +70,7 @@ import { Observable } from 'rxjs';
         Export to PDF
       </button>
     }
-    @if (hideExports !== true) {
+    @if (hideExports() !== true) {
       <button
         name="imngExportExcel"
         type="button"
@@ -80,14 +81,15 @@ import { Observable } from 'rxjs';
         Export To Excel
       </button>
     }
-    @if (hideColumnChooser !== true) {
+    @if (hideColumnChooser() !== true) {
+      Has Hidden Column: {{ hasHiddenColumns$() | async }}
       <kendo-grid-column-chooser
         name="imngColumnChooser"
         title="Columns"
         [allowHideAll]="true"
         [autoSync]="true"
         [ngClass]="{
-          'text-primary': (hasHiddenColumns$ | async),
+          'text-primary': (hasHiddenColumns$() | async),
         }" />
     }
   </div>`,
@@ -123,18 +125,12 @@ export class IMNG_KENDO_GRID_HEADER {
   public readonly filterClearIcon = filterClearIcon;
   public readonly arrowRotateCcwIcon = arrowRotateCcwIcon;
 
-  @Input()
-  public entityName = '';
-  @Input()
-  public hideColumnChooser = false;
-  @Input()
-  public hideResetFilters = false;
-  @Input()
-  public hideReloadData = false;
-  @Input()
-  public hideExports = false;
-  @Input()
-  public hasHiddenColumns$: Observable<boolean> | undefined;
+  public entityName = input('');
+  public hideColumnChooser = input(false);
+  public hideResetFilters = input(false);
+  public hideReloadData = input(false);
+  public hideExports = input(false);
+  public hasHiddenColumns$ = input<Observable<boolean> | undefined>();
   @Output()
   public addItemClicked = new EventEmitter();
   @Output()
