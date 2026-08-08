@@ -19,7 +19,7 @@ import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
       <p class="warn-msg">{{ secondsRemaining$ | async }} Seconds remaining</p>
       <kendo-dialog-actions>
         <button kendoButton (click)="close()">No</button>
-        <button kendoButton (click)="extend()" [primary]="true">Yes</button>
+        <button kendoButton (click)="extend()" themeColor="primary">Yes</button>
       </kendo-dialog-actions>
     </kendo-dialog>
   }`,

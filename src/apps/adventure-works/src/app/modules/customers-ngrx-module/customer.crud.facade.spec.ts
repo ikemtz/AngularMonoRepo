@@ -62,7 +62,7 @@ describe('CustomerCrudFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+       
       store = TestBed.inject(Store);
       facade = TestBed.inject(CustomerCrudFacade);
       httpClient = TestBed.inject(HttpClient);
