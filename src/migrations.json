@@ -47,9 +47,7 @@
     },
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
-    "runningMigrations": [
-      "update-executor-lint-inputs"
-    ],
+    "runningMigrations": [],
     "completedMigrations": {
       "22-6-1-add-claude-worktrees-to-git-ignore": {
         "type": "successful",
@@ -88,7 +86,7 @@
         "type": "successful",
         "name": "update-executor-lint-inputs",
         "changedFiles": [],
-        "ref": "1033f126cca3086379f593c58313a92c6a1a4669",
+        "ref": "d503f8a221cf661381fb2911b72c03d54b094222",
         "nextSteps": []
       }
     }
