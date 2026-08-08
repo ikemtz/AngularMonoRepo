@@ -46,6 +46,18 @@
       "subject": "CSpell integration (#716)"
     },
     "targetVersion": "latest",
-    "confirmedPackageUpdates": true
+    "confirmedPackageUpdates": true,
+    "runningMigrations": [
+      "22-6-1-add-claude-worktrees-to-git-ignore"
+    ],
+    "completedMigrations": {
+      "22-6-1-add-claude-worktrees-to-git-ignore": {
+        "type": "successful",
+        "name": "22-6-1-add-claude-worktrees-to-git-ignore",
+        "changedFiles": [],
+        "ref": "bf1cb154a69f1a830be6ef903301ed19c291c761",
+        "nextSteps": []
+      }
+    }
   }
 }
