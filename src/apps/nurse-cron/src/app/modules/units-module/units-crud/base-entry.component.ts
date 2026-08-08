@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/prefer-inject */
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
@@ -26,21 +25,17 @@ export abstract class UnitBaseEntryComponent
   public readonly buildingFilter$ = new BehaviorSubject('');
   public addEditForm: FormGroup<IUnitForm>;
 
-  constructor(facade: UnitCrudFacade) {
-    super(facade);
-    this.buildings$ = facade.buildings$.pipe(
+  constructor() {
+    super(inject(UnitCrudFacade));
+    this.buildings$ = this.facade.buildings$.pipe(
       switchMap((buildings) =>
         this.buildingFilter$.pipe(
           map((buildingFilter) =>
             buildingFilter
               ? buildings.filter(
                   (building) =>
-                    (building.name &&
-                      building.name.toLowerCase().indexOf(buildingFilter) >=
-                        0) ||
-                    (building.siteName &&
-                      building.siteName.toLowerCase().indexOf(buildingFilter) >=
-                        0),
+                    building.name?.toLowerCase().includes(buildingFilter) ||
+                    building.siteName?.toLowerCase().includes(buildingFilter),
                 )
               : buildings,
           ),

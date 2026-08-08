@@ -3,6 +3,7 @@ import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr
 } from '@angular/common/http';
 import { NgModule, ModuleWithProviders, DOCUMENT } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
@@ -46,7 +47,7 @@ import { oidcConfigurator } from './util/oidc-client-configurator';
     OidcFacade,
     OidcUserFacade,
     AuthGuard,
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

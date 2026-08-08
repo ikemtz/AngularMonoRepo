@@ -10,6 +10,7 @@ import {
 } from '@progress/kendo-angular-grid';
 import { of } from 'rxjs';
 import { IMNG_KENDO_GRID_HEADER } from './grid-header.component';
+import { hasHiddenColumns } from '../kendo-has-hidden-columns';
 
 describe('ImngGridHeaderComponent', () => {
   let component: IMNG_KENDO_GRID_HEADER;
@@ -60,7 +61,8 @@ describe('ImngGridHeaderComponent', () => {
   });
 
   it('should support hiddenColumns = true', () => {
-    component.hasHiddenColumns$ = of(true);
+    fixture.componentRef.setInput('hasHiddenColumns$', of(true));
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toContain('class="text-primary"');
@@ -76,34 +78,38 @@ describe('ImngGridHeaderComponent', () => {
   });
 
   it('should support hideReloadData = true', () => {
-    component.hideReloadData = true;
+    fixture.componentRef.setInput('hideReloadData', true);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
     const html: string = element.innerHTML;
-    expect(html.includes('"imngReloadData"')).toBe(false);
+    expect(html).not.toContain('"imngReloadData"');
   });
 
   it('should support hideReloadData = false', () => {
-    component.hideReloadData = false;
+    fixture.componentRef.setInput('hideReloadData', false);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
     const html: string = element.innerHTML;
-    expect(html.includes('"imngReloadData"')).toBe(true);
+    expect(html).toContain('"imngReloadData"');
   });
 
   it('should support hideResetFilters = true', () => {
-    component.hideResetFilters = true;
+    fixture.componentRef.setInput('hideResetFilters', true);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
     const html: string = element.innerHTML;
-    expect(html.includes('"imngResetFilters"')).toBe(false);
+    expect(html).not.toContain('"imngResetFilters"');
   });
 
   it('should support hideResetFilters = false', () => {
-    component.hideResetFilters = false;
+    fixture.componentRef.setInput('hideResetFilters', false);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
     const html: string = element.innerHTML;
-    expect(html.includes('"imngResetFilters"')).toBe(true);
+    expect(html).toContain('"imngResetFilters"');
   });
 });
