@@ -46,6 +46,49 @@
       "subject": "CSpell integration (#716)"
     },
     "targetVersion": "latest",
-    "confirmedPackageUpdates": true
+    "confirmedPackageUpdates": true,
+    "runningMigrations": [],
+    "completedMigrations": {
+      "22-6-1-add-claude-worktrees-to-git-ignore": {
+        "type": "successful",
+        "name": "22-6-1-add-claude-worktrees-to-git-ignore",
+        "changedFiles": [],
+        "ref": "115c00708a664d7911e9038b4499d59aac10575c",
+        "nextSteps": []
+      },
+      "22-7-0-add-polygraph-to-git-ignore": {
+        "type": "successful",
+        "name": "22-7-0-add-polygraph-to-git-ignore",
+        "changedFiles": [],
+        "ref": "dc2f6b5969c229caf17195dde7e99788fe8bed82",
+        "nextSteps": []
+      },
+      "22-6-0-add-claude-settings-local-to-git-ignore": {
+        "type": "successful",
+        "name": "22-6-0-add-claude-settings-local-to-git-ignore",
+        "changedFiles": [
+          {
+            "path": ".gitignore",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "2d4423e6ad95d679a62b8876d9f0571435d3ab09",
+        "nextSteps": []
+      },
+      "22-7-0-add-self-healing-to-gitignore": {
+        "type": "successful",
+        "name": "22-7-0-add-self-healing-to-gitignore",
+        "changedFiles": [],
+        "ref": "67d38241f004aef1b4550054c5c1c8c016e465f7",
+        "nextSteps": []
+      },
+      "update-executor-lint-inputs": {
+        "type": "successful",
+        "name": "update-executor-lint-inputs",
+        "changedFiles": [],
+        "ref": "d503f8a221cf661381fb2911b72c03d54b094222",
+        "nextSteps": []
+      }
+    }
   }
 }
