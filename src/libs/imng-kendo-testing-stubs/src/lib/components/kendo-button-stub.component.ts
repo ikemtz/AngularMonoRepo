@@ -6,6 +6,7 @@ import {
   Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
+import { SVGIcon } from '../interfaces/svg-icon';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -17,7 +18,7 @@ import {
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class IMNG_KENDO_BUTTON_STUB {
-  @Input() public svgIcon: unknown;
+  @Input() public svgIcon?: SVGIcon;
   @Input() public disabled?: boolean;
   @Input() public rounded: unknown;
   @Input() public fillMode: unknown;

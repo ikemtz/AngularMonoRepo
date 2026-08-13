@@ -97,6 +97,12 @@ export { IMNG_KENDO_LOADER_STUB } from './lib/components/kendo-loader-stub.compo
 export { IMNG_KENDO_SWITCH_STUB } from './lib/components/kendo-switch-stub.component';
 export { IMNG_KENDO_UPLOADDROPZONE_STUB } from './lib/components/kendo-uploaddropzone-stub.component';
 export { IMNG_KENDO_UPLOAD_STUB } from './lib/components/kendo-upload-stub.component';
+export { IMNG_KENDO_EDITOR_STUB } from './lib/components/kendo-editor-stub.component';
+export { IMNG_KENDO_LABEL_STUB } from './lib/components/kendo-label-stub.component';
+export { IMNG_KENDO_RADIO_BUTTON_STUB } from './lib/components/kendo-radio-button-stub.component';
+export { IMNG_KENDO_TOOLBAR_BUTTON_STUB } from './lib/components/kendo-toolbar-button-stub.component';
+export { IMNG_KENDO_TOOLBAR_BUTTONGROUP_STUB } from './lib/components/kendo-toolbar-buttongroup-stub.component';
+export { IMNG_KENDO_TOOLBAR_STUB } from './lib/components/kendo-toolbar-stub.component';
 
 export const IMNG_KENDO_GRID_STUBS = [
   IMNG_KENDO_GRID_STUB,
