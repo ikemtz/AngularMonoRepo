@@ -103,7 +103,7 @@ export { IMNG_KENDO_RADIO_BUTTON_STUB } from './lib/components/kendo-radio-butto
 export { IMNG_KENDO_TOOLBAR_BUTTON_STUB } from './lib/components/kendo-toolbar-button-stub.component';
 export { IMNG_KENDO_TOOLBAR_BUTTONGROUP_STUB } from './lib/components/kendo-toolbar-buttongroup-stub.component';
 export { IMNG_KENDO_TOOLBAR_STUB } from './lib/components/kendo-toolbar-stub.component';
-
+export { IMNG_EXPANSION_PANEL_STUB } from './lib/components/kendo-expansion-panel-stub.component';
 export const IMNG_KENDO_GRID_STUBS = [
   IMNG_KENDO_GRID_STUB,
   IMNG_KENDO_GRID_COLUMN_STUB,
