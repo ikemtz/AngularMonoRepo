@@ -7,11 +7,22 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import { InputSize } from '../type';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'kendo-radiobutton',
   template: '',
   standalone: true,
-  providers: [],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useValue: {
+        writeValue: jest.fn(),
+        registerOnChange: jest.fn(),
+        registerOnTouched: jest.fn(),
+      },
+      multi: true,
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })

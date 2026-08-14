@@ -34,7 +34,7 @@ export class IMNG_KENDO_TOOLBAR_BUTTON_STUB {
   @Input() public togglable?: boolean;
   @Input() public toggleable?: boolean = false;
 
-  click?: EventEmitter<never>;
-  pointerdown?: EventEmitter<never>;
-  selectedChange?: EventEmitter<never>;
+  click?: EventEmitter<never> = new EventEmitter<never>();
+  pointerdown?: EventEmitter<never> = new EventEmitter<never>();
+  selectedChange?: EventEmitter<never> = new EventEmitter<never>();
 }
