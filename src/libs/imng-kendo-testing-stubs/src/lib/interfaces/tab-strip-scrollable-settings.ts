@@ -1,4 +1,4 @@
-import { IMNG_KENDO_SVG_ICON_STUB } from '../components/kendo-svg-icon-stub.component';
+import { IMNG_KENDO_SVG_ICON_STUB } from '../kendo-components/kendo-svg-icon-stub.component';
 import {
   TabStripScrollButtonsPosition,
   TabStripScrollButtonsVisibility,
