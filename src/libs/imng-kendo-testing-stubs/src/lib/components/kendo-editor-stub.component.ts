@@ -11,11 +11,22 @@ import { PasteCleanupSettings } from '../interfaces/paste-cleanup-settings';
 import { EditorPasteEvent } from '../interfaces/editor-paste-event';
 import { EditorCommand } from '../types/editor-command';
 import { DialogCommand } from '../types/dialog-command';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'kendo-editor',
   template: '',
   standalone: true,
-  providers: [],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useValue: {
+        writeValue: jest.fn(),
+        registerOnChange: jest.fn(),
+        registerOnTouched: jest.fn(),
+      },
+      multi: true,
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
