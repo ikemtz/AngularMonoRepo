@@ -8,9 +8,8 @@ import {
   PDFCommandDirective,
   PDFService,
 } from '@progress/kendo-angular-grid';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IMNG_KENDO_GRID_HEADER } from './grid-header.component';
-import { hasHiddenColumns } from '../kendo-has-hidden-columns';
 
 describe('ImngGridHeaderComponent', () => {
   let component: IMNG_KENDO_GRID_HEADER;
@@ -60,6 +59,12 @@ describe('ImngGridHeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should not include "Has Hidden Column:"', () => {
+    const elementHtml: HTMLElement = fixture.debugElement.nativeElement;
+    expect(elementHtml).toMatchSnapshot();
+    expect(elementHtml.outerHTML).not.toContain('Has Hidden Column:');
+  });
+
   it('should support hiddenColumns = true', () => {
     fixture.componentRef.setInput('hasHiddenColumns$', of(true));
     fixture.changeDetectorRef.markForCheck();
@@ -69,7 +74,9 @@ describe('ImngGridHeaderComponent', () => {
   });
 
   it('should support hiddenColumns = false', () => {
-    component.hasHiddenColumns$ = of(false);
+    (
+      component as unknown as { hasHiddenColumns$: Observable<boolean> }
+    ).hasHiddenColumns$ = of(false);
     fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toContain(

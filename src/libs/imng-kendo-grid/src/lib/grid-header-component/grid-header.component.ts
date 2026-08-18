@@ -82,7 +82,6 @@ import { Observable } from 'rxjs';
       </button>
     }
     @if (hideColumnChooser() !== true) {
-      Has Hidden Column: {{ hasHiddenColumns$() | async }}
       <kendo-grid-column-chooser
         name="imngColumnChooser"
         title="Columns"
