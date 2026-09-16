@@ -10,12 +10,23 @@ import {
   OnInit,
 } from '@angular/core';
 import { InputRounded, InputSize } from '../type';
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { jest } from '@jest/globals';
 
 @Component({
   selector: 'kendo-switch',
   template: '',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useValue: {
+        writeValue: jest.fn(),
+        registerOnChange: jest.fn(),
+        registerOnTouched: jest.fn(),
+      },
+      multi: true,
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })

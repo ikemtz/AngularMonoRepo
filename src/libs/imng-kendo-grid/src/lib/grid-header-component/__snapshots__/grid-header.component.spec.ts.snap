@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ImngGridHeaderComponent should not include "Has Hidden Column:" 1`] = `
+<div>
+  <div
+    class="mr-5 pr-5"
+  >
+    
+    <button
+      class="btn btn-sm mx-1"
+      name="imngResetFilters"
+      title="Reset Filters"
+      type="button"
+    >
+      <kendo-svgicon
+        aria-hidden="true"
+        class="k-svg-i-filter-clear k-svg-icon k-icon"
+      >
+        <svg
+          aria-hidden="true"
+          style="pointer-events: none;"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path
+            d="m18 15.75 4.5 4.5m0-4.5-4.5 4.5M3.1969 5.7544A.75.75 0 0 1 3.75 4.5h16.5a.7502.7502 0 0 1 .7403.8699.75.75 0 0 1-.1853.3845L14.25 12.75v5.4984a.7496.7496 0 0 1-.3337.6244l-3 1.9997a.75.75 0 0 1-.7695.0378.75.75 0 0 1-.3968-.6603v-7.5z"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        
+      </kendo-svgicon>
+       Reset Filters 
+    </button>
+    
+    <button
+      class="btn btn-sm mx-1"
+      name="imngReloadData"
+      title="Clear Cache And Reload Data"
+      type="button"
+    >
+      <kendo-svg-icon
+        aria-hidden="true"
+        class="k-svg-i-arrow-rotate-ccw k-svg-icon k-icon"
+      >
+        <svg
+          aria-hidden="true"
+          style="pointer-events: none;"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path
+            d="M6.75 9.75h-4.5v-4.5m0 4.5 3.916-3.5842A8.25 8.25 0 1 1 6.3365 18"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        
+      </kendo-svg-icon>
+       Reload Data 
+    </button>
+    
+    <button
+      class="btn btn-sm mx-1 k-button k-grid-pdf"
+      dir="rtl"
+      kendogridpdfcommand=""
+      name="imngExportPDF"
+      title="Export To PDF"
+      type="button"
+    >
+      <kendo-icon-wrapper
+        class="k-icon-wrapper-host"
+        innercssclass="k-button-icon"
+      >
+        <kendo-svgicon
+          aria-hidden="true"
+          class="k-svg-i-file-pdf k-button-icon k-svg-icon k-icon"
+        >
+          <svg
+            aria-hidden="true"
+            style="pointer-events: none;"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <path
+              d="M20.25 14.25h-3v5.25m2.25-2.25h-2.25M4.5 18H6a1.875 1.875 0 0 0 1.875-1.875A1.875 1.875 0 0 0 6 14.25H4.5v5.25m15-9V8.25L14.25 3h-9a.75.75 0 0 0-.75.75v6.75M14.25 3v5.25h5.25m-9 6v5.25H12a2.625 2.625 0 0 0 1.8562-.7688 2.6254 2.6254 0 0 0 0-3.7124A2.625 2.625 0 0 0 12 14.25z"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          
+        </kendo-svgicon>
+        
+        
+      </kendo-icon-wrapper>
+      
+      
+      
+      <span
+        class="k-button-text"
+      >
+         Export to PDF 
+      </span>
+    </button>
+    
+    <button
+      class="btn btn-sm mx-1 k-button k-grid-excel"
+      dir="rtl"
+      kendogridexcelcommand=""
+      name="imngExportExcel"
+      title="Export To Excel"
+      type="button"
+    >
+      <kendo-icon-wrapper
+        class="k-icon-wrapper-host"
+        innercssclass="k-button-icon"
+      >
+        <kendo-svgicon
+          aria-hidden="true"
+          class="k-svg-i-file-excel k-button-icon k-svg-icon k-icon"
+        >
+          <svg
+            aria-hidden="true"
+            style="pointer-events: none;"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <path
+              d="M13.875 19.5H11.25v-5.25m8.25-3.75V8.25L14.25 3h-9a.75.75 0 0 0-.75.75v6.75M14.25 3v5.25h5.25m-15 6 3.75 5.25m0-5.25L4.5 19.5m14.6156-5.1002s-2.7591-.7294-2.9813 1.0312 3.6028.9488 3.3544 2.88c-.2316 1.7963-2.9794 1.0313-2.9794 1.0313"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          
+        </kendo-svgicon>
+        
+        
+      </kendo-icon-wrapper>
+      
+      
+      
+      <span
+        class="k-button-text"
+      >
+         Export To Excel 
+      </span>
+    </button>
+    
+    <kendo-grid-column-chooser
+      name="imngColumnChooser"
+      title="Columns"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="k-button k-button-flat k-icon-button"
+        dir="ltr"
+        fillmode="flat"
+        icon="columns"
+        kendobutton=""
+        type="button"
+      >
+        
+        <kendo-icon-wrapper
+          class="k-icon-wrapper-host"
+          innercssclass="k-button-icon"
+        >
+          <kendo-svgicon
+            aria-hidden="true"
+            class="k-svg-i-columns k-button-icon k-svg-icon k-icon"
+          >
+            <svg
+              aria-hidden="true"
+              style="pointer-events: none;"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path
+                d="M10.5 19.5v-15a.75.75 0 0 0-.75-.75H6a.75.75 0 0 0-.75.75v15a.75.75 0 0 0 .75.75h3.75a.75.75 0 0 0 .75-.75M18.75 19.5v-15a.75.75 0 0 0-.75-.75h-3.75a.75.75 0 0 0-.75.75v15a.75.75 0 0 0 .75.75H18a.75.75 0 0 0 .75-.75"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            
+          </kendo-svgicon>
+          
+          
+        </kendo-icon-wrapper>
+        
+        
+        
+        
+        
+        <span
+          class="k-button-text"
+        />
+        
+        
+        
+      </button>
+      
+    </kendo-grid-column-chooser>
+    
+  </div>
+</div>
+`;
