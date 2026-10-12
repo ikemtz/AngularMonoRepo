@@ -147,7 +147,7 @@
     "jsonc-eslint-parser": "^2.1.0",
     "ng-packagr": "22.0.2",
     "ngx-bootstrap": "^21.2.1",
-    "nx": "23.1.1",
+    "nx": "23.2.1",
     "openapi-mermaid": "^4.41.3",
     "openapi-ts-generator": "^10.52.2",
     "postcss": "^8.5.3",
