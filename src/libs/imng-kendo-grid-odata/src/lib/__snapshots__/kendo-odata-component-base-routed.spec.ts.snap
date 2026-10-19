@@ -3,6 +3,7 @@
 exports[`KendoODataBasedComponentRouted should reset 1`] = `
 {
   "childFilters": undefined,
+  "compute": undefined,
   "expanders": undefined,
   "filter": {
     "filters": [

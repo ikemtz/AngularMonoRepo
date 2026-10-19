@@ -27,13 +27,10 @@ export class AuthGuard {
       }),
     );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public canActivate(): Observable<boolean> {
-    //NOSONAR
     return this.isLoggedInPipe$;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public canActivateChild(): Observable<boolean> {
     return this.isLoggedInPipe$;
   }

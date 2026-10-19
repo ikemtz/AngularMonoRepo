@@ -16,6 +16,7 @@
           "dependencies": true
         }
       ],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/imng-prime-table-odata/ng-package.json",
         "tsConfig": "libs/imng-prime-table-odata/tsconfig.lib.json"
@@ -25,8 +26,7 @@
           "tsConfig": "libs/imng-prime-table-odata/tsconfig.lib.prod.json"
         },
         "development": {}
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

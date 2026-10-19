@@ -8,7 +8,6 @@ import {
   inject,
 } from '@angular/core';
 import { BaseDataEntryComponent } from './base-data-entry.component';
-// tslint:disable-next-line: nx-enforce-module-boundaries
 import {
   DataEntryMockFacade,
   createDataEntryMockFacade,

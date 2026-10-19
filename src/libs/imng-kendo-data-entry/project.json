@@ -9,23 +9,23 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-kendo-data-entry"],
-      "options": {
-        "project": "libs/imng-kendo-data-entry/ng-package.json",
-        "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json"
-      },
       "dependsOn": [
         {
           "target": "build",
           "dependencies": true
         }
       ],
+      "defaultConfiguration": "production",
+      "options": {
+        "project": "libs/imng-kendo-data-entry/ng-package.json",
+        "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.json"
+      },
       "configurations": {
         "production": {
           "tsConfig": "libs/imng-kendo-data-entry/tsconfig.lib.prod.json"
         },
         "development": {}
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

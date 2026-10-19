@@ -175,15 +175,6 @@ jobs:
           verbose: false
           customCommand: 'run build:grid-filt'
 
-      # - task: Npm@1
-      #   displayName: 'npm run build:type-ahead'
-      #   continueOnError: true
-      #   inputs:
-      #     command: custom
-      #     workingDir: 'src'
-      #     verbose: false
-      #     customCommand: 'run build:type-ahead'
-
       - task: Npm@1
         displayName: 'npm run build:oidc-client'
         continueOnError: true
@@ -346,15 +337,6 @@ jobs:
           workingDir: 'src'
           verbose: false
           customCommand: 'run test:oidc-client'
-
-      # - task: Npm@1
-      #   displayName: 'npm run test:type-ahead'
-      #   continueOnError: true
-      #   inputs:
-      #     command: custom
-      #     workingDir: 'src'
-      #     verbose: false
-      #     customCommand: 'run test:type-ahead'
 
       - task: Npm@1
         displayName: 'npm run test:app-insight'
