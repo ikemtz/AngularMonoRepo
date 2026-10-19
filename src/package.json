@@ -203,6 +203,7 @@
     "@progress/kendo-angular-popup": "^25.3.0",
     "@progress/kendo-angular-progressbar": "^25.3.0",
     "@progress/kendo-angular-toolbar": "^25.3.0",
+    "@progress/kendo-angular-tooltip": "^25.3.0",
     "@progress/kendo-angular-treeview": "^25.3.0",
     "@progress/kendo-angular-upload": "^25.3.0",
     "@progress/kendo-angular-utils": "^25.3.0",

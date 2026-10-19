@@ -21,14 +21,6 @@
         "development": {}
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/imng-odata-client"],
-      "options": {
-        "jestConfig": "libs/imng-odata-client/jest.config.ts",
-        "tsConfig": "libs/imng-odata-client/tsconfig.spec.json"
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }

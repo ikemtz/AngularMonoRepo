@@ -22,6 +22,7 @@ npm i --save --registry=https://registry.npmjs.com \
 @progress/kendo-angular-popup@latest \
 @progress/kendo-angular-progressbar@latest \
 @progress/kendo-angular-toolbar@latest \
+@progress/kendo-angular-tooltip@latest \
 @progress/kendo-angular-treeview@latest \
 @progress/kendo-angular-upload@latest \
 @progress/kendo-angular-utils@latest \
