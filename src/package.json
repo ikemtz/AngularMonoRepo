@@ -105,7 +105,7 @@
     "@angular-eslint/eslint-plugin": "22.6.0",
     "@angular-eslint/eslint-plugin-template": "22.6.0",
     "@angular-eslint/template-parser": "22.6.0",
-    "@angular/cli": "22.1.9",
+    "@angular/cli": "22.2.3",
     "@angular/compiler-cli": "22.1.8",
     "@angular/language-service": "22.1.8",
     "@eslint/eslintrc": "^3.0.0",
