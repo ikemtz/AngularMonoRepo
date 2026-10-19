@@ -199,8 +199,8 @@ export abstract class CustomerBaseEntryComponent extends BaseDataEntryComponent<
       switchMap(salesAgents => this.salesAgentFilter$.pipe(
         map(salesAgentFilter => salesAgentFilter ? salesAgents
           .filter(salesAgent => (
-            (salesAgent.name && salesAgent.name.toLowerCase().includes(salesAgentFilter)) ||
-            (salesAgent.loginId && salesAgent.loginId.toLowerCase().includes(salesAgentFilter))
+            (salesAgent.name?.toLowerCase().includes(salesAgentFilter)) ||
+            (salesAgent.loginId?.toLowerCase().includes(salesAgentFilter))
           )) : salesAgents
     ))));
   }

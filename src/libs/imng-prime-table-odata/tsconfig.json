@@ -28,7 +28,8 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "ignoreDeprecations": "6.0"
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

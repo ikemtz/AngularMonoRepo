@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-angular-core"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/imng-angular-core/ng-package.json"
       },
@@ -19,8 +20,7 @@
         "development": {
           "tsConfig": "libs/imng-angular-core/tsconfig.lib.json"
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

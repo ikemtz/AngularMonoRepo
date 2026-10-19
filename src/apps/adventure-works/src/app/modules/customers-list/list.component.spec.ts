@@ -1,7 +1,7 @@
 ///<reference types="jest" />
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { KENDO_GRID } from '@progress/kendo-angular-grid';
+import { GridComponent, KENDO_GRID } from '@progress/kendo-angular-grid';
 import { KENDO_SVGICON } from '@progress/kendo-angular-icons';
 import { KENDO_MENU } from '@progress/kendo-angular-menu';
 import { IMNG_KENDO_GRID_ODATA_HEADER } from 'imng-kendo-grid-odata';
@@ -25,8 +25,8 @@ import {
 import { createTestCustomer } from '../../models/webapi';
 import {
   IMNG_KENDO_GRID_STUBS,
-  IMNG_KENDO_GRID_HEADER_TESTING_STUBS,
-  provideGridStubComponent,
+  IMNG_KENDO_GRID_HEADER_STUBS,
+  IMNG_KENDO_GRID_STUB,
 } from 'imng-kendo-testing-stubs';
 import { CustomerAddComponent } from '../customers-crud/add.component';
 import { CustomerEditComponent } from '../customers-crud/edit.component';
@@ -69,8 +69,10 @@ describe('CustomerListComponent', () => {
           ],
         },
         add: {
-          imports: [...IMNG_KENDO_GRID_STUBS],
-          providers: [provideGridStubComponent()],
+          imports: [...IMNG_KENDO_GRID_STUBS, ...IMNG_KENDO_GRID_HEADER_STUBS],
+          providers: [
+            { provide: GridComponent, useClass: IMNG_KENDO_GRID_STUB },
+          ],
         },
       })
       .compileComponents();

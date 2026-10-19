@@ -7,7 +7,7 @@ export function serializeValue(
   if (isRelativeValue) {
     return value?.toString() ?? '';
   } else if (typeof value === 'string') {
-    return `'${value}'`;
+    return `'${encodeURIComponent(value)}'`;
   } else if (value instanceof Date) {
     return `${value.toISOString().split('T')[0]}`;
   }
