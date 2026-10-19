@@ -28,6 +28,7 @@ exports[`ImngGridHeaderComponent should not include "Has Hidden Column:" 1`] = `
             fill="none"
             stroke-linecap="round"
             stroke-linejoin="round"
+            stroke-width="var(--kendo-icon-stroke-width, 1.5)"
           />
         </svg>
         
@@ -57,6 +58,7 @@ exports[`ImngGridHeaderComponent should not include "Has Hidden Column:" 1`] = `
             fill="none"
             stroke-linecap="round"
             stroke-linejoin="round"
+            stroke-width="var(--kendo-icon-stroke-width, 1.5)"
           />
         </svg>
         
@@ -92,6 +94,7 @@ exports[`ImngGridHeaderComponent should not include "Has Hidden Column:" 1`] = `
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
+              stroke-width="var(--kendo-icon-stroke-width, 1.5)"
             />
           </svg>
           
@@ -137,6 +140,7 @@ exports[`ImngGridHeaderComponent should not include "Has Hidden Column:" 1`] = `
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
+              stroke-width="var(--kendo-icon-stroke-width, 1.5)"
             />
           </svg>
           
@@ -189,6 +193,7 @@ exports[`ImngGridHeaderComponent should not include "Has Hidden Column:" 1`] = `
                 fill="none"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                stroke-width="var(--kendo-icon-stroke-width, 1.5)"
               />
             </svg>
             
