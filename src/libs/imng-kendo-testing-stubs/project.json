@@ -16,6 +16,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/imng-kendo-testing-stubs/ng-package.json",
         "tsConfig": "libs/imng-kendo-testing-stubs/tsconfig.lib.json"
@@ -25,8 +26,7 @@
           "tsConfig": "libs/imng-kendo-testing-stubs/tsconfig.lib.prod.json"
         },
         "development": {}
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "nx-release-publish": {
       "options": {

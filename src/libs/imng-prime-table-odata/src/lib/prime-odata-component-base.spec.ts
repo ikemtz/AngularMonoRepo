@@ -143,7 +143,7 @@ const initialGridState: PrimeTableState = {
 };
 @Component({
   selector: 'imng-test-component',
-  template: '<h1></h1>',
+  template: '<h1>content</h1>',
 })
 class PrimeODataTableTestComponent extends ImngPrimeODataTableBaseComponent<
   object,

@@ -1,4 +1,4 @@
-npm i --save --legacy-peer-deps \
+npm i --save --registry=https://registry.npmjs.com \
 @progress/kendo-angular-buttons@latest \
 @progress/kendo-angular-charts@latest \
 @progress/kendo-angular-common@latest \
@@ -26,4 +26,10 @@ npm i --save --legacy-peer-deps \
 @progress/kendo-angular-upload@latest \
 @progress/kendo-angular-utils@latest \
 @progress/kendo-theme-bootstrap@latest \
-@progress/kendo-theme-default@latest
+@progress/kendo-theme-default@latest \
+@progress/kendo-data-query@latest \
+@progress/kendo-drawing@latest \
+@progress/kendo-svg-icons@latest
+
+npm i --save --registry=https://registry.npmjs.com \
+@progress/kendo-licensing@latest \

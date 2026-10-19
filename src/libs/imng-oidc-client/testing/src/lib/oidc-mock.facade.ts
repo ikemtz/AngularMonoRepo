@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -6,7 +5,6 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class OidcMockFacade {
-
   loggedIn$: Observable<boolean> = of(true);
   /**
    * Convenient function to wait for OIDC dependencies to be loaded.

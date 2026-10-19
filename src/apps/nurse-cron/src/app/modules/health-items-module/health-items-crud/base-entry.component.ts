@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/prefer-inject */
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseDataEntryComponent } from 'imng-kendo-data-entry';
 import {
@@ -20,8 +19,8 @@ export abstract class HealthItemBaseEntryComponent
   public readonly props = HealthItemProperties;
   public addEditForm: FormGroup<IHealthItemForm>;
 
-  constructor(facade: HealthItemCrudFacade) {
-    super(facade);
+  constructor() {
+    super(inject(HealthItemCrudFacade));
   }
 
   public override ngOnInit(): void {

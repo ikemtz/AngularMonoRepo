@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  ChangeDetectionStrategy,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { KENDO_ICONS } from '@progress/kendo-angular-icons';
 import { copyIcon } from '@progress/kendo-svg-icons';
 
@@ -18,7 +13,6 @@ import { copyIcon } from '@progress/kendo-svg-icons';
         [icon]="copyIcon"></kendo-svg-icon
     ></a>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IMNG_KENDO_COPY implements OnInit {
   public readonly copyIcon = copyIcon;

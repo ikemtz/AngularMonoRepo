@@ -19,7 +19,8 @@
     "strictPropertyInitialization": false,
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "es2024"
+    "target": "es2024",
+    "types": ["node"]
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.spec.ts"]

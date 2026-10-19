@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { readFirst } from 'imng-ngrx-utils/testing';
 import { of } from 'rxjs';
-import { FilterOperators, ODataResult } from '../models';
+import { FilterOperators, ODataQuery, ODataResult } from '../models';
 
 import { getODataString, ODataClientService } from './odata-client.service';
 
@@ -252,6 +252,31 @@ describe('ODataClientService', () => {
     expect(queryString).toMatchSnapshot();
   });
 
+  it('should serialize ODataQueries with an ampersand Filter', () => {
+    const queryString = getODataString({
+      filter: {
+        logic: 'and',
+        filters: [
+          {
+            field: 'xyz',
+            operator: FilterOperators.equals,
+            value: '&name',
+          },
+        ],
+      },
+      top: 123,
+      skip: 456,
+      expand: [{ table: 'xyz', select: ['id', 'abc'] }],
+      orderBy: [
+        { field: 'xyz', dir: 'desc' },
+        { field: 'id', dir: 'asc' },
+      ],
+    });
+    expect(queryString).not.toContain('?&');
+    expect(queryString).not.toContain('timestamp');
+    expect(queryString).toMatchSnapshot();
+  });
+
   it('should handle top: 0', () => {
     const queryString = getODataString({
       top: 0,
@@ -450,5 +475,20 @@ describe('ODataClientService', () => {
     expect(queryString).not.toContain('?&');
     expect(queryString).toContain('timestamp');
     expect(queryString).toHaveLength(55);
+  });
+
+  it('should support additionalParams', async () => {
+    const gridState: ODataQuery = {
+      expand: [
+        { table: 'childTable2' },
+        { table: 'childTable1', select: ['id', 'name'] },
+      ],
+      select: ['id', 'name'],
+    };
+
+    const queryString = getODataString(gridState, {
+      additionalParams: { foo: 'bar', baz: 'qux', specialUri: `<=&'>` },
+    });
+    expect(queryString).toMatchSnapshot();
   });
 });

@@ -1,7 +1,6 @@
 import { expect } from '@jest/globals';
 import { ODataState } from 'imng-kendo-odata';
 import { readFirst } from 'imng-ngrx-utils/testing';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { IKendoODataGridFacade } from 'imng-kendo-grid-odata';
 
 export async function testGridODataState<
