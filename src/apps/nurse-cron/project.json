@@ -86,14 +86,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/nurse-cron"],
-      "options": {
-        "jestConfig": "apps/nurse-cron/jest.config.ts",
-        "tsConfig": "apps/nurse-cron/tsconfig.spec.json"
-      }
     }
   }
 }

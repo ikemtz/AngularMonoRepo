@@ -27,14 +27,6 @@
         "development": {}
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/imng-oidc-client"],
-      "options": {
-        "jestConfig": "libs/imng-oidc-client/jest.config.ts",
-        "tsConfig": "libs/imng-oidc-client/tsconfig.spec.json"
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }

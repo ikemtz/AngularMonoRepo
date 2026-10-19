@@ -27,14 +27,6 @@
         "development": {}
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-data-entry"],
-      "options": {
-        "jestConfig": "libs/imng-kendo-data-entry/jest.config.ts",
-        "tsConfig": "libs/imng-kendo-data-entry/tsconfig.spec.json"
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }
