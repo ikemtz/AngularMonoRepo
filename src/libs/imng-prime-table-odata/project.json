@@ -28,14 +28,6 @@
         "development": {}
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/imng-prime-table-odata"],
-      "options": {
-        "jestConfig": "libs/imng-prime-table-odata/jest.config.ts",
-        "tsConfig": "libs/imng-prime-table-odata/tsconfig.spec.json"
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }
