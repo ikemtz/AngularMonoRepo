@@ -8,7 +8,7 @@ import {
   PDFCommandDirective,
   PDFService,
 } from '@progress/kendo-angular-grid';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IMNG_KENDO_GRID_HEADER } from './grid-header.component';
 
 describe('ImngGridHeaderComponent', () => {
@@ -59,15 +59,24 @@ describe('ImngGridHeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should not include "Has Hidden Column:"', () => {
+    const elementHtml: HTMLElement = fixture.debugElement.nativeElement;
+    expect(elementHtml).toMatchSnapshot();
+    expect(elementHtml.outerHTML).not.toContain('Has Hidden Column:');
+  });
+
   it('should support hiddenColumns = true', () => {
-    component.hasHiddenColumns$ = of(true);
+    fixture.componentRef.setInput('hasHiddenColumns$', of(true));
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toContain('class="text-primary"');
   });
 
   it('should support hiddenColumns = false', () => {
-    component.hasHiddenColumns$ = of(false);
+    (
+      component as unknown as { hasHiddenColumns$: Observable<boolean> }
+    ).hasHiddenColumns$ = of(false);
     fixture.detectChanges();
     const element = fixture.nativeElement;
     expect(element.innerHTML).toContain(
@@ -76,30 +85,38 @@ describe('ImngGridHeaderComponent', () => {
   });
 
   it('should support hideReloadData = true', () => {
-    component.hideReloadData = true;
+    fixture.componentRef.setInput('hideReloadData', true);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
+    const html: string = element.innerHTML;
+    expect(html).not.toContain('"imngReloadData"');
   });
 
   it('should support hideReloadData = false', () => {
-    component.hideReloadData = false;
+    fixture.componentRef.setInput('hideReloadData', false);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
+    const html: string = element.innerHTML;
+    expect(html).toContain('"imngReloadData"');
   });
 
   it('should support hideResetFilters = true', () => {
-    component.hideResetFilters = true;
+    fixture.componentRef.setInput('hideResetFilters', true);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
+    const html: string = element.innerHTML;
+    expect(html).not.toContain('"imngResetFilters"');
   });
 
   it('should support hideResetFilters = false', () => {
-    component.hideResetFilters = false;
+    fixture.componentRef.setInput('hideResetFilters', false);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
     const element = fixture.nativeElement;
-    expect(element.innerHTML).toMatchSnapshot();
+    const html: string = element.innerHTML;
+    expect(html).toContain('"imngResetFilters"');
   });
 });

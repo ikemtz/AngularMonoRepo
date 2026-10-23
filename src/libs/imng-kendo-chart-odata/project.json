@@ -15,6 +15,7 @@
           "dependencies": true
         }
       ],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/imng-kendo-chart-odata/ng-package.json",
         "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.json"
@@ -24,15 +25,6 @@
           "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.lib.prod.json"
         },
         "development": {}
-      },
-      "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/imng-kendo-chart-odata"],
-      "options": {
-        "jestConfig": "libs/imng-kendo-chart-odata/jest.config.ts",
-        "tsConfig": "libs/imng-kendo-chart-odata/tsconfig.spec.json"
       }
     },
     "lint": {

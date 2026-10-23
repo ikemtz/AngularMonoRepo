@@ -1,6 +1,6 @@
 export interface Margin {
-  bottom?: number;
-  left?: number;
-  right?: number;
-  top?: number;
+  bottom?: string | number;
+  left?: string | number;
+  right?: string | number;
+  top?: string | number;
 }
