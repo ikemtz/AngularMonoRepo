@@ -97,7 +97,7 @@
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
     "runningMigrations": [
-      "update-24-0-0-add-ready-when-signal"
+      "update-24-0-0-remove-scam-generator-defaults"
     ],
     "completedMigrations": {
       "24-0-0-move-custom-hashers-to-inputs": {
@@ -323,7 +323,19 @@
             "type": "UPDATE"
           }
         ],
-        "ref": "d225bca2543ecf3832d1ead134bb37febe3a7222",
+        "ref": "44f9016d6f3601831612e7ba5d272e07cc42abe9",
+        "nextSteps": []
+      },
+      "update-24-0-0-remove-scam-generator-defaults": {
+        "type": "successful",
+        "name": "update-24-0-0-remove-scam-generator-defaults",
+        "changedFiles": [
+          {
+            "path": "nx.json",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "e5850050f600db0676942c900d8c8cb002151358",
         "nextSteps": []
       }
     }
