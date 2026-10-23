@@ -76,6 +76,9 @@
         "development": {
           "buildTarget": "nurse-cron:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "extract-i18n": {

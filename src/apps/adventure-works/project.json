@@ -76,6 +76,9 @@
         "development": {
           "buildTarget": "adventure-works:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "extract-i18n": {

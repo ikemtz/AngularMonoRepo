@@ -67,6 +67,9 @@
         "development": {
           "buildTarget": "imng-inventory:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "extract-i18n": {

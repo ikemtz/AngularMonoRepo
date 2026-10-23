@@ -97,7 +97,7 @@
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
     "runningMigrations": [
-      "update-24-0-0-upgrade-to-angular-22-2"
+      "update-24-0-0-add-ready-when-signal"
     ],
     "completedMigrations": {
       "24-0-0-move-custom-hashers-to-inputs": {
@@ -303,7 +303,27 @@
             "type": "UPDATE"
           }
         ],
-        "ref": "b95841f94018511874996ac21d5d621944d1fc0f",
+        "ref": "281dc84b72388f6b239dab45dd059c984329e24a",
+        "nextSteps": []
+      },
+      "update-24-0-0-add-ready-when-signal": {
+        "type": "successful",
+        "name": "update-24-0-0-add-ready-when-signal",
+        "changedFiles": [
+          {
+            "path": "apps/adventure-works/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/imng-inventory/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/nurse-cron/project.json",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "d225bca2543ecf3832d1ead134bb37febe3a7222",
         "nextSteps": []
       }
     }
