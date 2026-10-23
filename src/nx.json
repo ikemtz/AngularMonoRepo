@@ -73,10 +73,20 @@
       "inputs": ["production", "^production"],
       "cache": true
     },
-    "e2e": {
-      "inputs": ["default", "^production"],
-      "cache": true
-    },
+    "e2e": [
+      {
+        "inputs": ["default", "^production"],
+        "cache": true
+      },
+      {
+        "filter": {
+          "plugin": "@nx/cypress/plugin"
+        },
+        "options": {
+          "config-file": "./cypress.config.ts"
+        }
+      }
+    ],
     "@nx/angular:package": {
       "cache": true,
       "dependsOn": ["^build"],
@@ -183,6 +193,15 @@
         "libs/imng-signalr-ngrx/**/*",
         "libs/imng-snippets/**/*"
       ]
+    },
+    {
+      "plugin": "@nx/cypress/plugin",
+      "options": {
+        "targetName": "e2e",
+        "ciTargetName": "e2e-ci",
+        "componentTestingTargetName": "component-test",
+        "openTargetName": "open-cypress"
+      }
     }
   ],
   "affected": {

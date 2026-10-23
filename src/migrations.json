@@ -97,7 +97,7 @@
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
     "runningMigrations": [
-      "remove-deprecated-executors-1"
+      "remove-deprecated-executors-2"
     ],
     "completedMigrations": {
       "24-0-0-move-custom-hashers-to-inputs": {
@@ -252,10 +252,46 @@
         "type": "successful",
         "name": "remove-deprecated-executors-1",
         "changedFiles": [],
-        "ref": "4e9f11e632e84d2a0c902da6e90467f41684c6a5",
+        "ref": "61b4289fa7907073c42b5851e46ef9f0c1d11d88",
         "nextSteps": [],
         "acknowledgedPrompt": true,
         "skipAgentic": true
+      },
+      "remove-deprecated-executors-2": {
+        "type": "successful",
+        "name": "remove-deprecated-executors-2",
+        "changedFiles": [
+          {
+            "path": "apps/adventure-works-e2e/cypress.config.ts",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/imng-inventory-e2e/cypress.config.ts",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/nurse-cron-e2e/cypress.config.ts",
+            "type": "UPDATE"
+          },
+          {
+            "path": "nx.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/adventure-works-e2e/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/imng-inventory-e2e/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/nurse-cron-e2e/project.json",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "c97c200ceae109f3e40ee78adfd0f6c71185468a",
+        "nextSteps": []
       }
     }
   }

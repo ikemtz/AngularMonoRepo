@@ -5,19 +5,6 @@
   "projectType": "application",
   "tags": [],
   "implicitDependencies": ["nurse-cron"],
-  "targets": {
-    "e2e": {
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "cypressConfig": "apps/nurse-cron-e2e/cypress.config.ts",
-        "devServerTarget": "nurse-cron:serve:development",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "nurse-cron:serve:production"
-        }
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project nurse-cron-e2e --web",
+  "targets": {}
 }
