@@ -95,6 +95,20 @@
       "subject": "chore: migrate nx to latest"
     },
     "targetVersion": "latest",
-    "confirmedPackageUpdates": true
+    "confirmedPackageUpdates": true,
+    "runningMigrations": [
+      "24-0-0-move-custom-hashers-to-inputs"
+    ],
+    "completedMigrations": {
+      "24-0-0-move-custom-hashers-to-inputs": {
+        "type": "successful",
+        "name": "24-0-0-move-custom-hashers-to-inputs",
+        "changedFiles": [],
+        "ref": "4c6a9ee50549f85224ff45083d6f069ef0bd1ea8",
+        "nextSteps": [],
+        "acknowledgedPrompt": true,
+        "skipAgentic": true
+      }
+    }
   }
 }
