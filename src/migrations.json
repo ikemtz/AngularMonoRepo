@@ -97,7 +97,7 @@
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
     "runningMigrations": [
-      "remove-deprecated-executors-2"
+      "update-24-0-0-upgrade-to-angular-22-2"
     ],
     "completedMigrations": {
       "24-0-0-move-custom-hashers-to-inputs": {
@@ -290,7 +290,20 @@
             "type": "UPDATE"
           }
         ],
-        "ref": "c97c200ceae109f3e40ee78adfd0f6c71185468a",
+        "ref": "1b05c688a06ebd43db766bdeb996e28388a375c2",
+        "nextSteps": [],
+        "acknowledgedPrompt": true
+      },
+      "update-24-0-0-upgrade-to-angular-22-2": {
+        "type": "successful",
+        "name": "update-24-0-0-upgrade-to-angular-22-2",
+        "changedFiles": [
+          {
+            "path": "package.json",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "b95841f94018511874996ac21d5d621944d1fc0f",
         "nextSteps": []
       }
     }
