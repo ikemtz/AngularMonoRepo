@@ -160,5 +160,8 @@
         "libs/imng-snippets/**/*"
       ]
     }
-  ]
+  ],
+  "affected": {
+    "legacy": true
+  }
 }
