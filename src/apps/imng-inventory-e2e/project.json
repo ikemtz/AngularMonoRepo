@@ -18,9 +18,6 @@
           "devServerTarget": "imng-inventory:serve:production"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

@@ -97,7 +97,7 @@
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
     "runningMigrations": [
-      "24-0-0-rename-ultracache-ignore-options"
+      "remove-deprecated-executors"
     ],
     "completedMigrations": {
       "24-0-0-move-custom-hashers-to-inputs": {
@@ -125,7 +125,119 @@
         "type": "successful",
         "name": "24-0-0-rename-ultracache-ignore-options",
         "changedFiles": [],
-        "ref": "357ee8cdbc31c97886199f88bbee73feb2800ac4",
+        "ref": "149ef662791ecfcf7149feec12954b5d585d92cb",
+        "nextSteps": []
+      },
+      "remove-deprecated-executors": {
+        "type": "successful",
+        "name": "remove-deprecated-executors",
+        "changedFiles": [
+          {
+            "path": "nx.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/adventure-works/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/adventure-works-e2e/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/imng-inventory/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/imng-inventory-e2e/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/nurse-cron/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "apps/nurse-cron-e2e/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-angular-core/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-application-insights-ngrx/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-chart-odata/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-data-entry/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-grid/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-grid-array/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-grid-editable/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-grid-filtering/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-grid-odata/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-ngrx-idle/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-odata/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-kendo-testing-stubs/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-ngrx-utils/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-nrsrx-client-utils/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-odata-client/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-oidc-client/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-prime-table-odata/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-signalr-ngrx/project.json",
+            "type": "UPDATE"
+          },
+          {
+            "path": "libs/imng-snippets/project.json",
+            "type": "UPDATE"
+          }
+        ],
+        "ref": "40dd0e4d836d9b7d3f914c2676e4e9f9ee26c018",
         "nextSteps": []
       }
     }

@@ -18,9 +18,6 @@
           "devServerTarget": "adventure-works:serve:production"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

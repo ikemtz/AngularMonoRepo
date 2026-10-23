@@ -18,9 +18,6 @@
           "devServerTarget": "nurse-cron:serve:production"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

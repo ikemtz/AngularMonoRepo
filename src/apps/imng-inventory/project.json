@@ -74,9 +74,6 @@
       "options": {
         "buildTarget": "imng-inventory:build"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

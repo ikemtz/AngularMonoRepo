@@ -77,15 +77,6 @@
       "inputs": ["default", "^production"],
       "cache": true
     },
-    "@nx/eslint:lint": {
-      "inputs": [
-        "default",
-        "^default",
-        "{workspaceRoot}/eslint.config.mjs",
-        "{workspaceRoot}/tools/eslint-rules/**/*"
-      ],
-      "cache": true
-    },
     "@nx/angular:package": {
       "cache": true,
       "dependsOn": ["^build"],
@@ -139,6 +130,39 @@
         "apps/adventure-works/**/*",
         "apps/imng-inventory/**/*",
         "apps/nurse-cron/**/*",
+        "libs/imng-angular-core/**/*",
+        "libs/imng-application-insights-ngrx/**/*",
+        "libs/imng-kendo-chart-odata/**/*",
+        "libs/imng-kendo-data-entry/**/*",
+        "libs/imng-kendo-grid/**/*",
+        "libs/imng-kendo-grid-array/**/*",
+        "libs/imng-kendo-grid-editable/**/*",
+        "libs/imng-kendo-grid-filtering/**/*",
+        "libs/imng-kendo-grid-odata/**/*",
+        "libs/imng-kendo-ngrx-idle/**/*",
+        "libs/imng-kendo-odata/**/*",
+        "libs/imng-kendo-testing-stubs/**/*",
+        "libs/imng-ngrx-utils/**/*",
+        "libs/imng-nrsrx-client-utils/**/*",
+        "libs/imng-odata-client/**/*",
+        "libs/imng-oidc-client/**/*",
+        "libs/imng-prime-table-odata/**/*",
+        "libs/imng-signalr-ngrx/**/*",
+        "libs/imng-snippets/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      },
+      "include": [
+        "apps/adventure-works/**/*",
+        "apps/adventure-works-e2e/**/*",
+        "apps/imng-inventory/**/*",
+        "apps/imng-inventory-e2e/**/*",
+        "apps/nurse-cron/**/*",
+        "apps/nurse-cron-e2e/**/*",
         "libs/imng-angular-core/**/*",
         "libs/imng-application-insights-ngrx/**/*",
         "libs/imng-kendo-chart-odata/**/*",
