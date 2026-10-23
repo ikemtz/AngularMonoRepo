@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-nrsrx-client-utils"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/imng-nrsrx-client-utils/ng-package.json",
         "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.json"
@@ -18,15 +19,6 @@
           "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.lib.prod.json"
         },
         "development": {}
-      },
-      "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/imng-nrsrx-client-utils"],
-      "options": {
-        "jestConfig": "libs/imng-nrsrx-client-utils/jest.config.ts",
-        "tsConfig": "libs/imng-nrsrx-client-utils/tsconfig.spec.json"
       }
     },
     "lint": {

@@ -29,9 +29,6 @@ describe('EmployeeCrudFacade', () => {
   let store: Store;
   let httpClient: HttpClient;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  beforeEach(() => { }); //NOSONAR
-
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
@@ -52,7 +49,7 @@ describe('EmployeeCrudFacade', () => {
           },
         ],
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -61,10 +58,9 @@ describe('EmployeeCrudFacade', () => {
           CustomFeatureModule,
         ],
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       store = TestBed.inject(Store);
       facade = TestBed.inject(EmployeeCrudFacade);
       httpClient = TestBed.inject(HttpClient);

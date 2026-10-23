@@ -1,4 +1,4 @@
-import { IMNG_KENDO_CHART_STUB } from '../components/kendo-chart-stub.component';
+import { IMNG_KENDO_CHART_STUB } from '../kendo-components/kendo-chart-stub.component';
 import { Point } from './point';
 import { Rect } from './rect';
 

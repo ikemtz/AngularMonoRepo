@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/imng-snippets"],
+      "defaultConfiguration": "production",
       "options": {
         "project": "libs/imng-snippets/ng-package.json"
       },
@@ -19,14 +20,6 @@
         "development": {
           "tsConfig": "libs/imng-snippets/tsconfig.lib.json"
         }
-      },
-      "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/imng-snippets"],
-      "options": {
-        "jestConfig": "libs/imng-snippets/jest.config.ts"
       }
     },
     "lint": {

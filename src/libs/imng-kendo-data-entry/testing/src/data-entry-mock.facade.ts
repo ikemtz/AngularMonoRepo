@@ -1,6 +1,5 @@
 import { jest } from '@jest/globals';
 import { Observable, of } from 'rxjs';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { IDataEntryFacade } from 'imng-kendo-data-entry';
 
 export class DataEntryMockFacade implements IDataEntryFacade<unknown> {
