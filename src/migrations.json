@@ -97,7 +97,7 @@
     "targetVersion": "latest",
     "confirmedPackageUpdates": true,
     "runningMigrations": [
-      "24-0-0-enable-legacy-affected"
+      "24-0-0-rename-ultracache-ignore-options"
     ],
     "completedMigrations": {
       "24-0-0-move-custom-hashers-to-inputs": {
@@ -118,7 +118,14 @@
             "type": "UPDATE"
           }
         ],
-        "ref": "74d0b84c930478ab72b0f23ea1e957f3b2669d71",
+        "ref": "c92b509eebf21628dde71a261230bbf6eb6110fd",
+        "nextSteps": []
+      },
+      "24-0-0-rename-ultracache-ignore-options": {
+        "type": "successful",
+        "name": "24-0-0-rename-ultracache-ignore-options",
+        "changedFiles": [],
+        "ref": "357ee8cdbc31c97886199f88bbee73feb2800ac4",
         "nextSteps": []
       }
     }
