@@ -1,0 +1,11 @@
+{
+  "migrations": [],
+  "nx-console": {
+    "initialGitRef": {
+      "ref": "8238a3e623dc8e88f64dc8ae9721666437328839",
+      "subject": "NX 24 migrations"
+    },
+    "targetVersion": "24.0.1",
+    "confirmedPackageUpdates": true
+  }
+}
