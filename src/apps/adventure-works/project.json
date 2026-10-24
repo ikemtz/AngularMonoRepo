@@ -8,7 +8,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/adventure-works",
@@ -26,7 +28,9 @@
             "output": "/"
           }
         ],
-        "styles": ["apps/adventure-works/src/styles.scss"],
+        "styles": [
+          "apps/adventure-works/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {

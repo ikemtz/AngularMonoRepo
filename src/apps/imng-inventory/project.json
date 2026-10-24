@@ -8,7 +8,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/imng-inventory",
@@ -21,7 +23,9 @@
           "apps/imng-inventory/src/favicon.ico",
           "apps/imng-inventory/src/assets"
         ],
-        "styles": ["apps/imng-inventory/src/styles.scss"],
+        "styles": [
+          "apps/imng-inventory/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
