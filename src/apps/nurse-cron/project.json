@@ -8,7 +8,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/nurse-cron",
@@ -26,7 +28,9 @@
             "output": "/"
           }
         ],
-        "styles": ["apps/nurse-cron/src/styles.scss"],
+        "styles": [
+          "apps/nurse-cron/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {

@@ -29,12 +29,6 @@
     "@schematics/angular:service": {
       "type": "service"
     },
-    "@nx/angular:scam": {
-      "type": "component"
-    },
-    "@nx/angular:scam-directive": {
-      "type": "directive"
-    },
     "@nx/angular:guard": {
       "typeSeparator": "."
     },
@@ -69,12 +63,20 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ],
       "cache": true
     },
     "e2e": {
-      "inputs": ["default", "^production"],
+      "inputs": [
+        "default",
+        "^production"
+      ],
       "cache": true
     },
     "@nx/eslint:lint": {
@@ -88,8 +90,13 @@
     },
     "@nx/angular:package": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "test": [
       {
@@ -109,8 +116,13 @@
     ]
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "sharedGlobals": ["{workspaceRoot}/azure-pipelines.yml"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/azure-pipelines.yml"
+    ],
     "production": [
       "default",
       "!{projectRoot}/eslint.config.mjs",
