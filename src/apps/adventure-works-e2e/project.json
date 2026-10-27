@@ -5,22 +5,6 @@
   "projectType": "application",
   "tags": [],
   "implicitDependencies": ["adventure-works"],
-  "targets": {
-    "e2e": {
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "cypressConfig": "apps/adventure-works-e2e/cypress.config.ts",
-        "devServerTarget": "adventure-works:serve:development",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "adventure-works:serve:production"
-        }
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
-  }
+  "// targets": "to see all targets run: nx show project adventure-works-e2e --web",
+  "targets": {}
 }

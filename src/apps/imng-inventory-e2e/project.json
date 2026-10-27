@@ -5,22 +5,6 @@
   "projectType": "application",
   "tags": [],
   "implicitDependencies": ["imng-inventory"],
-  "targets": {
-    "e2e": {
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "cypressConfig": "apps/imng-inventory-e2e/cypress.config.ts",
-        "devServerTarget": "imng-inventory:serve:development",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "imng-inventory:serve:production"
-        }
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
-  }
+  "// targets": "to see all targets run: nx show project imng-inventory-e2e --web",
+  "targets": {}
 }

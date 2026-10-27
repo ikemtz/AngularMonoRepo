@@ -11,6 +11,9 @@ const compat = new FlatCompat({
 });
 
 export default [
+  {
+    ignores: ['src/assets/**'],
+  },
   ...baseConfig,
   ...nx.configs['flat/angular'],
   ...compat

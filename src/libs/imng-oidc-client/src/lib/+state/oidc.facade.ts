@@ -106,7 +106,6 @@ export class OidcFacade {
     this.store?.dispatch(oidcActions.onUserSignedOut());
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public addUserSessionChanged(): void {
     this.store.dispatch(oidcActions.onSessionChanged());
   }
@@ -172,7 +171,6 @@ export class OidcFacade {
     return this.oidcService.getSignoutUrl(args);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerEvent(event: OidcEvent, callback: (...ev: unknown[]) => void): void {
     this.oidcService.registerOidcEvent(event, callback);
   }

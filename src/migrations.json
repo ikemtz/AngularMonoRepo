@@ -1,94 +1,11 @@
 {
-  "migrations": [
-    {
-      "cli": "nx",
-      "version": "22.6.0-beta.10",
-      "description": "Adds .claude/worktrees to .gitignore",
-      "implementation": "./dist/src/migrations/update-22-6-0/add-claude-worktrees-to-git-ignore",
-      "package": "nx",
-      "name": "22-6-1-add-claude-worktrees-to-git-ignore"
-    },
-    {
-      "cli": "nx",
-      "version": "22.7.0-beta.0",
-      "description": "Adds .nx/polygraph to .gitignore",
-      "implementation": "./dist/src/migrations/update-22-7-0/add-polygraph-to-git-ignore",
-      "package": "nx",
-      "name": "22-7-0-add-polygraph-to-git-ignore"
-    },
-    {
-      "cli": "nx",
-      "version": "22.6.0-rc.0",
-      "description": "Adds .claude/settings.local.json to .gitignore",
-      "implementation": "./dist/src/migrations/update-17-3-0/update-nxw",
-      "package": "nx",
-      "name": "22-6-0-add-claude-settings-local-to-git-ignore"
-    },
-    {
-      "cli": "nx",
-      "version": "22.7.0-beta.0",
-      "description": "Adds .nx/self-healing to .gitignore",
-      "implementation": "./dist/src/migrations/update-22-2-0/add-self-healing-to-gitignore",
-      "package": "nx",
-      "name": "22-7-0-add-self-healing-to-gitignore"
-    },
-    {
-      "version": "22.7.0-beta.12",
-      "description": "Add missing inputs to @nx/eslint:lint executor target defaults",
-      "implementation": "./src/migrations/update-21-6-0/update-executor-lint-inputs",
-      "package": "@nx/eslint",
-      "name": "update-executor-lint-inputs"
-    }
-  ],
+  "migrations": [],
   "nx-console": {
     "initialGitRef": {
-      "ref": "e25fe2e2a9c07603fa2518a7fbd8f1643870c15a",
-      "subject": "CSpell integration (#716)"
+      "ref": "8238a3e623dc8e88f64dc8ae9721666437328839",
+      "subject": "NX 24 migrations"
     },
-    "targetVersion": "latest",
-    "confirmedPackageUpdates": true,
-    "runningMigrations": [],
-    "completedMigrations": {
-      "22-6-1-add-claude-worktrees-to-git-ignore": {
-        "type": "successful",
-        "name": "22-6-1-add-claude-worktrees-to-git-ignore",
-        "changedFiles": [],
-        "ref": "115c00708a664d7911e9038b4499d59aac10575c",
-        "nextSteps": []
-      },
-      "22-7-0-add-polygraph-to-git-ignore": {
-        "type": "successful",
-        "name": "22-7-0-add-polygraph-to-git-ignore",
-        "changedFiles": [],
-        "ref": "dc2f6b5969c229caf17195dde7e99788fe8bed82",
-        "nextSteps": []
-      },
-      "22-6-0-add-claude-settings-local-to-git-ignore": {
-        "type": "successful",
-        "name": "22-6-0-add-claude-settings-local-to-git-ignore",
-        "changedFiles": [
-          {
-            "path": ".gitignore",
-            "type": "UPDATE"
-          }
-        ],
-        "ref": "2d4423e6ad95d679a62b8876d9f0571435d3ab09",
-        "nextSteps": []
-      },
-      "22-7-0-add-self-healing-to-gitignore": {
-        "type": "successful",
-        "name": "22-7-0-add-self-healing-to-gitignore",
-        "changedFiles": [],
-        "ref": "67d38241f004aef1b4550054c5c1c8c016e465f7",
-        "nextSteps": []
-      },
-      "update-executor-lint-inputs": {
-        "type": "successful",
-        "name": "update-executor-lint-inputs",
-        "changedFiles": [],
-        "ref": "d503f8a221cf661381fb2911b72c03d54b094222",
-        "nextSteps": []
-      }
-    }
+    "targetVersion": "24.0.1",
+    "confirmedPackageUpdates": true
   }
 }
