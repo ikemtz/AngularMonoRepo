@@ -14,6 +14,7 @@ import { SIGNALR_CONFIG } from '../models/signalr.configuration';
 import { receivedMessage } from './signalr.actions';
 import { OidcFacade } from 'imng-oidc-client';
 import { of } from 'rxjs';
+import { oidcActionTypes } from 'imng-oidc-client';
 
 describe('SignalrFacade', () => {
   let facade: SignalrFacade;
@@ -91,6 +92,18 @@ describe('SignalrFacade', () => {
         'helloWorld',
         '😎',
       );
+    });
+
+    it('should handle connect on [Oidc] user found', async () => {
+      expect(await readFirst(facade.isConnected$)).toBe(false);
+      store.dispatch(oidcActionTypes.userFound({} as never));
+      expect(await readFirst(facade.isConnected$)).toBe(true);
+    });
+
+    it('should handle connect on facade.connect', async () => {
+      expect(await readFirst(facade.isConnected$)).toBe(false);
+      facade.connect();
+      expect(await readFirst(facade.isConnected$)).toBe(true);
     });
 
     it('should handle received messages', async () => {
