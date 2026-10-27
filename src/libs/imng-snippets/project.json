@@ -21,9 +21,6 @@
           "tsConfig": "libs/imng-snippets/tsconfig.lib.json"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

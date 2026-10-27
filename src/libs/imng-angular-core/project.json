@@ -21,9 +21,6 @@
           "tsConfig": "libs/imng-angular-core/tsconfig.lib.json"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }
