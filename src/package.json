@@ -114,7 +114,7 @@
         "@ngrx/eslint-plugin": "22.0.1",
         "@nx/angular": "23.3.0",
         "@nx/cypress": "23.3.0",
-        "@nx/eslint": "23.3.0",
+        "@nx/eslint": "^23.3.0",
         "@nx/eslint-plugin": "23.3.0",
         "@nx/jest": "23.3.0",
         "@nx/js": "23.3.0",
