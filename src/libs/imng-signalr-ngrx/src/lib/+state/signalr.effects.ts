@@ -3,6 +3,7 @@ import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { map } from 'rxjs';
 import { HubConnectionInjectorService } from '../services/hub-connection-injector.service';
 import { signalrActions } from './signalr.actions';
+import { oidcActionTypes } from 'imng-oidc-client';
 
 @Injectable()
 export class SignalrEffects {
@@ -13,7 +14,7 @@ export class SignalrEffects {
 
   connect$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(signalrActions.connect),
+      ofType(signalrActions.connect, oidcActionTypes.userFound),
       map(async () => this.hubConnectionInjectorService.hubConnection?.start()),
       map(() => signalrActions.setConnectionState({ isConnected: true })),
     );
