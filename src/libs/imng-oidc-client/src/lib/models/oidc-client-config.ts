@@ -34,6 +34,7 @@ export interface OidcClientConfig {
   getUserMetadata: boolean;
   useCallbackFlag?: boolean;
   metadataUrl?: string;
+  userStateStorage?: Storage;
 }
 export const OIDC_CLIENT_CONFIG = new InjectionToken<OidcClientConfig>(
   'oidc-client-config',

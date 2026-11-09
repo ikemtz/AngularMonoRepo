@@ -19,6 +19,7 @@ exports[`oidcConfigurator should handle falses 1`] = `
     "scope": "openid email",
     "silent_redirect_uri": "origin/renew-callback.html",
     "useCallbackFlag": false,
+    "userStore": undefined,
   },
   "useCallbackFlag": false,
 }
@@ -43,6 +44,7 @@ exports[`oidcConfigurator should handle trues 1`] = `
     "scope": "openid email",
     "silent_redirect_uri": "origin/renew-callback.html",
     "useCallbackFlag": true,
+    "userStore": undefined,
   },
   "useCallbackFlag": true,
 }
@@ -66,6 +68,11 @@ exports[`oidcConfigurator should handle undefined 1`] = `
     "response_type": "id_token token",
     "scope": "openid email",
     "silent_redirect_uri": "origin/renew-callback.html",
+    "userStateStorage": Storage {},
+    "userStore": t {
+      "_prefix": "oidc.",
+      "_store": Storage {},
+    },
   },
   "useCallbackFlag": true,
 }
