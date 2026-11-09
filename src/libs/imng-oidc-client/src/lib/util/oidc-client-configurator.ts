@@ -1,6 +1,7 @@
 import { isNullOrUndefined } from 'imng-nrsrx-client-utils';
 import { OidcClientConfig } from '../models/oidc-client-config';
 import { OidcLibraryConfig } from '../models/oidc-library-config';
+import { WebStorageStateStore } from 'oidc-client';
 
 export function oidcConfigurator(
   oidcClientConfig: OidcClientConfig,
@@ -22,6 +23,10 @@ export function oidcConfigurator(
       metadataUrl:
         oidcClientConfig.metadataUrl ??
         `${oidcClientConfig.authority}/.well-known/openid-configuration`,
+
+      userStore: oidcClientConfig.userStateStorage
+        ? new WebStorageStateStore({ store: oidcClientConfig.userStateStorage })
+        : undefined,
     },
     getUserMetadata: oidcClientConfig.getUserMetadata,
     useCallbackFlag: isNullOrUndefined(oidcClientConfig.useCallbackFlag)

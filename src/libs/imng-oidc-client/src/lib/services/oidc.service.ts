@@ -34,22 +34,14 @@ export class OidcService {
 
   constructor() {
     const logSettings = this.oidcLibraryConfig.log;
-    let clientSettings = this.oidcLibraryConfig.oidc_config;
+    this._userManagerSettings = this.oidcLibraryConfig.oidc_config;
 
     if (logSettings) {
       Log.level = logSettings.level;
       Log.logger = logSettings.logger;
     }
-
-    if (clientSettings?.userStore != null) {
-      clientSettings = {
-        ...clientSettings,
-        userStore: clientSettings.userStore,
-      };
-    }
-    this._userManagerSettings = { ...clientSettings };
-    this.OidcUserManager = new UserManager(clientSettings);
-    this._oidcClient = new OidcClient(clientSettings);
+    this.OidcUserManager = new UserManager(this._userManagerSettings);
+    this._oidcClient = new OidcClient(this._userManagerSettings);
   }
 
   public getUserMetadata(): Observable<unknown> {

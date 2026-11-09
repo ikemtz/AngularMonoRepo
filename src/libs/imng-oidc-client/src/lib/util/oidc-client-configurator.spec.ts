@@ -9,6 +9,7 @@ describe('oidcConfigurator', () => {
         authority: 'auth',
         getUserMetadata: false,
         scope: 'openid email',
+        userStateStorage: localStorage,
       },
       {
         location: { origin: 'origin' },
