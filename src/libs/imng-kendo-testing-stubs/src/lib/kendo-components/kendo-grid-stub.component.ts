@@ -37,6 +37,7 @@ import { PagerSettings } from '../interfaces/pager-settings';
 import { SelectableSettings } from '../interfaces/selectable-settings';
 import { NavigationRow } from '../interfaces/navigation-row';
 import { NavigationCell } from '../interfaces/navigation-cell';
+import { GridState } from '../interfaces/grid-state';
 
 @Component({
   selector: 'kendo-grid',
@@ -97,7 +98,7 @@ export class IMNG_KENDO_GRID_STUB {
   public saveAsCSV = jest.fn();
   public saveAsExcel = jest.fn();
   public excelExport = of([]);
-  public currentState = {};
+  public currentState: GridState = {};
   public columns = new QueryList<unknown>();
   public activeRow: NavigationRow | undefined;
   public activeCell: NavigationCell | undefined;
