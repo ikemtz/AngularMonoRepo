@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Input,
   NO_ERRORS_SCHEMA,
+  QueryList,
   TrackByFunction,
 } from '@angular/core';
 import { of } from 'rxjs';
@@ -34,6 +35,8 @@ import { RowArgs } from '../interfaces/row-args';
 import { GroupRowArgs } from '../interfaces/group-row-args';
 import { PagerSettings } from '../interfaces/pager-settings';
 import { SelectableSettings } from '../interfaces/selectable-settings';
+import { NavigationRow } from '../interfaces/navigation-row';
+import { NavigationCell } from '../interfaces/navigation-cell';
 
 @Component({
   selector: 'kendo-grid',
@@ -51,8 +54,7 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public groupable: boolean | string = false;
   @Input() public loading = false;
   @Input() public kendoGridExpandDetailsBy:
-    | string
-    | ((dataItem: never) => never) = 'kendoGridExpandDetailsBy';
+    string | ((dataItem: never) => never) = 'kendoGridExpandDetailsBy';
   @Input() public expandedDetailKeys: never[] = [];
   @Input() public columnMenu: boolean | ColumnMenuSettings = false;
   @Input() public filter?: CompositeFilterDescriptor | null;
@@ -63,9 +65,7 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public resizable: boolean | string = true;
   @Input() public sort?: Array<SortDescriptor> | null = [];
   @Input() public sortable:
-    | boolean
-    | string
-    | { allowUnsort: boolean; mode: string } = true;
+    boolean | string | { allowUnsort: boolean; mode: string } = true;
   @Input() public navigable = true;
 
   @Input() public adaptiveMode?: AdaptiveMode = 'none';
@@ -94,8 +94,13 @@ export class IMNG_KENDO_GRID_STUB {
   @Input() public virtualColumns?: boolean = false;
 
   public saveAsPDF = jest.fn();
+  public saveAsCSV = jest.fn();
   public saveAsExcel = jest.fn();
   public excelExport = of([]);
+  public currentState = {};
+  public columns = new QueryList<unknown>();
+  public activeRow: NavigationRow | undefined;
+  public activeCell: NavigationCell | undefined;
 
   public detailExpand: EventEmitter<never> = new EventEmitter<never>();
   public dataStateChange: EventEmitter<never> = new EventEmitter<never>();
