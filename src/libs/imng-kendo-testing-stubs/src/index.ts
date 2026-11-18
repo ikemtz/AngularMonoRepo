@@ -40,6 +40,8 @@ import { IMNG_KENDO_TREELIST_EXCEL_STUB } from './lib/kendo-components/kendo-tre
 import { IMNG_KENDO_SELECTION_STUB } from './lib/directives/kendo-selection-stub.directive';
 import { IMNG_KENDO_UPLOADDROPZONE_STUB } from './lib/kendo-components/kendo-uploaddropzone-stub.component';
 import { IMNG_KENDO_UPLOAD_STUB } from './lib/kendo-components/kendo-upload-stub.component';
+import { IMNG_KENDO_MENU_STUB } from './lib/kendo-components/kendo-menu-stub.component';
+import { IMNG_KENDO_MENU_ITEM_STUB } from './lib/kendo-components/kendo-menu-item-stub.component';
 
 export { IMNG_KENDO_GRID_STUB } from './lib/kendo-components/kendo-grid-stub.component';
 export { IMNG_KENDO_GRID_COLUMN_CHOOSER_STUB } from './lib/kendo-components/kendo-grid-column-chooser-stub.component';
@@ -48,6 +50,7 @@ export { IMNG_KENDO_PROGRESSBAR_STUB } from './lib/kendo-components/kendo-progre
 export { IMNG_KENDO_POPUP_STUB } from './lib/kendo-components/kendo-popup-stub.component';
 export { IMNG_KENDO_SPLIT_BUTTON_STUB } from './lib/kendo-components/kendo-split-button-stub.component';
 export { IMNG_KENDO_MENU_STUB } from './lib/kendo-components/kendo-menu-stub.component';
+export { IMNG_KENDO_MENU_ITEM_STUB } from './lib/kendo-components/kendo-menu-item-stub.component';
 export { IMNG_KENDO_GRID_EXCEL_STUB } from './lib/kendo-components/kendo-grid-excel-stub.component';
 export { IMNG_KENDO_GRID_PDF_STUB } from './lib/kendo-components/kendo-grid-pdf-stub.component';
 export { IMNG_KENDO_GRID_COLUMN_STUB } from './lib/kendo-components/kendo-grid-column-stub.component';
@@ -179,4 +182,9 @@ export const IMNG_KENDO_TREELIST_STUBS = [
 export const IMNG_KENDO_UPLOAD_STUBS = [
   IMNG_KENDO_UPLOAD_STUB,
   IMNG_KENDO_UPLOADDROPZONE_STUB,
+];
+
+export const IMNG_KENDO_MENU_STUBS = [
+  IMNG_KENDO_MENU_STUB,
+  IMNG_KENDO_MENU_ITEM_STUB,
 ];
